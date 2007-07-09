@@ -183,8 +183,8 @@ C**********************************************************************
       COMMON /YTEOR / YGN(500) , YGP(500) , IFMO
       COMMON /LEV   / TAU(75) , KSEQ(500,4)
       COMMON /MAP   / PARX(50,12,5) , PARXM(50,4,10,6) , XIR(6,50)
-      COMMON /CCC   / EG(50) , CC(50,5) , NANG(200) , Q(3,200,8) , 
-     &                NICC , AGELI(50,200,2)
+      COMMON /CCC   / EG(50) , CC(50,5) , AGELI(50,200,2) ,
+     &                Q(3,200,8) , NICC , NANG(200)
       COMMON /GGG   / G(7)
       COMMON /AZ    / ARM(600,7)
       COMMON /KIN   / EPS(50) , EROOT(50) , IEXP , IAXS(50) , FIEX(50,2)
@@ -4616,8 +4616,8 @@ C----------------------------------------------------------------------
       COMMON /CX    / NEXPT , IZ , XA , IZ1(50) , XA1(50) , EP(50) , 
      &                TLBDG(50) , VINF(50)
       COMMON /CEXC0 / NSTART(76) , NSTOP(75)
-      COMMON /CCC   / EG(50) , CC(50,5) , NANG(200) , Q(3,200,8) , 
-     &                NICC , AGELI(50,200,2)
+      COMMON /CCC   / EG(50) , CC(50,5) , AGELI(50,200,2) , 
+     &                Q(3,200,8) , NICC , NANG(200)
       COMMON /ILEWY / NWR
       COMMON /CH1T  / CHIS11
       COMMON /IGRAD / IGRD
@@ -5424,8 +5424,8 @@ C----------------------------------------------------------------------
       COMMON /SEL   / KVAR(500)
       COMMON /MGN   / LP1 , LP2 , LP3 , LP4 , LP6 , LP7 , LP8 , LP9 , 
      &                LP10 , LP11 , LP12 , LP13 , LP14
-      COMMON /CCC   / EG(50) , CC(50,5) , NANG(200) , Q(3,200,8) , 
-     &                NICC , AGELI(50,200,2)
+      COMMON /CCC   / EG(50) , CC(50,5) , AGELI(50,200,2) ,
+     &                Q(3,200,8) , NICC , NANG(200)
       COMMON /YEXPT / YEXP(32,1500) , IY(1500,32) , CORF(1500,32) , 
      &                DYEX(32,1500) , NYLDE(50,32) , UPL(32,50) , 
      &                YNRM(32,50) , IDRN , ILE(32)
@@ -6127,8 +6127,8 @@ C----------------------------------------------------------------------
       REAL*4 AGELI , CC , cpo , cpo1 , cv , EG , Ega , Q
       INTEGER*4 j , N , n1 , NANG , nen , NICC
       DIMENSION cpo(51) , cpo1(51)
-      COMMON /CCC   / EG(50) , CC(50,5) , NANG(200) , Q(3,200,8) , 
-     &                NICC , AGELI(50,200,2)
+      COMMON /CCC   / EG(50) , CC(50,5) , AGELI(50,200,2) ,
+     &                Q(3,200,8) , NICC , NANG(200)
       IF ( N.EQ.0 ) THEN
          CONV = 0.0
       ELSEIF ( ABS(CC(1,N)).LT.1.E-9 ) THEN
@@ -6831,8 +6831,8 @@ C----------------------------------------------------------------------
       COMMON /TRA   / DELTA(500,3) , ENDEC(500) , ITMA(50,200) , 
      &                ENZ(200)
       COMMON /LEV   / TAU(75) , KSEQ(500,4)
-      COMMON /CCC   / EG(50) , CC(50,5) , NANG(200) , Q(3,200,8) , 
-     &                NICC , AGELI(50,200,2)
+      COMMON /CCC   / EG(50) , CC(50,5) , AGELI(50,200,2) ,
+     &                Q(3,200,8) , NICC , NANG(200)
       COMMON /KIN   / EPS(50) , EROOT(50) , IEXP , IAXS(50) , FIEX(50,2)
       COMMON /LCDL  / DELLA(500,3)
       COMMON /CATLF / FP(4,500,3) , GKP(4,500,2) , KLEC(75)
@@ -8624,8 +8624,8 @@ C----------------------------------------------------------------------
      &                YNRM(32,50) , IDRN , ILE(32)
       COMMON /YTEOR / YGN(500) , YGP(500) , IFMO
       COMMON /LEV   / TAU(75) , KSEQ(500,4)
-      COMMON /CCC   / EG(50) , CC(50,5) , NANG(200) , Q(3,200,8) , 
-     &                NICC , AGELI(50,200,2)
+      COMMON /CCC   / EG(50) , CC(50,5) , AGELI(50,200,2) ,
+     &                Q(3,200,8) , NICC , NANG(200)
       COMMON /COEX  / EN(75) , SPIN(75) , ACCUR , DIPOL , ZPOL , ISO , 
      &                ACCA
       COMMON /CX    / NEXPT , IZ , XA , IZ1(50) , XA1(50) , EP(50) , 
