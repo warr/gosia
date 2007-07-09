@@ -3,26 +3,26 @@ C----------------------------------------------------------------------
  
       REAL*8 FUNCTION CONV(Ega,N)
       IMPLICIT NONE
-      REAL*8 AGEli , CC , cpo , cpo1 , cv , EG , Ega , Q
-      INTEGER*4 j , N , n1 , NANg , nen , NICc
+      REAL*8 AGELI , CC , cpo , cpo1 , cv , EG , Ega , Q
+      INTEGER*4 j , N , n1 , NANG , nen , NICC
       DIMENSION cpo(51) , cpo1(51)
-      COMMON /CCC   / EG(50) , CC(50,5) , AGEli(50,200,2) , Q(3,200,8) , 
-     &                NICc , NANg(200)
+      COMMON /CCC   / EG(50) , CC(50,5) , AGELI(50,200,2) , Q(3,200,8) , 
+     &                NICC , NANG(200)
       IF ( N.EQ.0 ) THEN
          CONV = 0.0
       ELSEIF ( ABS(CC(1,N)).LT.1.E-9 ) THEN
          CONV = 0.0
       ELSE
          nen = 4
-         DO j = 1 , NICc
+         DO j = 1 , NICC
             IF ( Ega.LE.EG(j) ) GOTO 50
          ENDDO
  50      n1 = j - 2
          IF ( n1.LT.1 ) n1 = 1
-         IF ( (j+1).GT.NICc ) n1 = n1 - 1
-         IF ( NICc.LE.4 ) THEN
+         IF ( (j+1).GT.NICC ) n1 = n1 - 1
+         IF ( NICC.LE.4 ) THEN
             n1 = 1
-            nen = NICc
+            nen = NICC
          ENDIF
          DO j = 1 , nen
             cpo(j) = CC(n1+j-1,N)

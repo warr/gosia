@@ -3,47 +3,47 @@ C----------------------------------------------------------------------
  
       SUBROUTINE LAIAMP(Ir,W0)
       IMPLICIT NONE
-      REAL*8 CAT , D2W , ELM , ELMl , ELMu , EPS , epsi , EROot , errt , 
-     &       FIEx , pm , ppp , rmir , rmis , rmu , SA , TCABS , W0 , 
+      REAL*8 CAT , D2W , ELM , ELML , ELMU , EPS , epsi , EROOT , errt , 
+     &       FIEX , pm , ppp , rmir , rmis , rmu , SA , TCABS , W0 , 
      &       XI , xiv
-      REAL*8 z , ZETa
-      INTEGER*4 i1 , i2 , i3 , IAXs , IEXp , indx , Ir , is , is1 , 
-     &          is2 , ISG , ISG1 , ISMax , ismin , isplus , KDIv , la , 
-     &          lam , LAMda , LAMmax
-      INTEGER*4 LAMr , ld , LDNum , LEAd , LEADF , LZEta , m , MEM , 
-     &          mrange , mua , MULti , NDIv , NPT , NSTart , NSTop , 
+      REAL*8 z , ZETA
+      INTEGER*4 i1 , i2 , i3 , IAXS , IEXP , indx , Ir , is , is1 , 
+     &          is2 , ISG , ISG1 , ISMAX , ismin , isplus , KDIV , la , 
+     &          lam , LAMDA , LAMMAX
+      INTEGER*4 LAMR , ld , LDNUM , LEAD , LEADF , LZETA , m , MEM , 
+     &          mrange , mua , MULTI , NDIV , NPT , NSTART , NSTOP , 
      &          NSW , nz
       COMPLEX*16 ARM , STAMP , dis , uhuj
-      COMMON /CLCOM / LAMda(8) , LEAd(2,500) , LDNum(8,75) , LAMmax , 
-     &                MULti(8)
+      COMMON /CLCOM / LAMDA(8) , LEAD(2,500) , LDNUM(8,75) , LAMMAX , 
+     &                MULTI(8)
       COMMON /AZ    / ARM(600,7)
-      COMMON /CAUX  / NPT , NDIv , KDIv , LAMr(8) , ISG , D2W , NSW , 
+      COMMON /CAUX  / NPT , NDIV , KDIV , LAMR(8) , ISG , D2W , NSW , 
      &                ISG1
-      COMMON /CCOUP / ZETa(50000) , LZEta(8)
-      COMMON /CLCOM8/ CAT(600,3) , ISMax
-      COMMON /COMME / ELM(500) , ELMu(500) , ELMl(500) , SA(500)
-      COMMON /CEXC0 / NSTart(76) , NSTop(75)
-      COMMON /KIN   / EPS(50) , EROot(50) , FIEx(50,2) , IEXp , IAXs(50)
+      COMMON /CCOUP / ZETA(50000) , LZETA(8)
+      COMMON /CLCOM8/ CAT(600,3) , ISMAX
+      COMMON /COMME / ELM(500) , ELMU(500) , ELML(500) , SA(500)
+      COMMON /CEXC0 / NSTART(76) , NSTOP(75)
+      COMMON /KIN   / EPS(50) , EROOT(50) , FIEX(50,2) , IEXP , IAXS(50)
       COMMON /CXI   / XI(500)
       ppp = 0.
-      epsi = EPS(IEXp)
-      errt = EROot(IEXp)
+      epsi = EPS(IEXP)
+      errt = EROOT(IEXP)
       rmir = CAT(Ir,3)
-      DO i1 = 1 , LAMmax
-         lam = LAMda(i1)
-         nz = LZEta(lam)
-         IF ( LAMr(lam).NE.0 ) THEN
+      DO i1 = 1 , LAMMAX
+         lam = LAMDA(i1)
+         nz = LZETA(lam)
+         IF ( LAMR(lam).NE.0 ) THEN
             la = lam
             IF ( lam.GT.6 ) lam = lam - 6
-            ld = LDNum(la,1)
+            ld = LDNUM(la,1)
             IF ( ld.NE.0 ) THEN
                DO i2 = 1 , ld
                   m = LEADF(1,i2,la)
                   indx = MEM(1,m,la)
                   xiv = XI(indx)
                   ismin = 0
-                  is1 = NSTart(m)
-                  IF ( NSTart(m).NE.0 ) THEN
+                  is1 = NSTART(m)
+                  IF ( NSTART(m).NE.0 ) THEN
                      isplus = INT(rmir-CAT(is1,3)) - lam
                      IF ( isplus.LT.0 ) THEN
                         ismin = isplus
@@ -51,13 +51,13 @@ C----------------------------------------------------------------------
                      ENDIF
                      is2 = is1 + isplus - 1
                      mrange = 2*lam + 1 + ismin
-                     IF ( is2+mrange.GT.NSTop(m) ) mrange = NSTop(m)
+                     IF ( is2+mrange.GT.NSTOP(m) ) mrange = NSTOP(m)
      &                    - is2
                      IF ( mrange.GT.0 ) THEN
                         DO i3 = 1 , mrange
                            is = is2 + i3
                            nz = nz + 1
-                           z = ZETa(nz)
+                           z = ZETA(nz)
                            rmis = CAT(is,3)
                            rmu = rmis - rmir
                            mua = ABS(rmu) + 1.1

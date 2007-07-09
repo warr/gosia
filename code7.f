@@ -3,19 +3,19 @@ C----------------------------------------------------------------------
  
       SUBROUTINE CODE7(Ir,Is,N,Mt,Inqa,Indx)
       IMPLICIT NONE
-      INTEGER*4 IAPr , idm , idn , Indx , Inqa , IPAth , Ir , Is , 
-     &          ISEx , ism , MAGa , Mt , N
-      REAL*8 QAPr
-      COMMON /PTH   / IPAth(75) , MAGa(75)
-      COMMON /APRCAT/ QAPr(500,2,7) , IAPr(500,2) , ISEx(75)
-      IAPr(Indx,1) = N
-      IAPr(Indx,2) = Mt
-      IF ( IPAth(N).EQ.0 .OR. IPAth(Mt).EQ.0 ) THEN
+      INTEGER*4 IAPR , idm , idn , Indx , Inqa , IPATH , Ir , Is , 
+     &          ISEX , ism , MAGA , Mt , N
+      REAL*8 QAPR
+      COMMON /PTH   / IPATH(75) , MAGA(75)
+      COMMON /APRCAT/ QAPR(500,2,7) , IAPR(500,2) , ISEX(75)
+      IAPR(Indx,1) = N
+      IAPR(Indx,2) = Mt
+      IF ( IPATH(N).EQ.0 .OR. IPATH(Mt).EQ.0 ) THEN
          Inqa = -1
          GOTO 99999
       ELSE
-         idn = Ir - IPAth(N)
-         idm = Is - IPAth(Mt)
+         idn = Ir - IPATH(N)
+         idm = Is - IPATH(Mt)
          ism = idn + idm + 3
          IF ( ism.EQ.2 ) THEN
             Inqa = 2

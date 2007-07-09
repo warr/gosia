@@ -11,9 +11,9 @@ C----------------------------------------------------------------------
      &          ksc , ksd
       INTEGER*4 kta , ktb , ktc , ktd , kua , kub , kuc , L1 , L2 , L3 , 
      &          n , nmax
-      REAL*8 PILog , qsumfa , qsumlo , sumlo , vorz , wsixp , zusix
+      REAL*8 PILOG , qsumfa , qsumlo , sumlo , vorz , wsixp , zusix
       DIMENSION isumfa(26) , ivorfa(26)
-      COMMON /FAKUL / IP(26) , IPI(26) , KF(101,26) , PILog(26)
+      COMMON /FAKUL / IP(26) , IPI(26) , KF(101,26) , PILOG(26)
       wsixp = 0.E+00
       IF ( ((J1+J2-J3).GE.0) .AND. ((J1-J2+J3).GE.0) .AND. 
      &     ((-J1+J2+J3).GE.0) ) THEN
@@ -83,7 +83,7 @@ C----------------------------------------------------------------------
      &                        - 2*KF(izh,irj)
                         isumfa(irj) = isa + isb + isc
                         qsumfa = isumfa(irj)
-                        sumlo = sumlo + qsumfa*PILog(irj)
+                        sumlo = sumlo + qsumfa*PILOG(irj)
                      ENDDO
                      qsumlo = (.5E+00)*sumlo
                      zusix = EXP(qsumlo)*vorz

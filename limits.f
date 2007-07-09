@@ -3,18 +3,18 @@ C----------------------------------------------------------------------
  
       SUBROUTINE LIMITS
       IMPLICIT NONE
-      REAL*8 ELM , ELMl , ELMu , SA
-      INTEGER*4 IVAr , j , LMAxe , MAGexc , MEMax , MEMx6
-      COMMON /CEXC  / MAGexc , MEMax , LMAxe , MEMx6 , IVAr(500)
-      COMMON /COMME / ELM(500) , ELMu(500) , ELMl(500) , SA(500)
-      DO j = 1 , MEMax
-         IF ( IVAr(j).NE.0 ) THEN
-            IF ( ELM(j).GT.ELMu(j) .OR. ELM(j).LT.ELMl(j) ) THEN
-               IF ( ELM(j).GT.ELMu(j) ) THEN
-                  ELM(j) = ELMu(j)
+      REAL*8 ELM , ELML , ELMU , SA
+      INTEGER*4 IVAR , j , LMAXE , MAGEXC , MEMAX , MEMX6
+      COMMON /CEXC  / MAGEXC , MEMAX , LMAXE , MEMX6 , IVAR(500)
+      COMMON /COMME / ELM(500) , ELMU(500) , ELML(500) , SA(500)
+      DO j = 1 , MEMAX
+         IF ( IVAR(j).NE.0 ) THEN
+            IF ( ELM(j).GT.ELMU(j) .OR. ELM(j).LT.ELML(j) ) THEN
+               IF ( ELM(j).GT.ELMU(j) ) THEN
+                  ELM(j) = ELMU(j)
                   WRITE (22,99001) j , ELM(j)
                ELSE
-                  ELM(j) = ELMl(j)
+                  ELM(j) = ELML(j)
                   WRITE (22,99001) j , ELM(j)
                ENDIF
             ENDIF

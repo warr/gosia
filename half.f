@@ -4,16 +4,16 @@ C----------------------------------------------------------------------
       SUBROUTINE HALF(Iso)
       IMPLICIT NONE
       REAL*8 CAT
-      INTEGER*4 ir , ISMax , Iso , j , NDIm , NMAx , NMAx1 , NSTart , 
-     &          NSTop
+      INTEGER*4 ir , ISMAX , Iso , j , NDIM , NMAX , NMAX1 , NSTART , 
+     &          NSTOP
       COMPLEX*16 ARM , fpom
-      COMMON /CEXC0 / NSTart(76) , NSTop(75)
+      COMMON /CEXC0 / NSTART(76) , NSTOP(75)
       COMMON /AZ    / ARM(600,7)
-      COMMON /CLCOM8/ CAT(600,3) , ISMax
-      COMMON /COEX2 / NMAx , NDIm , NMAx1
+      COMMON /CLCOM8/ CAT(600,3) , ISMAX
+      COMMON /COEX2 / NMAX , NDIM , NMAX1
       IF ( Iso.EQ.0 ) THEN
-         DO j = 1 , NMAx
-            ir = NSTart(j) - 1
+         DO j = 1 , NMAX
+            ir = NSTART(j) - 1
  20         ir = ir + 1
             fpom = ARM(ir,3)
             ARM(ir,1) = -.0625*(ARM(ir,1)+ARM(ir,4))
@@ -24,7 +24,7 @@ C----------------------------------------------------------------------
          ENDDO
          GOTO 99999
       ENDIF
-      DO j = 1 , ISMax
+      DO j = 1 , ISMAX
          fpom = ARM(j,3)
          ARM(j,1) = -.0625*(ARM(j,4)+ARM(j,1))
      &              + .5625*(ARM(j,2)+ARM(j,3))

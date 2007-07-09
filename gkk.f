@@ -3,18 +3,18 @@ C----------------------------------------------------------------------
  
       SUBROUTINE GKK(Iz,Beta,Spin,Time,Il)
       IMPLICIT NONE
-      REAL*8 AKS , alp , ATS , AVJi , Beta , ccf , down , DQ , dwc , f , 
-     &       FIEl , GAMma , GFAc , GKI , hmean , POWer , QCEn , rk , 
+      REAL*8 AKS , alp , ATS , AVJI , Beta , ccf , down , DQ , dwc , f , 
+     &       FIEL , GAMMA , GFAC , GKI , hmean , POWER , QCEN , rk , 
      &       sm , Spin
-      REAL*8 SUM , Time , TIMec , up , upc , VACdp , valmi , w2 , wrt , 
-     &       WSIXJ , wsp , xji , xlam , XLAmb , XNOr
-      INTEGER*4 i , IBYp , if2 , ifq , Il , imean , inq , irk2 , 
+      REAL*8 SUM , Time , TIMEC , up , upc , VACDP , valmi , w2 , wrt , 
+     &       WSIXJ , wsp , xji , xlam , XLAMB , XNOR
+      INTEGER*4 i , IBYP , if2 , ifq , Il , imean , inq , irk2 , 
      &          ispin2 , ixji2 , Iz , j , k , k1 , k2 , l , m , ncoup , 
      &          nz
       COMMON /GVAC  / GKI(3) , SUM(3)
-      COMMON /VAC   / VACdp(3,75) , QCEn , DQ , XNOr , AKS(6,75) , IBYp
-      COMMON /GGG   / AVJi , GAMma , XLAmb , TIMec , GFAc , FIEl , POWer
-      IF ( IBYp.NE.1 ) THEN
+      COMMON /VAC   / VACDP(3,75) , QCEN , DQ , XNOR , AKS(6,75) , IBYP
+      COMMON /GGG   / AVJI , GAMMA , XLAMB , TIMEC , GFAC , FIEL , POWER
+      IF ( IBYP.NE.1 ) THEN
          imean = 0
          CALL XSTATIC(Iz,inq,ifq,Beta)
          l = 0
@@ -28,7 +28,7 @@ C----------------------------------------------------------------------
             nz = Iz - j
             xji = ATS(nz)
             sm = Spin
-            IF ( imean.EQ.1 ) xji = AVJi
+            IF ( imean.EQ.1 ) xji = AVJI
             IF ( Spin.GT.xji ) sm = xji
             ncoup = INT(2.*sm+.5) + 1
             SUM(1) = 0.
@@ -53,7 +53,7 @@ C----------------------------------------------------------------------
                DO k = 1 , 3
                   k1 = 2*k - 1
                   AKS(k1,Il) = AKS(k1,Il) + SUM(k)
-     &                         *EXP(-((QCEn-DBLE(j))/DQ)**2/2.)/XNOr
+     &                         *EXP(-((QCEN-DBLE(j))/DQ)**2/2.)/XNOR
                ENDDO
                IF ( imean.EQ.0 ) GOTO 100
             ENDIF
@@ -65,25 +65,25 @@ C----------------------------------------------------------------------
          imean = imean + 1
          IF ( imean.EQ.1 ) GOTO 50
       ENDIF
-      hmean = FIEl*Iz*(Beta**POWer)
-      wsp = 4789.*GFAc*hmean/AVJi
-      wsp = wsp*TIMec
-      wsp = wsp*wsp*AVJi*(AVJi+1.)/3.
+      hmean = FIEL*Iz*(Beta**POWER)
+      wsp = 4789.*GFAC*hmean/AVJI
+      wsp = wsp*TIMEC
+      wsp = wsp*wsp*AVJI*(AVJI+1.)/3.
       DO k = 1 , 3
          k2 = 2*k
          k1 = 2*k - 1
          wrt = wsp*k2*(k2+1)
          w2 = wrt
          wrt = -wrt/(1.-AKS(k2,Il))
-         xlam = (1.-AKS(k2,Il))*(1.-EXP(wrt))/TIMec
-         up = (GAMma*Time*AKS(k1,Il)+1.)/(Time*GAMma+1.)
-         up = up*XLAmb*Time + 1.
-         down = Time*(xlam+XLAmb) + 1.
+         xlam = (1.-AKS(k2,Il))*(1.-EXP(wrt))/TIMEC
+         up = (GAMMA*Time*AKS(k1,Il)+1.)/(Time*GAMMA+1.)
+         up = up*XLAMB*Time + 1.
+         down = Time*(xlam+XLAMB) + 1.
          GKI(k) = up/down
-         alp = 9.*xlam*xlam + 8.*xlam*TIMec*(w2-xlam*xlam)
+         alp = 9.*xlam*xlam + 8.*xlam*TIMEC*(w2-xlam*xlam)
          alp = SQRT(alp) - 3.*xlam
-         alp = alp/4./xlam/TIMec
-         upc = xlam*Time*(down-2.*alp*alp*Time*TIMec)
+         alp = alp/4./xlam/TIMEC
+         upc = xlam*Time*(down-2.*alp*alp*Time*TIMEC)
          dwc = (down+alp*Time)*(down+2.*alp*Time)
          ccf = 1. + upc/dwc
          GKI(k) = GKI(k)*ccf

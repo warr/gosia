@@ -3,13 +3,13 @@ C----------------------------------------------------------------------
  
       SUBROUTINE YLM(Theta,Ylmr)
       IMPLICIT NONE
-      REAL*8 ct , ctsq , EPS , EROot , FIEx , st , Theta , Ylmr
-      INTEGER*4 i , IAXs , IEXp , j , l , lf , m
-      COMMON /KIN   / EPS(50) , EROot(50) , FIEx(50,2) , IEXp , IAXs(50)
+      REAL*8 ct , ctsq , EPS , EROOT , FIEX , st , Theta , Ylmr
+      INTEGER*4 i , IAXS , IEXP , j , l , lf , m
+      COMMON /KIN   / EPS(50) , EROOT(50) , FIEX(50,2) , IEXP , IAXS(50)
       DIMENSION Ylmr(9,9) , st(7)
       ct = COS(Theta)
       ctsq = ct*ct
-      IF ( IAXs(IEXp).EQ.0 ) THEN
+      IF ( IAXS(IEXP).EQ.0 ) THEN
          Ylmr(1,1) = .0889703179*(3.*ctsq-1.)
          Ylmr(2,1) = .0298415518*((35.*ctsq-30.)*ctsq+3.)
          Ylmr(3,1) = .0179325408*(((231.*ctsq-315.)*ctsq+105.)*ctsq-5.)

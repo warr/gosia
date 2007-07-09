@@ -10,9 +10,9 @@ C----------------------------------------------------------------------
      &          jmb , jmc , jmd , jme , jmf , jta , jtb , jtc , jvo , 
      &          jvora , KF , M1
       INTEGER*4 M2 , M3 , mm1 , mm2 , mm3 , n , nmax
-      REAL*8 PILog , qsumlo , sumlo , vorz , wthrep , zuthre
+      REAL*8 PILOG , qsumlo , sumlo , vorz , wthrep , zuthre
       DIMENSION jvora(26)
-      COMMON /FAKUL / IP(26) , IPI(26) , KF(101,26) , PILog(26)
+      COMMON /FAKUL / IP(26) , IPI(26) , KF(101,26) , PILOG(26)
       wthrep = 0.E+00
       jjha = (J1+J2-J3)/2 + 1
       jjhb = (J1-J2+J3)/2 + 1
@@ -89,7 +89,7 @@ C----------------------------------------------------------------------
      &                 - 2*KF(izc,jlp) - 2*KF(izd,jlp) - 2*KF(ize,jlp)
      &                 - 2*KF(izf,jlp)
                sumlo = izexp
-               qsumlo = qsumlo + sumlo*PILog(jlp)*(.5E+00)
+               qsumlo = qsumlo + sumlo*PILOG(jlp)*(.5E+00)
             ENDDO
             zuthre = vorz*EXP(qsumlo)
             wthrep = wthrep + zuthre

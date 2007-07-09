@@ -3,70 +3,70 @@ C----------------------------------------------------------------------
  
       SUBROUTINE AMPDER(I57)
       IMPLICIT NONE
-      REAL*8 CAT , D2W , ELM , ELMl , ELMu , rsg , SA , ZETa
+      REAL*8 CAT , D2W , ELM , ELML , ELMU , rsg , SA , ZETA
       INTEGER*4 i1 , I57 , ibg , iend , iflg , indx , ir , is2 , ISG , 
-     &          ISG1 , ISMax , ISStar , ISSto , k , KDIv , lam , LAMda , 
-     &          LAMmax , LAMr , lax
-      INTEGER*4 ld , LDNum , LEAd , LZEta , m , mm , MSTore , MULti , 
-     &          n , NDIm , NDIv , nhold , NMAx , NMAx1 , NPT , NSTart , 
-     &          NSTop , NSW , nz
-      COMPLEX*16 ARM , EXPo
+     &          ISG1 , ISMAX , ISSTAR , ISSTO , k , KDIV , lam , LAMDA , 
+     &          LAMMAX , LAMR , lax
+      INTEGER*4 ld , LDNUM , LEAD , LZETA , m , mm , MSTORE , MULTI , 
+     &          n , NDIM , NDIV , nhold , NMAX , NMAX1 , NPT , NSTART , 
+     &          NSTOP , NSW , nz
+      COMPLEX*16 ARM , EXPO
       COMMON /AZ    / ARM(600,7)
-      COMMON /COMME / ELM(500) , ELMu(500) , ELMl(500) , SA(500)
-      COMMON /CLCOM / LAMda(8) , LEAd(2,500) , LDNum(8,75) , LAMmax , 
-     &                MULti(8)
-      COMMON /COEX2 / NMAx , NDIm , NMAx1
-      COMMON /CAUX  / NPT , NDIv , KDIv , LAMr(8) , ISG , D2W , NSW , 
+      COMMON /COMME / ELM(500) , ELMU(500) , ELML(500) , SA(500)
+      COMMON /CLCOM / LAMDA(8) , LEAD(2,500) , LDNUM(8,75) , LAMMAX , 
+     &                MULTI(8)
+      COMMON /COEX2 / NMAX , NDIM , NMAX1
+      COMMON /CAUX  / NPT , NDIV , KDIV , LAMR(8) , ISG , D2W , NSW , 
      &                ISG1
-      COMMON /PINT  / ISStar(76) , ISSto(75) , MSTore(2,75)
-      COMMON /ADBXI / EXPo(500)
-      COMMON /CCOUP / ZETa(50000) , LZEta(8)
-      COMMON /CLCOM8/ CAT(600,3) , ISMax
-      COMMON /CEXC0 / NSTart(76) , NSTop(75)
-      DO k = 1 , ISMax
+      COMMON /PINT  / ISSTAR(76) , ISSTO(75) , MSTORE(2,75)
+      COMMON /ADBXI / EXPO(500)
+      COMMON /CCOUP / ZETA(50000) , LZETA(8)
+      COMMON /CLCOM8/ CAT(600,3) , ISMAX
+      COMMON /CEXC0 / NSTART(76) , NSTOP(75)
+      DO k = 1 , ISMAX
          ARM(k,6) = (0.,0.)
          ARM(k,4) = (0.,0.)
       ENDDO
       ISG1 = ISG
       IF ( NPT.EQ.1 ) ISG1 = ABS(ISG1)
       rsg = DBLE(ISG)
-      DO i1 = 1 , LAMmax
-         lam = LAMda(i1)
+      DO i1 = 1 , LAMMAX
+         lam = LAMDA(i1)
          lax = lam
-         nz = LZEta(lam)
-         IF ( LAMr(lam).NE.0 ) THEN
+         nz = LZETA(lam)
+         IF ( LAMR(lam).NE.0 ) THEN
             iflg = 1
             nhold = 1
  20         CALL NEWLV(nhold,ld,lam)
             IF ( ld.EQ.0 ) THEN
  30            nhold = nhold + 1
-               IF ( NSTart(nhold).EQ.0 ) GOTO 30
-               GOTO 20
+               IF ( NSTART(nhold).NE.0 ) GOTO 20
+               GOTO 30
             ELSE
-               ir = NSTart(nhold) - 1
+               ir = NSTART(nhold) - 1
  40            ir = ir + 1
-               IF ( ir.LE.ISMax ) THEN
+               IF ( ir.LE.ISMAX ) THEN
                   n = CAT(ir,1)
                   IF ( n.NE.nhold ) THEN
                      DO mm = 1 , ld
-                        m = MSTore(1,mm)
+                        m = MSTORE(1,mm)
                         IF ( m.NE.nhold ) THEN
-                           indx = MSTore(2,mm)
-                           ibg = ISStar(mm)
-                           iend = ISSto(mm)
+                           indx = MSTORE(2,mm)
+                           ibg = ISSTAR(mm)
+                           iend = ISSTO(mm)
                            DO is2 = ibg , iend
                               ARM(is2,4) = ARM(is2,4) + ARM(is2,6)
-     &                           *ELM(indx)/EXPo(indx)
+     &                           *ELM(indx)/EXPO(indx)
                               ARM(is2,6) = (0.,0.)
                            ENDDO
                         ENDIF
                      ENDDO
  42                  CALL NEWLV(n,ld,lam)
                      IF ( ld.EQ.0 ) THEN
-                        ir = ir + NSTop(n) - NSTart(n) + 1
+                        ir = ir + NSTOP(n) - NSTART(n) + 1
                         n = n + 1
-                        IF ( n.GT.NMAx ) GOTO 100
-                        GOTO 42
+                        IF ( n.LE.NMAX ) GOTO 42
+                        GOTO 100
                      ELSE
                         nhold = n
                      ENDIF

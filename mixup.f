@@ -3,19 +3,19 @@ C----------------------------------------------------------------------
  
       SUBROUTINE MIXUP
       IMPLICIT NONE
-      REAL*8 ELM , ELMl , ELMu , RNDM , SA , SE
-      INTEGER*4 IVAr , k , k1 , LMAxe , MAGexc , MEMax , MEMx6
-      COMMON /COMME / ELM(500) , ELMu(500) , ELMl(500) , SA(500)
-      COMMON /CEXC  / MAGexc , MEMax , LMAxe , MEMx6 , IVAr(500)
+      REAL*8 ELM , ELML , ELMU , RNDM , SA , SE
+      INTEGER*4 IVAR , k , k1 , LMAXE , MAGEXC , MEMAX , MEMX6
+      COMMON /COMME / ELM(500) , ELMU(500) , ELML(500) , SA(500)
+      COMMON /CEXC  / MAGEXC , MEMAX , LMAXE , MEMX6 , IVAR(500)
       COMMON /XRA   / SE
-      DO k = 1 , MEMax
-         IF ( IVAr(k).NE.0 .AND. IVAr(k).LE.999 ) ELM(k) = ELMl(k)
-     &        + RNDM(SE)*(ELMu(k)-ELMl(k))
+      DO k = 1 , MEMAX
+         IF ( IVAR(k).NE.0 .AND. IVAR(k).LE.999 ) ELM(k) = ELML(k)
+     &        + RNDM(SE)*(ELMU(k)-ELML(k))
       ENDDO
-      DO k = 1 , MEMax
-         IF ( IVAr(k).GE.999 ) THEN
-            k1 = IVAr(k) - 1000
-            IF ( ABS(ELMu(k1)).LT.1.E-9 ) THEN
+      DO k = 1 , MEMAX
+         IF ( IVAR(k).GE.999 ) THEN
+            k1 = IVAR(k) - 1000
+            IF ( ABS(ELMU(k1)).LT.1.E-9 ) THEN
                ELM(k) = 0.
             ELSE
                ELM(k) = ELM(k1)*SA(k)

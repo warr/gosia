@@ -3,12 +3,12 @@ C----------------------------------------------------------------------
  
       SUBROUTINE SZEREG(Lst,Ls,L)
       IMPLICIT NONE
-      REAL*8 CORf , DYEx , dyh , UPL , YEXp , yh , YNRm
-      INTEGER*4 ia , ib , IDRn , ih , ILE , inx , IY , k , L , Ls , 
-     &          lsp , Lst , lst1 , NYLde
-      COMMON /YEXPT / YEXp(32,1500) , IY(1500,32) , CORf(1500,32) , 
-     &                DYEx(32,1500) , NYLde(50,32) , UPL(32,50) , 
-     &                YNRm(32,50) , IDRn , ILE(32)
+      REAL*8 CORF , DYEX , dyh , UPL , YEXP , yh , YNRM
+      INTEGER*4 ia , ib , IDRN , ih , ILE , inx , IY , k , L , Ls , 
+     &          lsp , Lst , lst1 , NYLDE
+      COMMON /YEXPT / YEXP(32,1500) , IY(1500,32) , CORF(1500,32) , 
+     &                DYEX(32,1500) , NYLDE(50,32) , UPL(32,50) , 
+     &                YNRM(32,50) , IDRN , ILE(32)
       IF ( Lst.EQ.Ls ) RETURN
       lst1 = Lst
       lsp = Ls - 1
@@ -25,12 +25,12 @@ C----------------------------------------------------------------------
          ih = IY(lst1,L)
          IY(lst1,L) = IY(inx,L)
          IY(inx,L) = ih
-         yh = YEXp(L,lst1)
-         dyh = DYEx(L,lst1)
-         YEXp(L,lst1) = YEXp(L,inx)
-         DYEx(L,lst1) = DYEx(L,inx)
-         YEXp(L,inx) = yh
-         DYEx(L,inx) = dyh
+         yh = YEXP(L,lst1)
+         dyh = DYEX(L,lst1)
+         YEXP(L,lst1) = YEXP(L,inx)
+         DYEX(L,lst1) = DYEX(L,inx)
+         YEXP(L,inx) = yh
+         DYEX(L,inx) = dyh
       ENDIF
       lst1 = lst1 + 1
       IF ( lst1.GT.lsp ) RETURN

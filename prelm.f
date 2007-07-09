@@ -3,26 +3,26 @@ C----------------------------------------------------------------------
  
       SUBROUTINE PRELM(Iop)
       IMPLICIT NONE
-      REAL*8 ACCa , ACCur , b , DIPol , ELM , ELMl , ELMu , EN , HLM , 
-     &       pv , SA , SPIn , ste , ZPOl
-      INTEGER*4 inx , Iop , ISO , isp , IVAr , j , k , kk , l , LAMda , 
-     &          LAMmax , LDNum , LEAd , LMAxe , m , MAGexc , MEMax , 
-     &          MEMx6 , MULti , NDIm
-      INTEGER*4 NMAx , NMAx1
+      REAL*8 ACCA , ACCUR , b , DIPOL , ELM , ELML , ELMU , EN , HLM , 
+     &       pv , SA , SPIN , ste , ZPOL
+      INTEGER*4 inx , Iop , ISO , isp , IVAR , j , k , kk , l , LAMDA , 
+     &          LAMMAX , LDNUM , LEAD , LMAXE , m , MAGEXC , MEMAX , 
+     &          MEMX6 , MULTI , NDIM
+      INTEGER*4 NMAX , NMAX1
       CHARACTER*3 wrn
       COMMON /HHH   / HLM(500)
-      COMMON /COMME / ELM(500) , ELMu(500) , ELMl(500) , SA(500)
-      COMMON /CEXC  / MAGexc , MEMax , LMAxe , MEMx6 , IVAr(500)
-      COMMON /COEX  / EN(75) , SPIn(75) , ACCur , DIPol , ZPOl , ACCa , 
+      COMMON /COMME / ELM(500) , ELMU(500) , ELML(500) , SA(500)
+      COMMON /CEXC  / MAGEXC , MEMAX , LMAXE , MEMX6 , IVAR(500)
+      COMMON /COEX  / EN(75) , SPIN(75) , ACCUR , DIPOL , ZPOL , ACCA , 
      &                ISO
-      COMMON /CLCOM / LAMda(8) , LEAd(2,500) , LDNum(8,75) , LAMmax , 
-     &                MULti(8)
-      COMMON /COEX2 / NMAx , NDIm , NMAx1
+      COMMON /CLCOM / LAMDA(8) , LEAD(2,500) , LDNUM(8,75) , LAMMAX , 
+     &                MULTI(8)
+      COMMON /COEX2 / NMAX , NDIM , NMAX1
       inx = 0
       WRITE (22,99001)
 99001 FORMAT (2X/40X,'MATRIX ELEMENTS',//)
       DO j = 1 , 8
-         m = MULti(j)
+         m = MULTI(j)
          IF ( m.NE.0 ) THEN
             WRITE (22,99002) j
 99002       FORMAT (5X,'MULTIPOLARITY=',1I1)
@@ -33,42 +33,42 @@ C----------------------------------------------------------------------
             IF ( Iop.EQ.3 ) WRITE (22,99005)
 99005       FORMAT (4X,'INDEX',3X,'NF',5X,'NS',10X,'ME',10X,'PC CHANGE',
      &              5X,'RED. TRANS. PROB.')
-            DO k = 1 , NMAx
-               l = LDNum(j,k)
+            DO k = 1 , NMAX
+               l = LDNUM(j,k)
                IF ( l.NE.0 ) THEN
                   DO kk = 1 , l
                      inx = inx + 1
                      IF ( Iop.EQ.2 ) THEN
-                        IF ( IVAr(inx).EQ.0 ) THEN
-                           WRITE (22,99006) inx , LEAd(1,inx) , 
-     &                            LEAd(2,inx) , ELM(inx)
+                        IF ( IVAR(inx).EQ.0 ) THEN
+                           WRITE (22,99006) inx , LEAD(1,inx) , 
+     &                            LEAD(2,inx) , ELM(inx)
 99006                      FORMAT (5X,1I3,5X,1I2,5X,1I2,5X,1F10.5,5X,
      &                             'FIXED')
-                        ELSEIF ( IVAr(inx).GT.1000 ) THEN
-                           WRITE (22,99007) inx , LEAd(1,inx) , 
-     &                            LEAd(2,inx) , ELM(inx) , 
-     &                            (IVAr(inx)-1000)
+                        ELSEIF ( IVAR(inx).GT.1000 ) THEN
+                           WRITE (22,99007) inx , LEAD(1,inx) , 
+     &                            LEAD(2,inx) , ELM(inx) , 
+     &                            (IVAR(inx)-1000)
 99007                      FORMAT (5X,1I3,5X,1I2,5X,1I2,5X,1F10.5,5X,
      &                             'COUPLED TO',1X,1I3)
                         ELSE
-                           WRITE (22,99009) inx , LEAd(1,inx) , 
-     &                            LEAd(2,inx) , ELM(inx) , ELMl(inx) , 
-     &                            ELMu(inx)
+                           WRITE (22,99009) inx , LEAD(1,inx) , 
+     &                            LEAD(2,inx) , ELM(inx) , ELML(inx) , 
+     &                            ELMU(inx)
                         ENDIF
                      ELSEIF ( Iop.EQ.3 ) THEN
-                        isp = LEAd(2,inx)
-                        pv = (ELMu(inx)-ELMl(inx))/100.
+                        isp = LEAD(2,inx)
+                        pv = (ELMU(inx)-ELML(inx))/100.
                         wrn = '   '
-                        IF ( (ELM(inx)-ELMl(inx)).LT.pv ) wrn = '*?*'
-                        IF ( (ELMu(inx)-ELM(inx)).LT.pv ) wrn = '*?*'
+                        IF ( (ELM(inx)-ELML(inx)).LT.pv ) wrn = '*?*'
+                        IF ( (ELMU(inx)-ELM(inx)).LT.pv ) wrn = '*?*'
                         ste = HLM(inx)
-                        b = ELM(inx)*ELM(inx)/(2.*SPIn(isp)+1.)
-                        IF ( LEAd(1,inx).EQ.LEAd(2,inx) ) b = 9999999.
-                        WRITE (22,99009) inx , LEAd(1,inx) , LEAd(2,inx)
+                        b = ELM(inx)*ELM(inx)/(2.*SPIN(isp)+1.)
+                        IF ( LEAD(1,inx).EQ.LEAD(2,inx) ) b = 9999999.
+                        WRITE (22,99009) inx , LEAD(1,inx) , LEAD(2,inx)
      &                         , ELM(inx) , 100.*(ELM(inx)-ste)/ste , 
      &                         b , wrn
                      ELSE
-                        WRITE (22,99008) inx , LEAd(1,inx) , LEAd(2,inx)
+                        WRITE (22,99008) inx , LEAD(1,inx) , LEAD(2,inx)
      &                         , ELM(inx)
 99008                   FORMAT (5X,1I3,5X,1I2,5X,1I2,5X,1F10.5)
                      ENDIF

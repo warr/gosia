@@ -4,13 +4,13 @@ C----------------------------------------------------------------------
       SUBROUTINE QRANGE(Icnt,Nlm,Lloc,Ibm,Icm,Idm,Irl)
       IMPLICIT NONE
       INTEGER*4 Ibm , Icm , Icnt , Idm , IRA , Irl , is , k , ke , km , 
-     &          l , LAMda , LAMmax , ld , LDNum , LEAd , Lloc , ls , 
-     &          MAXla , MULti
+     &          l , LAMDA , LAMMAX , ld , LDNUM , LEAD , Lloc , ls , 
+     &          MAXLA , MULTI
       INTEGER*4 nlend , Nlm
       DIMENSION Lloc(8) , Irl(8)
-      COMMON /RNG   / IRA(8) , MAXla
-      COMMON /CLCOM / LAMda(8) , LEAd(2,500) , LDNum(8,75) , LAMmax , 
-     &                MULti(8)
+      COMMON /RNG   / IRA(8) , MAXLA
+      COMMON /CLCOM / LAMDA(8) , LEAD(2,500) , LDNUM(8,75) , LAMMAX , 
+     &                MULTI(8)
       IF ( Icnt.EQ.1 ) THEN
          Nlm = 0
          DO l = 1 , 8
@@ -21,13 +21,13 @@ C----------------------------------------------------------------------
             ke = 7 - k
             km = 13 - k
             IF ( km.LE.8 ) THEN
-               IF ( MULti(km).NE.0 ) THEN
+               IF ( MULTI(km).NE.0 ) THEN
                   Nlm = Nlm + 1
                   Lloc(Nlm) = km
                   Irl(Nlm) = IRA(km)
                ENDIF
             ENDIF
-            IF ( MULti(ke).NE.0 ) THEN
+            IF ( MULTI(ke).NE.0 ) THEN
                Nlm = Nlm + 1
                Lloc(Nlm) = ke
                Irl(Nlm) = IRA(ke)
@@ -45,7 +45,7 @@ C----------------------------------------------------------------------
          ENDDO
          l = 0
          DO k = 1 , 6
-            IF ( MULti(k).NE.0 ) l = k
+            IF ( MULTI(k).NE.0 ) l = k
          ENDDO
          Icm = MIN(4,l)
          Ibm = 2*l
@@ -53,12 +53,12 @@ C----------------------------------------------------------------------
          l = 0
          DO k = 7 , 8
             ke = k - 6
-            IF ( MULti(k).NE.0 ) l = ke
+            IF ( MULTI(k).NE.0 ) l = ke
          ENDDO
          Ibm = MAX(Ibm,2*l)
          Idm = MAX(Idm,l)
          IF ( Icm.EQ.1 .AND. l.GT.1 ) Icm = 2
-         MAXla = Lloc(1)
+         MAXLA = Lloc(1)
          RETURN
       ELSE
          IF ( Irl(Nlm).GE.Icnt ) RETURN

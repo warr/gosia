@@ -3,23 +3,23 @@ C----------------------------------------------------------------------
  
       SUBROUTINE SIXEL(Rik,Rv,Em,Jk,Kk,Indx,Lu)
       IMPLICIT NONE
-      REAL*8 a1 , al , al1 , c1 , c2 , DEV , Em , EPS , EROot , FIEx , 
+      REAL*8 a1 , al , al1 , c1 , c2 , DEV , Em , EPS , EROOT , FIEX , 
      &       Rik , rn , Rv , rx
-      INTEGER*4 IAXs , IEXp , Indx , ITS , j , j1 , Jk , Kk , kk6 , 
-     &          KVAr , l , l1 , Lu
+      INTEGER*4 IAXS , IEXP , Indx , ITS , j , j1 , Jk , Kk , kk6 , 
+     &          KVAR , l , l1 , Lu
       COMPLEX*16 ARM
       COMMON /AZ    / ARM(600,7)
       COMMON /ODCH  / DEV(500)
-      COMMON /KIN   / EPS(50) , EROot(50) , FIEx(50,2) , IEXp , IAXs(50)
+      COMMON /KIN   / EPS(50) , EROOT(50) , FIEX(50,2) , IEXP , IAXS(50)
       COMMON /TRB   / ITS
-      COMMON /SEL   / KVAr(500)
+      COMMON /SEL   / KVAR(500)
       kk6 = Kk + 5
       rn = DEV(Lu)
       al = (Rv-rn)*20./Rik
-      IF ( ITS.EQ.1 .AND. KVAr(Indx).NE.0 ) WRITE (18,*) Lu , Indx , 
-     &     IEXp , al/Em
+      IF ( ITS.EQ.1 .AND. KVAR(Indx).NE.0 ) WRITE (18,*) Lu , Indx , 
+     &     IEXP , al/Em
       al1 = ABS(al)
-      IF ( ITS.EQ.2 ) WRITE (18,*) Lu , Indx , IEXp , al1
+      IF ( ITS.EQ.2 ) WRITE (18,*) Lu , Indx , IEXP , al1
       IF ( al1.LE.ABS(IMAG(ARM(kk6,Jk))) ) RETURN
       DO j = Kk , kk6
          a1 = ABS(IMAG(ARM(j,Jk)))

@@ -4,27 +4,27 @@ C----------------------------------------------------------------------
       SUBROUTINE KONTUR(Idr,Chis0,Chil,Ifbf,Inpo,Jj,Sh,Bten,Rem)
       IMPLICIT NONE
       REAL*8 ac , Bten , c , Chil , chilo , Chis0 , chis1 , chis2 , d1 , 
-     &       d2 , DEVd , DEVu , DS , DSE , DSG , ELM , ELMl , ELMu , f , 
+     &       d2 , DEVD , DEVU , DS , DSE , DSG , ELM , ELML , ELMU , f , 
      &       h
       REAL*8 HLM , Rem , RK4 , SA , sajj , Sh , t , v , ww , x , XV , 
      &       y , YV , ZV
-      INTEGER*4 i , Idr , Ifbf , Inpo , INTr , IPS1 , itl , IVAr , ix , 
-     &          j , Jj , l , LMAxe , LNY , m , MAGexc , MEMax , MEMx6 , 
+      INTEGER*4 i , Idr , Ifbf , Inpo , INTR , IPS1 , itl , IVAR , ix , 
+     &          j , Jj , l , LMAXE , LNY , m , MAGEXC , MEMAX , MEMX6 , 
      &          NWR
       DIMENSION f(3) , Bten(1200)
       COMMON /VLIN  / XV(51) , YV(51) , ZV(20) , DSG(20) , DSE(20) , DS
-      COMMON /DFTB  / DEVd(500) , DEVu(500)
-      COMMON /COMME / ELM(500) , ELMu(500) , ELMl(500) , SA(500)
-      COMMON /CEXC  / MAGexc , MEMax , LMAxe , MEMx6 , IVAr(500)
+      COMMON /DFTB  / DEVD(500) , DEVU(500)
+      COMMON /COMME / ELM(500) , ELMU(500) , ELML(500) , SA(500)
+      COMMON /CEXC  / MAGEXC , MEMAX , LMAXE , MEMX6 , IVAR(500)
       COMMON /HHH   / HLM(500)
       COMMON /ILEWY / NWR
-      COMMON /LOGY  / LNY , INTr , IPS1
+      COMMON /LOGY  / LNY , INTR , IPS1
       LNY = 0
       h = .05*ABS(HLM(Jj))
       IF ( Inpo.NE.-1 ) h = ABS(Sh)
- 100  INTr = 0
+ 100  INTR = 0
       sajj = ABS(SA(Jj))
-      DO l = 1 , MEMax
+      DO l = 1 , MEMAX
          ELM(l) = HLM(l)
          SA(l) = SA(l)/sajj
       ENDDO
@@ -33,13 +33,13 @@ C----------------------------------------------------------------------
       f(3) = 1.
       i = 1
  200  itl = 0
-      v = ELMu(Jj) - ELM(Jj)
-      IF ( SA(Jj).LT.0. ) v = ELM(Jj) - ELMl(Jj)
+      v = ELMU(Jj) - ELM(Jj)
+      IF ( SA(Jj).LT.0. ) v = ELM(Jj) - ELML(Jj)
       IF ( h.GT.v ) itl = 1
       IF ( h.GT.v ) h = v
       i = i + 1
       f(1) = f(3)
-      DO j = 1 , MEMax
+      DO j = 1 , MEMAX
          ELM(j) = .5*h*SA(j) + ELM(j)
       ENDDO
       CALL LIMITS
@@ -62,7 +62,7 @@ C----------------------------------------------------------------------
          h = h/2.
          GOTO 100
       ELSE
-         DO j = 1 , MEMax
+         DO j = 1 , MEMAX
             ELM(j) = ELM(j) + .5*SA(j)*h
          ENDDO
          v = ELM(Jj)
@@ -96,7 +96,7 @@ C----------------------------------------------------------------------
                   d1 = f(2) - f(1)
                   d2 = f(3) - f(1)
                   ac = (d2-4.*d1)*h/(d2-2.*d1)/4.
-                  DO l = 1 , MEMax
+                  DO l = 1 , MEMAX
                      ELM(l) = (ELM(l)-h*SA(l)) + ac*SA(l)
                   ENDDO
                   CALL LIMITS
@@ -121,15 +121,15 @@ C----------------------------------------------------------------------
       XV(i) = ELM(Jj)
       IF ( NWR*(chis2-Chis0).LT.2. .AND. Inpo.EQ.-1 ) h = 2.*h
       IF ( itl.EQ.1 ) GOTO 600
-      IF ( f(3).LT.1.E-3 ) GOTO 600
-      GOTO 200
+      IF ( f(3).GE.1.E-3 ) GOTO 200
+      GOTO 600
  500  REWIND 17
-      DO l = 1 , MEMax
+      DO l = 1 , MEMAX
          WRITE (17,*) ELM(l)
       ENDDO
       IF ( ix.EQ.1 ) GOTO 300
-      IF ( ix.EQ.2 ) GOTO 400
-      GOTO 200
+      IF ( ix.NE.2 ) GOTO 200
+      GOTO 400
  600  c = YV(i)
       m = 0
       DO l = 1 , i
@@ -138,8 +138,8 @@ C----------------------------------------------------------------------
       ENDDO
       x = (XV(m)-XV(m-1))*(.317-YV(m))/(YV(m-1)-YV(m))
       t = XV(m) - x - HLM(Jj)
-      IF ( t.GE.0. ) DEVu(Jj) = t
-      IF ( t.LT.0. ) DEVd(Jj) = t
+      IF ( t.GE.0. ) DEVU(Jj) = t
+      IF ( t.LT.0. ) DEVD(Jj) = t
       RETURN
  700  WRITE (22,99002) Jj
 99002 FORMAT (5X,'** WARNING **',/,2X,'ME=',1I3,2X,

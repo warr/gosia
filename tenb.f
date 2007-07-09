@@ -3,32 +3,32 @@ C----------------------------------------------------------------------
  
       SUBROUTINE TENB(Icl,Bten,Lmax)
       IMPLICIT NONE
-      REAL*8 ACCa , ACCur , Bten , CAT , ce , DIPol , EN , fc , si , 
-     &       SPIn , WTHREJ , x , ZPOl
-      INTEGER*4 i , Icl , iha , ila , ilg , ind , isi , ISMax , ISO , 
+      REAL*8 ACCA , ACCUR , Bten , CAT , ce , DIPOL , EN , fc , si , 
+     &       SPIN , WTHREJ , x , ZPOL
+      INTEGER*4 i , Icl , iha , ila , ilg , ind , isi , ISMAX , ISO , 
      &          ite , jm , jmp , k , kk , kp , l , ll , Lmax , lp , m
-      INTEGER*4 mm , mp , ms , msp , NDIm , NMAx , NMAx1 , NSTart , 
-     &          NSTop
+      INTEGER*4 mm , mp , ms , msp , NDIM , NMAX , NMAX1 , NSTART , 
+     &          NSTOP
       COMPLEX*16 ARM
       DIMENSION Bten(1200)
-      COMMON /COEX  / EN(75) , SPIn(75) , ACCur , DIPol , ZPOl , ACCa , 
+      COMMON /COEX  / EN(75) , SPIN(75) , ACCUR , DIPOL , ZPOL , ACCA , 
      &                ISO
-      COMMON /CLCOM8/ CAT(600,3) , ISMax
-      COMMON /COEX2 / NMAx , NDIm , NMAx1
-      COMMON /CEXC0 / NSTart(76) , NSTop(75)
+      COMMON /CLCOM8/ CAT(600,3) , ISMAX
+      COMMON /COEX2 / NMAX , NDIM , NMAX1
+      COMMON /CEXC0 / NSTART(76) , NSTOP(75)
       COMMON /AZ    / ARM(600,7)
-      iha = (-1)**INT(2.*SPIn(1)+.01)
+      iha = (-1)**INT(2.*SPIN(1)+.01)
       IF ( Icl.EQ.1 ) THEN
-         ms = 16*(NMAx-1)
+         ms = 16*(NMAX-1)
          DO i = 1 , ms
             Bten(i) = 0.
          ENDDO
       ENDIF
-      DO i = 2 , NMAx
-         ms = NSTart(i)
+      DO i = 2 , NMAX
+         ms = NSTART(i)
          IF ( ms.NE.0 ) THEN
-            msp = NSTop(i)
-            si = SPIn(i)
+            msp = NSTOP(i)
+            si = SPIN(i)
             isi = INT(2.*si+.01)
             ce = SQRT(2.*si+1.)
             DO kp = 1 , 7 , 2
@@ -45,7 +45,7 @@ C----------------------------------------------------------------------
                         mm = m
                         mp = m + l
                         jm = INT(2.01*CAT(mm,3))
-                        IF ( mp.GT.NSTop(i) ) GOTO 4
+                        IF ( mp.GT.NSTOP(i) ) GOTO 4
                         ilg = (-1)**INT(si-CAT(mp,3))
                         jmp = -INT(2.01*CAT(mp,3))
                         fc = WTHREJ(isi,kk,isi,jmp,ll,jm)
@@ -61,7 +61,7 @@ C----------------------------------------------------------------------
  4                      IF ( iha.NE.1 .OR. Icl.NE.Lmax ) THEN
                            ite = 2
                            mp = mp - 2*l
-                           IF ( mp.GE.NSTart(i) ) THEN
+                           IF ( mp.GE.NSTART(i) ) THEN
                               jmp = INT(2.01*CAT(mp,3))
                               jm = -jm
                               fc = WTHREJ(isi,kk,isi,jmp,ll,jm)
@@ -71,7 +71,7 @@ C----------------------------------------------------------------------
                         ENDIF
  6                   ENDDO
                      IF ( Icl.EQ.Lmax ) Bten(ind) = Bten(ind)
-     &                    *ce/(2.*SPIn(1)+1.)
+     &                    *ce/(2.*SPIN(1)+1.)
                   ENDDO
                ENDIF
             ENDDO

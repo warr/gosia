@@ -3,19 +3,19 @@ C----------------------------------------------------------------------
  
       SUBROUTINE COORD(Wth,Wph,Wthh,Naa,Ifw,Pfi,Wpi,Wtlb,Lz,Tyy,Tzz)
       IMPLICIT NONE
-      REAL*8 DS , DSE , DSG , EP , EPS , EROot , FIEx , ga , gi , Pfi , 
-     &       rade , rmass , TACOS , TASIN , thetb , TLBdg , ttcm , Tyy , 
-     &       Tzz , VINf
+      REAL*8 DS , DSE , DSG , EP , EPS , EROOT , FIEX , ga , gi , Pfi , 
+     &       rade , rmass , TACOS , TASIN , thetb , TLBDG , ttcm , Tyy , 
+     &       Tzz , VINF
       REAL*8 wpa , Wph , Wpi , ws , Wth , Wthh , Wtlb , XA , XA1 , xaa , 
      &       xph , xth , xthh , XV , YV , za , za1 , zb , zl , ZV
-      INTEGER*4 i , IAXs , IEXp , Ifw , ISKin , IZ , IZ1 , Lz , Naa , 
-     &          NEXpt
+      INTEGER*4 i , IAXS , IEXP , Ifw , ISKIN , IZ , IZ1 , Lz , Naa , 
+     &          NEXPT
       DIMENSION Pfi(101) , Wpi(11,2)
       COMMON /VLIN  / XV(51) , YV(51) , ZV(20) , DSG(20) , DSE(20) , DS
-      COMMON /KIN   / EPS(50) , EROot(50) , FIEx(50,2) , IEXp , IAXs(50)
-      COMMON /CX    / NEXpt , IZ , XA , IZ1(50) , XA1(50) , EP(50) , 
-     &                TLBdg(50) , VINf(50)
-      COMMON /SECK  / ISKin(50)
+      COMMON /KIN   / EPS(50) , EROOT(50) , FIEX(50,2) , IEXP , IAXS(50)
+      COMMON /CX    / NEXPT , IZ , XA , IZ1(50) , XA1(50) , EP(50) , 
+     &                TLBDG(50) , VINF(50)
+      COMMON /SECK  / ISKIN(50)
       DATA rade/57.2957795/
       IF ( Ifw.EQ.0 ) THEN
          Tyy = Wth - Wthh
@@ -52,7 +52,7 @@ C----------------------------------------------------------------------
             ELSEIF ( XA1(Lz).LE.XA ) THEN
                GOTO 20
             ENDIF
-            IF ( ISKin(Lz).EQ.0 ) THEN
+            IF ( ISKIN(Lz).EQ.0 ) THEN
                ttcm = xaa - TASIN(rmass*SIN(xaa))
                xaa = ABS(ttcm)/2.
                GOTO 50
@@ -65,8 +65,8 @@ C----------------------------------------------------------------------
          wpa = ATAN(zl*SIN(ga)/(za1+zl*COS(ga)*za))
          wpa = ABS(wpa)
          IF ( Ifw.EQ.2 ) THEN
-            FIEx(Lz,1) = (xph-wpa)
-            FIEx(Lz,2) = (xph+wpa)
+            FIEX(Lz,1) = (xph-wpa)
+            FIEX(Lz,2) = (xph+wpa)
          ELSEIF ( Ifw.EQ.1 ) THEN
             Pfi(i) = 2.*wpa*rade
          ELSE
