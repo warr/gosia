@@ -4627,7 +4627,7 @@ C----------------------------------------------------------------------
       COMMON /ILEWY / NWR
       COMMON /CH1T  / CHIS11
       COMMON /IGRAD / IGRD
-      COMMON /LCZP  / LFL , EMH , INM , LFL1 , LFL2
+      COMMON /LCZP  / EMH , INM , LFL1 , LFL2 , LFL
       COMMON /UWAGA / ITAK2
       COMMON /LEV   / TAU(75) , KSEQ(500,4)
       COMMON /CCOUP / ZETA(50000) , LZETA(8)
@@ -4972,7 +4972,7 @@ C----------------------------------------------------------------------
      &                YNRM(32,50) , IDRN , ILE(32)
       COMMON /DFTB  / DEVD(500) , DEVU(500)
       COMMON /PRT   / IPRM(20)
-      COMMON /LCZP  / LFL , EMH , INM , LFL1 , LFL2
+      COMMON /LCZP  / EMH , INM , LFL1 , LFL2 , LFL
       COMMON /CEXC  / MAGEXC , MEMAX , LMAXE , MEMX6 , IVAR(500)
       COMMON /COMME / ELM(500) , ELMU(500) , ELML(500) , SA(500)
       COMMON /SEL   / KVAR(500)
@@ -5426,7 +5426,7 @@ C----------------------------------------------------------------------
       COMMON /CX    / NEXPT , IZ , XA , IZ1(50) , XA1(50) , EP(50) , 
      &                TLBDG(50) , VINF(50)
       COMMON /MINNI / IMIN , LNORM(50)
-      COMMON /LCZP  / LFL , EMH , INM , LFL1 , LFL2
+      COMMON /LCZP  / EMH , INM , LFL1 , LFL2 , LFL
       COMMON /YTEOR / YGN(500) , YGP(500) , IFMO
       COMMON /SEL   / KVAR(500)
       COMMON /MGN   / LP1 , LP2 , LP3 , LP4 , LP6 , LP7 , LP8 , LP9 , 
