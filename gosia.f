@@ -56,6 +56,7 @@ C
 C************************  VERSION FROM JUNE, 2006  *******************
 C
 C**********************************************************************
+      PROGRAM GOSIA
       LOGICAL ERR
       COMPLEX ARM,EXPO
       character*4 oph,op1,opcja,op2
