@@ -402,8 +402,8 @@ C**********************************************************************
       xi1=spin(ind1)
       xi2=spin(ind2)
       lamd=mlt(kb)
-      nb1=ifix(xlevb(ind1,1)+.1)            
-      nb2=ifix(xlevb(ind2,1)+.1)
+      nb1=INT(xlevb(ind1,1)+.1)            
+      nb2=INT(xlevb(ind2,1)+.1)
       xk1=xlevb(ind1,2)
       xk2=xlevb(ind2,2)
       xm1=bm(lamd,nb1,nb2,1)
@@ -626,7 +626,7 @@ C**********************************************************************
       IF(IVAR(KH2).EQ.0.OR.IVAR(KH2).GT.999) GO TO 6695
       ISPA=LEAD(2,KH2)
       IF(LEAD(1,KH2).NE.LEAD(2,KH2)) GO TO 6697
-      ISPB=IFIX(SPIN(ISPA))*2
+      ISPB=INT(SPIN(ISPA))*2
       QFAC=3.170662*WTHREJ(ISPB,4,ISPB,-ISPB,0,ISPB)
       WRITE(22,6694) KH2,LEAD(2,KH2),LEAD(1,KH2),HLM(KH2)*QFAC,
      *DEVD(KH2)*QFAC,DEVU(KH2)*QFAC
@@ -1146,7 +1146,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
       IF(K.EQ.1)IPH=IPO2
       IPRC=IPO2-IPH
       IF(IPRC.NE.0)IPRC=1
-      IFAC(IPO1)=(-1)**(IPRC-IFIX(PO2-SPIN(1)))
+      IFAC(IPO1)=(-1)**(IPRC-INT(PO2-SPIN(1)))
       EN(IPO1)=PO1
       PRP='+'
       IF(IPO2.EQ.-1)PRP='-'
@@ -1185,7 +1185,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
       GO TO 335
  333  IVAR(INDX)=0
       GO TO 335
- 334  IVAR(INDX)=10000*IFIX(BL)+IFIX(BU)
+ 334  IVAR(INDX)=10000*INT(BL)+INT(BU)
  335  ISIP=ISEX(IPO1)+1
       ISEX(IABS(IPO2))=MIN0(ISIP,ISEX(IABS(IPO2)))
       GO TO 820
@@ -1230,7 +1230,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
  2123 IVARH(KH)=IVAR(KH)
       GO TO 900
  803  READ 907,OP1,FIPO1
-      IPO1=IFIX(FIPO1)
+      IPO1=INT(FIPO1)
       IF(OP1.EQ.'ACP,')ACCA=10.**(-FIPO1)
       IF(OP1.EQ.'SEL,')ITS=2
       IF(OP1.EQ.'SMR,')IOSR=1
@@ -1370,7 +1370,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
       DO 788 K=1,ISMAX
       PR=PR+REAL(ARM(K,5))**2+AIMAG(ARM(K,5))**2
  788  IF(OP2.EQ.'STAR'.OR.IPRM(19).EQ.1)WRITE(22,301)
-     *IFIX(CAT(K,1)),CAT(K,2),CAT(K,3),REAL(ARM(K,5)),AIMAG(ARM(K,5))
+     *INT(CAT(K,1)),CAT(K,2),CAT(K,3),REAL(ARM(K,5)),AIMAG(ARM(K,5))
       IF(OP2.EQ.'STAR' .OR.IPRM(19).EQ.1)WRITE(22,302)PR
  799  CONTINUE
       CALL TENS(BTEN)
@@ -1508,7 +1508,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
       WRITE(4,*)IEXP,jgl1,IABS(IZ1(IEXP)),ABS(XA1(IEXP)),
      *ABS(EP(IEXP)),JMM,XW
       DO 3209 JYI=1,JMM
- 3209 WRITE(4,*)IFIX(CORF(JYI,1)),IFIX(CORF(JYI,2)),CORF(JYI,3)
+ 3209 WRITE(4,*)INT(CORF(JYI,1)),INT(CORF(JYI,2)),CORF(JYI,3)
      *,CORF(JYI,4)
  962  CONTINUE
       IF(OP2.NE.'CORR')GO TO 901
@@ -1988,11 +1988,11 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
       COMMON/APRCAT/QAPR(500,2,7),IAPR(500,2),ISEX(75)
       COMMON/PTH/IPATH(75),MAGA(75)
       DIMENSION ETAN(75),CPSI(8)
-      LMAX=IFIX(SPIN(1)+1.1)
+      LMAX=INT(SPIN(1)+1.1)
       IF(IENT.NE.1)GO TO 271
       ISHA=0
-      ISPI=IFIX(SPIN(1)+.51)
-      ISPO=IFIX(SPIN(1)+.49)
+      ISPI=INT(SPIN(1)+.51)
+      ISPO=INT(SPIN(1)+.49)
       IF(ISPI.NE.ISPO)ISHA=1
       Z1=FLOAT(IABS(IZ1(IEXP)))
       Z2=FLOAT(IZ)
@@ -2072,7 +2072,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
       IF(WRTM.LT.-SPIN(N))GO TO 371
       IF(ABS(WRT).GT.SPIN(N))WRT=-SPIN(N)
       IF(WRTM.GT.SPIN(N))WRTM=SPIN(N)
-      MSTOP=IFIX(WRTM-WRT+1.01)
+      MSTOP=INT(WRTM-WRT+1.01)
       DO 370 I=1,MSTOP
       CAT(IS,1)=N
       CAT(IS,2)=SPIN(N)
@@ -2157,7 +2157,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
       INS=SPIN(M)*2.
       IS1=NSTART(M)
        IF(IS1.EQ.0)GO TO 300
-      ISPLUS=IFIX(RMIR-CAT(IS1,3))-LAM
+      ISPLUS=INT(RMIR-CAT(IS1,3))-LAM
       IF(ISPLUS.GE.0)GOTO 100
       ISMIN=ISPLUS
       ISPLUS=0
@@ -2550,7 +2550,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
       GO TO 120
  6    W=ACL/6.+.962
  120  W=W/.03
-      IRA(I)=IFIX(W+1.5)
+      IRA(I)=INT(W+1.5)
  110  CONTINUE
       IF(IRA(7).NE.0)IRA(7)=IRA(7)+1
       IF(IRA(8).NE.0)IRA(8)=IRA(8)+1
@@ -2585,7 +2585,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
       LLOC(NLM)=KE
       IRL(NLM)=IRA(KE)
  3    CONTINUE
-      NLEND=IFIX((FLOAT(NLM)+1.1)/2.)
+      NLEND=INT((FLOAT(NLM)+1.1)/2.)
       DO 5 K=1,NLEND
       KE=NLM-K+1
       LS=LLOC(KE)
@@ -2706,7 +2706,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
       ISMIN=0
       IS1=NSTART(M)
       IF(IS1.EQ.0)GO TO 560
-      ISPLUS=IFIX(RMIR-CAT(IS1,3))-LAM
+      ISPLUS=INT(RMIR-CAT(IS1,3))-LAM
       IF(ISPLUS.GE.0)GOTO 150
       ISMIN=ISPLUS
       ISPLUS=0
@@ -2732,7 +2732,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
       PAMP=PAMP1*ARM(IS,I57)+PAMP
       IF(ISO.EQ.0.AND.RMIS.GT..1)GO TO 540
  545   IF(N.EQ.M)GO TO 540
-      IRS=(-1)**(IFIX(RMIR+RMIS)-ISHA+III)
+      IRS=(-1)**(INT(RMIR+RMIS)-ISHA+III)
       ARM(IS,6)=ARM(IS,6)+IRS*PAMP1*ARM(IR,I57)
       ISSTAR(I2)=MIN0(IS,ISSTAR(I2))
       ISSTO(I2)=MAX0(IS,ISSTO(I2))
@@ -2888,7 +2888,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
       ISMIN=0
       IS1=NSTART(M)
       IF(NSTART(M).EQ.0)GO TO 560
-      ISPLUS=IFIX(RMIR-CAT(IS1,3))-LAM
+      ISPLUS=INT(RMIR-CAT(IS1,3))-LAM
       IF(ISPLUS.GE.0)GOTO 150
       ISMIN=ISPLUS
       ISPLUS=0
@@ -2918,7 +2918,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
        SUBROUTINE FAZA1(LA,MI,RMIR,RMIS,DIS,RMU)
        COMPLEX DIS,CI
        DATA CI/(0.,1.)/
-      IRS=(-1)**IFIX(RMIR+RMIS)
+      IRS=(-1)**INT(RMIR+RMIS)
       IF(LA.EQ.7)GO TO 4
       IEVEN=(-1)**MI
       IF(IEVEN)2,2,3
@@ -3479,7 +3479,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
       COMMON/COEX2/NMAX,NDIM,NMAX1
       COMMON/CEXC0/NSTART(76),NSTOP(75)
       COMMON/AZ/ARM(600,7)
-      IHA=(-1)**IFIX(2.*SPIN(1)+.01)
+      IHA=(-1)**INT(2.*SPIN(1)+.01)
       IF(ICL.NE.1)GO TO 11
       MS=16*(NMAX-1)
       DO 10 I=1,MS
@@ -3490,7 +3490,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
       IF(MS.EQ.0)GO TO 1
       MSP=NSTOP(I)
       SI=SPIN(I)
-      ISI=IFIX(2.*SI+.01)
+      ISI=INT(2.*SI+.01)
       CE=SQRT(2.*SI+1.)
       DO 2 KP=1,7,2
       K=KP-1
@@ -3505,10 +3505,10 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
       DO 4 M=MS,MSP
       MM=M
       MP=M+L
-      JM=IFIX(2.01*CAT(MM,3))
+      JM=INT(2.01*CAT(MM,3))
       IF(MP.GT.NSTOP(I))GO TO 8
-      ILG=(-1)**IFIX(SI-CAT(MP,3))
-      JMP=-IFIX(2.01*CAT(MP,3))
+      ILG=(-1)**INT(SI-CAT(MP,3))
+      JMP=-INT(2.01*CAT(MP,3))
       FC=WTHREJ(ISI,KK,ISI,JMP,LL,JM)
       ITE=1
   7   CONTINUE
@@ -3523,10 +3523,10 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
       ITE=2
       MP=MP-2*L
       IF(MP.LT.NSTART(I))GO TO 4
-      JMP=IFIX(2.01*CAT(MP,3))
+      JMP=INT(2.01*CAT(MP,3))
       JM=-JM
       FC=WTHREJ(ISI,KK,ISI,JMP,LL,JM)
-      ILG=(-1)**IFIX(SI+CAT(MP,3))
+      ILG=(-1)**INT(SI+CAT(MP,3))
       GO TO 7
   4   CONTINUE
       IF(ICL.EQ.LMAX)BTEN(IND)=BTEN(IND)*CE/(2.*SPIN(1)+1.)
@@ -3549,7 +3549,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
       DO 2 I=2,NMAX
       DO 3 KP=1,7,2
       K=KP-1
-      K1=IFIX(FLOAT(K)/2.+.01)
+      K1=INT(FLOAT(K)/2.+.01)
       IF(K.EQ.0)GO TO 98
       DO 4 LP=1,KP
       IF(IAXS(IEXP).EQ.0.AND.LP.NE.1)GO TO 4
@@ -3559,7 +3559,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
       IND=K*K/4+LPP+(I-2)*16
       LX=LPP-1
       LXX=LX
-  13  IPH=(-1)**(L+IFIX(FLOAT(LXX)/2.))
+  13  IPH=(-1)**(L+INT(FLOAT(LXX)/2.))
       ZETA(INZ)=ZETA(INZ)+BTEN(IND)*IPH*DJMM(ARG,K,LX,L)
       IF(LPP.EQ.1)GO TO 5
       IF(LX.LT.0)GO TO 5
@@ -3721,7 +3721,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
       DO 2 K=1,LMAX
       FC=2.
       IF(K.EQ.LMAX)FC=1.
-      IF(FLOAT(IFIX(SPIN(1))).lt.SPIN(1))FC=2.
+      IF(FLOAT(INT(SPIN(1))).lt.SPIN(1))FC=2.
       LOC=0
       POLM=FLOAT(K-1)-SPIN(1)
        CALL LOAD(IEXP,3,2,POLM,JJ)
@@ -3736,7 +3736,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
       DO 400 I11=1,NMAX
       IF(NSTART(I11).EQ.0)GO TO 400
       LOC=LP3*(INDX-1)+I11+LP11
-      JPP=IFIX(2.*SPIN(I11)+1.)
+      JPP=INT(2.*SPIN(I11)+1.)
       LPX=MIN0(LP,JPP)
       IF(ISO.NE.0)LPX=NSTOP(I11)-NSTART(I11)+1
       DO 407 LPXD=1,LPX
@@ -3775,7 +3775,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
       CALL TENB(K,BTEN,LMAX)
       IF(IPRM(7).NE.-1)GO TO 22
       DO 21 J=1,ISMAX
-      WRITE(22,702)IFIX(CAT(J,1)),CAT(J,2),
+      WRITE(22,702)INT(CAT(J,1)),CAT(J,2),
      *CAT(J,3),REAL(ARM(J,5)),AIMAG(ARM(J,5))
  21   CONTINUE
   22  CONTINUE
@@ -3901,7 +3901,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
       JK=(LUU-1)/LP10+1
       KK=LUU-LP10*(JK-1)
       KK6=KK+5
- 611  WRITE(22,612)KSEQ(IDEC,3),KSEQ(IDEC,4),(IFIX(REAL(ARM
+ 611  WRITE(22,612)KSEQ(IDEC,3),KSEQ(IDEC,4),(INT(REAL(ARM
      *(KKX,JK))),AIMAG(ARM(KKX,JK)),KKX=KK,KK6)
  610  FORMAT(10X,10HEXPERIMENT,1X,1I2/10X,19HD(LOG(Y)/D(LOG(ME)),//)
  612  FORMAT(2X,1I2,2H--,1I2,5X,6(1H(,1I3,2X,1E8.2,1H),3X))
@@ -4877,7 +4877,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
         FUNCTION GF(K,SJI,SJF,L)
       GF=0.
       IF(L.EQ.0)RETURN
-      IX=IFIX(SJI+SJF+.0001)
+      IX=INT(SJI+SJF+.0001)
         I=IX+L+K
         PHASE=1.
         IF(I/2*2.NE.I)  PHASE=-1.
@@ -4892,7 +4892,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
         FUNCTION F(K,SJI,SJF,L1,L2)
       F=0.
       IF((L1*L2).EQ.0)RETURN
-      IX=IFIX(SJI+SJF+.0001)
+      IX=INT(SJI+SJF+.0001)
         L=IX-1
         PHASE=1.
         IF(L/2*2.NE.L)  PHASE=-1.
@@ -6459,13 +6459,13 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
       IF(SE.GT.32000.)GO TO 1
  2    SE=SE*SE
       U=ALOG10(SE)
-      I=IFIX(U)+1
+      I=INT(U)+1
       T=SE/(10.**I)
       R=SQRT(SQRT(SQRT(T)))
       P=SQRT(SQRT(SQRT(.1)))
       RXDM=(R-P)/(1.-P)
       RXDM=10.*RXDM
-      AI=FLOAT(IFIX(RXDM))
+      AI=FLOAT(INT(RXDM))
       RNDM=RXDM-AI
       RETURN
  1    SE=100.*T+.511
@@ -6809,7 +6809,7 @@ c GREMLIN
      *akavka(4,ipd)*w*w*w
       effi=effi*exp(pw)
       if(abs(akavka(5,ipd)).lt.1.e-9)go to 21
-      n=ifix(akavka(6,ipd)+.1)
+      n=INT(akavka(6,ipd)+.1)
       pw=w**n
       w=akavka(5,ipd)/pw
       effi=effi*exp(w)
@@ -7041,11 +7041,11 @@ c     JAERI calibration - TC, Nov.2000
       la=lam
       if(la.gt.6)la=la-6
       xlam=float(la)
-      i1=ifix(2.*xi1)
-      i2=ifix(2.*xi2)
+      i1=INT(2.*xi1)
+      i2=INT(2.*xi2)
       llam=2*la
-      k1=ifix(2.*xk1)
-      k2=ifix(2.*xk2)
+      k1=INT(2.*xk1)
+      k2=INT(2.*xk2)
       fac=sqrt(2.*xi1+1.)*sqrt(2.*xi2+1.)
 C-----In-band matrix element
       if(nb1.ne.nb2)go to 1
@@ -7085,7 +7085,7 @@ C-----Forbidden and K1-K2=lambda, Mikhailov formula
       addt=(-1.)**((i1+1)/2)*(i1+1)/2.*xm3
  11   continue     
       xn=abs(xk1-xk2)-xlam
-      n=ifix(xn+.1)
+      n=INT(xn+.1)
       if(n.eq.0)go to 5
       if(n.eq.1)go to 6
       s1=xi1-xk1      
@@ -7098,7 +7098,7 @@ C-----Forbidden and K1-K2=lambda, Mikhailov formula
   6   fct=sqrt((xi1-xk1)*(xi1+xk1+1.))
       go to 9
   5   fct=1.
-  9   pha1=(-1.)**ifix((xi1-xlam+xk2)+.1)
+  9   pha1=(-1.)**INT((xi1-xlam+xk2)+.1)
       elmt=fac*pha1*fct*wthrej(i1,llam,i2,k2-llam,llam,-k2)*
      *(xm1+xm2*(xi2*(xi2+1.)-xi1*(xi1+1.))+addt)
       return
