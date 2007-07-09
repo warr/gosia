@@ -58,39 +58,39 @@ C
 C**********************************************************************
       PROGRAM GOSIA
       IMPLICIT NONE
-      REAL*4 ABC , ACCA , ACCUR , acof , AGELI , AKAVKA , AKS , ap , 
+      REAL*8 ABC , ACCA , ACCUR , acof , AGELI , AKAVKA , AKS , ap , 
      &       ARCCOS , ARCTG , arg , ax , B , bcof , be2 , be2a , be2b , 
      &       be2c , BEQ , BETAR
-      REAL*4 bk , bl , bm , bmx , BRAT , bten , bu , CAT , CC , ccc , 
+      REAL*8 bk , bl , bm , bmx , BRAT , bten , bu , CAT , CC , ccc , 
      &       ccd , cf , chilo , chiok , chis0 , chisl , chisq , chiss , 
      &       CNOR , cnst
-      REAL*4 cocos , conu , CORF , d , decen , dedx , DELTA , DEVD , 
+      REAL*8 cocos , conu , CORF , d , decen , dedx , DELTA , DEVD , 
      &       DEVU , DIPOL , DIX , DLOCK , DQ , DS , dsd , DSE , DSG , 
      &       dsig , DSIGS , dst
-      REAL*4 dsx , dsxm , DYEX , EAMX , effi , EG , eh1 , ELM , ELMH , 
+      REAL*8 dsx , dsxm , DYEX , EAMX , effi , EG , eh1 , ELM , ELMH , 
      &       elmi , ELML , ELMT , ELMU , emhl1 , EMMA , emn , emx , EN , 
      &       enb , ENDEC
-      REAL*4 eng , enh , ENZ , EP , EPS , EROOT , esd , esp , ess , 
+      REAL*8 eng , enh , ENZ , EP , EPS , EROOT , esd , esp , ess , 
      &       fi0 , fi1 , fic , FIEX , fiex1 , figl , fipo1 , fm , G , 
      &       GRAD , gth
-      REAL*4 hen , het , HLM , HLMLM , ODL , p , PARX , PARXM , pfi , 
+      REAL*8 hen , het , HLM , HLMLM , ODL , p , PARX , PARXM , pfi , 
      &       ph1 , ph2 , pi , PILOG , po1 , po2 , polm , pop1 , pr , 
      &       pv , Q
-      REAL*4 q1 , q2 , QAPR , qc , QCEN , qfac , qr , qui , r , r1 , 
+      REAL*8 q1 , q2 , QAPR , qc , QCEN , qfac , qr , qui , r , r1 , 
      &       r2 , r3 , r4 , rem , remax , rl , rlr , rm , rx , ry
-      REAL*4 rz , s , s11 , s12 , s21 , s22 , SA , sbe , SE , sf , SGW , 
+      REAL*8 rz , s , s11 , s12 , s21 , s22 , SA , sbe , SE , sf , SGW , 
      &       sh , sh1 , sh2 , SIMIN , slim , SPIN , SUBCH1 , SUBCH2 , 
      &       SUMCL
-      REAL*4 summm , sz1 , sz2 , TACOS , TAU , tau1 , tau2 , test , 
+      REAL*8 summm , sz1 , sz2 , TACOS , TAU , tau1 , tau2 , test , 
      &       TETACM , tetrc , tfac , thc , THICK , TIMEL , title , 
      &       TLBDG , tmn , tmx , todfi , TREP
-      REAL*4 tta , tth , tting , ttttt , ttttx , txx , u , UPL , VACDP , 
+      REAL*8 tta , tth , tting , ttttt , ttttx , txx , u , UPL , VACDP , 
      &       val , VINF , waga , wph , wpi , WSIXJ , wth , wthh , 
      &       WTHREJ , XA , XA1
-      REAL*4 xep , XI , xi1 , xi2 , XIR , xk1 , xk2 , xl1 , xlevb , 
+      REAL*8 xep , XI , xi1 , xi2 , XIR , xk1 , xk2 , xl1 , xlevb , 
      &       xlk , xm1 , xm2 , xm3 , XNOR , xtest , XV , xw , xx , xxi , 
      &       ycorr
-      REAL*4 YEXP , YGN , YGP , YNRM , YV , yy , yyd1 , yydd , yyy , 
+      REAL*8 YEXP , YGN , YGP , YNRM , YV , yy , yyd1 , yydd , yyy , 
      &       ZETA , zmir , zp , ZPOL , ZV , zz
       INTEGER*4 i , i122 , IAMX , IAMY , IAPR , iapx , IAXS , ib , 
      &          ibaf , IBRC , IBYP , icg , icll , ICLUST , ICS , ict , 
@@ -142,7 +142,7 @@ C**********************************************************************
      &          npct1 , npt , nptl , nptx , ns1
       INTEGER*4 ns2 , ntap , ntt , numcl , nval , NYLDE , nz
       LOGICAL ERR
-      COMPLEX*8 ARM , EXPO
+      COMPLEX*16 ARM , EXPO
       CHARACTER*4 oph , op1 , opcja , op2
       CHARACTER*1 prp
       DIMENSION ihlm(32) , esp(20) , dedx(20) , bten(1200) , 
@@ -706,7 +706,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
                      DO kb = 1 , ilevls
                         inva = levl(kb)
                         xlevb(inva,2) = bk
-                        xlevb(inva,1) = REAL(jb)
+                        xlevb(inva,1) = DBLE(jb)
                      ENDDO
                   ENDDO
                   DO nl = 1 , 8
@@ -819,12 +819,12 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
                               IF ( ERR ) GOTO 2000
                               tting = TLBDG(lx)
                               IF ( ERR ) GOTO 1900
-                              CALL LOAD(lx,1,1,0.,jj)
+                              CALL LOAD(lx,1,1,0.D0,jj)
                               CALL ALLOC(ACCUR)
                               CALL SNAKE(lx,ZPOL)
                               CALL SETIN
                               DO j = 1 , LMAX
-                                 polm = REAL(j-1) - SPIN(1)
+                                 polm = DBLE(j-1) - SPIN(1)
                                  CALL LOAD(lx,2,1,polm,jj)
                                  CALL STING(jj)
                                  CALL PATH(jj)
@@ -1455,7 +1455,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
          G(2) = .02
          G(3) = .0345
          G(4) = 3.5
-         G(5) = REAL(IZ)/XA
+         G(5) = DBLE(IZ)/XA
          G(6) = 6.E-06
          G(7) = .6
          DO k = 1 , NEXPT
@@ -1640,8 +1640,8 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
                   IF ( iosr.EQ.1 ) WRITE (3,*) kh , ij , ELM(kh)
                   LOCKS = 1
                   DLOCK = .05
-                  CALL MINI(chiss,-1.,2,.0001,1000,idr,100000.,0,iosr,
-     &                      kh,bten)
+                  CALL MINI(chiss,-1.D0,2,.0001D0,1000,idr,100000.D0,
+     &                      0,iosr,kh,bten)
                   DO kh1 = 1 , MEMAX
                      SA(kh1) = (ELM(kh1)-HLM(kh1))/ABS(sh)
                   ENDDO
@@ -1712,12 +1712,12 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
                ENDIF
                fi0 = FIEX(IEXP,1)
                fi1 = FIEX(IEXP,2)
-               CALL LOAD(IEXP,1,icg,0.,jj)
+               CALL LOAD(IEXP,1,icg,0.D0,jj)
                CALL ALLOC(ACCUR)
                CALL SNAKE(IEXP,ZPOL)
                CALL SETIN
                DO j = 1 , LMAX
-                  polm = REAL(j-1) - SPIN(1)
+                  polm = DBLE(j-1) - SPIN(1)
                   CALL LOAD(IEXP,2,icg,polm,jj)
                   CALL STING(jj)
                   CALL PATH(jj)
@@ -1725,16 +1725,16 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
                   CALL TENB(j,bten,LMAX)
                   pr = 0.
                   IF ( op2.EQ.'STAR' .OR. IPRM(19).EQ.1 )
-     &                 WRITE (22,99034) (REAL(j)-1.-SPIN(1)) , IEXP
+     &                 WRITE (22,99034) (DBLE(j)-1.-SPIN(1)) , IEXP
 99034             FORMAT (1X//40X,'EXCITATION AMPLITUDES'//10X,'M=',
      &                    1F5.1,5X,'EXPERIMENT',1X,1I2//5X,'LEVEL',2X,
      &                    'SPIN',2X,'M',5X,'REAL AMPLITUDE',2X,
      &                    'IMAGINARY AMPLITUDE'//)
                   DO k = 1 , ISMAX
-                     pr = pr + REAL(ARM(k,5))**2 + AIMAG(ARM(k,5))**2
+                     pr = pr + DBLE(ARM(k,5))**2 + IMAG(ARM(k,5))**2
                      IF ( op2.EQ.'STAR' .OR. IPRM(19).EQ.1 )
      &                    WRITE (22,99035) INT(CAT(k,1)) , CAT(k,2) , 
-     &                    CAT(k,3) , REAL(ARM(k,5)) , AIMAG(ARM(k,5))
+     &                    CAT(k,3) , DBLE(ARM(k,5)) , IMAG(ARM(k,5))
 99035                FORMAT (7X,1I2,3X,1F4.1,2X,1F5.1,2X,1E14.6,2X,
      &                       1E14.6)
                   ENDDO
@@ -1861,8 +1861,8 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
                            IF ( (YGN(jyi)/YGN(IDRN)).GE.slim ) THEN
                               IF ( jgl1.EQ.1 ) sh1 = YGN(IDRN)
                               jmm = jmm + 1
-                              CORF(jmm,1) = REAL(ni)
-                              CORF(jmm,2) = REAL(nf)
+                              CORF(jmm,1) = DBLE(ni)
+                              CORF(jmm,2) = DBLE(nf)
                               CORF(jmm,3) = YGN(jyi)/sh1
                               IF ( YGN(jyi).GE.YGN(IDRN) ) CORF(jmm,4)
      &                             = CORF(jmm,3)/20.
@@ -2008,16 +2008,16 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
                XIR(iuy,IEXP) = 0.
             ENDDO
             emhl1 = EMMA(IEXP)
-            EMMA(IEXP) = REAL(MAGA(IEXP))
+            EMMA(IEXP) = DBLE(MAGA(IEXP))
             jde = 2
             IF ( MAGA(IEXP).EQ.0 ) jde = 1
             DO iuy = 1 , 6
                zmir(iuy,1,IEXP) = 0.
                zmir(iuy,2,IEXP) = 0.
             ENDDO
-            CALL LOAD(IEXP,1,2,0.,jj)
+            CALL LOAD(IEXP,1,2,0.D0,jj)
             DO jgs = 1 , LMAX
-               polm = REAL(jgs-1) - SPIN(1)
+               polm = DBLE(jgs-1) - SPIN(1)
                CALL LOAD(IEXP,3,2,polm,jj)
                CALL PATH(jj)
                CALL LOAD(IEXP,2,2,polm,jj)
@@ -2075,12 +2075,12 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
                IF ( ihlm(kk).NE.0 ) THEN
                   MULTI(kk) = 1
                   LAMDA(1) = kk
-                  SPIN(2) = REAL(kk)
+                  SPIN(2) = DBLE(kk)
                   IFAC(2) = 1
                   LDNUM(kk,1) = 1
                   icg = 1
-                  CALL LOAD(IEXP,1,icg,0.,jj)
-                  CALL LOAD(IEXP,2,icg,0.,jj)
+                  CALL LOAD(IEXP,1,icg,0.D0,jj)
+                  CALL LOAD(IEXP,2,icg,0.D0,jj)
                   CALL PATH(1)
                   sz1 = MIN(zmir(kk,1,IEXP),10.)
                   sz2 = zmir(kk,2,IEXP)/50.
@@ -2127,10 +2127,10 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
                            CALL INTG(IEXP)
                            jp = 2
                            IF ( MAGA(IEXP).NE.0 .AND. jd.EQ.2 ) jp = 3
-                           p = REAL(ARM(1,5))
-                           r = AIMAG(ARM(1,5))
-                           qr = REAL(ARM(jp,5))
-                           s = AIMAG(ARM(jp,5))
+                           p = DBLE(ARM(1,5))
+                           r = IMAG(ARM(1,5))
+                           qr = DBLE(ARM(jp,5))
+                           s = IMAG(ARM(jp,5))
                            test = p*p + r*r + qr*qr + s*s
                            p = p/SQRT(test)
                            s = ABS(r/s)
@@ -2334,9 +2334,9 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
 
 C----------------------------------------------------------------------
 
-      REAL*4 FUNCTION ARCCOS(A,F,Pi)
+      REAL*8 FUNCTION ARCCOS(A,F,Pi)
       IMPLICIT NONE
-      REAL*4 A , an , F , Pi , q , qa , qap , TACOS
+      REAL*8 A , an , F , Pi , q , qa , qap , TACOS
       INTEGER*4 ie , j , k
       q = TACOS(A)
       qa = q
@@ -2358,9 +2358,9 @@ C----------------------------------------------------------------------
 
 C----------------------------------------------------------------------
 
-      REAL*4 FUNCTION ARCTG(A,F,Pi)
+      REAL*8 FUNCTION ARCTG(A,F,Pi)
       IMPLICIT NONE
-      REAL*4 A , an , F , Pi , q , qa , qap
+      REAL*8 A , an , F , Pi , q , qa , qap
       INTEGER*4 ie , j , k
       q = ATAN(A)
       qa = q
@@ -2384,10 +2384,10 @@ C----------------------------------------------------------------------
 
       SUBROUTINE LOAD(Iexp,Ient,Icg,Polm,Joj)
       IMPLICIT NONE
-      REAL*4 a1 , a2 , aaz2 , aaz3 , aazz , ACCA , ACCUR , ah , CAT , 
+      REAL*8 a1 , a2 , aaz2 , aaz3 , aazz , ACCA , ACCUR , ah , CAT , 
      &       cpsi , dep , DIPOL , EMMA , EN , EP , eta , etan , Polm , 
      &       pp1 , pp2
-      REAL*4 ppp , PSI , QAPR , rlam , SPIN , ssqrt , szet , TLBDG , 
+      REAL*8 ppp , PSI , QAPR , rlam , SPIN , ssqrt , szet , TLBDG , 
      &       VINF , wrt , wrtm , XA , XA1 , XI , z1 , z2 , zet , ZETA , 
      &       ZPOL , zsqa
       INTEGER*4 i , i1 , i2 , i3 , IAPR , Icg , Ient , Iexp , IPATH , 
@@ -2429,8 +2429,8 @@ C----------------------------------------------------------------------
          ispi = INT(SPIN(1)+.51)
          ispo = INT(SPIN(1)+.49)
          IF ( ispi.NE.ispo ) ISHA = 1
-         z1 = REAL(ABS(IZ1(Iexp)))
-         z2 = REAL(IZ)
+         z1 = DBLE(ABS(IZ1(Iexp)))
+         z2 = DBLE(IZ)
          a1 = XA1(Iexp)
          a2 = XA
          ZPOL = DIPOL*EP(Iexp)*a2/(z2*z2*(1.+a1/a2))
@@ -2498,7 +2498,7 @@ C----------------------------------------------------------------------
                      i3 = i3 + 1
                      pp2 = EP(Iexp) - ppp*EN(m2)
                      PSI(i2) = cpsi(lam)*zsqa*(pp1*pp2)
-     &                         **((2.*REAL(lam1)-1.)/4.)
+     &                         **((2.*DBLE(lam1)-1.)/4.)
                   ENDDO
                ENDIF
             ENDDO
@@ -2514,8 +2514,8 @@ C----------------------------------------------------------------------
       DO n = 1 , NMAX
          wrt = Polm - EMMA(Iexp)
          wrtm = Polm + EMMA(Iexp)
-         IF ( Icg.EQ.2 ) wrt = Polm - REAL(MAGA(Iexp))
-         IF ( Icg.EQ.2 ) wrtm = Polm + REAL(MAGA(Iexp))
+         IF ( Icg.EQ.2 ) wrt = Polm - DBLE(MAGA(Iexp))
+         IF ( Icg.EQ.2 ) wrtm = Polm + DBLE(MAGA(Iexp))
          IF ( wrtm.LT.-SPIN(n) ) THEN
             NSTART(n) = 0
          ELSE
@@ -2525,7 +2525,7 @@ C----------------------------------------------------------------------
             DO i = 1 , mstop
                CAT(is,1) = n
                CAT(is,2) = SPIN(n)
-               CAT(is,3) = wrt + REAL(i-1)
+               CAT(is,3) = wrt + DBLE(i-1)
                IF ( n.EQ.1 .AND. ABS(CAT(is,3)-Polm).LT.1.E-6 ) Joj = is
                is = is + 1
             ENDDO
@@ -2551,7 +2551,7 @@ C----------------------------------------------------------------------
             IF ( Icg.NE.2 .OR. lam.LE.6 ) THEN
                la = lam
                IF ( lam.GT.6 ) lam = lam - 6
-               rlam = REAL(lam)
+               rlam = DBLE(lam)
                ssqrt = SQRT(2.*rlam+1.)
                LZETA(la) = nz
                ir = 0
@@ -2592,7 +2592,7 @@ C----------------------------------------------------------------------
 
       SUBROUTINE LSLOOP(Ir,N,Nz,Ld,Lam,La,Ssqrt,Icg,Iexp)
       IMPLICIT NONE
-      REAL*4 ACCA , ACCUR , CAT , DIPOL , ELM , ELML , ELMU , EN , phz , 
+      REAL*8 ACCA , ACCUR , CAT , DIPOL , ELM , ELML , ELMU , EN , phz , 
      &       PSI , QAPR , rmir , rmis , SA , SPIN , Ssqrt , WTHREJ , 
      &       ZETA , ZPOL
       INTEGER*4 i2 , i3 , IAPR , Icg , Iexp , IFAC , iiex , indx , 
@@ -2734,16 +2734,16 @@ C----------------------------------------------------------------------
 
       SUBROUTINE CMLAB(Ii,Dsig,Tetrn)
       IMPLICIT NONE
-      REAL*4 a1 , a2 , ACCA , ACCUR , ared , BETAR , d2a , DIPOL , 
+      REAL*8 a1 , a2 , ACCA , ACCUR , ared , BETAR , d2a , DIPOL , 
      &       dista , dists , Dsig , DSIGS , emax , EMMA , EN , EP , 
      &       epmin , EPS , EROOT , FIEX
       INTEGER*4 IAXS , IEXP , iflaa , Ii , IPRM , ISKIN , ISO , IZ , 
      &          IZ1 , lexp , lexp0 , lexp1 , n , NCM , NDIM , NEXPT , 
      &          NMAX , NMAX1
-      REAL*4 r3 , SPIN , TASIN , tau , taup , tcmdg , tcmrad , TETACM , 
+      REAL*8 r3 , SPIN , TASIN , tau , taup , tcmdg , tcmrad , TETACM , 
      &       Tetrn , TLBDG , tlbrad , tmxdg , TREP , VINF , XA , XA1 , 
      &       z1 , z2 , zcmdg , zcmrad
-      REAL*4 zlbrad , ZPOL
+      REAL*8 zlbrad , ZPOL
       LOGICAL ERR
       COMMON /CLCOM9/ ERR
       COMMON /SECK  / ISKIN(50)
@@ -2774,8 +2774,8 @@ C----------------------------------------------------------------------
          IF ( IZ1(lexp).LT.0 ) a1 = XA
          a2 = XA
          IF ( IZ1(lexp).LT.0 ) a2 = XA1(lexp)
-         z1 = REAL(ABS(IZ1(lexp)))
-         z2 = REAL(IZ)
+         z1 = DBLE(ABS(IZ1(lexp)))
+         z2 = DBLE(IZ)
          IF ( IPRM(1).EQ.1 ) THEN
             IF ( IZ1(lexp).LT.0 .AND. (Ii.EQ.0 .AND. IPRM(10).EQ.1) )
      &           WRITE (22,99002) IZ , XA , ABS(IZ1(lexp)) , XA1(lexp)
@@ -2908,7 +2908,7 @@ C----------------------------------------------------------------------
       SUBROUTINE QE(C,D,B2,C2,D2,B4,B6,D3,B8,C4,D4,B10,D5,B12,D6,Lmda,
      &              Pol,Cq)
       IMPLICIT NONE
-      REAL*4 B10 , B12 , B2 , B4 , B6 , B8 , C , C2 , C4 , Cq , D , D2 , 
+      REAL*8 B10 , B12 , B2 , B4 , B6 , B8 , C , C2 , C4 , Cq , D , D2 , 
      &       D3 , D4 , D5 , D6 , Pol
       INTEGER*4 Lmda
       DIMENSION Cq(7)
@@ -2957,7 +2957,7 @@ C----------------------------------------------------------------------
 
       SUBROUTINE QM(C,D,B2,B4,Ert,Lmda,Cq)
       IMPLICIT NONE
-      REAL*4 B2 , B4 , C , Cq , D , Ert
+      REAL*8 B2 , B4 , C , Cq , D , Ert
       INTEGER*4 Lmda
       DIMENSION Cq(7)
       IF ( Lmda.EQ.8 ) THEN
@@ -2973,9 +2973,9 @@ C----------------------------------------------------------------------
 
       SUBROUTINE SNAKE(Nexp,Zpol)
       IMPLICIT NONE
-      REAL*4 b10 , b12 , b2 , b4 , b6 , b8 , c , c2 , c4 , c6 , CH , 
+      REAL*8 b10 , b12 , b2 , b4 , b6 , b8 , c , c2 , c4 , c6 , CH , 
      &       chi , cq , d , d2 , d3 , d4 , d5 , d6 , EPS
-      REAL*4 EROOT , ert , FIEX , pol , SH , shi , ZETA , Zpol
+      REAL*8 EROOT , ert , FIEX , pol , SH , shi , ZETA , Zpol
       INTEGER*4 IAXS , ibm , icm , icnt , idm , IEXP , irl , j , k , 
      &          lloc , lmd , lmda , LOCQ , LP1 , LP10 , LP11 , LP12 , 
      &          LP13 , LP14 , LP2
@@ -3066,7 +3066,7 @@ C----------------------------------------------------------------------
 
       SUBROUTINE FHIP
       IMPLICIT NONE
-      REAL*4 CH , er , ex , SH , w
+      REAL*8 CH , er , ex , SH , w
       INTEGER*4 j , LP1 , LP10 , LP11 , LP12 , LP13 , LP14 , LP2 , LP3 , 
      &          LP4 , LP6 , LP7 , LP8 , LP9
       COMMON /MGN   / LP1 , LP2 , LP3 , LP4 , LP6 , LP7 , LP8 , LP9 , 
@@ -3086,7 +3086,7 @@ C----------------------------------------------------------------------
 
       SUBROUTINE ALLOC(Accur)
       IMPLICIT NONE
-      REAL*4 Accur , u , v
+      REAL*8 Accur , u , v
       INTEGER*4 iflag , IRA , j , k , k1 , load , LOCQ , LP1 , LP10 , 
      &          LP11 , LP12 , LP13 , LP14 , LP2 , LP3 , LP4 , LP6 , 
      &          LP7 , LP8 , LP9
@@ -3130,7 +3130,7 @@ C----------------------------------------------------------------------
 
       SUBROUTINE RANGEL(Acc1)
       IMPLICIT NONE
-      REAL*4 Acc1 , ACC50 , acl , w
+      REAL*8 Acc1 , ACC50 , acl , w
       INTEGER*4 i , IRA , LAMDA , LAMMAX , LDNUM , LEAD , MAXLA , MULTI
       COMMON /A50   / ACC50
       COMMON /RNG   / IRA(8) , MAXLA
@@ -3197,7 +3197,7 @@ C----------------------------------------------------------------------
                Irl(Nlm) = IRA(ke)
             ENDIF
          ENDDO
-         nlend = INT((REAL(Nlm)+1.1)/2.)
+         nlend = INT((DBLE(Nlm)+1.1)/2.)
          DO k = 1 , nlend
             ke = Nlm - k + 1
             ls = Lloc(ke)
@@ -3243,14 +3243,14 @@ C----------------------------------------------------------------------
 
       SUBROUTINE AMPDER(I57)
       IMPLICIT NONE
-      REAL*4 CAT , D2W , ELM , ELML , ELMU , rsg , SA , ZETA
+      REAL*8 CAT , D2W , ELM , ELML , ELMU , rsg , SA , ZETA
       INTEGER*4 i1 , I57 , ibg , iend , iflg , indx , ir , is2 , ISG , 
      &          ISG1 , ISMAX , ISSTAR , ISSTO , k , KDIV , lam , LAMDA , 
      &          LAMMAX , LAMR , lax
       INTEGER*4 ld , LDNUM , LEAD , LZETA , m , mm , MSTORE , MULTI , 
      &          n , NDIM , NDIV , nhold , NMAX , NMAX1 , NPT , NSTART , 
      &          NSTOP , NSW , nz
-      COMPLEX*8 ARM , EXPO
+      COMPLEX*16 ARM , EXPO
       COMMON /AZ    / ARM(600,7)
       COMMON /COMME / ELM(500) , ELMU(500) , ELML(500) , SA(500)
       COMMON /CLCOM / LAMDA(8) , LEAD(2,500) , LDNUM(8,75) , LAMMAX , 
@@ -3269,7 +3269,7 @@ C----------------------------------------------------------------------
       ENDDO
       ISG1 = ISG
       IF ( NPT.EQ.1 ) ISG1 = ABS(ISG1)
-      rsg = REAL(ISG)
+      rsg = DBLE(ISG)
       DO i1 = 1 , LAMMAX
          lam = LAMDA(i1)
          lax = lam
@@ -3323,7 +3323,7 @@ C----------------------------------------------------------------------
 
       SUBROUTINE LAISUM(Ir,N,Rsg,Lam,Ld,Nz,I57)
       IMPLICIT NONE
-      REAL*4 ACCA , ACCUR , CAT , D2W , DIPOL , ELM , ELML , ELMU , EN , 
+      REAL*8 ACCA , ACCUR , CAT , D2W , DIPOL , ELM , ELML , ELMU , EN , 
      &       q , rmir , rmis , rmu , Rsg , SA , SPIN , z , ZETA , ZPOL
       INTEGER*4 i2 , i3 , I57 , iii , indq , indx , Ir , irs , is , 
      &          is1 , is2 , ISG , ISG1 , ISHA , ISMAX , ismin , ISO , 
@@ -3333,7 +3333,7 @@ C----------------------------------------------------------------------
      &          LP9 , LZETA
       INTEGER*4 m , mrange , MSTORE , mua , N , NDIV , NPT , NSTART , 
      &          NSTOP , NSW , Nz
-      COMPLEX*8 ARM , FAZA , pamp , EXPO , pamp1
+      COMPLEX*16 ARM , FAZA , pamp , EXPO , pamp1
       COMMON /PSPIN / ISHA
       COMMON /AZ    / ARM(600,7)
       COMMON /COEX  / EN(75) , SPIN(75) , ACCUR , DIPOL , ZPOL , ACCA , 
@@ -3381,9 +3381,9 @@ C----------------------------------------------------------------------
                         Nz = Nz + 1
                         z = ZETA(Nz)
                         q = ZETA(indq+LP7)
-                        IF ( NDIV.NE.0 ) q = ZETA(indq+LP7) + REAL(KDIV)
+                        IF ( NDIV.NE.0 ) q = ZETA(indq+LP7) + DBLE(KDIV)
      &                       *(ZETA(indq+LP7+ISG1)-ZETA(indq+LP7))
-     &                       /REAL(NDIV)
+     &                       /DBLE(NDIV)
                         pamp1 = FAZA(la,mua,rmu,Rsg)*q*z
                         IF ( ISO.NE.0 .OR. rmir.LE..1 ) THEN
                            pamp = pamp1*ARM(is,I57) + pamp
@@ -3411,11 +3411,11 @@ C----------------------------------------------------------------------
 
 C----------------------------------------------------------------------
 
-      COMPLEX*8 FUNCTION EXPON(Inx,Npt,Isg,Isg1,Ndiv,Kdiv)
+      COMPLEX*16 FUNCTION EXPON(Inx,Npt,Isg,Isg1,Ndiv,Kdiv)
       IMPLICIT NONE
-      REAL*4 ADB , XI
+      REAL*8 ADB , XI
       INTEGER*4 Inx , Isg , Isg1 , Kdiv , Ndiv , Npt
-      COMPLEX*8 expo1 , ci , expox , TCEXP
+      COMPLEX*16 expo1 , ci , expox , TCEXP
       COMMON /ADX   / ADB(365)
       COMMON /CXI   / XI(500)
       DATA ci/(0.,1.)/
@@ -3423,17 +3423,17 @@ C----------------------------------------------------------------------
       EXPON = expox
       IF ( Ndiv.NE.0 ) THEN
          expo1 = TCEXP(ci*XI(Inx)*ADB(Npt+Isg1)*Isg)
-         EXPON = expox + REAL(Kdiv)*(expo1-expox)/REAL(Ndiv)
+         EXPON = expox + DBLE(Kdiv)*(expo1-expox)/DBLE(Ndiv)
       ENDIF
       END
 
 C----------------------------------------------------------------------
 
-      COMPLEX*8 FUNCTION FAZA(La,Mi,Rmu,Rsg)
+      COMPLEX*16 FUNCTION FAZA(La,Mi,Rmu,Rsg)
       IMPLICIT NONE
       INTEGER*4 ieven , La , Mi
-      REAL*4 Rmu , Rsg
-      COMPLEX*8 ci
+      REAL*8 Rmu , Rsg
+      COMPLEX*16 ci
       DATA ci/(0.,1.)/
       IF ( La.GT.6 ) THEN
          FAZA = -ci
@@ -3458,7 +3458,7 @@ C----------------------------------------------------------------------
 
       SUBROUTINE SETIN
       IMPLICIT NONE
-      REAL*4 ADB , CH , EPS , EROOT , FIEX , SH
+      REAL*8 ADB , CH , EPS , EROOT , FIEX , SH
       INTEGER*4 IAXS , IEXP , k , LP1 , LP10 , LP11 , LP12 , LP13 , 
      &          LP14 , LP2 , LP3 , LP4 , LP6 , LP7 , LP8 , LP9
       COMMON /MGN   / LP1 , LP2 , LP3 , LP4 , LP6 , LP7 , LP8 , LP9 , 
@@ -3476,13 +3476,13 @@ C----------------------------------------------------------------------
 
       SUBROUTINE STING(Irld)
       IMPLICIT NONE
-      REAL*4 CAT , D2W , ELM , ELML , ELMU , rsg , SA , w0 , ZETA
+      REAL*8 CAT , D2W , ELM , ELML , ELMU , rsg , SA , w0 , ZETA
       INTEGER*4 i , i57 , ibg , iend , IFLG , indx , IRA , Irld , is2 , 
      &          ISG , ISG1 , ISMAX , ISSTAR , ISSTO , j , j1 , jj , 
      &          KDIV , lam , LAMDA
       INTEGER*4 LAMMAX , LAMR , ld , LDNUM , LEAD , LZETA , maxh , 
      &          MAXLA , mm , MSTORE , MULTI , n , NDIV , NPT , NSW , nz
-      COMPLEX*8 ARM , EXPO
+      COMPLEX*16 ARM , EXPO
       COMMON /CLCOM / LAMDA(8) , LEAD(2,500) , LDNUM(8,75) , LAMMAX , 
      &                MULTI(8)
       COMMON /AZ    / ARM(600,7)
@@ -3568,17 +3568,17 @@ C----------------------------------------------------------------------
 
       SUBROUTINE LAIAMP(Ir,W0)
       IMPLICIT NONE
-      REAL*4 CAT , D2W , ELM , ELML , ELMU , EPS , epsi , EROOT , errt , 
+      REAL*8 CAT , D2W , ELM , ELML , ELMU , EPS , epsi , EROOT , errt , 
      &       FIEX , pm , ppp , rmir , rmis , rmu , SA , TCABS , W0 , 
      &       XI , xiv
-      REAL*4 z , ZETA
+      REAL*8 z , ZETA
       INTEGER*4 i1 , i2 , i3 , IAXS , IEXP , indx , Ir , is , is1 , 
      &          is2 , ISG , ISG1 , ISMAX , ismin , isplus , KDIV , la , 
      &          lam , LAMDA , LAMMAX
       INTEGER*4 LAMR , ld , LDNUM , LEAD , LEADF , LZETA , m , MEM , 
      &          mrange , mua , MULTI , NDIV , NPT , NSTART , NSTOP , 
      &          NSW , nz
-      COMPLEX*8 ARM , STAMP , dis , uhuj
+      COMPLEX*16 ARM , STAMP , dis , uhuj
       COMMON /CLCOM / LAMDA(8) , LEAD(2,500) , LDNUM(8,75) , LAMMAX , 
      &                MULTI(8)
       COMMON /AZ    / ARM(600,7)
@@ -3630,7 +3630,8 @@ C----------------------------------------------------------------------
                            IF ( lam.LE.6 .OR. mua.NE.1 ) THEN
                               CALL FAZA1(la,mua,rmir,rmis,dis,rmu)
                               pm = ELM(indx)*z
-                              uhuj = STAMP(epsi,errt,xiv,.03,W0,lam,mua)
+                              uhuj = STAMP(epsi,errt,xiv,.03D0,W0,lam,
+     &                          mua)
                               ARM(is,5) = dis*pm*uhuj
                               ppp = ppp + TCABS(ARM(is,5))
      &                              *TCABS(ARM(is,5))
@@ -3650,8 +3651,8 @@ C----------------------------------------------------------------------
       SUBROUTINE FAZA1(La,Mi,Rmir,Rmis,Dis,Rmu)
       IMPLICIT NONE
       INTEGER*4 ieven , irs , La , Mi
-      REAL*4 Rmir , Rmis , Rmu
-      COMPLEX*8 Dis , ci
+      REAL*8 Rmir , Rmis , Rmu
+      COMPLEX*16 Dis , ci
       DATA ci/(0.,1.)/
       irs = (-1)**INT(Rmir+Rmis)
       IF ( La.EQ.7 ) THEN
@@ -3665,7 +3666,7 @@ C----------------------------------------------------------------------
             RETURN
          ENDIF
       ENDIF
-      Dis = CMPLX(-REAL(irs),0.)
+      Dis = CMPLX(-DBLE(irs),0.)
       RETURN
 99999 END
 
@@ -3673,21 +3674,27 @@ C----------------------------------------------------------------------
 
       SUBROUTINE TRINT(Arg,Si,Ci)
       IMPLICIT NONE
-      REAL*4 a , Arg , c , Ci , f , g , POL4 , s , Si
+      REAL*8 a , Arg , c , Ci , f , g , POL4 , s , Si
       a = Arg*Arg
       IF ( Arg.LT.1. ) THEN
-         Si = POL4(0.,2.83446712E-5,-1.66666667E-3,.055555555,-1.,a)
+         Si = POL4(0.D0,2.83446712D-5,-1.66666667D-3,.055555555D0,
+     &             -1.D0,a)
          Si = Si*Arg
-         Ci = POL4(-3.100198413E-6,2.314814815E-4,-.0104166667,.25,0.,a)
+         Ci = POL4(-3.100198413D-6,2.314814815D-4,-.0104166667D0,
+     &             .25D0,0.D0,a)
          Ci = Ci - LOG(Arg)
          GOTO 99999
       ENDIF
       s = SIN(Arg)
       c = COS(Arg)
-      f = POL4(1.,38.027246,265.187033,335.67732,38.102495,a)
-      f = f/POL4(1.,40.021433,322.624911,570.23628,157.105423,a)/Arg
-      g = POL4(1.,42.242855,302.757865,352.018498,21.821899,a)
-      g = g/POL4(1.,48.196927,482.485984,1114.978885,449.690326,a)/a
+      f = POL4(1.D0,38.027246D0,265.187033D0,335.67732D0,
+     &         38.102495D0,a)
+      f = f/POL4(1.D0,40.021433D0,322.624911D0,570.23628D0,
+     &           157.105423D0,a)/Arg
+      g = POL4(1.D0,42.242855D0,302.757865D0,352.018498D0,
+     &         21.821899D0,a)
+      g = g/POL4(1.D0,48.196927D0,482.485984D0,1114.978885D0,
+     &           449.690326D0,a)/a
       Si = f*c + g*s
       Ci = g*c - f*s
       RETURN
@@ -3695,9 +3702,9 @@ C----------------------------------------------------------------------
 
 C----------------------------------------------------------------------
 
-      REAL*4 FUNCTION POL4(C0,C1,C2,C3,C4,A)
+      REAL*8 FUNCTION POL4(C0,C1,C2,C3,C4,A)
       IMPLICIT NONE
-      REAL*4 A , C0 , C1 , C2 , C3 , C4
+      REAL*8 A , C0 , C1 , C2 , C3 , C4
       POL4 = 1.
       IF ( ABS(A).GT.1.E+9 ) RETURN
       POL4 = C4 + A*(C3+A*(C2+A*(C1+A*C0)))
@@ -3705,12 +3712,12 @@ C----------------------------------------------------------------------
 
 C----------------------------------------------------------------------
 
-      COMPLEX*8 FUNCTION STAMP(Epsi,Errt,Xiv,Dw,W0,Lmda,Mua)
+      COMPLEX*16 FUNCTION STAMP(Epsi,Errt,Xiv,Dw,W0,Lmda,Mua)
       IMPLICIT NONE
-      REAL*4 a , axi , b , bic , bic2 , bis , bis2 , ca , cb , cia , 
+      REAL*8 a , axi , b , bic , bic2 , bis , bis2 , ca , cb , cia , 
      &       cib , cic , cis , Dw , dwi , Epsi , Errt , ex , exa , fct
       INTEGER*4 la , Lmda , mi , Mua
-      REAL*4 sa , sb , sia , sib , W0 , Xiv
+      REAL*8 sa , sb , sia , sib , W0 , Xiv
       mi = Mua - 1
       axi = ABS(Xiv)
       la = Lmda
@@ -3778,10 +3785,10 @@ C----------------------------------------------------------------------
 
       SUBROUTINE RESET(Iso)
       IMPLICIT NONE
-      REAL*4 CAT
+      REAL*8 CAT
       INTEGER*4 ir , ISMAX , Iso , j , NDIM , NMAX , NMAX1 , NSTART , 
      &          NSTOP
-      COMPLEX*8 ARM
+      COMPLEX*16 ARM
       COMMON /CEXC0 / NSTART(76) , NSTOP(75)
       COMMON /AZ    / ARM(600,7)
       COMMON /CLCOM8/ CAT(600,3) , ISMAX
@@ -3809,10 +3816,10 @@ C----------------------------------------------------------------------
 
       SUBROUTINE HALF(Iso)
       IMPLICIT NONE
-      REAL*4 CAT
+      REAL*8 CAT
       INTEGER*4 ir , ISMAX , Iso , j , NDIM , NMAX , NMAX1 , NSTART , 
      &          NSTOP
-      COMPLEX*8 ARM , fpom
+      COMPLEX*16 ARM , fpom
       COMMON /CEXC0 / NSTART(76) , NSTOP(75)
       COMMON /AZ    / ARM(600,7)
       COMMON /CLCOM8/ CAT(600,3) , ISMAX
@@ -3844,10 +3851,10 @@ C----------------------------------------------------------------------
 
       SUBROUTINE DOUBLE(Iso)
       IMPLICIT NONE
-      REAL*4 CAT
+      REAL*8 CAT
       INTEGER*4 ir , ISMAX , Iso , j , NDIM , NMAX , NMAX1 , NSTART , 
      &          NSTOP
-      COMPLEX*8 ARM , fpom
+      COMPLEX*16 ARM , fpom
       COMMON /CEXC0 / NSTART(76) , NSTOP(75)
       COMMON /AZ    / ARM(600,7)
       COMMON /CLCOM8/ CAT(600,3) , ISMAX
@@ -3878,7 +3885,7 @@ C----------------------------------------------------------------------
 
       SUBROUTINE PATH(Irld)
       IMPLICIT NONE
-      REAL*4 CAT , spm , vl
+      REAL*8 CAT , spm , vl
       INTEGER*4 i , IPATH , Irld , ISMAX , isp , ist , j , MAGA , NDIM , 
      &          NMAX , NMAX1 , NSTART , NSTOP
       COMMON /CEXC0 / NSTART(76) , NSTOP(75)
@@ -3906,14 +3913,14 @@ C----------------------------------------------------------------------
 
       SUBROUTINE INTG(Ien)
       IMPLICIT NONE
-      REAL*4 ACC50 , ACCA , ACCUR , CAT , D2W , DIPOL , EN , f , rim , 
+      REAL*8 ACC50 , ACCA , ACCUR , CAT , D2W , DIPOL , EN , f , rim , 
      &       rl , SPIN , srt , ZPOL
       INTEGER*4 i , i57 , Ien , IFAC , IFLG , ihold , intend , INTERV , 
      &          IPATH , ir , ir1 , IRA , ISG , ISG1 , ISMAX , ISO , k , 
      &          kast , KDIV , LAMR
       INTEGER*4 MAGA , MAXLA , mir , n , NDIM , NDIV , NMAX , NMAX1 , 
      &          NPT , NSTART , NSTOP , NSW
-      COMPLEX*8 ARM , hold
+      COMPLEX*16 ARM , hold
       COMMON /COEX  / EN(75) , SPIN(75) , ACCUR , DIPOL , ZPOL , ACCA , 
      &                ISO
       COMMON /AZ    / ARM(600,7)
@@ -3949,7 +3956,7 @@ C----------------------------------------------------------------------
             mir = CAT(ir,3)
             ir1 = ir - 2*mir
             ARM(ir1,7) = IFAC(n)*ARM(ir,7)
-            IF ( REAL(mir).LT.-0.1 ) GOTO 120
+            IF ( DBLE(mir).LT.-0.1 ) GOTO 120
          ENDDO
       ELSE
          DO ir = 1 , ISMAX
@@ -3983,7 +3990,7 @@ C----------------------------------------------------------------------
             mir = CAT(ir,3)
             ir1 = ir - 2*mir
             ARM(ir1,5) = IFAC(n)*ARM(ir,5)
-            IF ( REAL(mir).LT.-0.1 ) GOTO 220
+            IF ( DBLE(mir).LT.-0.1 ) GOTO 220
          ENDDO
       ELSE
          DO ir = 1 , ISMAX
@@ -4004,8 +4011,8 @@ C----------------------------------------------------------------------
                ihold = IPATH(k)
                IF ( ihold.NE.0 ) THEN
                   hold = ARM(ihold,5) - ARM(ihold,7)
-                  rl = REAL(hold)
-                  rim = AIMAG(hold)
+                  rl = DBLE(hold)
+                  rim = IMAG(hold)
                   srt = rl*rl + rim*rim
                   f = MAX(f,srt)
                ENDIF
@@ -4016,10 +4023,10 @@ C----------------------------------------------------------------------
                   CALL DOUBLE(ISO)
                   D2W = 2.*D2W
                   NSW = 2*NSW
-                  intend = (REAL(intend)+.01)/2.
+                  intend = (DBLE(intend)+.01)/2.
                   IF ( intend.EQ.0 ) intend = 1
                   IF ( NSW.LT.1 ) THEN
-                     NDIV = (REAL(NDIV)+.01)/2.
+                     NDIV = (DBLE(NDIV)+.01)/2.
                      IF ( NDIV.LT.2 ) THEN
                         NDIV = 0
                         NSW = 1
@@ -4028,7 +4035,7 @@ C----------------------------------------------------------------------
                ELSE
                   CALL HALF(ISO)
                   D2W = D2W/2.
-                  NSW = (REAL(NSW)+.01)/2.
+                  NSW = (DBLE(NSW)+.01)/2.
                   intend = 2*intend
                   IF ( NSW.LT.1 ) THEN
                      NDIV = 2*NDIV
@@ -4045,12 +4052,12 @@ C----------------------------------------------------------------------
 
       SUBROUTINE NEWLV(N,Ld,La)
       IMPLICIT NONE
-      REAL*4 D2W
+      REAL*8 D2W
       INTEGER*4 i2 , IFLG , indx , ISG , ISG1 , ISSTAR , ISSTO , KDIV , 
      &          La , LAMDA , LAMMAX , LAMR , Ld , LDNUM , LEAD , LEADF , 
      &          m , MEM , MSTORE , MULTI
       INTEGER*4 N , NDIV , NPT , NSTART , NSTOP , NSW
-      COMPLEX*8 EXPO , EXPON
+      COMPLEX*16 EXPO , EXPON
       COMMON /CLCOM / LAMDA(8) , LEAD(2,500) , LDNUM(8,75) , LAMMAX , 
      &                MULTI(8)
       COMMON /CAUX  / NPT , NDIV , KDIV , LAMR(8) , ISG , D2W , NSW , 
@@ -4081,7 +4088,7 @@ C----------------------------------------------------------------------
       IMPLICIT NONE
       INTEGER*4 IAPR , idm , idn , Indx , Inqa , IPATH , Ir , Is , 
      &          ISEX , ism , MAGA , Mt , N
-      REAL*4 QAPR
+      REAL*8 QAPR
       COMMON /PTH   / IPATH(75) , MAGA(75)
       COMMON /APRCAT/ QAPR(500,2,7) , IAPR(500,2) , ISEX(75)
       IAPR(Indx,1) = N
@@ -4117,13 +4124,13 @@ C----------------------------------------------------------------------
 
       SUBROUTINE APRAM(Iexp,Inc,Indx,Irld,Acca)
       IMPLICIT NONE
-      REAL*4 Acca , accah , ELM , ELML , ELMU , QAPR , SA , uwa
+      REAL*8 Acca , accah , ELM , ELML , ELMU , QAPR , SA , uwa
       INTEGER*4 i1 , i56 , i7 , IAPR , IDIVE , Iexp , img , Inc , Indx , 
      &          IPATH , Irld , ISEX , itm , IVAR , j , jidim , jj , k , 
      &          ktoto , l
       INTEGER*4 l1 , l2 , l3 , LERF , LMAXE , m , MAGA , MAGEXC , 
      &          MEMAX , MEMX6
-      COMPLEX*8 ARM
+      COMPLEX*16 ARM
       COMMON /AZ    / ARM(600,7)
       COMMON /APRCAT/ QAPR(500,2,7) , IAPR(500,2) , ISEX(75)
       COMMON /PTH   / IPATH(75) , MAGA(75)
@@ -4229,7 +4236,7 @@ C----------------------------------------------------------------------
 
       SUBROUTINE NEWCAT(Iexp,Jidim)
       IMPLICIT NONE
-      REAL*4 a , b , FXIS1 , FXIS2 , PARX , PARXM , q1 , q2 , QAPR , 
+      REAL*8 a , b , FXIS1 , FXIS2 , PARX , PARXM , q1 , q2 , QAPR , 
      &       wg , wl , XI , XIR , xp , xx , zt
       INTEGER*4 IAPR , Iexp , IPATH , ISEX , ist , istop , Jidim , k , 
      &          kk , LAMDA , LAMMAX , LDNUM , LEAD , MAGA , MULTI , n , 
@@ -4257,9 +4264,9 @@ C----------------------------------------------------------------------
                      zt = ABS(zt)
                      xp = 9.*xx
                      nl = INT(xp) + 1
-                     wg = xp - REAL(nl-1)
+                     wg = xp - DBLE(nl-1)
                      ng = nl + 1
-                     wl = REAL(nl) - xp
+                     wl = DBLE(nl) - xp
                      a = wg*PARXM(Iexp,1,ng,kk) + wl*PARXM(Iexp,1,nl,kk)
                      b = wg*PARXM(Iexp,2,ng,kk) + wl*PARXM(Iexp,2,nl,kk)
                      q1 = a*zt + b
@@ -4281,9 +4288,9 @@ C----------------------------------------------------------------------
                         zt = ABS(zt)
                         xp = 4.*xx
                         nl = INT(xp) + 1
-                        wg = xp - REAL(nl-1)
+                        wg = xp - DBLE(nl-1)
                         ng = nl + 1
-                        wl = REAL(nl) - xp
+                        wl = DBLE(nl) - xp
                         q1 = wg*PARX(Iexp,2*kk-1,ng)
      &                       + wl*PARX(Iexp,2*kk-1,nl)
                         q2 = wg*PARX(Iexp,2*kk,ng)
@@ -4303,12 +4310,12 @@ C----------------------------------------------------------------------
 
       SUBROUTINE POMNOZ(Acca,L,Iw,Ktoto,Img,Jidim)
       IMPLICIT NONE
-      REAL*4 Acca , QAPR , sig , TCABS , test , u
+      REAL*8 Acca , QAPR , sig , TCABS , test , u
       INTEGER*4 IAPR , IDIVE , Img , INHB , IPATH , ISEX , IVAR , Iw , 
      &          Jidim , k , kk , Ktoto , L , LERF , LMAXE , m , MAGA , 
      &          MAGEXC , mc , mc1
       INTEGER*4 MEMAX , MEMX6 , mw , mw1
-      COMPLEX*8 ARM , ci
+      COMPLEX*16 ARM , ci
       COMMON /INHI  / INHB
       COMMON /APRCAT/ QAPR(500,2,7) , IAPR(500,2) , ISEX(75)
       COMMON /PTH   / IPATH(75) , MAGA(75)
@@ -4376,13 +4383,13 @@ C----------------------------------------------------------------------
 
       SUBROUTINE TENB(Icl,Bten,Lmax)
       IMPLICIT NONE
-      REAL*4 ACCA , ACCUR , Bten , CAT , ce , DIPOL , EN , fc , si , 
+      REAL*8 ACCA , ACCUR , Bten , CAT , ce , DIPOL , EN , fc , si , 
      &       SPIN , WTHREJ , x , ZPOL
       INTEGER*4 i , Icl , iha , ila , ilg , ind , isi , ISMAX , ISO , 
      &          ite , jm , jmp , k , kk , kp , l , ll , Lmax , lp , m
       INTEGER*4 mm , mp , ms , msp , NDIM , NMAX , NMAX1 , NSTART , 
      &          NSTOP
-      COMPLEX*8 ARM
+      COMPLEX*16 ARM
       DIMENSION Bten(1200)
       COMMON /COEX  / EN(75) , SPIN(75) , ACCUR , DIPOL , ZPOL , ACCA , 
      &                ISO
@@ -4423,12 +4430,12 @@ C----------------------------------------------------------------------
                         jmp = -INT(2.01*CAT(mp,3))
                         fc = WTHREJ(isi,kk,isi,jmp,ll,jm)
                         ite = 1
- 2                      IF ( ila.EQ.1 ) x = REAL(ARM(mp,5))
-     &                       *REAL(ARM(mm,5)) + AIMAG(ARM(mp,5))
-     &                       *AIMAG(ARM(mm,5))
-                        IF ( ila.NE.1 ) x = REAL(ARM(mp,5))
-     &                       *AIMAG(ARM(mm,5)) - REAL(ARM(mm,5))
-     &                       *AIMAG(ARM(mp,5))
+ 2                      IF ( ila.EQ.1 ) x = DBLE(ARM(mp,5))
+     &                       *DBLE(ARM(mm,5)) + IMAG(ARM(mp,5))
+     &                       *IMAG(ARM(mm,5))
+                        IF ( ila.NE.1 ) x = DBLE(ARM(mp,5))
+     &                       *IMAG(ARM(mm,5)) - DBLE(ARM(mm,5))
+     &                       *IMAG(ARM(mp,5))
                         Bten(ind) = Bten(ind) + x*fc*ilg
                         IF ( ite.EQ.2 ) GOTO 6
  4                      IF ( iha.NE.1 .OR. Icl.NE.Lmax ) THEN
@@ -4456,7 +4463,7 @@ C----------------------------------------------------------------------
 
       SUBROUTINE TENS(Bten)
       IMPLICIT NONE
-      REAL*4 arg , Bten , DJMM , DSIGS , EPS , EROOT , FIEX , TETACM , 
+      REAL*8 arg , Bten , DJMM , DSIGS , EPS , EROOT , FIEX , TETACM , 
      &       TREP , ZETA
       INTEGER*4 i , IAXS , IEXP , ind , inz , iph , ix , k , k1 , kp , 
      &          l , lp , lpp , lx , lxx , LZETA , NDIM , NMAX , NMAX1
@@ -4474,7 +4481,7 @@ C----------------------------------------------------------------------
       DO i = 2 , NMAX
          DO kp = 1 , 7 , 2
             k = kp - 1
-            k1 = INT(REAL(k)/2.+.01)
+            k1 = INT(DBLE(k)/2.+.01)
             IF ( k.EQ.0 ) THEN
                ind = (i-2)*16 + 1
                inz = (i-1)*28 + 1
@@ -4488,7 +4495,7 @@ C----------------------------------------------------------------------
                         ind = k*k/4 + lpp + (i-2)*16
                         lx = lpp - 1
                         lxx = lx
- 2                      iph = (-1)**(l+INT(REAL(lxx)/2.))
+ 2                      iph = (-1)**(l+INT(DBLE(lxx)/2.))
                         ZETA(inz) = ZETA(inz) + Bten(ind)
      &                              *iph*DJMM(arg,k,lx,l)
                         IF ( lpp.NE.1 ) THEN
@@ -4508,9 +4515,9 @@ C----------------------------------------------------------------------
 
 C----------------------------------------------------------------------
 
-      REAL*4 FUNCTION DJMM(Beta,K,Kpp,Kp)
+      REAL*8 FUNCTION DJMM(Beta,K,Kpp,Kp)
       IMPLICIT NONE
-      REAL*4 B , b1 , b2 , be , BEQ , Beta , cb , ctb , djm , f , g , 
+      REAL*8 B , b1 , b2 , be , BEQ , Beta , cb , ctb , djm , f , g , 
      &       sb , sk , ul
       INTEGER*4 iczy , ifla , ifza , ill , j , ja , jb , jc , jd , K , 
      &          Kp , Kpp , lca , loc , mas , mis
@@ -4520,7 +4527,7 @@ C----------------------------------------------------------------------
       SAVE djm
       ifza = 1
       IF ( Beta.LT.0. ) ifza = (-1)**(Kp+Kpp)
-      sk = REAL(K)
+      sk = DBLE(K)
       ul = sk*((sk-1.)*(4.*sk+7)/6.+1.)
       lca = INT(ul+.1)
       loc = lca + (2*K+1)*Kp + Kpp + K + 1
@@ -4592,13 +4599,13 @@ C----------------------------------------------------------------------
 
       SUBROUTINE FTBM(Icll,Chisq,Idr,Ncall,Chilo,Bten)
       IMPLICIT NONE
-      REAL*4 ACCA , ACCUR , AGELI , aval , Bten , CAT , CC , Chilo , 
+      REAL*8 ACCA , ACCUR , AGELI , aval , Bten , CAT , CC , Chilo , 
      &       chis1 , CHIS11 , chish , Chisq , chisx , chx , CORF , 
      &       DIPOL , DYEX , EG , ELM , ELML
-      REAL*4 ELMU , EMH , EN , EP , EPS , EROOT , fc , FIEX , fx , 
+      REAL*8 ELMU , EMH , EN , EP , EPS , EROOT , fc , FIEX , fx , 
      &       polm , pr , prop , Q , SA , SPIN , TAU , TLBDG , UPL , 
      &       val , VINF
-      REAL*4 wz , XA , XA1 , YEXP , YNRM , ZETA , ZPOL
+      REAL*8 wz , XA , XA1 , YEXP , YNRM , ZETA , ZPOL
       INTEGER*4 i1 , i11 , iapx , IAXS , Icll , idec , Idr , IDRN , 
      &          IEXP , iflg , IGRD , ii , ILE , ile1 , ile2 , ile3 , 
      &          ilin , indx , inko , INM
@@ -4617,7 +4624,7 @@ C----------------------------------------------------------------------
      &          NANG , Ncall , NDIM , NEXPT , NICC , NLIFT , nlin , 
      &          NMAX , NMAX1 , nowr , npoz , nrest , NSTART
       INTEGER*4 NSTOP , NWR , nwyr , NYLDE
-      COMPLEX*8 ARM
+      COMPLEX*16 ARM
       DIMENSION jmte(6) , prop(6) , Bten(1200)
       COMMON /CX    / NEXPT , IZ , XA , IZ1(50) , XA1(50) , EP(50) , 
      &                TLBDG(50) , VINF(50)
@@ -4694,13 +4701,13 @@ C----------------------------------------------------------------------
          DO k = 1 , loch
             ZETA(k) = 0.
          ENDDO
-         CALL LOAD(IEXP,1,2,0.,jj)
+         CALL LOAD(IEXP,1,2,0.D0,jj)
          DO k = 1 , LMAX
             fc = 2.
             IF ( k.EQ.LMAX ) fc = 1.
-            IF ( REAL(INT(SPIN(1))).LT.SPIN(1) ) fc = 2.
+            IF ( DBLE(INT(SPIN(1))).LT.SPIN(1) ) fc = 2.
             loc = 0
-            polm = REAL(k-1) - SPIN(1)
+            polm = DBLE(k-1) - SPIN(1)
             CALL LOAD(IEXP,3,2,polm,jj)
             CALL PATH(jj)
             CALL LOAD(IEXP,2,2,polm,jj)
@@ -4719,10 +4726,10 @@ C----------------------------------------------------------------------
      &                          - NSTART(i11) + 1
                            DO lpxd = 1 , lpx
                               kx = kx + 1
-                              ZETA(loc) = ZETA(loc) + fc*REAL(ARM(kx,5))
-     &                           *REAL(ARM(kx,6))
-     &                           /fx + fc*AIMAG(ARM(kx,5))
-     &                           *AIMAG(ARM(kx,6))/fx
+                              ZETA(loc) = ZETA(loc) + fc*DBLE(ARM(kx,5))
+     &                           *DBLE(ARM(kx,6))
+     &                           /fx + fc*IMAG(ARM(kx,5))
+     &                           *IMAG(ARM(kx,6))/fx
                            ENDDO
                         ENDIF
                      ENDDO
@@ -4745,12 +4752,12 @@ C----------------------------------------------------------------------
          IF ( Icll.NE.1 ) GOTO 200
  100     iapx = 0
          issp = 1
-         CALL LOAD(IEXP,1,1,0.,jj)
+         CALL LOAD(IEXP,1,1,0.D0,jj)
          CALL ALLOC(ACCUR)
          CALL SNAKE(IEXP,ZPOL)
          CALL SETIN
          DO k = 1 , LMAX
-            polm = REAL(k-1) - SPIN(1)
+            polm = DBLE(k-1) - SPIN(1)
             CALL LOAD(IEXP,2,1,polm,kk)
             IF ( IPRM(7).EQ.-1 ) WRITE (22,99001) polm , IEXP
 99001       FORMAT (1X//40X,'EXCITATION AMPLITUDES'//10X,'M=',1F4.1,5X,
@@ -4763,7 +4770,7 @@ C----------------------------------------------------------------------
             IF ( IPRM(7).EQ.-1 ) THEN
                DO j = 1 , ISMAX
                   WRITE (22,99002) INT(CAT(j,1)) , CAT(j,2) , CAT(j,3) , 
-     &                             REAL(ARM(j,5)) , AIMAG(ARM(j,5))
+     &                             DBLE(ARM(j,5)) , IMAG(ARM(j,5))
 99002             FORMAT (7X,1I2,3X,1F4.1,2X,1F4.1,2X,1E14.6,2X,1E14.6)
                ENDDO
             ENDIF
@@ -4906,8 +4913,8 @@ C----------------------------------------------------------------------
                      kk = luu - LP10*(jk-1)
                      kk6 = kk + 5
                      WRITE (22,99009) KSEQ(idec,3) , KSEQ(idec,4) , 
-     &                                (INT(REAL(ARM(kkx,jk))),
-     &                                AIMAG(ARM(kkx,jk)),kkx=kk,kk6)
+     &                                (INT(DBLE(ARM(kkx,jk))),
+     &                                IMAG(ARM(kkx,jk)),kkx=kk,kk6)
 99009                FORMAT (2X,1I2,'--',1I2,5X,
      &                       6('(',1I3,2X,1E8.2,')',3X))
                   ENDDO
@@ -4940,13 +4947,13 @@ C----------------------------------------------------------------------
       SUBROUTINE MINI(Chisq,Chiok,Nptl,Conv,Imode,Idr,Xtest,Ips,Is,Jjh,
      &                Bten)
       IMPLICIT NONE
-      REAL*4 a , a0 , a1 , b , Bten , c , ccd , chd , chil , chilo , 
+      REAL*8 a , a0 , a1 , b , Bten , c , ccd , chd , chil , chilo , 
      &       Chiok , chirf , CHIS11 , chis12 , chis13 , chisf , chisp , 
      &       Chisq , chiss , chl
-      REAL*4 chx , cmax , Conv , CORF , crit , DEVD , DEVU , dl , 
+      REAL*8 chx , cmax , Conv , CORF , crit , DEVD , DEVU , dl , 
      &       DLOCK , dm , DYEX , ELM , ELMH , ELML , ELMU , EMH , f1 , 
      &       f2 , flt , GRAD
-      REAL*4 gradp , HLMLM , ht , p , q , rfk , SA , sel , shl , sumg1 , 
+      REAL*8 gradp , HLMLM , ht , p , q , rfk , SA , sel , shl , sumg1 , 
      &       sumg2 , sumht , UPL , uxa , xkat , Xtest , YEXP , YNRM
       INTEGER*4 i , icl1 , icl2 , icount , ICS , Idr , IDRN , IFBFL , 
      &          iht , iin , ILE , Imode , indx1 , INM , inmx , ino , 
@@ -5379,19 +5386,19 @@ C----------------------------------------------------------------------
 
       SUBROUTINE CEGRY(Chisq,Itemp,Chilo,Idr,Nwyr,Icall,Issp,Iredv)
       IMPLICIT NONE
-      REAL*4 ACCA , ACCUR , AGELI , AKS , BETAR , CC , ccc , ccd , 
+      REAL*8 ACCA , ACCUR , AGELI , AKS , BETAR , CC , ccc , ccd , 
      &       Chilo , Chisq , CNOR , cnr , cocos , CORF , d , decen , 
      &       DELTA , DEV , DIPOL , DIX
-      REAL*4 dl , DQ , DSIGS , DYEX , effi , EG , EMH , EN , ENDEC , 
+      REAL*8 dl , DQ , DSIGS , DYEX , effi , EG , EMH , EN , ENDEC , 
      &       ENZ , EP , EPS , EROOT , fi0 , fi1 , fic , FIEX , figl , 
      &       fm , g
-      REAL*4 gth , ODL , part , partl , Q , QCEN , rik , rl , rx , ry , 
+      REAL*8 gth , ODL , part , partl , Q , QCEN , rik , rl , rx , ry , 
      &       rys , rz , sf , sgm , SGW , SPIN , SUBCH1 , SUBCH2 , sum3 , 
      &       SUMCL
-      REAL*4 sumpr , TACOS , TAU , TETACM , tetrc , tfac , thc , TLBDG , 
+      REAL*8 sumpr , TACOS , TAU , TETACM , tetrc , tfac , thc , TLBDG , 
      &       TREP , UPL , VACDP , VINF , wf , XA , XA1 , XNOR , YEXP , 
      &       YGN , YGP , YNRM
-      REAL*4 ZPOL
+      REAL*8 ZPOL
       INTEGER*4 iabc , IAXS , IBYP , Icall , ICLUST , id , idc , Idr , 
      &          IDRN , IEXP , ifdu , IFMO , ifxd , IGRD , ii , ILE , 
      &          ile2 , IMIN , inclus , INM
@@ -5857,10 +5864,10 @@ C----------------------------------------------------------------------
       SUBROUTINE FAKP
       IMPLICIT NONE
       INTEGER*4 i , IP , IPI , k , KF , l
-      REAL*4 PILOG , x
+      REAL*8 PILOG , x
       COMMON /FAKUL / IP(26) , IPI(26) , KF(101,26) , PILOG(26)
       DO i = 1 , 26
-         x = REAL(IP(i))
+         x = DBLE(IP(i))
          PILOG(i) = LOG(x)
       ENDDO
       DO l = 1 , 26
@@ -5880,7 +5887,7 @@ C----------------------------------------------------------------------
       SUBROUTINE PRIM(N)
       IMPLICIT NONE
       INTEGER*4 i , IP , IPI , KF , N , nni , nnk
-      REAL*4 PILOG
+      REAL*8 PILOG
       COMMON /FAKUL / IP(26) , IPI(26) , KF(101,26) , PILOG(26)
       nnk = N
       DO i = 1 , 26
@@ -5899,10 +5906,10 @@ C----------------------------------------------------------------------
 
       SUBROUTINE SEQ(Idr)
       IMPLICIT NONE
-      REAL*4 ACCA , ACCUR , CONV , DELTA , DIPOL , ega , egs , emax , 
+      REAL*8 ACCA , ACCUR , CONV , DELTA , DIPOL , ega , egs , emax , 
      &       EN , ENDEC , ENZ , F , FP , GF , GKP , SPIN , spinf , 
      &       spini , TAU , twoi
-      REAL*4 ZPOL
+      REAL*8 ZPOL
       INTEGER*4 idecay , Idr , indx , inx , inx1 , ir , is , ISO , 
      &          istr1 , istr2 , ITMA , j , js , jsave , k , KLEC , kpa , 
      &          KSEQ , l , la
@@ -6090,10 +6097,10 @@ C----------------------------------------------------------------------
 
 C----------------------------------------------------------------------
 
-      REAL*4 FUNCTION GF(K,Sji,Sjf,L)
+      REAL*8 FUNCTION GF(K,Sji,Sjf,L)
       IMPLICIT NONE
       INTEGER*4 i , ix , jfz , jiz , K , kz , L , lz
-      REAL*4 phase , Sjf , Sji , WSIXJ
+      REAL*8 phase , Sjf , Sji , WSIXJ
       GF = 0.
       IF ( L.EQ.0 ) RETURN
       ix = INT(Sji+Sjf+.0001)
@@ -6109,10 +6116,10 @@ C----------------------------------------------------------------------
 
 C----------------------------------------------------------------------
 
-      REAL*4 FUNCTION F(K,Sji,Sjf,L1,L2)
+      REAL*8 FUNCTION F(K,Sji,Sjf,L1,L2)
       IMPLICIT NONE
       INTEGER*4 ix , jfz , jiz , K , kz , l , L1 , l1z , L2 , l2z
-      REAL*4 phase , Sjf , Sji , WSIXJ , WTHREJ
+      REAL*8 phase , Sjf , Sji , WSIXJ , WTHREJ
       F = 0.
       IF ( (L1*L2).EQ.0 ) RETURN
       ix = INT(Sji+Sjf+.0001)
@@ -6130,9 +6137,9 @@ C----------------------------------------------------------------------
 
 C----------------------------------------------------------------------
 
-      REAL*4 FUNCTION CONV(Ega,N)
+      REAL*8 FUNCTION CONV(Ega,N)
       IMPLICIT NONE
-      REAL*4 AGELI , CC , cpo , cpo1 , cv , EG , Ega , Q
+      REAL*8 AGELI , CC , cpo , cpo1 , cv , EG , Ega , Q
       INTEGER*4 j , N , n1 , NANG , nen , NICC
       DIMENSION cpo(51) , cpo1(51)
       COMMON /CCC   / EG(50) , CC(50,5) , AGELI(50,200,2) ,
@@ -6165,7 +6172,7 @@ C----------------------------------------------------------------------
 
 C----------------------------------------------------------------------
 
-      REAL*4 FUNCTION WTHREJ(J1,J2,J3,M1,M2,M3)
+      REAL*8 FUNCTION WTHREJ(J1,J2,J3,M1,M2,M3)
       IMPLICIT NONE
       INTEGER*4 IP , IPI , iz , iza , izb , izc , izd , ize , izexp , 
      &          izf , izmax , izmin , J1 , J2 , J3 , jabc , jabm , 
@@ -6174,7 +6181,7 @@ C----------------------------------------------------------------------
      &          jmb , jmc , jmd , jme , jmf , jta , jtb , jtc , jvo , 
      &          jvora , KF , M1
       INTEGER*4 M2 , M3 , mm1 , mm2 , mm3 , n , nmax
-      REAL*4 PILOG , qsumlo , sumlo , vorz , wthrep , zuthre
+      REAL*8 PILOG , qsumlo , sumlo , vorz , wthrep , zuthre
       DIMENSION jvora(26)
       COMMON /FAKUL / IP(26) , IPI(26) , KF(101,26) , PILOG(26)
       wthrep = 0.E+00
@@ -6267,7 +6274,7 @@ C----------------------------------------------------------------------
 
 C----------------------------------------------------------------------
 
-      REAL*4 FUNCTION WSIXJ(J1,J2,J3,L1,L2,L3)
+      REAL*8 FUNCTION WSIXJ(J1,J2,J3,L1,L2,L3)
       IMPLICIT NONE
       INTEGER*4 IP , IPI , irj , irl , isa , isb , isc , isumfa , iva , 
      &          ivb , ivc , ivd , ivorfa , iz , iza , izb , izc , izd , 
@@ -6277,7 +6284,7 @@ C----------------------------------------------------------------------
      &          ksc , ksd
       INTEGER*4 kta , ktb , ktc , ktd , kua , kub , kuc , L1 , L2 , L3 , 
      &          n , nmax
-      REAL*4 PILOG , qsumfa , qsumlo , sumlo , vorz , wsixp , zusix
+      REAL*8 PILOG , qsumfa , qsumlo , sumlo , vorz , wsixp , zusix
       DIMENSION isumfa(26) , ivorfa(26)
       COMMON /FAKUL / IP(26) , IPI(26) , KF(101,26) , PILOG(26)
       wsixp = 0.E+00
@@ -6367,7 +6374,7 @@ C----------------------------------------------------------------------
 
       SUBROUTINE LAGRAN(X,Y,Ndata,Ipc,Xx,Yy,Iscal,Irc)
       IMPLICIT NONE
-      REAL*4 arh , FUNC , FUNC1 , t , w , X , Xx , Y , y1 , Yy
+      REAL*8 arh , FUNC , FUNC1 , t , w , X , Xx , Y , y1 , Yy
       INTEGER*4 i , Ipc , Irc , Iscal , j , Ndata
       DIMENSION X(51) , Y(51) , w(51) , arh(51,51)
       IF ( Irc.EQ.2 ) THEN
@@ -6407,10 +6414,10 @@ C----------------------------------------------------------------------
 
 C----------------------------------------------------------------------
 
-      REAL*4 FUNCTION FUNC(Y,I)
+      REAL*8 FUNCTION FUNC(Y,I)
       IMPLICIT NONE
       INTEGER*4 I
-      REAL*4 Y
+      REAL*8 Y
       IF ( I.EQ.2 ) THEN
          IF ( Y.LT.1.E-12 ) Y = 1.E-12
          FUNC = LOG(Y)
@@ -6425,10 +6432,10 @@ C----------------------------------------------------------------------
 
 C----------------------------------------------------------------------
 
-      REAL*4 FUNCTION FUNC1(Y,I)
+      REAL*8 FUNCTION FUNC1(Y,I)
       IMPLICIT NONE
       INTEGER*4 I
-      REAL*4 Y
+      REAL*8 Y
       IF ( I.EQ.2 ) THEN
          FUNC1 = EXP(Y)
          RETURN
@@ -6444,10 +6451,10 @@ C----------------------------------------------------------------------
 
       SUBROUTINE GKVAC(Il)
       IMPLICIT NONE
-      REAL*4 ACCA , ACCUR , AKS , AVJI , beta , BETAR , DIPOL , DQ , 
+      REAL*8 ACCA , ACCUR , AKS , AVJI , beta , BETAR , DIPOL , DQ , 
      &       EN , EP , EPS , EROOT , FIEL , FIEX , GAMMA , GFAC , GKI , 
      &       POWER , QCEN , sp
-      REAL*4 SPIN , SUM , TAU , time , TIMEC , TLBDG , VACDP , VINF , 
+      REAL*8 SPIN , SUM , TAU , time , TIMEC , TLBDG , VACDP , VINF , 
      &       XA , XA1 , XLAMB , XNOR , ZPOL
       INTEGER*4 i , IAXS , IBYP , IEXP , Il , ISO , ITTE , IZ , IZ1 , 
      &          KSEQ , NEXPT
@@ -6485,10 +6492,10 @@ C----------------------------------------------------------------------
 
       SUBROUTINE GKK(Iz,Beta,Spin,Time,Il)
       IMPLICIT NONE
-      REAL*4 AKS , alp , ATS , AVJI , Beta , ccf , down , DQ , dwc , f , 
+      REAL*8 AKS , alp , ATS , AVJI , Beta , ccf , down , DQ , dwc , f , 
      &       FIEL , GAMMA , GFAC , GKI , hmean , POWER , QCEN , rk , 
      &       sm , Spin
-      REAL*4 SUM , Time , TIMEC , up , upc , VACDP , valmi , w2 , wrt , 
+      REAL*8 SUM , Time , TIMEC , up , upc , VACDP , valmi , w2 , wrt , 
      &       WSIXJ , wsp , xji , xlam , XLAMB , XNOR
       INTEGER*4 i , IBYP , if2 , ifq , Il , imean , inq , irk2 , 
      &          ispin2 , ixji2 , Iz , j , k , k1 , k2 , l , m , ncoup , 
@@ -6519,9 +6526,9 @@ C----------------------------------------------------------------------
             valmi = Spin - xji
             IF ( valmi.LT.0. ) valmi = -valmi
             DO m = 1 , ncoup
-               f = valmi + REAL(m) - 1.
+               f = valmi + DBLE(m) - 1.
                DO k = 1 , 3
-                  rk = 2.*REAL(k)
+                  rk = 2.*DBLE(k)
                   if2 = f*2. + 0.0001
                   irk2 = rk*2. + 0.0001
                   ispin2 = Spin*2. + 0.0001
@@ -6535,7 +6542,7 @@ C----------------------------------------------------------------------
                DO k = 1 , 3
                   k1 = 2*k - 1
                   AKS(k1,Il) = AKS(k1,Il) + SUM(k)
-     &                         *EXP(-((QCEN-REAL(j))/DQ)**2/2.)/XNOR
+     &                         *EXP(-((QCEN-DBLE(j))/DQ)**2/2.)/XNOR
                ENDDO
                IF ( imean.EQ.0 ) GOTO 100
             ENDIF
@@ -6576,7 +6583,7 @@ C----------------------------------------------------------------------
 
       SUBROUTINE XSTATIC(Iz,Ido,Iup,Beta)
       IMPLICIT NONE
-      REAL*4 AKS , Beta , DQ , h , QCEN , VACDP , XNOR
+      REAL*8 AKS , Beta , DQ , h , QCEN , VACDP , XNOR
       INTEGER*4 IBYP , Ido , Iup , Iz , lq
       COMMON /VAC   / VACDP(3,75) , QCEN , DQ , XNOR , AKS(6,75) , IBYP
       h = 1./(1.+(Iz**.45*.012008/Beta)**1.666667)
@@ -6588,23 +6595,23 @@ C----------------------------------------------------------------------
       IF ( Ido.LT.1 ) Ido = 1
       XNOR = 0.
       DO lq = Ido , Iup
-         XNOR = XNOR + EXP(-((QCEN-REAL(lq))/DQ)**2/2.)
+         XNOR = XNOR + EXP(-((QCEN-DBLE(lq))/DQ)**2/2.)
       ENDDO
       END
 
 C----------------------------------------------------------------------
 
-      REAL*4 FUNCTION ATS(N)
+      REAL*8 FUNCTION ATS(N)
       IMPLICIT NONE
       INTEGER*4 m , N
-      REAL*4 x , xm
+      REAL*8 x , xm
       IF ( N.LE.0 .OR. N.GT.96 ) THEN
          ATS = 0.
          RETURN
       ELSE
          x = N/2. + 1
          m = N/2 + 1
-         xm = REAL(m)
+         xm = DBLE(m)
          IF ( ABS(x-xm).GE.1.E-9 ) THEN
             IF ( m.EQ.1 .OR. m.EQ.2 .OR. m.EQ.3 .OR. m.EQ.6 .OR. 
      &           m.EQ.7 .OR. m.EQ.10 .OR. m.EQ.15 .OR. m.EQ.16 .OR. 
@@ -6673,7 +6680,7 @@ C----------------------------------------------------------------------
 
       SUBROUTINE YLM(Theta,Ylmr)
       IMPLICIT NONE
-      REAL*4 ct , ctsq , EPS , EROOT , FIEX , st , Theta , Ylmr
+      REAL*8 ct , ctsq , EPS , EROOT , FIEX , st , Theta , Ylmr
       INTEGER*4 i , IAXS , IEXP , j , l , lf , m
       COMMON /KIN   / EPS(50) , EROOT(50) , FIEX(50,2) , IEXP ,
      &                IAXS(50)
@@ -6719,10 +6726,10 @@ C----------------------------------------------------------------------
 
       SUBROUTINE DECAY(Chisq,Nlift,Chilo)
       IMPLICIT NONE
-      REAL*4 AKS , bsum , Chilo , Chisq , DELLA , DELTA , df , DQ , 
+      REAL*8 AKS , bsum , Chilo , Chisq , DELLA , DELTA , df , DQ , 
      &       el1 , ELM , ELML , ELMU , emt , emt1 , ENDEC , ENZ , EPS , 
      &       EROOT , FIEX , FP
-      REAL*4 gk , GKP , QCEN , SA , TAU , TIMEL , VACDP , vcd , XNOR , 
+      REAL*8 gk , GKP , QCEN , SA , TAU , TIMEL , VACDP , vcd , XNOR , 
      &       ZETA
       INTEGER*4 i , IAXS , ibra , IBYP , idr , idrh , IEXP , ifn , il , 
      &          inx , inx1 , ITMA , iu , j , jlt , k , kl , KLEC , kq , 
@@ -6827,10 +6834,10 @@ C----------------------------------------------------------------------
 
       SUBROUTINE ANGULA(Ygn,Idr,Iful,Fi0,Fi1,Trec,Gth,Figl,Ngl)
       IMPLICIT NONE
-      REAL*4 AGELI , alab , arg , at , attl , BETAR , bt , CC , DELLA , 
+      REAL*8 AGELI , alab , arg , at , attl , BETAR , bt , CC , DELLA , 
      &       DELTA , EG , ENDEC , ENZ , EPS , EROOT , f , Fi0 , fi01 , 
      &       Fi1 , fi11
-      REAL*4 FIEX , Figl , FP , GKP , Gth , Q , qv , sm , TAU , Trec , 
+      REAL*8 FIEX , Figl , FP , GKP , Gth , Q , qv , sm , TAU , Trec , 
      &       Ygn , ylmr , ZETA
       INTEGER*4 IAXS , Idr , IEXP , ifn , Iful , ig , il , inat , inx1 , 
      &          ipd , is , ITMA , ITTE , iu , ixs , j , ji , jj , jm , k
@@ -6942,7 +6949,7 @@ C----------------------------------------------------------------------
 
       SUBROUTINE READY(Idr,Ntap,Ipri)
       IMPLICIT NONE
-      REAL*4 ap , CORF , DYEX , EP , TAU , TLBDG , u , UPL , VINF , w , 
+      REAL*8 ap , CORF , DYEX , EP , TAU , TLBDG , u , UPL , VINF , w , 
      &       waga , XA , XA1 , xep , YEXP , YNRM , zp
       INTEGER*4 idc , idc1 , idcx , Idr , IDRN , ii , ILE , Ipri , IY , 
      &          iytot , iytt , IZ , IZ1 , j , k , kk , kkl , KSEQ , 
@@ -7037,10 +7044,10 @@ C----------------------------------------------------------------------
 
       SUBROUTINE BRANR(Chisq,Nwyr,Chilo)
       IMPLICIT NONE
-      REAL*4 ACCA , ACCUR , BRAT , ch1 , ch2 , Chilo , Chisq , CONV , 
+      REAL*8 ACCA , ACCUR , BRAT , ch1 , ch2 , Chilo , Chisq , CONV , 
      &       DELTA , DIPOL , ELM , ELML , ELMU , EN , ENDEC , eng1 , 
      &       eng2 , ENZ , SA , SPIN
-      REAL*4 TAU , u , ZPOL
+      REAL*8 TAU , u , ZPOL
       INTEGER*4 i1 , i2 , IBRC , iflg , iout , IPRM , ISO , ITMA , itt , 
      &          j1 , j2 , k , KSEQ , lab1 , lab2 , LAMDA , LAMMAX , 
      &          LDNUM , LEAD , mul2
@@ -7116,7 +7123,7 @@ C----------------------------------------------------------------------
 
       SUBROUTINE LIMITS
       IMPLICIT NONE
-      REAL*4 ELM , ELML , ELMU , SA
+      REAL*8 ELM , ELML , ELMU , SA
       INTEGER*4 IVAR , j , LMAXE , MAGEXC , MEMAX , MEMX6
       COMMON /CEXC  / MAGEXC , MEMAX , LMAXE , MEMX6 , IVAR(500)
       COMMON /COMME / ELM(500) , ELMU(500) , ELML(500) , SA(500)
@@ -7140,7 +7147,7 @@ C----------------------------------------------------------------------
 
       SUBROUTINE SZEREG(Lst,Ls,L)
       IMPLICIT NONE
-      REAL*4 CORF , DYEX , dyh , UPL , YEXP , yh , YNRM
+      REAL*8 CORF , DYEX , dyh , UPL , YEXP , yh , YNRM
       INTEGER*4 ia , ib , IDRN , ih , ILE , inx , IY , k , L , Ls , 
      &          lsp , Lst , lst1 , NYLDE
       COMMON /YEXPT / YEXP(32,1500) , IY(1500,32) , CORF(1500,32) , 
@@ -7178,11 +7185,11 @@ C----------------------------------------------------------------------
 
       SUBROUTINE SIXEL(Rik,Rv,Em,Jk,Kk,Indx,Lu)
       IMPLICIT NONE
-      REAL*4 a1 , al , al1 , c1 , c2 , DEV , Em , EPS , EROOT , FIEX , 
+      REAL*8 a1 , al , al1 , c1 , c2 , DEV , Em , EPS , EROOT , FIEX , 
      &       Rik , rn , Rv , rx
       INTEGER*4 IAXS , IEXP , Indx , ITS , j , j1 , Jk , Kk , kk6 , 
      &          KVAR , l , l1 , Lu
-      COMPLEX*8 ARM
+      COMPLEX*16 ARM
       COMMON /AZ    / ARM(600,7)
       COMMON /ODCH  / DEV(500)
       COMMON /KIN   / EPS(50) , EROOT(50) , FIEX(50,2) , IEXP ,
@@ -7196,18 +7203,18 @@ C----------------------------------------------------------------------
      &     IEXP , al/Em
       al1 = ABS(al)
       IF ( ITS.EQ.2 ) WRITE (18,*) Lu , Indx , IEXP , al1
-      IF ( al1.LE.ABS(AIMAG(ARM(kk6,Jk))) ) RETURN
+      IF ( al1.LE.ABS(IMAG(ARM(kk6,Jk))) ) RETURN
       DO j = Kk , kk6
-         a1 = ABS(AIMAG(ARM(j,Jk)))
+         a1 = ABS(IMAG(ARM(j,Jk)))
          IF ( al1.GT.a1 ) THEN
             j1 = j + 1
             DO l = j1 , kk6
                l1 = kk6 + j1 - l
-               c1 = REAL(ARM(l1-1,Jk))
-               c2 = AIMAG(ARM(l1-1,Jk))
+               c1 = DBLE(ARM(l1-1,Jk))
+               c2 = IMAG(ARM(l1-1,Jk))
                ARM(l1,Jk) = CMPLX(c1,c2)
             ENDDO
-            rx = REAL(Indx)
+            rx = DBLE(Indx)
             ARM(j,Jk) = CMPLX(rx,al)
             GOTO 99999
          ENDIF
@@ -7218,7 +7225,7 @@ C----------------------------------------------------------------------
 
       SUBROUTINE PRELM(Iop)
       IMPLICIT NONE
-      REAL*4 ACCA , ACCUR , b , DIPOL , ELM , ELML , ELMU , EN , HLM , 
+      REAL*8 ACCA , ACCUR , b , DIPOL , ELM , ELML , ELMU , EN , HLM , 
      &       pv , SA , SPIN , ste , ZPOL
       INTEGER*4 inx , Iop , ISO , isp , IVAR , j , k , kk , l , LAMDA , 
      &          LAMMAX , LDNUM , LEAD , LMAXE , m , MAGEXC , MEMAX , 
@@ -7299,7 +7306,7 @@ C----------------------------------------------------------------------
 
       SUBROUTINE RECOIL(Alab,Attl,Beta,Theta)
       IMPLICIT NONE
-      REAL*4 Alab , atemp , Attl , Beta , betasq , dum , hold , test , 
+      REAL*8 Alab , atemp , Attl , Beta , betasq , dum , hold , test , 
      &       Theta
       INTEGER*4 i , i1 , j , l , m
       DIMENSION Alab(9,9) , Attl(9,9) , atemp(16)
@@ -7396,7 +7403,7 @@ C----------------------------------------------------------------------
 
       SUBROUTINE ROTATE(Alab,Attl,Theta,K2,Kd)
       IMPLICIT NONE
-      REAL*4 Alab , Attl , djarg , DJMM , dkkk , sum , Theta
+      REAL*8 Alab , Attl , djarg , DJMM , dkkk , sum , Theta
       INTEGER*4 idj , idm , idmp , j , k , K2 , ka , kappa , kapri , Kd
       DIMENSION Alab(9,9) , Attl(9,9)
       IF ( ABS(Theta).GT..01 ) THEN
@@ -7435,7 +7442,7 @@ C----------------------------------------------------------------------
 
       SUBROUTINE YLM1(Theta,Ylmr)
       IMPLICIT NONE
-      REAL*4 ct , ctsq , st , Theta , Ylmr
+      REAL*8 ct , ctsq , st , Theta , Ylmr
       INTEGER*4 i , j , l , m
       DIMENSION Ylmr(9,9) , st(9)
       ct = COS(Theta)
@@ -7512,7 +7519,7 @@ C----------------------------------------------------------------------
 
       SUBROUTINE FIINT(Fi0,Fi1,At,Ixs)
       IMPLICIT NONE
-      REAL*4 At , Fi0 , Fi1 , wsp
+      REAL*8 At , Fi0 , Fi1 , wsp
       INTEGER*4 Ixs , j , jf , js , m , mm
       DIMENSION At(28)
       IF ( Ixs.NE.0 ) THEN
@@ -7539,7 +7546,7 @@ C----------------------------------------------------------------------
 
       SUBROUTINE FIINT1(Fi0,Fi1,Alab,Ixs)
       IMPLICIT NONE
-      REAL*4 Alab , Fi0 , Fi1 , wsp
+      REAL*8 Alab , Fi0 , Fi1 , wsp
       INTEGER*4 Ixs , j , m , mm
       DIMENSION Alab(9,9)
       IF ( Ixs.NE.0 ) THEN
@@ -7562,7 +7569,7 @@ C----------------------------------------------------------------------
 
       SUBROUTINE TAPMA(Lx,Iske,Isko,Iskf,Nflr,Idr,Nco,Nft,Enb)
       IMPLICIT NONE
-      REAL*4 DS , DSE , DSG , emn , emx , en0 , Enb , tmn , tmx , tta , 
+      REAL*8 DS , DSE , DSG , emn , emx , en0 , Enb , tmn , tmx , tta , 
      &       XV , YGN , YGP , YV , ZETA , ZV
       INTEGER*4 Idr , IFMO , Iske , Iskf , Isko , j , jf , jj , js , k , 
      &          Lx , lx1 , LZETA , na , Nco , ne , nfil , nfilt , Nflr , 
@@ -7612,9 +7619,9 @@ C----------------------------------------------------------------------
 
 C----------------------------------------------------------------------
 
-      REAL*4 FUNCTION SIMIN(Np,H,Y)
+      REAL*8 FUNCTION SIMIN(Np,H,Y)
       IMPLICIT NONE
-      REAL*4 ee , H , sm , Y
+      REAL*8 ee , H , sm , Y
       INTEGER*4 ik , in , Np
       DIMENSION Y(101)
       IF ( Np.GE.3 ) THEN
@@ -7638,7 +7645,7 @@ C----------------------------------------------------------------------
 
       SUBROUTINE MIXUP
       IMPLICIT NONE
-      REAL*4 ELM , ELML , ELMU , RNDM , SA , SE
+      REAL*8 ELM , ELML , ELMU , RNDM , SA , SE
       INTEGER*4 IVAR , k , k1 , LMAXE , MAGEXC , MEMAX , MEMX6
       COMMON /COMME / ELM(500) , ELMU(500) , ELML(500) , SA(500)
       COMMON /CEXC  / MAGEXC , MEMAX , LMAXE , MEMX6 , IVAR(500)
@@ -7661,10 +7668,10 @@ C----------------------------------------------------------------------
 
 C----------------------------------------------------------------------
 
-      REAL*4 FUNCTION FXIS1(I,N)
+      REAL*8 FUNCTION FXIS1(I,N)
       IMPLICIT NONE
       INTEGER*4 I , N
-      REAL*4 XI
+      REAL*8 XI
       COMMON /CXI   / XI(500)
       IF ( N.EQ.2 .OR. N.EQ.3 .OR. N.EQ.5 .OR. N.EQ.6 ) THEN
          FXIS1 = 1.
@@ -7676,10 +7683,10 @@ C----------------------------------------------------------------------
 
 C----------------------------------------------------------------------
 
-      REAL*4 FUNCTION FXIS2(I,N)
+      REAL*8 FUNCTION FXIS2(I,N)
       IMPLICIT NONE
       INTEGER*4 I , N
-      REAL*4 XI
+      REAL*8 XI
       COMMON /CXI   / XI(500)
       IF ( N.EQ.2 .OR. N.EQ.3 .OR. N.EQ.5 .OR. N.EQ.6 ) THEN
          FXIS2 = -SIGN(1.,XI(I))
@@ -7697,7 +7704,7 @@ C----------------------------------------------------------------------
      &          LP1 , LP10 , LP11 , LP12 , LP13 , LP14 , LP2 , LP3 , 
      &          LP4 , LP6
       INTEGER*4 LP7 , LP8 , LP9
-      REAL*4 QAPR
+      REAL*8 QAPR
       COMMON /MGN   / LP1 , LP2 , LP3 , LP4 , LP6 , LP7 , LP8 , LP9 , 
      &                LP10 , LP11 , LP12 , LP13 , LP14
       COMMON /APRCAT/ QAPR(500,2,7) , IAPR(500,2) , ISEX(75)
@@ -7739,9 +7746,9 @@ C----------------------------------------------------------------------
 
       SUBROUTINE KLOPOT(K,Rlr)
       IMPLICIT NONE
-      REAL*4 a , al , al1 , b , c , ch , CORF , d , dy , DYEX , e , 
+      REAL*8 a , al , al1 , b , c , ch , CORF , d , dy , DYEX , e , 
      &       ELM , ELML , ELMU , EP , g , g1 , g2 , rl , Rlr
-      REAL*4 SA , sgm , TLBDG , u , umm , ump , UPL , ux , VINF , XA , 
+      REAL*8 SA , sgm , TLBDG , u , umm , ump , UPL , ux , VINF , XA , 
      &       XA1 , YEXP , YNRM , ZETA
       INTEGER*4 i , IDRN , iex , iexh , iexp , ILE , indx , inh , ipf , 
      &          IVAR , IY , IZ , IZ1 , j , jm , jp , K , KVAR , l , lc
@@ -7941,7 +7948,7 @@ C----------------------------------------------------------------------
 
       SUBROUTINE MIXR(Nw,Ipsw,Chi,Chilo)
       IMPLICIT NONE
-      REAL*4 Chi , Chilo , dl , DMIX , DMIXE , ELM , ELML , ELMU , SA , 
+      REAL*8 Chi , Chilo , dl , DMIX , DMIXE , ELM , ELML , ELMU , SA , 
      &       TAU
       INTEGER*4 i , IMIX , INTR , inx , inx1 , IPS1 , Ipsw , it , KSEQ , 
      &          LNY , NDL , Nw
@@ -7981,10 +7988,10 @@ C----------------------------------------------------------------------
 
       SUBROUTINE COORD(Wth,Wph,Wthh,Naa,Ifw,Pfi,Wpi,Wtlb,Lz,Tyy,Tzz)
       IMPLICIT NONE
-      REAL*4 DS , DSE , DSG , EP , EPS , EROOT , FIEX , ga , gi , Pfi , 
+      REAL*8 DS , DSE , DSG , EP , EPS , EROOT , FIEX , ga , gi , Pfi , 
      &       rade , rmass , TACOS , TASIN , thetb , TLBDG , ttcm , Tyy , 
      &       Tzz , VINF
-      REAL*4 wpa , Wph , Wpi , ws , Wth , Wthh , Wtlb , XA , XA1 , xaa , 
+      REAL*8 wpa , Wph , Wpi , ws , Wth , Wthh , Wtlb , XA , XA1 , xaa , 
      &       xph , xth , xthh , XV , YV , za , za1 , zb , zl , ZV
       INTEGER*4 i , IAXS , IEXP , Ifw , ISKIN , IZ , IZ1 , Lz , Naa , 
      &          NEXPT
@@ -8069,7 +8076,7 @@ C----------------------------------------------------------------------
 
       SUBROUTINE CHMEM(Nw,Chi,Chilo)
       IMPLICIT NONE
-      REAL*4 Chi , Chilo , di , EAMX , ELM , ELML , ELMU , SA
+      REAL*8 Chi , Chilo , di , EAMX , ELM , ELML , ELMU , SA
       INTEGER*4 ia , IAMX , IAMY , ib , NAMX , Nw
       COMMON /ME2D  / EAMX(100,2), NAMX , IAMX(100) , IAMY(100,2)
       COMMON /COMME / ELM(500) , ELMU(500) , ELML(500) , SA(500)
@@ -8097,7 +8104,7 @@ C----------------------------------------------------------------------
 
       SUBROUTINE PTICC(Idr)
       IMPLICIT NONE
-      REAL*4 ACCA , ACCUR , cone1 , cone2 , conm1 , CONV , DIPOL , EN , 
+      REAL*8 ACCA , ACCUR , cone1 , cone2 , conm1 , CONV , DIPOL , EN , 
      &       enet , SPIN , TAU , ZPOL
       INTEGER*4 Idr , iinx , ISO , KSEQ , l , LAMDA , LAMMAX , LDNUM , 
      &          LEAD , MULTI , nf , ni
@@ -8131,9 +8138,9 @@ C----------------------------------------------------------------------
 
 C----------------------------------------------------------------------
 
-      REAL*4 FUNCTION RNDM(Se)
+      REAL*8 FUNCTION RNDM(Se)
       IMPLICIT NONE
-      REAL*4 ai , p , r , rxdm , Se , t , u
+      REAL*8 ai , p , r , rxdm , Se , t , u
       INTEGER*4 i
       IF ( Se.GT.32000. ) Se = 100.*t + .511
       Se = Se*Se
@@ -8144,7 +8151,7 @@ C----------------------------------------------------------------------
       p = SQRT(SQRT(SQRT(.1)))
       rxdm = (r-p)/(1.-p)
       rxdm = 10.*rxdm
-      ai = REAL(INT(rxdm))
+      ai = DBLE(INT(rxdm))
       RNDM = rxdm - ai
       RETURN
       END
@@ -8153,10 +8160,10 @@ C----------------------------------------------------------------------
 
       SUBROUTINE KONTUR(Idr,Chis0,Chil,Ifbf,Inpo,Jj,Sh,Bten,Rem)
       IMPLICIT NONE
-      REAL*4 ac , Bten , c , Chil , chilo , Chis0 , chis1 , chis2 , d1 , 
+      REAL*8 ac , Bten , c , Chil , chilo , Chis0 , chis1 , chis2 , d1 , 
      &       d2 , DEVD , DEVU , DS , DSE , DSG , ELM , ELML , ELMU , f , 
      &       h
-      REAL*4 HLM , Rem , RK4 , SA , sajj , Sh , t , v , ww , x , XV , 
+      REAL*8 HLM , Rem , RK4 , SA , sajj , Sh , t , v , ww , x , XV , 
      &       y , YV , ZV
       INTEGER*4 i , Idr , Ifbf , Inpo , INTR , IPS1 , itl , IVAR , ix , 
      &          j , Jj , l , LMAXE , LNY , m , MAGEXC , MEMAX , MEMX6 , 
@@ -8302,9 +8309,9 @@ C----------------------------------------------------------------------
 
 C----------------------------------------------------------------------
 
-      REAL*4 FUNCTION RK4(Y,H,F)
+      REAL*8 FUNCTION RK4(Y,H,F)
       IMPLICIT NONE
-      REAL*4 F , H , Y
+      REAL*8 F , H , Y
       DIMENSION F(3)
       RK4 = Y + H*(F(1)+4.*F(2)+F(3))/6.
       END
@@ -8313,7 +8320,7 @@ C----------------------------------------------------------------------
 
       SUBROUTINE QFIT(Qui,Tau1,Tau2,Eng,Xl1,Cf,Nl,Ind)
       IMPLICIT NONE
-      REAL*4 ca , cb , Cf , cm , cn , co , d , d1 , d2 , Eng , Qui , 
+      REAL*8 ca , cb , Cf , cm , cn , co , d , d1 , d2 , Eng , Qui , 
      &       Tau1 , Tau2 , Xl1
       INTEGER*4 Ind , ind1 , k , Nl
       DIMENSION Tau1(10) , Eng(10) , Tau2(10,7) , Xl1(7) , Qui(8,10) , 
@@ -8341,7 +8348,7 @@ C----------------------------------------------------------------------
       SUBROUTINE GAMATT(Qui,Tau1,Tau2,Xl1,Nl)
       IMPLICIT NONE
       INTEGER*4 i , i1 , k , Nl
-      REAL*4 q , Qui , tau , Tau1 , Tau2 , thing , thing1 , thing3 , Xl1
+      REAL*8 q , Qui , tau , Tau1 , Tau2 , thing , thing1 , thing3 , Xl1
       DIMENSION Tau1(10) , Tau2(10,7) , Xl1(7) , thing3(10) , q(9) , 
      &          Qui(8,10)
       DO i = 1 , 10
@@ -8366,7 +8373,7 @@ C----------------------------------------------------------------------
 
       SUBROUTINE GCF(Tau,Thing,Q)
       IMPLICIT NONE
-      REAL*4 A , b , D , dl , ev , ex , f , fint , od , ODL , Q , R , 
+      REAL*8 A , b , D , dl , ev , ex , f , fint , od , ODL , Q , R , 
      &       Tau , Thing , XL , xm , yl , yu
       INTEGER*4 i , j , k , m
       COMMON /DIMX  / A , R , XL , D , ODL(200)
@@ -8435,12 +8442,12 @@ C----------------------------------------------------------------------
 
 C----------------------------------------------------------------------
 
-      COMPLEX*8 FUNCTION TCEXP(Z)
+      COMPLEX*16 FUNCTION TCEXP(Z)
       IMPLICIT NONE
-      REAL*4 a , b , c , d
-      COMPLEX*8 Z
-      a = REAL(Z)
-      b = AIMAG(Z)
+      REAL*8 a , b , c , d
+      COMPLEX*16 Z
+      a = DBLE(Z)
+      b = IMAG(Z)
       a = EXP(a)
       c = a*COS(b)
       d = a*SIN(b)
@@ -8449,12 +8456,12 @@ C----------------------------------------------------------------------
 
 C----------------------------------------------------------------------
 
-      REAL*4 FUNCTION TCABS(Z)
+      REAL*8 FUNCTION TCABS(Z)
       IMPLICIT NONE
-      REAL*4 a , b
-      COMPLEX*8 Z
-      a = REAL(Z)
-      b = AIMAG(Z)
+      REAL*8 a , b
+      COMPLEX*16 Z
+      a = DBLE(Z)
+      b = IMAG(Z)
       IF ( ABS(a).LT.1.E-16 ) a = 0.
       IF ( ABS(b).LT.1.E-16 ) b = 0.
       TCABS = SQRT(a*a+b*b)
@@ -8462,9 +8469,9 @@ C----------------------------------------------------------------------
 
 C----------------------------------------------------------------------
 
-      REAL*4 FUNCTION TASIN(X)
+      REAL*8 FUNCTION TASIN(X)
       IMPLICIT NONE
-      REAL*4 dol , test , war , X
+      REAL*8 dol , test , war , X
       test = ABS(X) - 1.
       IF ( ABS(test).LT.1.E-9 ) THEN
          TASIN = 1.570796327
@@ -8479,9 +8486,9 @@ C----------------------------------------------------------------------
 
 C----------------------------------------------------------------------
 
-      REAL*4 FUNCTION TACOS(X)
+      REAL*8 FUNCTION TACOS(X)
       IMPLICIT NONE
-      REAL*4 TASIN , X
+      REAL*8 TASIN , X
       TACOS = 1.570796327 - TASIN(X)
       END
 
@@ -8514,7 +8521,7 @@ C----------------------------------------------------------------------
 
       SUBROUTINE EFFIX(Ipd,En,Effi)
       IMPLICIT NONE
-      REAL*4 ABC , AKAVKA , d , Effi , En , enl , pw , s , t , THICK ,
+      REAL*8 ABC , AKAVKA , d , Effi , En , enl , pw , s , t , THICK ,
      &       w , xx , yy
       INTEGER*4 i , Ipd , j , l , ll , n
       DIMENSION xx(51) , yy(51)
@@ -8609,10 +8616,10 @@ C----------------------------------------------------------------------
 
       SUBROUTINE ADHOC(Oph,Idr,Nfd,Ntap,Iyr)
       IMPLICIT NONE
-      REAL*4 ACCA , ACCUR , AGELI , BRAT , CC , CORF , DELTA , DIPOL , 
+      REAL*8 ACCA , ACCUR , AGELI , BRAT , CC , CORF , DELTA , DIPOL , 
      &       DIX , DMIX , DMIXE , DYEX , EAMX , EG , EN , ENDEC , ENZ , 
      &       EP , ODL , Q
-      REAL*4 SPIN , TAU , TIMEL , TLBDG , UPL , VINF , wamx , wbra , 
+      REAL*8 SPIN , TAU , TIMEL , TLBDG , UPL , VINF , wamx , wbra , 
      &       wdl , wlf , XA , XA1 , YEXP , YGN , YGP , YNRM , ZPOL
       INTEGER*4 IAMX , IAMY , iax , IBRC , Idr , IDRN , iexp1 , IFMO , 
      &          ILE , ilft , IMIX , iosr , ipri , IPRM , ISO , isrt1 , 
@@ -8830,15 +8837,15 @@ C----------------------------------------------------------------------
 
 C----------------------------------------------------------------------
 
-      REAL*4 FUNCTION ELMT(Xi1,Xi2,Lam,Nb1,Nb2,Xk1,Xk2,Xm1,Xm2,Xm3)
+      REAL*8 FUNCTION ELMT(Xi1,Xi2,Lam,Nb1,Nb2,Xk1,Xk2,Xm1,Xm2,Xm3)
       IMPLICIT NONE
-      REAL*4 addt , fac , fct , pha1 , pha2 , s1 , s2 , WTHREJ , Xi1 , 
+      REAL*8 addt , fac , fct , pha1 , pha2 , s1 , s2 , WTHREJ , Xi1 , 
      &       Xi2 , Xk1 , Xk2 , xlam , Xm1 , Xm2 , Xm3 , xn
       INTEGER*4 i1 , i2 , ipha , k1 , k2 , l , la , Lam , llam , n , 
      &          Nb1 , Nb2
       la = Lam
       IF ( la.GT.6 ) la = la - 6
-      xlam = REAL(la)
+      xlam = DBLE(la)
       i1 = INT(2.*Xi1)
       i2 = INT(2.*Xi2)
       llam = 2*la
@@ -8863,8 +8870,8 @@ C-----Forbidden and K1-K2=lambda, Mikhailov formula
                s1 = Xi1 - Xk1
                s2 = Xi1 + Xk1 + 1.
                DO l = 1 , n
-                  s1 = s1*(Xi1-Xk1-REAL(l))
-                  s2 = s2*(Xi1+Xk2+1.+REAL(l))
+                  s1 = s1*(Xi1-Xk1-DBLE(l))
+                  s2 = s2*(Xi1+Xk2+1.+DBLE(l))
                ENDDO
                fct = SQRT(s1*s2)
             ENDIF
