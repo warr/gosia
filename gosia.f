@@ -8514,9 +8514,9 @@ C----------------------------------------------------------------------
 
       SUBROUTINE EFFIX(Ipd,En,Effi)
       IMPLICIT NONE
-      REAL ABC , AKAVKA , d , Effi , En , enl , pw , s , t , THICK , w , 
-     &     xx , yy
-      INTEGER i , Ipd , j , l , ll , n
+      REAL*4 ABC , AKAVKA , d , Effi , En , enl , pw , s , t , THICK ,
+     &       w , xx , yy
+      INTEGER*4 i , Ipd , j , l , ll , n
       DIMENSION xx(51) , yy(51)
       COMMON /EFCAL / ABC(8,10) , AKAVKA(8,200) , THICK(200,7)
       Effi = 1.E-6
