@@ -418,7 +418,7 @@ C**********************************************************************
       do 31 l=1,8
       read(8,*)(abc(l,j),j=1,10)
       do 32 j=1,10
-  32  abc(l,j)=alog(abc(l,j))
+  32  abc(l,j)=LOG(abc(l,j))
   31  continue
       do 33 l=1,nfd
   33  read(8,*)(thick(l,j),j=1,7)
@@ -507,7 +507,7 @@ C**********************************************************************
  1411 CONTINUE
       GO TO 9999
  2    READ*,IDF,MS,MEND,IREP,IFC,REMAX
-      REM=ALOG(REMAX)
+      REM=LOG(REMAX)
       LOCKS=0
       LOCKF=0
       JENTR=1
@@ -2531,7 +2531,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
       COMMON/A50/ACC50
       COMMON/RNG/IRA(8),MAXLA
       COMMON/CLCOM/LAMDA(8),LEAD(2,500),LDNUM(8,75),LAMMAX,MULTI(8)
-      ACL=-ALOG(ACC1)
+      ACL=-LOG(ACC1)
       ACC50=ACC1/50.
       DO 110 I=1,8
       IF(MULTI(I).NE.0)GO TO 100
@@ -2945,7 +2945,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
  1    SI=POL4(0.,2.83446712E-5,-1.66666667E-3,.055555555,-1.,A)
       SI=SI*ARG
       CI=POL4(-3.100198413E-6,2.314814815E-4,-.0104166667,.25,0.,A)
-      CI=CI-ALOG(ARG)
+      CI=CI-LOG(ARG)
       RETURN
       END
       FUNCTION POL4(C0,C1,C2,C3,C4,A)
@@ -4546,7 +4546,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
       IF(RY.LT.UPL(K9,IEXP).OR.LTH(L).EQ.1)GO TO 3
       CHISQ=CHISQ+(RY-UPL(K9,IEXP))*(RY-UPL(K9,IEXP))
      */UPL(K9,IEXP)/UPL(K9,IEXP)
-      CHILO=CHILO+ALOG(RY/UPL(K9,IEXP))**2
+      CHILO=CHILO+LOG(RY/UPL(K9,IEXP))**2
       IF(IWF.EQ.0)GO TO 504
       WRITE(22,503)IEXP,NI,NF,RY/UPL(K9,IEXP)
  503  FORMAT(5X,13HWARNINIG-EXP. ,1I2,2X,7HTRANS. ,1I2,2H--,
@@ -4618,9 +4618,9 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
      **YEXP(K9,LU)/DL
       SUMPR=SUMPR+YEXP(K9,LU)*YEXP(K9,LU)/DL
       PARTL(K9,IEXP,1)=PARTL(K9,IEXP,1)+YEXP(K9,LU)*YEXP(K9,LU)/DL
-      PARTL(K9,IEXP,2)=PARTL(K9,IEXP,2)+ALOG(WF*YGN(L)/YEXP(K9,LU))
+      PARTL(K9,IEXP,2)=PARTL(K9,IEXP,2)+LOG(WF*YGN(L)/YEXP(K9,LU))
      **YEXP(K9,LU)*YEXP(K9,LU)/DL
-      SUM3=SUM3+YEXP(K9,LU)*YEXP(K9,LU)*ALOG(WF*YGN(L)/YEXP(K9,LU))
+      SUM3=SUM3+YEXP(K9,LU)*YEXP(K9,LU)*LOG(WF*YGN(L)/YEXP(K9,LU))
      ***2/DL
  1003 LU=LU+1
  3    CONTINUE
@@ -4671,8 +4671,8 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
       DO 501 JJ=1,NEXPT
       K=ndst(JJ)
       DO 502 JK=1,K
-      CHILO=CHILO+PARTL(JK,JJ,1)*ALOG(CNOR(JK,JJ))**2+
-     *PARTL(JK,JJ,2)*2.*ALOG(CNOR(JK,JJ))
+      CHILO=CHILO+PARTL(JK,JJ,1)*LOG(CNOR(JK,JJ))**2+
+     *PARTL(JK,JJ,2)*2.*LOG(CNOR(JK,JJ))
  502  CHISQ=CHISQ+CNOR(JK,JJ)*CNOR(JK,JJ)*PART(JK,JJ,1)
      *+CNOR(JK,JJ)*PART(JK,JJ,2)
  501  CONTINUE
@@ -4691,7 +4691,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
       COMMON/FAKUL/IP(26),IPI(26),KF(101,26),PILOG(26)
       DO 99 I=1,26
       X=REAL(IP(I))
-      PILOG(I)=ALOG(X)
+      PILOG(I)=LOG(X)
    99 CONTINUE
       DO 1 L=1,26
       KF(1,L)=0
@@ -5124,7 +5124,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
       RETURN
  2    CONTINUE
       IF(Y.LT.1.E-12)Y=1.E-12
-      FUNC=ALOG(Y)
+      FUNC=LOG(Y)
       RETURN
   3   FUNC=SQRT(Y)
       RETURN
@@ -5404,7 +5404,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
       DO 51 JLT=1,NLIFT
       KL=LIFCT(JLT)
       DF=(TAU(KL)-TIMEL(1,JLT))/TIMEL(2,JLT)
-      CHILO=CHILO+(ALOG(TAU(KL)/TIMEL(1,JLT))*TIMEL(1,JLT)/
+      CHILO=CHILO+(LOG(TAU(KL)/TIMEL(1,JLT))*TIMEL(1,JLT)/
      *TIMEL(2,JLT))**2
  51   CHISQ=CHISQ+DF*DF
  50   DO 30 L=2,NMAX
@@ -5642,7 +5642,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
       CH2=CH2+ELM(J2)*ELM(J2)*DELTA(N2,2)/(1.+CONV(ENG2,LAB2))
  4    U=(CH1/CH2-BRAT(K,1))/BRAT(K,2)
       CHISQ=CHISQ+U*U
-      CHILO=CHILO+(BRAT(K,1)*ALOG(CH1/CH2/BRAT(K,1))
+      CHILO=CHILO+(BRAT(K,1)*LOG(CH1/CH2/BRAT(K,1))
      */BRAT(K,2))**2
       IF(IPRM(3).EQ.-1)WRITE(22,10)KSEQ(N1,3),KSEQ(N1,4),
      *KSEQ(N2,3),KSEQ(N2,4),BRAT(K,1),BRAT(K,2),CH1/CH2
@@ -6322,7 +6322,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
       DL=DMIX(I)*ELM(INX)/ELM(INX1)
       IF(IPSW.EQ.1)DMIX(I)=DL
       CHI=CHI+(DL-DMIXE(I,1))**2/DMIXE(I,2)/DMIXE(I,2)
-      IF(LNY.EQ.1)CHILO=CHILO+(DMIXE(I,1)*ALOG(
+      IF(LNY.EQ.1)CHILO=CHILO+(DMIXE(I,1)*LOG(
      *ABS(DL/DMIXE(I,1)))/DMIXE(I,2))**2
    1  CONTINUE
       IF(IPSW.EQ.0)RETURN
@@ -6416,12 +6416,12 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
       IB=IAMX(IA)
       IF(IAMY(IA,1).NE.IAMY(IA,2)) GO TO 12
       DI=(ELM(IB)-EAMX(IA,1))/EAMX(IA,2)
-      CHILO=CHILO+(ALOG(ABS(ELM(IB)/EAMX(IA,1)))*
+      CHILO=CHILO+(LOG(ABS(ELM(IB)/EAMX(IA,1)))*
      *ABS(EAMX(IA,1))/EAMX(IA,2))**2
       CHI=CHI+DI*DI
       GO TO 10
  12   DI=(ELM(IB)-EAMX(IA,1))/EAMX(IA,2)
-      CHILO=CHILO+(ALOG(ABS(ELM(IB)/EAMX(IA,1)))*
+      CHILO=CHILO+(LOG(ABS(ELM(IB)/EAMX(IA,1)))*
      *ABS(EAMX(IA,1))/EAMX(IA,2))**2
       CHI=CHI+DI*DI
  10   CONTINUE
@@ -6756,7 +6756,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
       common/efcal/abc(8,10),akavka(8,200),thick(200,7)
 	effi=1.e-6
       en=en+1.e-24
-      enl=alog(en)
+      enl=LOG(en)
       do 1 i=1,10
       ll=11-i
       j=ll
@@ -6804,7 +6804,7 @@ c FITEFF or GREMLIN check
       if(akavka(5,ipd).gt.0..and.akavka(5,ipd).lt.10.)goto1301
       if(akavka(5,ipd).ge.10.)go to 1500
 c GREMLIN
-      w=alog(20.*en)
+      w=LOG(20.*en)
       pw=akavka(1,ipd)+akavka(2,ipd)*w+akavka(3,ipd)*w*w+
      *akavka(4,ipd)*w*w*w
       effi=effi*exp(pw)
@@ -6823,13 +6823,13 @@ c GREMLIN
       return
 c FITEFF eff. calib. by P.Olbratowski use
 c PJN@2000    
- 1301 w=alog(en/akavka(5,ipd))
+ 1301 w=LOG(en/akavka(5,ipd))
       pw=akavka(2,ipd)*w
       if(en.lt.akavka(5,ipd))pw=pw+w*w*(akavka(3,ipd)+w*akavka(4,ipd))
       effi=effi*exp(pw)*akavka(1,ipd)
       return
 c     JAERI calibration - TC, Nov.2000 
- 1500 w=alog(en/.511)
+ 1500 w=LOG(en/.511)
       effi=exp(akavka(1,ipd)+akavka(2,ipd)*w-exp(akavka(3,ipd)+
      *akavka(4,ipd)*w))
       return
