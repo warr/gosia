@@ -1,5 +1,25 @@
  
 C----------------------------------------------------------------------
+C SUBROUTINE ANGULA
+C
+C Called by: GOSIA, CEGRY
+C Calls:     FIINT, FIINT1, RECOIL, YLM, YLM1
+C
+C Purpose: calculate angular distribution of emitted gamma rays
+C
+C Uses global variables:
+C      BETAR  - recoil beta
+C      DELLA  -
+C      ENDEC  -
+C      ENZ    -
+C      FP     -
+C      IAXS   - axial symmetry flag
+C      IEXP   - experiment number
+C      ITMA   - identify detectors according to OP,GDET
+C      ITTE   - thick target experiment flag
+C      KSEQ   -
+C      TAU    - 
+C      ZETA   - various coefficients
  
       SUBROUTINE ANGULA(Ygn,Idr,Iful,Fi0,Fi1,Trec,Gth,Figl,Ngl)
       IMPLICIT NONE
@@ -25,6 +45,7 @@ C----------------------------------------------------------------------
       COMMON /CATLF / FP(4,500,3) , GKP(4,500,2) , KLEC(75)
       COMMON /BREC  / BETAR(50)
       COMMON /THTAR / ITTE(50)
+      
       DO l = 1 , Idr
          nlv = KSEQ(l,3)
          il = (nlv-1)*28
@@ -72,7 +93,7 @@ C----------------------------------------------------------------------
             fi01 = Fi0 - Figl
             fi11 = Fi1 - Figl
             CALL FIINT1(fi01,fi11,alab,ixs)
-            Ygn(l) = alab(1,1)*.0795774715
+            Ygn(l) = alab(1,1)*.0795774715 ! 0.0795774715 = 1 / (4 pi)
             DO j = 2 , 9
                sm = ylmr(j,1)*alab(j,1)
                IF ( IAXS(IEXP).NE.0 ) THEN
@@ -92,7 +113,7 @@ C----------------------------------------------------------------------
             fi11 = Fi1 - Figl
             CALL FIINT(fi01,fi11,at,ixs)
             IF ( l.EQ.1 ) CALL YLM(Gth,ylmr)
-            Ygn(l) = at(1)*.0795774715
+            Ygn(l) = at(1)*.0795774715 ! 0.0795774715 = 1 / (4 pi)
             DO jj = 1 , 3
                ji = jj*7 + 1
                sm = ylmr(jj,1)*at(ji)

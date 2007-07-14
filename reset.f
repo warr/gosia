@@ -1,5 +1,17 @@
  
 C----------------------------------------------------------------------
+C SUBROUTINE RESET
+C
+C Called by: INTG
+C
+C Purpose: to reset the step size for the integeration in INTG.
+C
+C Uses global variables:
+C      ARM    - reduced matrix elements
+C      CAT    -
+C      ISMAX  -
+C      NMAX   - number of levels
+C      NSTART -
  
       SUBROUTINE RESET(Iso)
       IMPLICIT NONE
@@ -11,6 +23,7 @@ C----------------------------------------------------------------------
       COMMON /AZ    / ARM(600,7)
       COMMON /CLCOM8/ CAT(600,3) , ISMAX
       COMMON /COEX2 / NMAX , NDIM , NMAX1
+      
       IF ( Iso.EQ.0 ) THEN
          DO j = 1 , NMAX
             ir = NSTART(j) - 1
@@ -22,6 +35,7 @@ C----------------------------------------------------------------------
          ENDDO
          GOTO 99999
       ENDIF
+       
       DO j = 1 , ISMAX
          ARM(j,1) = ARM(j,2)
          ARM(j,2) = ARM(j,3)

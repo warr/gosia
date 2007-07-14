@@ -1,5 +1,20 @@
  
 C----------------------------------------------------------------------
+C FUNCTION DJMM
+C
+C Called by: GOSIA, ROTATE, TENS
+C
+C Purpose: calculate the rotation functions D^k_{\xi \xi^\prime}
+C
+C Uses global variables:
+C      B      -
+C      BEQ    -
+C
+C Note that to be efficient, this function remembers values that it has
+C previously calculated. For this to work, the variable djm has to be
+C declared with a SAVE statement, otherwise the variable is an automatic one,
+C which is created freshly each time the function is called.
+
  
       REAL*8 FUNCTION DJMM(Beta,K,Kpp,Kp)
       IMPLICIT NONE
@@ -10,7 +25,8 @@ C----------------------------------------------------------------------
       DIMENSION djm(525) , iczy(525)
       COMMON /IDENT / BEQ
       COMMON /CB    / B(20)
-      SAVE djm
+      SAVE djm ! Added N. Warr Jul2007
+      
       ifza = 1
       IF ( Beta.LT.0. ) ifza = (-1)**(Kp+Kpp)
       sk = DBLE(K)
@@ -26,6 +42,7 @@ C----------------------------------------------------------------------
          DJMM = djm(loc)*ifza
          GOTO 99999
       ENDIF
+       
       be = BEQ/2.
       cb = COS(be)
       sb = SIN(be)
@@ -39,6 +56,7 @@ C----------------------------------------------------------------------
             RETURN
          ENDIF
       ENDIF
+       
       ctb = cb*cb/sb/sb
       ja = K + Kp + 1
       jb = K - Kp + 1

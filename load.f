@@ -1,5 +1,49 @@
  
 C----------------------------------------------------------------------
+C SUBROUTINE LOAD
+C
+C Called by: FTBM, GOSIA
+C Calls:     LSLOOP
+C
+C Purpose: calculates various parameters, xi, psi which are stored in
+C variables XI (common CXI) and PSI (common PCOM).
+C
+C Uses global variables:
+C      CAT    -
+C      DIPOL  -
+C      EMMA   -
+C      EN     - energy of level
+C      EP     - bombarding energy
+C      ERR    -
+C      IFAC   -
+C      IPATH  -
+C      ISHA   -
+C      ISMAX  -
+C      IZ     - Z of investigated nucleus
+C      IZ1    - Z of not-investated nucleus
+C      LAMBDA - list of multipolarities to calculate
+C      LAMMAX - number of multipolarities to calculate
+C      LDNUM  - number of matrix elements with each multipolarity populating level
+C      LEAD   - pair of levels involved in each matrix element
+C      LMAX   -
+C      LMAXE  -
+C      LP7    - maximum number of zeta coefficients (45100)
+C      LP10   - 600
+C      LZETA  - index into ZETA array for zeta for a given multipolarity
+C      MAGA   - number of magnetic substates in approximate calculation
+C      MAGEXC -
+C      MEMAX  - number of matrix elements
+C      NSTART -
+C      NSTOP  -
+C      PSI    - psi coefficients
+C      QAPR   -
+C      SPIN   - spin of level
+C      VINF   - speed of particle
+C      XA     - A of investigated nucleus
+C      XA1    - A of not-investated nucleus
+C      XI     - xi coupling constants
+C      ZPOL   -
+
  
       SUBROUTINE LOAD(Iexp,Ient,Icg,Polm,Joj)
       IMPLICIT NONE
@@ -42,6 +86,7 @@ C----------------------------------------------------------------------
       COMMON /APRCAT/ QAPR(500,2,7) , IAPR(500,2) , ISEX(75)
       COMMON /PTH   / IPATH(75) , MAGA(75)
       DIMENSION etan(75) , cpsi(8)
+      
       LMAX = INT(SPIN(1)+1.1)
       IF ( Ient.EQ.1 ) THEN
          ISHA = 0
@@ -60,6 +105,8 @@ C----------------------------------------------------------------------
             a1 = a2
             a2 = ah
          ENDIF
+
+C        Calculate xi and store it in XI in common CXI
          eta = z1*z2*SQRT(a1/EP(Iexp))/6.349770
          DO m = 1 , NMAX
             dep = (1.0+a1/a2)*EN(m)
@@ -72,6 +119,8 @@ C----------------------------------------------------------------------
             i2 = LEAD(2,n)
             XI(n) = etan(i1) - etan(i2)
          ENDDO
+
+C        Calculate C_\lambda \over (s Z_1 Z_2)^\lambda 
          aazz = 1./(1.+a1/a2)/z1/z2
          cpsi(1) = 5.169286*aazz
          IF ( LMAXE.NE.1 ) THEN
@@ -99,6 +148,8 @@ C----------------------------------------------------------------------
             cpsi(7) = aazz*cpsi(1)
             IF ( LAMMAX.NE.8 ) cpsi(8) = aazz*cpsi(2)
          ENDIF
+
+C        Calculate psi and store in PSI in common PCOM
          zsqa = z1*SQRT(a1)
          i3 = 1
          ppp = 1. + a1/a2

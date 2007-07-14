@@ -1,10 +1,18 @@
  
 C----------------------------------------------------------------------
+C FUNCTION ARCTG
+C
+C Called by: GOSIA
+C
+C Purpose: calculates an arctangent in a particular range
+C
+C N.B. Pi must be 3.14159...
  
       REAL*8 FUNCTION ARCTG(A,F,Pi)
       IMPLICIT NONE
       REAL*8 A , an , F , Pi , q , qa , qap
       INTEGER*4 ie , j , k
+
       q = ATAN(A)
       qa = q
       qap = q

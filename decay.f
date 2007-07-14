@@ -1,6 +1,29 @@
  
 C----------------------------------------------------------------------
- 
+C SUBROUTINE DECAY
+C
+C Called by: CEGRY, GOSIA, READY, SEQ
+C Calls:     GKVAC
+C
+C Purpose: Calculate the gamma decay following excitation.
+C
+C Uses global variables:
+C      DELLA  -
+C      DELTA  -
+C      GKP    -
+C      IAXS   - axial symmetry flag
+C      IBYP   -
+C      IEXP   - experiment number
+C      KLEC   -
+C      KSEQ   - index of level
+C      LIFCT  - index for lifetimes
+C      NMAX   - number of levels
+C      NMAX1  -
+C      TAU    -
+C      TIMEL  - lifetimes and their errors
+C      VACDP  -
+C      ZETA   - various coefficients
+      
       SUBROUTINE DECAY(Chisq,Nlift,Chilo)
       IMPLICIT NONE
       REAL*8 AKS , bsum , Chilo , Chisq , DELLA , DELTA , df , DQ , 
@@ -25,6 +48,7 @@ C----------------------------------------------------------------------
       COMMON /CATLF / FP(4,500,3) , GKP(4,500,2) , KLEC(75)
       COMMON /LCDL  / DELLA(500,3)
       DIMENSION gk(4)
+
       idr = 1
       DO il = 1 , NMAX1
          l = KSEQ(idr,3)

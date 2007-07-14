@@ -1,11 +1,23 @@
  
 C----------------------------------------------------------------------
+C SUBROUTINE YLM1
+C
+C Called by: ANGULA
+C
+C Purpose: evaluate the odd spherical harmonics.
+C
+C Ylmr(l,m) = 1 / \sqrt{4 \pi} Y_{l - 1}^{m - 1}
+C
+C Note the factor of 1 / \sqrt{4 \pi} compared to the orthonormal spherical
+C harmonics.
+C
  
       SUBROUTINE YLM1(Theta,Ylmr)
       IMPLICIT NONE
       REAL*8 ct , ctsq , st , Theta , Ylmr
       INTEGER*4 i , j , l , m
       DIMENSION Ylmr(9,9) , st(9)
+      
       ct = COS(Theta)
       ctsq = ct*ct
       st(1) = SIN(Theta)
@@ -69,9 +81,9 @@ C----------------------------------------------------------------------
      &            *((((6435.*ctsq-12012.)*ctsq+6930.)*ctsq-1260.)
      &            *ctsq+35.)
       DO l = 2 , 9
-         Ylmr(l,1) = Ylmr(l,1)*.0795774715
+         Ylmr(l,1) = Ylmr(l,1)*.0795774715 ! 0.0795774715 = 1 / (4 pi)
          DO m = 2 , l
-            Ylmr(l,m) = Ylmr(l,m)*st(m-1)*.0795774715
+            Ylmr(l,m) = Ylmr(l,m)*st(m-1)*.0795774715 ! 0.0795774715 = 1 / (4 pi)
          ENDDO
       ENDDO
       END

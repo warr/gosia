@@ -1,5 +1,67 @@
  
 C----------------------------------------------------------------------
+C SUBROUTINE CEGRY
+C
+C Called by: FTBM
+C Calls:     ANGULA, DECAY, EFFIX, SIXEL, TACOS
+C
+C Purpose: calculate the gamma-ray deexcitation.
+C
+C Uses global variables:
+C      AGELI  - angles of the Ge detectors
+C      BETAR  - recoil beta
+C      CNOR   -
+C      CORF   -
+C      DEV    -
+C      DYEX   -
+C      EMH    -
+C      ENDEC  -
+C      FIEX   - phi range of particle detector
+C      ICLUST -
+C      IDRN   -
+C      IEXP   - number of experiment
+C      IFMO
+C      IGRD   -
+C      ILE    -
+C      IMIN   -
+C      INM    -
+C      INNR   -
+C      IPRM   -
+C      IRAWEX -
+C      ITMA   - identify detectors according to OP,GDET
+C      ITS    -
+C      IWF    -
+C      IY     -
+C      JSKIP  -
+C      LASTCL -
+C      LFL    -
+C      LNORM  - normalization constant control
+C      LP2    - maximum number of matrix elements (500)
+C      LP6    - 32
+C      LP10   - 600
+C      KSEQ   - index of level
+C      KVAR   -
+C      NANG   - number of gamma-ray detectors for each experiment
+C      NDST   - number of data sets
+C      NEXPT  - number of experiments
+C      NLIFT  - number of lifetimes
+C      NMAX   - number of levels
+C      NYLDE  - number of yields
+C      ODL    -
+C      PART   -
+C      PARTL  -
+C      SPIN   - spin of level
+C      SUBCH1 -
+C      SUBCH2 -
+C      SUMCL  -
+C      TAU    -
+C      TREP   -
+C      UPL    - upper limits for all gamma detectors
+C      VACDP  -
+C      YEXP   -
+C      YGN    -
+C      YGP    -
+C      YNRM   - relative normalization factors for gamma detectors
  
       SUBROUTINE CEGRY(Chisq,Itemp,Chilo,Idr,Nwyr,Icall,Issp,Iredv)
       IMPLICIT NONE
@@ -68,6 +130,7 @@ C----------------------------------------------------------------------
       COMMON /TRB   / ITS
       COMMON /TCM   / TETACM(50) , TREP(50) , DSIGS(50)
       COMMON /CCCDS / NDST(50)
+
       ifxd = 0
       tetrc = TREP(IEXP)
       IF ( Icall.EQ.4 .AND. IPRM(13).EQ.-2 ) THEN

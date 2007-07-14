@@ -1,6 +1,34 @@
  
 C----------------------------------------------------------------------
- 
+C SUBROUTINE CMLAB
+C
+C Called by: GOSIA
+C Calls:     RECOIL, TASIN
+C
+C Purpose: calculate for center of mass frame
+C
+C Uses global variables:
+C      BETAR  - recoil beta
+C      DSIGS  -
+C      EN     - level energies
+C      EP     - bombarding energy
+C      EPS    - epsilon
+C      EROOT  - sqrt(epsilon^2 - 1)
+C      ERR    - error flag
+C      IPRM   -
+C      ISKIN  - kinematic flag
+C      IZ     - Z of investigated nucleus
+C      IZ1    - Z of not-investated nucleus
+C      NCM    -
+C      NEXPT  - number of experiments
+C      NMAX   - number of level energies
+C      TETACM - theta of particle detector in center of mass frame
+C      TLBDG  - theta of particle detector
+C      VINF   - speed of particle
+C      XA     - A of investigated nucleus
+C      XA1    - A of not-investated nucleus
+C      TREP   -
+
       SUBROUTINE CMLAB(Ii,Dsig,Tetrn)
       IMPLICIT NONE
       REAL*8 a1 , a2 , ACCA , ACCUR , ared , BETAR , d2a , DIPOL , 
@@ -26,6 +54,7 @@ C----------------------------------------------------------------------
       COMMON /KIN   / EPS(50) , EROOT(50) , FIEX(50,2) , IEXP , IAXS(50)
       COMMON /COEX  / EN(75) , SPIN(75) , ACCUR , DIPOL , ZPOL , ACCA , 
      &                ISO
+
       lexp0 = 1
       lexp1 = NEXPT
       IF ( Ii.NE.0 ) lexp0 = Ii
@@ -54,9 +83,12 @@ C----------------------------------------------------------------------
 99003       FORMAT (5X,'TARGET EXCITATION OF(',1I3,',',1F7.3,') BY(',
      &              1I3,',',1F7.3,')')
          ENDIF
+C
+C        dists is Cline's estimate of the maximum safe bombarding energy
          dists = 1.44*(a1+a2)*z1*z2/((a1**.33333+a2**.33333)*1.25+5.)/a2
          dista = 0.0719949*(1.0+a1/a2)*z1*z2/EP(lexp)
          d2a = 20.0*dista
+C        VINF = sqrt(2 * EP / 931.494028 * A1) - 931.494028 = 1 AMU
          VINF(lexp) = 0.0463365*SQRT(EP(lexp)/a1)
          IF ( IPRM(1).EQ.1 ) THEN
             IF ( Ii.EQ.0 .AND. IPRM(10).EQ.1 ) WRITE (22,99004) EP(lexp)
@@ -72,8 +104,8 @@ C----------------------------------------------------------------------
      &             'DISTANCE OF CLOSEST APPROACH FOR HEAD-ON COLLISIONS'
      &             ,1X,1F10.4,1X,'FM')
          ENDIF
-         tlbrad = TLBDG(lexp)/57.2957795
-         ared = 1.0 + a1/a2
+         tlbrad = TLBDG(lexp)/57.2957795 ! Theta of detector to radians
+         ared = 1.0 + a1/a2 ! reduced mass
          emax = EP(lexp)/ared
          DO n = 1 , NMAX
             IF ( EN(n).GT.emax ) GOTO 50

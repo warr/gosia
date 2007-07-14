@@ -238,6 +238,7 @@ C**********************************************************************
      &      25.302 , 12.541 , 5.193 , 2.215 , 1.077 , .8176/
       DATA (tau2(k,7),k=1,10)/89.809 , 56.338 , 27.009 , 62.966 , 
      &      22.933 , 11.334 , 4.540 , 1.813 , .8020 , .5900/
+
       IBYP = 0
       IP(1) = 2
       IP(2) = 3
@@ -283,7 +284,7 @@ C**********************************************************************
       JENTR = 0
       lp0 = 50000
       ICS = 0
-      LP1 = 50
+      LP1 = 50 ! Maximum number of experiments
       LP2 = 500
       LP3 = 75
       LP4 = 1500
@@ -293,15 +294,15 @@ C**********************************************************************
       LP9 = lp0 - LP3*28
       LP10 = 600
       LP11 = LP8 - 1
-      LP12 = 365
+      LP12 = 365 ! Maximum number of steps of omega (dimension of ADB, SH, CH)
       LP13 = LP9 + 1
       LP14 = 4900
-      DO i = 1 , LP1
-         DO j = 1 , LP6
+      DO i = 1 , LP1 ! LP1 = 50, but CNOR(50,32): surely this should be LP3!
+         DO j = 1 , LP6 ! LP6 = 32
             CNOR(j,i) = 1.
          ENDDO
       ENDDO
-      DO i = 1 , LP1
+      DO i = 1 , LP1 ! LP1 = 50
          jpin(i) = 0
          iecd(i) = 0
       ENDDO
@@ -317,8 +318,8 @@ C**********************************************************************
       IFBFL = 0
       NLOCK = 0
       LOCKF = 0
-      DO i = 1 , LP4
-         DO j = 1 , LP6
+      DO i = 1 , LP4 ! LP4 = 1500
+        DO j = 1 , LP6 ! LP6 = 32
             CORF(i,j) = 1.
          ENDDO
       ENDDO
@@ -337,7 +338,7 @@ C**********************************************************************
       IPRM(18) = 0
       IPRM(19) = 0
       IPRM(20) = 0
-      DO i = 1 , LP1
+      DO i = 1 , LP1 ! LP1 = 50
          DO j = 1 , 5
             IF ( j.NE.5 ) THEN
                DO k = 1 , 10
@@ -351,7 +352,7 @@ C**********************************************************************
             ENDDO
          ENDDO
       ENDDO
-      DO k = 1 , LP1
+      DO k = 1 , LP1 ! LP1 = 50
          IDIVE(k,1) = 1
          IDIVE(k,2) = 1
          DO iuy = 1 , 6
@@ -362,7 +363,7 @@ C**********************************************************************
       lfagg = 0
       izcap = 12800
       KFERR = 0
-      NDIM = LP3
+      NDIM = LP3 ! LP3 = 75
       ISO = 1
       B(1) = 1.
       DO i = 2 , 20
@@ -372,7 +373,7 @@ C**********************************************************************
       CALL FAKP
       CALL FHIP
       NCM = 2
-      DO ijx = 1 , LP1
+      DO ijx = 1 , LP1 ! LP1 = 50
          INTERV(ijx) = 1
       ENDDO
       la = 0
@@ -386,18 +387,18 @@ C**********************************************************************
       MAGEXC = 0
       LAMMAX = 0
       DO lam = 1 , 8
-         DO lexp = 1 , LP3
+         DO lexp = 1 , LP3 ! LP3 = 75
             LDNUM(lam,lexp) = 0
          ENDDO
          MULTI(lam) = 0
          LAMDA(lam) = 0
       ENDDO
-      DO j = 1 , LP2
+      DO j = 1 , LP2 ! LP2 = 500
          EXPO(j) = (1.,0.)
          KVAR(j) = 1
          ELM(j) = 0.
       ENDDO
-      DO j = 1 , LP1
+      DO j = 1 , LP1 ! LP1 = 50
          JSKIP(j) = 1
          ISKIN(j) = 0
       ENDDO
@@ -407,11 +408,11 @@ C**********************************************************************
       ISEX(1) = 0
       ACCA = .00001
       oph = '    '
-      nmemx = LP2 + 9
+      nmemx = LP2 + 9 ! LP2 = 500
       IEXP = 1
       IMIN = 0
       i122 = 0
-      DO j = 1 , LP2
+      DO j = 1 , LP2 ! LP2 = 500
          DO k = 1 , 2
             DO l = 1 , 7
                QAPR(j,k,l) = 0.
@@ -682,7 +683,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
                ELSEIF ( op2.EQ.'THEO' ) THEN
                   REWIND (12)
                   ibaf = 1
-                  DO jb = 1 , LP1
+                  DO jb = 1 , LP1 ! LP1 = 50
                      DO lb = 1 , 2
                         xlevb(jb,lb) = 0
                      ENDDO
@@ -1198,7 +1199,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
                      DO l = 1 , nfd
                         READ (8,*) (THICK(l,j),j=1,7)
                      ENDDO
-                     DO l = 1 , LP1
+                     DO l = 1 , LP1 ! LP1 = 50
                         DO j = 1 , 200
                            ICLUST(l,j) = 0
                         ENDDO
@@ -1207,7 +1208,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
                         ENDDO
                         IRAWEX(l) = 0
                      ENDDO
-                     DO l = 1 , LP1
+                     DO l = 1 , LP1 ! LP1 = 50
                         READ * , mexl
                         IF ( mexl.EQ.0 ) GOTO 100
                         IRAWEX(mexl) = 1
@@ -1250,7 +1251,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
      &           'ENERGY(MEV)')
          ndima = NDIM + 1
          DO k = 1 , ndima
-            READ * , ipo1 , ipo2 , po2 , po1
+           READ * , ipo1 , ipo2 , po2 , po1 ! leve number, parity, spin, energy
             IF ( ipo1.EQ.0 ) GOTO 200
             IF ( ipo1.EQ.1 .AND. ABS(po2).LT.1.E-6 ) ISO = 0
             NMAX = NMAX + 1
@@ -1269,12 +1270,12 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
       ELSEIF ( op1.EQ.'ME  ' ) THEN
          DO k = 1 , nmemx
             IF ( op2.EQ.'GOSI' ) THEN
-               READ * , ipo1 , ipo2 , po1 , bl , bu
+               READ * , ipo1 , ipo2 , po1 , bl , bu ! lamda, 0, 0, 0, 0 OR ind1, ind2, me, lo, hi
                iopri = 2
                icg = 2
             ELSE
                iopri = 1
-               READ * , ipo1 , ipo2 , po1
+               READ * , ipo1 , ipo2 , po1 ! lambda, 0, 0 OR ind1, ind2, me
             ENDIF
             IF ( ipo1.NE.0 ) THEN
                IF ( ipo2.EQ.0 ) THEN
@@ -1448,20 +1449,20 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
          GOTO 350
       ELSEIF ( op1.EQ.'EXPT' ) THEN
          READ * , NEXPT , IZ , XA
-         G(1) = 3.
-         G(2) = .02
-         G(3) = .0345
-         G(4) = 3.5
-         G(5) = DBLE(IZ)/XA
-         G(6) = 6.E-06
-         G(7) = .6
-         DO k = 1 , NEXPT
+         G(1) = 3.             ! AVJI
+         G(2) = .02            ! GAMMA
+         G(3) = .0345          ! XLAMB
+         G(4) = 3.5            ! TIMEC
+         G(5) = DBLE(IZ)/XA    ! GFAC
+         G(6) = 6.E-06         ! FIEL
+         G(7) = .6             ! POWER
+         DO k = 1 , NEXPT ! Zn, An, E_p, THETA_lab, M_c, M_A, IAX, phi1, phi2, ikin, ln
             READ * , IZ1(k) , XA1(k) , EP(k) , TLBDG(k) , EMMA(k) , 
      &           MAGA(k) , IAXS(k) , fi0 , fi1 , ISKIN(k) , LNORM(k)
             ITTE(k) = 0
             IF ( XA1(k).LT.0. ) ITTE(k) = 1
             XA1(k) = ABS(XA1(k))
-            FIEX(k,1) = fi0/57.2957795
+            FIEX(k,1) = fi0/57.2957795 ! Convert to radians
             FIEX(k,2) = fi1/57.2957795
             IF ( TLBDG(k).LT.0. ) THEN
                FIEX(k,1) = FIEX(k,1) + 3.14159265
@@ -2211,7 +2212,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
             ENDDO
          ENDDO
          DO jj = 1 , 2
-            DO jj1 = 1 , LP1
+            DO jj1 = 1 , LP1 ! LP1 = 50
                IDIVE(jj1,jj) = 1
             ENDDO
          ENDDO
@@ -2282,7 +2283,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
       CALL MINI(chisq,chiok,nptl,conu,imode,idr,xtest,0,0,0,bten)
       IF ( IPS1.EQ.0 ) GOTO 2000
       IMIN = IMIN + 1
-      DO iva = 1 , LP1
+      DO iva = 1 , LP1 ! LP1 = 50
          JSKIP(iva) = 1
       ENDDO
       REWIND 12

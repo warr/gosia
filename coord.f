@@ -1,5 +1,19 @@
  
 C----------------------------------------------------------------------
+C SUBROUTINE COORD
+C
+C Called by: GOSIA
+C Calls:     TACOS, TASIN
+C
+C Purpose: calculate geometry
+C
+C Uses global variables:
+C      FIEX   - phi range of particle detector
+C      ISKIN  - kinematic flag
+C      IZ1    - Z of non-investigated nucleus
+C      XA     - A of investigated nucleus
+C      XA1    - A of non-investigated nucleus
+C      YV     -
  
       SUBROUTINE COORD(Wth,Wph,Wthh,Naa,Ifw,Pfi,Wpi,Wtlb,Lz,Tyy,Tzz)
       IMPLICIT NONE
@@ -16,7 +30,8 @@ C----------------------------------------------------------------------
       COMMON /CX    / NEXPT , IZ , XA , IZ1(50) , XA1(50) , EP(50) , 
      &                TLBDG(50) , VINF(50)
       COMMON /SECK  / ISKIN(50)
-      DATA rade/57.2957795/
+      DATA rade/57.2957795/ ! pi / 2
+
       IF ( Ifw.EQ.0 ) THEN
          Tyy = Wth - Wthh
          Tzz = Wth + Wthh

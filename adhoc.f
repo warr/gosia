@@ -1,5 +1,52 @@
  
 C----------------------------------------------------------------------
+C SUBROUTINE ADHOC
+C
+C Called by: GOSIA
+C Calls: READY, SEQ
+C
+C Purpose: to handle the OP,YIEL option.
+C
+C Uses global variables:
+C      AGELI  - angles of the Ge detectors
+C      BRAT   - branching ratio and its error
+C      CC     - conversion coefficients for different energies and multipolarities
+C      DMIX   -
+C      DMIXE  - mixing ratio and its error
+C      EAMX   - known matrix elements and their error
+C      EG     - energies for conversion coefficients
+C      EN     - energy of level
+C      ENZ    -
+C      IAMX   -
+C      IAMY   -
+C      IBRC   - index branching ratios
+C      IDRN   -
+C      IFMO   -
+C      IMIX   -
+C      IPRM   -
+C      ITMA   - identify detectors according to OP,GDET
+C      ITS    -
+C      IVAR   -
+C      KSEQ   - index levels
+C      LIFCT  - index for lifetimes
+C      MEMAX  - number of matrix elements
+C      NAMX   - number of known matrix elements
+C      NANG   - number of gamma-ray detectors for each experiment
+C      NBRA   - number of branching ratios
+C      NDL    - number of mixing ratios
+C      NDST   - number of data sets
+C      NEXPT  - number of experiments
+C      NICC   - number of conversion coefficients
+C      NLIFT  - number of lifetimes
+C      NYLDE  -
+C      ODL    -
+C      Q      - solid angle attenuation coefficients
+C      TAU    -
+C      TIMEL  - lifetimes and their errors
+C      UPL    - upper limits for all gamma detectors
+C      YNRM   - relative normalization factors for gamma detectors
+C
+C Here we parse the input of the OP,YIEL command and store the values.
  
       SUBROUTINE ADHOC(Oph,Idr,Nfd,Ntap,Iyr)
       IMPLICIT NONE
@@ -41,17 +88,20 @@ C----------------------------------------------------------------------
       COMMON /CEXC  / MAGEXC , MEMAX , LMAXE , MEMX6 , IVAR(500)
       COMMON /PRT   / IPRM(20)
       COMMON /TRB   / ITS
+      
+C     Read OP,YIELD parameters
       iosr = 0
-      READ * , IFMO
-      READ * , NICC , nistr
-      READ * , (EG(jicc),jicc=1,NICC)
+      READ * , IFMO ! IFLAG
+      READ * , NICC , nistr !N1, N2
+      READ * , (EG(jicc),jicc=1,NICC) ! E1,E2...
       Iyr = 1
       DO jic = 1 , nistr
-         READ * , isrt1
+        READ * , isrt1 ! I1
          IF ( isrt1.GT.6 ) isrt1 = isrt1 - 3
-         READ * , (CC(jicc,isrt1),jicc=1,NICC)
+         READ * , (CC(jicc,isrt1),jicc=1,NICC) ! CC(I1,1)...CC(I1,N1)
       ENDDO
-      READ * , (NANG(jicc),jicc=1,NEXPT)
+      READ * , (NANG(jicc),jicc=1,NEXPT) ! NANG(I)...NANG(NEXP)
+      
       REWIND 9
       READ (9,*) Nfd
       DO jicc = 1 , Nfd
@@ -61,6 +111,7 @@ C----------------------------------------------------------------------
             READ (9,*) (Q(licc,jicc,isrt1),licc=1,3)
          ENDDO
       ENDDO
+
       DO jic = 1 , NEXPT
          juf = NANG(jic)
          IF ( juf.LT.0 ) THEN
@@ -72,23 +123,27 @@ C----------------------------------------------------------------------
             ENDDO
             IF ( Oph.NE.'GOSI' ) NANG(jic) = ABS(NANG(jic))
          ELSE
-            READ * , (ITMA(jic,jicc),jicc=1,juf)
-            READ * , (AGELI(jic,jicc,1),jicc=1,juf)
-            READ * , (AGELI(jic,jicc,2),jicc=1,juf)
+            READ * , (ITMA(jic,jicc),jicc=1,juf) ! IP(1)...IP(NANG(I))
+            READ * , (AGELI(jic,jicc,1),jicc=1,juf) ! Theta Ge det
+            READ * , (AGELI(jic,jicc,2),jicc=1,juf) ! Phi Ge det
          ENDIF
       ENDDO
+
+C     Call SEQ to calculate "chronological" order of levels, so we can
+C     account for feeding
       CALL SEQ(Idr)
+      
       DO jic = 1 , NEXPT
          juf = NANG(jic)
          juf = ABS(juf)
          DO jicc = 1 , juf
             DO lxt = 1 , 2
-               AGELI(jic,jicc,lxt) = AGELI(jic,jicc,lxt)*.0174532925
+               AGELI(jic,jicc,lxt) = AGELI(jic,jicc,lxt)*.0174532925 ! 0.017452925 = pi / 180
             ENDDO
          ENDDO
       ENDDO
       TAU(1) = 1.E+25
-      READ * , ns1 , ns2
+      READ * , ns1 , ns2 ! NS1, NS2
       DO li = 1 , Idr
          IF ( KSEQ(li,3).EQ.ns1 .AND. KSEQ(li,4).EQ.ns2 ) GOTO 100
       ENDDO
@@ -105,13 +160,13 @@ C----------------------------------------------------------------------
                YNRM(jicc,li) = YNRM(jicc,li-1)
             ENDDO
          ELSE
-            READ * , NDST(li)
+            READ * , NDST(li) ! NDST
             ndas = NDST(li)
-            READ * , (UPL(jicc,li),jicc=1,ndas)
-            READ * , (YNRM(jicc,li),jicc=1,ndas)
+            READ * , (UPL(jicc,li),jicc=1,ndas) ! UPL1...N
+            READ * , (YNRM(jicc,li),jicc=1,ndas) ! YNRM1...N
          ENDIF
       ENDDO
-      READ * , Ntap
+      READ * , Ntap ! NTAP
       IF ( Ntap.NE.0 ) THEN
          ipri = IPRM(2)
          CALL READY(Idr,Ntap,ipri)
@@ -131,7 +186,7 @@ C----------------------------------------------------------------------
 99001    FORMAT (1X//5X,1I4,1X,'EXPERIMENTAL YIELDS',10X,1I3,1X,
      &           'MATRIX ELEMENTS TO BE VARIED'///)
       ENDIF
-      READ * , NBRA , wbra
+      READ * , NBRA , wbra ! NBRA, WBRA
       IF ( ITS.EQ.2 ) THEN
          REWIND 18
          WRITE (18,*) MEMAX
@@ -140,7 +195,7 @@ C----------------------------------------------------------------------
          WRITE (22,99002)
 99002    FORMAT (40X,'BRANCHING RATIOS',//5X,'NS1',5X,'NF1',5X,'NS2',5X,
      &           'NF2',5X,'RATIO(1:2)',9X,'ERROR')
-         DO lb = 1 , NBRA
+         DO lb = 1 , NBRA ! I1,I2,I3,I4,B,DB repeated NBRA times
             READ * , ns1 , ns2 , ns3 , ns4 , BRAT(lb,1) , BRAT(lb,2)
             BRAT(lb,2) = BRAT(lb,2)/(SQRT(wbra)+1.E-10)
             WRITE (22,99003) ns1 , ns2 , ns3 , ns4 , BRAT(lb,1) , 
@@ -168,12 +223,12 @@ C----------------------------------------------------------------------
          WRITE (22,99004) wbra
 99004    FORMAT (5X,'BRANCHING RATIOS ARE TAKEN WITH WEIGHT',2X,1E14.6)
       ENDIF
-      READ * , NLIFT , wlf
+      READ * , NLIFT , wlf ! NL, WL
       IF ( NLIFT.NE.0 ) THEN
          WRITE (22,99005)
 99005    FORMAT (1X///30X,'LIFETIMES(PSEC)'///5X,'LEVEL',9X,'LIFETIME',
      &           5X,'ERROR'/)
-         DO ilft = 1 , NLIFT
+         DO ilft = 1 , NLIFT ! INDEX, T, DT repeated NL times
             READ * , LIFCT(ilft) , TIMEL(1,ilft) , TIMEL(2,ilft)
             TIMEL(2,ilft) = TIMEL(2,ilft)/(SQRT(wlf)+1.E-10)
             WRITE (22,99006) LIFCT(ilft) , TIMEL(1,ilft) , TIMEL(2,ilft)
@@ -182,12 +237,12 @@ C----------------------------------------------------------------------
          WRITE (22,99007) wlf
 99007    FORMAT (1X/10X,'LIFETIMES ARE TAKEN WITH WEIGHT',2X,1E14.6)
       ENDIF
-      READ * , NDL , wdl
+      READ * , NDL , wdl ! NDL, WDL
       IF ( NDL.NE.0 ) THEN
          WRITE (22,99008)
 99008    FORMAT (1X//20X,'EXPERIMENTAL E2/M1 MIXING RATIOS'///10X,
      &           'TRANSITION',12X,'DELTA',10X,'ERROR'/)
-         DO li = 1 , NDL
+         DO li = 1 , NDL ! IS, IF, DELTA, ERROR repeated NDL times
             READ * , ns1 , ns2 , DMIXE(li,1) , DMIXE(li,2)
             DMIXE(li,2) = DMIXE(li,2)/(SQRT(wdl)+1.E-10)
             WRITE (22,99012) ns1 , ns2 , DMIXE(li,1) , DMIXE(li,2)
@@ -204,12 +259,12 @@ C----------------------------------------------------------------------
      &           1E14.6)
       ENDIF
       IF ( ITS.EQ.2 ) WRITE (18,*) iosr , iosr
-      READ * , NAMX , wamx
+      READ * , NAMX , wamx ! NAMX, WAMX
       IF ( NAMX.EQ.0 ) RETURN
       WRITE (22,99010)
 99010 FORMAT (1X//30X,'EXPERIMENTAL MATRIX ELEMENT(S)'///10X,
      &        'TRANSITION',10X,'MAT.EL.',10X,'ERROR'/)
-      DO iax = 1 , NAMX
+      DO iax = 1 , NAMX ! LAMBDA, INDEX1, INDEX2, ME, DME repeated NAMX times
          READ * , llia , ns1 , ns2 , EAMX(iax,1) , EAMX(iax,2)
          IAMY(iax,1) = ns1
          IAMY(iax,2) = ns2

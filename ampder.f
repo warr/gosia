@@ -1,5 +1,33 @@
  
 C----------------------------------------------------------------------
+C SUBROUTINE AMPDER
+C
+C Called by: INTG
+C Calls:     LAISUM, NEWLV
+C
+C Purpose: to calculate the derivatives of the amplitudes needed for the
+C Adams-Moulton predictor-corrector method.
+C
+C Uses global variables:
+C      ARM    - reduced matrix elements
+C      CAT    -
+C      ELM    - matrix elements
+C      EXPO   - exponents of adiabatic term
+C      IFAC   - 
+C      ISG    -
+C      ISG1   -
+C      ISSTAR -
+C      ISSTO  -
+C      ISMAX  -
+C      LAMDA  - list of multipolarities to calculate
+C      LAMMAX - number of multipolarities to calculate
+C      LAMR   -
+C      LZETA  - index in ZETA to coupling coefficients for given multipolarity
+C      MSTORE -
+C      NMAX   -
+C      NPT    -
+C      NSTART -
+C      NSTOP  -
  
       SUBROUTINE AMPDER(I57)
       IMPLICIT NONE
@@ -23,6 +51,7 @@ C----------------------------------------------------------------------
       COMMON /CCOUP / ZETA(50000) , LZETA(8)
       COMMON /CLCOM8/ CAT(600,3) , ISMAX
       COMMON /CEXC0 / NSTART(76) , NSTOP(75)
+
       DO k = 1 , ISMAX
          ARM(k,6) = (0.,0.)
          ARM(k,4) = (0.,0.)

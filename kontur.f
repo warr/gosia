@@ -1,5 +1,26 @@
  
 C----------------------------------------------------------------------
+C SUBROUTINE KONTUR
+C
+C Called by: GOSIA
+C Calls:     FTBM, LIMITS, RK4
+C
+C Purpose:
+C
+C Uses global variables:
+C      DEVU   -
+C      ELM    - matrix elements
+C      ELML   - lower limit on matrix elements
+C      ELMU   - upper limit on matrix elements
+C      HLM    -
+C      INTR   -
+C      IPS1   -
+C      LNY    -
+C      MEMAX  - number of matrix elements
+C      NWR    -
+C      SA     -
+C      XV     -
+C      YV     -
  
       SUBROUTINE KONTUR(Idr,Chis0,Chil,Ifbf,Inpo,Jj,Sh,Bten,Rem)
       IMPLICIT NONE
@@ -19,6 +40,7 @@ C----------------------------------------------------------------------
       COMMON /HHH   / HLM(500)
       COMMON /ILEWY / NWR
       COMMON /LOGY  / LNY , INTR , IPS1
+
       LNY = 0
       h = .05*ABS(HLM(Jj))
       IF ( Inpo.NE.-1 ) h = ABS(Sh)

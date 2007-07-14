@@ -1,5 +1,23 @@
  
 C----------------------------------------------------------------------
+C SUBROUTINE PRELM
+C
+C Called by: GOSIA
+C Calls:     KONTUR, MINI, PRELM
+C
+C Purpose: print matrix elements
+C
+C Uses global variables:
+C      ELM    - matrix elements
+C      ELML   - lower limits on matrix elements
+C      ELMU   - upper limits on matrix elements
+C      IFAC   -
+C      IVAR   -
+C      LDNUM  - number of matrix elements with each multipolarity populating levels
+C      LEAD   - pair of levels involved in each matrix element
+C      MULTI  - number of matrix elements having a given multipolarity
+C      NMAX   - number of levels
+C      SPIN   - spin of level
  
       SUBROUTINE PRELM(Iop)
       IMPLICIT NONE

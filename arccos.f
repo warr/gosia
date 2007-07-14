@@ -1,10 +1,19 @@
  
 C----------------------------------------------------------------------
+C FUNCTION ARCOS
+C
+C Called by: GOSIA
+C Calls:     TACOS
+C
+C Purpose: calculates an arccosine in a particular range
+C
+C N.B. Pi must be 3.14159...
  
       REAL*8 FUNCTION ARCCOS(A,F,Pi)
       IMPLICIT NONE
       REAL*8 A , an , F , Pi , q , qa , qap , TACOS
       INTEGER*4 ie , j , k
+
       q = TACOS(A)
       qa = q
       qap = q

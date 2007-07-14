@@ -1,5 +1,42 @@
  
 C----------------------------------------------------------------------
+C SUBROUTINE LSLOOP
+C
+C Called by: LOAD
+C Calls:     CODE7, LEADF, WTHREJ
+C
+C Purpose: calculates the coupling parameter zeta and stores it in the
+C          ZETA array starting at the beginning of this array (note that
+C          this array has other things in it as well as zeta).
+C
+C Uses global variables:
+C      CAT    -
+C      ELM    - matrix elements
+C      IAPR   -
+C      ISO    -
+C      LP7    - maximum number of zeta coefficients (45100)
+C      MAGA   - number of magnetic substates in approximate calculation
+C      NSTART -
+C      NSTOP  -
+C      PSI    - psi coefficients
+C      QAPR   -
+C      SPIN   - spin of level
+C      ZETA   -
+
+C \zeta_{kn}^{(\lambda n)} = \sqrt{2 \lambda + 1} *
+C                            (-1)^{I_n - M_n} *
+C                            \three_j{I_n \lambda I_k -M_n \mu M_k} *
+C                            \psi_{kn}
+C
+C For the evaluation of the 3-j symbol, ins = 2 I_n, lam2 = 2 \lambda,
+C inr = 2 I_k, jg1 = -2 M_n, jg2 = 2 * \mu, jrmir = 2 * M_k. Note that the
+C parameters to WTHREJ are all doubled, so that this routine can cope with
+C half-integers.
+C
+C Ssqrt = sqrt(2 * lambda + 1)
+C Lam is lambda
+C La is lambda for electric transitions and lambda + 6 for magnetic ones
+C
  
       SUBROUTINE LSLOOP(Ir,N,Nz,Ld,Lam,La,Ssqrt,Icg,Iexp)
       IMPLICIT NONE
@@ -26,6 +63,7 @@ C----------------------------------------------------------------------
      &                LP10 , LP11 , LP12 , LP13 , LP14
       COMMON /COMME / ELM(500) , ELMU(500) , ELML(500) , SA(500)
       COMMON /CLCOM0/ IFAC(75)
+      
       lam2 = 2*Lam
       inr = CAT(Ir,2)*2.
       rmir = CAT(Ir,3)

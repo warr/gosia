@@ -1,12 +1,18 @@
  
 C----------------------------------------------------------------------
+C SUBROUTINE FAZA1
+C
+C Called by: LAIAMP
+C
+C Purpose: calculate complex phase.
  
       SUBROUTINE FAZA1(La,Mi,Rmir,Rmis,Dis,Rmu)
       IMPLICIT NONE
       INTEGER*4 ieven , irs , La , Mi
       REAL*8 Rmir , Rmis , Rmu
       COMPLEX*16 Dis , ci
-      DATA ci/(0.,1.)/
+      DATA ci/(0.,1.)/ ! sqrt(-1)
+
       irs = (-1)**INT(Rmir+Rmis)
       IF ( La.EQ.7 ) THEN
          Dis = -ci*irs

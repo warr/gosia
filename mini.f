@@ -1,6 +1,46 @@
  
 C----------------------------------------------------------------------
- 
+C SUBROUTINE MINI
+C
+C Called by: GOSIA
+C Calls:     FTBM, LIMITS
+C
+C Purpose: perform the minimization
+C
+C Uses global variables:
+C      CHIS11 -
+C      CORF   -
+C      DEVD   -
+C      DEVU   -
+C      DLOCK  -
+C      ELM    - matrix elements
+C      ELMH   -
+C      GRAD   -
+C      HLMLM  -
+C      ICS    -
+C      IFBFL  -
+C      INTR   -
+C      IPRM   -
+C      IPS1   -
+C      ITAK2  -
+C      IVAR   -
+C      JENTR  -
+C      KFERR  -
+C      KVAR   -
+C      LF1    -
+C      LNY    -
+C      LOCKF  -
+C      LOCKS  -
+C      LP4    - 1500
+C      LP6    - 32
+C      MEMAX  - number of matrix elements
+C      NLOCK  -
+C      NWR    -
+C      SA     -
+C
+C FTBM does the main calculation and LIMITS makes sure the matrix elements
+C don't go outside the limits specified by the user.
+
       SUBROUTINE MINI(Chisq,Chiok,Nptl,Conv,Imode,Idr,Xtest,Ips,Is,Jjh,
      &                Bten)
       IMPLICIT NONE
@@ -44,6 +84,7 @@ C----------------------------------------------------------------------
       COMMON /ERRAN / KFERR
       COMMON /LOGY  / LNY , INTR , IPS1
       COMMON /ERCAL / JENTR , ICS
+
       DO i = 1 , MEMAX
          gradp(i) = 0.
       ENDDO

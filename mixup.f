@@ -1,5 +1,22 @@
  
 C----------------------------------------------------------------------
+C SUBROUTINE MIXUP
+C
+C Called by: GOSIA
+C Calls:     RNDM
+C
+C Purpose: set the matrix elements to random values, as a starting value.
+C
+C Uses global variables:
+C      ELM    - matrix elements
+C      ELML   - lower limit on matrix elements
+C      ELMU   - upper limit on matrix elements
+C      IVAR   -
+C      MEMAX  - number of matrix elements
+C      SA     -
+C      SE     - seed for random number generator
+C
+C It is called when the user gives the option OP,RAND
  
       SUBROUTINE MIXUP
       IMPLICIT NONE
@@ -8,6 +25,7 @@ C----------------------------------------------------------------------
       COMMON /COMME / ELM(500) , ELMU(500) , ELML(500) , SA(500)
       COMMON /CEXC  / MAGEXC , MEMAX , LMAXE , MEMX6 , IVAR(500)
       COMMON /XRA   / SE
+
       DO k = 1 , MEMAX
          IF ( IVAR(k).NE.0 .AND. IVAR(k).LE.999 ) ELM(k) = ELML(k)
      &        + RNDM(SE)*(ELMU(k)-ELML(k))

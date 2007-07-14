@@ -1,5 +1,24 @@
  
 C----------------------------------------------------------------------
+C SUBROUTINE BRANR
+C
+C Called by: FTBM
+C Calls:     CONV
+C
+C Purpose: calculate the theoretical branching ratios and compare to the
+C experimental ones.
+C
+C Uses global variables:
+C      BRAT   - branching ratio and its error
+C      DELTA  -
+C      ELM    - matrix elements
+C      EN     - level energy
+C      IBRC   - index branching ratios
+C      IFAC   -
+C      IPRM   -
+C      KSEQ   - index levels
+C      MULTI  - number of matrix elements with given multipolarity
+C      NBRA   - number of branching ratios
  
       SUBROUTINE BRANR(Chisq,Nwyr,Chilo)
       IMPLICIT NONE
@@ -21,6 +40,7 @@ C----------------------------------------------------------------------
       COMMON /PRT   / IPRM(20)
       COMMON /COMME / ELM(500) , ELMU(500) , ELML(500) , SA(500)
       COMMON /LEV   / TAU(75) , KSEQ(500,4)
+
       IF ( NBRA.EQ.0 ) RETURN
       IF ( IPRM(3).EQ.-1 ) WRITE (22,99001)
 99001 FORMAT (1X,///10X,'EXP. AND CALCULATED BRANCHING RATIOS',//5X,
@@ -36,10 +56,10 @@ C----------------------------------------------------------------------
          iout = 0
          n1 = IBRC(1,k)
          n2 = IBRC(2,k)
-         i1 = KSEQ(n1,1)
-         i2 = KSEQ(n2,1)
-         eng1 = EN(KSEQ(n1,3)) - EN(KSEQ(n1,4))
-         eng2 = EN(KSEQ(n2,3)) - EN(KSEQ(n2,4))
+         i1 = KSEQ(n1,1) ! Index of gamma 2
+         i2 = KSEQ(n2,1) ! Index of gamma 1
+         eng1 = EN(KSEQ(n1,3)) - EN(KSEQ(n1,4)) ! Energy of gamma 1
+         eng2 = EN(KSEQ(n2,3)) - EN(KSEQ(n2,4)) ! Energy of gamma 2
          IF ( i1.NE.0 ) THEN
             IF ( i1.LE.MULTI(1) ) lab1 = 1
             IF ( i1.GT.MULTI(1) .AND. i1.LE.mul2 ) lab1 = 2

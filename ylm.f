@@ -1,12 +1,38 @@
  
 C----------------------------------------------------------------------
- 
+C SUBROUTINE YLM
+C
+C Called by: ANGULA
+C
+C Purpose: evaluate the even spherical harmonics.
+C
+C Uses global variables:
+C      IEXP   - experiment number
+C      IAXS   - axial symmetry flag
+C
+C Ylmr(l,m) = 1 / \sqrt{4 \pi} Y_{2l}^{m - 1}
+C
+C Note the factor of 1 / \sqrt{4 \pi} compared to the orthonormal spherical
+C harmonics.
+C
+C 0.0889703179  = sqrt(20) / (8 pi)
+C 0.0298415518  = 3 / (32 pi)
+C 0.0179325408  = sqrt(52) / (128 pi)
+C 0.1089659406  = sqrt(30) / (16 pi)
+C -0.2179318812 = -1 * sqrt(30) / (8 pi) * cos(theta)
+C 0.1248361677  = 3 * sqrt(70) / (64 pi)
+C -0.3530900028 = -3 * sqrt(140) / (32 pi)
+C 0.0943672726  = 3 * sqrt(10) / (32 pi)
+C -0.1334554768 = -3 * sqrt(20) / (32 pi)
+C etc.
+      
       SUBROUTINE YLM(Theta,Ylmr)
       IMPLICIT NONE
       REAL*8 ct , ctsq , EPS , EROOT , FIEX , st , Theta , Ylmr
       INTEGER*4 i , IAXS , IEXP , j , l , lf , m
       COMMON /KIN   / EPS(50) , EROOT(50) , FIEX(50,2) , IEXP , IAXS(50)
       DIMENSION Ylmr(9,9) , st(7)
+      
       ct = COS(Theta)
       ctsq = ct*ct
       IF ( IAXS(IEXP).EQ.0 ) THEN
@@ -22,7 +48,7 @@ C----------------------------------------------------------------------
       ENDDO
       Ylmr(1,3) = .1089659406
       Ylmr(1,2) = -.2179318812*ct
-      Ylmr(1,1) = .0889703179*(3.*ctsq-1.)
+      Ylmr(1,1) = .0889703179*(3.*ctsq-1.) ! 
       Ylmr(2,5) = .1248361677
       Ylmr(2,4) = -.3530900028*ct
       Ylmr(2,3) = .0943672726*(7.*ctsq-1.)

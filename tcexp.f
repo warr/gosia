@@ -1,10 +1,16 @@
  
 C----------------------------------------------------------------------
+C FUNCTION TCEXP
+C
+C Called by: EXPON
+C
+C Purpose: evaluates a complex exponential
  
       COMPLEX*16 FUNCTION TCEXP(Z)
       IMPLICIT NONE
       REAL*8 a , b , c , d
       COMPLEX*16 Z
+      
       a = DBLE(Z)
       b = IMAG(Z)
       a = EXP(a)

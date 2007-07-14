@@ -1,5 +1,17 @@
  
 C----------------------------------------------------------------------
+C SUBROUTINE PATH
+C
+C Called by: GOSIA
+C
+C Purpose:
+C
+C Uses global variables:
+C      CAT    -
+C      IPATH  -
+C      NMAX   - number of levels
+C      NSTART -
+C      NSTOP  -
  
       SUBROUTINE PATH(Irld)
       IMPLICIT NONE
@@ -10,6 +22,7 @@ C----------------------------------------------------------------------
       COMMON /PTH   / IPATH(75) , MAGA(75)
       COMMON /COEX2 / NMAX , NDIM , NMAX1
       COMMON /CLCOM8/ CAT(600,3) , ISMAX
+
       spm = CAT(Irld,3)
       DO i = 2 , NMAX
          IPATH(i) = 0

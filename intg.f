@@ -1,5 +1,39 @@
  
 C----------------------------------------------------------------------
+C SUBROUTINE INTG
+C
+C Called by: FTBM, GOSIA
+C Calls:     AMPDER, DOUBLE, HALF, RESET
+C
+C Purpose: the main integration routine.
+C
+C Uses global variables:
+C      ACC50  - accuracy required for integration
+C      ARM    - reduced matrix elements
+C      CAT    -
+C      D2W    - step in omega (= 0.03)
+C      IFLG   -
+C      INTERV -
+C      IPATH  -
+C      IRA    - limit of omega for integration for each multipolarity
+C      ISG    -
+C      ISMAX  -
+C      ISO    -
+C      KDIV   -
+C      LAMR   -
+C      MAXLA  -
+C      NDIV   -
+C      NMAX   - number of levels
+C      NPT    -
+C      NSTART -
+C      NSW    -
+C
+C Note that if it finds that the step size for the integral is too small, it
+C calls DOUBLE to increase it by a factor of two, or if it finds that the
+C step size is too big, it decreases it by a factor of two by calling HALF.
+C The function RESET may also be called to reset the step size.
+C
+C We use the Adams-Moulton predictor-corrector model.
  
       SUBROUTINE INTG(Ien)
       IMPLICIT NONE
@@ -25,8 +59,9 @@ C----------------------------------------------------------------------
       COMMON /CEXC0 / NSTART(76) , NSTOP(75)
       COMMON /PTH   / IPATH(75) , MAGA(75)
       COMMON /CEXC9 / INTERV(50)
+      
       intend = INTERV(Ien)
-      D2W = .03
+      D2W = .03 ! We use steps of 0.03 in omega
       NSW = 1
       kast = 0
       NDIV = 0
@@ -36,6 +71,7 @@ C----------------------------------------------------------------------
          LAMR(i) = 0
          IF ( (NPT+NSW).LT.IRA(i) ) LAMR(i) = 1
       ENDDO
+C     Predictor 
       IF ( ISO.EQ.0 ) THEN
          DO n = 1 , NMAX
             ir = NSTART(n) - 1
@@ -69,7 +105,11 @@ C----------------------------------------------------------------------
  200  CALL RESET(ISO)
       IFLG = 1
       i57 = 7
+
+C     Calculate derivatives of amplitudes
       CALL AMPDER(i57)
+      
+C     Corrector
       IF ( ISO.EQ.0 ) THEN
          DO n = 1 , NMAX
             ir = NSTART(n) - 1
@@ -92,6 +132,8 @@ C----------------------------------------------------------------------
       kast = kast + 1
       IFLG = 0
       i57 = 5
+
+C     Calculate derivatives of amplitudes
       CALL AMPDER(i57)
       IF ( (LAMR(2)+LAMR(3)).NE.0 ) THEN
          IF ( kast.GE.intend ) THEN
@@ -107,10 +149,12 @@ C----------------------------------------------------------------------
                   f = MAX(f,srt)
                ENDIF
             ENDDO
+
+C           Decide if we have appropriate accuracy
             f = SQRT(f)/14.
             IF ( f.GT.ACCUR .OR. f.LT.ACC50 ) THEN
                IF ( f.LT.ACC50 ) THEN
-                  CALL DOUBLE(ISO)
+                  CALL DOUBLE(ISO) ! Double step size
                   D2W = 2.*D2W
                   NSW = 2*NSW
                   intend = (DBLE(intend)+.01)/2.
@@ -123,7 +167,7 @@ C----------------------------------------------------------------------
                      ENDIF
                   ENDIF
                ELSE
-                  CALL HALF(ISO)
+                  CALL HALF(ISO) ! Halve step size
                   D2W = D2W/2.
                   NSW = (DBLE(NSW)+.01)/2.
                   intend = 2*intend
@@ -133,6 +177,7 @@ C----------------------------------------------------------------------
                   ENDIF
                ENDIF
             ENDIF
+             
          ENDIF
       ENDIF
       GOTO 100

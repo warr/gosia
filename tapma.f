@@ -1,5 +1,19 @@
  
 C----------------------------------------------------------------------
+C SUBROUTINE TAPMA
+C
+C Called by: GOSIA
+C
+C Purpose: read parameters for sensitivity maps
+C
+C Uses global variables:
+C      DS     -
+C      XV     -
+C      YGN    -
+C      ZETA   - various coefficients
+C
+C Note that unit 14 is used internally for the purpose of sensitivity
+C maps.
  
       SUBROUTINE TAPMA(Lx,Iske,Isko,Iskf,Nflr,Idr,Nco,Nft,Enb)
       IMPLICIT NONE
@@ -12,6 +26,7 @@ C----------------------------------------------------------------------
       COMMON /VLIN  / XV(51) , YV(51) , ZV(20) , DSG(20) , DSE(20) , DS
       COMMON /CCOUP / ZETA(50000) , LZETA(8)
       COMMON /YTEOR / YGN(500) , YGP(500) , IFMO
+
       Nft = 0
       nfilt = 0
       REWIND 14

@@ -1,5 +1,61 @@
  
 C----------------------------------------------------------------------
+C SUBROUTINE FTBM
+C
+C Called by: GOSIA, KONTUR, MINI
+C Calls:     ALLOC, APRAM, BRANR, CEGRY, CHMEM, INTG, LOAD, MIXR, SETIN, SNAKE
+C            STING, TENB, TENS
+C
+C Purpose: main routine to perform the calculation with a given set of matrix
+C          elements.
+C
+C Uses global variables:
+C      ACCA   -
+C      ACCUR  - accuracy required
+C      ARM    - the reduced matrix elements
+C      CAT    -
+C      CHIS11 - 
+C      ELM    - matrix elements given by user
+C      EMH    -
+C      IAXS   - axial symmetry flag
+C      IEXP   - experiment number
+C      IGRD   -
+C      ILE    -
+C      INM    -
+C      INTR   -
+C      IPRM   -
+C      ISMAX  -
+C      ISO    -
+C      ITAK2  -
+C      IY     -
+C      JSKIP  -
+C      KSEQ   -
+C      LFL    -
+C      LFL1   -
+C      LFL2   -
+C      LMAX   -
+C      LP3    - maximum number of levels (75)
+C      LP6    - (32)
+C      LP8    - (104)
+C      LP9    - last 2100 words of ZETA array (47900)
+C      LP10   - (600)
+C      LP11   - LP8 - 1 (103)
+C      LP13   - LP9 + 1 (47901)
+C      LP14   - maximum space for collision functions (4900)
+C      MEMAX  - number of matrix elements
+C      MEMX6  - number of matrix elements with E1...6 multipolarity
+C      NANG   - number of gamma-ray detectors for each experiment
+C      NDIM   - maximum number of levels (75)
+C      NEXPT  - number of experiments
+C      NLIFT  - number of lifetimes
+C      NMAX   - number of levels
+C      NSTART -
+C      NSTOP  - 
+C      NWR    -
+C      NYLDE  -
+C      SPIN   - spin of level
+C      ZETA   - the coupling constants
+C      ZPOL   -
  
       SUBROUTINE FTBM(Icll,Chisq,Idr,Ncall,Chilo,Bten)
       IMPLICIT NONE
@@ -61,6 +117,7 @@ C----------------------------------------------------------------------
       COMMON /SKP   / JSKIP(50)
       COMMON /LIFE  / NLIFT
       COMMON /LOGY  / LNY , INTR , IPS1
+
       issp = 0
       Chilo = 0.
       fx = 2.*SPIN(1) + 1.
@@ -117,10 +174,10 @@ C----------------------------------------------------------------------
             CALL APRAM(IEXP,1,1,jj,ACCA)
             IF ( Ncall.NE.0 ) THEN
                IF ( Icll.NE.3 ) THEN
-                  DO indx = 1 , MEMX6
+                  DO indx = 1 , MEMX6 ! Loop over E1...6 matrix elements
                      CALL APRAM(IEXP,0,indx,jj,ACCA)
                      kx = 0
-                     DO i11 = 1 , NMAX
+                     DO i11 = 1 , NMAX ! Loop over levels
                         IF ( NSTART(i11).NE.0 ) THEN
                            loc = LP3*(indx-1) + i11 + LP11
                            jpp = INT(2.*SPIN(i11)+1.)

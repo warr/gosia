@@ -1,5 +1,17 @@
  
 C----------------------------------------------------------------------
+C SUBROUTINE PODZIEL
+C
+C Called by: APRAM
+C
+C Purpose: subdivide matrix operators if the sumation doesn't converge.
+C
+C Uses global variables:
+C      IDIVE  -
+C      LP2    - maximum number of matrix elements (500)
+C      QAPR   -
+C
+C We use the identity: exp(A) \bar{a} = exp(A/2) exp(A/2)\bar{a}.
  
       SUBROUTINE PODZIEL(I,J)
       IMPLICIT NONE
@@ -12,6 +24,7 @@ C----------------------------------------------------------------------
      &                LP10 , LP11 , LP12 , LP13 , LP14
       COMMON /APRCAT/ QAPR(500,2,7) , IAPR(500,2) , ISEX(75)
       COMMON /APRX  / LERF , IDIVE(50,2)
+
       IF ( I.NE.3 ) THEN
          IF ( I.EQ.1 ) THEN
             l1 = IDIVE(J,1)

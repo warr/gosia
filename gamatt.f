@@ -1,5 +1,11 @@
  
 C----------------------------------------------------------------------
+C SUBROUTINE GAMATT
+C
+C Called by: QFIT
+C Calls:     GCF
+C
+C Purpose:
  
       SUBROUTINE GAMATT(Qui,Tau1,Tau2,Xl1,Nl)
       IMPLICIT NONE
@@ -7,6 +13,7 @@ C----------------------------------------------------------------------
       REAL*8 q , Qui , tau , Tau1 , Tau2 , thing , thing1 , thing3 , Xl1
       DIMENSION Tau1(10) , Tau2(10,7) , Xl1(7) , thing3(10) , q(9) , 
      &          Qui(8,10)
+
       DO i = 1 , 10
          i1 = 1
          thing3(i) = 0.

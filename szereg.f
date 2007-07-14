@@ -1,5 +1,15 @@
  
 C----------------------------------------------------------------------
+C SUBROUTINE SZEREG
+C
+C Called by: READY
+C
+C Purpose: sort out the decay sequence
+C
+C Uses global variables:
+C      DYEX   -
+C      IY     -
+C      YEXP   -
  
       SUBROUTINE SZEREG(Lst,Ls,L)
       IMPLICIT NONE
@@ -9,6 +19,7 @@ C----------------------------------------------------------------------
       COMMON /YEXPT / YEXP(32,1500) , IY(1500,32) , CORF(1500,32) , 
      &                DYEX(32,1500) , NYLDE(50,32) , UPL(32,50) , 
      &                YNRM(32,50) , IDRN , ILE(32)
+
       IF ( Lst.EQ.Ls ) RETURN
       lst1 = Lst
       lsp = Ls - 1

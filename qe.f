@@ -1,5 +1,15 @@
  
 C----------------------------------------------------------------------
+C SUBROUTINE QE
+C
+C Called by: SNAKE
+C
+C Purpose: calculate Qe values
+C
+C We used different formulae depending on lambda (see the table of electric
+C collision functions in the gosia manual).
+C
+C Lmda = lambda (1 = E1, 2 = E2... 6 = E6)
  
       SUBROUTINE QE(C,D,B2,C2,D2,B4,B6,D3,B8,C4,D4,B10,D5,B12,D6,Lmda,
      &              Pol,Cq)
@@ -8,6 +18,7 @@ C----------------------------------------------------------------------
      &       D3 , D4 , D5 , D6 , Pol
       INTEGER*4 Lmda
       DIMENSION Cq(7)
+
       IF ( Lmda.EQ.2 ) THEN
          Cq(1) = 0.75*(2.0*C2-D2)/B4*Pol
          Cq(2) = -1.83711730*C*D/B4*Pol

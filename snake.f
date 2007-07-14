@@ -1,5 +1,33 @@
  
 C----------------------------------------------------------------------
+C SUBROUTINE SNAKE
+C
+C Called by: FTBM, GOSIA
+C Calls:     QE, QM, QRANGE
+C
+C Purpose: evaluate and store the dimensionless collision functions Qe and Qm.
+C
+C Uses global variables:
+C      CH     - table of cosh values
+C      EPS    - epsilon
+C      EROOT  - sqrt(epsilon^2 -1)
+C      LOCQ   - location of collision function in ZETA array
+C      LP7    - start of collision functions in ZETA (45100)
+C      SH     - table of sinh values
+C      ZETA   - various coefficients (here the collision functions)
+C
+C The function QE is used to calculate Qe and QM to calculate Qm, but first
+C we call QRANGE to determine the range over which we need to calculate them.
+C
+C The results are stored in the ZETA array, but not starting from the
+C beginning, which is where zeta itself is written, but from ZETA(LP7).
+C
+C LOCQ (in ALLC) is used as an index to these values.
+C
+C EROOT is set in CMLAB to \sqrt(\epsilon^2 - 1).
+C
+C Note that when we call QE and QM that lmda = 1...6 for E1...6 and 7,8 for
+C M1, M2.
  
       SUBROUTINE SNAKE(Nexp,Zpol)
       IMPLICIT NONE
@@ -18,15 +46,20 @@ C----------------------------------------------------------------------
      &                LP10 , LP11 , LP12 , LP13 , LP14
       COMMON /ALLC  / LOCQ(8,7)
       COMMON /HIPER / SH(365) , CH(365)
+      
       icnt = 0
  100  icnt = icnt + 1
+
+C     Calculate range over which we will want Qe and Qm
       CALL QRANGE(icnt,nlm,lloc,ibm,icm,idm,irl)
       IF ( nlm.EQ.0 ) RETURN
-      chi = CH(icnt)
-      shi = SH(icnt)
+
+C     Calculate some parameters, which we will pass to QE or QM
+      chi = CH(icnt) ! \cosh(\omega)
+      shi = SH(icnt) ! \sinh(\omega)
       b2 = EPS(Nexp)*chi + 1.
       pol = 1. - Zpol/b2
-      b2 = b2*b2
+      b2 = b2*b2 ! b^2 = (\epsilon \cosh(\omega) + 1)^2
       IF ( ibm.NE.2 ) THEN
          b4 = b2*b2
          IF ( ibm.NE.4 ) THEN
@@ -41,7 +74,7 @@ C----------------------------------------------------------------------
          ENDIF
       ENDIF
       IF ( icm.NE.0 ) THEN
-         c = chi + EPS(Nexp)
+         c = chi + EPS(Nexp) ! c = \cosh(\omega + \epsilon)
          IF ( icm.NE.1 ) THEN
             c2 = c*c
             IF ( icm.NE.2 ) THEN
@@ -51,7 +84,7 @@ C----------------------------------------------------------------------
          ENDIF
       ENDIF
       IF ( idm.NE.0 ) THEN
-         d = EROOT(Nexp)*shi
+         d = EROOT(Nexp)*shi ! d = \sinh(\omega) * \sqrt(epsilon^2 - 1)
          IF ( idm.NE.1 ) THEN
             d2 = d*d
             IF ( idm.NE.2 ) THEN

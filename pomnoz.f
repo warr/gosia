@@ -1,5 +1,21 @@
  
 C----------------------------------------------------------------------
+C SUBROUTINE POMNOZ
+C
+C Called by: APRAM
+C Calls:     TCABS
+C
+C Purpose:
+C
+C Uses global variables:
+C      ARM    - reduced matrix elements
+C      IAPR   -
+C      INHB   -
+C      IPATH  -
+C      ISEX   -
+C      LERF   -
+C      MEMX6  - number of matrix elements with E1...6 multipolarity
+C      QAPR   -
  
       SUBROUTINE POMNOZ(Acca,L,Iw,Ktoto,Img,Jidim)
       IMPLICIT NONE
@@ -15,7 +31,8 @@ C----------------------------------------------------------------------
       COMMON /CEXC  / MAGEXC , MEMAX , LMAXE , MEMX6 , IVAR(500)
       COMMON /AZ    / ARM(600,7)
       COMMON /APRX  / LERF , IDIVE(50,2)
-      DATA ci/(0.,-1.)/
+      DATA ci/(0.,-1.)/ ! -sqrt(-1)
+
       sig = 1.
       IF ( L.NE.2 ) sig = -1.
       DO kk = 1 , Jidim

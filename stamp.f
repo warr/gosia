@@ -1,5 +1,12 @@
  
 C----------------------------------------------------------------------
+C FUNCTION STAMP
+C
+C Called by: LAIAMP
+C Calls:     TRINT
+C
+C Purpose: Estimate amplitude
+
  
       COMPLEX*16 FUNCTION STAMP(Epsi,Errt,Xiv,Dw,W0,Lmda,Mua)
       IMPLICIT NONE
@@ -7,6 +14,7 @@ C----------------------------------------------------------------------
      &       cib , cic , cis , Dw , dwi , Epsi , Errt , ex , exa , fct
       INTEGER*4 la , Lmda , mi , Mua
       REAL*8 sa , sb , sia , sib , W0 , Xiv
+
       mi = Mua - 1
       axi = ABS(Xiv)
       la = Lmda
@@ -20,14 +28,14 @@ C----------------------------------------------------------------------
          STAMP = CMPLX(cic,0.)
          IF ( la.EQ.2 ) THEN
             IF ( mi.EQ.0 ) fct = 3.*(3.-Epsi*Epsi)/Epsi/Epsi/Epsi/Epsi
-            IF ( mi.EQ.1 ) fct = 1.837117307*Errt/Epsi/Epsi/Epsi/Epsi
-            IF ( mi.EQ.2 ) fct = -3.674234613*Errt*Errt/Epsi/Epsi/Epsi/
+            IF ( mi.EQ.1 ) fct = 1.837117307*Errt/Epsi/Epsi/Epsi/Epsi ! 1.837117307 = sqrt(27/8)
+            IF ( mi.EQ.2 ) fct = -3.674234613*Errt*Errt/Epsi/Epsi/Epsi/ ! 3.674234613 = sqrt(27/2)
      &                           Epsi
          ELSEIF ( la.EQ.3 ) THEN
             fct = -1.414213562*Errt/Epsi/Epsi
          ELSE
             IF ( mi.EQ.0 ) fct = 1./Epsi/Epsi
-            IF ( mi.EQ.1 ) fct = 1.414213562*Errt/Epsi/Epsi
+            IF ( mi.EQ.1 ) fct = 1.414213562*Errt/Epsi/Epsi ! 1.414213562 = sqrt(2)
          ENDIF
       ELSE
          ex = EXP(W0)/2.
@@ -63,7 +71,7 @@ C----------------------------------------------------------------------
             fct = -.3535533905*Errt*axi*axi
          ELSE
             IF ( mi.EQ.0 ) fct = .5*axi/Epsi
-            IF ( mi.EQ.1 ) fct = .3535533907*Errt*axi/Epsi
+            IF ( mi.EQ.1 ) fct = .3535533907*Errt*axi/Epsi ! 0.3535533907 = sqrt(1/8)
          ENDIF
       ENDIF
       STAMP = STAMP*fct

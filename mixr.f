@@ -1,5 +1,18 @@
  
 C----------------------------------------------------------------------
+C SUBROUTINE MIXR
+C
+C Called by: FTBM, GOSIA
+C
+C Purpose: calculate theoretical mixing ratio and compare to experimental one.
+C
+C Uses global variables:
+C      DMIX   -
+C      DMIXE  - mixing ratio and its error
+C      IMIX   -
+C      KSEQ   - index of level
+C      LNY    -
+C      NDL    - number of mixing ratios
  
       SUBROUTINE MIXR(Nw,Ipsw,Chi,Chilo)
       IMPLICIT NONE
@@ -11,6 +24,7 @@ C----------------------------------------------------------------------
       COMMON /COMME / ELM(500) , ELMU(500) , ELML(500) , SA(500)
       COMMON /MIXD  / DMIXE(20,2) , DMIX(20) , IMIX(20) , NDL
       COMMON /LOGY  / LNY , INTR , IPS1
+
       IF ( NDL.EQ.0 ) RETURN
       Nw = Nw + NDL
       DO i = 1 , NDL

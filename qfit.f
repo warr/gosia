@@ -1,5 +1,11 @@
  
 C----------------------------------------------------------------------
+C SUBROUTINE QFIT
+C
+C Called by: GOSIA
+C Calls:     GAMATT
+C
+C Purpose:
  
       SUBROUTINE QFIT(Qui,Tau1,Tau2,Eng,Xl1,Cf,Nl,Ind)
       IMPLICIT NONE
@@ -8,6 +14,7 @@ C----------------------------------------------------------------------
       INTEGER*4 Ind , ind1 , k , Nl
       DIMENSION Tau1(10) , Eng(10) , Tau2(10,7) , Xl1(7) , Qui(8,10) , 
      &          Cf(8,2)
+
       CALL GAMATT(Qui,Tau1,Tau2,Xl1,Nl)
       ind1 = 5
       IF ( Ind.EQ.4 ) ind1 = 6

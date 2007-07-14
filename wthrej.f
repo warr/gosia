@@ -1,5 +1,20 @@
  
 C----------------------------------------------------------------------
+C FUNCTION WTHREJ
+C
+C Called by: ELMT, F, GOSIA, LSLOOP, TENB
+C
+C Purpose: evaluates a Wigner 3-j symbol.
+C
+C Uses global variables:
+C      IP     - table of prime numbers
+C      KF     - sum of factors of primes
+C      PILOG  - table of natural logs of primes
+C
+C Note that the values of the parameters are doubled, so that this function
+C can handle half-integers. In other words if you want to evaluate
+C \threej(J1 J2 J3 M1 M2 M3) you need to use call the function as:
+C WTHREJ(2 * J1, 2 * J2, 2 * J3, 2 * M1, 2 * M2, 2 * M3).
  
       REAL*8 FUNCTION WTHREJ(J1,J2,J3,M1,M2,M3)
       IMPLICIT NONE
@@ -13,6 +28,7 @@ C----------------------------------------------------------------------
       REAL*8 PILOG , qsumlo , sumlo , vorz , wthrep , zuthre
       DIMENSION jvora(26)
       COMMON /FAKUL / IP(26) , IPI(26) , KF(101,26) , PILOG(26)
+      
       wthrep = 0.E+00
       jjha = (J1+J2-J3)/2 + 1
       jjhb = (J1-J2+J3)/2 + 1

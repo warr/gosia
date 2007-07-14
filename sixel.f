@@ -1,5 +1,17 @@
  
 C----------------------------------------------------------------------
+C SUBROUTINE SIXEL
+C
+C Called by: CEGRY
+C
+C Purpose:
+C
+C Uses global variables:
+C      ARM    - reduced matrix elements
+C      DEV    -
+C      IEXP   - experiment number
+C      ITS    -
+C      KVAR   -
  
       SUBROUTINE SIXEL(Rik,Rv,Em,Jk,Kk,Indx,Lu)
       IMPLICIT NONE
@@ -13,6 +25,7 @@ C----------------------------------------------------------------------
       COMMON /KIN   / EPS(50) , EROOT(50) , FIEX(50,2) , IEXP , IAXS(50)
       COMMON /TRB   / ITS
       COMMON /SEL   / KVAR(500)
+
       kk6 = Kk + 5
       rn = DEV(Lu)
       al = (Rv-rn)*20./Rik

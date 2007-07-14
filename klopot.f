@@ -1,5 +1,25 @@
  
 C----------------------------------------------------------------------
+C SUBROUTINE KLOPOT
+C
+C Called by: GOSIA
+C
+C Purpose:
+C
+C Uses global variables:
+C      CORf   -
+C      ELM    - matrix elements
+C      ELML   - lower limit on matrix elements
+C      ELMU   - upper limit on matrix elements
+C      EP     - bombarding energy
+C      IY     -
+C      KVAR   -
+C      LP2    - maximum number of matrix elements
+C      MEMAX  - number of matrix elements
+C      NEXPT  - number of experiments
+C      TLBDG  - theta of particle detector
+C      ZETA   - various coefficients
+C      VINF   -
  
       SUBROUTINE KLOPOT(K,Rlr)
       IMPLICIT NONE
@@ -24,6 +44,7 @@ C----------------------------------------------------------------------
       COMMON /CX    / NEXPT , IZ , XA , IZ1(50) , XA1(50) , EP(50) , 
      &                TLBDG(50) , VINF(50)
       COMMON /SEL   / KVAR(500)
+
       REWIND 14
       REWIND 18
       ipf = 1

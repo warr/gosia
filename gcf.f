@@ -1,5 +1,10 @@
  
 C----------------------------------------------------------------------
+C SUBROUTINE GCF
+C
+C Called by: GAMATT
+C
+C Purpose:
  
       SUBROUTINE GCF(Tau,Thing,Q)
       IMPLICIT NONE
@@ -8,6 +13,7 @@ C----------------------------------------------------------------------
       INTEGER*4 i , j , k , m
       COMMON /DIMX  / A , R , XL , D , ODL(200)
       DIMENSION f(101) , b(4) , Q(9)
+
       b(1) = ATAN2(A,D+XL)
       b(2) = ATAN2(A,D)
       b(3) = ATAN2(R,D+XL)

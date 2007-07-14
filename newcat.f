@@ -1,6 +1,24 @@
  
 C----------------------------------------------------------------------
- 
+C SUBROUTINE NEWCAT
+C
+C Called by: APRAM
+C Calls:     FXIS1, FXIS2
+C
+C Purpose:
+C
+C Uses global variables:
+C      IAPR   -
+C      IFAC   -
+C      MAGA   - number of magnetic substates in approximate calculation
+C      MULTI  - number of matrix elements having given multipolarity
+C      NMAX   - number of levels
+C      PARX   -
+C      PARXM  -
+C      QAPR   -
+C      XI     - xi coupling coefficients
+C      XIR    -
+      
       SUBROUTINE NEWCAT(Iexp,Jidim)
       IMPLICIT NONE
       REAL*8 a , b , FXIS1 , FXIS2 , PARX , PARXM , q1 , q2 , QAPR , 
@@ -16,6 +34,7 @@ C----------------------------------------------------------------------
       COMMON /COEX2 / NMAX , NDIM , NMAX1
       COMMON /PTH   / IPATH(75) , MAGA(75)
       COMMON /APRCAT/ QAPR(500,2,7) , IAPR(500,2) , ISEX(75)
+
       Jidim = NMAX + 1
       IF ( MAGA(Iexp).NE.0 ) Jidim = 3*NMAX + 1
       ist = 1

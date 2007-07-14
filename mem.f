@@ -1,5 +1,15 @@
  
 C----------------------------------------------------------------------
+C FUNCTION MEM
+C
+C Called by: SEQ, NEWLV
+C
+C Purpose: calculate how much memory is used by the arrays indexed by LEADF.
+C
+C Uses global variables:
+C      LDNUM  - number of matrix elements with each multipolarity populating level
+C      LEAD   - pair of levels involved in each matrix element
+C      MULTI  - number of matrix elements having a given multipolarity
  
       INTEGER*4 FUNCTION MEM(N1,N2,N3)
       IMPLICIT NONE
@@ -7,6 +17,7 @@ C----------------------------------------------------------------------
      &          n1m , N2 , N3 , n3m
       COMMON /CLCOM / LAMDA(8) , LEAD(2,500) , LDNUM(8,75) , LAMMAX , 
      &                MULTI(8)
+
       msum = 0
       IF ( N3.NE.1 ) THEN
          n3m = N3 - 1

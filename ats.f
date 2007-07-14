@@ -1,10 +1,16 @@
  
 C----------------------------------------------------------------------
+C FUNCTION ATS
+C
+C Called by: GKS
+C
+C Purpose: determine the truncation for the sum in GKK.
  
       REAL*8 FUNCTION ATS(N)
       IMPLICIT NONE
       INTEGER*4 m , N
       REAL*8 x , xm
+      
       IF ( N.LE.0 .OR. N.GT.96 ) THEN
          ATS = 0.
          RETURN

@@ -1,5 +1,19 @@
  
 C----------------------------------------------------------------------
+C SUBROUTINE EFFIX
+C
+C Called by: CEGRY, GOSIA2
+C Calls:     LAGRAN
+C
+C Purpose: calculate the efficiency of the detector at a given energy.
+C
+C Uses global variables:
+C      ABC    -
+C      AKAVKA -
+C      THICK  -
+C
+C Note that it uses LAGRAN to interpolate between the data points given
+C by the user.
  
       SUBROUTINE EFFIX(Ipd,En,Effi)
       IMPLICIT NONE
@@ -8,6 +22,7 @@ C----------------------------------------------------------------------
       INTEGER*4 i , Ipd , j , l , ll , n
       DIMENSION xx(51) , yy(51)
       COMMON /EFCAL / ABC(8,10) , AKAVKA(8,200) , THICK(200,7)
+      
       Effi = 1.E-6
       En = En + 1.E-24
       enl = LOG(En)

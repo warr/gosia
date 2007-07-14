@@ -1,6 +1,19 @@
  
 C----------------------------------------------------------------------
- 
+C SUBROUTINE PTICC
+C
+C Called by: GOSIA
+C Calls:     CONV
+C
+C Purpose: print the conversion coefficients
+C
+C Uses global variables:
+C      EN     - energy of level
+C      IFAC   -
+C      KSEQ   - index of level
+C      MULTI  - number of matrix elements having a given multipolarity
+C      SPIN   - spin of level
+
       SUBROUTINE PTICC(Idr)
       IMPLICIT NONE
       REAL*8 ACCA , ACCUR , cone1 , cone2 , conm1 , CONV , DIPOL , EN , 
@@ -12,6 +25,7 @@ C----------------------------------------------------------------------
       COMMON /COEX  / EN(75) , SPIN(75) , ACCUR , DIPOL , ZPOL , ACCA , 
      &                ISO
       COMMON /LEV   / TAU(75) , KSEQ(500,4)
+
       WRITE (22,99001)
 99001 FORMAT (1X//20X,'CALCULATED INTERNAL CONVERSION ',
      &        'COEFFICIENTS FOR E1,E2 AND M1'//5X,'NI',5X,'NF',7X,'II',

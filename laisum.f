@@ -1,6 +1,44 @@
  
 C----------------------------------------------------------------------
- 
+C SUBROUTINE LAISUM
+C
+C Called by: AMPDER, STING
+C Calls:     FAZA
+C
+C Purpose: evaluate the sum  over matrix elements.
+C
+C Uses global variables:
+C      ARM    - reduced matrix elements
+C      CAT    -
+C      ELM    - matrix elements
+C      EXPO   - adiabatic exponential
+C      ISG    -
+C      ISG1   -
+C      ISHA   -
+C      ISO    -
+C      ISSTAR -
+C      ISSTO  -
+C      KDIV   -
+C      LOCQ   - location of collision functions in ZETA array
+C      LP7    - start of collision functions in ZETA (45100)
+C      MSTORE -
+C      NDIV   -
+C      NSTART -
+C      NSTOP  -
+C      ZETA   - various coefficients
+C
+C   \sum_{lmn} \zeta^{lm}_{kn} . M^(1)_{kn} f_{lm}(\omega) a_n(\omega)
+C where
+C   f_{lm} = -i Q_{lm} exp(i \xi_{kn} (\epsilon \sinh(\omega) + \omega))
+C and
+C   M^(1)_{kn} = <k||E(M)\lambda||n>
+C
+C EXPO is exp(i * xi * sinh(w) + w) calculated in function EXPON.
+C ARM is the reduced matrix element.
+C q is the Qe or Qm calculated by the functions QE and QM, respectively and
+C stored in ZETA array in the function SNAKE.
+C z is the coupling parameter zeta, calculated in the function LSLOOP.
+      
       SUBROUTINE LAISUM(Ir,N,Rsg,Lam,Ld,Nz,I57)
       IMPLICIT NONE
       REAL*8 ACCA , ACCUR , CAT , D2W , DIPOL , ELM , ELML , ELMU , EN , 
@@ -29,6 +67,7 @@ C----------------------------------------------------------------------
       COMMON /COMME / ELM(500) , ELMU(500) , ELML(500) , SA(500)
       COMMON /ALLC  / LOCQ(8,7)
       COMMON /CEXC0 / NSTART(76) , NSTOP(75)
+      
       rmir = CAT(Ir,3)
       iii = 0
       IF ( Lam.GT.6 ) iii = 1
@@ -59,8 +98,8 @@ C----------------------------------------------------------------------
                      IF ( la.LE.6 .OR. mua.NE.1 ) THEN
                         indq = LOCQ(Lam,mua) + NPT
                         Nz = Nz + 1
-                        z = ZETA(Nz)
-                        q = ZETA(indq+LP7)
+                        z = ZETA(Nz)         ! Zeta
+                        q = ZETA(indq+LP7)   ! Q-function
                         IF ( NDIV.NE.0 ) q = ZETA(indq+LP7) + DBLE(KDIV)
      &                       *(ZETA(indq+LP7+ISG1)-ZETA(indq+LP7))
      &                       /DBLE(NDIV)

@@ -1,5 +1,30 @@
  
 C----------------------------------------------------------------------
+C SUBROUTINE LAIAMP
+C
+C Called by: STING
+C Calls:     FAZA1, LEADF, STAMP, TCABS
+C
+C Purpose: calculate reduced matrix element
+C
+C Uses global variables:
+C      ARM    - reduced matrix elements
+C      CAT    -
+C      ELM    - matrix elements
+C      EPS    - epsilon
+C      EROOT  - sqrt(epsilon^2 - 1)
+C      IEXP   - number of experiment
+C      IFAC   -
+C      ISG    -
+C      LAMDA  - list of multipolarities to calculate
+C      LAMMAX - number of multipolarities to calculate
+C      LAMR   -
+C      LDNUM  - number of matrix elements with each multipolarity populating levels
+C      LZETA  - index in ZETA to coupling coefficients for given multipolarity
+C      NSTART -
+C      NSTOP  -
+C      XI     - xi coupling coefficients
+C      ZETA   - various coefficients
  
       SUBROUTINE LAIAMP(Ir,W0)
       IMPLICIT NONE
@@ -25,6 +50,7 @@ C----------------------------------------------------------------------
       COMMON /CEXC0 / NSTART(76) , NSTOP(75)
       COMMON /KIN   / EPS(50) , EROOT(50) , FIEX(50,2) , IEXP , IAXS(50)
       COMMON /CXI   / XI(500)
+
       ppp = 0.
       epsi = EPS(IEXP)
       errt = EROOT(IEXP)

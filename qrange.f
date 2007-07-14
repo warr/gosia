@@ -1,5 +1,16 @@
  
 C----------------------------------------------------------------------
+C SUBROUTINE QRANGE
+C
+C Called by: SNAKE
+C
+C Purpose: determine the range for which we will need Qe and Qm values.
+C
+C Uses global variables:
+C      IFAC   -
+C      IRA    - range to integrate over omega
+C      MAXLA  -
+C      MULTI  - number of matrix elements having given multipolarity
  
       SUBROUTINE QRANGE(Icnt,Nlm,Lloc,Ibm,Icm,Idm,Irl)
       IMPLICIT NONE
@@ -11,6 +22,7 @@ C----------------------------------------------------------------------
       COMMON /RNG   / IRA(8) , MAXLA
       COMMON /CLCOM / LAMDA(8) , LEAD(2,500) , LDNUM(8,75) , LAMMAX , 
      &                MULTI(8)
+
       IF ( Icnt.EQ.1 ) THEN
          Nlm = 0
          DO l = 1 , 8

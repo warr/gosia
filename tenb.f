@@ -1,6 +1,23 @@
  
 C----------------------------------------------------------------------
- 
+C SUBROUTINE TENB
+C
+C Called by: FTBM, GOSIA
+C Calls:     WTHREJ
+C
+C Purpose: calculate the state of polarization of the decaying level
+C
+C Uses global variables:
+C      ARM    - reduced matrix elements
+C      CAT    -
+C      NMAX   - number of levels
+C      NSTART -
+C      NSTOP  -
+C      SPIN   - spin of level
+C
+C Note that the parameters to WTHREJ are all doubled, so that this routine
+C can cope with half-integers.
+
       SUBROUTINE TENB(Icl,Bten,Lmax)
       IMPLICIT NONE
       REAL*8 ACCA , ACCUR , Bten , CAT , ce , DIPOL , EN , fc , si , 
@@ -17,6 +34,7 @@ C----------------------------------------------------------------------
       COMMON /COEX2 / NMAX , NDIM , NMAX1
       COMMON /CEXC0 / NSTART(76) , NSTOP(75)
       COMMON /AZ    / ARM(600,7)
+      
       iha = (-1)**INT(2.*SPIN(1)+.01)
       IF ( Icl.EQ.1 ) THEN
          ms = 16*(NMAX-1)

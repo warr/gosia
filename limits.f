@@ -1,5 +1,18 @@
  
 C----------------------------------------------------------------------
+C SUBROUTINE LIMITS
+C
+C Called by: KONTUR, MINI, PRELM
+C
+C Purpose: to constrain the matrix elements to within the limits specified by
+C the user.
+C
+C Uses global variables:
+C      ELM    - matrix elements
+C      ELML   - lower limit on matrix elements
+C      ELMU   - upper limit on matrix elements
+C      IVAR   -
+C      MEMAX  - number of matrix elements
  
       SUBROUTINE LIMITS
       IMPLICIT NONE
@@ -7,6 +20,7 @@ C----------------------------------------------------------------------
       INTEGER*4 IVAR , j , LMAXE , MAGEXC , MEMAX , MEMX6
       COMMON /CEXC  / MAGEXC , MEMAX , LMAXE , MEMX6 , IVAR(500)
       COMMON /COMME / ELM(500) , ELMU(500) , ELML(500) , SA(500)
+
       DO j = 1 , MEMAX
          IF ( IVAR(j).NE.0 ) THEN
             IF ( ELM(j).GT.ELMU(j) .OR. ELM(j).LT.ELML(j) ) THEN

@@ -1,5 +1,20 @@
  
 C----------------------------------------------------------------------
+C SUBROUTINE APRAM
+C
+C Called by: FTBM
+C Calls:     NEWCAT, PODZIEL, POMNOZ
+C
+C Purpose: calculate approximate value of the Coulomb excitation amplitudes.
+C
+C Uses global parameters:
+C      ARM    - reduced matrix elements
+C      ELM    - matrix elements
+C      IDIVE  -
+C      LERF   -
+C      MAGA   - number of magnetic substates in approximate calculation
+C      MEMX6  - number of matrix elements with E1...6 multipolarity
+C      QAPR   -
  
       SUBROUTINE APRAM(Iexp,Inc,Indx,Irld,Acca)
       IMPLICIT NONE
@@ -16,6 +31,7 @@ C----------------------------------------------------------------------
       COMMON /CEXC  / MAGEXC , MEMAX , LMAXE , MEMX6 , IVAR(500)
       COMMON /COMME / ELM(500) , ELMU(500) , ELML(500) , SA(500)
       COMMON /APRX  / LERF , IDIVE(50,2)
+
       LERF = 0
       accah = Acca
  100  i7 = 7
@@ -29,7 +45,7 @@ C----------------------------------------------------------------------
       ENDIF
       IF ( Inc.EQ.0 ) GOTO 300
       IF ( LERF.EQ.0 ) CALL NEWCAT(Iexp,jidim)
-      IF ( LERF.EQ.0 ) CALL PODZIEL(3,Iexp)
+      IF ( LERF.EQ.0 ) CALL PODZIEL(3,Iexp) ! Subdivide
       i56 = 5
       DO k = 1 , jidim
          ARM(k,2) = (0.,0.)
@@ -41,18 +57,18 @@ C----------------------------------------------------------------------
       l1 = IDIVE(Iexp,1)
       DO l3 = 1 , l1
          Acca = accah*l3/l1
-         CALL POMNOZ(Acca,1,i56,ktoto,img,jidim)
+         CALL POMNOZ(Acca,1,i56,ktoto,img,jidim) ! Multiply
          IF ( LERF.NE.0 ) THEN
-            CALL PODZIEL(1,Iexp)
+            CALL PODZIEL(1,Iexp) ! Subdivide
             GOTO 100
          ENDIF
       ENDDO
       l2 = IDIVE(Iexp,2)
       DO l3 = 1 , l2
          Acca = accah + accah*l3/l2
-         CALL POMNOZ(Acca,2,i56,ktoto,img,jidim)
+         CALL POMNOZ(Acca,2,i56,ktoto,img,jidim) ! Multiply
          IF ( LERF.NE.0 ) THEN
-            CALL PODZIEL(2,Iexp)
+            CALL PODZIEL(2,Iexp) ! Subdivide
             GOTO 100
          ENDIF
       ENDDO
@@ -63,7 +79,7 @@ C----------------------------------------------------------------------
       ENDDO
       DO l3 = 1 , l1
          Acca = accah*2. + accah*l3/l1
-         CALL POMNOZ(Acca,1,i56,ktoto,img,jidim)
+         CALL POMNOZ(Acca,1,i56,ktoto,img,jidim) ! Multiply
       ENDDO
       Acca = accah
       DO l = 1 , MEMX6

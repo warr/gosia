@@ -1,5 +1,14 @@
  
 C----------------------------------------------------------------------
+C FUNCTION ELMT
+C
+C Called by: GOSIA
+C Calls:     WTHREJ
+C
+C Purpose:
+C
+C Note that the parameters to WTHREJ are doubled to allow it to handle half
+C integers.
  
       REAL*8 FUNCTION ELMT(Xi1,Xi2,Lam,Nb1,Nb2,Xk1,Xk2,Xm1,Xm2,Xm3)
       IMPLICIT NONE
@@ -7,6 +16,7 @@ C----------------------------------------------------------------------
      &       Xi2 , Xk1 , Xk2 , xlam , Xm1 , Xm2 , Xm3 , xn
       INTEGER*4 i1 , i2 , ipha , k1 , k2 , l , la , Lam , llam , n , 
      &          Nb1 , Nb2
+
       la = Lam
       IF ( la.GT.6 ) la = la - 6
       xlam = DBLE(la)
