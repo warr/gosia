@@ -29,7 +29,7 @@ C      ISO    -
 C      ITAK2  -
 C      IY     -
 C      JSKIP  -
-C      KSEQ   -
+C      KSEQ   - index into ELM for pair of levels, and into EN or SPIN
 C      LFL    -
 C      LFL1   -
 C      LFL2   -
@@ -372,7 +372,7 @@ C      ZPOL   -
                      jk = (luu-1)/LP10 + 1
                      kk = luu - LP10*(jk-1)
                      kk6 = kk + 5
-                     WRITE (22,99009) KSEQ(idec,3) , KSEQ(idec,4) , 
+                     WRITE (22,99009) KSEQ(idec,3) , KSEQ(idec,4) , ! Level numbers
      &                                (INT(DBLE(ARM(kkx,jk))),
      &                                IMAG(ARM(kkx,jk)),kkx=kk,kk6)
 99009                FORMAT (2X,1I2,'--',1I2,5X,

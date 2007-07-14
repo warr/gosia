@@ -27,7 +27,7 @@ C      IPRM   -
 C      ITMA   - identify detectors according to OP,GDET
 C      ITS    -
 C      IVAR   -
-C      KSEQ   - index levels
+C      KSEQ   - index into ELM for pair of levels, and into EN or SPIN
 C      LIFCT  - index for lifetimes
 C      MEMAX  - number of matrix elements
 C      NAMX   - number of known matrix elements

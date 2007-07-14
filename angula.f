@@ -17,7 +17,7 @@ C      IAXS   - axial symmetry flag
 C      IEXP   - experiment number
 C      ITMA   - identify detectors according to OP,GDET
 C      ITTE   - thick target experiment flag
-C      KSEQ   -
+C      KSEQ   - index into ELM for pair of levels, and into EN or SPIN
 C      TAU    - 
 C      ZETA   - various coefficients
  
@@ -47,9 +47,9 @@ C      ZETA   - various coefficients
       COMMON /THTAR / ITTE(50)
       
       DO l = 1 , Idr
-         nlv = KSEQ(l,3)
+         nlv = KSEQ(l,3) ! Level number of l'th decay
          il = (nlv-1)*28
-         inx1 = KSEQ(l,2)
+         inx1 = KSEQ(l,2) ! Index of l'th decay
          DO j = 1 , 4
             f(j) = FP(j,l,1)*DELLA(l,1)
          ENDDO

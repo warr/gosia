@@ -16,7 +16,7 @@ C      EN     - level energy
 C      IBRC   - index branching ratios
 C      IFAC   -
 C      IPRM   -
-C      KSEQ   - index levels
+C      KSEQ   - index into ELM for pair of levels, and into EN or SPIN
 C      MULTI  - number of matrix elements with given multipolarity
 C      NBRA   - number of branching ratios
  
@@ -56,8 +56,8 @@ C      NBRA   - number of branching ratios
          iout = 0
          n1 = IBRC(1,k)
          n2 = IBRC(2,k)
-         i1 = KSEQ(n1,1) ! Index of gamma 2
-         i2 = KSEQ(n2,1) ! Index of gamma 1
+         i1 = KSEQ(n1,1) ! Index of n1'th gamma
+         i2 = KSEQ(n2,1) ! Index of n2'th gamma
          eng1 = EN(KSEQ(n1,3)) - EN(KSEQ(n1,4)) ! Energy of gamma 1
          eng2 = EN(KSEQ(n2,3)) - EN(KSEQ(n2,4)) ! Energy of gamma 2
          IF ( i1.NE.0 ) THEN

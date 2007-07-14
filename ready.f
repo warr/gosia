@@ -10,7 +10,7 @@ C
 C Uses global variables:
 C      DYEX   - error on experimental yield
 C      IY     -
-C      KSEQ   - index of level
+C      KSEQ   - index into ELM for pair of levels, and into EN or SPIN
 C      LP6    - 32
 C      NDST   - number of data sets
 C      NEXPT  - number of experiments

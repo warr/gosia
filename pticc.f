@@ -10,7 +10,7 @@ C
 C Uses global variables:
 C      EN     - energy of level
 C      IFAC   -
-C      KSEQ   - index of level
+C      KSEQ   - index into ELM for pair of levels, and into EN or SPIN
 C      MULTI  - number of matrix elements having a given multipolarity
 C      SPIN   - spin of level
 
@@ -32,9 +32,9 @@ C      SPIN   - spin of level
      &        8X,'IF',9X,'ENERGY(MEV)',6X,'ICC(E1)',8X,'ICC(E2)',8X,
      &        'ICC(M1)')
       DO l = 1 , Idr
-         iinx = KSEQ(l,1)
-         ni = KSEQ(l,3)
-         nf = KSEQ(l,4)
+         iinx = KSEQ(l,1) ! Index of l'th decay
+         ni = KSEQ(l,3) ! Initial level of l'th decay
+         nf = KSEQ(l,4) ! Final level of l'th decay
          enet = EN(ni) - EN(nf)
          cone2 = CONV(enet,2)
          IF ( ABS(SPIN(ni)-SPIN(nf)).GT.2. ) cone2 = 0.

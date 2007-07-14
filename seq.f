@@ -18,7 +18,7 @@ C      FP     -
 C      GKP    -
 C      IFAC   -
 C      KLEC   -
-C      KSEQ   - index of level
+C      KSEQ   - index into ELM for pair of levels, and into EN or SPIN
 C      LDNUM  - number of matrix elements with each multipolarity populating levels
 C      LP2    - maximum number of matrix elements (500)
 C      LP3    - maximum number of levels (75)

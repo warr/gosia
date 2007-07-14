@@ -15,7 +15,7 @@ C      IAXS   - axial symmetry flag
 C      IBYP   -
 C      IEXP   - experiment number
 C      KLEC   -
-C      KSEQ   - index of level
+C      KSEQ   - index into ELM for pair of levels, and into EN or SPIN
 C      LIFCT  - index for lifetimes
 C      NMAX   - number of levels
 C      NMAX1  -
@@ -51,14 +51,14 @@ C      ZETA   - various coefficients
 
       idr = 1
       DO il = 1 , NMAX1
-         l = KSEQ(idr,3)
+         l = KSEQ(idr,3) ! Initial level of idr'th decay
          n1 = 28*(l-1)
          ibra = KLEC(l)
          bsum = 0.
          idrh = idr
          DO j = 1 , ibra
-            inx = KSEQ(idr,1)
-            inx1 = KSEQ(idr,2)
+            inx = KSEQ(idr,1) ! Index 1 of idr'th decay
+            inx1 = KSEQ(idr,2) ! Index 2 of idr'th decay
             el1 = 0.
             IF ( inx.NE.0 ) el1 = ELM(inx)
             emt = el1*el1
@@ -76,9 +76,9 @@ C      ZETA   - various coefficients
          TAU(l) = 1./bsum
          CALL GKVAC(l)
          DO j = 1 , ibra
-            l1 = KSEQ(idr,4)
+            l1 = KSEQ(idr,4) ! Final energy of idr'th decay
             n2 = 28*(l1-1)
-            inx1 = KSEQ(idr,2)
+            inx1 = KSEQ(idr,2) ! Index 2 of idr'th decay
             DO i = 1 , 4
                gk(i) = GKP(i,idr,1)*DELLA(idr,1)
             ENDDO

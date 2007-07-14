@@ -33,14 +33,14 @@ C      ITS    -
 C      IWF    -
 C      IY     -
 C      JSKIP  -
+C      KSEQ   - index into ELM for pair of levels, and into EN or SPIN
+C      KVAR   -
 C      LASTCL -
 C      LFL    -
 C      LNORM  - normalization constant control
 C      LP2    - maximum number of matrix elements (500)
 C      LP6    - 32
 C      LP10   - 600
-C      KSEQ   - index of level
-C      KVAR   -
 C      NANG   - number of gamma-ray detectors for each experiment
 C      NDST   - number of data sets
 C      NEXPT  - number of experiments
@@ -208,7 +208,7 @@ C      YNRM   - relative normalization factors for gamma detectors
                   fic = ATAN2(ry,rx)
                   CALL ANGULA(YGP,Idr,ifxd,fi0,fi1,tetrc,thc,fic,k)
                   DO ixl = 1 , Idr
-                     ixm = KSEQ(ixl,3)
+                     ixm = KSEQ(ixl,3) ! Initial level of ixl'th decay
                      tfac = TAU(ixm)
                      YGN(ixl) = YGN(ixl) + .01199182*tfac*BETAR(IEXP)
      &                          *(sf*YGP(ixl)-YGN(ixl))
@@ -249,8 +249,8 @@ C      YNRM   - relative normalization factors for gamma detectors
                   lth(iabc) = 0
                ENDDO
                DO l = 1 , Idr
-                  ni = KSEQ(l,3)
-                  nf = KSEQ(l,4)
+                  ni = KSEQ(l,3) ! Intial level of l'th decay
+                  nf = KSEQ(l,4) ! Final level of l'th decay
                   IF ( l.EQ.IY(lu,k9) .OR. l.EQ.(IY(lu,k9)/1000) ) THEN
                      ifdu = 0
                      lic(k9) = lic(k9) + 1
@@ -269,8 +269,8 @@ C      YNRM   - relative normalization factors for gamma detectors
                            war = '    '
                            sgm = (YEXP(k9,lu)-YGN(l)*CNOR(k9,IEXP))
      &                           /DYEX(k9,lu)
-                           ni1 = KSEQ(l1,3)
-                           nf1 = KSEQ(l1,4)
+                           ni1 = KSEQ(l1,3) ! Initial level of l1'th decay
+                           nf1 = KSEQ(l1,4) ! Final level of l1'th decay
                            WRITE (22,99007) ni , ni1 , nf , nf1 , 
      &                            SPIN(ni) , SPIN(ni1) , SPIN(nf) , 
      &                            SPIN(nf1) , ENDEC(l) , ENDEC(l1) , 
@@ -421,7 +421,7 @@ C      YNRM   - relative normalization factors for gamma detectors
                   fic = ATAN2(ry,rx)
                   CALL ANGULA(YGP,Idr,ifxd,fi0,fi1,tetrc,thc,fic,k)
                   DO ixl = 1 , Idr
-                     ixm = KSEQ(ixl,3)
+                     ixm = KSEQ(ixl,3) ! Initial level of ixl'th decay
                      tfac = TAU(ixm)
                      IF ( tfac.GT.1.E+4 ) GOTO 25
                      YGN(ixl) = YGN(ixl) + .01199182*tfac*BETAR(IEXP)
