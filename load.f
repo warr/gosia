@@ -175,10 +175,13 @@ C        Calculate psi and store in PSI in common PCOM
          ENDDO
          IF ( Ient.EQ.1 ) RETURN
       ENDIF
+
+C     Initialise NSTART and NSTOP arrays
       DO n = 1 , NMAX
          NSTART(n) = 0
          NSTOP(n) = 0
       ENDDO
+
       is = 1
       NSTART(1) = 1
       DO n = 1 , NMAX
@@ -203,6 +206,7 @@ C        Calculate psi and store in PSI in common PCOM
          NSTART(n+1) = is
          NSTOP(n) = is - 1
       ENDDO
+
       ISMAX = is - 1
       IF ( ISMAX.LE.LP10 ) THEN
          IF ( Ient.EQ.3 ) RETURN
@@ -254,5 +258,6 @@ C        Calculate psi and store in PSI in common PCOM
          WRITE (22,99002) LP10
 99002    FORMAT (' ERROR-ISMAX EXCEEDS MAGMAX',5X,'(MAGMAX =',I4,')')
       ENDIF
+
       ERR = .TRUE.
       END
