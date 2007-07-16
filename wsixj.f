@@ -11,6 +11,17 @@ C      IP     - table of prime numbers
 C      KF     - sum of factors of primes
 C      PILOG  - table of natural logs of primes
 C
+C Formal parameters:
+C      J1     - twice the value of J1
+C      J2     - twice the value of J2
+C      J3     - twice the value of J3
+C      L1     - twice the value of L1
+C      L2     - twice the value of L2
+C      L3     - twice the value of L3
+C
+C Return value:
+C      The value of the 6-j symbol
+C
 C Note that the values of the parameters are doubled, so that this function
 C can handle half-integers. In other words if you want to evaluate
 C \sixj(J1 J2 J3 L1 L2 L3) you need to use call the function as:

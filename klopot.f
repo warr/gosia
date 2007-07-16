@@ -12,7 +12,7 @@ C      ELM    - matrix elements
 C      ELML   - lower limit on matrix elements
 C      ELMU   - upper limit on matrix elements
 C      EP     - bombarding energy
-C      IY     -
+C      IY     - index of experimental yields
 C      KVAR   -
 C      LP2    - maximum number of matrix elements (500)
 C      MEMAX  - number of matrix elements
@@ -20,7 +20,11 @@ C      NEXPT  - number of experiments
 C      TLBDG  - theta of particle detector
 C      ZETA   - various coefficients
 C      VINF   -
- 
+C
+C Formal parameters:
+C      K      -
+C      Rlr    -
+
       SUBROUTINE KLOPOT(K,Rlr)
       IMPLICIT NONE
       REAL*8 a , al , al1 , b , c , ch , CORF , d , dy , DYEX , e , 

@@ -10,6 +10,10 @@ C Uses global variables:
 C      IEXP   - experiment number
 C      IAXS   - axial symmetry flag
 C
+C Formal parameters:
+C      Theta  - theta for which to evaluate
+C      Ylmr   - return value for that theta
+C
 C Ylmr(l,m) = 1 / \sqrt{4 \pi} Y_{2l}^{m - 1}
 C
 C Note the factor of 1 / \sqrt{4 \pi} compared to the orthonormal spherical

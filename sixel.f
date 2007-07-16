@@ -12,6 +12,15 @@ C      DEV    -
 C      IEXP   - experiment number
 C      ITS    -
 C      KVAR   -
+C
+C Formal parameters:
+C      Rik    -
+C      Rv     -
+C      Em     -
+C      Jk     -
+C      Kk     -
+C      Indx   -
+C      Lu     -
  
       SUBROUTINE SIXEL(Rik,Rv,Em,Jk,Kk,Indx,Lu)
       IMPLICIT NONE
@@ -34,6 +43,7 @@ C      KVAR   -
       al1 = ABS(al)
       IF ( ITS.EQ.2 ) WRITE (18,*) Lu , Indx , IEXP , al1
       IF ( al1.LE.ABS(IMAG(ARM(kk6,Jk))) ) RETURN
+
       DO j = Kk , kk6
          a1 = ABS(IMAG(ARM(j,Jk)))
          IF ( al1.GT.a1 ) THEN
@@ -49,4 +59,5 @@ C      KVAR   -
             GOTO 99999
          ENDIF
       ENDDO
+
 99999 END

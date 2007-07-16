@@ -15,6 +15,11 @@ C      NSTART -
 C      NSTOP  -
 C      SPIN   - spin of level
 C
+C Formal parameters:
+C      Icl    -
+C      Bten   -
+C      Lmax   -
+C
 C Note that the parameters to WTHREJ are all doubled, so that this routine
 C can cope with half-integers.
 

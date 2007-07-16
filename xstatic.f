@@ -12,6 +12,12 @@ C      DQ     - width of gaussian distribution
 C      QCEN   - center of gaussian distribution
 C      XNOR   - normalisation factor
 C
+C Formal parameters:
+C      Iz     - Z of nucleus
+C      Ido    - returned QCEN -3 * DQ rounded down to nearest integer
+C      Iup    - returned QCEN +3 * DQ rounded up to nearest integer
+C      Beta   - beta
+C
 C We use: h = {1 \over {1 + (0.012008 \beta Z^0.45)^{5/3}}} and
 C Q_0 = Z h^6 (QCEN here)
 C \sigma_Q = \sqrt(Q_0 (1 - h)) (DQ here)

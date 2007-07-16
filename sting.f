@@ -28,6 +28,9 @@ C      MAXLA  -
 C      MSTORE -
 C      NDIV   -
 C      NPT    -
+C
+C Formal parameters:
+C      Irld   - index into ARM array
  
       SUBROUTINE STING(Irld)
       IMPLICIT NONE

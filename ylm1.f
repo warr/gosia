@@ -6,6 +6,10 @@ C Called by: ANGULA
 C
 C Purpose: evaluate the odd spherical harmonics.
 C
+C Formal parameters:
+C      Theta  - theta for which to evaluate
+C      Ylmr   - return value for that theta
+C
 C Ylmr(l,m) = 1 / \sqrt{4 \pi} Y_{l - 1}^{m - 1}
 C
 C Note the factor of 1 / \sqrt{4 \pi} compared to the orthonormal spherical

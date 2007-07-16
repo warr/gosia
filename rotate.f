@@ -7,6 +7,13 @@ C Calls:     GOSIA, ROTATE, TENS
 C
 C Purpose: rotate the frame of reference
 C
+C Formal parameters:
+c      Alab   - matrix in lab frame
+C      Attl   - matrix rotated
+C      Theta  - angle to rotate by
+C      K2     - maximum dimension to rotate
+C      Kd     - step over dimension
+C
 C We use:
 C \rho_{k \xi} = (-1)^\xi *
 C  \sum_\xi^\prime{i^\xi\prime d^k_{xi^\prime \xi}

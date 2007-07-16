@@ -27,7 +27,7 @@ C      IPRM   -
 C      ISMAX  -
 C      ISO    -
 C      ITAK2  -
-C      IY     -
+C      IY     - index of experimental yields
 C      JSKIP  -
 C      KSEQ   - index into ELM for pair of levels, and into EN or SPIN
 C      LFL    -

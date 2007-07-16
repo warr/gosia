@@ -6,6 +6,9 @@ C Called by: MIXUP
 C
 C Purpose: Generate a pseudo-random number based on the seed Se
 C
+C Formal parameters:
+C      Se     - seed for random number
+C
 C It is used to generate random matrix elements as a starting position,
 C when OP,RAND is called. The parameter to OP,RAND is the seed here.
  

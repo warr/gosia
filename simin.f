@@ -5,6 +5,14 @@ C
 C Called by: GOSIA
 C
 C Purpose:
+C
+C Formal parameters:
+C      Np     - number of points in array Y
+C      H      - step between points
+C      Y      - array of points
+C
+C Return value:
+C
  
       REAL*8 FUNCTION SIMIN(Np,H,Y)
       IMPLICIT NONE

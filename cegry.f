@@ -13,7 +13,7 @@ C      BETAR  - recoil beta
 C      CNOR   -
 C      CORF   - internal correction factors
 C      DEV    -
-C      DYEX   -
+C      DYEX   - error on experimental yield
 C      EMH    -
 C      ENDEC  -
 C      FIEX   - phi range of particle detector
@@ -31,7 +31,7 @@ C      IRAWEX -
 C      ITMA   - identify detectors according to OP,GDET
 C      ITS    -
 C      IWF    -
-C      IY     -
+C      IY     - index for yields
 C      JSKIP  -
 C      KSEQ   - index into ELM for pair of levels, and into EN or SPIN
 C      KVAR   -
@@ -58,7 +58,7 @@ C      TAU    -
 C      TREP   -
 C      UPL    - upper limits for all gamma detectors
 C      VACDP  -
-C      YEXP   -
+C      YEXP   - experimental yield
 C      YGN    -
 C      YGP    -
 C      YNRM   - relative normalization factors for gamma detectors

@@ -5,6 +5,12 @@ C
 C Called by: EXPON
 C
 C Purpose: evaluates a complex exponential
+C
+C Formal parameters:
+C      Z      - argument of exponential (complex)
+C
+C Return value:
+C      complex exponential of Z.
  
       COMPLEX*16 FUNCTION TCEXP(Z)
       IMPLICIT NONE

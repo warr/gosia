@@ -9,13 +9,18 @@ C Purpose: To read experimental yields from a file.
 C
 C Uses global variables:
 C      DYEX   - error on experimental yield
-C      IY     -
+C      IY     - index of experimental yields
 C      KSEQ   - index into ELM for pair of levels, and into EN or SPIN
 C      LP6    - 32
 C      NDST   - number of data sets
 C      NEXPT  - number of experiments
 C      NYLDE  - number of yields
 C      YEXP   - experimental yield
+C
+C Formal parameters:
+C      Idr    -
+C      Ntap   - unit for yield file
+C      Ipr    -
 C
 C NTAP is the unit number of the file from which we should read the
 C experimental yields

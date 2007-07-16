@@ -6,6 +6,12 @@ C Called by: CMLAB, COORD, TACOS
 C
 C Purpose: calculate an arcsine(x)
 C
+C Formal parameters:
+C      X      - value for which we are to evaluate the arcsine
+C
+C Return value:
+C      arcsine of X
+C
 C We take care of the special case of abs(x) = 1. Otherwise, we evaluate
 C arctan(x / sqrt(1 - x^2).
 

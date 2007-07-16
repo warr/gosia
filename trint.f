@@ -7,6 +7,11 @@ C Calls:     POL4
 C
 C Purpose: calculate sine and cosine integrals (Si and Ci)
 C
+C Formal parameters:
+C      Arg    - value of x for which to evaluate sine and cosine integrals
+C      Si     - returned sine integral at that value
+C      Ci     - returned cosine integral at that value
+C
 C For small x:
 C Si = x - x^3 / (3! * 3) + x^5 / (5! * 5) - x^7 / (7! * 7) + ...
 C 1 / (3! * 3) = 1 / 18    = 0.05555555

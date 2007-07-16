@@ -28,6 +28,9 @@ C      NMAX1  -
 C      SPIN   - spin of level
 C      TAU    -
 C
+C Formal parameters:
+C      Idr    - returns number of items in KSEQ array.
+C
 C We store the order in the KSEQ array of common block LEV.
 C
 C Note that in the code, a multipolarity 1 = E1, 2 = E2 ... 6 = E6, 7 = M1,

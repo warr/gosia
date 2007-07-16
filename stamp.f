@@ -6,7 +6,15 @@ C Called by: LAIAMP
 C Calls:     TRINT
 C
 C Purpose: Estimate amplitude
-
+C
+C Formal parameters:
+C      Epsi   - epsilon for this experiment
+C      Errt   - sqrt(epsilon^2 - 1) for this experiment
+C      Xiv    - value of xi
+C      Dw     - step in omega (0.03)
+C      W0     - value of omega
+C      Lmda   - lambda (1...6 for E1...6 and 1,2 for M1,2)
+C      Mua    - mu
  
       COMPLEX*16 FUNCTION STAMP(Epsi,Errt,Xiv,Dw,W0,Lmda,Mua)
       IMPLICIT NONE
@@ -19,6 +27,7 @@ C Purpose: Estimate amplitude
       axi = ABS(Xiv)
       la = Lmda
       IF ( Lmda.EQ.7 ) la = 3
+
       IF ( axi.LT.1.E-5 ) THEN
          a = -2.*W0
          IF ( la.EQ.3 ) a = -W0
@@ -32,7 +41,7 @@ C Purpose: Estimate amplitude
             IF ( mi.EQ.2 ) fct = -3.674234613*Errt*Errt/Epsi/Epsi/Epsi/ ! 3.674234613 = sqrt(27/2)
      &                           Epsi
          ELSEIF ( la.EQ.3 ) THEN
-            fct = -1.414213562*Errt/Epsi/Epsi
+            fct = -1.414213562*Errt/Epsi/Epsi ! 1.414213562 = sqrt(2)
          ELSE
             IF ( mi.EQ.0 ) fct = 1./Epsi/Epsi
             IF ( mi.EQ.1 ) fct = 1.414213562*Errt/Epsi/Epsi ! 1.414213562 = sqrt(2)
@@ -74,6 +83,7 @@ C Purpose: Estimate amplitude
             IF ( mi.EQ.1 ) fct = .3535533907*Errt*axi/Epsi ! 0.3535533907 = sqrt(1/8)
          ENDIF
       ENDIF
+
       STAMP = STAMP*fct
       STAMP = CONJG(STAMP)
       END

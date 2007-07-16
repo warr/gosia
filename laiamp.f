@@ -25,7 +25,11 @@ C      NSTART -
 C      NSTOP  -
 C      XI     - xi coupling coefficients
 C      ZETA   - various coefficients
- 
+C
+C Formal parameters:
+C      Ir     -
+C      W0     -
+      
       SUBROUTINE LAIAMP(Ir,W0)
       IMPLICIT NONE
       REAL*8 CAT , D2W , ELM , ELML , ELMU , EPS , epsi , EROOT , errt , 

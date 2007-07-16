@@ -16,6 +16,10 @@ C      LP7    - start of collision functions in ZETA (45100)
 C      SH     - table of sinh values
 C      ZETA   - various coefficients (here the collision functions)
 C
+C Formal parameters:
+C      Nexp   - experiment number
+C      Zpol   -
+C
 C The function QE is used to calculate Qe and QM to calculate Qm, but first
 C we call QRANGE to determine the range over which we need to calculate them.
 C
