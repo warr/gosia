@@ -5,18 +5,20 @@ C
 C Called by: GOSIA
 C Calls:     GAMATT
 C
-C Purpose:
+C Purpose: for OP,GDET, calculate effect of absorbers.
 C
 C Formal parameters:
 C      Qui    -
-C      Tau1   -
-C      Tau2   -
+C      Tau1   - absorption coefficients' table
+C      Tau2   - absorption coefficients' table
 C      Eng    -
 C      Xl1    -
 C      Cf     -
 C      Nl     -
-C      Ind    -
- 
+C      Ind    - type of absorber
+C
+C Note the absorbers are: Al, C, Fe, Cu, Ag/Cd/Sn, Ta and Pb, respectively.
+      
       SUBROUTINE QFIT(Qui,Tau1,Tau2,Eng,Xl1,Cf,Nl,Ind)
       IMPLICIT NONE
       REAL*8 ca , cb , Cf , cm , cn , co , d , d1 , d2 , Eng , Qui , 
@@ -26,6 +28,7 @@ C      Ind    -
      &          Cf(8,2)
 
       CALL GAMATT(Qui,Tau1,Tau2,Xl1,Nl)
+      
       ind1 = 5
       IF ( Ind.EQ.4 ) ind1 = 6
       IF ( Ind.EQ.5 ) ind1 = 7

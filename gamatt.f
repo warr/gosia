@@ -5,14 +5,16 @@ C
 C Called by: QFIT
 C Calls:     GCF
 C
-C Purpose:
+C Purpose: calculate gamma attenuation in absorbers
 C
 C Formal parameters:
 C      Qui    -
-C      Tau1   -
-C      Tau2   -
-C      Xl1    -
-C      Nl     -
+C      Tau1   - table of absorption coefficients
+C      Tau2   - table of absorption coefficients
+C      Xl1    - thickness of each kind of absorber
+C      Nl     - number of kinds of absorber, we can treat (7)
+C
+C Note the absorbers are: Al, C, Fe, Cu, Ag/Cd/Sn, Ta and Pb, respectively.
  
       SUBROUTINE GAMATT(Qui,Tau1,Tau2,Xl1,Nl)
       IMPLICIT NONE
@@ -29,6 +31,7 @@ C      Nl     -
          thing3(i) = thing1
          IF ( i1.LE.Nl ) GOTO 50
       ENDDO
+
       DO i = 1 , 10
          tau = Tau1(i)
          thing = thing3(i)

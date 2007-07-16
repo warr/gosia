@@ -239,6 +239,7 @@ C**********************************************************************
       DATA (tau2(k,7),k=1,10)/89.809 , 56.338 , 27.009 , 62.966 , 
      &      22.933 , 11.334 , 4.540 , 1.813 , .8020 , .5900/
 
+C     Initialise variables
       IBYP = 0
       IP(1) = 2
       IP(2) = 3
@@ -421,13 +422,21 @@ C**********************************************************************
       ENDDO
       ERR = .FALSE.
       intend = 0
+
+C     Start reading input file.
  100  READ 99001 , op1 , op2
 99001 FORMAT (1A3,1A4)
+      
       IF ( op1.EQ.'OP, ' ) THEN
          IF ( op2.EQ.'GOSI' ) oph = op2
          IF ( op2.EQ.'GOSI' ) opcja = op2
-         IF ( op2.EQ.'FILE' ) CALL OPENF
-         IF ( op2.EQ.'FILE' ) GOTO 100
+
+C        Treat OP,FILE (attach files to fortran units)
+         IF ( op2.EQ.'FILE' ) THEN
+           CALL OPENF
+           GOTO 100
+         ENDIF
+         
          IF ( jphd.EQ.1 ) WRITE (22,99002)
 99002    FORMAT ('1'/1X,125('*')/1X,125('*')/1X,50('*'),25X,50('*')/1X,
      &           50('*'),10X,'GOSIA',10X,50('*')/1X,50('*'),25X,50('*')
@@ -437,10 +446,13 @@ C**********************************************************************
      &           'CODE BY T.CZOSNYKA,D.CLINE AND C.Y.WU'/50X,
      &           'LATEST REVISION- JUNE  2006'//////)
          jphd = 0
+
+C        Handle OP,GDET (germanium detectors)
          IF ( op2.EQ.'GDET' ) THEN
             nl = 7
-            READ * , nfdd
-            nfd = ABS(nfdd)
+            READ * , nfdd ! number of physical detectors
+
+            nfd = ABS(nfdd) ! Negative value means graded absorber
             IF ( nfdd.LE.0 ) THEN
                REWIND 8
                DO i = 1 , nl
@@ -450,9 +462,10 @@ C**********************************************************************
             ENDIF
             REWIND 9
             WRITE (9,*) nfd
-            DO i = 1 , nfd
-               READ * , (DIX(k),k=1,4)
-               READ * , (xl1(k),k=1,nl)
+
+            DO i = 1 , nfd ! For each detector
+               READ * , (DIX(k),k=1,4) ! radius of core, outer radius, length, distance
+               READ * , (xl1(k),k=1,nl) ! thicknesses of 7 kinds of absorber
                IF ( DIX(1).LE.0. ) DIX(1) = .01
                WRITE (9,*) DIX(4)
                IF ( nfdd.LE.0 ) WRITE (8,*) (xl1(k),k=1,nl)
@@ -479,18 +492,24 @@ C**********************************************************************
                   ENDDO
                ENDDO
             ENDDO
-            GOTO 100
-         ELSEIF ( op2.EQ.'RAND' ) THEN
-            READ * , SE
+            GOTO 100 ! End of OP,GDET
+
+C         Treat OP,RAND (randomise matrix elements)
+          ELSEIF ( op2.EQ.'RAND' ) THEN
+            READ * , SE ! Seed for random number generator
             CALL MIXUP
             WRITE (22,99007)
 99007       FORMAT (1X///5X,'MATRIX ELEMENTS RANDOMIZED...'///)
             CALL PRELM(2)
             GOTO 100
+
+C        Treat OP,TROU (troubleshooting)
          ELSEIF ( op2.EQ.'TROU' ) THEN
             ITS = 1
             READ * , kmat , rlr
             GOTO 100
+
+C        Treat OP,REST (restart)
          ELSEIF ( op2.EQ.'REST' ) THEN
             REWIND 12
             memax1 = MEMAX + 1
@@ -529,9 +548,17 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
             ENDDO
             CALL PRELM(2)
             GOTO 100
+
+C        Treat other options
          ELSE
+
+C           Treat OP,RE,A (release A)
             IF ( op2.EQ.'RE,A' ) GOTO 900
+           
+C           Treat OP,RE,F (release F)
             IF ( op2.EQ.'RE,F' ) GOTO 900
+
+C           Treat OP,ERRO (calculate errors)
             IF ( op2.EQ.'ERRO' ) THEN
                READ * , idf , ms , mend , irep , ifc , remax
                rem = LOG(remax)
@@ -591,19 +618,30 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
                IF ( ERR ) GOTO 2000
                IF ( IMIN.NE.0 ) GOTO 400
                GOTO 1300
+
+C           Treat OP,RE,C (release C)
             ELSEIF ( op2.EQ.'RE,C' ) THEN
                jfre = 1
                irfix = 0
                GOTO 1000
+
+C           Treat OP,TITL (title)
             ELSEIF ( op2.EQ.'TITL' ) THEN
                READ 99009 , (title(k),k=1,20)
 99009          FORMAT (20A4)
                WRITE (22,99010) (title(k),k=1,20)
 99010          FORMAT (10X,20A4/10X,100('-'))
                GOTO 100
+
             ELSE
+
+C              Treat OP,GOSI
                IF ( op2.EQ.'GOSI' ) GOTO 200
+
+C              Treat OP,COUL
                IF ( op2.EQ.'COUL' ) GOTO 200
+
+C              Treat OP,EXIT
                IF ( op2.EQ.'EXIT' ) THEN
                   IF ( IPRM(18).NE.0 ) CALL PTICC(idr)
                   IF ( oph.EQ.'GOSI' ) THEN
@@ -672,7 +710,9 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
                         IF ( IMIN.NE.0 ) CALL PRELM(3)
                      ENDIF
                   ENDIF
-                  GOTO 1900
+                  GOTO 1900 ! End of OP,EXIT
+
+C              Treat OP,MINI
                ELSEIF ( op2.EQ.'MINI' ) THEN
                   READ * , imode , nptl , chiok , conu , xtest , LOCKF , 
      &                 NLOCK , IFBFL , LOCKS , DLOCK
@@ -680,6 +720,8 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
                   IMIN = IMIN + 1
                   IF ( IMIN.NE.1 ) GOTO 1400
                   GOTO 1200
+
+C              Treat OP,THEO
                ELSEIF ( op2.EQ.'THEO' ) THEN
                   REWIND (12)
                   ibaf = 1
@@ -742,9 +784,13 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
                      ENDIF
                   ENDDO
                   GOTO 100
+
+C              Treat OP,YIEL
                ELSEIF ( op2.EQ.'YIEL' ) THEN
                   CALL ADHOC(oph,idr,nfd,ntap,iyr)
                   GOTO 100
+
+C              Treat OP,INTG
                ELSEIF ( op2.EQ.'INTG' ) THEN
                   REWIND 14
                   lfagg = 1
@@ -1162,6 +1208,8 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
                      ENDDO
                   ENDIF
                   GOTO 100
+
+C              Treat OP,CORR
                ELSEIF ( op2.EQ.'CORR' ) THEN
                   CALL READY(idr,ntap,0)
                   REWIND 3
@@ -1169,9 +1217,17 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
                   REWIND 4
                   GOTO 1200
                ELSE
+
+C                 Treat OP,POIN
                   IF ( op2.EQ.'POIN' ) GOTO 1200
+
+C                 Treat OP,MAP
                   IF ( op2.EQ.'MAP ' ) iobl = 1
+
+C                 Treat OP,STAR
                   IF ( op2.EQ.'STAR' ) GOTO 1200
+
+C                 Treat OP,SIXJ
                   IF ( op2.EQ.'SIXJ' ) THEN
                      DO k = 1 , 2
                         l = 4*k
@@ -1188,6 +1244,8 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
                         ENDDO
                      ENDDO
                      GOTO 2000
+
+C                 Treat OP,RAW
                   ELSEIF ( op2.EQ.'RAW ' ) THEN
                      REWIND 8
                      DO l = 1 , 8
@@ -1231,19 +1289,26 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
                         ENDIF
                      ENDDO
                      GOTO 100
+
+C                 Treat OP,MAP
                   ELSEIF ( op2.EQ.'MAP ' ) THEN
                      GOTO 1200
                   ENDIF
                ENDIF
             ENDIF
          ENDIF
-      ENDIF
+       ENDIF ! End of if (op1.eq."OP, ") if statement
+
       WRITE (22,99022) op1 , op2
 99022 FORMAT (5X,'UNRECOGNIZED OPTION',1X,1A3,1A4)
       GOTO 2000
- 200  READ 99023 , op1
+
+C     Treat suboptions of OP,COUL and OP,GOSI
+ 200  READ 99023 , op1 ! Read the suboption
 99023 FORMAT (1A4)
       IF ( op1.EQ.'    ' ) GOTO 100
+
+C     Treat suboption LEVE (levels)
       IF ( op1.EQ.'LEVE' ) THEN
          NMAX = 0
          IF ( ABS(IPRM(1)).EQ.1 ) WRITE (22,99024)
@@ -1267,6 +1332,8 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
      &           SPIN(ipo1) , EN(ipo1)
 99025       FORMAT (6X,1I2,11X,1A1,10X,1F4.1,8X,1F10.4)
          ENDDO
+
+C     Treat suboption ME (matrix elements)
       ELSEIF ( op1.EQ.'ME  ' ) THEN
          DO k = 1 , nmemx
             IF ( op2.EQ.'GOSI' ) THEN
@@ -1355,6 +1422,8 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
          DO kh = 1 , MEMAX
             ivarh(kh) = IVAR(kh)
          ENDDO
+
+C     Treat suboption CONT (control)
       ELSEIF ( op1.EQ.'CONT' ) THEN
  350     READ 99026 , op1 , fipo1
 99026    FORMAT (1A4,1F7.1)
@@ -1448,6 +1517,8 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
             ENDDO
          ENDIF
          GOTO 350
+
+C     Treat suboption EXPT
       ELSEIF ( op1.EQ.'EXPT' ) THEN
          READ * , NEXPT , IZ , XA
          G(1) = 3.             ! AVJI
@@ -1470,12 +1541,15 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
                FIEX(k,2) = FIEX(k,2) + 3.14159265
             ENDIF
          ENDDO
+
+C     Else we don't recognize the suboption
       ELSE
          WRITE (22,99027) op1
 99027    FORMAT (5X,'UNRECOGNIZED SUBOPTION',1X,1A4)
          GOTO 2000
       ENDIF
-      GOTO 200
+      GOTO 200 ! Get next suboption
+      
  400  IF ( ICS.EQ.1 ) THEN
          REWIND 11
          DO kh1 = 1 , LP4
@@ -1488,6 +1562,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
             WRITE (11) (CORF(kh1,kh2),kh2=1,LP6)
          ENDDO
       ENDIF
+
       CALL FTBM(3,chiss,idr,1,chilo,bten)
       chis0 = chiss
       WRITE (22,99028) chis0
@@ -1575,6 +1650,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
       WRITE (22,99032)
 99032 FORMAT (40X,'ESTIMATED ERRORS',//5X,'INDEX',5X,'NI',5X,'NF',5X,
      &        'B(E,ML)(OR QUADRUPOLE MOMENT)',' AND ERRORS'//)
+
       DO kh2 = 1 , MEMAX
          IF ( IVAR(kh2).NE.0 .AND. IVAR(kh2).LE.999 ) THEN
             ispa = LEAD(2,kh2)
@@ -1602,6 +1678,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
          ENDIF
       ENDDO
       GOTO 2000
+
  700  irea = 0
       IF ( ms.LT.0 ) irea = 1
       IF ( ms.EQ.0 ) mend = MEMAX
@@ -1666,6 +1743,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
          WRITE (3,*) im , im
       ENDIF
       GOTO 600
+
  900  jfre = 0
       irfix = 0
       IF ( op2.EQ.'RE,F' ) irfix = 1
@@ -1684,6 +1762,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
          ivarh(jrls) = IVAR(jrls)
       ENDDO
       GOTO 100
+
  1200 CALL CMLAB(0,dsig,ttttt)
       IF ( ERR ) GOTO 2000
       IF ( op2.EQ.'POIN' ) READ * , ifwd , slim
