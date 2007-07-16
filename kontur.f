@@ -14,11 +14,11 @@ C      ELML   - lower limit on matrix elements
 C      ELMU   - upper limit on matrix elements
 C      HLM    -
 C      INTR   -
-C      IPS1   -
-C      LNY    -
+C      IPS1   - terminate after calculating and writing correction factors
+C      LNY    - use logs to calculate chi squared
 C      MEMAX  - number of matrix elements
-C      NWR    -
-C      SA     -
+C      NWR    - number of datapoints used in fit
+C      SA     - ratio of elements for correlated elements
 C      XV     -
 C      YV     -
  

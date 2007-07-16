@@ -26,7 +26,7 @@ C      IMIX   -
 C      IPRM   -
 C      ITMA   - identify detectors according to OP,GDET
 C      ITS    -
-C      IVAR   -
+C      IVAR   - indicates a limit or correlation is set
 C      KSEQ   - index into ELM for pair of levels, and into EN or SPIN
 C      LIFCT  - index for lifetimes
 C      MEMAX  - number of matrix elements
@@ -176,7 +176,8 @@ C     account for feeding
             DO iuf = 1 , juf
                ndtp = ndtp + NYLDE(iexp1,iuf)
             ENDDO
-         ENDDO
+          ENDDO
+C        Count free variables
          nvare = 0
          DO iexp1 = 1 , MEMAX
             IF ( IVAR(iexp1).EQ.1 .OR. IVAR(iexp1).EQ.2 )

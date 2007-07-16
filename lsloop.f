@@ -98,7 +98,7 @@ C
                            IF ( Nz.LE.LP7 ) THEN
                               iiex = (ins+jg1)/2
                               phz = (-1.0)**iiex
-                              ZETA(Nz) = phz*PSI(indx)
+                              ZETA(Nz) = phz*PSI(indx) ! This is really zeta
      &                           *Ssqrt*WTHREJ(ins,lam2,inr,jg1,jg2,
      &                           jrmir)
                               IF ( Icg.NE.1 ) THEN

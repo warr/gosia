@@ -11,7 +11,7 @@ C      DMIX   -
 C      DMIXE  - mixing ratio and its error
 C      IMIX   -
 C      KSEQ   - index into ELM for pair of levels, and into EN or SPIN
-C      LNY    -
+C      LNY    - use logs to calculate chi squared
 C      NDL    - number of mixing ratios
  
       SUBROUTINE MIXR(Nw,Ipsw,Chi,Chilo)

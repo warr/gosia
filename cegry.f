@@ -11,7 +11,7 @@ C Uses global variables:
 C      AGELI  - angles of the Ge detectors
 C      BETAR  - recoil beta
 C      CNOR   -
-C      CORF   -
+C      CORF   - internal correction factors
 C      DEV    -
 C      DYEX   -
 C      EMH    -

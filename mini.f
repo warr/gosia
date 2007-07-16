@@ -9,34 +9,34 @@ C Purpose: perform the minimization
 C
 C Uses global variables:
 C      CHIS11 -
-C      CORF   -
+C      CORF   - internal correction factors
 C      DEVD   -
 C      DEVU   -
-C      DLOCK  -
+C      DLOCK  - limit of derivative below which matrix element fixed if LOCKS=1
 C      ELM    - matrix elements
 C      ELMH   -
-C      GRAD   -
+C      GRAD   - partial derivative of chi squared wrt. matrix element
 C      HLMLM  -
-C      ICS    -
-C      IFBFL  -
+C      ICS    - read correction factors from file rather than recalculating
+C      IFBFL  - calculate derivatives with forward-backward method
 C      INTR   -
 C      IPRM   -
-C      IPS1   -
+C      IPS1   - terminate after calculating and writing correction factors
 C      ITAK2  -
-C      IVAR   -
+C      IVAR   - fixed, correlated or free flag
 C      JENTR  -
 C      KFERR  -
 C      KVAR   -
-C      LF1    -
-C      LNY    -
-C      LOCKF  -
-C      LOCKS  -
+C      LFL1   -
+C      LNY    - use logs to calculate chi squared
+C      LOCKF  - fix those with most significat derivative
+C      LOCKS  - lock flag. if LOCKS=1, fix at first stage of minimisation
 C      LP4    - 1500
 C      LP6    - 32
 C      MEMAX  - number of matrix elements
-C      NLOCK  -
-C      NWR    -
-C      SA     -
+C      NLOCK  - number of matrix elements to lock
+C      NWR    - number of datapoints used in fit
+C      SA     - ratio of elements for correlated elements
 C
 C FTBM does the main calculation and LIMITS makes sure the matrix elements
 C don't go outside the limits specified by the user.
@@ -85,9 +85,12 @@ C don't go outside the limits specified by the user.
       COMMON /LOGY  / LNY , INTR , IPS1
       COMMON /ERCAL / JENTR , ICS
 
+C     Initialise gradp to zero for each matrix element
       DO i = 1 , MEMAX
          gradp(i) = 0.
       ENDDO
+
+C     Initialise some parameters to zero
       icount = 0
       lnm = 0
       LNY = 0
@@ -96,14 +99,28 @@ C don't go outside the limits specified by the user.
       LFL1 = 0
       ncall = 0
       ITAK2 = 0
-      IF ( Imode.LT.2000 ) THEN
+
+C     Handle the different modes
+C     Imode = IJKL, where
+C        I=1 => fast approximation to calculate chi squared and its partial derivatives
+C        I=2 => full Coulomb excitation formalism, but derivatives with fast approximation
+C
+C        J=0 => steepest descent minimization
+C        J=1 => gradient minimization
+C
+C        K=0 => absolute changes of matrix elements
+C        K=1 => relative changes
+C
+C        L=0 => yields, branching ratios used to calculate chi squared
+C        L=1 => logs used to claculate chi squared
+      IF ( Imode.LT.2000 ) THEN !Fast approximation for chi squared and derivatives
          icl1 = 0
          icl2 = 3
          IF ( Imode.GE.1100 ) metf = 1
          IF ( (Imode-1000-100*metf).GE.10 ) lnm = 1
-         IF ( (Imode-1000-100*metf-10*lnm).EQ.1 ) LNY = 1
+         IF ( (Imode-1000-100*metf-10*lnm).EQ.1 ) LNY = 1 ! Use logs
          IF ( JENTR.EQ.1 ) GOTO 200
-         IF ( ICS.NE.0 ) THEN
+         IF ( ICS.NE.0 ) THEN ! Read correction factors from file, rather than recalculating
             REWIND 11
             DO jnm = 1 , LP4
                READ (11) (CORF(jnm,kh2),kh2=1,LP6)
@@ -111,11 +128,11 @@ C don't go outside the limits specified by the user.
             ICS = 0
             GOTO 200
          ENDIF
-      ELSE
+      ELSE ! Full Coulomb excitation formalism for chi squared, fast approx for derivatives
          icl1 = 1
          IF ( Imode.GE.2100 ) metf = 1
          IF ( (Imode-2000-100*metf).GE.10 ) lnm = 1
-         IF ( (Imode-2000-100*metf-10*lnm).EQ.1 ) LNY = 1
+         IF ( (Imode-2000-100*metf-10*lnm).EQ.1 ) LNY = 1 ! Use logs
          icl2 = 4
          IF ( Ips.NE.0 ) THEN
             IF ( Ips.EQ.1 ) THEN
@@ -128,18 +145,25 @@ C don't go outside the limits specified by the user.
             IF ( icl1.EQ.4 ) GOTO 200
          ENDIF
       ENDIF
+
+C     Call FTBM to perform a single calculation
  100  CALL FTBM(0,chiss,Idr,0,chl,Bten)
+
+C     Write correction factors
       REWIND 11
       DO jnm = 1 , LP4
          WRITE (11) (CORF(jnm,kh2),kh2=1,LP6)
-      ENDDO
-      IF ( IPS1.EQ.0 ) RETURN
+       ENDDO
+       
+       IF ( IPS1.EQ.0 ) RETURN ! If IPS1 = 0, terminate after writing correction factors
+       
  200  noflg = 0
       ncall = 1
  300  sumht = 0.
       IF ( LNY.EQ.1 ) INTR = 1
       LFL1 = 1
       ITAK2 = ITAK2 + 1
+
       icount = icount + 1
       IF ( icount.GT.Nptl ) THEN
          IF ( KFERR.EQ.1 ) RETURN
@@ -175,7 +199,7 @@ C don't go outside the limits specified by the user.
          IF ( uxa.LT.Chiok ) GOTO 600
  350     ino = 1
          IF ( metf.EQ.1 ) ipas = ipas + 1
-         IF ( IFBFL.EQ.1 ) ino = 2
+         IF ( IFBFL.EQ.1 ) ino = 2 ! IFBFL = 1 means use forward-backward method
          DO jjj = 1 , ino
             DO jnm = 1 , MEMAX
                GRAD(jnm) = 0.
@@ -199,7 +223,7 @@ C don't go outside the limits specified by the user.
                   IF ( IFBFL.NE.1 .OR. jjj.NE.1 ) THEN
                      IF ( jjj.EQ.2 ) chis12 = chis13
                      GRAD(jnm) = 100.*(HLMLM(jnm)-chis12)/ELMH(jnm)
-                     IF ( IFBFL.EQ.1 ) GRAD(jnm) = GRAD(jnm)/2.
+                     IF ( IFBFL.EQ.1 ) GRAD(jnm) = GRAD(jnm)/2. ! Forward-backward
                      IF ( lnm.EQ.1 ) GRAD(jnm) = GRAD(jnm)
      &                    *ABS(ELMH(jnm))
                   ENDIF
@@ -319,7 +343,7 @@ C don't go outside the limits specified by the user.
                ENDDO
             ENDIF
          ENDIF
-         IF ( chil.LT.Chiok ) GOTO 600
+         IF ( chil.LT.Chiok ) GOTO 600 ! We've achieved desired chi square
          DO l = 1 , MEMAX
             HLMLM(l) = ELM(l)
          ENDDO
@@ -336,9 +360,12 @@ C don't go outside the limits specified by the user.
          ENDDO
          istec = 0
       ENDIF
+       
  400  DO j = 1 , MEMAX
          ELMH(j) = ELM(j)
       ENDDO
+
+C     Find steppest gradient
       istec = istec + 1
       cmax = 0.
       INTR = 0
@@ -349,6 +376,7 @@ C don't go outside the limits specified by the user.
             inmx = iht
          ENDIF
       ENDDO
+       
       ht = .01*ABS(ELM(inmx))/cmax
       mvfl = 0
       IF ( icount.NE.1 .AND. istec.EQ.1 ) THEN
@@ -373,15 +401,18 @@ C don't go outside the limits specified by the user.
             gradp(iin) = 0.
          ENDIF
       ENDIF
+       
  500  DO j = 1 , MEMAX
          ELM(j) = ELMH(j) - ht*GRAD(j)
       ENDDO
+
       DO j = 1 , MEMAX
-         IF ( IVAR(j).GE.1000 ) THEN
-            indx1 = IVAR(j) - 1000
-            ELM(j) = ELM(indx1)*SA(j)
+         IF ( IVAR(j).GE.1000 ) THEN  ! For correlated elements
+            indx1 = IVAR(j) - 1000    ! Index of element to which it is correlated
+            ELM(j) = ELM(indx1)*SA(j) ! SA is the ratio we require
          ENDIF
       ENDDO
+
       IF ( mvfl.EQ.0 ) THEN
          CALL FTBM(icl2,chisp,Idr,ncall,chilo,Bten)
          DO j = 1 , MEMAX
@@ -428,12 +459,15 @@ C don't go outside the limits specified by the user.
             GOTO 100
          ENDIF
       ENDIF
+
+C     Required chi square achieved       
  600  chil = Chisq
       IF ( Ips.EQ.0 ) WRITE (22,99006) icount
 99006 FORMAT (5X,'AT STEP',1X,1I5,1X,'CHISQ CRITERION FULFILLED')
       IF ( Ips.EQ.0 ) WRITE (22,99010) chil
       RETURN
- 700  IF ( LOCKF.EQ.0 ) THEN
+      
+ 700  IF ( LOCKF.EQ.0 ) THEN ! Terminate if convergence satisfied
          IF ( Chisq.GE.chil ) THEN
             DO jjj = 1 , MEMAX
                ELM(jjj) = ELMH(jjj)
@@ -443,10 +477,8 @@ C don't go outside the limits specified by the user.
          IF ( Ips.EQ.0 ) WRITE (22,99007) icount , crit
 99007    FORMAT (5X,'AT STEP',1X,1I5,'CONVERGENCE ACHIEVED(',1E14.6,')')
          IF ( Ips.EQ.0 ) WRITE (22,99010) MIN(chil,Chisq)
-         INTR = 0
-         RETURN
-      ELSE
-         DO kkk = 1 , NLOCK
+      ELSE ! Fix most significant chi squared derivatives
+         DO kkk = 1 , NLOCK ! NLOCK is number of derivatives to fix
             a = 0.
             iin = 1
             DO jjj = 1 , MEMAX
@@ -475,9 +507,10 @@ C don't go outside the limits specified by the user.
          WRITE (22,99009)
 99009    FORMAT (1X/////5X,'*****',2X,'ALL MATRIX ELEMENTS LOCKED!',2X,
      &           '*****'/////)
-         INTR = 0
-         RETURN
       ENDIF
+      INTR = 0
+      RETURN
+       
 99010 FORMAT (5X,'*** CHISQ=',1E14.6,1X,'***')
 99011 FORMAT (1X/5X,'MATRIX ELEMENT',1X,1I3,1X,'LOCKED!')
       END

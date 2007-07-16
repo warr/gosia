@@ -51,7 +51,7 @@ C      NLIFT  - number of lifetimes
 C      NMAX   - number of levels
 C      NSTART -
 C      NSTOP  - 
-C      NWR    -
+C      NWR    - number of datapoints used in fit
 C      NYLDE  -
 C      SPIN   - spin of level
 C      ZETA   - the coupling constants

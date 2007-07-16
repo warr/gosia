@@ -1298,13 +1298,14 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
                   LEAD(2,indx) = ABS(ipo2)
                   LDNUM(la,ipo1) = LDNUM(la,ipo1) + 1
                   IF ( op2.EQ.'GOSI' ) THEN
-                     IF ( ipo2.LT.0 ) THEN
+                    IF ( ipo2.LT.0 ) THEN ! If negative, bl and bu are indices
+                                          ! to which we fix this element
                         IVAR(indx) = 10000*INT(bl) + INT(bu)
-                     ELSE
+                     ELSE                 ! Otherwise they are limits
                         ELMU(indx) = bu
                         ELML(indx) = bl
                         IF ( ABS(bl-bu).LT.1.E-6 ) THEN
-                           IVAR(indx) = 0
+                           IVAR(indx) = 0 ! Fixed
                         ELSE
                            IVAR(indx) = 2
                            IF ( la.GT.4 ) IVAR(indx) = 1
@@ -1318,7 +1319,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
             ENDIF
             DO kk = 1 , indx
                IF ( ABS(ELM(kk)).LE.1.E-6 ) ELM(kk) = 1.E-6
-               IF ( IVAR(kk).GE.10000 ) THEN
+               IF ( IVAR(kk).GE.10000 ) THEN ! Correlated
                   kk1 = IVAR(kk)/10000
                   kk2 = IVAR(kk) - 10000*kk1
                   la1 = la

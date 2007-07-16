@@ -12,7 +12,7 @@ C      ELM    - matrix elements
 C      ELML   - lower limits on matrix elements
 C      ELMU   - upper limits on matrix elements
 C      IFAC   -
-C      IVAR   -
+C      IVAR   - indicates a limit or correlation is set
 C      LDNUM  - number of matrix elements with each multipolarity populating levels
 C      LEAD   - pair of levels involved in each matrix element
 C      MULTI  - number of matrix elements having a given multipolarity
@@ -36,6 +36,7 @@ C      SPIN   - spin of level
       COMMON /CLCOM / LAMDA(8) , LEAD(2,500) , LDNUM(8,75) , LAMMAX , 
      &                MULTI(8)
       COMMON /COEX2 / NMAX , NDIM , NMAX1
+
       inx = 0
       WRITE (22,99001)
 99001 FORMAT (2X/40X,'MATRIX ELEMENTS',//)
@@ -57,18 +58,18 @@ C      SPIN   - spin of level
                   DO kk = 1 , l
                      inx = inx + 1
                      IF ( Iop.EQ.2 ) THEN
-                        IF ( IVAR(inx).EQ.0 ) THEN
+                        IF ( IVAR(inx).EQ.0 ) THEN ! Fixed
                            WRITE (22,99006) inx , LEAD(1,inx) , 
      &                            LEAD(2,inx) , ELM(inx)
 99006                      FORMAT (5X,1I3,5X,1I2,5X,1I2,5X,1F10.5,5X,
      &                             'FIXED')
-                        ELSEIF ( IVAR(inx).GT.1000 ) THEN
+                        ELSEIF ( IVAR(inx).GT.1000 ) THEN ! Correlation
                            WRITE (22,99007) inx , LEAD(1,inx) , 
      &                            LEAD(2,inx) , ELM(inx) , 
      &                            (IVAR(inx)-1000)
 99007                      FORMAT (5X,1I3,5X,1I2,5X,1I2,5X,1F10.5,5X,
      &                             'COUPLED TO',1X,1I3)
-                        ELSE
+                        ELSE ! Limit
                            WRITE (22,99009) inx , LEAD(1,inx) , 
      &                            LEAD(2,inx) , ELM(inx) , ELML(inx) , 
      &                            ELMU(inx)

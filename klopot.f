@@ -7,14 +7,14 @@ C
 C Purpose:
 C
 C Uses global variables:
-C      CORf   -
+C      CORF   - internal correction factors
 C      ELM    - matrix elements
 C      ELML   - lower limit on matrix elements
 C      ELMU   - upper limit on matrix elements
 C      EP     - bombarding energy
 C      IY     -
 C      KVAR   -
-C      LP2    - maximum number of matrix elements
+C      LP2    - maximum number of matrix elements (500)
 C      MEMAX  - number of matrix elements
 C      NEXPT  - number of experiments
 C      TLBDG  - theta of particle detector
@@ -97,7 +97,7 @@ C      VINF   -
             GOTO 400
          ENDIF
       ENDIF
-      loc = (iexh-1)*LP2 + inh
+      loc = (iexh-1)*LP2 + inh ! LP2 = 500
       ipf = 0
       ZETA(loc) = (VINF(iexh)*g1+TLBDG(iexh)*g2)/VINF(iexh)/VINF(iexh)
       inh = indx

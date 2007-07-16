@@ -5,7 +5,7 @@ C
 C Called by: APRAM
 C Calls:     FXIS1, FXIS2
 C
-C Purpose:
+C Purpose: create a new catalog of matrix elements
 C
 C Uses global variables:
 C      IAPR   -
@@ -18,6 +18,10 @@ C      PARXM  -
 C      QAPR   -
 C      XI     - xi coupling coefficients
 C      XIR    -
+C
+C Formal parameters:
+C     Iexp    - experiment number
+C     Jidim   - 
       
       SUBROUTINE NEWCAT(Iexp,Jidim)
       IMPLICIT NONE

@@ -11,7 +11,7 @@ C Uses global variables:
 C      ELM    - matrix elements
 C      ELML   - lower limit on matrix elements
 C      ELMU   - upper limit on matrix elements
-C      IVAR   -
+C      IVAR   - indicates a limit or correlation is set
 C      MEMAX  - number of matrix elements
  
       SUBROUTINE LIMITS
@@ -21,8 +21,8 @@ C      MEMAX  - number of matrix elements
       COMMON /CEXC  / MAGEXC , MEMAX , LMAXE , MEMX6 , IVAR(500)
       COMMON /COMME / ELM(500) , ELMU(500) , ELML(500) , SA(500)
 
-      DO j = 1 , MEMAX
-         IF ( IVAR(j).NE.0 ) THEN
+      DO j = 1 , MEMAX ! Loop over matrix elements
+         IF ( IVAR(j).NE.0 ) THEN ! If not fixed
             IF ( ELM(j).GT.ELMU(j) .OR. ELM(j).LT.ELML(j) ) THEN
                IF ( ELM(j).GT.ELMU(j) ) THEN
                   ELM(j) = ELMU(j)
