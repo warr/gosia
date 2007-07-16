@@ -15,6 +15,9 @@ C      Dw     - step in omega (0.03)
 C      W0     - value of omega
 C      Lmda   - lambda (1...6 for E1...6 and 1,2 for M1,2)
 C      Mua    - mu
+C
+C Return value:
+C      Estimated amplitude
  
       COMPLEX*16 FUNCTION STAMP(Epsi,Errt,Xiv,Dw,W0,Lmda,Mua)
       IMPLICIT NONE
@@ -73,11 +76,11 @@ C      Mua    - mu
          ENDIF
          IF ( la.EQ.2 ) THEN
             IF ( mi.EQ.0 ) fct = .75*(3.-Epsi*Epsi)*axi*axi/Epsi/Epsi
-            IF ( mi.EQ.1 ) fct = 1.837117307*Errt*axi*axi/Epsi/Epsi
-            IF ( mi.EQ.2 ) fct = -.9185586535*Errt*Errt*axi*axi/Epsi/
+            IF ( mi.EQ.1 ) fct = 1.837117307*Errt*axi*axi/Epsi/Epsi ! 1.837117307 = sqrt(27/8)
+            IF ( mi.EQ.2 ) fct = -.9185586535*Errt*Errt*axi*axi/Epsi/ ! 0.9185586535 = sqrt(27/32)
      &                           Epsi
          ELSEIF ( la.EQ.3 ) THEN
-            fct = -.3535533905*Errt*axi*axi
+            fct = -.3535533905*Errt*axi*axi ! 0.3535533907 = sqrt(1/8)
          ELSE
             IF ( mi.EQ.0 ) fct = .5*axi/Epsi
             IF ( mi.EQ.1 ) fct = .3535533907*Errt*axi/Epsi ! 0.3535533907 = sqrt(1/8)
