@@ -13,6 +13,9 @@ C      IFAC   -
 C      KSEQ   - index into ELM for pair of levels, and into EN or SPIN
 C      MULTI  - number of matrix elements having a given multipolarity
 C      SPIN   - spin of level
+C
+C Formal parameters:
+C      Idr    - number of decays
 
       SUBROUTINE PTICC(Idr)
       IMPLICIT NONE

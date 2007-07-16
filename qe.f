@@ -6,6 +6,26 @@ C Called by: SNAKE
 C
 C Purpose: calculate Qe values
 C
+C Formal parameters:
+C      C     - cosh(omega) + epsilon
+C      D     - sqrt(epsilon^2 - a) * epsilon / C
+C      B2    - B^2
+C      C2    - C^2
+C      D2    - D^2
+C      B4    - B^4
+C      B6    - B^6
+C      D3    - D^3
+C      B8    - B^8
+C      C4    - C^4
+C      D4    - D^4
+C      B10   - B^10
+C      D5    - D^5
+C      B12   - B^12
+C      D6    - D^6
+C      Lmda  - lambda
+C      Pol   - polarisation
+C      Cq    - array where the results are returned
+C
 C We used different formulae depending on lambda (see the table of electric
 C collision functions in the gosia manual).
 C

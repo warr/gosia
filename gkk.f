@@ -23,6 +23,13 @@ C      TIMEC  - Tau_C      (this is G(4) in GOSIA)
 C      XLAMB  - Lambda*    (this is G(3) in GOSIA)
 C      XNOR   - normalisation factor
 C
+C Formal parameters:
+C      Iz     - Z of nucleus
+C      Beta   - v/c
+C      Spin   - spin of state
+C      Time   - lifetime of state
+C      Il     - index into AKS array
+C
 C We start by calling XSTATIC to calculate the static part. This calculates
 C QCEN (the centre of the gaussian charge state distribution), DQ (the
 C gaussian width of this distribution) and XNOR (the normalization parameter
@@ -63,13 +70,14 @@ C The function ATS is used to determine the truncation for the sum.
       
       IF ( IBYP.NE.1 ) THEN
          imean = 0
-         CALL XSTATIC(Iz,inq,ifq,Beta)
+         CALL XSTATIC(Iz,inq,ifq,Beta) ! inq and ifq are range of integral
          l = 0
          DO i = 1 , 6
             AKS(i,Il) = 0.
          ENDDO
  50      IF ( imean.EQ.1 ) inq = 1
          IF ( imean.EQ.1 ) ifq = 1
+
          DO j = inq , ifq
             l = l + 1
             nz = Iz - j

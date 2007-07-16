@@ -12,6 +12,9 @@ C      IFAC   -
 C      IRA    - range for omega for each multipolarity
 C      MULTI  - number of matrix elements with each multipolarity populating levels
 C
+C Formal parameters:
+C      Acc1   - the desired accuracy
+C
 C \omega_max >= \alpha_\lambda - {1 \over \lambda} \ln(a_c)
 C where a_c is Acc1 here.
 C

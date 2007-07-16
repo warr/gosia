@@ -11,6 +11,15 @@ C      IFAC   -
 C      IRA    - range to integrate over omega
 C      MAXLA  -
 C      MULTI  - number of matrix elements having given multipolarity
+C
+C Formal parameters:
+C      Icnt   - index of omega to calculate
+C      Nlm    - returns the number of l,m values
+C      Lloc   -
+C      Ibm    -
+C      Icm    -
+C      Idm    -
+C      Irl    -
  
       SUBROUTINE QRANGE(Icnt,Nlm,Lloc,Ibm,Icm,Idm,Irl)
       IMPLICIT NONE

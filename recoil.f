@@ -7,6 +7,12 @@ C Calls:     ROTATE
 C
 C Purpose: correct for relativistic effects of recoiling nucleus.
 C
+C Formal parameters:
+C      Alab   - matrix of (l,m) pairs in lab frame
+C      Attl   - matrix of (l,m) pairs in rotated frame
+C      Beta   - beta of recoil
+C      Theta  - angle to rotate
+C
 C We transform into the frame of the recoiling nucleus, correct according to
 C the method of Lesser and then rotate back to the laboratory frame.
  

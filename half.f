@@ -12,6 +12,9 @@ C      CAT    -
 C      ISMAX  -
 C      NMAX   - number of levels
 C      NSTART -
+C
+C Formal parameters:
+C      ISO    -
  
       SUBROUTINE HALF(Iso)
       IMPLICIT NONE

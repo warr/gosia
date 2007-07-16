@@ -8,6 +8,15 @@ C
 C Purpose: calculate the H_k coefficients to modify the statistical tensors
 C to take feeding due to multiple excitation into account.
 C
+C Formal parameters:
+C      K      - K
+C      Sji    - initial spin
+C      Sjf    - final spin
+C      L      - L
+C
+C Return value:
+C      H_k coefficient
+C
 C Note that the parameters to WSIXJ need to be doubled, so that this function
 C can handle half-integers.
 

@@ -13,6 +13,9 @@ C      IRA    - range of omega for each multipolarity needed for accuracy
 C      LOCQ   - location of collision function in ZETA array
 C      LP14   - maximum length of space for collision functions (4900)
 C
+C Formal parameters:
+C      Accur  - accuracy required
+C
 C We set up the LOCQ array, which indexes the start of the block of collision
 C function coefficients for each omega. For a given multipolarity, lambda,
 C there are lambda+1 collision functions, which have to be evaluated for a

@@ -6,6 +6,15 @@ C Called by: LAGRAN
 C
 C Purpose: evaluates f(y) = y, f(y) = e^y or f(y) = y^2, depending on the
 C flag I
+C
+C Formal parameters:
+C      Y      - argument to evaluate
+C      I      - mode: 1 = linear, 2 = exp, 3 = square
+C
+C Return value:
+C      returns either y, exp(y) or y^2 depending on mode
+C
+C Note that this is the inverse of FUNC
 
       REAL*8 FUNCTION FUNC1(Y,I)
       IMPLICIT NONE

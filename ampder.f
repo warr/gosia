@@ -28,7 +28,10 @@ C      NMAX   -
 C      NPT    -
 C      NSTART -
 C      NSTOP  -
- 
+C
+C Formal parameters:
+C      I57    - switch which is either 5 or 7.
+
       SUBROUTINE AMPDER(I57)
       IMPLICIT NONE
       REAL*8 CAT , D2W , ELM , ELML , ELMU , rsg , SA , ZETA

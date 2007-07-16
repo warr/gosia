@@ -6,6 +6,13 @@ C Called by: QFIT
 C Calls:     GCF
 C
 C Purpose:
+C
+C Formal parameters:
+C      Qui    -
+C      Tau1   -
+C      Tau2   -
+C      Xl1    -
+C      Nl     -
  
       SUBROUTINE GAMATT(Qui,Tau1,Tau2,Xl1,Nl)
       IMPLICIT NONE

@@ -5,7 +5,7 @@ C
 C Called by: GOSIA
 C Calls:     TACOS, TASIN
 C
-C Purpose: calculate geometry
+C Purpose: calculate geometry for circular detector
 C
 C Uses global variables:
 C      FIEX   - phi range of particle detector
@@ -14,6 +14,19 @@ C      IZ1    - Z of non-investigated nucleus
 C      XA     - A of investigated nucleus
 C      XA1    - A of non-investigated nucleus
 C      YV     -
+C
+C Formal parameters:
+C      Wth    - theta of centre of detector
+C      Wph    - phi of centre of detector
+C      Wthh   - half angle subtended
+C      Naa    - number of mesh points
+C      Ifw    - flag
+C      Pfi    -
+C      Wpi    -
+C      Wtlb   -
+C      Lz     - experiment number
+C      Tyy    -
+C      Tzz    -
  
       SUBROUTINE COORD(Wth,Wph,Wthh,Naa,Ifw,Pfi,Wpi,Wtlb,Lz,Tyy,Tzz)
       IMPLICIT NONE

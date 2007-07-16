@@ -17,6 +17,9 @@ C      SPIN   - spin of level
 C      TAU    -
 C      VACDP  -
 C      XLAMB  - Lambda*       (this is G(3) in GOSIA)
+C
+C Formal parameters:
+C      Il     -
  
       SUBROUTINE GKVAC(Il)
       IMPLICIT NONE

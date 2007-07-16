@@ -20,7 +20,7 @@ C      HLMLM  -
 C      ICS    - read correction factors from file rather than recalculating
 C      IFBFL  - calculate derivatives with forward-backward method
 C      INTR   -
-C      IPRM   -
+C      IPRM   - printing flags (see suboption PRT of OP,CONT)
 C      IPS1   - terminate after calculating and writing correction factors
 C      ITAK2  -
 C      IVAR   - fixed, correlated or free flag
@@ -37,6 +37,19 @@ C      MEMAX  - number of matrix elements
 C      NLOCK  - number of matrix elements to lock
 C      NWR    - number of datapoints used in fit
 C      SA     - ratio of elements for correlated elements
+C
+C Formal parameters:
+C      Chisq  - chi squared of minimization
+C      Chiok  - desired chi squared
+C      Nptl   - number of iterations allowed
+C      Conv   - parameter for convergence test
+C      Imode  - mode of minimization
+C      Idr    -
+C      Xtest  -
+C      Ips    -
+C      Is     -
+C      Jjh    -
+C      Bten   -
 C
 C FTBM does the main calculation and LIMITS makes sure the matrix elements
 C don't go outside the limits specified by the user.

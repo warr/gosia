@@ -7,8 +7,17 @@ C
 C Purpose: calculate the rotation functions D^k_{\xi \xi^\prime}
 C
 C Uses global variables:
-C      B      -
-C      BEQ    -
+C      B      - array of factorials
+C      BEQ    - beta
+C
+C Formal parameters:
+C      Beta   - v/c
+C      K      - K
+C      Kpp    - \xi
+C      Kp     - \xi^\prime
+C
+C Return value:
+C      Element of rotation matrix D
 C
 C Note that to be efficient, this function remembers values that it has
 C previously calculated. For this to work, the variable djm has to be
@@ -58,11 +67,12 @@ C which is created freshly each time the function is called.
       ENDIF
        
       ctb = cb*cb/sb/sb
-      ja = K + Kp + 1
-      jb = K - Kp + 1
-      jc = K + Kpp + 1
-      jd = K - Kpp + 1
-      b1 = B(ja)*B(jb)*B(jc)*B(jd)
+      ja = K + Kp + 1 ! K + \xi^\prime (+1 for indexing array)
+      jb = K - Kp + 1 ! K - \xi^\prime (+1 for indexing array)
+      jc = K + Kpp + 1 ! K + \xi (+1 for indexing array)
+      jd = K - Kpp + 1 ! K - \xi (+1 for indexing array)
+      b1 = B(ja)*B(jb)*B(jc)*B(jd) ! B array holds factorials
+
       ja = Kp + Kpp
       jb = 2*K - Kp - Kpp
       IF ( ABS(BEQ-3.141592654).LT..01 .AND. ja.LT.0 ) ifla = 3

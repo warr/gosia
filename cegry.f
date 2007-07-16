@@ -26,7 +26,7 @@ C      ILE    -
 C      IMIN   -
 C      INM    -
 C      INNR   -
-C      IPRM   -
+C      IPRM   - printing flags (see suboption PRT of OP,CONT)
 C      IRAWEX -
 C      ITMA   - identify detectors according to OP,GDET
 C      ITS    -
@@ -62,6 +62,16 @@ C      YEXP   - experimental yield
 C      YGN    -
 C      YGP    -
 C      YNRM   - relative normalization factors for gamma detectors
+C
+C Formal parameters:
+C      Chisq  - chi squared
+C      Itemp  -
+C      Chilo  - chi squared of logs
+C      Idr    - number of decays
+C      Nwyr   - number of data points contributing to chi squared
+C      Icall  -
+C      Issp   -
+C      Iredv  -
  
       SUBROUTINE CEGRY(Chisq,Itemp,Chilo,Idr,Nwyr,Icall,Issp,Iredv)
       IMPLICIT NONE

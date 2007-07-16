@@ -12,7 +12,14 @@ C Uses global variables:
 C      CC     - conversion coefficients
 C      EG     - energies for conversion coefficients
 C      NICC   - number of conversion coefficients
- 
+C
+C Formal parameters:
+C      Ega    - gamma energy
+C      N      -
+C
+C Return value:
+C      conversion coefficient interpolated to energy Ega
+
       REAL*8 FUNCTION CONV(Ega,N)
       IMPLICIT NONE
       REAL*8 AGELI , CC , cpo , cpo1 , cv , EG , Ega , Q

@@ -23,6 +23,11 @@ C      TAU    -
 C      TIMEL  - lifetimes and their errors
 C      VACDP  -
 C      ZETA   - various coefficients
+C
+C Formal parameters:
+C      Chisq  - chi squared
+C      Nlift  - number of lifetimes
+C      Chilo  - chi squared of logs
       
       SUBROUTINE DECAY(Chisq,Nlift,Chilo)
       IMPLICIT NONE

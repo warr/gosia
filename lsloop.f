@@ -22,7 +22,18 @@ C      PSI    - psi coefficients
 C      QAPR   -
 C      SPIN   - spin of level
 C      ZETA   -
-
+C
+C Formal parameters:
+C      Ir     -
+C      N      -
+C      Nz     -
+C      Ld     - number of matrix elements with this multipolarity
+C      Lam    - lambda
+C      La     - 1...6 for E1...6 or 7,8 for M1,2
+C      Ssqrt  - sqrt(2 * lambda + 1)
+C      Icg    -
+C      Iexp   - experiment number
+C
 C \zeta_{kn}^{(\lambda n)} = \sqrt{2 \lambda + 1} *
 C                            (-1)^{I_n - M_n} *
 C                            \three_j{I_n \lambda I_k -M_n \mu M_k} *
@@ -32,11 +43,6 @@ C For the evaluation of the 3-j symbol, ins = 2 I_n, lam2 = 2 \lambda,
 C inr = 2 I_k, jg1 = -2 M_n, jg2 = 2 * \mu, jrmir = 2 * M_k. Note that the
 C parameters to WTHREJ are all doubled, so that this routine can cope with
 C half-integers.
-C
-C Ssqrt = sqrt(2 * lambda + 1)
-C Lam is lambda
-C La is lambda for electric transitions and lambda + 6 for magnetic ones
-C
  
       SUBROUTINE LSLOOP(Ir,N,Nz,Ld,Lam,La,Ssqrt,Icg,Iexp)
       IMPLICIT NONE

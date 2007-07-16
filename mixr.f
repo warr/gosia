@@ -13,6 +13,12 @@ C      IMIX   -
 C      KSEQ   - index into ELM for pair of levels, and into EN or SPIN
 C      LNY    - use logs to calculate chi squared
 C      NDL    - number of mixing ratios
+C
+C Formal parameters:
+C      Nw     - number of data points used to calculate chi squared
+C      Ipsw   -
+C      Chi    - chi squared
+C      Chilo  - chi squared using logs
  
       SUBROUTINE MIXR(Nw,Ipsw,Chi,Chilo)
       IMPLICIT NONE

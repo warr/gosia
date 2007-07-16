@@ -2,9 +2,15 @@
 C----------------------------------------------------------------------
 C FUNCTION ATS
 C
-C Called by: GKS
+C Called by: GKK
 C
 C Purpose: determine the truncation for the sum in GKK.
+C
+C Formal parameters:
+C      N      - 
+C
+C Return value:
+C      truncation point
  
       REAL*8 FUNCTION ATS(N)
       IMPLICIT NONE

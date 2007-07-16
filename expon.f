@@ -13,6 +13,17 @@ C      EXPO   - adiabatic exponential
 C      ADB    - adiabatic function
 C      XI     - xi coupling coefficients
 C
+C Formal parameters:
+C      Inx    - index in XI array
+C      Npt    - index in ADB array (this is omega / 0.03)
+C      Isg    -
+C      Isg1   -
+C      Ndiv   -
+C      Kdiv   -
+C
+C Return value:
+C      the exponential
+C
 C ci is sqrt(-1)
 C XI (from common block CXI) are the XI coupling constants calculated in
 C the function LOAD.

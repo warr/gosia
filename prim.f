@@ -9,6 +9,9 @@ C
 C Uses global variables:
 C      IP     - table of primes
 C      IPI    - multipliers for each prime
+C
+C Formal parameters:
+C      N      - number N
  
       SUBROUTINE PRIM(N)
       IMPLICIT NONE

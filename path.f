@@ -7,11 +7,14 @@ C
 C Purpose:
 C
 C Uses global variables:
-C      CAT    -
+C      CAT    - catalog of matrix elements
 C      IPATH  -
 C      NMAX   - number of levels
 C      NSTART -
 C      NSTOP  -
+C
+C Formal parameters:
+C      Irld   - index into ARM array
  
       SUBROUTINE PATH(Irld)
       IMPLICIT NONE

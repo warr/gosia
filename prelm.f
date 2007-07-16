@@ -18,6 +18,9 @@ C      LEAD   - pair of levels involved in each matrix element
 C      MULTI  - number of matrix elements having a given multipolarity
 C      NMAX   - number of levels
 C      SPIN   - spin of level
+C
+C Formal parameters:
+C      Iop    - print flag (controls what is written to output).
  
       SUBROUTINE PRELM(Iop)
       IMPLICIT NONE

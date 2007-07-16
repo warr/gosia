@@ -12,6 +12,11 @@ C      ABC    -
 C      AKAVKA -
 C      THICK  -
 C
+C Formal parameters:
+C      Ipd    - detector number
+C      En     - gamma-ray energy
+C      Effi   - efficiency
+C
 C Note that it uses LAGRAN to interpolate between the data points given
 C by the user.
  

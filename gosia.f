@@ -688,7 +688,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
                         xlevb(jb,lb) = 0
                      ENDDO
                   ENDDO
-                  READ * , nbands
+                  READ * , nbands ! Number of bands
                   IF ( nbands.LE.0 ) ibaf = 0
                   nbands = ABS(nbands)
                   DO nl = 1 , 8
@@ -701,8 +701,8 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
                      ENDDO
                   ENDDO
                   DO jb = 1 , nbands
-                     READ * , bk , ilevls
-                     READ * , (levl(ib),ib=1,ilevls)
+                     READ * , bk , ilevls ! K of band, number of levels in band
+                     READ * , (levl(ib),ib=1,ilevls) ! Level list for band
                      DO kb = 1 , ilevls
                         inva = levl(kb)
                         xlevb(inva,2) = bk
@@ -710,11 +710,11 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
                      ENDDO
                   ENDDO
                   DO nl = 1 , 8
-                     READ * , nnl
+                     READ * , nnl ! Multipolarity
  126                 IF ( nnl.LE.0 ) GOTO 130
-                     READ * , jb1 , jb2
+                     READ * , jb1 , jb2 ! band indices
                      IF ( jb1.NE.0 ) THEN
-                        READ * , (bm(nnl,jb1,jb2,j),j=1,3)
+                        READ * , (bm(nnl,jb1,jb2,j),j=1,3) ! intrinsic moments
                         DO j = 1 , 3
                            bm(nnl,jb2,jb1,j) = bm(nnl,jb1,jb2,j)
                         ENDDO
@@ -758,7 +758,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
                      tth = TLBDG(lx)
                      enh = EP(lx)
                      DO mpin = 1 , lpin
-                        IF ( iecd(lx).EQ.1 ) THEN
+                        IF ( iecd(lx).EQ.1 ) THEN ! Circular detector
                            READ * , ne , ntt , emn , emx , wth , wph , 
      &                          wthh
                            mfla = 1
@@ -995,7 +995,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
                         npce1 = npce + 1
                         het = (tmx-tmn)/npct
                         npct1 = npct + 1
-                        IF ( iecd(lx).EQ.1 )
+                        IF ( iecd(lx).EQ.1 ) ! Circular detector
      &                       CALL COORD(wth,wph,wthh,npct1,1,pfi,wpi,
      &                       TLBDG(lx),lx,tmn,tmx)
                         IF ( iecd(lx).NE.1 ) THEN
@@ -1095,7 +1095,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
      &                               /GRAD(IDRN)
                            ENDDO
                         ENDDO
-                        IF ( iecd(lx).EQ.1 ) THEN
+                        IF ( iecd(lx).EQ.1 ) THEN ! Circular detector
                            IF ( jpin(lx).EQ.0 ) THEN
                               CALL COORD(wth,wph,wthh,1,2,pfi,wpi,
      &                           TLBDG(lx),lx,txx,txx)

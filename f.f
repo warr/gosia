@@ -7,6 +7,16 @@ C Calls:     WSIXJ, WTHREJ
 C
 C Purpose: evaluates the F coefficients.
 C
+C Formal coefficients:
+C      K      - K
+C      Sji    - initial spin
+C      Sjf    - final spin
+C      L1     - lambda
+C      L2     - lambda'
+C
+C Return value:
+C      F-coefficient
+C
 C We evaluate:
 C F_k(\lambda \lambda^\prime I_2 I1) = (-1)^{I_1 + I_2 -l} *
 C        \sqrt{(2 k + 1) (2 I_1 + 1) (2 \lambda + 1) (2 \lambda^\prime + 1) *

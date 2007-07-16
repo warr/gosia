@@ -15,11 +15,16 @@ C      ELM    - matrix elements
 C      EN     - level energy
 C      IBRC   - index branching ratios
 C      IFAC   -
-C      IPRM   -
+C      IPRM   - printing flags (see suboption PRT of OP,CONT)
 C      KSEQ   - index into ELM for pair of levels, and into EN or SPIN
 C      MULTI  - number of matrix elements with given multipolarity
 C      NBRA   - number of branching ratios
- 
+C
+C Formal parameters:
+C      Chisq  - chi squared
+C      Nwyr   - number of data points contributing to chi squared
+C      Chilo  - chi squared of logs
+
       SUBROUTINE BRANR(Chisq,Nwyr,Chilo)
       IMPLICIT NONE
       REAL*8 ACCA , ACCUR , BRAT , ch1 , ch2 , Chilo , Chisq , CONV , 

@@ -8,6 +8,11 @@ C Uses global variables:
 C      MULTI  - number of matrix elements with a given multipolarity
 C      IFAC   -
 C
+C Formal parameters:
+C      N1     - number of levels
+C      N2     -
+C      N3     - multipolarity
+C
 C Purpose: calculate an index used for some arrays.
  
       INTEGER*4 FUNCTION LEADF(N1,N2,N3)

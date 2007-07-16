@@ -5,6 +5,11 @@ C
 C Called by: GAMATT
 C
 C Purpose:
+C
+C Formal parameters:
+C      Tau    -
+C      Thing  -
+C      Q      -
  
       SUBROUTINE GCF(Tau,Thing,Q)
       IMPLICIT NONE

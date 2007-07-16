@@ -43,7 +43,13 @@ C      XA     - A of investigated nucleus
 C      XA1    - A of not-investated nucleus
 C      XI     - xi coupling constants
 C      ZPOL   -
-
+C
+C Formal parameters:
+C      Iexp   -
+C      Ient   -
+C      Icg    -
+C      Polm   -
+C      Joj    -
  
       SUBROUTINE LOAD(Iexp,Ient,Icg,Polm,Joj)
       IMPLICIT NONE

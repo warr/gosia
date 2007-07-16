@@ -5,6 +5,13 @@ C
 C Called by: KONTUR
 C
 C Purpose:
+C
+C Formal parameters:
+C      Y      - 
+C      H      -
+C      F      - array of three coefficients
+C
+C Return value:
  
       REAL*8 FUNCTION RK4(Y,H,F)
       IMPLICIT NONE

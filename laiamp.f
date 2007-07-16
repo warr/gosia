@@ -27,8 +27,8 @@ C      XI     - xi coupling coefficients
 C      ZETA   - various coefficients
 C
 C Formal parameters:
-C      Ir     -
-C      W0     -
+C      Ir     - index into ARM array
+C      W0     - omega
       
       SUBROUTINE LAIAMP(Ir,W0)
       IMPLICIT NONE

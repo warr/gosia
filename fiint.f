@@ -4,8 +4,14 @@ C SUBROUTINE FIINT
 C
 C Called by: ANGULA
 C
-C Purpose:
- 
+C Purpose: integrate over phi in frame of recoiling nucleus
+C
+C Formal parameters:
+C      Fi0    - phi_0
+C      Fi1    - phi_1
+C      At     -
+C      Ixs    - axial symmetry flag
+
       SUBROUTINE FIINT(Fi0,Fi1,At,Ixs)
       IMPLICIT NONE
       REAL*8 At , Fi0 , Fi1 , wsp

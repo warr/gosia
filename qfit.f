@@ -6,6 +6,16 @@ C Called by: GOSIA
 C Calls:     GAMATT
 C
 C Purpose:
+C
+C Formal parameters:
+C      Qui    -
+C      Tau1   -
+C      Tau2   -
+C      Eng    -
+C      Xl1    -
+C      Cf     -
+C      Nl     -
+C      Ind    -
  
       SUBROUTINE QFIT(Qui,Tau1,Tau2,Eng,Xl1,Cf,Nl,Ind)
       IMPLICIT NONE

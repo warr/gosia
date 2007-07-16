@@ -27,6 +27,15 @@ C      NSTART -
 C      NSTOP  -
 C      ZETA   - various coefficients
 C
+C Formal parameters:
+C      Ir     -
+C      N      -
+C      Rsg    -
+C      Lam    - multipolarity
+C      Ld     -
+C      Nz     -
+C      I57    - switch which is either 5 or 7.
+C
 C   \sum_{lmn} \zeta^{lm}_{kn} . M^(1)_{kn} f_{lm}(\omega) a_n(\omega)
 C where
 C   f_{lm} = -i Q_{lm} exp(i \xi_{kn} (\epsilon \sinh(\omega) + \omega))

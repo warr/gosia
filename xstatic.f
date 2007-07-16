@@ -14,8 +14,8 @@ C      XNOR   - normalisation factor
 C
 C Formal parameters:
 C      Iz     - Z of nucleus
-C      Ido    - returned QCEN -3 * DQ rounded down to nearest integer
-C      Iup    - returned QCEN +3 * DQ rounded up to nearest integer
+C      Ido    - lower limit for integral over gaussian to 3 sigma
+C      Iup    - upper limit for integral over gaussian to 3 sigma
 C      Beta   - beta
 C
 C We use: h = {1 \over {1 + (0.012008 \beta Z^0.45)^{5/3}}} and

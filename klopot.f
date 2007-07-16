@@ -4,7 +4,7 @@ C SUBROUTINE KLOPOT
 C
 C Called by: GOSIA
 C
-C Purpose:
+C Purpose: trouble shooting (see OP,TROU)
 C
 C Uses global variables:
 C      CORF   - internal correction factors
@@ -22,8 +22,9 @@ C      ZETA   - various coefficients
 C      VINF   -
 C
 C Formal parameters:
-C      K      -
-C      Rlr    -
+C      K      - number of experimental yields giving largest and positive
+C               components of the derivative of chi squared.
+C      Rlr    - print out if matrix element exceeds Rlr.
 
       SUBROUTINE KLOPOT(K,Rlr)
       IMPLICIT NONE

@@ -8,7 +8,14 @@ C Purpose: return -1 * sign(xi) for N = 2,3,5 and 6
 C
 C Uses global variables:
 C      XI     - xi coupling coefficients
- 
+C
+C Formal parameters:
+C      I      - index into XI array
+C      N      - 
+C
+C Return value:
+C      sign of xi
+
       REAL*8 FUNCTION FXIS2(I,N)
       IMPLICIT NONE
       INTEGER*4 I , N

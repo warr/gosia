@@ -15,7 +15,7 @@ C      EP     - bombarding energy
 C      EPS    - epsilon
 C      EROOT  - sqrt(epsilon^2 - 1)
 C      ERR    - error flag
-C      IPRM   -
+C      IPRM   - printing flags (see suboption PRT of OP,CONT)
 C      ISKIN  - kinematic flag
 C      IZ     - Z of investigated nucleus
 C      IZ1    - Z of not-investated nucleus
@@ -28,6 +28,11 @@ C      VINF   - speed of particle
 C      XA     - A of investigated nucleus
 C      XA1    - A of not-investated nucleus
 C      TREP   -
+C
+C Formal parameters:
+C      Ii     - experiment number (or zero for all experiments)
+C      Dsig   -
+C      Tetrn  -
 
       SUBROUTINE CMLAB(Ii,Dsig,Tetrn)
       IMPLICIT NONE
@@ -90,6 +95,8 @@ C        dists is Cline's estimate of the maximum safe bombarding energy
          d2a = 20.0*dista
 C        VINF = sqrt(2 * EP / 931.494028 * A1) - 931.494028 = 1 AMU
          VINF(lexp) = 0.0463365*SQRT(EP(lexp)/a1)
+
+C        If IPRM(1) we want extra printout
          IF ( IPRM(1).EQ.1 ) THEN
             IF ( Ii.EQ.0 .AND. IPRM(10).EQ.1 ) WRITE (22,99004) EP(lexp)
      &           , VINF(lexp)
@@ -104,6 +111,7 @@ C        VINF = sqrt(2 * EP / 931.494028 * A1) - 931.494028 = 1 AMU
      &             'DISTANCE OF CLOSEST APPROACH FOR HEAD-ON COLLISIONS'
      &             ,1X,1F10.4,1X,'FM')
          ENDIF
+
          tlbrad = TLBDG(lexp)/57.2957795 ! Theta of detector to radians
          ared = 1.0 + a1/a2 ! reduced mass
          emax = EP(lexp)/ared
@@ -124,6 +132,7 @@ C        VINF = sqrt(2 * EP / 931.494028 * A1) - 931.494028 = 1 AMU
 99008    FORMAT (1X,'ERROR- MAXIMUM EXCITATION ENERGY IS ',F8.4,' MEV',
      &           ' FOR EXPERIMENT ',1I2)
          GOTO 200
+
  100     tcmrad = tlbrad + TASIN(tau*SIN(tlbrad))
          tcmdg = tcmrad*57.2957795
          IF ( tau.GT.1.0 ) THEN
@@ -138,6 +147,7 @@ C        VINF = sqrt(2 * EP / 931.494028 * A1) - 931.494028 = 1 AMU
                tcmrad = tcmdg/57.2957795
             ENDIF
          ENDIF
+
          EPS(lexp) = 1./SIN(tcmrad/2.)
          TETACM(lexp) = tcmrad
          IF ( IPRM(1).EQ.1 ) THEN
@@ -146,16 +156,20 @@ C        VINF = sqrt(2 * EP / 931.494028 * A1) - 931.494028 = 1 AMU
 99010       FORMAT (5X,'CM SCATTERING ANGLE',1X,1F10.3,1X,'DEG',5X,
      &              'EPSILON',1X,1F10.4)
          ENDIF
+
          IF ( IZ1(lexp).GT.0 ) BETAR(lexp) = a1*a2/(a1+a2)
      &        **2*(1.+taup*taup-2.*taup*COS(tcmrad))*epmin
          IF ( IZ1(lexp).LT.0 ) BETAR(lexp) = (a2/(a1+a2))
      &        **2*(1.+tau*tau+2.*tau*COS(tcmrad))*epmin
+
+C        More additional printout
          IF ( IPRM(1).EQ.1 ) THEN
             IF ( Ii.EQ.0 .AND. IPRM(10).EQ.1 ) WRITE (22,99011)
      &           BETAR(lexp)
 99011       FORMAT (5X,'RECOIL ENERGY(MEV)',2X,1F10.4)
          ENDIF
-         BETAR(lexp) = .0463365*SQRT(BETAR(lexp)/XA)
+
+         BETAR(lexp) = .0463365*SQRT(BETAR(lexp)/XA) ! 0.0463365 = sqrt(2/931.494028)
          IF ( IPRM(1).EQ.1 ) THEN
             IF ( Ii.EQ.0 .AND. IPRM(10).EQ.1 ) WRITE (22,99012)
      &           BETAR(lexp)
@@ -165,6 +179,7 @@ C        VINF = sqrt(2 * EP / 931.494028 * A1) - 931.494028 = 1 AMU
 99013       FORMAT (5X,'BOMBARDING ENERGY=',1F10.3,1X,
      &              'OF SAFE BOMBARDING ENERGY AT THIS ANGLE')
          ENDIF
+
          IF ( iflaa.NE.1 ) THEN
             IF ( ABS(tcmdg-180.).LT.1.E-5 ) THEN
                r3 = (1.-tau)**2
@@ -174,6 +189,7 @@ C        VINF = sqrt(2 * EP / 931.494028 * A1) - 931.494028 = 1 AMU
                r3 = 1./r3
             ENDIF
          ENDIF
+
          zcmdg = 180. - tcmdg
          zcmrad = zcmdg/57.2957795
          zlbrad = ATAN(SIN(zcmrad)/(COS(zcmrad)+taup))
@@ -189,6 +205,7 @@ C        VINF = sqrt(2 * EP / 931.494028 * A1) - 931.494028 = 1 AMU
                TLBDG(lexp) = zlbrad*57.2955795
             ENDIF
          ENDIF
+
          Dsig = 250.*r3*SQRT(EP(lexp)/(EP(lexp)-ared*EN(NCM)))
      &          *dista*dista*(EPS(lexp))**4
          EROOT(lexp) = SQRT(EPS(lexp)*EPS(lexp)-1.)

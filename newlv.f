@@ -23,6 +23,11 @@ C      NPT    -
 C      NSTART -
 C      NSTOP  -
 C
+C Formal parameters:
+C      N      - level number
+C      Ld     -
+C      La     - multipolarity
+C
 C Note that the exponential is calculated by EXPON. This file does the
 C storage part.
       

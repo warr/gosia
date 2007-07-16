@@ -5,7 +5,22 @@ C
 C Called by: GOSIA
 C Calls:     WTHREJ
 C
-C Purpose:
+C Purpose: collective model matrix elements (OP,THEO)
+C
+C Formal parameters:
+C      Xi1    - spin of initial level
+C      Xi2    - spin of final level
+C      Lam    - multipolarity
+C      Nb1    - band number of initial level
+C      Nb2    - band number of final level
+C      Xk1    - initial level
+C      Xk2    - final level
+C      Xm1    - intrinsic moment Q1
+C      Xm2    - intrinsic moment Q2
+C      Xm3    - intrinsic moment Q3
+C
+C Return value:
+C      Collective model matrix element
 C
 C Note that the parameters to WTHREJ are doubled to allow it to handle half
 C integers.
@@ -27,6 +42,7 @@ C integers.
       k2 = INT(2.*Xk2)
       fac = SQRT(2.*Xi1+1.)*SQRT(2.*Xi2+1.)
 C-----In-band matrix element
+
       IF ( Nb1.NE.Nb2 ) THEN
 C-----Interband, K-allowed
 C-----One K=0

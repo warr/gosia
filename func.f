@@ -6,6 +6,15 @@ C Called by: LAGRAN
 C
 C Purpose: evaluates f(y) = y, f(y) = log_e(y) or f(y) = sqrt(y), depending
 C on the flag I
+C
+C Formal parameters:
+C      Y      - argument to evaluate
+C      I      - mode: 1 = linear, 2 = log, 3 = square root
+C
+C Return value:
+C      returns either y, log(y) or sqrt(y) depending on mode
+C
+C Note that this is the inverse of FUNC1
       
       REAL*8 FUNCTION FUNC(Y,I)
       IMPLICIT NONE

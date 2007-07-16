@@ -5,7 +5,15 @@ C
 C Called by: LAIAMP
 C
 C Purpose: calculate complex phase.
- 
+C
+C Formal parameters:
+C      La     - lambda 1...6 = E1...6, 7,8 = M1,M2
+C      Mi     - mu 
+C      Rmir   -
+C      Rmis   -
+C      Dis    -
+C      Rmu    -
+
       SUBROUTINE FAZA1(La,Mi,Rmir,Rmis,Dis,Rmu)
       IMPLICIT NONE
       INTEGER*4 ieven , irs , La , Mi

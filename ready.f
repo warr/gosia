@@ -20,7 +20,7 @@ C
 C Formal parameters:
 C      Idr    -
 C      Ntap   - unit for yield file
-C      Ipr    -
+C      Ipri   - printing flag (Ipri=1 gives additional output)
 C
 C NTAP is the unit number of the file from which we should read the
 C experimental yields

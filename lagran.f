@@ -7,6 +7,16 @@ C Calls:     FUNC, FUNC1
 C
 C Purpose: perform an interpolation
 C
+C Formal parameters:
+C      X      - x-coordinate of input data
+C      Y      - y-coordinate of input data
+C      Ndata  - number of data points
+C      Ipc    -
+C      Xx     - value for which to interpolate
+C      Yy     - result of interpolation
+C      Iscal  - mode: 1 = linear, 2 = exponential, 3 = square root
+C      Irc    -
+C
 C Note that the effect of FUNC and FUNC1 depends on Iscal:
 C Iscal = 1   FUNC(y) = y        FUNC1(y) = y
 C Iscal = 2   FUNC(y) = ln(y)    FUNC1(y) = exp(y)
@@ -38,6 +48,7 @@ C Iscal = 3   FUNC(y) = sqrt(y)  FUNC1(y) = y^2
             ENDDO
          ENDDO
       ENDIF
+
       Yy = 0.
       DO j = 1 , Ndata
          y1 = Y(j)
@@ -45,6 +56,7 @@ C Iscal = 3   FUNC(y) = sqrt(y)  FUNC1(y) = y^2
       ENDDO
       Yy = FUNC1(Yy,Iscal)
       RETURN
+
  100  Yy = 0.
       DO j = 1 , Ndata
          y1 = Y(j)

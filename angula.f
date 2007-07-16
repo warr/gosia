@@ -20,7 +20,18 @@ C      ITTE   - thick target experiment flag
 C      KSEQ   - index into ELM for pair of levels, and into EN or SPIN
 C      TAU    - 
 C      ZETA   - various coefficients
- 
+C
+C Formal parameters:
+C      Ygn    -
+C      Idr    - number of decays
+C      Iful   -
+C      Fi0    - phi_0
+C      Fi1    - phi_1
+C      Trec   -
+C      Gth    -
+C      Figl   -
+C      Ngl    - detector number
+      
       SUBROUTINE ANGULA(Ygn,Idr,Iful,Fi0,Fi1,Trec,Gth,Figl,Ngl)
       IMPLICIT NONE
       REAL*8 AGELI , alab , arg , at , attl , BETAR , bt , CC , DELLA , 
@@ -124,10 +135,10 @@ C      ZETA   - various coefficients
                      sm = ylmr(jj,jm)*at(ji)*2. + sm
                   ENDDO
                ENDIF
-               ipd = ITMA(IEXP,Ngl)
+               ipd = ITMA(IEXP,Ngl) ! Detector ID
                arg = (ENDEC(l)-ENZ(ipd))**2
                qv = (Q(3,ipd,2*jj)*Q(2,ipd,2*jj)+Q(1,ipd,2*jj)*arg)
-     &              /(Q(2,ipd,2*jj)+arg)
+     &              /(Q(2,ipd,2*jj)+arg) ! solid angle attenuation coefficients
                Ygn(l) = Ygn(l) + sm*qv
             ENDDO
          ENDIF

@@ -5,7 +5,15 @@ C
 C Called by: LAISUM
 C
 C Purpose: calculate phase.
- 
+C
+C Formal parameters:
+C      La     - lambda 1...6 = E1...6, 7,8 = M1,M2
+C      Mi     - mu
+C      Rmu    -
+C      Rsg    -
+C Return value:
+C      Phase
+
       COMPLEX*16 FUNCTION FAZA(La,Mi,Rmu,Rsg)
       IMPLICIT NONE
       INTEGER*4 ieven , La , Mi

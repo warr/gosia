@@ -28,6 +28,9 @@ C      NPT    -
 C      NSTART -
 C      NSW    -
 C
+C Formal parameters:
+C      Ien    - experiment number
+C
 C Note that if it finds that the step size for the integral is too small, it
 C calls DOUBLE to increase it by a factor of two, or if it finds that the
 C step size is too big, it decreases it by a factor of two by calling HALF.

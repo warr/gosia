@@ -23,7 +23,7 @@ C      IBRC   - index branching ratios
 C      IDRN   -
 C      IFMO   -
 C      IMIX   -
-C      IPRM   -
+C      IPRM   - printing flags (see suboption PRT of OP,CONT)
 C      ITMA   - identify detectors according to OP,GDET
 C      ITS    -
 C      IVAR   - indicates a limit or correlation is set
@@ -45,6 +45,13 @@ C      TAU    -
 C      TIMEL  - lifetimes and their errors
 C      UPL    - upper limits for all gamma detectors
 C      YNRM   - relative normalization factors for gamma detectors
+C
+C Formal parameters:
+C      Oph    -
+C      Idr    - number of decays
+C      Nfd    -
+C      Ntap   - unit of yield file
+C      Iyr    -
 C
 C Here we parse the input of the OP,YIEL command and store the values.
  
@@ -101,7 +108,9 @@ C     Read OP,YIELD parameters
          READ * , (CC(jicc,isrt1),jicc=1,NICC) ! CC(I1,1)...CC(I1,N1)
       ENDDO
       READ * , (NANG(jicc),jicc=1,NEXPT) ! NANG(I)...NANG(NEXP)
-      
+
+C     Read file for gamma-ray energy dependence of Ge solid-angle attenuation
+C     coefficients Q
       REWIND 9
       READ (9,*) Nfd
       DO jicc = 1 , Nfd

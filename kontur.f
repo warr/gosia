@@ -21,6 +21,17 @@ C      NWR    - number of datapoints used in fit
 C      SA     - ratio of elements for correlated elements
 C      XV     -
 C      YV     -
+C
+C Formal parameters:
+C      Idr    -
+C      Chis0  -
+C      Chil   -
+C      Ifbf   -
+C      Inpo   -
+C      Jj     -
+C      Sh     -
+C      Bten   -
+C      Rem    -
  
       SUBROUTINE KONTUR(Idr,Chis0,Chil,Ifbf,Inpo,Jj,Sh,Bten,Rem)
       IMPLICIT NONE

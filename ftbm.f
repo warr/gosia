@@ -23,7 +23,7 @@ C      IGRD   -
 C      ILE    -
 C      INM    -
 C      INTR   -
-C      IPRM   -
+C      IPRM   - printing flags (see suboption PRT of OP,CONT)
 C      ISMAX  -
 C      ISO    -
 C      ITAK2  -
@@ -56,7 +56,15 @@ C      NYLDE  -
 C      SPIN   - spin of level
 C      ZETA   - the coupling constants
 C      ZPOL   -
- 
+C
+C Formal parameters:
+C      Icll   -
+C      Chisq  - chi square
+C      Idr    - number of decays
+C      Ncall  -
+C      Chilo  - chi square of logs
+C      Bten   -
+
       SUBROUTINE FTBM(Icll,Chisq,Idr,Ncall,Chilo,Bten)
       IMPLICIT NONE
       REAL*8 ACCA , ACCUR , AGELI , aval , Bten , CAT , CC , Chilo , 

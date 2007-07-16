@@ -9,6 +9,14 @@ C
 C Uses global variables:
 C      IAPR   -
 C      IPATH  -
+C
+C Formal parameters:
+C      Ir     -
+C      Is     -
+C      N      -
+C      Mt     -
+C      Inqa   -
+C      Indx   -
  
       SUBROUTINE CODE7(Ir,Is,N,Mt,Inqa,Indx)
       IMPLICIT NONE
