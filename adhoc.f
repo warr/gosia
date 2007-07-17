@@ -38,8 +38,8 @@ C      NDST   - number of data sets
 C      NEXPT  - number of experiments
 C      NICC   - number of conversion coefficients
 C      NLIFT  - number of lifetimes
-C      NYLDE  -
-C      ODL    -
+C      NYLDE  - number of yields
+C      ODL    - distance from target to front face of detector
 C      Q      - solid angle attenuation coefficients
 C      TAU    -
 C      TIMEL  - lifetimes and their errors
@@ -114,8 +114,8 @@ C     coefficients Q
       REWIND 9
       READ (9,*) Nfd
       DO jicc = 1 , Nfd
-         READ (9,*) ODL(jicc)
-         READ (9,*) ENZ(jicc)
+         READ (9,*) ODL(jicc) ! DIX(4) - distance from target to front of detector
+         READ (9,*) ENZ(jicc) ! Depends on absorber
          DO isrt1 = 1 , 8
             READ (9,*) (Q(licc,jicc,isrt1),licc=1,3)
          ENDDO

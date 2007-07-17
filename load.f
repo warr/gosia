@@ -38,7 +38,7 @@ C      NSTOP  -
 C      PSI    - psi coefficients
 C      QAPR   -
 C      SPIN   - spin of level
-C      VINF   - speed of particle
+C      VINF   - speed of projectile at infinity
 C      XA     - A of investigated nucleus
 C      XA1    - A of not-investated nucleus
 C      XI     - xi coupling constants

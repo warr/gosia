@@ -56,6 +56,169 @@ C
 C************************  VERSION FROM JUNE, 2006  *******************
 C
 C**********************************************************************
+C PROGRAM GOSIA
+C
+C Calls: ADHOC, ALLOC, ANGULA, ARCCOS, ARCTG, CMLAB, COORD, DECAY, DJMM,
+C        EFFIX, ELMT, FAKP, FHIP, FTBM, INTG, KLOPOT, KONTUR, LAGRAN, LOAD,
+C        MINI, MIXR, MIXUP, OPEN, PATH, PRELM, PTICC, QFIT, READY, SETIN,
+C        SIMIN, SNAKE, STING, TACOS, TAPMA, TEMB, TENS, WSIXJ, WTHREJ
+C
+C Uses global variables:
+C      ABC    - absorption coefficients
+C      ACCA   - accuracy
+C      ACCUR  - accuracy required
+C      AGELI  - angles of Ge detectors
+C      AKAVKA - efficiency curve parameters
+C      ARM    - reduced matrix elements
+C      AVJI   - average J (N.B. here it is G(1))
+C      B      - table of factorials
+C      BEQ    - beta
+C      BETAR  - recoil beta
+C      CAT    - catalog of matrix elements
+C      CC     - conversion coefficients
+C      CNOR   - normalization factors
+C      CORF   - internal correction factors
+C      DEVD   -
+C      DEVU   -
+C      DIPOL  - 
+C      DIX    - Ge parameters (inner & outer radius, length, distance)
+C      DLOCK  - limit derivative below which matrix element is fixed if LOCKS=1
+C      DS     -
+C      DSE    -
+C      DSG    -
+C      DSIGS  -
+C      DYEX   - error on experimental yield
+C      EAMX   - known matrix elements and their errors
+C      ELM    - matrix elements
+C      ELMH   -
+C      ELML   - lower limit on matrix elements
+C      ELMU   - upper limit on matrix elements
+C      EMMA   - 
+C      EN     - energy of level
+C      EP     - bombarding energy
+C      ERR    - error flag
+C      EXPO   - adiabatic exponential
+C      FIEL   - K (N.B. here it is G(6))
+C      FIEX   - phi range of particle detector
+C      GAMMA  - Gamma (N.B. here it is G(2))
+C      GFAC   - g (N.B. here it is G(5))
+C      GRAD   - partial derivative of chi squared wrt. each matrix element
+C      HLM    -
+C      HLMLM  -
+C      IAMX   -
+C      IAMY   -
+C      IAX    - axial symmetry flag
+C      ICLUST -
+C      ICS    -
+C      IDIVE  - number of subdivisions
+C      IDRN   -
+C      IEXP   - experiment number
+C      IFAC   -
+C      IFBFL  - calculate derivatives with forward-backward method
+C      IFMO   -
+C      ILE    -
+C      IMIN   -
+C      INHB   - inhibit error flag (LERF) setting in POMNOZ
+C      INNR   -
+C      INTERV -
+C      INTR   -
+C      IP     - table of prime numbers
+C      IPRM   - various flags to control output
+C      IPS1   - terminate after calculating and storing internal correction factors
+C      IRAWEX - flag to indicate raw uncorrected yield
+C      ISEX   -
+C      ISKIN  - kinematic flag (0,1)
+C      ISMAX  -
+C      ISO    -
+C      ITMA   - identify detectors according to OP,GDET
+C      ITS    -
+C      ITTE   - thick target experiment flag
+C      IVAR   - indicates a limit or correlation is set
+C      IWF    -
+C      IY     - index for yields
+C      IZ     - Z of investigated nucleus
+C      IZ1    - Z of non-investigated nucleus
+C      JENTR  -
+C      JSKIP  -
+C      KFERR  - error flag for minimization
+C      KSEQ   - index of level
+C      KVAR   -
+C      LAMAX  - number of multipolarities to calculate
+C      LAMBDA - list of multipolarities to calculate
+C      LASTCL -
+C      LDNUM  - number of matrix elements with each multipolarity populating each level
+C      LEAD   - pair of levels involved in each matrix element
+C      LIFCT  - index for lifetimes
+C      LMAX   -
+C      LMAXE  -
+C      LNORM  - normalisation constant control
+C      LNY    - use logs to calculate chi squared
+C      LOCKF  - flag to fix matrix elements with most significant derivative
+C      LOCKS  - lock flag. If LOCKS=1, fix at first stage of minimization
+C      LP1    - maximum number of experiments (50)
+C      LP10   - maximum number of reduced matrix elements (600)
+C      LP11   - LP8 - 1 (103)
+C      LP12   - number of steps of omega (365)
+C      LP13   - LP9 + 1 (47901)
+C      LP14   - maximum space for collision functions (4900)
+C      LP2    - maximum number of matrix elements (500)
+C      LP3    - maximum number of levels (75)
+C      LP4    - maximum number of yields (1500)
+C      LP6    - maximum number of gamma detectors (32)
+C      LP7    - start of collision functions (45100)
+C      LP8    - (104)
+C      LP9    - length of ZETA - 2100 (47900)
+C      MAGA   - number of magnetic substates in approximate calculation
+C      MAGEXC -
+C      MEMAX  - number of matrix elements
+C      MEMX6  - number of matrix elements with E1...6 multipolarity
+C      MULTI  - number of matrix elements having given multipolarity
+C      NAMX   - number of known matrix elements
+C      NANG   - number of gamma-ray detectors for each experiment
+C      NBRA   - number of branching ratios
+C      NCM    -
+C      NDIM   - maximum number of levels
+C      NDST   - number of data sets
+C      NEXPT  - number of experiments
+C      NLOCK  - number of elemnts to fix if LOCKF=1
+C      NMAX   - number of levels
+C      NMAX1  -
+C      NYLDE  - number of yields
+C      ODL    - distance from target to front face of detector
+C      PARX   - [for maps]
+C      PARXM  - [for maps]
+C      POWER  - x (N.B. here it is G(7))
+C      QAPR   - approximate Coulomb amplitudes
+C      SA     - ratio of matrix elements for correlated elements
+C      SE     -
+C      SPIN   - spin of level
+C      SUBCH1 -
+C      SUBCH2 -
+C      SUMCL  -
+C      SWG    -
+C      TAU    - 
+C      THICK  - thickness of each absorber type
+C      TIMEC  - Tau_C (N.B. here it is G(4))
+C      TIMEL  - lifetimes and their errors
+C      TLBGD  - theta of particle detector
+C      TREP   -
+C      UPL    - upper limits for all gamma detectors
+C      VINF   - speed of projectile at infinty
+C      XA     - A of investigated nucleus
+C      XA1    - A of non-investigated nucleus
+C      XI     - xi coupling coefficients
+C      XIR    - [for maps]
+C      XLAMB  - Lambda* (N.B. here it is G(3))
+C      XV     -
+C      YEXP   - experimental yields
+C      YGN    -
+C      YGP    -
+C      YNRM   - relative normalisation for gamma detectors
+C      YV     -
+C      ZETA   - various coefficients
+C      ZPOL   -
+C      ZV     -
+
       PROGRAM GOSIA
       IMPLICIT NONE
       REAL*8 ABC , ACCA , ACCUR , acof , AGELI , AKAVKA , AKS , ap , 
@@ -460,9 +623,11 @@ C        Handle OP,GDET (germanium detectors)
                ENDDO
                WRITE (8,*) (eng(l),l=1,10)
             ENDIF
+
+C           Write file for gamma-ray energy dependence of Ge solid-angle
+C           attenuation coefficients
             REWIND 9
             WRITE (9,*) nfd
-
             DO i = 1 , nfd ! For each detector
                READ * , (DIX(k),k=1,4) ! radius of core, outer radius, length, distance
                READ * , (xl1(k),k=1,nl) ! thicknesses of 7 kinds of absorber
@@ -1245,17 +1410,17 @@ C                 Treat OP,SIXJ
                      ENDDO
                      GOTO 2000
 
-C                 Treat OP,RAW
+C                 Treat OP,RAW (raw uncorreected gamma yields)
                   ELSEIF ( op2.EQ.'RAW ' ) THEN
                      REWIND 8
                      DO l = 1 , 8
-                        READ (8,*) (ABC(l,j),j=1,10)
+                        READ (8,*) (ABC(l,j),j=1,10) ! Absorption coefficients
                         DO j = 1 , 10
                            ABC(l,j) = LOG(ABC(l,j))
                         ENDDO
                      ENDDO
                      DO l = 1 , nfd
-                        READ (8,*) (THICK(l,j),j=1,7)
+                        READ (8,*) (THICK(l,j),j=1,7) ! thickness of absorbers
                      ENDDO
                      DO l = 1 , LP1 ! LP1 = 50
                         DO j = 1 , 200
@@ -1267,19 +1432,19 @@ C                 Treat OP,RAW
                         IRAWEX(l) = 0
                      ENDDO
                      DO l = 1 , LP1 ! LP1 = 50
-                        READ * , mexl
+                        READ * , mexl ! experiment number
                         IF ( mexl.EQ.0 ) GOTO 100
                         IRAWEX(mexl) = 1
                         n = NANG(mexl)
                         DO j = 1 , n
                            jj = ITMA(mexl,j)
-                           READ * , (AKAVKA(k,jj),k=1,8)
+                           READ * , (AKAVKA(k,jj),k=1,8) ! efficiency curve parameters
                         ENDDO
-                        READ * , kclust
+                        READ * , kclust ! number of clusters
                         IF ( kclust.NE.0 ) THEN
                            DO j = 1 , kclust
-                              READ * , numcl
-                              READ * , (liscl(k),k=1,numcl)
+                              READ * , numcl ! Number of detectors for this cluster
+                              READ * , (liscl(k),k=1,numcl) ! Indices of logical detectors
                               LASTCL(l,j) = liscl(numcl)
                               DO k = 1 , numcl
                                  kk = liscl(k)
@@ -1288,7 +1453,7 @@ C                 Treat OP,RAW
                            ENDDO
                         ENDIF
                      ENDDO
-                     GOTO 100
+                     GOTO 100 ! End of OP,RAW
 
 C                 Treat OP,MAP
                   ELSEIF ( op2.EQ.'MAP ' ) THEN

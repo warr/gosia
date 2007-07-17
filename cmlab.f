@@ -24,7 +24,7 @@ C      NEXPT  - number of experiments
 C      NMAX   - number of level energies
 C      TETACM - theta of particle detector in center of mass frame
 C      TLBDG  - theta of particle detector
-C      VINF   - speed of particle
+C      VINF   - speed of projectile at infinity
 C      XA     - A of investigated nucleus
 C      XA1    - A of not-investated nucleus
 C      TREP   -

@@ -10,7 +10,7 @@ C
 C Uses global variables:
 C      AGELI  - angles of the Ge detectors
 C      BETAR  - recoil beta
-C      CNOR   -
+C      CNOR   - normalization factors
 C      CORF   - internal correction factors
 C      DEV    -
 C      DYEX   - error on experimental yield
@@ -47,7 +47,7 @@ C      NEXPT  - number of experiments
 C      NLIFT  - number of lifetimes
 C      NMAX   - number of levels
 C      NYLDE  - number of yields
-C      ODL    -
+C      ODL    - distance from target to front face of detector
 C      PART   -
 C      PARTL  -
 C      SPIN   - spin of level

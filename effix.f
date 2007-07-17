@@ -8,9 +8,9 @@ C
 C Purpose: calculate the efficiency of the detector at a given energy.
 C
 C Uses global variables:
-C      ABC    -
-C      AKAVKA -
-C      THICK  -
+C      ABC    - absorption coefficients
+C      AKAVKA - efficiency curve parameters
+C      THICK  - thickness of each absorber type
 C
 C Formal parameters:
 C      Ipd    - detector number
@@ -19,7 +19,17 @@ C      Effi   - efficiency
 C
 C Note that it uses LAGRAN to interpolate between the data points given
 C by the user.
- 
+C
+C The efficiency curve parameters are those of GREMLIN:
+C     AKAVKA(1) = a0
+C     AKAVKA(2) = a1
+C     AKAVKA(3) = a2
+C     AKAVKA(4) = a3
+C     AKAVKA(5) = f  - fit flag
+C     AKAVKA(6) = N
+C     AKAVKA(7) = b
+C     AKAVKA(8) = c
+      
       SUBROUTINE EFFIX(Ipd,En,Effi)
       IMPLICIT NONE
       REAL*8 ABC , AKAVKA , d , Effi , En , enl , pw , s , t , THICK , 
@@ -76,6 +86,7 @@ C by the user.
          ENDDO
       ENDIF
       Effi = EXP(-s)
+
 c FITEFF or GREMLIN check
       IF ( AKAVKA(5,Ipd).GT.0. .AND. AKAVKA(5,Ipd).LT.10. ) THEN
 c FITEFF eff. calib. by P.Olbratowski use
@@ -105,6 +116,7 @@ c GREMLIN
             Effi = Effi*EXP(w)
          ENDIF
       ENDIF
+
       IF ( ABS(AKAVKA(8,Ipd)).LT.1.E-9 ) RETURN
       w = (AKAVKA(7,Ipd)-1000.*En)/AKAVKA(8,Ipd)
       pw = EXP(w)

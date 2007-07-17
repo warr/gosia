@@ -19,7 +19,7 @@ C      MEMAX  - number of matrix elements
 C      NEXPT  - number of experiments
 C      TLBDG  - theta of particle detector
 C      ZETA   - various coefficients
-C      VINF   -
+C      VINF   - speed of projectile at infinity
 C
 C Formal parameters:
 C      K      - number of experimental yields giving largest and positive

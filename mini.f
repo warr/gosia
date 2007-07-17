@@ -25,7 +25,7 @@ C      IPS1   - terminate after calculating and writing correction factors
 C      ITAK2  -
 C      IVAR   - fixed, correlated or free flag
 C      JENTR  -
-C      KFERR  -
+C      KFERR  - error flag for minimization
 C      KVAR   -
 C      LFL1   -
 C      LNY    - use logs to calculate chi squared
