@@ -1412,6 +1412,7 @@ C                 Treat OP,SIXJ
 
 C                 Treat OP,RAW (raw uncorreected gamma yields)
                   ELSEIF ( op2.EQ.'RAW ' ) THEN
+C                    Read absorber coefficients from unit 8
                      REWIND 8
                      DO l = 1 , 8
                         READ (8,*) (ABC(l,j),j=1,10) ! Absorption coefficients
@@ -1431,6 +1432,8 @@ C                 Treat OP,RAW (raw uncorreected gamma yields)
                         ENDDO
                         IRAWEX(l) = 0
                      ENDDO
+
+C                    Read input from standard input
                      DO l = 1 , LP1 ! LP1 = 50
                         READ * , mexl ! experiment number
                         IF ( mexl.EQ.0 ) GOTO 100
