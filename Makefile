@@ -123,7 +123,7 @@ OBJS += ylm1.o
 SINGLE_FILE = gosia_single_file.f
 
 gosia: $(OBJS) $(DEPS)
-	g77 $(LDFLAGS) -o gosia $(OBJS)
+	$(FC) $(LDFLAGS) -o gosia $(OBJS)
 
 clean:
 	rm -f *~ *.o $(EXE) $(SINGLE_FILE)
