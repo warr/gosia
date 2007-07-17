@@ -1,6 +1,6 @@
  
 C----------------------------------------------------------------------
-C FUNCTION FXIS1
+C FUNCTION FXIS2
 C
 C Called by: NEWCAT
 C
