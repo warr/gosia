@@ -827,7 +827,7 @@ C              Treat OP,COUL
 
 C              Treat OP,EXIT
                IF ( op2.EQ.'EXIT' ) THEN
-                 GOTO 430 ! End of OP,EXIT
+                  GOTO 430 ! End of OP,EXIT
 
 C              Treat OP,MINI
                ELSEIF ( op2.EQ.'MINI' ) THEN
@@ -1996,7 +1996,7 @@ C     Handle OP,ERRO
                      figl = AGELI(IEXP,jgl,2)
                      fm = (fi0+fi1)/2.
                      CALL ANGULA(YGN,idr,1,fi0,fi1,ttttt,gth,figl,jgl,
-     &                 op2)
+     &                  op2)
                      IF ( IFMO.NE.0 ) THEN
                         id = ITMA(IEXP,jgl)
                         d = ODL(id)
@@ -2010,7 +2010,7 @@ C     Handle OP,ERRO
                         sf = d*d/rl/rl
                         fic = ATAN2(ry,rx)
                         CALL ANGULA(YGP,idr,1,fi0,fi1,ttttt,thc,fic,jgl,
-     &                    op2)
+     &                     op2)
                         DO ixl = 1 , idr
                            ixm = KSEQ(ixl,3)
                            tfac = TAU(ixm)
@@ -2487,7 +2487,7 @@ C     Handle map
                ENDIF ! if multi(lex).ne.0
             ENDDO ! Loop on lex
          ENDDO ! Loop on jex
-       ENDIF ! IPRM(12).ne.0
+      ENDIF ! IPRM(12).ne.0
       IF ( op2.NE.'GOSI' .AND. op2.NE.'ERRO' ) GOTO 100
       IF ( op2.EQ.'ERRO' ) GOTO 400
 
@@ -2619,4 +2619,5 @@ C     Handle OP,EXIT
 99054 FORMAT (5X,'XI',13X,'Q1',22X,'Q2'///13X,'SLOPE',2X,'INTERCEPT',7X,
      &        'SLOPE',5X,'INTERCEPT'//)
 99055 FORMAT (2X,1F6.4,3X,1E8.2,2X,1E8.2,6X,1E8.2,2X,1E8.2)
+
       END
