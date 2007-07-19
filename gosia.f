@@ -2489,6 +2489,7 @@ C     Handle OP,ERRO
          ENDDO
       ENDIF
 
+C     Handle map
       IF ( IPRM(12).NE.0 ) THEN
          IPRM(12) = 0
          DO jex = 1 , NEXPT
