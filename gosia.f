@@ -448,7 +448,7 @@ C     Initialize pointers
       LP11 = LP8 - 1
       LP12 = 365 ! Maximum number of steps of omega (dimension of ADB, SH, CH)
       LP13 = LP9 + 1
-      LP14 = 4900
+      LP14 = 4900 ! Maximum number of collision coefficients
 
 C     Initialize normalization to 1.
       DO i = 1 , LP3 ! LP3 = 75
