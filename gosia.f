@@ -2462,19 +2462,20 @@ C     Handle OP,ERRO
             ENDDO
             INTERV(IEXP) = intvh
          ENDDO
-         REWIND 7
+         irix = 7
+         REWIND irix
          DO iuy = 1 , 6
-            WRITE (7,*) (XIR(iuy,jj),jj=1,NEXPT)
-            WRITE (7,*) (zmir(iuy,1,jj),zmir(iuy,2,jj),jj=1,NEXPT)
+            WRITE (irix,*) (XIR(iuy,jj),jj=1,NEXPT)
+            WRITE (irix,*) (zmir(iuy,1,jj),zmir(iuy,2,jj),jj=1,NEXPT)
          ENDDO
          DO jj = 1 , NEXPT
             DO jk = 1 , 4
                DO kuku = 1 , 6
-                  WRITE (7,*) (PARXM(jj,jk,jl,kuku),jl=1,10)
+                  WRITE (irix,*) (PARXM(jj,jk,jl,kuku),jl=1,10)
                ENDDO
             ENDDO
             DO jk = 1 , 12
-               WRITE (7,*) (PARX(jj,jk,jl),jl=1,5)
+               WRITE (irix,*) (PARX(jj,jk,jl),jl=1,5)
             ENDDO
          ENDDO
          DO jj = 1 , 2
@@ -2483,19 +2484,20 @@ C     Handle OP,ERRO
             ENDDO
          ENDDO
       ELSE ! iobl .lt. 1
-         REWIND 7
+         irix = 7
+         REWIND irix
          DO iuy = 1 , 6
-            READ (7,*) (XIR(iuy,jj),jj=1,NEXPT)
-            READ (7,*) (zmir(iuy,1,jj),zmir(iuy,2,jj),jj=1,NEXPT)
+            READ (irix,*) (XIR(iuy,jj),jj=1,NEXPT)
+            READ (irix,*) (zmir(iuy,1,jj),zmir(iuy,2,jj),jj=1,NEXPT)
          ENDDO
          DO jj = 1 , NEXPT
             DO jk = 1 , 4
                DO kuku = 1 , 6
-                  READ (7,*) (PARXM(jj,jk,jl,kuku),jl=1,10)
+                  READ (irix,*) (PARXM(jj,jk,jl,kuku),jl=1,10)
                ENDDO
             ENDDO
             DO jk = 1 , 12
-               READ (7,*) (PARX(jj,jk,jl),jl=1,5)
+               READ (irix,*) (PARX(jj,jk,jl),jl=1,5)
             ENDDO
          ENDDO
          DO jgs = 1 , MEMAX
