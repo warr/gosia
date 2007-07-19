@@ -666,13 +666,13 @@ C         Treat OP,RAND (randomise matrix elements)
             WRITE (22,99007)
 99007       FORMAT (1X///5X,'MATRIX ELEMENTS RANDOMIZED...'///)
             CALL PRELM(2)
-            GOTO 100
+            GOTO 100 ! End of OP,RAND
 
 C        Treat OP,TROU (troubleshooting)
          ELSEIF ( op2.EQ.'TROU' ) THEN
             ITS = 1
             READ * , kmat , rlr
-            GOTO 100
+            GOTO 100 ! End of OP,TROU
 
 C        Treat OP,REST (restart)
          ELSEIF ( op2.EQ.'REST' ) THEN
@@ -712,7 +712,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
                ENDIF
             ENDDO
             CALL PRELM(2)
-            GOTO 100
+            GOTO 100 ! End of OP,REST
 
 C        Treat other options
          ELSE
@@ -782,13 +782,13 @@ C           Treat OP,ERRO (calculate errors)
                IF ( IMIN.EQ.0 ) CALL CMLAB(0,dsig,ttttt)
                IF ( ERR ) GOTO 2000
                IF ( IMIN.NE.0 ) GOTO 400
-               GOTO 1300
+               GOTO 1300 ! End of OP,ERRO
 
 C           Treat OP,RE,C (release C)
             ELSEIF ( op2.EQ.'RE,C' ) THEN
                jfre = 1
                irfix = 0
-               GOTO 1000
+               GOTO 1000 ! End of OP,RE,C
 
 C           Treat OP,TITL (title)
             ELSEIF ( op2.EQ.'TITL' ) THEN
@@ -796,7 +796,7 @@ C           Treat OP,TITL (title)
 99009          FORMAT (20A4)
                WRITE (22,99010) (title(k),k=1,20)
 99010          FORMAT (10X,20A4/10X,100('-'))
-               GOTO 100
+               GOTO 100 ! End of OP,TITL
 
             ELSE
 
@@ -948,12 +948,12 @@ C              Treat OP,THEO
                         WRITE (12,*) ELM(kb)
                      ENDIF
                   ENDDO
-                  GOTO 100
+                  GOTO 100 ! End of OP,THEO
 
 C              Treat OP,YIEL
                ELSEIF ( op2.EQ.'YIEL' ) THEN
                   CALL ADHOC(oph,idr,nfd,ntap,iyr)
-                  GOTO 100
+                  GOTO 100 ! End of OP,YIEL
 
 C              Treat OP,INTG
                ELSEIF ( op2.EQ.'INTG' ) THEN
@@ -1372,7 +1372,7 @@ C              Treat OP,INTG
                         ENDDO
                      ENDDO
                   ENDIF
-                  GOTO 100
+                  GOTO 100 ! End of OP,INTG
 
 C              Treat OP,CORR
                ELSEIF ( op2.EQ.'CORR' ) THEN
@@ -1380,7 +1380,7 @@ C              Treat OP,CORR
                   REWIND 3
                   REWIND 15
                   REWIND 4
-                  GOTO 1200
+                  GOTO 1200 ! End of OP,CORR
                ELSE
 
 C                 Treat OP,POIN
@@ -1408,7 +1408,7 @@ C                 Treat OP,SIXJ
                            ENDDO
                         ENDDO
                      ENDDO
-                     GOTO 2000
+                     GOTO 2000 ! End of OP,SIXJ
 
 C                 Treat OP,RAW (raw uncorreected gamma yields)
                   ELSEIF ( op2.EQ.'RAW ' ) THEN
@@ -1460,7 +1460,7 @@ C                    Read input from standard input
 
 C                 Treat OP,MAP
                   ELSEIF ( op2.EQ.'MAP ' ) THEN
-                     GOTO 1200
+                     GOTO 1200 ! End of OP,MAP 
                   ENDIF
                ENDIF
             ENDIF
@@ -1717,7 +1717,8 @@ C     Else we don't recognize the suboption
          GOTO 2000
       ENDIF
       GOTO 200 ! Get next suboption
-      
+
+C     Handle OP,ERRO      
  400  IF ( ICS.EQ.1 ) THEN
          REWIND 11
          DO kh1 = 1 , LP4
@@ -2202,11 +2203,11 @@ C     Else we don't recognize the suboption
      &                            CORF(ile1+itp-1,jgl1) , ycorr , 
      &                            ycorr/CORF(ile1+itp-1,jgl1)
 99039                      FORMAT (5X,I4,5X,I4,3X,E8.3,4X,E8.3,4X,E8.3)
-                        ENDDO
- 1206                ENDDO
-                  ENDIF
+                        ENDDO ! Loop over itp
+ 1206                ENDDO ! Loop over jgl
+                  ENDIF ! if ( op2.EQ. 'CORR')
                ENDIF
-            ENDDO
+            ENDDO ! Loop over jexp
             IF ( op2.EQ.'STAR' ) oph = op2
             IF ( op2.NE.'STAR' ) THEN
                IF ( op2.EQ.'CORR' ) THEN
@@ -2216,8 +2217,9 @@ C     Else we don't recognize the suboption
                ENDIF
             ENDIF
             GOTO 100
-         ENDIF
-      ENDIF
+         ENDIF ! if (op2 .NE. 'GOSI') if statement
+      ENDIF ! if ( obl.LT.1 ) if statement
+
  1300 IF ( iobl.GE.1 ) THEN
          ient = 1
          icg = 2
@@ -2419,10 +2421,10 @@ C     Else we don't recognize the suboption
                            PARXM(IEXP,3,jk,kk) = acof*(2.*s22-51.*s21)
                            PARXM(IEXP,4,jk,kk) = bcof*(101.*s21-3.*s22)
                         ENDIF
-                     ENDDO
-                  ENDDO
+                     ENDDO ! Loop over jk
+                  ENDDO ! Loop over jd
                ENDIF
-            ENDDO
+            ENDDO ! Loop over kk
             EMMA(IEXP) = emhl1
             NMAX = nmaxh
             SPIN(1) = sh1
@@ -2464,7 +2466,7 @@ C     Else we don't recognize the suboption
                IDIVE(jj1,jj) = 1
             ENDDO
          ENDDO
-      ELSE
+      ELSE ! iobl .lt. 1
          REWIND 7
          DO iuy = 1 , 6
             READ (7,*) (XIR(iuy,jj),jj=1,NEXPT)
@@ -2486,6 +2488,7 @@ C     Else we don't recognize the suboption
             ENDDO
          ENDDO
       ENDIF
+
       IF ( IPRM(12).NE.0 ) THEN
          IPRM(12) = 0
          DO jex = 1 , NEXPT
@@ -2521,6 +2524,7 @@ C     Else we don't recognize the suboption
       ENDIF
       IF ( op2.NE.'GOSI' .AND. op2.NE.'ERRO' ) GOTO 100
       IF ( op2.EQ.'ERRO' ) GOTO 400
+
  1400 DO kh1 = 1 , MEMAX
          HLM(kh1) = ELM(kh1)
       ENDDO
@@ -2541,18 +2545,23 @@ C     Else we don't recognize the suboption
       IF ( ifm.EQ.1 ) CALL PRELM(3)
       IF ( ifm.NE.1 ) GOTO 100
       GOTO 2000
+
  1500 WRITE (22,99043)
 99043 FORMAT (5X,'ERROR-M.E. DOES NOT BELONG TO THE UPPER TRIANGLE')
       GOTO 1900
+
  1600 WRITE (22,99044)
 99044 FORMAT (5X,'ERROR-WRONG SEQUENCE OF MULTIPOLARITIES')
       GOTO 1900
+
  1700 WRITE (22,99045)
 99045 FORMAT (5X,'ERROR-REPEATED APPEARANCE OF THE STATE')
       GOTO 1900
+
  1800 WRITE (22,99046)
 99046 FORMAT (1X///10X,'ERROR-INSUFFICIENT SPACE FOR E-THETA INTEGR ',
      &        'ATION')
+
  1900 IF ( ITS.NE.0 ) THEN
          iva = 0
          WRITE (18,*) iva , iva , iva , chisq
@@ -2563,6 +2572,7 @@ C     Else we don't recognize the suboption
       ENDIF
  2000 WRITE (22,99047)
 99047 FORMAT (15X,'********* END OF EXECUTION **********')
+
 99048 FORMAT (1X//50X,'CALCULATED YIELDS'//5X,'EXPERIMENT ',1I2,2X,
      &        'DETECTOR ',1I2/5X,'ENERGY ',1F10.3,1X,'MEV',2X,'THETA ',
      &        1F7.3,1X,'DEG'//5X,'NI',5X,'NF',5X,'II',5X,'IF',5X,
