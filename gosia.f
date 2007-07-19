@@ -2218,7 +2218,7 @@ C     Handle OP,ERRO
             ENDIF
             GOTO 100
          ENDIF ! if (op2 .NE. 'GOSI') if statement
-      ENDIF ! if ( obl.LT.1 ) if statement
+      ENDIF ! if ( iobl.LT.1 ) if statement
 
  1300 IF ( iobl.GE.1 ) THEN
          ient = 1
