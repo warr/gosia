@@ -29,9 +29,9 @@ C      Iop    - print flag (controls what is written to output).
       REAL*8 ACCA , ACCUR , b , DIPOL , ELM , ELML , ELMU , EN , pv , 
      &       SA , SPIN , ste , ZPOL
       REAL*8 HLM ! Only in gosia, not gosia2
-      INTEGER*4 IBPS , inx , Iop , ISO , isp , IVAR , j , JZB , k , kk ,
-     &          l , LAMDA , LAMMAX , LDNUM , LEAD , LMAXE , m , MAGEXC , 
-     &          MEMAX , MEMX6 , MULTI , NDIM
+      INTEGER*4 IBPS , inx , Iop , ISO , isp , IUNIT3 , IVAR , j , JZB , 
+     &          k , kk , l , LAMDA , LAMMAX , LDNUM , LEAD , LMAXE , m ,
+     &          MAGEXC , MEMAX , MEMX6 , MULTI , NDIM
       INTEGER*4 NMAX , NMAX1
       CHARACTER*3 wrn
       COMMON /COMME / ELM(500) , ELMU(500) , ELML(500) , SA(500)
@@ -41,7 +41,7 @@ C      Iop    - print flag (controls what is written to output).
       COMMON /CLCOM / LAMDA(8) , LEAD(2,500) , LDNUM(8,75) , LAMMAX , 
      &                MULTI(8)
       COMMON /COEX2 / NMAX , NDIM , NMAX1
-      COMMON /SWITCH/ JZB , IBPS
+      COMMON /SWITCH/ JZB , IBPS , IUNIT3
       COMMON /HHH   / HLM(500)
 
       inx = 0

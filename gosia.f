@@ -134,6 +134,7 @@ C      ISO    -
 C      ITMA   - identify detectors according to OP,GDET
 C      ITS    -
 C      ITTE   - thick target experiment flag
+C      IUNIT3 - unit for TAPE3
 C      IVAR   - indicates a limit or correlation is set
 C      IWF    -
 C      IY     - index for yields
@@ -273,8 +274,8 @@ C      ZV     -
      &          ipri , IPRM , IPS1 , IRAWEX , irea , irep , irfix , 
      &          irix , ISEX , isip , iske , iskf , ISKIN
       INTEGER*4 isko , iskok , ISMAX , ISO , isoh , ispa , ispb , ITMA , 
-     &          itno , itp , ITS , ITTE , iuy , iva , iva1 , IVAR , 
-     &          ivarh , ivari , ivrh , IWF
+     &          itno , itp , ITS , ITTE , IUNIT3 , iuy , iva , iva1 , 
+     &          IVAR , ivarh , ivari , ivrh , IWF
       INTEGER*4 ixj , ixl , ixm , IY , iyr , IZ , IZ1 , izcap , j , ja , 
      &          jan , jan1 , jb , jb1 , jb2 , jd , jde , jdy , je , 
      &          JENTR
@@ -385,7 +386,7 @@ C      ZV     -
       COMMON /ERCAL / JENTR , ICS
       COMMON /LOGY  / LNY , INTR , IPS1
       COMMON /FAKUL / IP(26) , IPI(26) , KF(101,26) , PILOG(26)
-      COMMON /SWITCH/ JZB , IBPS
+      COMMON /SWITCH/ JZB , IBPS , IUNIT3
       DATA (eng(k),k=1,10)/.05 , .06 , .08 , .1 , .15 , .2 , .3 , .5 , 
      &      1. , 1.5/
       DATA (tau1(k),k=1,10)/17.656 , 10.726 , 5.076 , 2.931 , 1.3065 , 
@@ -406,6 +407,7 @@ C      ZV     -
      &      22.933 , 11.334 , 4.540 , 1.813 , .8020 , .5900/
 
 C     Initialise variables
+      IUNIT3 = 3
       IBPS = 0
       JZB = 5
       IBYP = 0
@@ -768,15 +770,15 @@ C           Treat OP,ERRO (calculate errors)
                   ENDDO
                   inko = inn
                   IF ( irep.NE.2 ) THEN
-                     WRITE (3,*) NMAX , MEMAX , inpo , inko
+                     WRITE (IUNIT3,*) NMAX , MEMAX , inpo , inko
                      DO inn = 1 , NMAX
-                        WRITE (3,*) inn , SPIN(inn) , EN(inn)
+                        WRITE (IUNIT3,*) inn , SPIN(inn) , EN(inn)
                      ENDDO
                      DO inn = 1 , MEMAX
-                        WRITE (3,*) inn , LEAD(1,inn) , LEAD(2,inn)
+                        WRITE (IUNIT3,*) inn , LEAD(1,inn) , LEAD(2,inn)
                      ENDDO
                      DO inn = 1 , MEMAX
-                        WRITE (3,*) inn , ELM(inn)
+                        WRITE (IUNIT3,*) inn , ELM(inn)
                      ENDDO
                   ENDIF
                ENDIF
@@ -1324,7 +1326,7 @@ C              Treat OP,INTG
 C              Treat OP,CORR
                ELSEIF ( op2.EQ.'CORR' ) THEN
                   CALL READY(idr,ntap,0)
-                  REWIND 3
+                  REWIND IUNIT3
                   REWIND 15
                   REWIND 4
                   GOTO 1200 ! End of OP,CORR
@@ -1692,24 +1694,24 @@ C     Handle OP,ERRO
          IFBFL = 1
          IF ( irep.NE.2 ) GOTO 700
          IF ( iosr.EQ.0 ) GOTO 700
-         REWIND 3
-         READ (3,*) ll , mm , kk , inn
+         REWIND IUNIT3
+         READ (IUNIT3,*) ll , mm , kk , inn
          DO inn = 1 , ll
-            READ (3,*) mm , yyy , zz
+            READ (IUNIT3,*) mm , yyy , zz
          ENDDO
          DO inn = 1 , MEMAX
-            READ (3,*) mm , ll , kk
+            READ (IUNIT3,*) mm , ll , kk
          ENDDO
          DO inn = 1 , MEMAX
-            READ (3,*) mm , yyy
+            READ (IUNIT3,*) mm , yyy
          ENDDO
- 450     READ (3,*) mm , ll
+ 450     READ (IUNIT3,*) mm , ll
          IF ( mm.EQ.0 ) THEN
-            BACKSPACE 3
+            BACKSPACE IUNIT3
             GOTO 700
          ELSE
-            READ (3,*) kk , ll , yyy
-            READ (3,*) (SA(mm),mm=1,MEMAX)
+            READ (IUNIT3,*) kk , ll , yyy
+            READ (IUNIT3,*) (SA(mm),mm=1,MEMAX)
             GOTO 450
          ENDIF
       ELSE
@@ -1828,8 +1830,8 @@ C     Handle OP,ERRO
 99033          FORMAT (10X,'ME=',1I3,5X,'NO FREE MATRIX ELEMENTS')
                IF ( mm.NE.0 ) THEN
                   KFERR = 1
-                  IF ( iosr.EQ.1 ) WRITE (3,*) kh , kh
-                  IF ( iosr.EQ.1 ) WRITE (3,*) kh , ij , ELM(kh)
+                  IF ( iosr.EQ.1 ) WRITE (IUNIT3,*) kh , kh
+                  IF ( iosr.EQ.1 ) WRITE (IUNIT3,*) kh , ij , ELM(kh)
                   LOCKS = 1
                   DLOCK = .05
                   CALL MINI(chiss,-1.D0,2,.0001D0,1000,idr,100000.D0,0,
@@ -1856,7 +1858,7 @@ C     Handle OP,ERRO
       ENDIF
       IF ( iosr.NE.0 ) THEN
          im = 0
-         WRITE (3,*) im , im
+         WRITE (IUNIT3,*) im , im
       ENDIF
       GOTO 600
 
@@ -2122,7 +2124,8 @@ C     Handle OP,ERRO
                            ENDIF
                         ENDIF
                         jgl1 = jgl1 + 1
-                        READ (3,*) ne , na , zp , ap , xep , nval , waga
+                        READ (IUNIT3,*) ne , na , zp , ap , xep , nval ,
+     &                                  waga
                         WRITE (4,*) ne , na , zp , ap , EP(IEXP) , 
      &                              nval , waga
                         WRITE (22,99038) IEXP , jgl1
@@ -2131,8 +2134,8 @@ C     Handle OP,ERRO
      &                          'YCOR',8X,'COR.F'/)
                         ile1 = ILE(jgl1)
                         DO itp = 1 , nval
-                           READ (3,*) ns1 , ns2 , fiex1(1,1,1) , 
-     &                                fiex1(1,1,2)
+                           READ (IUNIT3,*) ns1 , ns2 , fiex1(1,1,1) , 
+     &                                     fiex1(1,1,2)
                            ltrn = IY(ile1+itp-1,jgl1)
                            IF ( ltrn.LT.1000 ) THEN
                               ns1 = KSEQ(ltrn,3)
