@@ -1063,7 +1063,7 @@ C              Treat OP,INTG
                                     fm = (fi0+fi1)/2.
                                     figl = AGELI(IEXP,ijan,2)
                                     CALL ANGULA(YGN,idr,1,fi0,fi1,tetrc,
-     &                                 gth,figl,ijan)
+     &                                 gth,figl,ijan,op2)
                                     IF ( IFMO.NE.0 ) THEN
                                        id = ITMA(IEXP,ijan)
                                        d = ODL(id)
@@ -1077,7 +1077,7 @@ C              Treat OP,INTG
                                        thc = TACOS(rz/rl)
                                        fic = ATAN2(ry,rx)
                                        CALL ANGULA(YGP,idr,1,fi0,fi1,
-     &                                    tetrc,thc,fic,ijan)
+     &                                    tetrc,thc,fic,ijan,op2)
                                        DO ixl = 1 , idr
                                          ixm = KSEQ(ixl,3)
                                          tfac = TAU(ixm)
@@ -2037,7 +2037,8 @@ C     Handle OP,ERRO
                      gth = AGELI(IEXP,jgl,1)
                      figl = AGELI(IEXP,jgl,2)
                      fm = (fi0+fi1)/2.
-                     CALL ANGULA(YGN,idr,1,fi0,fi1,ttttt,gth,figl,jgl)
+                     CALL ANGULA(YGN,idr,1,fi0,fi1,ttttt,gth,figl,jgl,
+     &                 op2)
                      IF ( IFMO.NE.0 ) THEN
                         id = ITMA(IEXP,jgl)
                         d = ODL(id)
@@ -2050,7 +2051,8 @@ C     Handle OP,ERRO
                         thc = TACOS(rz/rl)
                         sf = d*d/rl/rl
                         fic = ATAN2(ry,rx)
-                        CALL ANGULA(YGP,idr,1,fi0,fi1,ttttt,thc,fic,jgl)
+                        CALL ANGULA(YGP,idr,1,fi0,fi1,ttttt,thc,fic,jgl,
+     &                    op2)
                         DO ixl = 1 , idr
                            ixm = KSEQ(ixl,3)
                            tfac = TAU(ixm)
