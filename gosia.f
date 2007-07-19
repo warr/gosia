@@ -446,14 +446,14 @@ C     Initialise variables
       INTR = 0
       LNY = 0
       JENTR = 0
-      lp0 = 50000
+      lp0 = 50000 ! Size of ZETA array
       ICS = 0
       LP1 = 50 ! Maximum number of experiments
-      LP2 = 500
-      LP3 = 75
+      LP2 = 500 ! Maximum number of matrix elements
+      LP3 = 75 ! Maximum number of levels
       LP4 = 1500
       LP6 = 32
-      LP7 = lp0 - 4900
+      LP7 = lp0 - 4900 ! Start of collision coefficients in ZETA
       LP8 = LP3*28 + 1
       LP9 = lp0 - LP3*28
       LP10 = 600
@@ -461,7 +461,7 @@ C     Initialise variables
       LP12 = 365 ! Maximum number of steps of omega (dimension of ADB, SH, CH)
       LP13 = LP9 + 1
       LP14 = 4900
-      DO i = 1 , LP1 ! LP1 = 50, but CNOR(50,32): surely this should be LP3!
+      DO i = 1 , LP1 ! LP1 = 50, but CNOR(32,75): surely this should be LP3!
          DO j = 1 , LP6 ! LP6 = 32
             CNOR(j,i) = 1.
          ENDDO
