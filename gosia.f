@@ -2516,12 +2516,12 @@ C     Handle OP,ERRO
                         u = 0.
                         WRITE (22,99055) xxi , u , PARX(jex,2*lex-1,kex)
      &                         , u , PARX(jex,2*lex,kex)
-                     ENDDO
-                  ENDIF
-               ENDIF
-            ENDDO
-         ENDDO
-      ENDIF
+                     ENDDO ! Loop on kex
+                  ENDIF ! if maga(jex).ne.0
+               ENDIF ! if multi(lex).ne.0
+            ENDDO ! Loop on lex
+         ENDDO ! Loop on jex
+       ENDIF ! IPRM(12).ne.0
       IF ( op2.NE.'GOSI' .AND. op2.NE.'ERRO' ) GOTO 100
       IF ( op2.EQ.'ERRO' ) GOTO 400
 
