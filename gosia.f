@@ -271,7 +271,7 @@ C      ZV     -
      &          iopri , iosr , IP , IPATH , ipd , iph
       INTEGER*4 IPI , ipine , ipinf , ipo1 , ipo2 , ipo3 , ipp , iprc , 
      &          ipri , IPRM , IPS1 , IRAWEX , irea , irep , irfix , 
-     &          ISEX , isip , iske , iskf , ISKIN
+     &          irix , ISEX , isip , iske , iskf , ISKIN
       INTEGER*4 isko , iskok , ISMAX , ISO , isoh , ispa , ispb , ITMA , 
      &          itno , itp , ITS , ITTE , iuy , iva , iva1 , IVAR , 
      &          ivarh , ivari , ivrh , IWF
@@ -685,10 +685,11 @@ C        Treat OP,TROU (troubleshooting)
 
 C        Treat OP,REST (restart)
          ELSEIF ( op2.EQ.'REST' ) THEN
-            REWIND 12
+            irix = 12
+            REWIND irix
             memax1 = MEMAX + 1
             DO lkj = 1 , MEMAX
-               READ (12,*) ELM(lkj)
+               READ (irix,*) ELM(lkj)
             ENDDO
             DO lkj = 1 , memax1
                READ (JZB,*) lkj1 , xlk
@@ -897,7 +898,8 @@ C              Treat OP,MINI
 
 C              Treat OP,THEO
                ELSEIF ( op2.EQ.'THEO' ) THEN
-                  REWIND (12)
+                  irix = 12
+                  REWIND (irix)
                   ibaf = 1
                   DO jb = 1 , LP1 ! LP1 = 50
                      DO lb = 1 , 2
@@ -954,7 +956,8 @@ C              Treat OP,THEO
                         ELM(kb) = ELMT(xi1,xi2,lamd,nb1,nb2,xk1,xk2,xm1,
      &                            xm2,xm3)
                         IF ( ABS(ELM(kb)).LT.1E-6 ) ELM(kb) = 1.E-6
-                        WRITE (12,*) ELM(kb)
+                        irix = 12
+                        WRITE (irix,*) ELM(kb)
                      ENDIF
                   ENDDO
                   GOTO 100 ! End of OP,THEO
@@ -2552,9 +2555,10 @@ C     Handle map
       DO iva = 1 , LP1 ! LP1 = 50
          JSKIP(iva) = 1
       ENDDO
-      REWIND 12
+      irix = 12
+      REWIND irix
       DO lkj = 1 , MEMAX
-         WRITE (12,*) ELM(lkj)
+         WRITE (irix,*) ELM(lkj)
       ENDDO
       IF ( ifm.EQ.1 ) CALL PRELM(3)
       IF ( ifm.NE.1 ) GOTO 100
