@@ -601,7 +601,7 @@ C     Initialize normalization to 1.
          ENDDO
       ENDDO
       ERR = .FALSE.
-      intend = 0
+      intend = 0 ! End of initialization
 
 C     Start reading input file.
  100  READ (JZB,99001) op1 , op2
