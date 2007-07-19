@@ -461,7 +461,7 @@ C     Initialise variables
       LP12 = 365 ! Maximum number of steps of omega (dimension of ADB, SH, CH)
       LP13 = LP9 + 1
       LP14 = 4900
-      DO i = 1 , LP1 ! LP1 = 50, but CNOR(32,75): surely this should be LP3!
+      DO i = 1 , LP3 ! LP3 = 75
          DO j = 1 , LP6 ! LP6 = 32
             CNOR(j,i) = 1.
          ENDDO
