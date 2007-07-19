@@ -688,6 +688,7 @@ C        Treat OP,TROU (troubleshooting)
 C        Treat OP,REST (restart)
          ELSEIF ( op2.EQ.'REST' ) THEN
             irix = 12
+            IF ( IBPS.EQ.1 ) irix = 32 ! unit 12 for target, 32 for beam
             REWIND irix
             memax1 = MEMAX + 1
             DO lkj = 1 , MEMAX
@@ -834,6 +835,7 @@ C              Treat OP,MINI
 C              Treat OP,THEO
                ELSEIF ( op2.EQ.'THEO' ) THEN
                   irix = 12
+                  IF ( IBPS.EQ.1 ) irix = 32 ! unit 12 for target, 32 for beam
                   REWIND (irix)
                   ibaf = 1
                   DO jb = 1 , LP1 ! LP1 = 50
@@ -892,6 +894,7 @@ C              Treat OP,THEO
      &                            xm2,xm3)
                         IF ( ABS(ELM(kb)).LT.1E-6 ) ELM(kb) = 1.E-6
                         irix = 12
+                        IF ( IBPS.EQ.1 ) irix = 32 ! unit 12 for target, 32 for beam
                         WRITE (irix,*) ELM(kb)
                      ENDIF
                   ENDDO
@@ -2399,6 +2402,7 @@ C     Handle OP,ERRO
             INTERV(IEXP) = intvh
          ENDDO
          irix = 7
+         IF ( IBPS.EQ.1 ) irix = 27 ! unit 7 for target, 27 for beam
          REWIND irix
          DO iuy = 1 , 6
             WRITE (irix,*) (XIR(iuy,jj),jj=1,NEXPT)
@@ -2421,6 +2425,7 @@ C     Handle OP,ERRO
          ENDDO
       ELSE ! iobl .lt. 1
          irix = 7
+         IF ( IBPS.EQ.1 ) irix = 27 ! unit 7 for target, 27 for beam
          REWIND irix
          DO iuy = 1 , 6
             READ (irix,*) (XIR(iuy,jj),jj=1,NEXPT)
@@ -2494,6 +2499,7 @@ C     Handle map
          JSKIP(iva) = 1
       ENDDO
       irix = 12
+      IF ( IBPS.EQ.2 ) irix = 32 ! unit 12 for target, 32 for beam
       REWIND irix
       DO lkj = 1 , MEMAX
          WRITE (irix,*) ELM(lkj)
