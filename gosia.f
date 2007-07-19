@@ -1491,7 +1491,7 @@ C     Treat suboption LEVE (levels)
      &           'ENERGY(MEV)')
          ndima = NDIM + 1
          DO k = 1 , ndima
-           READ (JZB,*) ipo1 , ipo2 , po2 , po1 ! leve number, parity, spin, energy
+            READ (JZB,*) ipo1 , ipo2 , po2 , po1 ! leve number, parity, spin, energy
             IF ( ipo1.EQ.0 ) GOTO 200
             IF ( ipo1.EQ.1 .AND. ABS(po2).LT.1.E-6 ) ISO = 0
             NMAX = NMAX + 1
