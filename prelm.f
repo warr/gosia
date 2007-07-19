@@ -11,7 +11,7 @@ C Uses global variables:
 C      ELM    - matrix elements
 C      ELML   - lower limits on matrix elements
 C      ELMU   - upper limits on matrix elements
-C      HLM    - hold matrix element
+C      HLM    -
 C      IFAC   -
 C      IVAR   - indicates a limit or correlation is set
 C      JZB    - unit to read from
