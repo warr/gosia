@@ -2528,6 +2528,7 @@ C     Handle map
       ENDIF
  2000 WRITE (22,99047)
 99047 FORMAT (15X,'********* END OF EXECUTION **********')
+      STOP
 
 C     Handle OP,EXIT
  430  IF ( IPRM(18).NE.0 ) CALL PTICC(idr)
