@@ -13,6 +13,7 @@ C      ELML   - lower limits on matrix elements
 C      ELMU   - upper limits on matrix elements
 C      IFAC   -
 C      IVAR   - indicates a limit or correlation is set
+C      JZB    - unit to read from
 C      LDNUM  - number of matrix elements with each multipolarity populating levels
 C      LEAD   - pair of levels involved in each matrix element
 C      MULTI  - number of matrix elements having a given multipolarity
@@ -24,14 +25,14 @@ C      Iop    - print flag (controls what is written to output).
  
       SUBROUTINE PRELM(Iop)
       IMPLICIT NONE
-      REAL*8 ACCA , ACCUR , b , DIPOL , ELM , ELML , ELMU , EN , HLM , 
-     &       pv , SA , SPIN , ste , ZPOL
-      INTEGER*4 inx , Iop , ISO , isp , IVAR , j , k , kk , l , LAMDA , 
-     &          LAMMAX , LDNUM , LEAD , LMAXE , m , MAGEXC , MEMAX , 
-     &          MEMX6 , MULTI , NDIM
+      REAL*8 ACCA , ACCUR , b , DIPOL , ELM , ELML , ELMU , EN , pv , 
+     &       SA , SPIN , ste , ZPOL
+      REAL*8 HLM ! Only in gosia, not gosia2
+      INTEGER*4 IBPS , inx , Iop , ISO , isp , IVAR , j , JZB , k , kk ,
+     &          l , LAMDA , LAMMAX , LDNUM , LEAD , LMAXE , m , MAGEXC , 
+     &          MEMAX , MEMX6 , MULTI , NDIM
       INTEGER*4 NMAX , NMAX1
       CHARACTER*3 wrn
-      COMMON /HHH   / HLM(500)
       COMMON /COMME / ELM(500) , ELMU(500) , ELML(500) , SA(500)
       COMMON /CEXC  / MAGEXC , MEMAX , LMAXE , MEMX6 , IVAR(500)
       COMMON /COEX  / EN(75) , SPIN(75) , ACCUR , DIPOL , ZPOL , ACCA , 
@@ -39,6 +40,8 @@ C      Iop    - print flag (controls what is written to output).
       COMMON /CLCOM / LAMDA(8) , LEAD(2,500) , LDNUM(8,75) , LAMMAX , 
      &                MULTI(8)
       COMMON /COEX2 / NMAX , NDIM , NMAX1
+      COMMON /SWITCH/ JZB , IBPS
+      COMMON /HHH   / HLM(500)
 
       inx = 0
       WRITE (22,99001)
@@ -64,14 +67,10 @@ C      Iop    - print flag (controls what is written to output).
                         IF ( IVAR(inx).EQ.0 ) THEN ! Fixed
                            WRITE (22,99006) inx , LEAD(1,inx) , 
      &                            LEAD(2,inx) , ELM(inx)
-99006                      FORMAT (5X,1I3,5X,1I2,5X,1I2,5X,1F10.5,5X,
-     &                             'FIXED')
                         ELSEIF ( IVAR(inx).GT.1000 ) THEN ! Correlation
                            WRITE (22,99007) inx , LEAD(1,inx) , 
      &                            LEAD(2,inx) , ELM(inx) , 
      &                            (IVAR(inx)-1000)
-99007                      FORMAT (5X,1I3,5X,1I2,5X,1I2,5X,1F10.5,5X,
-     &                             'COUPLED TO',1X,1I3)
                         ELSE ! Limit
                            WRITE (22,99009) inx , LEAD(1,inx) , 
      &                            LEAD(2,inx) , ELM(inx) , ELML(inx) , 
@@ -92,12 +91,15 @@ C      Iop    - print flag (controls what is written to output).
                      ELSE
                         WRITE (22,99008) inx , LEAD(1,inx) , LEAD(2,inx)
      &                         , ELM(inx)
-99008                   FORMAT (5X,1I3,5X,1I2,5X,1I2,5X,1F10.5)
                      ENDIF
-                  ENDDO
-               ENDIF
-            ENDDO
-         ENDIF
-      ENDDO
+                  ENDDO ! Loop on kk
+               ENDIF ! If l .ne. 0
+            ENDDO ! Loop on k
+         ENDIF ! If m .ne. 0
+      ENDDO ! Loop on j
+       
+99006 FORMAT (5X,1I3,5X,1I2,5X,1I2,5X,1F10.5,5X,'FIXED')
+99007 FORMAT (5X,1I3,5X,1I2,5X,1I2,5X,1F10.5,5X,'COUPLED TO',1X,1I3)
+99008 FORMAT (5X,1I3,5X,1I2,5X,1I2,5X,1F10.5)
 99009 FORMAT (5X,1I3,5X,1I2,5X,1I2,3(5X,1F10.5),1A3)
       END
