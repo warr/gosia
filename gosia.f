@@ -500,14 +500,14 @@ C     Initialise variables
             CC(i,j) = 0.
          ENDDO
       ENDDO
-      IPRM(2) = 0
+      IPRM(2) = 1
       IPRM(4) = -2
       IPRM(5) = 11111
       IPRM(6) = 11111
       IPRM(7) = 0
-      IPRM(11) = 0
-      IPRM(12) = 0
-      IPRM(14) = 0
+      IPRM(11) = 1
+      IPRM(12) = 1
+      IPRM(14) = 1
       IPRM(16) = 0
       IPRM(17) = 0
       IPRM(18) = 0
