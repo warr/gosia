@@ -108,7 +108,7 @@ C      HLMLM  -
 C      IAMX   -
 C      IAMY   -
 C      IAX    - axial symmetry flag
-C      IBPS   - target/projectile switch (not used in gosia)
+C      IBPS   - target/projectile switch
 C      ICLUST -
 C      ICS    -
 C      IDIVE  - number of subdivisions
