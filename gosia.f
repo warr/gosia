@@ -108,6 +108,7 @@ C      HLMLM  -
 C      IAMX   -
 C      IAMY   -
 C      IAX    - axial symmetry flag
+C      IBPS   - target/projectile switch (not used in gosia)
 C      ICLUST -
 C      ICS    -
 C      IDIVE  - number of subdivisions
@@ -140,6 +141,7 @@ C      IZ     - Z of investigated nucleus
 C      IZ1    - Z of non-investigated nucleus
 C      JENTR  -
 C      JSKIP  -
+C      JZB    - unit to read from
 C      KFERR  - error flag for minimization
 C      KSEQ   - index of level
 C      KVAR   -
@@ -256,8 +258,8 @@ C      ZV     -
       REAL*8 YEXP , YGN , YGP , YNRM , YV , yy , yyd1 , yydd , yyy , 
      &       ZETA , zmir , zp , ZPOL , ZV , zz
       INTEGER*4 i , i122 , IAMX , IAMY , IAPR , iapx , IAXS , ib , 
-     &          ibaf , IBRC , IBYP , icg , icll , ICLUST , ICS , ict , 
-     &          ictl , id , idf , IDIVE
+     &          ibaf , IBPS , IBRC , IBYP , icg , icll , ICLUST , ICS ,
+     &          ict , ictl , id , idf , IDIVE
       INTEGER*4 idr , IDRN , iecd , ient , IEXP , IFAC , IFBFL , ifbp , 
      &          ifc , ifm , IFMO , ifwd , ig1 , ig2 , ih1 , ih2 , ihlm , 
      &          ihuj , ii , ij
@@ -280,8 +282,8 @@ C      ZV     -
      &          jj , jj1 , jjjj , jjlx , jjx , jk , jkloo , jktt , jl , 
      &          jmm , jmpin
       INTEGER*4 jp , jphd , jpin , jrls , js , JSKIP , jt , jtp , jyi , 
-     &          jyi1 , jyi2 , jyv , jz , k , kb , kclust , kerf , kex , 
-     &          KF , KFERR
+     &          jyi1 , jyi2 , jyv , jz , JZB , k , kb , kclust , kerf ,
+     &          kex , KF , KFERR
       INTEGER*4 kh , kh1 , kh2 , kk , kk1 , kk2 , kkk , kl , kloop , 
      &          kmat , kq , KSEQ , ktt , kuku , KVAR , l , la , la1 , 
      &          lam , lamd
@@ -383,6 +385,7 @@ C      ZV     -
       COMMON /ERCAL / JENTR , ICS
       COMMON /LOGY  / LNY , INTR , IPS1
       COMMON /FAKUL / IP(26) , IPI(26) , KF(101,26) , PILOG(26)
+      COMMON /SWITCH/ JZB , IBPS
       DATA (eng(k),k=1,10)/.05 , .06 , .08 , .1 , .15 , .2 , .3 , .5 , 
      &      1. , 1.5/
       DATA (tau1(k),k=1,10)/17.656 , 10.726 , 5.076 , 2.931 , 1.3065 , 
@@ -403,6 +406,8 @@ C      ZV     -
      &      22.933 , 11.334 , 4.540 , 1.813 , .8020 , .5900/
 
 C     Initialise variables
+      IBPS = 0
+      JZB = 5
       IBYP = 0
       IP(1) = 2
       IP(2) = 3
@@ -587,7 +592,7 @@ C     Initialise variables
       intend = 0
 
 C     Start reading input file.
- 100  READ 99001 , op1 , op2
+ 100  READ (JZB,99001) op1 , op2
 99001 FORMAT (1A3,1A4)
       
       IF ( op1.EQ.'OP, ' ) THEN
@@ -613,7 +618,7 @@ C        Treat OP,FILE (attach files to fortran units)
 C        Handle OP,GDET (germanium detectors)
          IF ( op2.EQ.'GDET' ) THEN
             nl = 7
-            READ * , nfdd ! number of physical detectors
+            READ (JZB,*) nfdd ! number of physical detectors
 
             nfd = ABS(nfdd) ! Negative value means graded absorber
             IF ( nfdd.LE.0 ) THEN
@@ -629,8 +634,8 @@ C           attenuation coefficients
             REWIND 9
             WRITE (9,*) nfd
             DO i = 1 , nfd ! For each detector
-               READ * , (DIX(k),k=1,4) ! radius of core, outer radius, length, distance
-               READ * , (xl1(k),k=1,nl) ! thicknesses of 7 kinds of absorber
+               READ (JZB,*) (DIX(k),k=1,4) ! radius of core, outer radius, length, distance
+               READ (JZB,*) (xl1(k),k=1,nl) ! thicknesses of 7 kinds of absorber
                IF ( DIX(1).LE.0. ) DIX(1) = .01
                WRITE (9,*) DIX(4)
                IF ( nfdd.LE.0 ) WRITE (8,*) (xl1(k),k=1,nl)
@@ -661,7 +666,7 @@ C           attenuation coefficients
 
 C         Treat OP,RAND (randomise matrix elements)
           ELSEIF ( op2.EQ.'RAND' ) THEN
-            READ * , SE ! Seed for random number generator
+            READ (JZB,*) SE ! Seed for random number generator
             CALL MIXUP
             WRITE (22,99007)
 99007       FORMAT (1X///5X,'MATRIX ELEMENTS RANDOMIZED...'///)
@@ -671,7 +676,7 @@ C         Treat OP,RAND (randomise matrix elements)
 C        Treat OP,TROU (troubleshooting)
          ELSEIF ( op2.EQ.'TROU' ) THEN
             ITS = 1
-            READ * , kmat , rlr
+            READ (JZB,*) kmat , rlr
             GOTO 100 ! End of OP,TROU
 
 C        Treat OP,REST (restart)
@@ -682,7 +687,7 @@ C        Treat OP,REST (restart)
                READ (12,*) ELM(lkj)
             ENDDO
             DO lkj = 1 , memax1
-               READ * , lkj1 , xlk
+               READ (JZB,*) lkj1 , xlk
                IF ( lkj1.EQ.0 ) GOTO 120
                ELM(lkj1) = xlk
             ENDDO
@@ -725,7 +730,7 @@ C           Treat OP,RE,F (release F)
 
 C           Treat OP,ERRO (calculate errors)
             IF ( op2.EQ.'ERRO' ) THEN
-               READ * , idf , ms , mend , irep , ifc , remax
+               READ (JZB,*) idf , ms , mend , irep , ifc , remax
                rem = LOG(remax)
                LOCKS = 0
                LOCKF = 0
@@ -792,7 +797,7 @@ C           Treat OP,RE,C (release C)
 
 C           Treat OP,TITL (title)
             ELSEIF ( op2.EQ.'TITL' ) THEN
-               READ 99009 , (title(k),k=1,20)
+               READ (JZB,99009) (title(k),k=1,20)
 99009          FORMAT (20A4)
                WRITE (22,99010) (title(k),k=1,20)
 99010          FORMAT (10X,20A4/10X,100('-'))
@@ -879,8 +884,8 @@ C              Treat OP,EXIT
 
 C              Treat OP,MINI
                ELSEIF ( op2.EQ.'MINI' ) THEN
-                  READ * , imode , nptl , chiok , conu , xtest , LOCKF , 
-     &                 NLOCK , IFBFL , LOCKS , DLOCK
+                  READ (JZB,*) imode , nptl , chiok , conu , xtest , 
+     &                 LOCKF , NLOCK , IFBFL , LOCKS , DLOCK
                   op2 = opcja
                   IMIN = IMIN + 1
                   IF ( IMIN.NE.1 ) GOTO 1400
@@ -895,7 +900,7 @@ C              Treat OP,THEO
                         xlevb(jb,lb) = 0
                      ENDDO
                   ENDDO
-                  READ * , nbands ! Number of bands
+                  READ (JZB,*) nbands ! Number of bands
                   IF ( nbands.LE.0 ) ibaf = 0
                   nbands = ABS(nbands)
                   DO nl = 1 , 8
@@ -908,8 +913,8 @@ C              Treat OP,THEO
                      ENDDO
                   ENDDO
                   DO jb = 1 , nbands
-                     READ * , bk , ilevls ! K of band, number of levels in band
-                     READ * , (levl(ib),ib=1,ilevls) ! Level list for band
+                     READ (JZB,*) bk , ilevls ! K of band, number of levels in band
+                     READ (JZB,*) (levl(ib),ib=1,ilevls) ! Level list for band
                      DO kb = 1 , ilevls
                         inva = levl(kb)
                         xlevb(inva,2) = bk
@@ -917,11 +922,11 @@ C              Treat OP,THEO
                      ENDDO
                   ENDDO
                   DO nl = 1 , 8
-                     READ * , nnl ! Multipolarity
+                     READ (JZB,*) nnl ! Multipolarity
  126                 IF ( nnl.LE.0 ) GOTO 130
-                     READ * , jb1 , jb2 ! band indices
+                     READ (JZB,*) jb1 , jb2 ! band indices
                      IF ( jb1.NE.0 ) THEN
-                        READ * , (bm(nnl,jb1,jb2,j),j=1,3) ! intrinsic moments
+                        READ (JZB,*) (bm(nnl,jb1,jb2,j),j=1,3) ! intrinsic moments
                         DO j = 1 , 3
                            bm(nnl,jb2,jb1,j) = bm(nnl,jb1,jb2,j)
                         ENDDO
@@ -970,13 +975,13 @@ C              Treat OP,INTG
                      enh = EP(lx)
                      DO mpin = 1 , lpin
                         IF ( iecd(lx).EQ.1 ) THEN ! Circular detector
-                           READ * , ne , ntt , emn , emx , wth , wph , 
-     &                          wthh
+                           READ (JZB,*) ne , ntt , emn , emx , wth , 
+     &                          wph , wthh
                            mfla = 1
                            CALL COORD(wth,wph,wthh,ntt,0,pfi,wpi,tth,lx,
      &                                tmn,tmx)
                         ELSE
-                           READ * , ne , ntt , emn , emx , tmn , tmx
+                           READ (JZB,*) ne , ntt , emn , emx , tmn , tmx
                            mfla = 0
                            IF ( ntt.LT.0 ) mfla = 1
                         ENDIF
@@ -991,8 +996,9 @@ C              Treat OP,INTG
                            WRITE (14,*) ne , ntt , emn , emx , tmn , 
      &                                  tmx , jan1 , tmx , tmx , tmx
                         ENDIF
-                        READ * , (XV(i),i=1,ne)
-                        IF ( iecd(lx).NE.1 ) READ * , (YV(i),i=1,ntt)
+                        READ (JZB,*) (XV(i),i=1,ne)
+                        IF ( iecd(lx).NE.1 ) READ (JZB,*)
+     &                       (YV(i),i=1,ntt)
                         IF ( tth.LT.0. ) ELMH(2*lx-1) = YV(1)
                         IF ( tth.LT.0. ) ELMH(2*lx) = YV(ntt)
                         DO kloop = 1 , ne
@@ -1003,8 +1009,8 @@ C              Treat OP,INTG
                               IF ( IAXS(lx).NE.0 ) THEN
                                  IF ( iecd(lx).NE.1 ) THEN
                                     IF ( kloop.EQ.1 ) THEN
-                                       READ * , nfi
-                                       READ * , 
+                                       READ (JZB,*) nfi
+                                       READ (JZB,*) 
      &                                    (fiex1(ktt,jfi,1),fiex1(ktt,
      &                                    jfi,2),jfi=1,nfi)
                                        IF ( tth.LT.0. ) THEN
@@ -1175,13 +1181,13 @@ C              Treat OP,INTG
                            ILE(na1) = ILE(na1) + NYLDE(lx-1,na1)
                         ENDDO
                      ENDIF
-                     READ * , nptx
+                     READ (JZB,*) nptx
                      IF ( nptx.NE.0 ) THEN
-                        READ * , (esp(i),i=1,nptx)
-                        READ * , (dedx(i),i=1,nptx)
+                        READ (JZB,*) (esp(i),i=1,nptx)
+                        READ (JZB,*) (dedx(i),i=1,nptx)
                         npt = nptx
                      ENDIF
-                     READ * , npce , npct
+                     READ (JZB,*) npce , npct
                      mfla = 0
                      IF ( npct.LT.0 ) mfla = 1
                      IF ( iecd(lx).EQ.1 ) mfla = 1
@@ -1210,7 +1216,8 @@ C              Treat OP,INTG
      &                       CALL COORD(wth,wph,wthh,npct1,1,pfi,wpi,
      &                       TLBDG(lx),lx,tmn,tmx)
                         IF ( iecd(lx).NE.1 ) THEN
-                           IF ( mfla.EQ.1 ) READ * , (pfi(j),j=1,npct1)
+                           IF ( mfla.EQ.1 ) READ (JZB,*)
+     &                          (pfi(j),j=1,npct1)
                         ENDIF
                         het = het/57.2957795
                         DO j = 1 , npce1
@@ -1435,19 +1442,19 @@ C                    Read absorber coefficients from unit 8
 
 C                    Read input from standard input
                      DO l = 1 , LP1 ! LP1 = 50
-                        READ * , mexl ! experiment number
+                        READ (JZB,*) mexl ! experiment number
                         IF ( mexl.EQ.0 ) GOTO 100
                         IRAWEX(mexl) = 1
                         n = NANG(mexl)
                         DO j = 1 , n
                            jj = ITMA(mexl,j)
-                           READ * , (AKAVKA(k,jj),k=1,8) ! efficiency curve parameters
+                           READ (JZB,*) (AKAVKA(k,jj),k=1,8) ! efficiency curve parameters
                         ENDDO
-                        READ * , kclust ! number of clusters
+                        READ (JZB,*) kclust ! number of clusters
                         IF ( kclust.NE.0 ) THEN
                            DO j = 1 , kclust
-                              READ * , numcl ! Number of detectors for this cluster
-                              READ * , (liscl(k),k=1,numcl) ! Indices of logical detectors
+                              READ (JZB,*) numcl ! Number of detectors for this cluster
+                              READ (JZB,*) (liscl(k),k=1,numcl) ! Indices of logical detectors
                               LASTCL(l,j) = liscl(numcl)
                               DO k = 1 , numcl
                                  kk = liscl(k)
@@ -1472,7 +1479,7 @@ C                 Treat OP,MAP
       GOTO 2000
 
 C     Treat suboptions of OP,COUL and OP,GOSI
- 200  READ 99023 , op1 ! Read the suboption
+ 200  READ (JZB,99023) op1 ! Read the suboption
 99023 FORMAT (1A4)
       IF ( op1.EQ.'    ' ) GOTO 100
 
@@ -1484,7 +1491,7 @@ C     Treat suboption LEVE (levels)
      &           'ENERGY(MEV)')
          ndima = NDIM + 1
          DO k = 1 , ndima
-           READ * , ipo1 , ipo2 , po2 , po1 ! leve number, parity, spin, energy
+           READ (JZB,*) ipo1 , ipo2 , po2 , po1 ! leve number, parity, spin, energy
             IF ( ipo1.EQ.0 ) GOTO 200
             IF ( ipo1.EQ.1 .AND. ABS(po2).LT.1.E-6 ) ISO = 0
             NMAX = NMAX + 1
@@ -1505,12 +1512,12 @@ C     Treat suboption ME (matrix elements)
       ELSEIF ( op1.EQ.'ME  ' ) THEN
          DO k = 1 , nmemx
             IF ( op2.EQ.'GOSI' ) THEN
-               READ * , ipo1 , ipo2 , po1 , bl , bu ! lamda, 0, 0, 0, 0 OR ind1, ind2, me, lo, hi
+               READ (JZB,*) ipo1 , ipo2 , po1 , bl , bu ! lamda, 0, 0, 0, 0 OR ind1, ind2, me, lo, hi
                iopri = 2
                icg = 2
             ELSE
                iopri = 1
-               READ * , ipo1 , ipo2 , po1 ! lambda, 0, 0 OR ind1, ind2, me
+               READ (JZB,*) ipo1 , ipo2 , po1 ! lambda, 0, 0 OR ind1, ind2, me
             ENDIF
             IF ( ipo1.NE.0 ) THEN
                IF ( ipo2.EQ.0 ) THEN
@@ -1593,7 +1600,7 @@ C     Treat suboption ME (matrix elements)
 
 C     Treat suboption CONT (control)
       ELSEIF ( op1.EQ.'CONT' ) THEN
- 350     READ 99026 , op1 , fipo1
+ 350     READ (JZB,99026) op1 , fipo1
 99026    FORMAT (1A4,1F7.1)
          ipo1 = INT(fipo1)
          IF ( op1.EQ.'ACP,' ) ACCA = 10.**(-fipo1)
@@ -1605,13 +1612,13 @@ C     Treat suboption CONT (control)
          IF ( op1.EQ.'WRN,' ) SGW = fipo1
          IF ( op1.EQ.'INT,' ) THEN
             DO jjx = 1 , ipo1
-               READ * , ipo2 , ijx
+               READ (JZB,*) ipo2 , ijx
                INTERV(ipo2) = ijx
             ENDDO
          ELSE
             IF ( op1.EQ.'VAC,' ) THEN
                DO jjx = 1 , 7
-                  READ * , ijx , val
+                  READ (JZB,*) ijx , val
                   IF ( ijx.EQ.0 ) GOTO 350
                   G(ijx) = val
                ENDDO
@@ -1620,7 +1627,7 @@ C     Treat suboption CONT (control)
                IF ( op1.EQ.'ACC,' ) ACCUR = 10.**(-fipo1)
                IF ( op1.EQ.'PRT,' ) THEN
                   DO jjx = 1 , 20
-                     READ * , inm1 , inm2
+                     READ (JZB,*) inm1 , inm2
                      IF ( inm1.EQ.0 ) GOTO 350
                      IPRM(inm1) = inm2
                   ENDDO
@@ -1628,14 +1635,14 @@ C     Treat suboption CONT (control)
                ELSEIF ( op1.NE.'FIX,' ) THEN
                   IF ( op1.EQ.'SKP,' ) THEN
                      DO jjx = 1 , ipo1
-                        READ * , ijx
+                        READ (JZB,*) ijx
                         JSKIP(ijx) = 0
                      ENDDO
                      GOTO 350
                   ELSE
                      IF ( op1.EQ.'CRF,' ) ICS = 1
                      IF ( op1.EQ.'LCK,' ) THEN
- 352                    READ * , lck1 , lck2
+ 352                    READ (JZB,*) lck1 , lck2
                         IF ( lck1.EQ.0 ) GOTO 350
                         DO jjx = lck1 , lck2
                            ivarh(jjx) = 0
@@ -1646,7 +1653,7 @@ C     Treat suboption CONT (control)
                         IF ( op1.EQ.'INR,' ) INNR = 1
                         IF ( op1.EQ.'CRD,' ) THEN
                            DO jjx = 1 , ipo1
-                              READ * , ipo2
+                              READ (JZB,*) ipo2
                               iecd(ipo2) = 1
                            ENDDO
                            GOTO 350
@@ -1656,7 +1663,7 @@ C     Treat suboption CONT (control)
                            IF ( op1.EQ.'PIN,' ) ipinf = 1
                            IF ( op1.EQ.'PIN,' ) THEN
                               DO ipp = 1 , ipine
-                                 READ (*,*) ig1 , ig2
+                                 READ (JZB,*) ig1 , ig2
                                  jpin(ig1) = ig2
                               ENDDO
                               GOTO 350
@@ -1669,9 +1676,9 @@ C     Treat suboption CONT (control)
                   ENDIF
                ENDIF
             ENDIF
-            READ * , nallow
+            READ (JZB,*) nallow
             DO jjx = 1 , nallow
-               READ * , ijk
+               READ (JZB,*) ijk
                IVAR(ijk) = -IVAR(ijk)
             ENDDO
             DO jjx = 1 , MEMAX
@@ -1688,7 +1695,7 @@ C     Treat suboption CONT (control)
 
 C     Treat suboption EXPT
       ELSEIF ( op1.EQ.'EXPT' ) THEN
-         READ * , NEXPT , IZ , XA
+         READ (JZB,*) NEXPT , IZ , XA
          G(1) = 3.             ! AVJI
          G(2) = .02            ! GAMMA
          G(3) = .0345          ! XLAMB
@@ -1697,7 +1704,7 @@ C     Treat suboption EXPT
          G(6) = 6.E-06         ! FIEL
          G(7) = .6             ! POWER
          DO k = 1 , NEXPT ! Zn, An, E_p, THETA_lab, M_c, M_A, IAX, phi1, phi2, ikin, ln
-            READ * , IZ1(k) , XA1(k) , EP(k) , TLBDG(k) , EMMA(k) , 
+            READ (JZB,*) IZ1(k) , XA1(k) , EP(k) , TLBDG(k) , EMMA(k) ,
      &           MAGA(k) , IAXS(k) , fi0 , fi1 , ISKIN(k) , LNORM(k)
             ITTE(k) = 0
             IF ( XA1(k).LT.0. ) ITTE(k) = 1
@@ -1853,7 +1860,7 @@ C     Handle OP,ERRO
       IF ( ms.EQ.0 ) mend = MEMAX
       IF ( ms.EQ.0 ) ms = 1
  800  naxfl = 1
-      IF ( irea.EQ.1 ) READ * , ms , mend
+      IF ( irea.EQ.1 ) READ (JZB,*) ms , mend
       IF ( ms.NE.0 ) THEN
          DO kh = ms , mend
             IF ( ifc.NE.1 ) THEN
@@ -1934,7 +1941,7 @@ C     Handle OP,ERRO
 
  1200 CALL CMLAB(0,dsig,ttttt)
       IF ( ERR ) GOTO 2000
-      IF ( op2.EQ.'POIN' ) READ * , ifwd , slim
+      IF ( op2.EQ.'POIN' ) READ (JZB,*) ifwd , slim
       ient = 1
       icg = 1
       IF ( SPIN(1).LT.1.E-6 ) ISO = 0
