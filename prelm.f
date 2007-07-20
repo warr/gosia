@@ -99,7 +99,7 @@ C      Iop    - print flag (controls what is written to output).
             ENDDO ! Loop on k
          ENDIF ! If m .ne. 0
       ENDDO ! Loop on j
-       
+
 99006 FORMAT (5X,1I3,5X,1I2,5X,1I2,5X,1F10.5,5X,'FIXED')
 99007 FORMAT (5X,1I3,5X,1I2,5X,1I2,5X,1F10.5,5X,'COUPLED TO',1X,1I3)
 99008 FORMAT (5X,1I3,5X,1I2,5X,1I2,5X,1F10.5)
