@@ -59,6 +59,7 @@ C      Iop    - print flag (controls what is written to output).
             IF ( Iop.EQ.3 ) WRITE (22,99005)
 99005       FORMAT (4X,'INDEX',3X,'NF',5X,'NS',10X,'ME',10X,'PC CHANGE',
      &              5X,'RED. TRANS. PROB.')
+
             DO k = 1 , NMAX
                l = LDNUM(j,k)
                IF ( l.NE.0 ) THEN
