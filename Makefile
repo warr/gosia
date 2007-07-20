@@ -14,7 +14,7 @@ FC=g77
 # cases seem to be harmless. i.e. if (condition) then a=1 else a=2 endif
 # and then using a gives this warning, but in fact a is always set to
 # something
-#FFLAGS = -g -Wall
+FFLAGS = -g -Wall
 
 # Turn on optimisation
 FFLAGS += -O2 -funroll-loops
