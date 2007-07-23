@@ -11,6 +11,7 @@ C Uses global variables:
 C      ELM    - matrix elements
 C      ELML   - lower limits on matrix elements
 C      ELMU   - upper limits on matrix elements
+C      HLM    -
 C      IFAC   -
 C      IVAR   - indicates a limit or correlation is set
 C      LDNUM  - number of matrix elements with each multipolarity populating levels
@@ -64,14 +65,10 @@ C      Iop    - print flag (controls what is written to output).
                         IF ( IVAR(inx).EQ.0 ) THEN ! Fixed
                            WRITE (22,99006) inx , LEAD(1,inx) , 
      &                            LEAD(2,inx) , ELM(inx)
-99006                      FORMAT (5X,1I3,5X,1I2,5X,1I2,5X,1F10.5,5X,
-     &                             'FIXED')
                         ELSEIF ( IVAR(inx).GT.1000 ) THEN ! Correlation
                            WRITE (22,99007) inx , LEAD(1,inx) , 
      &                            LEAD(2,inx) , ELM(inx) , 
      &                            (IVAR(inx)-1000)
-99007                      FORMAT (5X,1I3,5X,1I2,5X,1I2,5X,1F10.5,5X,
-     &                             'COUPLED TO',1X,1I3)
                         ELSE ! Limit
                            WRITE (22,99009) inx , LEAD(1,inx) , 
      &                            LEAD(2,inx) , ELM(inx) , ELML(inx) , 
@@ -92,12 +89,15 @@ C      Iop    - print flag (controls what is written to output).
                      ELSE
                         WRITE (22,99008) inx , LEAD(1,inx) , LEAD(2,inx)
      &                         , ELM(inx)
-99008                   FORMAT (5X,1I3,5X,1I2,5X,1I2,5X,1F10.5)
                      ENDIF
-                  ENDDO
-               ENDIF
-            ENDDO
-         ENDIF
-      ENDDO
+                  ENDDO ! Loop on kk
+               ENDIF ! If l .ne. 0
+            ENDDO ! Loop on k
+         ENDIF ! If m .ne. 0
+      ENDDO ! Loop on j
+
+99006 FORMAT (5X,1I3,5X,1I2,5X,1I2,5X,1F10.5,5X,'FIXED')
+99007 FORMAT (5X,1I3,5X,1I2,5X,1I2,5X,1F10.5,5X,'COUPLED TO',1X,1I3)
+99008 FORMAT (5X,1I3,5X,1I2,5X,1I2,5X,1F10.5)
 99009 FORMAT (5X,1I3,5X,1I2,5X,1I2,3(5X,1F10.5),1A3)
       END
