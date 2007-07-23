@@ -96,7 +96,7 @@ C Here we parse the input of the OP,YIEL command and store the values.
       COMMON /PRT   / IPRM(20)
       COMMON /TRB   / ITS
       
-C     Read OP,YIELD parameters
+C     Read OP,YIEL parameters
       iosr = 0
       READ * , IFMO ! IFLAG
       READ * , NICC , nistr !N1, N2
