@@ -567,7 +567,7 @@ C     Initialise variables
          JSKIP(j) = 1
          ISKIN(j) = 0
       ENDDO
-      DO j = 1 , LP3
+      DO j = 1 , LP3 ! LP3 = 75
          ISEX(j) = 1111
       ENDDO
       ISEX(1) = 0
