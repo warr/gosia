@@ -14,11 +14,11 @@ all: compare
 compare: fort.22
 	diff fort.22 fort.22.good
 
-$GOSIADIR/gosia:
-	make -C $GOSIADIR
+$(GOSIADIR)/gosia:
+	make -C $(GOSIADIR)
 
-fort.22: $GOSIADIR/gosia
-	$GOSIADIR/gosia < accuracy-speed-test.inp
+fort.22: $(GOSIADIR)/gosia
+	$(GOSIADIR)/gosia < accuracy-speed-test.inp
 
 clean:
 	rm -f *~ $(OUT)
