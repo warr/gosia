@@ -447,6 +447,13 @@ C     Initialize pointers
       LP13 = LP9 + 1
       LP14 = 4900 ! Maximum number of collision coefficients
 
+C     Initialize normalization to 1.
+      DO i = 1 , LP3 ! LP3 = 75
+         DO j = 1 , LP6 ! LP6 = 32
+            CNOR(j,i) = 1.
+         ENDDO
+      ENDDO
+
       IBYP = 0
       INHB = 0
       BEQ = -983872.
@@ -465,13 +472,6 @@ C     Initialize pointers
       LNY = 0
       JENTR = 0
       ICS = 0
-
-C     Initialize normalization to 1.
-      DO i = 1 , LP3 ! LP3 = 75
-         DO j = 1 , LP6 ! LP6 = 32
-            CNOR(j,i) = 1.
-         ENDDO
-      ENDDO
 
       DO i = 1 , LP1 ! LP1 = 50
          jpin(i) = 0
@@ -591,7 +591,7 @@ C     Initialize normalization to 1.
          ENDDO
       ENDDO
       ERR = .FALSE.
-      intend = 0
+      intend = 0 ! End of initialization
 
 C     Start reading input file.
  100  READ 99001 , op1 , op2
