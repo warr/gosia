@@ -403,8 +403,7 @@ C      ZV     -
       DATA (tau2(k,7),k=1,10)/89.809 , 56.338 , 27.009 , 62.966 , 
      &      22.933 , 11.334 , 4.540 , 1.813 , .8020 , .5900/
 
-C     Initialise variables
-      IBYP = 0
+C     Initialize prime numbers
       IP(1) = 2
       IP(2) = 3
       IP(3) = 5
@@ -431,6 +430,24 @@ C     Initialise variables
       IP(24) = 89
       IP(25) = 97
       IP(26) = 101
+
+C     Initialize pointers
+      lp0 = 50000 ! Size of ZETA array
+      LP1 = 50 ! Maximum number of experiments
+      LP2 = 500 ! Maximum number of matrix elements
+      LP3 = 75 ! Maximum number of levels
+      LP4 = 1500
+      LP6 = 32
+      LP7 = lp0 - 4900 ! Start of collision coefficients in ZETA
+      LP8 = LP3*28 + 1
+      LP9 = lp0 - LP3*28
+      LP10 = 600
+      LP11 = LP8 - 1
+      LP12 = 365 ! Maximum number of steps of omega (dimension of ADB, SH, CH)
+      LP13 = LP9 + 1
+      LP14 = 4900 ! Maximum number of collision coefficients
+
+      IBYP = 0
       INHB = 0
       BEQ = -983872.
       ipinf = 0
@@ -447,26 +464,15 @@ C     Initialise variables
       INTR = 0
       LNY = 0
       JENTR = 0
-      lp0 = 50000 ! Size of ZETA array
       ICS = 0
-      LP1 = 50 ! Maximum number of experiments
-      LP2 = 500 ! Maximum number of matrix elements
-      LP3 = 75 ! Maximum number of levels
-      LP4 = 1500
-      LP6 = 32
-      LP7 = lp0 - 4900 ! Start of collision coefficients in ZETA
-      LP8 = LP3*28 + 1
-      LP9 = lp0 - LP3*28
-      LP10 = 600
-      LP11 = LP8 - 1
-      LP12 = 365 ! Maximum number of steps of omega (dimension of ADB, SH, CH)
-      LP13 = LP9 + 1
-      LP14 = 4900
+
+C     Initialize normalization to 1.
       DO i = 1 , LP3 ! LP3 = 75
          DO j = 1 , LP6 ! LP6 = 32
             CNOR(j,i) = 1.
          ENDDO
       ENDDO
+
       DO i = 1 , LP1 ! LP1 = 50
          jpin(i) = 0
          iecd(i) = 0
