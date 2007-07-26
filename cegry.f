@@ -517,6 +517,7 @@ C      Iredv  -
             ENDIF
          ENDIF
       ENDDO
+
       IF ( INNR.NE.1 ) THEN
          DO jj = 1 , NEXPT
             IF ( LNORM(jj).NE.jj ) THEN
