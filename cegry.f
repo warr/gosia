@@ -141,6 +141,7 @@ C      Iredv  -
 
       ifxd = 0
       tetrc = TREP(IEXP)
+
       IF ( Icall.EQ.4 .AND. IPRM(13).EQ.-2 ) THEN
          IPRM(13) = 0
          WRITE (22,99001)
@@ -158,10 +159,12 @@ C      Iredv  -
             k = NDST(jpc)
             WRITE (22,99012) jpc , (cnr(l,jpc)/cnr(1,jpc),l=1,k)
          ENDDO
-      ENDIF
+      ENDIF ! if Icall.EQ.4 .AND. IPRM(13).EQ.-2
+
       DO jpc = 1 , LP6
          lic(jpc) = 0
       ENDDO
+
       IF ( Icall.NE.7 ) THEN
          IF ( Itemp.EQ.0 ) THEN
             Nwyr = 0
@@ -481,11 +484,12 @@ C      Iredv  -
      &                       = YEXP(k9,l)/YGN(idc)
                      ENDIF
                   ENDIF
-               ENDDO
- 40         ENDDO
+               ENDDO ! Loop on l
+ 40         ENDDO ! Loop on k
             RETURN
-         ENDIF
-      ENDIF
+         ENDIF ! if Itemp.EQ.0
+      ENDIF ! if Icall.NE.7
+
       DO jj = 1 , NEXPT
          IF ( JSKIP(jj).NE.0 ) THEN
             kc = NDST(jj)
@@ -529,6 +533,8 @@ C      Iredv  -
             ENDIF
          ENDDO
       ENDIF
+
+C     Calculate chi squared
       IF ( Icall.EQ.7 ) Chisq = 0.
       DO jj = 1 , NEXPT
          k = NDST(jj)
@@ -539,9 +545,11 @@ C      Iredv  -
      &              + CNOR(jk,jj)*part(jk,jj,2)
          ENDDO
       ENDDO
+
       Chisq = Chisq + sumpr
       Chilo = Chilo + sum3
       RETURN
+
 99012 FORMAT (1X,1I2,2X,32(1E8.2,1X))
 99013 FORMAT (6X,1I2,5X,1I2,7X,1F4.1,6X,1F4.1,9X,1F6.4,6X,1E9.4,6X,
      &        1E9.4,3X,1F6.1,5X,1F4.1,10X,1A4)
