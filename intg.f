@@ -13,7 +13,7 @@ C      ARM    - reduced matrix elements
 C      CAT    -
 C      D2W    - step in omega (= 0.03)
 C      IFLG   -
-C      INTERV -
+C      INTERV - default accuracy check parameter (see OP,CONT:INT)
 C      IPATH  -
 C      IRA    - limit of omega for integration for each multipolarity
 C      ISG    -
@@ -91,7 +91,7 @@ C value of f(n).
       COMMON /PTH   / IPATH(75) , MAGA(75)
       COMMON /CEXC9 / INTERV(50)
       
-      intend = INTERV(Ien)
+      intend = INTERV(Ien) ! Default accuracy set by INT option of OP,CONT
       D2W = .03 ! We use steps of 0.03 in omega
       NSW = 1
       kast = 0
@@ -181,7 +181,9 @@ C     Calculate derivatives of amplitudes
                ENDIF
             ENDDO
 
-C           Decide if we have appropriate accuracy
+C           Decide if we have appropriate accuracy (strictly it should be
+C           f = SQRT(f)*19./270. but the difference is not all that large
+C
             f = SQRT(f)/14.
             IF ( f.GT.ACCUR .OR. f.LT.ACC50 ) THEN
                IF ( f.LT.ACC50 ) THEN

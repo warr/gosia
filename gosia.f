@@ -121,7 +121,7 @@ C      ILE    -
 C      IMIN   -
 C      INHB   - inhibit error flag (LERF) setting in POMNOZ
 C      INNR   -
-C      INTERV -
+C      INTERV - default accuracy check parameter for Adams-Moulton (see OP,CONT:INT)
 C      INTR   -
 C      IP     - table of prime numbers
 C      IPRM   - various flags to control output
@@ -1939,7 +1939,7 @@ C     Handle OP,ERRO
       ENDDO
       GOTO 100
 
- 1200 CALL CMLAB(0,dsig,ttttt)
+ 1200 CALL CMLAB(0,dsig,ttttt) ! Options MAP, STAR, POINT, MINI etc.
       IF ( ERR ) GOTO 2000
       IF ( op2.EQ.'POIN' ) READ * , ifwd , slim
       ient = 1
@@ -2227,7 +2227,7 @@ C     Handle OP,ERRO
          ENDIF ! if (op2 .NE. 'GOSI') if statement
       ENDIF ! if ( iobl.LT.1 ) if statement
 
- 1300 IF ( iobl.GE.1 ) THEN
+ 1300 IF ( iobl.GE.1 ) THEN ! OP,ERRO
          ient = 1
          icg = 2
          nmaxh = NMAX
