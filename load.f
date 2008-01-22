@@ -45,7 +45,7 @@ C      XI     - xi coupling constants
 C      ZPOL   -
 C
 C Formal parameters:
-C      Iexp   -
+C      Iexp   - Number of experiment
 C      Ient   -
 C      Icg    -
 C      Polm   -
