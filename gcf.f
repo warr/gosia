@@ -24,7 +24,7 @@ C      Q      - Attenuation coefficient (output)
       b(2) = ATAN2(A,D)
       b(3) = ATAN2(R,D+XL)
       b(4) = ATAN2(R,D)
-      DO k = 1 , 9
+      DO k = 1 , 9 ! Loop over order of Legendre polynomial order
          Q(k) = 0.0
          DO j = 1 , 3
             yl = b(j)
@@ -41,7 +41,7 @@ C      Q      - Attenuation coefficient (output)
                ENDIF
                f(m) = SIN(xm)*(1-EXP(ex))*EXP(Thing/COS(xm))
                IF ( j.EQ.1 ) f(m) = f(m)*EXP(-Tau*(A/SIN(xm)-D/COS(xm)))
-               IF ( k.EQ.1 ) THEN
+               IF ( k.EQ.1 ) THEN ! Legendre polynomials order k
                ELSEIF ( k.EQ.3 ) THEN
                   f(m) = f(m)*(1.5*COS(xm)**2-0.5)
                ELSEIF ( k.EQ.4 ) THEN
