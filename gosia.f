@@ -386,8 +386,12 @@ C      ZV     -
       COMMON /FAKUL / IP(26) , IPI(26) , KF(101,26) , PILOG(26)
       DATA (eng(k),k=1,10)/.05 , .06 , .08 , .1 , .15 , .2 , .3 , .5 , 
      &      1. , 1.5/
+C     Absorption coefficients in units of 1/cm for Ge
       DATA (tau1(k),k=1,10)/17.656 , 10.726 , 5.076 , 2.931 , 1.3065 , 
      &      .8828 , .5959 , .4357 , .3041 , .2472/
+C     Absorption coefficients in units of 1/cm for Al, C, Fe, Cu, Ag/Cd/Sn, Ta
+C     and Pb at the energies 0.05, 0.06, 0.08, 0.1, 0.15, 0.2, 0.3, 0.5, 1, 1.5
+C     MeV
       DATA (tau2(k,1),k=1,10)/.9883 , .7473 , .5442 , .4592 , .3718 , 
      &      .3302 , .2814 , .2278 , .1657 , .1350/
       DATA (tau2(k,2),k=1,10)/1.014 , .7443 , .5195 , .4261 , .3362 , 
@@ -639,13 +643,13 @@ C           attenuation coefficients
                READ * , (DIX(k),k=1,4) ! radius of core, outer radius, length, distance
                READ * , (xl1(k),k=1,nl) ! thicknesses of 7 kinds of absorber
                IF ( DIX(1).LE.0. ) DIX(1) = .01
-               WRITE (9,*) DIX(4)
+               WRITE (9,*) DIX(4) ! length
                IF ( nfdd.LE.0 ) WRITE (8,*) (xl1(k),k=1,nl)
                ind = 1
                IF ( xl1(5).GT.0. ) ind = 3
                IF ( xl1(6).GT.0. ) ind = 4
                IF ( xl1(7).GT.0. ) ind = 5
-               WRITE (9,*) eng(ind)
+               WRITE (9,*) eng(ind) ! First energy
                CALL QFIT(qui,tau1,tau2,eng,xl1,cf,nl,ind)
                WRITE (22,99004) i
 99004          FORMAT (10X,'DETECTOR',1X,1I2)

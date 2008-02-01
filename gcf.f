@@ -4,12 +4,13 @@ C SUBROUTINE GCF
 C
 C Called by: GAMATT
 C
-C Purpose:
+C Purpose: calculate detection probability (probability that gamma of a given
+C          energy is absorbed in the Ge but not in one of the absorbers).
 C
 C Formal parameters:
-C      Tau    -
-C      Thing  -
-C      Q      -
+C      Tau    - Absorption coefficient for Ge at this energy (input)
+C      Thing  - Absorption coefficient for absorbers at this energy (input)
+C      Q      - Attenuation coefficient (output)
  
       SUBROUTINE GCF(Tau,Thing,Q)
       IMPLICIT NONE
