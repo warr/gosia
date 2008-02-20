@@ -113,6 +113,8 @@ C      Joj    -
          ENDIF
 
 C        Calculate xi and store it in XI in common CXI
+C        The value 6.349770 is 197.33/1.44*sqrt(2/931.49).
+C        i.e. hbar c / e^2 * sqrt(2 / amu).
          eta = z1*z2*SQRT(a1/EP(Iexp))/6.349770
          DO m = 1 , NMAX
             dep = (1.0+a1/a2)*EN(m)
