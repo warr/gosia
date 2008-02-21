@@ -32,7 +32,7 @@ C      ITMA   - identify detectors according to OP,GDET
 C      ITS    -
 C      IWF    -
 C      IY     - index for yields
-C      JSKIP  -
+C      JSKIP  - Experiments to skip during minimisation.
 C      KSEQ   - index into ELM for pair of levels, and into EN or SPIN
 C      KVAR   -
 C      LASTCL -

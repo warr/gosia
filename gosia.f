@@ -140,7 +140,7 @@ C      IY     - index for yields
 C      IZ     - Z of investigated nucleus
 C      IZ1    - Z of non-investigated nucleus
 C      JENTR  -
-C      JSKIP  -
+C      JSKIP  - Experiments to skip during minimisation.
 C      KFERR  - error flag for minimization
 C      KSEQ   - index of level
 C      KVAR   -
