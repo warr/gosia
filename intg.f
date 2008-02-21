@@ -12,7 +12,7 @@ C      ACC50  - accuracy required for integration
 C      ARM    - reduced matrix elements
 C      CAT    -
 C      D2W    - step in omega (= 0.03)
-C      IFLG   -
+C      IFLG   - flag to determine whether to calculate exponential (so we don't calculate twice)
 C      INTERV - default accuracy check parameter (see OP,CONT:INT)
 C      IPATH  -
 C      IRA    - limit of omega for integration for each multipolarity
