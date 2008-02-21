@@ -14,11 +14,11 @@ C      DQ     - width of gaussian distribution
 C      FILE   - K          (this is G(6) in GOSIA)
 C      GAMMA  - Gamma      (this is G(2) in GOSIA)
 C      GFAC   - g          (this is G(5) in GOSIA)
-C      GKI    -
+C      GKI    - G_k
 C      IBYP   -
 C      POWER  - x          (this is G(7) in GOSIA)
 C      QCEN   - center of gaussian distribution
-C      SUM    -
+C      SUM    - sum over 6-j symbol squared
 C      TIMEC  - Tau_C      (this is G(4) in GOSIA)
 C      XLAMB  - Lambda*    (this is G(3) in GOSIA)
 C      XNOR   - normalisation factor
