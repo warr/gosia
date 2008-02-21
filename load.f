@@ -11,7 +11,7 @@ C
 C Uses global variables:
 C      CAT    -
 C      DIPOL  -
-C      EMMA   -
+C      EMMA   - Controls number of magnetic substates in full coulex calc.
 C      EN     - energy of level
 C      EP     - bombarding energy
 C      ERR    -

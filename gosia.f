@@ -94,7 +94,7 @@ C      ELM    - matrix elements
 C      ELMH   -
 C      ELML   - lower limit on matrix elements
 C      ELMU   - upper limit on matrix elements
-C      EMMA   - 
+C      EMMA   - Controls number of magnetic substates in full coulex calc.
 C      EN     - energy of level
 C      EP     - bombarding energy
 C      ERR    - error flag
@@ -202,7 +202,7 @@ C      THICK  - thickness of each absorber type
 C      TIMEC  - Tau_C (N.B. here it is G(4))
 C      TIMEL  - lifetimes and their errors
 C      TLBGD  - theta of particle detector
-C      TREP   -
+C      TREP   - theta of recoiling nucleus
 C      UPL    - upper limits for all gamma detectors
 C      VINF   - speed of projectile at infinty
 C      XA     - A of investigated nucleus

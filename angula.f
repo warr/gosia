@@ -27,7 +27,7 @@ C      Idr    - number of decays
 C      Iful   -
 C      Fi0    - phi_0
 C      Fi1    - phi_1
-C      Trec   -
+C      Trec   - Theta of recoiling nucleus
 C      Gth    -
 C      Figl   -
 C      Ngl    - detector number
