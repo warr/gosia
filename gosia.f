@@ -185,7 +185,7 @@ C      NLOCK  - number of elemnts to fix if LOCKF=1
 C      NMAX   - number of levels
 C      NMAX1  -
 C      NYLDE  - number of yields
-C      ODL    - distance from target to front face of detector
+C      ODL    - results of OP,GDET calculation
 C      PARX   - [for maps]
 C      PARXM  - [for maps]
 C      POWER  - x (N.B. here it is G(7))

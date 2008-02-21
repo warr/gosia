@@ -47,7 +47,7 @@ C      NEXPT  - number of experiments
 C      NLIFT  - number of lifetimes
 C      NMAX   - number of levels
 C      NYLDE  - number of yields
-C      ODL    - distance from target to front face of detector
+C      ODL    - results of OP,GDET calculation
 C      SPIN   - spin of level
 C      SUBCH1 -
 C      SUBCH2 -
