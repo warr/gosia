@@ -21,7 +21,7 @@ C      IAMX   -
 C      IAMY   -
 C      IBRC   - index branching ratios
 C      IDRN   -
-C      IFMO   -
+C      IFMO   - include correction to angular distance for finite recoil distance.
 C      IMIX   -
 C      IPRM   - printing flags (see suboption PRT of OP,CONT)
 C      ITMA   - identify detectors according to OP,GDET

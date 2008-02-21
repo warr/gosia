@@ -84,7 +84,7 @@ C      DEVU   -
 C      DIPOL  - E1 polarization parameter
 C      DIX    - Ge parameters (inner & outer radius, length, distance)
 C      DLOCK  - limit derivative below which matrix element is fixed if LOCKS=1
-C      DS     -
+C      DS     - integrated rutherford cross-section
 C      DSE    -
 C      DSG    -
 C      DSIGS  -
@@ -116,7 +116,7 @@ C      IDRN   -
 C      IEXP   - experiment number
 C      IFAC   -
 C      IFBFL  - calculate derivatives with forward-backward method
-C      IFMO   -
+C      IFMO   - include correction to angular distance for finite recoil distance.
 C      ILE    -
 C      IMIN   -
 C      INHB   - inhibit error flag (LERF) setting in POMNOZ
@@ -210,12 +210,12 @@ C      XA1    - A of non-investigated nucleus
 C      XI     - xi coupling coefficients
 C      XIR    - [for maps]
 C      XLAMB  - Lambda* (N.B. here it is G(3))
-C      XV     -
+C      XV     - energy meshpoints where we calculate exact Coulex
 C      YEXP   - experimental yields
-C      YGN    -
-C      YGP    -
+C      YGN    - gamma yield calculated without correction to angular distribution from finite recoil distance
+C      YGP    - gamma yield calculated with correction to angular distribution from finite recoil distance
 C      YNRM   - relative normalisation for gamma detectors
-C      YV     -
+C      YV     - scattering angle meshpoints where we calculate exact Coulex
 C      ZETA   - various coefficients
 C      ZPOL   -
 C      ZV     -

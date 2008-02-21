@@ -20,7 +20,7 @@ C      FIEX   - phi range of particle detector
 C      ICLUST -
 C      IDRN   -
 C      IEXP   - number of experiment
-C      IFMO
+C      IFMO   - include correction to angular distance for finite recoil distance.
 C      IGRD   -
 C      ILE    -
 C      IMIN   -
@@ -57,8 +57,8 @@ C      TREP   -
 C      UPL    - upper limits for all gamma detectors
 C      VACDP  -
 C      YEXP   - experimental yield
-C      YGN    -
-C      YGP    -
+C      YGN    - gamma yield calculated without correction to angular distribution from finite recoil distance
+C      YGP    - gamma yield calculated with correction to angular distribution from finite recoil distance
 C      YNRM   - relative normalization factors for gamma detectors
 C
 C Formal parameters:
