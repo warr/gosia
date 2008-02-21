@@ -110,7 +110,7 @@ C      IAMX   -
 C      IAMY   -
 C      IAX    - axial symmetry flag
 C      ICLUST -
-C      ICS    -
+C      ICS    - read internal correction factors flag (OP,CONT switch CRF,)
 C      IDIVE  - number of subdivisions
 C      IDRN   -
 C      IEXP   - experiment number
@@ -120,7 +120,7 @@ C      IFMO   -
 C      ILE    -
 C      IMIN   -
 C      INHB   - inhibit error flag (LERF) setting in POMNOZ
-C      INNR   -
+C      INNR   - independent normalisation switch (see OP,CONT INR,)
 C      INTERV - default accuracy check parameter for Adams-Moulton (see OP,CONT:INT)
 C      INTR   -
 C      IP     - table of prime numbers
@@ -132,7 +132,7 @@ C      ISKIN  - kinematic flag (0,1)
 C      ISMAX  -
 C      ISO    -
 C      ITMA   - identify detectors according to OP,GDET
-C      ITS    -
+C      ITS    - create tape 18 file (OP,CONT switch SEL,)
 C      ITTE   - thick target experiment flag
 C      IVAR   - indicates a limit or correlation is set
 C      IWF    -
@@ -151,7 +151,7 @@ C      LDNUM  - number of matrix elements with each multipolarity populating eac
 C      LEAD   - pair of levels involved in each matrix element
 C      LIFCT  - index for lifetimes
 C      LMAX   -
-C      LMAXE  -
+C      LMAXE  - maxmium multipolarity needed for calculation
 C      LNORM  - normalisation constant control
 C      LNY    - use logs to calculate chi squared
 C      LOCKF  - flag to fix matrix elements with most significant derivative
@@ -177,7 +177,7 @@ C      MULTI  - number of matrix elements having given multipolarity
 C      NAMX   - number of known matrix elements
 C      NANG   - number of gamma-ray detectors for each experiment
 C      NBRA   - number of branching ratios
-C      NCM    -
+C      NCM    - calculate kinematics assuming this spin for final state (default = 2.0)
 C      NDIM   - maximum number of levels
 C      NDST   - number of data sets
 C      NEXPT  - number of experiments
@@ -469,7 +469,7 @@ C     Initialize normalization to 1.
       chisq = 0.
       chilo = 0.
       IWF = 1
-      ifm = 0
+      ifm = 0 ! Fast minimisation switch off by default
       IPS1 = 11
       ifwd = -1
       INTR = 0
@@ -485,7 +485,7 @@ C     Initialize normalization to 1.
       SGW = 3.
       SUBCH1 = 0.
       SUBCH2 = 0.
-      ITS = 0
+      ITS = 0 ! Create tape 18 flag
       iosr = 0
       LOCKS = 0
       DLOCK = 1.1
@@ -547,7 +547,7 @@ C     Initialize normalization to 1.
       LMAXE = 0
       CALL FAKP
       CALL FHIP
-      NCM = 2
+      NCM = 2 ! Default final spin for kinematics calculation (OP,CONT NCM,)
       DO ijx = 1 , LP1 ! LP1 = 50
          INTERV(ijx) = 1
       ENDDO
@@ -681,7 +681,7 @@ C         Treat OP,RAND (randomise matrix elements)
 
 C        Treat OP,TROU (troubleshooting)
          ELSEIF ( op2.EQ.'TROU' ) THEN
-            ITS = 1
+            ITS = 1 ! Create tape 18 flag
             READ * , kmat , rlr
             GOTO 100 ! End of OP,TROU
 
@@ -1892,7 +1892,7 @@ C     Handle OP,ERRO
 99033          FORMAT (10X,'ME=',1I3,5X,'NO FREE MATRIX ELEMENTS')
                IF ( mm.NE.0 ) THEN
                   KFERR = 1
-                  IF ( iosr.EQ.1 ) WRITE (3,*) kh , kh
+                  IF ( iosr.EQ.1 ) WRITE (3,*) kh , kh ! For sigma program
                   IF ( iosr.EQ.1 ) WRITE (3,*) kh , ij , ELM(kh)
                   LOCKS = 1
                   DLOCK = .05
@@ -2001,7 +2001,7 @@ C     Handle OP,ERRO
 99036             FORMAT (1X/5X,'SUM OF PROBABILITIES=',1E14.6)
                ENDDO
                CALL TENS(bten)
-               IF ( itno.NE.0 ) THEN
+               IF ( itno.NE.0 ) THEN ! write statistical tensors on tape 17
                   DO k = 2 , NMAX
                      WRITE (17,*) k
                      DO kk = 1 , 4
@@ -2554,7 +2554,7 @@ C     Handle map
       DO lkj = 1 , MEMAX
          WRITE (12,*) ELM(lkj)
       ENDDO
-      IF ( ifm.EQ.1 ) CALL PRELM(3)
+      IF ( ifm.EQ.1 ) CALL PRELM(3) ! ifm = fast minimisation switch
       IF ( ifm.NE.1 ) GOTO 100
       GOTO 2000
 

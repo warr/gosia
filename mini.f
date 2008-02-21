@@ -17,7 +17,7 @@ C      ELM    - matrix elements
 C      ELMH   -
 C      GRAD   - partial derivative of chi squared wrt. matrix element
 C      HLMLM  -
-C      ICS    - read correction factors from file rather than recalculating
+C      ICS    - read internal correction factors from file rather than recalculating
 C      IFBFL  - calculate derivatives with forward-backward method
 C      INTR   -
 C      IPRM   - printing flags (see suboption PRT of OP,CONT)
@@ -47,7 +47,7 @@ C      Imode  - mode of minimization
 C      Idr    -
 C      Xtest  -
 C      Ips    -
-C      Is     -
+C      Is     - generate input for sigma program flag
 C      Jjh    -
 C      Bten   -
 C
@@ -248,7 +248,7 @@ C     Write correction factors
          ENDDO
          IF ( KFERR.EQ.1 ) THEN
             GRAD(Jjh) = 0.
-            IF ( Is.EQ.1 .AND. icount.EQ.1 ) WRITE (3,*)
+            IF ( Is.EQ.1 .AND. icount.EQ.1 ) WRITE (3,*) ! For sigma program
      &           (NWR*GRAD(jnm),jnm=1,MEMAX)
          ENDIF
          IF ( metf.EQ.1 .AND. ipas.EQ.2 ) THEN

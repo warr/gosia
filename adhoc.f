@@ -25,7 +25,7 @@ C      IFMO   -
 C      IMIX   -
 C      IPRM   - printing flags (see suboption PRT of OP,CONT)
 C      ITMA   - identify detectors according to OP,GDET
-C      ITS    -
+C      ITS    - create tape 18 file (OP,CONT switch SEL,)
 C      IVAR   - indicates a limit or correlation is set
 C      KSEQ   - index into ELM for pair of levels, and into EN or SPIN
 C      LIFCT  - index for lifetimes

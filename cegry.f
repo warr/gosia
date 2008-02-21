@@ -25,11 +25,11 @@ C      IGRD   -
 C      ILE    -
 C      IMIN   -
 C      INM    -
-C      INNR   -
+C      INNR   - independent normalisation switch (see OP,CONT INR,)
 C      IPRM   - printing flags (see suboption PRT of OP,CONT)
 C      IRAWEX -
 C      ITMA   - identify detectors according to OP,GDET
-C      ITS    -
+C      ITS    - create tape 18 file (OP,CONT switch SEL,)
 C      IWF    -
 C      IY     - index for yields
 C      JSKIP  - Experiments to skip during minimisation.
