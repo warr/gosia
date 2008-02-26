@@ -85,8 +85,8 @@ C      DIPOL  - E1 polarization parameter
 C      DIX    - Ge parameters (inner & outer radius, length, distance)
 C      DLOCK  - limit derivative below which matrix element is fixed if LOCKS=1
 C      DS     - integrated rutherford cross-section
-C      DSE    -
-C      DSG    -
+C      DSE    - rutherford cross section at given energy integrated over angles
+C      DSG    - differential gamma-ray yield at meshpoints
 C      DSIGS  -
 C      DYEX   - error on experimental yield
 C      EAMX   - known matrix elements and their errors
@@ -112,7 +112,7 @@ C      IAX    - axial symmetry flag
 C      ICLUST -
 C      ICS    - read internal correction factors flag (OP,CONT switch CRF,)
 C      IDIVE  - number of subdivisions
-C      IDRN   -
+C      IDRN   - normalising transition for yields
 C      IEXP   - experiment number
 C      IFAC   -
 C      IFBFL  - calculate derivatives with forward-backward method
@@ -218,7 +218,7 @@ C      YNRM   - relative normalisation for gamma detectors
 C      YV     - scattering angle meshpoints where we calculate exact Coulex
 C      ZETA   - various coefficients
 C      ZPOL   -
-C      ZV     -
+C      ZV     - energy meshpoints
 
       PROGRAM GOSIA
       IMPLICIT NONE
@@ -1186,10 +1186,10 @@ C              Treat OP,INTG
                            ILE(na1) = ILE(na1) + NYLDE(lx-1,na1)
                         ENDDO
                      ENDIF
-                     READ * , nptx
+                     READ * , nptx ! Number of meshpoints for stopping powers
                      IF ( nptx.NE.0 ) THEN
-                        READ * , (esp(i),i=1,nptx)
-                        READ * , (dedx(i),i=1,nptx)
+                        READ * , (esp(i),i=1,nptx) ! Energy
+                        READ * , (dedx(i),i=1,nptx) ! Stopping power
                         npt = nptx
                      ENDIF
                      READ * , npce , npct
@@ -1224,35 +1224,44 @@ C              Treat OP,INTG
                            IF ( mfla.EQ.1 ) READ * , (pfi(j),j=1,npct1)
                         ENDIF
                         het = het/57.2957795
+C                       Interpolate stopping power for each of the energies
+C                       that we need. esp is an array of energies and dedx is
+C                       an array containing the stopping powers at those
+C                       energies. Function is unweighted sqrt. The energies
+C                       are not the energies we gave for the meshpoints, but
+C                       the range over which we integrate the bombarding energy
+C                       with the number of steps specified.
                         DO j = 1 , npce1
                            xx = (j-1)*hen + emn
                            CALL LAGRAN(esp,dedx,npt,1,xx,yy,3,1)
                            HLMLM(j) = 1./yy
-                        ENDDO
+                         ENDDO
+                         
+C                       Now we calculate for all the mesh points. 
                         naa = NDST(lx)
                         IF ( IRAWEX(lx).EQ.0 ) naa = NANG(lx)
                         iskf = naa - 1
                         DO ja = 1 , naa
-                           icll = 3
-                           DO je = 1 , ne
+                          icll = 3 ! Weighting mode
+                           DO je = 1 , ne ! ne = number of energy mesh points
                               lu = ILE(ja)
                               isko = (je-1)*naa*ntt + ja - 1
                               CALL TAPMA(lx,iske,isko,iskf,ntt,idr,1,
      &                           nft,enb)
                               IF ( nft.EQ.1 ) GOTO 1900
                               DO jd = 1 , idr
-                                 DO jtp = 1 , ntt
+                                 DO jtp = 1 , ntt ! ntt = number of theta meshpoints
                                     IF ( jd.EQ.1 .AND. ja.EQ.1 )
      &                                 DSG(jtp) = dsxm(lpin,je,jtp)
                                     jyv = (jtp-1)*idr + jd
                                     YV(jtp) = ZETA(jyv)
-                                 ENDDO
-                                 DO jt = 1 , npct1
+                                 ENDDO ! Loop on theta meshpoints
+                                 DO jt = 1 , npct1 ! number of equal divisions in theta for interpolation
                                     xx = (jt-1)*het + tmn/57.2957795
                                     CALL LAGRAN(XV,YV,ntt,jt,xx,yy,2,
-     &                                 icll)
+     &                                 icll) ! interpolate at angle xx
                                     CALL LAGRAN(XV,DSG,ntt,jt,xx,zz,2,
-     &                                 icll)
+     &                                 icll) ! interpolate gamma yield at xx
                                     IF ( mfla.EQ.1 ) yy = yy*pfi(jt)
      &                                 /57.2957795
                                     IF ( yy.LE.0. ) yy = 1.E-15
@@ -1269,26 +1278,29 @@ C              Treat OP,INTG
      &                                = SIMIN(npct1,het,HLM)
                                  ZV(je) = enb
                               ENDDO
-                           ENDDO
+                           ENDDO ! Loop on energy mesh
+
+C                          Now interpolate                            
                            icll = 3
                            DO jd = 1 , idr
                               DO jtp = 1 , ne
                                  jyv = (jtp-1)*idr + jd + ntt*idr
                                  YV(jtp) = ZETA(jyv)
                               ENDDO
-                              DO jt = 1 , npce1
+                              DO jt = 1 , npce1 ! npce1 is number of equal energy steps
                                  xx = (jt-1)*hen + emn
                                  CALL LAGRAN(ZV,YV,ne,jt,xx,yy,2,icll)
+C                                Interpolate cross-section at this energy
                                  IF ( jd.EQ.1 .AND. ja.EQ.1 )
      &                                CALL LAGRAN(ZV,DSE,ne,jt,xx,zz,2,
-     &                                icll)
+     &                                icll) ! Interpolate for this energy
                                  IF ( jd.EQ.1 .AND. ja.EQ.1 ) HLM(jt)
-     &                                = zz*HLMLM(jt)
+     &                             = zz*HLMLM(jt) ! HLMLM = 1 / stopping power
                                  XI(jt) = yy*HLMLM(jt)
                               ENDDO
                               icll = 4
                               IF ( jd.EQ.1 .AND. ja.EQ.1 )
-     &                             DS = SIMIN(npce1,hen,HLM)
+     &                             DS = SIMIN(npce1,hen,HLM) ! integrate
                               GRAD(jd) = SIMIN(npce1,hen,XI)
                            ENDDO
                            IF ( ja.EQ.1 ) dst = dst + DS
@@ -1296,6 +1308,7 @@ C              Treat OP,INTG
 99018                      FORMAT (1X/////5X,
      &                            'INTEGRATED RUTHERFORD CROSS SECTION='
      &                            ,1E9.4,2X,'FOR EXP.',1I2///)
+
                            WRITE (22,99019) lx , ja , emn , emx , tmn , 
      &                            tmx
 99019                      FORMAT (1X,//50X,'INTEGRATED YIELDS'//5X,
@@ -1314,7 +1327,7 @@ C              Treat OP,INTG
                               nf = KSEQ(jd,4)
                               WRITE (22,99049) ni , nf , SPIN(ni) , 
      &                               SPIN(nf) , GRAD(jd) , GRAD(jd)
-     &                               /GRAD(IDRN)
+     &                               /GRAD(IDRN) ! IDRN is the normalising transition
                            ENDDO
                         ENDDO
                         IF ( iecd(lx).EQ.1 ) THEN ! Circular detector
@@ -1332,7 +1345,7 @@ C              Treat OP,INTG
                                  FIEX(lx,2) = FIEX(lx,2) + 3.14159265
                               ENDIF
                            ENDIF
-                        ENDIF
+                        ENDIF ! If circular detector
                         iske = iske + ne*ntt*naa
                      ENDDO
                      IF ( mpin.GT.1 ) WRITE (22,99021) dst , lx
