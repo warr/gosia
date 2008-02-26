@@ -1,0 +1,24 @@
+\chapter{Ideas for improvements}
+
+More comments and documentation!\\
+
+Try to decouple some of the variables in common blocks from the functions.
+For example, {\em YLM} need common block {\em KIN} only for the axial
+symmetry flag for the current experiment, which could be passed to it as a
+formal parameter of the function.\\
+
+Why do we need {\em YLM} and {\em YLM1}? Why don't we have a single function
+to generate all these values and pass flags to it, to turn off the
+calculation of those which we are not going to used.\\
+
+In {\em GKK}, the variable {\em SUM} is in a common block, but it doesn't
+seem to be used anywhere else, so why don't we just make it STATIC?\\
+
+In line 1895 of gosia.f we have to successive tests on iosr, which could be
+merged into an IF (iosr.eq.1) then {\ldots} endif construction.\\
+
+OP,CONT switch ``WRN,'' is broken!\\
+
+There are some integer flags, which should be replaced with logicals. This
+would prevent them accidently being given values $>$ 1.\\
+

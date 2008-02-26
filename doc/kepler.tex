@@ -1,0 +1,66 @@
+\chapter{Hyperbolic solution to Kepler problem}
+\label{chapt:kepler}
+
+The problem of a charged ion being deflected by the Coulomb field of another
+ion is the same as the Kepler problem of hyperbolic orbits. This is a common
+problem in rocket science and consequently much of the literature is in
+terms of the gravitational force, which Kepler originally considered.\\
+
+We define $\epsilon$, the {\em orbital excentricity} and $\omega$, the {\em
+eccentric anomaly}. These are defined as:\\
+
+\begin{equation}
+\epsilon = {1 \over \sin{\theta_{cm} / 2}}
+\end{equation}
+
+where $\theta_{cm}$ is the center-of-mass scattering angle. For the
+hyperbolic case $\epsilon$ $>$ 1.\\
+
+And:\\
+
+\begin{equation}
+t = {a \over v_I} (\epsilon \sinh \omega + \omega)
+\end{equation}
+
+where $t$ is time and $v_I$ is the initial velocity of the incoming ion and
+$a$ is the distance of closest approach.\\
+
+So:\\
+
+\begin{equation}
+dt = {a \over v_I} (\epsilon \cosh \omega + 1)
+\end{equation}
+
+So instead of performing an integral over $t$ from -$\inf$ to +$\inf$, we
+integrate instead over $\omega$. It turns out that we don't have to
+integrate over a very wide range of omega in order to get a good
+approximation, so in the code we truncate.\\
+
+In the Fortran, we make tables of values of $\sinh\omega$ and $\cosh\omega$
+in the function {\em FHIP} in steps of $d\omega$ = 0.03 starting from zero.
+Note that we don't need to calculate for negative values of $\omega$ because
+we can use the symmetry rules:\\
+
+\begin{eqnarray}
+\sinh(-\omega) &=& -\sinh\omega\nonumber\\
+\cosh(-\omega) &=& +\cosh\omega\nonumber\\
+\end{eqnarray}
+
+These tables are stored in the common block {\em HIPER} as {\em SH} for
+$\sinh\omega$ and {\em CH} for $\cosh\omega$. Normally, gosia calculates 365
+values, which is the dimension of these arrays, though this can be changed
+by changing the parameter LP12. N.B. LP12 must never exceed 365!\\
+
+Since the collision functions are defined in terms of $r(\omega)$, the
+function {\em SNAKE}, which calculates them use the values of $\sinh\omega$
+and $\cosh\omega$ calculated in {\em FHIP}.\\
+
+The adiabatic parameter $\epsilon \sinh \omega + \omega$ is also calculated
+in advance and stored in an array. This is done in the function {\em SETIN}
+and the values are stored in the variable {\em ADB} which is stored in the
+common block {\em ADX}. Again 365 values are normally calculated, though
+this can also be changed by changing LP12.\\
+
+The adiabatic parameter appears in the exponent of the expression for the
+rate of change of the excitation amplitudes $a_k$ wrt. $\omega$, so this
+complex exponent is evaluated in the function {\em EXPON}.

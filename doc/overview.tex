@@ -1,0 +1,56 @@
+\chapter{Overview}
+\label{chapt:overview}
+
+This document describes the internal workings of the Coulomb excitation code
+{\em gosia}. Note that it cannot handle effects due to nuclear forces, only
+those due to the Coulomb force. Consequently, it is only valid if the
+closest distance of approach is large enough that the nuclear forces do not
+play a role.\\
+
+The program {\em gosia} uses a semiclassical approach, which works well for
+heavy ions, but not for light ions, where Coulomb-nuclear interference
+effects become important.\\
+
+The code may logically be divided into two parts:\\
+
+\begin{itemize}
+\item Excitation of the excited states in the nucleus due to the
+perturbation induced by the Coulomb potential.
+\item Deexcitation of the excited states by emission of $\gamma$ rays.
+\end{itemize}
+
+\section{Coulomb excitation}
+
+The excitation is handled by first order time-dependent perturbation theory
+using the Coulomb potential as perturbing potential. We want to calculate
+the rate of excitation of each state of the nucleus.\\
+
+In order to calculate the Coulomb potential at a given time, we need to know
+where the projectile ion is relative to the target. This problem is a
+classical Kepler problem\footnote{Kepler considered the possible orbits of
+one body round another due to the gravitation field. There are different
+kinds of orbit possible: elliptical, parabolic and hyperbolic. It is the
+hyperbolic one, which interests us}, where the projectile describes a
+hyperbolic path. Consequently, we adopt the same parametrization, which is
+used for calculating rocket trajectories on a hyperbolic path. Using this
+method, we replace the time $t$ with an ``excentricity anomaly'' $\omega$
+and integrate over that. See chapter \ref{chapt:kepler}.\\
+
+Since we wish to calculate the angular distribution of the emitted $\gamma$
+rays, we will need to know about the orientation of the states. i.e. we need
+to calculate the excitation in terms of the magnetic substates.
+Consequently, we need to expand the Coulomb potential in the multipole
+expansion so that we have it in terms of electric and magnetic multipole
+moments. See chapter \ref{chapt:spherical}.\\
+
+As we know the trajectory of the projectile, we can replace the vector
+between the two particles $\vec{r(t)}$ (which changes with time) with a
+function of time $t$ since we know how $\vec{r(t)}$ changes with time, and
+since we have replaced time with the excentric anomaly, $\omega$ we can
+write the Coulomb potential in the multipole expansion as a function of
+$\vec{r(\omega)}$ instead.\\
+
+In so doing, it becomes useful to replace the part dependent on $\omega$
+with dimensionless collision functions. See chapter \ref{chapt:collision}.
+
+\section{Deexcitation}

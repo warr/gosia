@@ -1,0 +1,960 @@
+\chapter{Common blocks}
+
+\section{A50}
+
+This common block contains the required accuracy for integration. It is used
+in {\em INTG} and {\em RANGEL}.
+
+\begin{itemize}
+\item REAL*8 ACC50 - required accuracy for integration.
+\end{itemize}
+
+\section{ADBXI}
+
+This common block contains the adiabatic exponential. It is used in {\em
+AMPDER}, {\em GOSIA}, {\em LAISUM}, {\em NEWLV} and {\em STING}.
+
+\begin{itemize}
+\item REAL*8 EXPO(500) - adiabatic exponential for each matrix element.
+\end{itemize}
+
+\section{ADX}
+
+This common block contains the adiabatic parameters for each of the 365
+possible different values of $\omega$. It is used in the functiosn {\em
+EXPON} and {\em SETIN}.\\
+
+\begin{itemize}
+\item REAL*8 ABB(365)
+\end{itemize}
+
+\section{ALLC}
+
+This common block is used in {\em ALLOC}, {\em LAISUM} and {\em SNAKE}.
+
+\begin{itemize}
+\item INTEGER*4 LOCQ(8,7)
+\end{itemize}
+
+\section{APRCAT}
+
+This common block is used in {\em APRAM}, {\em CODE7}, {\em GOSIA}, {\em
+LOAD}, {\em LSLOOP}, {\em NEWCAT}, {\em PODZIEL} and {\em POMNOZ}.
+
+\begin{itemize}
+\item REAL*8 QAPR(500,2,7)
+\item INTEGER*4 IAPR(500,2)
+\item INTEGER*4 ISEX(75)
+\end{itemize}
+
+\section{APRX}
+
+This common block is used in {\em APRAM}, {\em GOSIA}, {\em PODZIEL} and
+{\em PONOZ}.
+
+\begin{itemize}
+\item INTEGER*4 LERF
+\item INTEGER*4 IDIVE(50,2)
+\end{itemize}
+
+\section{AZ}
+
+This common block contains the reduced matrix elements. It is used in {\em
+AMPDER}, {\em APRAM}, {\em DOUBLE}, {\em FTBM}, {\em GOSIA}, {\em HALF},
+{\em INTG}, {\em LAIAMP}, {\em LAISUM}, {\em POMNOZ}, {\em RESET}, {\em
+SIXEL}, {\em STING} and {\em TENB}.
+
+\begin{itemize}
+\item REAL*8 ARM(600,7) - reduced matrix elements.
+\end{itemize}
+
+\section{BREC}
+
+This common block has the recoil $\beta$. It is used in {\em ANGULA}, {\em
+CEGRY}, {\em CMLAB}, {\em GKVAC} and {\em GOSIA}.
+
+\begin{itemize}
+\item REAL*8 BETAR(50) - recoil beta for each experiment.
+\end{itemize}
+
+\section{BRNCH}
+
+This common block has branching ratios. It is used in {\em ADHOC}, {\em
+BRANR} and {\em GOSIA}.
+
+\begin{itemize}
+\item REAL*8 BRAT(50,2) - branching ratio and its error.
+\item INTEGER*4 IBRC(2,50) - index branching ratios.
+\item INTEGER*4 NBRA - number of branching ratios.
+\end{itemize}
+
+\section{CATLF}
+
+This common block is used in {\em ANGULA}, {\em DECAY} and {\em SEQ}.
+
+\begin{itemize}
+\item FP(4,500,3) - F coefficient multiplied by delta.
+\item GKP(4,500,2)
+\item KLEC(75)
+\end{itemize}
+
+\section{CAUX}
+
+This common block is used in {\em AMPDER}, {\em INTG}, {\em LAIAMP}, {\em
+LAISUM}, {\em NEWLV} and {\em STING}.
+
+\begin{itemize}
+\item INTEGER*4 NPT
+\item INTEGER*4 NDIV
+\item INTEGER*4 KDIV
+\item INTEGER*4 LAMR(8)
+\item INTEGER*4 ISG
+\item REAL*8 D2W - step in $\omega$ = 0.03
+\item INTEGER*4 NSW
+\item INTEGER*4 ISG1
+\end{itemize}
+
+\section{CAUX0}
+
+This common block is used in {\em CMLAB}, {\em GOSIA} and {\em LOAD}.
+
+\begin{itemize}
+\item REAL*8 EMMA(75) - controls the number of magnetic substates to be
+included in the full coulomb excitation calculation. This is {\em M$_C$} in
+the documentation of record type ``EXPT''.
+\item INTEGER*4 NCM - Assume final state of nucleus has this spin (default =
+2.0). See OP,CONT switch ``NCM,''.
+\end{itemize}
+
+\section{CB}
+
+This common block is used in {\em DJMM} and {\em GOSIA}
+
+\begin{itemize}
+\item REAL*8 B(20)
+\end{itemize}
+
+\section{CCC}
+
+This common block contains the conversion coefficients. It is used in the
+functions {\em ADHOC}, {\em ANGULA}, {\em CEGRY}, {\em CONV}, {\em FTBM}
+and {\em GOSIA}, {\em }
+
+\begin{itemize}
+\item REAL*8 EG(50) - energies for which conversion coefficients are
+provided.
+\item REAL*8 CC(50, 5) - conversion coefficients for each energy and
+multipolarity.
+\item REAL*8 AGELI(50,200,2) - angles of Ge detectors.
+\item REAL*8 Q(3,200,8) - solid angle attenuation coefficients.
+\item INTEGER*4 NICC - number of conversion coefficients.
+\item INTEGER*4 NANG(200) - number of $\gamma$-ray detectors.
+\end{itemize}
+
+\section{CCCDS}
+
+This common block is used in {\em ADHOC}, {\em CEGRY}, {\em GOSIA} and {\em
+READY}.
+
+\begin{itemize}
+\item INTEGER*4 NDST(50) - number of data sets for each experiment. Usually
+equal to NANG, unless detector clusters were defined in OP,RAW
+\end{itemize}
+
+\section{CCOUP}
+
+This common block contains the coupling coefficients $\zeta$ and also the
+collision functions. Note that although there is only one array, different
+parts of the array are used for different things! This common block is used
+in {\em AMPDER}, {\em ANGULA}, {\em DECAY}, {\em FTBM}, {\em GOSIA}, {\em
+KLOPOT}, {\em LAIAMP}, {\em LAISUM}, {\em LOAD}, {\em LSLOOP}, {\em SNAKE},
+{\em STING}, {\em TAPMA} and {\em TENS}.
+
+\begin{itemize}
+\item ZETA(50000)
+\end{itemize}
+
+\section{CEXC}
+
+This common block is used in {\em ADHOC}, {\em APRAM}, {\em FTBM}, {\em
+GOSIA}, {\em KLOPOT}, {\em KONTUR}, {\em LIMITS}, {\em LOAD}, {\em MINI},
+{\em MIXUP}, {\em POMNOZ} and {\em PRELM}.
+
+\begin{itemize}
+\item INTEGER*4 MAGEXC
+\item INTEGER*4 MEMAX - number of matrix elements
+\item INTEGER*4 LMAXE - maximum multipolarity needed for calculation. It is
+used by {\em LOAD} to limit the number of $\xi$ and $\psi$ parameters
+calculated to those actually needed.
+\item INTEGER*4 MEMX6 - number of matrix elements with E1{\ldots}6
+multipolarity.
+\item INTEGER*4 IVAR(500) - Indicates a limit or correlation is set.
+\end{itemize}
+
+\section{CEXC0}
+
+This common block is used in {\em AMPDER}, {\em DOUBLE}, {\em FTBM}, {\em
+HALF}, {\em INTG}, {\em LAIAMP}, {\em LAISUM}, {\em LOAD}, {\em LSLOOP},
+{\em NEWLV}, {\em PATH}, {\em RESET} and {\em TENB}.
+
+\begin{itemize}
+\item INTEGER*4 NSTART(76)
+\item INTEGER*4 NSTOP(75)
+\end{itemize}
+
+\section{CEXC9}
+
+This common block is used in {\em GOSIA} and {\em INTG}.
+
+\begin{itemize}
+\item INTEGER*4 INTERV(50)
+\end{itemize}
+
+\section{CHI1T}
+
+This common block is used in {\em FTBM} and {\em MINI}.
+
+\begin{itemize}
+\item REAL*8 CHIS11
+\end{itemize}
+
+\section{CINIT}
+
+This common block contains the normalisation parameters. It is used in {\em
+CEGRY} and {\em GOSIA}.
+
+\begin{itemize}
+\item REAL*8 CNOR(32,75) - normalisation for each $\gamma$ detector and each
+level.
+\item INTEGER*4 INNR - independent normalisation switch. See OP,CONT switch
+``INR,''.
+\end{itemize}
+
+\section{CLCOM}
+
+This common block is used in {\em AMPDER}, {\em BRANR}, {\em GOSIA}, {\em
+LAIAMP}, {\em LEADF}, {\em LOAD}, {\em MEM}, {\em NEWCAT}, {\em NEWLV}, {\em
+PRELM}, {\em PTICC}, {\em QRANGE}, {\em RANGEL}, {\em SEQ} and {\em STING}.
+
+\begin{itemize}
+\item INTEGER*4 LAMDA(8)
+\item INTEGER*4 LEAD(2,500)
+\item INTEGER*4 LDNUM(8,75)
+\item INTEGER*4 LAMMAX
+\item INTEGER*4 MULTI
+\end{itemize}
+
+\section{CLCOM0}
+
+This common block is used in {\em GOSIA}, {\em INTG} and {\em LSLOOP}.
+
+\begin{itemize}
+\item INTEGER*4 IFAC(75)
+\end{itemize}
+
+\section{CLCOM8}
+
+This common block is used in {\em AMPDER}, {\em DOUBLE}, {\em FTBM}, {\em
+GOSIA}, {\em HALF}, {\em INTG}, {\em LAIAMP}, {\em LAISUM}, {\em LOAD}, {\em
+LSLOOP}, {\em PATH}, {\em RESET}, {\em STING} and {\em TENB}.
+
+\begin{itemize}
+\item REAL*8 CAT(600,3)
+\item INTEGER*4 ISMAX
+\end{itemize}
+
+\section{CLCOM9}
+
+This common block is used in {\em CMLAB} and {\em GOSIA}.
+
+\begin{itemize}
+\item REAL*8 ERR
+\end{itemize}
+
+\section{CLM}
+
+This common block is used in {\em FTBM}, {\em GOSIA} and {\em LOAD}.
+
+\begin{itemize}
+\item INTEGER*4 LMAX
+\end{itemize}
+
+\section{CLUST}
+
+This common block is used in {\em CEGRY} and {\em GOSIA}.
+
+\begin{itemize}
+\item INTEGER*4 ICLUST(50,200)
+\item INTEGER*4 LASTCL(50,20)
+\item REAL*8 SUMCL(20,500)
+\end{itemize}
+
+\section{COEX}
+
+\begin{itemize}
+\item 
+\end{itemize}
+
+This common block contains information about levels. It is used in {\em
+ADHOC}, {\em BRANR}, {\em CEGRY}, {\em CMLAB}, {\em FTBM}, {\em GKVAC}, {\em
+GOSIA}, {\em INTG}, {\em LAISUM}, {\em LOAD}, {\em LSLOOP}, {\em PRELM},
+{\em PTICC}, {\em SEQ} and {\em TENB}.
+
+\begin{itemize}
+\item REAL*8 EN(75) - the energy of each level.
+\item REAL*8 SPIN(75) - the spin of each level.
+\item REAL*8 ACCUR - accuracy required. This is set via OP,CONT switch
+``ACC,''. ACCUR contains 10$^x$ where $x$ is the value supplied by the user.
+Default is 0.00001.
+\item REAL*8 DIPOL - E1 polarisation parameter. This is 0.001 times the
+value given by the user with the OP,CONT ``DIP,'' switch. Default is 0.005.
+\item REAL*8 ZPOL - 
+\item REAL*8 ACCA - accuracy.
+\item REAL*8 ISO -
+\end{itemize}
+
+\section{COEX2}
+
+This common block is used in {\em AMPDER}, {\em CEGRY}, {\em CMLAB}, {\em
+DECAY}, {\em DOUBLE}, {\em FTBM}, {\em GOSIA}, {\em HALF}, {\em INTG}, {\em
+LOAD}, {\em NEWCAT}, {\em PATH}, {\em PRELM}, {\em RESET}, {\em SEQ}, {\em
+TENB} and {\em TENS}.
+
+\begin{itemize}
+\item INTEGER*4 NMAX
+\item INTEGER*4 NDIM
+\item INTEGER*4 NMAX1
+\end{itemize}
+
+\section{COMME}
+
+This common block holds the matrix elements and their limits and
+correlations. It is used in {\em AMPDER}, {\em APRAM}, {\em BRANR}, {\em
+CHMEM}, {\em DECAY}, {\em FTBM}, {\em GOSIA}, {\em KLOPOT}, {\em KONTUR},
+{\em LAIAMP}, {\em LAISUM}, {\em LIMITS}, {\em LSLOOP}, {\em MINI}, {\em
+MIXR}, {\em MIXUP}, {\em PRELM} and {\em STING}.
+
+\begin{itemize}
+\item REAL*8 ELM(500) - matrix elements.
+\item REAL*8 ELMU(500) - upper limit on matrix elements.
+\item REAL*8 ELML(500) - lower limit on matrix elements.
+\item REAL*8 SA(500) - ratio of matrix elements for correlated elements.
+\end{itemize}
+
+\section{CX}
+
+This common block has information about each experiment. The Z and A of
+projectile and target, the bombarding energy and the $\theta$ angle of the
+particle detector. It is used in the functions {\em ADHOC}, {\em CEGRY},
+{\em CMLAB}, {\em COORD}, {\em FTBM}, {\em GKVAC}, {\em GOSIA}, {\em
+KLOPOT}, {\em LOAD} and {\em READY}.
+
+\begin{itemize}
+\item INTEGER*4 NEXPT - number of experiments (1{\ldots}50). This is {\em
+NEXPT} in the documentation of record type ``EXPT''.
+\item INTEGER*4 IZ - Z of investigated nucleus. This is {\em Z$_1$} in the
+documentation of record type ``EXPT''.
+\item REAL*8 XA - A of investigated nucleus. This is {\em A$_1$} in the
+documentation of record type ``EXPT''.
+\item INTEGER*4 IZ1(50) - Z of non-investigated nucleus for each experiment.
+This is {\em Z$_n$} in the documentation of record type ``EXPT''.
+\item REAL*8 XA1(50) - A of non-investigated nucleus for each experiment.
+This is {\em A$_n$} in the documentation of record type ``EXPT''.
+\item REAL*8 EP(50) - bombarding energy for each experiment. This is {\em
+E$_P$} in the documentation of record type ``EXPT''.
+\item REAL*8 TLBDG(50) - $\theta$ angle of particle detector for each
+experiment in the laboratory frame. This is {\em $\theta_{LAB}$} in the
+documentation of record type ``EXPT''.
+\item REAL*8 VINF(50) - speed of projectile at infinity for each experiment.
+\end{itemize}
+
+\section{CXI}
+
+This common block holds the $\xi$ coupling coefficients. It is used in {\em
+EXPON}, {\em FXIS1}, {\em FXIS2}, {\em GOSIA}, {\em LAIAMP}, {\em LOAD} and
+{\em NEWCAT}.
+
+\begin{itemize}
+\item REAL*8 XI(500) - $\xi$ coupling coefficients.
+\end{itemize}
+
+\section{DFTB}
+
+This common block is used in {\em GOSIA}, {\em KONTUR} and {\em MINI}.
+
+\begin{itemize}
+\item REAL*8 DEVD(500)
+\item REAL*8 DEVU(500)
+\end{itemize}
+
+\section{DIMX}
+
+This common block has the parameters provided by OP,GDET. It is used in {\em
+GCF}, {\em ADHOC}, {\em CEGRY} and {\em GOSIA}.
+
+\begin{itemize}
+\item REAL*8 A - radius of inactive p-core (the inner radius of a crystal).
+\item REAL*8 R - radius of the active n-core (the outer radius of a crstal).
+\item REAL*8 XL - length of a crystal.
+\item REAL*8 D - distance from a target to the face of a crystal.
+\item REAL*8 ODL(200) - results of OP,GDET calculation.
+\end{itemize}
+
+N.B. Sometimes A, R, XL, D are referred to as DIX(4).
+
+\section{DUMM}
+
+This common block is used in {\em GOSIA} and {\em MINI}.
+
+\begin{itemize}
+\item REAL*8 GRAD(500)
+\item REAL*8 HLMLM(500)
+\item REAL*8 ELMH(500)
+\end{itemize}
+
+\section{EFCAL}
+
+This common block holds the parameters for describing absorbers. It is used
+in {\em EFFIX} and {\em GOSIA}.
+
+\begin{itemize}
+\item REAL*8 ABC(8,10)
+\item REAL*8 AKAVKA(8,200)
+\item REAL*8 THICK(200,7)
+\end{itemize}
+
+\section{ERCAL}
+
+This common block is used in {\em GOSIA} and {\em MINI}.
+
+\begin{itemize}
+\item INTEGER*4 JENTR
+\item INTEGER*4 ICS - flag: read internal correction factors (see OP,CONT
+switch ``CRF,'').
+\end{itemize}
+
+\section{ERRAN}
+
+THis common block is used in {\em GOSIA} and {\em MINI}.
+
+\begin{itemize}
+\item INTEGER*4 KFERR
+\end{itemize}
+
+\section{FAKUL}
+
+This common block is used in {\em FAKP}, {\em GOSIA}, {\em PRIM}, {\em
+WSIXJ} and {\em WTHREJ}.
+
+\begin{itemize}
+\item INTEGER*4 IP(26) - table of prime numbers
+\item INTEGER*4 IPI(26) - number of time a number is divisible by each prime
+in IP.
+\item INTEGER*4 KF(101,26) - sum of factors of primes.
+\item REAL*8 PILOG(26) - table of natural logs of primes.
+\end{itemize}
+
+\section{FIT}
+
+This common block holds the parameters for OP,MINI. It is used in {\em
+GOSIA} and {\em MINI}. These parameters are documented in the input
+parameters to OP,MINI. Note, however, that DLOCK is called DLOCKS there.
+
+\begin{itemize}
+\item INTEGER*4 LOCKF - flag: if LOCKF = 0, terminate minimisation of convergence limit
+CONV reached. If LOCKF = 1 fix the NLOCK matrix elements having the most
+significant S derivatives.
+\item INTEGER*4 NLOCK - number of matrix elements having the largest
+derivatives of S to be locked if LOCKF = 1 and the convergence limit CONV is
+satisfied.
+\item INTEGER*4 IFBFL - flag: IFBFL = 0 means derivatives calculated using
+only the forward difference method. IFBFL = 1 means use forward-backward
+method.
+\item INTEGER*4 LOCKS - flag: LOCKS = 1 means fix at first stage of
+minimisation all elements with absolute value of the partial derivative less
+than DLOCKS.
+\item REAL*8 DLOCK - the limit of the derivative.
+\end{itemize}
+
+\section{FLA}
+
+This common block is used in {\em INTG}, {\em NEWLV} and {\em STING}.
+
+\begin{itemize}
+\item INTEGER*4 IFLG - flag: determines whether {NEWLV} should calculate
+exponentials (so we only perform the calculation once).
+\end{itemize}
+
+\section{GGG}
+
+This common block holds the parameters for the vacuum polarisation. It is
+used in {\em GKK}, {\em GKVAC} and {\em GOSIA}.
+
+\begin{itemize}
+\item REAL*8 AVJI - J$_1$
+\item REAL*8 GAMMA - $\Gamma$
+\item REAL*8 XLAMB - $\Lambda^*$
+\item REAL*8 TIMEC - $\tau_c$
+\item REAL*8 GFAC - g
+\item REAL*8 FIEL - K
+\item REAL*8 POWER - x
+\end{itemize}
+
+\section{GVAC}
+
+This common block is used in {\em GKK} and {\em GKVAC}.
+
+\begin{itemize}
+\item REAL*8 GKI(3) - $G_k$.
+\item REAL*8 SUM(3) - Sum over square of 6-j symbol used to calculate
+$<\alpha_k>$.
+\end{itemize}
+
+N.B. It doesn't look as though {\em SUM} is used anywhere except {\em GKK}.
+
+\section{HHH}
+
+This common block is used in {\em GOSIA}, {\em KONTUR} and {\em PRELM}.
+
+\begin{itemize}
+\item REAL*8 HLM(500) - the matrix elements. What is the difference between
+ELM, HLM and HLMLM?
+\end{itemize}
+
+\section{HIPER}
+
+The common block {\em HIPER} has a table of 365 values for the hyperbolic
+functions $\sinh\omega$ and $\cosh\omega$. It is used in the functions {\em
+FHIP}, {\em SETIN} and {\em SNAKE}.
+
+\begin{itemize}
+\item REAL*8 SH(365) - $\sinh\omega$
+\item REAL*8 CH(365) - $\cosh\omega$
+\end{itemize}
+
+\section{IDENT}
+
+This common block is used in {\em DJMM} and {\em GOSIA}. It has something to
+do with the $\beta$ of the rotation matrices. It is initialised to -983872.
+in {\em GOSIA}, but in {\em DJMM} it is compared with $\pi$.
+
+\begin{itemize}
+\item REAL*8 BEQ
+\end{itemize}
+
+\section{IGRAD}
+
+This common block is used in {\em CEGRY} and {FTBM}.
+
+\begin{itemize}
+\item INTEGER*4 IGRD
+\end{itemize}
+
+\section{ILEWY}
+
+This common block is used in {\em KONTUR} and {\em MINI}.
+
+\begin{itemize}
+\item INTEGER*4 NWR
+\end{itemize}
+
+\section{INHI}
+
+This common block is used in {\em GOSIA} and {\em POMNOZ}.
+
+\begin{itemize}
+\item INTEGER*4 INHB
+\end{itemize}
+
+
+\section{LCDL}
+
+This common block is used in {\em ANGULA} and {\em DECAY}.
+
+\begin{itemize}
+\item REAL*8 DELLA(500,3) - transition amplitudes for each matrix element
+and multipolarity?
+\end{itemize}
+
+\section{LCZP}
+
+This common block is used in {\em CEGRY}, {\em FTBM} and {\em MINI}.
+
+\begin{itemize}
+\item REAL*8 EMH
+\item INTEGER*4 INM
+\item INTEGER*4 LFL1
+\item INTEGER*4 LFL2
+\item INTEGER*4 LFL
+\end{itemize}
+
+\section{LEV}
+
+This common block is used in {\em ADHOC}, {\em ANGULA}, {\em BRANR}, {\em
+CEGRY}, {\em DECAY}, {\em FTBM}, {\em GKVAC}, {\em GOSIA}, {\em MIXR}, {\em
+PTICC}, {\em READY} and {\em SEQ}.
+
+\begin{itemize}
+\item REAL*8 TAU(75)
+\item INTEGER*4 KSEQ(500,4)
+\end{itemize}
+
+\section{LIFE}
+
+This common block holds the number of lifetimes. It is used in {\em ADHOC},
+{\em CEGRY} and {\em FTBM}.
+
+\begin{itemize}
+\item INTEGER*4 NLIFT - number of lifetimes
+\end{itemize}
+
+\section{LIFE1}
+
+This common block is used in {\em ADHOC}, {\em DECAY} and {\em GOSIA}.
+
+\begin{itemize}
+\item INTEGER*4 LIFCT(50) - index for lifetimes.
+\item REAL*8 TIMEL(2,50) - lifetimes and their errors.
+\end{itemize}
+
+\section{LOGY}
+
+This common block is used in {\em FTBM}, {\em GOSIA}, {\em KONTUR}, {\em
+MINI} and {\em MIXR}.
+
+\begin{itemize}
+\item INTEGER*4 LNY - flag: use logs to calculate $\chi^2$.
+\item INTEGER*4 INTR
+\item INTEGER*4 IPS1 - flag: terminate after calculating and writing
+correction factors. (See OP,CONT switch ``CCF,'').
+\end{itemize}
+
+\section{KIN}
+
+This common block contains the kinematic parameters. It is used in the
+functions {\em ANGULA}, {\em CEGRY}, {\em CMLAB}, {\em COORD}, {\em DECAY},
+{\em FTBM}, {\em GKVAC}, {\em GOSIA}, {\em LAIAMP}, {\em SETIN}, {\em
+SIXEL}, {\em SNAKE}, {\em TENB} and {\em YLM}.
+
+\begin{itemize}
+\item REAL*8 EPS(50) - orbit excentricity, $\epsilon$, for each experiment.
+\item REAL*8 EROOT(50) - $\sqrt{\epsilon^2 -1}$ for each experiment.
+\item REAL*8 FIEX(50,2) - $\phi_{min}$ and $\phi_{max}$ for the particle
+detector in radians. Note that the user enters these values in degrees, but
+the program converts. These correspond to $\phi_1$ and $\phi_2$ in the
+documentation of record type ``EXPT''.
+\item INTEGER*4 IEXP - the current experiment number 1{\ldots}50.
+\item INTEGER*4 IAXS(50) - The axial symmetry flag for each experiment. This
+is {\em IAX} in the documentation for record type ``EXPT''.
+\end{itemize}
+
+\section{MAP}
+
+This common block is used in {\em GOSIA} and {\em NEWCAT}.
+
+\begin{itemize}
+\item REAL*8 PARX(50,12,5)
+\item REAL*8 PARXM(50,4,10,6)
+\item REAL*8 XIR(6,50)
+\end{itemize}
+
+\section{ME2D}
+
+This common block holds information about the known E2 matrix elements
+provided by the user. It is used in {\em ADHOC}, {\em CHMEM} and {\em
+GOSIA}.
+
+\begin{itemize}
+\item REAL*8 EAMX(100,2) - known E2 matrix elements and their error.
+\item INTEGER*4 NAMX - number of known E2 matrix elements.
+\item INTEGER*4 IAMX(100) - index of matrix element, which this corresponds
+to.
+\item INTEGER*4 IAMY(100,2) - initial and final state for each known matrix
+element.
+\end{itemize}
+
+The matrix elements are in ELM(500). IAMX(i) holds the index into ELM of the
+i$^{th}$ known matrix element. So ELM(IAMX(i)) is the value of that matrix
+element, which should correspond to EAMX(i,1) $\pm$ EAMX(i,2).
+
+\section{MGN}
+
+This common block has a number of different limits and offsets. Most are
+hardcoded constants within the program. It is used in the functions {\em
+ALLOC}, {\em CEGRY}, {\em FHIP}, {\em FTBM}, {\em GOSIA}, {\em KLOPOT}, {\em
+LAISUM}, {\em LOAD}, {\em LSLOOP}, {\em MINI}, {\em PODZIEL}, {\em READY},
+{\em SEQ}, {\em SETIN} and {\em SNAKE}.
+
+\begin{itemize}
+\item INTEGER*4 LP1 - maximum number of experiments = 50.
+\item INTEGER*4 LP2 - maximum number of matrix elements = 500.
+\item INTEGER*4 LP3 - maximum number of levels = 75.
+\item INTEGER*4 LP4 - maximum number of yields = 1500.
+\item INTEGER*4 LP6 - maximum number of $\gamma$ detectors = 32.
+\item INTEGER*4 LP7 - offset of collision functions in ZETA array.
+\item INTEGER*4 LP8 - ? = 104.
+\item INTEGER*4 LP9 - length of ZETA array - 2100 = 47900.
+\item INTEGER*4 LP10 - maximum number of reduced matrix elements = 600.
+\item INTEGER*4 LP11 - LP8 - 1 = 103.
+\item INTEGER*4 LP12 - Maximum number of steps of $\omega$ = 365.
+\item INTEGER*4 LP13 = LP9 + 1 = 47901.
+\item INTEGER*4 LP14 = Maximum space for collision functions = 4900.
+\end{itemize}
+
+\section{MINNI}
+
+This common block is used in {\em CEGRY} and {\em GOSIA}.
+
+\begin{itemize}
+\item INTEGER*4 IMIN
+\item INTEGER*4 LNORM(50) - Fixes the normalisation factor of a given
+experiment to another experiment. i.e. if LNORM(3) has the value 2, it means
+that the normalisation for experiment 3 has a fixed ratio to that of
+experiment 2. This is {\em LN} in the documentation for record type ``EXPT''.
+\end{itemize}
+
+\section{MIXD}
+
+This common block holds the multipole mixing ratio data supplied by the
+user. It is used in {\em ADHOC} and {\em MIXR}.
+
+\begin{itemize}
+\item REAL*8 DMIXE(20,2) - mixing ratio and its error.
+\item REAL*8 DMIX(20) - 0.8326 $\times$ $\Delta$E.
+\item INTEGER*4 IMIX(20)
+\item INTEGER*4 NDL - the number of mixing ratios.
+\end{itemize}
+
+\section{ODCH}
+
+This common block is used in {\em CEGRY} and {\em sixel}.
+
+\begin{itemize}
+\item REAL*8 DEV(500)
+\end{itemize}
+
+\section{PCOM}
+
+This common block contains the $\psi$ values. It is used in {\em LOAD} and
+{\em LSLOOP}.
+
+\begin{itemize}
+\item REAL*8 PSI(500) - $\psi$.
+\end{itemize}
+
+\section{PINT}
+
+This common block is used in {\em AMPDER}, {\em LAISUM}, {\em NEWLV} and
+{\em STING}.
+
+\begin{itemize}
+\item INTEGER*4 ISSTAR(76)
+\item INTEGER*4 ISSTO(75)
+\item INTEGER*4 MSTORE(2,75)
+\end{itemize}
+
+\section{PRT}
+
+This common block contains an array of flags which control the output
+generated by gosia. It is used in {\em ADHOC}, {\em BRANR}, {\em CEGRY},
+{\em CMLAB}, {\em FTBM}, {\em GOSIA} and {\em MINI}.
+
+\begin{itemize}
+\item INTEGER*4 IPRM(20) - various flags which control printing. These are
+documented in the OP,CONT switch ``PRT,''
+\end{itemize}
+
+\section{PSPIN}
+
+This common block is used in {\em LAISUM} and {\em LOAD}.
+
+\begin{itemize}
+\item INTEGER*4 ISHA
+\end{itemize}
+
+\section{PTH}
+
+This common block is used in {\em APRAM}, {\em CODE7}, {\em FTBM}, {\em
+GOSIA}, {\em INTG}, {\em LOAD}, {\em LSLOOP}, {\em NEWCAT}, {\em PATH} and
+{\em POMNOZ}.
+
+\begin{itemize}
+\item INTEGER*4 IPATH(75)
+\item INTEGER*4 MAGA(75) - Controls the number of magnetic substates to be
+included in the approximate coulomb excitation calculation. This is {\em
+M$_A$} in the documentation of record type ``EXPT''.
+\end{itemize}
+
+\section{RNG}
+
+This common block is used in {\em ALLOC}, {\em INTG}, {\em QRANGE}, {\em
+RANGEL} and {\em STING}.
+
+\begin{itemize}
+\item INTEGER*4 IRA(8)
+\item INTEGER*4 MAXLA
+\end{itemize}
+
+\section{SECK}
+
+This common block is used in {\em CMLAB}, {\em COORD} and {\em GOSIA}.
+
+\begin{itemize}
+\item INTEGER*4 ISKIN(50) - kinematic flag: if A$_{projectile}$ $>$
+A$_{target}$, ISKIN specifies which of the two possible solutions to choose.
+This is {\em IKIN} in the documentation for record type ``EXPT''
+\end{itemize}
+
+\section{SEL}
+
+This common block is used in {\em CEGRY}, {\em GOSIA}, {\em KLOPOT}, {\em
+MINI} and {\em SIXEL}.
+
+\begin{itemize}
+\item INTEGER*4 KVAR(500)
+\end{itemize}
+
+\section{SKP}
+
+This common block is used in {\em CEGRY}, {\em FTBM} and {\em GOSIA}.
+
+\begin{itemize}
+\item INTEGER*4 JSKIP(50) - Experiments to skip during minimisation (see
+OP,CONT switch ``SKP,'').
+\end{itemize}
+
+\section{TCM}
+
+This common block is used in {\em CEGRY}, {\em CMLAB}, {\em GOSIA} and {\em
+TENS}.
+
+\begin{itemize}
+\item REAL*8 TETACM(50) - $\theta$ of particle detector in centre of mass
+frame.
+\item REAL*8 TREP(50) - $\theta$ of recoiling nucleus?
+\item REAL*8 DSIGS(50)
+\end{itemize}
+
+\section{THTAR}
+
+This common block is used in {\em ANGULA}, {\em GKVAC} and {\em GOSIA}.
+
+\begin{itemize}
+\item INTEGER*4 ITTE(50)
+\end{itemize}
+
+\section{TRA}
+
+This common block is used in {\em ADHOC}, {\em ANGULA}, {\em BRANR}, {\em
+CEGRY}, {\em DECAY}, {\em GOSIA} and {\em SEQ}.
+
+\begin{itemize}
+\item REAL*8 DELTA(500,3)
+\item REAL*8 ENDEC(500)
+\item INTEGER*4 ITMA(50,200)
+\end{itemize}
+
+\section{TRB}
+
+This common block is used in {\em ADHOC}, {\em CEGRY}, {\em GOSIA} and {\em
+SIXEL}.
+
+\begin{itemize}
+\item INTEGER*4 ITS - flag: create tape 18 file.
+\end{itemize}
+
+\section{UWAGA}
+
+This common block is used in {\em FTBM} and {\em MINI}.
+
+\begin{itemize}
+\item INTEGER*4 ITAK2
+\end{itemize}
+
+\section{VAC}
+
+This common block holds the vacuum polaristation parameters. It is used in
+{\em CEGRY}, {\em DECAY}, {\em GKK}, {\em GKVAC}, {\em GOSIA} and {\em
+XSTATIC}.
+
+\begin{itemize}
+\item REAL*8 VACDP(3,75)
+\item REAL*8 QCEN - centre of gaussian distribution.
+\item REAL*8 DQ - width of gaussian distribution.
+\item REAL*8 XNOR - normalisation factor.
+\item REAL*8 AKS(6,75)
+\item INTEGER*4 IBYP
+\end{itemize}
+
+\section{VLIN}
+
+This common block is used in {\em COORD}, {\em GOSIA}, {\em KONTUR} and {\em
+TAMPA}. It has something to do with the sensitivity maps.
+
+\begin{itemize}
+\item REAL*8 XV(51) - energy meshpoints at which the exact calculation is
+performed.
+\item REAL*8 YV(51) - projectile scattering angle in the lab frame used as
+meshpoints.
+\item REAL*8 ZV(20) - 
+\item REAL*8 DSG(20) - differential cross section interpolated over $\theta$?
+\item REAL*8 DSE(20) - differential cross section interpolated over energy?
+\item REAL*8 DS - integrated rutherford cross section
+\end{itemize}
+
+\section{WARN}
+
+This common block is used in {\em CEGRY} and {\em GOSIA}.
+
+\begin{itemize}
+\item REAL*8 SGW - this is a switch, which is 3 by default and can be
+changed using the OP,CONT flag WRN but it isn't used anywhere in the code!
+\item REAL*8 SUBCH1 - $\chi^2$ subtotal.
+\item REAL*8 SUBCH2 - $\chi^2$ subtotal.
+\item INTEGER*4 IWF - warning flag.
+\end{itemize}
+
+\section{XRA}
+
+This common block holds the seed for the random number generator used to mix
+up the wavefunctions. It is used in {\em GOSIA} and {\em MIXUP}.
+
+\begin{itemize}
+\item REAL*8 SE - random number seed.
+\end{itemize}
+
+\section{YEXPT}
+
+This common block holds the experimental yields. It is used in {\em ADHOC},
+{\em CEGRY}, {\em FTBM}, {\em GOSIA}, {\em KLOPOT}, {\em MINI}, {\em READY}
+and {\em SZEREG}.
+
+\begin{itemize}
+\item REAL*8 YEXP(32,1500) - experimental yields for each detector.
+\item INTEGER*4 IY(1500,32) - index for yields
+\item REAL*8 CORF(1500,32) - internal correction factors.
+\item REAL*8 DYEX(32,1500) - error on experimental yields for each detector.
+\item INTEGER*4 NYLDE(50,32) - number of yields for each detector and each
+experiment.
+\item REAL*8 UPL(32,50) - upper limits for all $\gamma$ detectors in each
+experiment.
+\item REAL*8 YNRM(32,50) - relative normalisation factors of $\gamma$
+detectors in each experiment.
+\item INTEGER*4 IDRN
+\item INTEGER*4 ILE(32) - index to start of yield information for each
+detector. The values in ILE are used to index into IY, CORF, DYEX and YEXP.
+\end{itemize}
+
+\section{YTEOR}
+
+This common block holds the calculated yields. It is used in {\em ADHOC},
+{\em CEGRY}, {\em GOSIA} and {\em TAPMA}.
+
+\begin{itemize}
+\item REAL*8 YGN(500) - $\gamma$ yield without correction to angular
+distribution for finite recoil distance.
+\item REAL*8 YGP(500) - $\gamma$ yield with correction to angular
+distribution for finite recoil distance. Only calculated if IFMO is 1.
+\item INTEGER*4 IFMO - include correction to angular distribution for finite
+recoil distance. This is {\em IFLAG} in the documentation to OP,YIEL.
+\end{itemize}

@@ -1,0 +1,70 @@
+\chapter{Dimensionless collision functions}
+\label{chapt:collision}
+
+When we use Kepler's method for solving the hyperbolic path described by the
+incoming ion, it is normal to substitute ${a \over v_I} \epsilon\sinh\omega
++ \omega$ for time $t$.\\
+
+We also expand the Coulomb potential in the multipole expansion in terms of
+the electric and magnetic multipole moments $M(E\lambda,\mu)$ and
+$M(M\lambda,\mu)$ and a time dependent function $S_{\lambda\mu}(t)$.
+However, after we have transformed variables using $\omega$ instead of $t$
+as our main variable, we need to replace $S_{\lambda\mu}(t)$ with a function
+of $\omega$ (and $\epsilon$). These functions are the collision functions.
+
+\begin{equation}
+Q^E_{\lambda\mu}(\epsilon, \omega) =
+a^\lambda
+{(2\lambda-1)!! \over (\lambda-1)!}
+\big({\pi \over 2\lambda+1}\big)^{1/2}
+r(\omega)
+S^E_{\lambda\mu}(t(\omega))
+\end{equation}
+
+and\\
+
+\begin{equation}
+Q^M_{\lambda\mu}(\epsilon, \omega) =
+{c \over v}
+a^\lambda
+{(2\lambda-1)!! \over (\lambda-1)!}
+\big({\pi \over 2\lambda+1}\big)^{1/2}
+r(\omega)
+S^M_{\lambda\mu}(t(\omega))
+\end{equation}
+
+The $Q^E_{\lambda\mu}$ function is evaluated in the function {\em QE} and
+the $Q^M_{\lambda\mu}$ function in {\em QM}. The values calculated by these
+functions are stored in the array {\em ZETA} by the function {\em SNAKE}.
+Note that {\em ZETA} is also used for other purposes and the Q functions
+start in the position LP7.\\
+
+As we do not need to integrate over the full range of $\omega$ in order to
+get a reasonable approximation, we only calculate the collision functions
+that we need. The function {\em QRANGE} calculates over what range we need
+to evaluate the collision functions. It is called from {\em SNAKE} and then
+{\em SNAKE} calculates only those collision functions.\\
+
+Table 2.1 of the gosia documentation gives expressions for the collision
+functions for different values of $\lambda$ and $\mu$.
+
+\section{The code}
+
+The main entry point is {\em SNAKE} which calls {\em QRANGE}, {\em QE} and
+{\em QM}. However, prior to calling these functions, {\em FHIP} has to be
+called to evaluate the hyperbolic functions $\sinh$ and $\cosh$ for the
+values of $\omega$ we want, and the value of $\sqrt{\epsilon^2 - 1}$ which
+is needed by both {\em QE} and {\em QM} is calculated in {\em CMLAB}, where
+it is stored as the variable {\em EROOT} in common block {\em KIN}.
+
+
+\begin{verbatim}
+
+CMLAB
+
+FHIP
+
+        /- QRANGE
+SNAKE  {-- QE
+        \- QM
+\end{verbatim}

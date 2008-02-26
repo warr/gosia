@@ -1,0 +1,35 @@
+\chapter{Adiabacity parameter}
+\label{chapt:adiabacity}
+
+We define an adiabacity parameter $\xi_{kn}$ which represents a ratio
+between the collision time and the natural nuclear period for a transition.
+It is given by:\\
+
+\begin{equation}
+\xi_{kn} = Z_1 Z_2 {e^2 \over \hbar c \sqrt{2}}  \sqrt{M_{1,2}}
+\big(
+{1 \over \sqrt{E_p -s E_k}} - {1 \over \sqrt{E_p -s E_n}}
+\big)
+\end{equation}
+
+where Z$_1$ and Z$_2$ are the proton numbers of projectile and target, M$_1$
+and M$_2$ are the masses, E$_p$ is the bombarding energy and E$_k$ and E$_n$
+are the energies of the k$^{th}$ and n$^{th}$ states, respectively and:\\
+
+\begin{equation}
+s = 1 + {M_{1,2} \over M_{2,1}}
+\end{equation}
+
+Substituting M$_{1,2}$ = m$_u$ A$_{1,2}$, where m$_u$ = 931.494028
+MeV/c$^2$, e$^2$ = 1.439976 MeV fm and $\hbar c$ = 197.327 MeV fm. We get:\\
+
+\begin{equation}
+{e^2 \over \hbar c}\sqrt{m_u \over 2} = {1.439976 \over 197.327}
+\sqrt{931.494028 \over 2} = {1 \over 6.34977}
+\end{equation}
+
+So it is this value of 6.34977 which is hard-coded into the Fortran in the
+function {\em LOAD}, which is where the values of $\xi_{kn}$ are evaluated
+and stored in a table {\em XI} in common block {\em CXI}. Clearly, this only
+works if the bombarding energy is in MeV.\\
+
