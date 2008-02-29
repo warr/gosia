@@ -1,9 +1,6 @@
 BINDIR=$(ROOT)/usr/bin
 MANDIR=$(ROOT)/usr/share/man/man1
 
-UID=0
-GID=0
-
 EXE=gosia
 MAN=gosia.1
 
@@ -129,10 +126,10 @@ clean:
 	rm -f *~ *.o $(EXE) $(SINGLE_FILE)
 
 install: $(EXE) $(MAN)
-	install -m 755 -o $(UID) -g $(GID) -d $(BINDIR)
-	install -m 755 -o $(UID) -g $(GID) -s $(EXE) $(BINDIR)
-	install -m 755 -o $(UID) -g $(GID) -d $(MANDIR)
-	install -m 644 -o $(UID) -g $(GID) $(MAN) $(MANDIR)
+	install -m 755 -d $(BINDIR)
+	install -m 755 -s $(EXE) $(BINDIR)
+	install -m 755 -d $(MANDIR)
+	install -m 644 $(MAN) $(MANDIR)
 	gzip -f $(MANDIR)/$(MAN)
 
 single_file:
