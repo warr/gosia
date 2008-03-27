@@ -2,6 +2,8 @@
 
 More comments and documentation!\\
 
+Separate the different things in the {\em ZETA} array.\\
+
 Try to decouple some of the variables in common blocks from the functions.
 For example, {\em YLM} need common block {\em KIN} only for the axial
 symmetry flag for the current experiment, which could be passed to it as a
@@ -16,8 +18,6 @@ seem to be used anywhere else, so why don't we just make it STATIC?\\
 
 In line 1895 of gosia.f we have to successive tests on iosr, which could be
 merged into an IF (iosr.eq.1) then {\ldots} endif construction.\\
-
-OP,CONT switch ``WRN,'' is broken!\\
 
 There are some integer flags, which should be replaced with logicals. This
 would prevent them accidently being given values $>$ 1.\\
