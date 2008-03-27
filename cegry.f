@@ -302,6 +302,7 @@ C      Iredv  -
                            war = '    '
                            sgm = (YEXP(k9,lu)-YGN(l)*CNOR(k9,IEXP))
      &                           /DYEX(k9,lu)
+                           IF ( ABS(sgm).GE.SGW ) war = '*?!*'
                            WRITE (22,99013) ni , nf , SPIN(ni) , 
      &                            SPIN(nf) , ENDEC(l) , YGN(l)
      &                            *CNOR(k9,IEXP) , YEXP(k9,lu) , 
