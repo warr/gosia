@@ -280,6 +280,7 @@ C      Iredv  -
                            war = '    '
                            sgm = (YEXP(k9,lu)-YGN(l)*CNOR(k9,IEXP))
      &                           /DYEX(k9,lu)
+                           IF ( ABS(sgm).GE.SGW ) war = '*?!*'
                            ni1 = KSEQ(l1,3) ! Initial level of l1'th decay
                            nf1 = KSEQ(l1,4) ! Final level of l1'th decay
                            WRITE (22,99007) ni , ni1 , nf , nf1 , 
