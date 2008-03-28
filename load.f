@@ -26,7 +26,7 @@ C      LAMMAX - number of multipolarities to calculate
 C      LDNUM  - number of matrix elements with each multipolarity populating level
 C      LEAD   - pair of levels involved in each matrix element
 C      LMAX   -
-C      LMAXE  - maxmium multipolarity needed for calculation
+C      LMAXE  - maximum multipolarity needed for calculation
 C      LP7    - maximum number of zeta coefficients (45100)
 C      LP10   - 600
 C      LZETA  - index into ZETA array for zeta for a given multipolarity
