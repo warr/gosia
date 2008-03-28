@@ -182,7 +182,7 @@ C     Calculate derivatives of amplitudes
             ENDDO
 
 C           Decide if we have appropriate accuracy (strictly it should be
-C           f = SQRT(f)*19./270. but the difference is not all that large
+C           f = SQRT(f)*19./270. but the difference is not all that large).
 C
             f = SQRT(f)/14.
             IF ( f.GT.ACCUR .OR. f.LT.ACC50 ) THEN
