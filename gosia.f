@@ -645,65 +645,7 @@ C        Treat other options
 
 C           Treat OP,ERRO (calculate errors)
             IF ( op2.EQ.'ERRO' ) THEN
-               READ * , idf , ms , mend , irep , ifc , remax
-               rem = LOG(remax)
-               LOCKS = 0
-               LOCKF = 0
-               JENTR = 1
-               sh = 1.
-               ifbp = 0
-               inpo = 1
-               inko = 1
-               IF ( iosr.NE.0 .AND. idf.NE.0 ) THEN
-                  inn = 0
-                  ij = MULTI(1)
-                  IF ( ij.NE.0 ) THEN
-                     DO ij = 1 , NMAX
-                        lxd = LDNUM(1,ij)
-                        IF ( lxd.NE.0 ) THEN
-                           DO ijk = 1 , lxd
-                              inn = inn + 1
-                           ENDDO
-                        ENDIF
-                     ENDDO
-                     inpo = inn + 1
-                  ENDIF
-                  DO ij = 1 , NMAX
-                     lxd = LDNUM(2,ij)
-                     IF ( lxd.NE.0 ) THEN
-                        DO ijk = 1 , lxd
-                           inn = inn + 1
-                        ENDDO
-                     ENDIF
-                  ENDDO
-                  inko = inn
-                  IF ( irep.NE.2 ) THEN
-                     WRITE (3,*) NMAX , MEMAX , inpo , inko
-                     DO inn = 1 , NMAX
-                        WRITE (3,*) inn , SPIN(inn) , EN(inn)
-                     ENDDO
-                     DO inn = 1 , MEMAX
-                        WRITE (3,*) inn , LEAD(1,inn) , LEAD(2,inn)
-                     ENDDO
-                     DO inn = 1 , MEMAX
-                        WRITE (3,*) inn , ELM(inn)
-                     ENDDO
-                  ENDIF ! IF ( irep.NE.2 )
-               ENDIF ! IF ( iosr.NE.0 .AND. idf.NE.0 )
-               IF ( irep.NE.0 ) THEN
-                  REWIND 15
-                  READ (15,*) (DEVD(kh1),DEVU(kh1),kh1=1,MEMAX)
-               ELSE
-                  DO kh1 = 1 , MEMAX
-                     DEVD(kh1) = ELML(kh1) - ELM(kh1)
-                     DEVU(kh1) = ELMU(kh1) - ELM(kh1)
-                  ENDDO
-               ENDIF
-               IF ( IMIN.EQ.0 ) CALL CMLAB(0,dsig,ttttt)
-               IF ( ERR ) GOTO 2000
-               IF ( IMIN.NE.0 ) GOTO 400
-               GOTO 1300 ! End of OP,ERRO
-
+              GOTO 2600
 C           Treat OP,RE,C (release C)
             ELSEIF ( op2.EQ.'RE,C' ) THEN
                jfre = 1
@@ -2596,6 +2538,66 @@ C Treat OP,RE,A and OP,RE,F
       ENDDO
       GOTO 100 ! End of OP,RE,A and OP,RE,F
 
+C---------------------------------------------------------------------
+C Treat OP,ERRO
+ 2600 READ * , idf , ms , mend , irep , ifc , remax
+      rem = LOG(remax)
+      LOCKS = 0
+      LOCKF = 0
+      JENTR = 1
+      sh = 1.
+      ifbp = 0
+      inpo = 1
+      inko = 1
+      IF ( iosr.NE.0 .AND. idf.NE.0 ) THEN
+         inn = 0
+         ij = MULTI(1)
+         IF ( ij.NE.0 ) THEN
+            DO ij = 1 , NMAX
+               lxd = LDNUM(1,ij)
+               IF ( lxd.NE.0 ) THEN
+                  DO ijk = 1 , lxd
+                     inn = inn + 1
+                  ENDDO
+               ENDIF
+            ENDDO
+            inpo = inn + 1
+         ENDIF
+         DO ij = 1 , NMAX
+            lxd = LDNUM(2,ij)
+            IF ( lxd.NE.0 ) THEN
+               DO ijk = 1 , lxd
+                  inn = inn + 1
+               ENDDO
+            ENDIF
+         ENDDO
+         inko = inn
+         IF ( irep.NE.2 ) THEN
+            WRITE (3,*) NMAX , MEMAX , inpo , inko
+            DO inn = 1 , NMAX
+               WRITE (3,*) inn , SPIN(inn) , EN(inn)
+            ENDDO
+            DO inn = 1 , MEMAX
+               WRITE (3,*) inn , LEAD(1,inn) , LEAD(2,inn)
+            ENDDO
+            DO inn = 1 , MEMAX
+               WRITE (3,*) inn , ELM(inn)
+            ENDDO
+         ENDIF ! IF ( irep.NE.2 )
+      ENDIF ! IF ( iosr.NE.0 .AND. idf.NE.0 )
+      IF ( irep.NE.0 ) THEN
+         REWIND 15
+         READ (15,*) (DEVD(kh1),DEVU(kh1),kh1=1,MEMAX)
+      ELSE
+         DO kh1 = 1 , MEMAX
+            DEVD(kh1) = ELML(kh1) - ELM(kh1)
+            DEVU(kh1) = ELMU(kh1) - ELM(kh1)
+         ENDDO
+      ENDIF
+      IF ( IMIN.EQ.0 ) CALL CMLAB(0,dsig,ttttt)
+      IF ( ERR ) GOTO 2000
+      IF ( IMIN.NE.0 ) GOTO 400
+      GOTO 1300 ! End of OP,ERRO
 
 
 C---------------------------------------------------------------------
