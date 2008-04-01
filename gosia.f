@@ -645,25 +645,21 @@ C        Treat OP,RE,C (release C)
 C        Treat OP,ERRO (calculate errors)
          ELSEIF ( op2.EQ.'ERRO' ) THEN
             GOTO 2700
+C        Treat OP,TITL (title)
+         ELSEIF ( op2.EQ.'TITL' ) THEN
+            GOTO 2800
+C        Treat OP,GOSI
+         ELSEIF ( op2.EQ.'GOSI' ) THEN
+            GOTO 2900
+C        Treat OP,COUL
+         ELSEIF ( op2.EQ.'COUL' ) THEN
+            GOTO 2900
 C        Treat other options
          ELSE
 
 
-C           Treat OP,TITL (title)
-            IF ( op2.EQ.'TITL' ) THEN
-               READ 99009 , (title(k),k=1,20)
-99009          FORMAT (20A4)
-               WRITE (22,99010) (title(k),k=1,20)
-99010          FORMAT (10X,20A4/10X,100('-'))
-               GOTO 100 ! End of OP,TITL
-C           Treat OP,GOSI
-            ELSEIF ( op2.EQ.'GOSI' ) THEN
-                GOTO 200
-C           Treat OP,COUL
-            ELSEIF ( op2.EQ.'COUL' ) THEN
-                GOTO 200
 C           Treat OP,EXIT
-            ELSEIF ( op2.EQ.'EXIT' ) THEN
+            IF ( op2.EQ.'EXIT' ) THEN
                IF ( IPRM(18).NE.0 ) CALL PTICC(idr)
                IF ( oph.EQ.'GOSI' ) THEN
                   IF ( lfagg.NE.1 ) THEN
@@ -1335,252 +1331,6 @@ C           Treat OP,MAP
 99022 FORMAT (5X,'UNRECOGNIZED OPTION',1X,1A3,1A4)
       GOTO 2000
 
-C     Treat suboptions of OP,COUL and OP,GOSI
- 200  READ 99023 , op1 ! Read the suboption
-99023 FORMAT (1A4)
-      IF ( op1.EQ.'    ' ) GOTO 100
-
-C     Treat suboption LEVE (levels)
-      IF ( op1.EQ.'LEVE' ) THEN
-         NMAX = 0
-         IF ( ABS(IPRM(1)).EQ.1 ) WRITE (22,99024)
-99024    FORMAT (1X/40X,'LEVELS',//5X,'INDEX',5X,'PARITY',9X,'SPIN',11X,
-     &           'ENERGY(MEV)')
-         ndima = NDIM + 1
-         DO k = 1 , ndima
-           READ * , ipo1 , ipo2 , po2 , po1 ! leve number, parity, spin, energy
-            IF ( ipo1.EQ.0 ) GOTO 200
-            IF ( ipo1.EQ.1 .AND. ABS(po2).LT.1.E-6 ) ISO = 0
-            NMAX = NMAX + 1
-            SPIN(ipo1) = po2
-            IF ( k.EQ.1 ) iph = ipo2
-            iprc = ipo2 - iph
-            IF ( iprc.NE.0 ) iprc = 1
-            IFAC(ipo1) = (-1)**(iprc-INT(po2-SPIN(1)))
-            EN(ipo1) = po1
-            prp = '+'
-            IF ( ipo2.EQ.-1 ) prp = '-'
-            IF ( ABS(IPRM(1)).EQ.1 ) WRITE (22,99025) ipo1 , prp , 
-     &           SPIN(ipo1) , EN(ipo1)
-99025       FORMAT (6X,1I2,11X,1A1,10X,1F4.1,8X,1F10.4)
-         ENDDO
-
-C     Treat suboption ME (matrix elements)
-      ELSEIF ( op1.EQ.'ME  ' ) THEN
-         DO k = 1 , nmemx
-            IF ( op2.EQ.'GOSI' ) THEN
-               READ * , ipo1 , ipo2 , po1 , bl , bu ! lamda, 0, 0, 0, 0 OR ind1, ind2, me, lo, hi
-               iopri = 2
-               icg = 2
-            ELSE
-               iopri = 1
-               READ * , ipo1 , ipo2 , po1 ! lambda, 0, 0 OR ind1, ind2, me
-            ENDIF
-            IF ( ipo1.NE.0 ) THEN
-               IF ( ipo2.EQ.0 ) THEN
-                  IF ( ipo1.LE.la ) GOTO 1600 ! Error - wrong sequence of multipolarities
-                  LAMMAX = LAMMAX + 1
-                  LAMDA(LAMMAX) = ipo1
-                  ipo3 = 0
-                  IF ( indx.EQ.0 ) GOTO 220
-               ELSE
-                  MULTI(la) = MULTI(la) + 1
-                  indx = indx + 1
-                  IF ( ipo1.GT.ABS(ipo2) ) GOTO 1500 ! Error - M.E. does not belong to the upper triangle
-                  IF ( ipo1.NE.ipo3 ) THEN
-                     IF ( ipo1.LT.ipo3 ) GOTO 1700 ! Error - repeated appearance of the state
-                     ipo3 = ipo1
-                  ENDIF
-                  ELM(indx) = po1
-                  mlt(indx) = la
-                  LEAD(1,indx) = ipo1
-                  LEAD(2,indx) = ABS(ipo2)
-                  LDNUM(la,ipo1) = LDNUM(la,ipo1) + 1
-                  IF ( op2.EQ.'GOSI' ) THEN
-                    IF ( ipo2.LT.0 ) THEN ! If negative, bl and bu are indices
-                                          ! to which we fix this element
-                        IVAR(indx) = 10000*INT(bl) + INT(bu)
-                     ELSE                 ! Otherwise they are limits
-                        ELMU(indx) = bu
-                        ELML(indx) = bl
-                        IF ( ABS(bl-bu).LT.1.E-6 ) THEN
-                           IVAR(indx) = 0 ! Fixed
-                        ELSE
-                           IVAR(indx) = 2
-                           IF ( la.GT.4 ) IVAR(indx) = 1
-                        ENDIF
-                     ENDIF
-                     isip = ISEX(ipo1) + 1
-                     ISEX(ABS(ipo2)) = MIN(isip,ISEX(ABS(ipo2)))
-                  ENDIF
-                  GOTO 250
-               ENDIF
-            ENDIF
-            DO kk = 1 , indx
-               IF ( ABS(ELM(kk)).LE.1.E-6 ) ELM(kk) = 1.E-6
-               IF ( IVAR(kk).GE.10000 ) THEN ! Correlated
-                  kk1 = IVAR(kk)/10000
-                  kk2 = IVAR(kk) - 10000*kk1
-                  la1 = la
-                  IF ( kk2.GE.100 ) THEN
-                     la1 = kk2/100
-                     kk2 = kk2 - 100*la1
-                  ENDIF
-                  inx1 = MEM(kk1,kk2,la1)
-                  ELML(kk) = ELML(inx1)*ELM(kk)/ELM(inx1)
-                  ELMU(kk) = ELMU(inx1)*ELM(kk)/ELM(inx1)
-                  SA(kk) = ELM(kk)/ELM(inx1)
-                  ivari(kk) = IVAR(kk)
-                  IVAR(kk) = 1000 + inx1
-                  IF ( ELMU(kk).LE.ELML(kk) ) THEN
-                     elmi = ELMU(kk)
-                     ELMU(kk) = ELML(kk)
-                     ELML(kk) = elmi
-                  ENDIF
-               ENDIF
-            ENDDO
-            IF ( ipo1.EQ.0 ) GOTO 300
- 220        la = ipo1
-            IF ( la.GT.LMAXE .AND. la.LE.6 ) LMAXE = la
- 250     ENDDO
- 300     MEMAX = indx
-         IF ( la.GT.6 ) MAGEXC = 1
-         memx4 = MULTI(1) + MULTI(2) + MULTI(3) + MULTI(4)
-         MEMX6 = memx4 + MULTI(5) + MULTI(6)
-         IF ( ABS(IPRM(1)).EQ.1 ) CALL PRELM(iopri)
-         DO kh = 1 , NMAX
-            IF ( ISEX(kh).EQ.1111 ) ISEX(kh) = 1
-         ENDDO
-         DO kh = 1 , MEMAX
-            ivarh(kh) = IVAR(kh)
-         ENDDO
-
-C     Treat suboption CONT (control)
-      ELSEIF ( op1.EQ.'CONT' ) THEN
- 350     READ 99026 , op1 , fipo1
-99026    FORMAT (1A4,1F7.1)
-         ipo1 = INT(fipo1)
-         IF ( op1.EQ.'ACP,' ) ACCA = 10.**(-fipo1)
-         IF ( op1.EQ.'SEL,' ) ITS = 2
-         IF ( op1.EQ.'SMR,' ) iosr = 1
-         IF ( op1.EQ.'FMI,' ) ifm = 1
-         IF ( op1.EQ.'TEN,' ) itno = 1
-         IF ( op1.EQ.'NCM,' ) NCM = ipo1
-         IF ( op1.EQ.'WRN,' ) SGW = fipo1
-         IF ( op1.EQ.'INT,' ) THEN
-            DO jjx = 1 , ipo1
-               READ * , ipo2 , ijx
-               INTERV(ipo2) = ijx
-            ENDDO
-         ELSE
-            IF ( op1.EQ.'VAC,' ) THEN
-               DO jjx = 1 , 7
-                  READ * , ijx , val
-                  IF ( ijx.EQ.0 ) GOTO 350
-                  G(ijx) = val
-               ENDDO
-            ELSE
-               IF ( op1.EQ.'DIP,' ) DIPOL = 0.001*fipo1
-               IF ( op1.EQ.'ACC,' ) ACCUR = 10.**(-fipo1)
-               IF ( op1.EQ.'PRT,' ) THEN
-                  DO jjx = 1 , 20
-                     READ * , inm1 , inm2
-                     IF ( inm1.EQ.0 ) GOTO 350
-                     IPRM(inm1) = inm2
-                  ENDDO
-                  GOTO 350
-               ELSEIF ( op1.NE.'FIX,' ) THEN
-                  IF ( op1.EQ.'SKP,' ) THEN
-                     DO jjx = 1 , ipo1
-                        READ * , ijx
-                        JSKIP(ijx) = 0
-                     ENDDO
-                     GOTO 350
-                  ELSE
-                     IF ( op1.EQ.'CRF,' ) ICS = 1
-                     IF ( op1.EQ.'LCK,' ) THEN
- 352                    READ * , lck1 , lck2
-                        IF ( lck1.EQ.0 ) GOTO 350
-                        DO jjx = lck1 , lck2
-                           ivarh(jjx) = 0
-                           IVAR(jjx) = 0
-                        ENDDO
-                        GOTO 352
-                     ELSE
-                        IF ( op1.EQ.'INR,' ) INNR = 1
-                        IF ( op1.EQ.'CRD,' ) THEN
-                           DO jjx = 1 , ipo1
-                              READ * , ipo2
-                              iecd(ipo2) = 1
-                           ENDDO
-                           GOTO 350
-                        ELSE
-                           IF ( op1.EQ.'CCF,' ) IPS1 = ipo1
-                           IF ( op1.EQ.'PIN,' ) ipine = ipo1
-                           IF ( op1.EQ.'PIN,' ) ipinf = 1
-                           IF ( op1.EQ.'PIN,' ) THEN
-                              DO ipp = 1 , ipine
-                                 READ (*,*) ig1 , ig2
-                                 jpin(ig1) = ig2
-                              ENDDO
-                              GOTO 350
-                           ELSE
-                              IF ( op1.NE.'END,' ) GOTO 350
-                              GOTO 200
-                           ENDIF
-                        ENDIF
-                     ENDIF
-                  ENDIF
-               ENDIF
-            ENDIF
-            READ * , nallow
-            DO jjx = 1 , nallow
-               READ * , ijk
-               IVAR(ijk) = -IVAR(ijk)
-            ENDDO
-            DO jjx = 1 , MEMAX
-               IF ( IVAR(jjx).GE.0 ) THEN
-                  IF ( IVAR(jjx).LE.999 ) IVAR(jjx) = 0
-               ENDIF
-            ENDDO
-            DO jjx = 1 , MEMAX
-               IF ( IVAR(jjx).LT.0 ) IVAR(jjx) = -IVAR(jjx)
-               ivarh(jjx) = IVAR(jjx)
-            ENDDO
-         ENDIF
-         GOTO 350
-
-C     Treat suboption EXPT
-      ELSEIF ( op1.EQ.'EXPT' ) THEN
-         READ * , NEXPT , IZ , XA
-         G(1) = 3.             ! AVJI
-         G(2) = .02            ! GAMMA
-         G(3) = .0345          ! XLAMB
-         G(4) = 3.5            ! TIMEC
-         G(5) = DBLE(IZ)/XA    ! GFAC
-         G(6) = 6.E-06         ! FIEL
-         G(7) = .6             ! POWER
-         DO k = 1 , NEXPT ! Zn, An, E_p, THETA_lab, M_c, M_A, IAX, phi1, phi2, ikin, ln
-            READ * , IZ1(k) , XA1(k) , EP(k) , TLBDG(k) , EMMA(k) , 
-     &           MAGA(k) , IAXS(k) , fi0 , fi1 , ISKIN(k) , LNORM(k)
-            ITTE(k) = 0
-            IF ( XA1(k).LT.0. ) ITTE(k) = 1
-            XA1(k) = ABS(XA1(k))
-            FIEX(k,1) = fi0/57.2957795 ! Convert to radians
-            FIEX(k,2) = fi1/57.2957795
-            IF ( TLBDG(k).LT.0. ) THEN
-               FIEX(k,1) = FIEX(k,1) + 3.14159265
-               FIEX(k,2) = FIEX(k,2) + 3.14159265
-            ENDIF
-         ENDDO
-
-C     Else we don't recognize the suboption
-      ELSE
-         WRITE (22,99027) op1
-99027    FORMAT (5X,'UNRECOGNIZED SUBOPTION',1X,1A4)
-         GOTO 2000
-      ENDIF
-      GOTO 200 ! Get next suboption
 
 C     Handle OP,ERRO      
  400  IF ( ICS.EQ.1 ) THEN
@@ -2602,6 +2352,261 @@ C Treat OP,ERRO
       IF ( IMIN.NE.0 ) GOTO 400
       GOTO 1300 ! End of OP,ERRO
 
+C---------------------------------------------------------------------
+C Treat OP,TITL
+ 2800 READ 99009 , (title(k),k=1,20)
+99009 FORMAT (20A4)
+      WRITE (22,99010) (title(k),k=1,20)
+99010 FORMAT (10X,20A4/10X,100('-'))
+      GOTO 100 ! End of OP,TITL
+
+C---------------------------------------------------------------------
+C     Treat suboptions of OP,COUL and OP,GOSI
+ 2900 READ 99023 , op1 ! Read the suboption
+99023 FORMAT (1A4)
+      IF ( op1.EQ.'    ' ) GOTO 100
+
+C     Treat suboption LEVE (levels)
+      IF ( op1.EQ.'LEVE' ) THEN
+         NMAX = 0
+         IF ( ABS(IPRM(1)).EQ.1 ) WRITE (22,99024)
+99024    FORMAT (1X/40X,'LEVELS',//5X,'INDEX',5X,'PARITY',9X,'SPIN',11X,
+     &           'ENERGY(MEV)')
+         ndima = NDIM + 1
+         DO k = 1 , ndima
+           READ * , ipo1 , ipo2 , po2 , po1 ! leve number, parity, spin, energy
+            IF ( ipo1.EQ.0 ) GOTO 2900
+            IF ( ipo1.EQ.1 .AND. ABS(po2).LT.1.E-6 ) ISO = 0
+            NMAX = NMAX + 1
+            SPIN(ipo1) = po2
+            IF ( k.EQ.1 ) iph = ipo2
+            iprc = ipo2 - iph
+            IF ( iprc.NE.0 ) iprc = 1
+            IFAC(ipo1) = (-1)**(iprc-INT(po2-SPIN(1)))
+            EN(ipo1) = po1
+            prp = '+'
+            IF ( ipo2.EQ.-1 ) prp = '-'
+            IF ( ABS(IPRM(1)).EQ.1 ) WRITE (22,99025) ipo1 , prp , 
+     &           SPIN(ipo1) , EN(ipo1)
+99025       FORMAT (6X,1I2,11X,1A1,10X,1F4.1,8X,1F10.4)
+         ENDDO
+
+C     Treat suboption ME (matrix elements)
+      ELSEIF ( op1.EQ.'ME  ' ) THEN
+         DO k = 1 , nmemx
+            IF ( op2.EQ.'GOSI' ) THEN
+               READ * , ipo1 , ipo2 , po1 , bl , bu ! lamda, 0, 0, 0, 0 OR ind1, ind2, me, lo, hi
+               iopri = 2
+               icg = 2
+            ELSE
+               iopri = 1
+               READ * , ipo1 , ipo2 , po1 ! lambda, 0, 0 OR ind1, ind2, me
+            ENDIF
+            IF ( ipo1.NE.0 ) THEN
+               IF ( ipo2.EQ.0 ) THEN
+                  IF ( ipo1.LE.la ) GOTO 1600 ! Error - wrong sequence of multipolarities
+                  LAMMAX = LAMMAX + 1
+                  LAMDA(LAMMAX) = ipo1
+                  ipo3 = 0
+                  IF ( indx.EQ.0 ) GOTO 220
+               ELSE
+                  MULTI(la) = MULTI(la) + 1
+                  indx = indx + 1
+                  IF ( ipo1.GT.ABS(ipo2) ) GOTO 1500 ! Error - M.E. does not belong to the upper triangle
+                  IF ( ipo1.NE.ipo3 ) THEN
+                     IF ( ipo1.LT.ipo3 ) GOTO 1700 ! Error - repeated appearance of the state
+                     ipo3 = ipo1
+                  ENDIF
+                  ELM(indx) = po1
+                  mlt(indx) = la
+                  LEAD(1,indx) = ipo1
+                  LEAD(2,indx) = ABS(ipo2)
+                  LDNUM(la,ipo1) = LDNUM(la,ipo1) + 1
+                  IF ( op2.EQ.'GOSI' ) THEN
+                    IF ( ipo2.LT.0 ) THEN ! If negative, bl and bu are indices
+                                          ! to which we fix this element
+                        IVAR(indx) = 10000*INT(bl) + INT(bu)
+                     ELSE                 ! Otherwise they are limits
+                        ELMU(indx) = bu
+                        ELML(indx) = bl
+                        IF ( ABS(bl-bu).LT.1.E-6 ) THEN
+                           IVAR(indx) = 0 ! Fixed
+                        ELSE
+                           IVAR(indx) = 2
+                           IF ( la.GT.4 ) IVAR(indx) = 1
+                        ENDIF
+                     ENDIF
+                     isip = ISEX(ipo1) + 1
+                     ISEX(ABS(ipo2)) = MIN(isip,ISEX(ABS(ipo2)))
+                  ENDIF
+                  GOTO 250
+               ENDIF
+            ENDIF
+            DO kk = 1 , indx
+               IF ( ABS(ELM(kk)).LE.1.E-6 ) ELM(kk) = 1.E-6
+               IF ( IVAR(kk).GE.10000 ) THEN ! Correlated
+                  kk1 = IVAR(kk)/10000
+                  kk2 = IVAR(kk) - 10000*kk1
+                  la1 = la
+                  IF ( kk2.GE.100 ) THEN
+                     la1 = kk2/100
+                     kk2 = kk2 - 100*la1
+                  ENDIF
+                  inx1 = MEM(kk1,kk2,la1)
+                  ELML(kk) = ELML(inx1)*ELM(kk)/ELM(inx1)
+                  ELMU(kk) = ELMU(inx1)*ELM(kk)/ELM(inx1)
+                  SA(kk) = ELM(kk)/ELM(inx1)
+                  ivari(kk) = IVAR(kk)
+                  IVAR(kk) = 1000 + inx1
+                  IF ( ELMU(kk).LE.ELML(kk) ) THEN
+                     elmi = ELMU(kk)
+                     ELMU(kk) = ELML(kk)
+                     ELML(kk) = elmi
+                  ENDIF
+               ENDIF
+            ENDDO
+            IF ( ipo1.EQ.0 ) GOTO 300
+ 220        la = ipo1
+            IF ( la.GT.LMAXE .AND. la.LE.6 ) LMAXE = la
+ 250     ENDDO
+ 300     MEMAX = indx
+         IF ( la.GT.6 ) MAGEXC = 1
+         memx4 = MULTI(1) + MULTI(2) + MULTI(3) + MULTI(4)
+         MEMX6 = memx4 + MULTI(5) + MULTI(6)
+         IF ( ABS(IPRM(1)).EQ.1 ) CALL PRELM(iopri)
+         DO kh = 1 , NMAX
+            IF ( ISEX(kh).EQ.1111 ) ISEX(kh) = 1
+         ENDDO
+         DO kh = 1 , MEMAX
+            ivarh(kh) = IVAR(kh)
+         ENDDO
+
+C     Treat suboption CONT (control)
+      ELSEIF ( op1.EQ.'CONT' ) THEN
+ 350     READ 99026 , op1 , fipo1
+99026    FORMAT (1A4,1F7.1)
+         ipo1 = INT(fipo1)
+         IF ( op1.EQ.'ACP,' ) ACCA = 10.**(-fipo1)
+         IF ( op1.EQ.'SEL,' ) ITS = 2
+         IF ( op1.EQ.'SMR,' ) iosr = 1
+         IF ( op1.EQ.'FMI,' ) ifm = 1
+         IF ( op1.EQ.'TEN,' ) itno = 1
+         IF ( op1.EQ.'NCM,' ) NCM = ipo1
+         IF ( op1.EQ.'WRN,' ) SGW = fipo1
+         IF ( op1.EQ.'INT,' ) THEN
+            DO jjx = 1 , ipo1
+               READ * , ipo2 , ijx
+               INTERV(ipo2) = ijx
+            ENDDO
+         ELSE
+            IF ( op1.EQ.'VAC,' ) THEN
+               DO jjx = 1 , 7
+                  READ * , ijx , val
+                  IF ( ijx.EQ.0 ) GOTO 350
+                  G(ijx) = val
+               ENDDO
+            ELSE
+               IF ( op1.EQ.'DIP,' ) DIPOL = 0.001*fipo1
+               IF ( op1.EQ.'ACC,' ) ACCUR = 10.**(-fipo1)
+               IF ( op1.EQ.'PRT,' ) THEN
+                  DO jjx = 1 , 20
+                     READ * , inm1 , inm2
+                     IF ( inm1.EQ.0 ) GOTO 350
+                     IPRM(inm1) = inm2
+                  ENDDO
+                  GOTO 350
+               ELSEIF ( op1.NE.'FIX,' ) THEN
+                  IF ( op1.EQ.'SKP,' ) THEN
+                     DO jjx = 1 , ipo1
+                        READ * , ijx
+                        JSKIP(ijx) = 0
+                     ENDDO
+                     GOTO 350
+                  ELSE
+                     IF ( op1.EQ.'CRF,' ) ICS = 1
+                     IF ( op1.EQ.'LCK,' ) THEN
+ 352                    READ * , lck1 , lck2
+                        IF ( lck1.EQ.0 ) GOTO 350
+                        DO jjx = lck1 , lck2
+                           ivarh(jjx) = 0
+                           IVAR(jjx) = 0
+                        ENDDO
+                        GOTO 352
+                     ELSE
+                        IF ( op1.EQ.'INR,' ) INNR = 1
+                        IF ( op1.EQ.'CRD,' ) THEN
+                           DO jjx = 1 , ipo1
+                              READ * , ipo2
+                              iecd(ipo2) = 1
+                           ENDDO
+                           GOTO 350
+                        ELSE
+                           IF ( op1.EQ.'CCF,' ) IPS1 = ipo1
+                           IF ( op1.EQ.'PIN,' ) ipine = ipo1
+                           IF ( op1.EQ.'PIN,' ) ipinf = 1
+                           IF ( op1.EQ.'PIN,' ) THEN
+                              DO ipp = 1 , ipine
+                                 READ (*,*) ig1 , ig2
+                                 jpin(ig1) = ig2
+                              ENDDO
+                              GOTO 350
+                           ELSE
+                              IF ( op1.NE.'END,' ) GOTO 350
+                              GOTO 2900
+                           ENDIF
+                        ENDIF
+                     ENDIF
+                  ENDIF
+               ENDIF
+            ENDIF
+            READ * , nallow
+            DO jjx = 1 , nallow
+               READ * , ijk
+               IVAR(ijk) = -IVAR(ijk)
+            ENDDO
+            DO jjx = 1 , MEMAX
+               IF ( IVAR(jjx).GE.0 ) THEN
+                  IF ( IVAR(jjx).LE.999 ) IVAR(jjx) = 0
+               ENDIF
+            ENDDO
+            DO jjx = 1 , MEMAX
+               IF ( IVAR(jjx).LT.0 ) IVAR(jjx) = -IVAR(jjx)
+               ivarh(jjx) = IVAR(jjx)
+            ENDDO
+         ENDIF
+         GOTO 350
+
+C     Treat suboption EXPT
+      ELSEIF ( op1.EQ.'EXPT' ) THEN
+         READ * , NEXPT , IZ , XA
+         G(1) = 3.             ! AVJI
+         G(2) = .02            ! GAMMA
+         G(3) = .0345          ! XLAMB
+         G(4) = 3.5            ! TIMEC
+         G(5) = DBLE(IZ)/XA    ! GFAC
+         G(6) = 6.E-06         ! FIEL
+         G(7) = .6             ! POWER
+         DO k = 1 , NEXPT ! Zn, An, E_p, THETA_lab, M_c, M_A, IAX, phi1, phi2, ikin, ln
+            READ * , IZ1(k) , XA1(k) , EP(k) , TLBDG(k) , EMMA(k) , 
+     &           MAGA(k) , IAXS(k) , fi0 , fi1 , ISKIN(k) , LNORM(k)
+            ITTE(k) = 0
+            IF ( XA1(k).LT.0. ) ITTE(k) = 1
+            XA1(k) = ABS(XA1(k))
+            FIEX(k,1) = fi0/57.2957795 ! Convert to radians
+            FIEX(k,2) = fi1/57.2957795
+            IF ( TLBDG(k).LT.0. ) THEN
+               FIEX(k,1) = FIEX(k,1) + 3.14159265
+               FIEX(k,2) = FIEX(k,2) + 3.14159265
+            ENDIF
+         ENDDO
+
+C     Else we don't recognize the suboption
+      ELSE
+         WRITE (22,99027) op1
+99027    FORMAT (5X,'UNRECOGNIZED SUBOPTION',1X,1A4)
+         GOTO 2000
+      ENDIF
+      GOTO 2900 ! Get next suboption
 
 C---------------------------------------------------------------------
  1900 IF ( ITS.NE.0 ) THEN
