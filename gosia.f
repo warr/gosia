@@ -635,12 +635,10 @@ C        Treat OP,REST (restart)
             GOTO 2400
 C        Treat OP,RE,A (release A)
          ELSEIF ( op2.EQ.'RE,A' ) THEN
-            GOTO 900
-           
+            GOTO 2500          
 C        Treat OP,RE,F (release F)
          ELSEIF ( op2.EQ.'RE,F' ) THEN
-            GOTO 900
-
+            GOTO 2500
 C        Treat other options
          ELSE
 
@@ -1840,25 +1838,6 @@ C     Handle OP,ERRO
       ENDIF
       GOTO 600
 
- 900  jfre = 0
-      irfix = 0
-      IF ( op2.EQ.'RE,F' ) irfix = 1
- 1000 DO jrls = 1 , MEMAX
-         IF ( IVAR(jrls).NE.0 .OR. irfix.NE.1 ) THEN
-            IF ( IVAR(jrls).GT.999 ) THEN
-               IF ( jfre.EQ.1 ) GOTO 1100
-            ENDIF
-            IVAR(jrls) = 2
-            ELML(jrls) = -ABS(ELML(jrls))
-            ELMU(jrls) = ABS(ELMU(jrls))
-            IF ( jrls.GT.MEMX6 ) IVAR(jrls) = 1
-         ENDIF
- 1100 ENDDO
-      DO jrls = 1 , MEMAX
-         ivarh(jrls) = IVAR(jrls)
-      ENDDO
-      GOTO 100
-
  1200 CALL CMLAB(0,dsig,ttttt) ! Options MAP, STAR, POINT, MINI etc.
       IF ( ERR ) GOTO 2000
       IF ( op2.EQ.'POIN' ) READ * , ifwd , slim
@@ -2595,6 +2574,28 @@ C           ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
       ENDDO
       CALL PRELM(2)
       GOTO 100 ! End of OP,REST
+
+C---------------------------------------------------------------------
+C Treat OP,RE,A and OP,RE,F
+ 2500 jfre = 0
+      irfix = 0
+      IF ( op2.EQ.'RE,F' ) irfix = 1
+ 1000 DO jrls = 1 , MEMAX
+         IF ( IVAR(jrls).NE.0 .OR. irfix.NE.1 ) THEN
+            IF ( IVAR(jrls).GT.999 ) THEN
+               IF ( jfre.EQ.1 ) GOTO 1100
+            ENDIF
+            IVAR(jrls) = 2
+            ELML(jrls) = -ABS(ELML(jrls))
+            ELMU(jrls) = ABS(ELMU(jrls))
+            IF ( jrls.GT.MEMX6 ) IVAR(jrls) = 1
+         ENDIF
+ 1100 ENDDO
+      DO jrls = 1 , MEMAX
+         ivarh(jrls) = IVAR(jrls)
+      ENDDO
+      GOTO 100 ! End of OP,RE,A and OP,RE,F
+
 
 
 C---------------------------------------------------------------------
