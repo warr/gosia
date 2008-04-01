@@ -3,6 +3,7 @@ ampder.f
 --------
 
 ampder.f:         nz = LZETA(lam)
+This is an index into ZETA, which is used by LAISUM.
 
 ------------------------------------------------------------------------------
 angula.f
@@ -106,6 +107,7 @@ sting.f
 -------
 
 sting.f:                  nz = LZETA(lam)
+This is an index into ZETA, which is used by LAISUM.
 
 ------------------------------------------------------------------------------
 tapma.f
