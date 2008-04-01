@@ -621,72 +621,50 @@ C        Treat OP,FILE (attach files to fortran units)
      &           'LATEST REVISION- JUNE  2006'//////)
          jphd = 0
 
-C        Handle OP,GDET (germanium detectors)
          IF ( op2.EQ.'GDET' ) THEN
-            GOTO 2100
-C         Treat OP,RAND (randomise matrix elements)
-          ELSEIF ( op2.EQ.'RAND' ) THEN
-            GOTO 2200
-C        Treat OP,TROU (troubleshooting)
+            GOTO 2100 ! Handle OP,GDET (germanium detectors)
+         ELSEIF ( op2.EQ.'RAND' ) THEN
+            GOTO 2200 ! Treat OP,RAND (randomise matrix elements)
          ELSEIF ( op2.EQ.'TROU' ) THEN
-            GOTO 2300
-C        Treat OP,REST (restart)
+            GOTO 2300 ! Treat OP,TROU (troubleshooting)
          ELSEIF ( op2.EQ.'REST' ) THEN
-            GOTO 2400
-C        Treat OP,RE,A (release A)
+            GOTO 2400 ! Treat OP,REST (restart)
          ELSEIF ( op2.EQ.'RE,A' ) THEN
-            GOTO 2500          
-C        Treat OP,RE,F (release F)
+            GOTO 2500 ! Treat OP,RE,A (release A)
          ELSEIF ( op2.EQ.'RE,F' ) THEN
-            GOTO 2500
-C        Treat OP,RE,C (release C)
+            GOTO 2500 ! Treat OP,RE,F (release F)
          ELSEIF ( op2.EQ.'RE,C' ) THEN
-            GOTO 2600
-C        Treat OP,ERRO (calculate errors)
+            GOTO 2600 ! Treat OP,RE,C (release C)
          ELSEIF ( op2.EQ.'ERRO' ) THEN
-            GOTO 2700
-C        Treat OP,TITL (title)
+            GOTO 2700 ! Treat OP,ERRO (calculate errors)
          ELSEIF ( op2.EQ.'TITL' ) THEN
-            GOTO 2800
-C        Treat OP,GOSI
+            GOTO 2800 ! Treat OP,TITL (title)
          ELSEIF ( op2.EQ.'GOSI' ) THEN
-            GOTO 2900
-C        Treat OP,COUL
+            GOTO 2900 ! Treat OP,GOSI
          ELSEIF ( op2.EQ.'COUL' ) THEN
-            GOTO 2900
-C        Treat OP,EXIT
+            GOTO 2900 ! Treat OP,COUL
          ELSEIF ( op2.EQ.'EXIT' ) THEN
-            GOTO 3000
-C        Treat OP,MINI
+            GOTO 3000 ! Treat OP,EXIT
          ELSEIF ( op2.EQ.'MINI' ) THEN
-            GOTO 3100
-C        Treat OP,THEO
+            GOTO 3100 ! Treat OP,MINI
          ELSEIF ( op2.EQ.'THEO' ) THEN
-            GOTO 3200
-C        Treat OP,YIEL
+            GOTO 3200 ! Treat OP,THEO
          ELSEIF ( op2.EQ.'YIEL' ) THEN
-            GOTO 3300
-C        Treat OP,INTG
+            GOTO 3300 ! Treat OP,YIEL
          ELSEIF ( op2.EQ.'INTG' ) THEN
-            GOTO 3400
-C        Treat OP,CORR
+            GOTO 3400 ! Treat OP,INTG
          ELSEIF ( op2.EQ.'CORR' ) THEN
-            GOTO 3500
-C        Treat OP,POIN
+            GOTO 3500 ! Treat OP,CORR
          ELSEIF ( op2.EQ.'POIN') THEN
-            GOTO 3600
-C        Treat OP,STAR
+            GOTO 3600 ! Treat OP,POIN
          ELSEIF ( op2.EQ.'STAR' ) THEN
-            GOTO 3600
-C        Treat OP,SIXJ
+            GOTO 3600 ! Treat OP,STAR
          ELSEIF ( op2.EQ.'SIXJ' ) THEN
-            GOTO 3700
-C        Treat OP,RAW (raw uncorrected gamma yields)
+            GOTO 3700 ! Treat OP,SIXJ
          ELSEIF ( op2.EQ.'RAW ' ) THEN
-            GOTO 3800
-C        Treat OP,MAP
+            GOTO 3800 ! Treat OP,RAW (raw uncorrected gamma yields)
          ELSEIF ( op2.EQ.'MAP ' ) THEN
-            GOTO 3900
+            GOTO 3900 ! Treat OP,MAP
          ENDIF ! Options
       ENDIF ! End of if (op1.eq."OP, ") if statement
 
