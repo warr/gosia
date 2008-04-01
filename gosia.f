@@ -623,108 +623,16 @@ C        Treat OP,FILE (attach files to fortran units)
 
 C        Handle OP,GDET (germanium detectors)
          IF ( op2.EQ.'GDET' ) THEN
-            nl = 7
-            READ * , nfdd ! number of physical detectors
-
-            nfd = ABS(nfdd) ! Negative value means graded absorber
-            IF ( nfdd.LE.0 ) THEN
-               REWIND 8
-               DO i = 1 , nl
-                  WRITE (8,*) (tau2(l,i),l=1,10)
-               ENDDO
-               WRITE (8,*) (eng(l),l=1,10)
-            ENDIF
-
-C           Write file for gamma-ray energy dependence of Ge solid-angle
-C           attenuation coefficients
-            REWIND 9
-            WRITE (9,*) nfd
-            DO i = 1 , nfd ! For each detector
-               READ * , (DIX(k),k=1,4) ! radius of core, outer radius, length, distance
-               READ * , (xl1(k),k=1,nl) ! thicknesses of 7 kinds of absorber
-               IF ( DIX(1).LE.0. ) DIX(1) = .01
-               WRITE (9,*) DIX(4) ! length
-               IF ( nfdd.LE.0 ) WRITE (8,*) (xl1(k),k=1,nl)
-               ind = 1
-               IF ( xl1(5).GT.0. ) ind = 3
-               IF ( xl1(6).GT.0. ) ind = 4
-               IF ( xl1(7).GT.0. ) ind = 5
-               WRITE (9,*) eng(ind) ! First energy
-               CALL QFIT(qui,tau1,tau2,eng,xl1,cf,nl,ind)
-               WRITE (22,99004) i
-99004          FORMAT (10X,'DETECTOR',1X,1I2)
-               DO k = 1 , 8
-                  WRITE (22,99005) k , cf(k,1) , cf(k,2)
-99005             FORMAT (1X,//5X,'K=',1I1,2X,'C1=',1E14.6,2X,'C2=',
-     &                    1E14.6/5X,'ENERGY(MEV)',5X,'FITTED QK',5X,
-     &                    'CALC.QK',5X,'PC.DIFF.'/)
-                  WRITE (9,*) cf(k,1) , cf(k,2) , qui(k,ind)
-                  DO l = 1 , 10
-                     arg = (eng(l)-eng(ind))**2
-                     qc = (qui(k,ind)*cf(k,2)+cf(k,1)*arg)/(cf(k,2)+arg)
-                     WRITE (22,99006) eng(l) , qc , qui(k,l) , 
-     &                                100.*(qc-qui(k,l))/qui(k,l)
-99006                FORMAT (8X,1F4.2,6X,1F9.4,5X,1F9.4,3X,1E10.2)
-                  ENDDO
-               ENDDO
-            ENDDO
-            GOTO 100 ! End of OP,GDET
-
+            GOTO 2100
 C         Treat OP,RAND (randomise matrix elements)
           ELSEIF ( op2.EQ.'RAND' ) THEN
-            READ * , SE ! Seed for random number generator
-            CALL MIXUP
-            WRITE (22,99007)
-99007       FORMAT (1X///5X,'MATRIX ELEMENTS RANDOMIZED...'///)
-            CALL PRELM(2)
-            GOTO 100 ! End of OP,RAND
-
+            GOTO 2200
 C        Treat OP,TROU (troubleshooting)
          ELSEIF ( op2.EQ.'TROU' ) THEN
-            ITS = 1 ! Create tape 18 flag
-            READ * , kmat , rlr
-            GOTO 100 ! End of OP,TROU
-
+            GOTO 2300
 C        Treat OP,REST (restart)
          ELSEIF ( op2.EQ.'REST' ) THEN
-            REWIND 12
-            memax1 = MEMAX + 1
-            DO lkj = 1 , MEMAX
-               READ (12,*) ELM(lkj)
-            ENDDO
-            DO lkj = 1 , memax1
-               READ * , lkj1 , xlk
-               IF ( lkj1.EQ.0 ) GOTO 120
-               ELM(lkj1) = xlk
-            ENDDO
- 120        WRITE (22,99008)
-99008       FORMAT (1X///5X,'*****',2X,
-     &              'RESTART-MATRIX ELEMENTS OVERWRITTEN',2X,'*****'///)
-            DO kk = 1 , MEMAX
-               la = mlt(kk)
-               IF ( ivari(kk).GE.10000 ) THEN
-                  kk1 = ivari(kk)/10000
-                  kk2 = ivari(kk) - 10000*kk1
-                  la1 = la
-                  IF ( kk2.GE.100 ) THEN
-                     la1 = kk2/100
-                     kk2 = kk2 - 100*la1
-                  ENDIF
-                  inx1 = MEM(kk1,kk2,la1)
-C      ELML(KK)=ELML(INX1)*ELM(KK)/ELM(INX1)
-C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
-                  SA(kk) = ELM(kk)/ELM(inx1)
-                  IVAR(kk) = 1000 + inx1
-                  IF ( ELMU(kk).LE.ELML(kk) ) THEN
-                     elmi = ELMU(kk)
-                     ELMU(kk) = ELML(kk)
-                     ELML(kk) = elmi
-                  ENDIF
-               ENDIF
-            ENDDO
-            CALL PRELM(2)
-            GOTO 100 ! End of OP,REST
-
+            GOTO 2400
 C        Treat OP,RE,A (release A)
          ELSEIF ( op2.EQ.'RE,A' ) THEN
             GOTO 900
@@ -2582,6 +2490,114 @@ C     Handle map
 99046 FORMAT (1X///10X,'ERROR-INSUFFICIENT SPACE FOR E-THETA INTEGR ',
      &        'ATION')
 
+C---------------------------------------------------------------------
+C Treat OP,GDET
+2100  l = 7
+      READ * , nfdd ! number of physical detectors
+
+      nfd = ABS(nfdd) ! Negative value means graded absorber
+      IF ( nfdd.LE.0 ) THEN
+         REWIND 8
+         DO i = 1 , nl
+            WRITE (8,*) (tau2(l,i),l=1,10)
+         ENDDO
+         WRITE (8,*) (eng(l),l=1,10)
+      ENDIF
+
+C     Write file for gamma-ray energy dependence of Ge solid-angle
+C     attenuation coefficients
+      REWIND 9
+      WRITE (9,*) nfd
+      DO i = 1 , nfd ! For each detector
+         READ * , (DIX(k),k=1,4) ! radius of core, outer radius, length, distance
+         READ * , (xl1(k),k=1,nl) ! thicknesses of 7 kinds of absorber
+         IF ( DIX(1).LE.0. ) DIX(1) = .01
+         WRITE (9,*) DIX(4) ! length
+         IF ( nfdd.LE.0 ) WRITE (8,*) (xl1(k),k=1,nl)
+         ind = 1
+         IF ( xl1(5).GT.0. ) ind = 3
+         IF ( xl1(6).GT.0. ) ind = 4
+         IF ( xl1(7).GT.0. ) ind = 5
+         WRITE (9,*) eng(ind) ! First energy
+         CALL QFIT(qui,tau1,tau2,eng,xl1,cf,nl,ind)
+         WRITE (22,99004) i
+99004    FORMAT (10X,'DETECTOR',1X,1I2)
+         DO k = 1 , 8
+            WRITE (22,99005) k , cf(k,1) , cf(k,2)
+99005       FORMAT (1X,//5X,'K=',1I1,2X,'C1=',1E14.6,2X,'C2=',
+     &              1E14.6/5X,'ENERGY(MEV)',5X,'FITTED QK',5X,
+     &              'CALC.QK',5X,'PC.DIFF.'/)
+            WRITE (9,*) cf(k,1) , cf(k,2) , qui(k,ind)
+            DO l = 1 , 10
+               arg = (eng(l)-eng(ind))**2
+               qc = (qui(k,ind)*cf(k,2)+cf(k,1)*arg)/(cf(k,2)+arg)
+               WRITE (22,99006) eng(l) , qc , qui(k,l) , 
+     &                          100.*(qc-qui(k,l))/qui(k,l)
+99006          FORMAT (8X,1F4.2,6X,1F9.4,5X,1F9.4,3X,1E10.2)
+            ENDDO
+         ENDDO
+      ENDDO
+      GOTO 100 ! End of OP,GDET
+
+C---------------------------------------------------------------------
+C Treat OP,RAND
+ 2200 READ * , SE ! Seed for random number generator
+      CALL MIXUP
+      WRITE (22,99007)
+99007 FORMAT (1X///5X,'MATRIX ELEMENTS RANDOMIZED...'///)
+      CALL PRELM(2)
+      GOTO 100 ! End of OP,RAND
+
+
+C---------------------------------------------------------------------
+C Treat OP,TROU
+ 2300 ITS = 1 ! Create tape 18 flag
+      READ * , kmat , rlr
+      GOTO 100 ! End of OP,TROU
+
+
+C---------------------------------------------------------------------
+C Treat OP,REST
+ 2400 REWIND 12
+      memax1 = MEMAX + 1
+      DO lkj = 1 , MEMAX
+         READ (12,*) ELM(lkj)
+      ENDDO
+      DO lkj = 1 , memax1
+         READ * , lkj1 , xlk
+         IF ( lkj1.EQ.0 ) GOTO 120
+         ELM(lkj1) = xlk
+      ENDDO
+ 120  WRITE (22,99008)
+99008 FORMAT (1X///5X,'*****',2X,
+     &        'RESTART-MATRIX ELEMENTS OVERWRITTEN',2X,'*****'///)
+      DO kk = 1 , MEMAX
+         la = mlt(kk)
+         IF ( ivari(kk).GE.10000 ) THEN
+            kk1 = ivari(kk)/10000
+            kk2 = ivari(kk) - 10000*kk1
+            la1 = la
+            IF ( kk2.GE.100 ) THEN
+               la1 = kk2/100
+               kk2 = kk2 - 100*la1
+            ENDIF
+            inx1 = MEM(kk1,kk2,la1)
+C           ELML(KK)=ELML(INX1)*ELM(KK)/ELM(INX1)
+C           ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
+            SA(kk) = ELM(kk)/ELM(inx1)
+            IVAR(kk) = 1000 + inx1
+            IF ( ELMU(kk).LE.ELML(kk) ) THEN
+               elmi = ELMU(kk)
+               ELMU(kk) = ELML(kk)
+               ELML(kk) = elmi
+            ENDIF
+         ENDIF
+      ENDDO
+      CALL PRELM(2)
+      GOTO 100 ! End of OP,REST
+
+
+C---------------------------------------------------------------------
  1900 IF ( ITS.NE.0 ) THEN
          iva = 0
          WRITE (18,*) iva , iva , iva , chisq
