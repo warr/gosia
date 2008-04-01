@@ -2,7 +2,7 @@
 C----------------------------------------------------------------------
 C FUNCTION GETQ
 C
-C Called by: 
+C Called by: LAISUM
 C
 C Purpose: to retrieve the collision functions from the QFUNC common block,
 C that were set using the subroutine SETQ.

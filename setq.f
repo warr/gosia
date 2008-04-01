@@ -2,7 +2,7 @@
 C----------------------------------------------------------------------
 C SUBROUTINE SETQ
 C
-C Called by: 
+C Called by: SNAKE
 C
 C Purpose: to store the collision functions in the QFUNC common block, so
 C that they can be retrieved by the function GETQ.
