@@ -225,7 +225,7 @@ C     Initialise NSTART and NSTOP arrays
                QAPR(jjj,2,jj) = 0.
             ENDDO
          ENDDO
-         DO i = 1 , 8
+         DO i = 1 , 8 ! Zero pointers for each multipolarity in ZETA array
             LZETA(i) = 0
          ENDDO
          DO i1 = 1 , LAMMAX
