@@ -216,7 +216,7 @@ C     Initialise NSTART and NSTOP arrays
       ENDDO
 
       ISMAX = is - 1
-      IF ( ISMAX.LE.LP10 ) THEN
+      IF ( ISMAX.LE.LP10 ) THEN ! LP10 is max. no. reduced. mat. elements (600)
          IF ( Ient.EQ.3 ) RETURN
          nz = 0
          DO jj = 1 , 7
@@ -225,9 +225,12 @@ C     Initialise NSTART and NSTOP arrays
                QAPR(jjj,2,jj) = 0.
             ENDDO
          ENDDO
-         DO i = 1 , 8 ! Zero pointers for each multipolarity in ZETA array
+
+C        Initialise pointers to ZETA array
+         DO i = 1 , 8
             LZETA(i) = 0
          ENDDO
+
          DO i1 = 1 , LAMMAX
             lam = LAMDA(i1)
             IF ( Icg.NE.2 .OR. lam.LE.6 ) THEN
@@ -253,7 +256,8 @@ C     Initialise NSTART and NSTOP arrays
                   GOTO 10
                ENDIF
             ENDIF
-         ENDDO
+         ENDDO ! Loop over multipolarity
+          
          IF ( nz.GT.LP7 ) THEN
             WRITE (22,99001) LP7
 99001       FORMAT (1x,
