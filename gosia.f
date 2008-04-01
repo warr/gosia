@@ -669,43 +669,24 @@ C        Treat OP,YIEL
 C        Treat OP,INTG
          ELSEIF ( op2.EQ.'INTG' ) THEN
             GOTO 3400
+C        Treat OP,CORR
+         ELSEIF ( op2.EQ.'CORR' ) THEN
+            GOTO 3500
+C        Treat OP,POIN
+         ELSEIF ( op2.EQ.'POIN') THEN
+            GOTO 3600
+C        Treat OP,STAR
+         ELSEIF ( op2.EQ.'STAR' ) THEN
+            GOTO 3600
+C        Treat OP,SIXJ
+         ELSEIF ( op2.EQ.'SIXJ' ) THEN
+            GOTO 3700
 C        Treat other options
          ELSE
 
 
-C           Treat OP,CORR
-            IF ( op2.EQ.'CORR' ) THEN
-               CALL READY(idr,ntap,0)
-               REWIND 3
-               REWIND 15
-               REWIND 4
-               GOTO 1200 ! End of OP,CORR
-C           Treat OP,POIN
-            ELSEIF ( op2.EQ.'POIN') THEN
-               GOTO 1200
-C           Treat OP,STAR
-            ELSEIF ( op2.EQ.'STAR' ) THEN
-               GOTO 1200
-C           Treat OP,SIXJ
-            ELSEIF ( op2.EQ.'SIXJ' ) THEN
-               DO k = 1 , 2
-                  l = 4*k
-                  DO j = 1 , 80
-                     ixj = j - 1
-                     DO ms = 1 , 5
-                        mend = 2*(ms-3) + ixj
-                        WRITE (14,*) WSIXJ(l,4,4,ixj,mend,ixj-4) , 
-     &                         WSIXJ(l,4,4,ixj,mend,ixj-2) , 
-     &                         WSIXJ(l,4,4,ixj,mend,ixj) , 
-     &                         WSIXJ(l,4,4,ixj,mend,ixj+2) , 
-     &                         WSIXJ(l,4,4,ixj,mend,ixj+4)
-                     ENDDO
-                  ENDDO
-               ENDDO
-               GOTO 2000 ! End of OP,SIXJ
-
 C           Treat OP,RAW (raw uncorrected gamma yields)
-            ELSEIF ( op2.EQ.'RAW ' ) THEN
+            IF ( op2.EQ.'RAW ' ) THEN
 C              Read absorber coefficients from unit 8
                REWIND 8
                DO l = 1 , 8
@@ -755,7 +736,7 @@ C              Read input from standard input
 C           Treat OP,MAP
             ELSEIF ( op2.EQ.'MAP ' ) THEN
                iobl = 1
-               GOTO 1200 ! End of OP,MAP 
+               GOTO 3600 ! End of OP,MAP 
             ENDIF ! OPs: ERRO, RE,C, TITL, GOSI, COUL, EXIT, MINI, THEO, YIEL, INTG, CORR, POIN, MAP, STAR, SIXJ, RAW, MAP
          ENDIF ! OPs GDET, TROU, REST, RE,A, RE,F
       ENDIF ! End of if (op1.eq."OP, ") if statement
@@ -960,293 +941,6 @@ C     Handle OP,ERRO
       ENDIF
       GOTO 600
 
- 1200 CALL CMLAB(0,dsig,ttttt) ! Options MAP, STAR, POINT, MINI etc.
-      IF ( ERR ) GOTO 2000
-      IF ( op2.EQ.'POIN' ) READ * , ifwd , slim
-      ient = 1
-      icg = 1
-      IF ( SPIN(1).LT.1.E-6 ) ISO = 0
-      IF ( iobl.LT.1 ) THEN
-         IF ( op2.NE.'GOSI' ) THEN
-            iapx = 0
-            DO ii = 1 , LP6
-               ILE(ii) = 1
-            ENDDO
-            nch = 0
-            DO jexp = 1 , NEXPT
-               IEXP = jexp
-               ttttt = TREP(IEXP)
-               dsig = DSIGS(IEXP)
-               IF ( op2.NE.'STAR' ) THEN
-                  jmm = IEXP
-                  IF ( IEXP.NE.1 ) THEN
-                     DO lli = 1 , LP6
-                        ILE(lli) = ILE(lli) + NYLDE(IEXP-1,lli)
-                     ENDDO
-                  ENDIF
-               ENDIF
-               fi0 = FIEX(IEXP,1)
-               fi1 = FIEX(IEXP,2)
-               CALL LOAD(IEXP,1,icg,0.D0,jj)
-               CALL ALLOC(ACCUR)
-               CALL SNAKE(IEXP,ZPOL)
-               CALL SETIN
-               DO j = 1 , LMAX
-                  polm = DBLE(j-1) - SPIN(1)
-                  CALL LOAD(IEXP,2,icg,polm,jj)
-                  CALL STING(jj)
-                  CALL PATH(jj)
-                  CALL INTG(IEXP)
-                  CALL TENB(j,bten,LMAX)
-                  pr = 0.
-                  IF ( op2.EQ.'STAR' .OR. IPRM(19).EQ.1 )
-     &                 WRITE (22,99034) (DBLE(j)-1.-SPIN(1)) , IEXP
-99034             FORMAT (1X//40X,'EXCITATION AMPLITUDES'//10X,'M=',
-     &                    1F5.1,5X,'EXPERIMENT',1X,1I2//5X,'LEVEL',2X,
-     &                    'SPIN',2X,'M',5X,'REAL AMPLITUDE',2X,
-     &                    'IMAGINARY AMPLITUDE'//)
-                  DO k = 1 , ISMAX
-                     pr = pr + DBLE(ARM(k,5))**2 + IMAG(ARM(k,5))**2
-                     IF ( op2.EQ.'STAR' .OR. IPRM(19).EQ.1 )
-     &                    WRITE (22,99035) INT(CAT(k,1)) , CAT(k,2) , 
-     &                    CAT(k,3) , DBLE(ARM(k,5)) , IMAG(ARM(k,5))
-99035                FORMAT (7X,1I2,3X,1F4.1,2X,1F5.1,2X,1E14.6,2X,
-     &                       1E14.6)
-                  ENDDO
-                  IF ( op2.EQ.'STAR' .OR. IPRM(19).EQ.1 )
-     &                 WRITE (22,99036) pr
-99036             FORMAT (1X/5X,'SUM OF PROBABILITIES=',1E14.6)
-               ENDDO
-               CALL TENS(bten)
-               IF ( itno.NE.0 ) THEN ! write statistical tensors on tape 17
-                  DO k = 2 , NMAX
-                     WRITE (17,*) k
-                     DO kk = 1 , 4
-                        in1 = (k-1)*28 + 1 + (kk-1)*7
-                        in2 = in1 + 2*kk - 2
-                        WRITE (17,*) (ZETA(kkk),kkk=in1,in2)
-                     ENDDO
-                  ENDDO
-               ENDIF
-               summm = 0.
-               DO jgl = 2 , NMAX
-                  loct = (jgl-1)*28 + 1
-                  summm = summm + ZETA(loct)
-               ENDDO
-               pop1 = 1. - summm
-               jgl = 1
-               IF ( op2.EQ.'STAR' .OR. IPRM(19).EQ.1 ) WRITE (22,99053)
-     &              jgl , pop1
-               DO jgl = 2 , NMAX
-                  loct = (jgl-1)*28 + 1
-                  IF ( op2.EQ.'STAR' .OR. IPRM(19).EQ.1 )
-     &                 WRITE (22,99053) jgl , ZETA(loct)
-               ENDDO
-               IF ( op2.NE.'STAR' ) THEN
-                  CALL DECAY(ccd,0,ccc)
-                  nogeli = NANG(IEXP)
-                  jgl1 = 0
-                  DO js = 1 , LP2
-                     DO jgl = 1 , 20
-                        SUMCL(jgl,js) = 0.
-                     ENDDO
-                  ENDDO
-                  DO jgl = 1 , nogeli
-                     IF ( IRAWEX(IEXP).NE.0 ) THEN
-                        IF ( op2.EQ.'POIN' .AND. IPRM(20).EQ.1 )
-     &                       WRITE (23,99037) IEXP , jgl , EP(IEXP) , 
-     &                       TLBDG(IEXP)
-99037                   FORMAT (1x//50x,'CALCULATED YIELDS'//5x,
-     &                          'EXPERIMENT ',1I2,2x,'DETECTOR ',1I2/5x,
-     &                          'ENERGY ',1F10.3,1x,'MEV',2x,'THETA ',
-     &                          1F7.3,1x,'DEG'//5x,'NI',5x,'NF',5x,'II',
-     &                          5x,'IF',5x,'E(MeV)',5x,'EFFICIENCY'/)
-                     ENDIF
-                     gth = AGELI(IEXP,jgl,1)
-                     figl = AGELI(IEXP,jgl,2)
-                     fm = (fi0+fi1)/2.
-                     CALL ANGULA(YGN,idr,1,fi0,fi1,ttttt,gth,figl,jgl)
-                     IF ( IFMO.NE.0 ) THEN
-                        id = ITMA(IEXP,jgl)
-                        d = ODL(id)
-                        rx = d*SIN(gth)*COS(figl-fm) - .25*SIN(ttttt)
-     &                       *COS(fm)
-                        ry = d*SIN(gth)*SIN(figl-fm) - .25*SIN(ttttt)
-     &                       *SIN(fm)
-                        rz = d*COS(gth) - .25*COS(ttttt)
-                        rl = SQRT(rx*rx+ry*ry+rz*rz)
-                        thc = TACOS(rz/rl)
-                        sf = d*d/rl/rl
-                        fic = ATAN2(ry,rx)
-                        CALL ANGULA(YGP,idr,1,fi0,fi1,ttttt,thc,fic,jgl)
-                        DO ixl = 1 , idr
-                           ixm = KSEQ(ixl,3)
-                           tfac = TAU(ixm)
-                           YGN(ixl) = YGN(ixl)
-     &                                + .01199182*tfac*BETAR(IEXP)
-     &                                *(sf*YGP(ixl)-YGN(ixl))
-                        ENDDO
-                     ENDIF
-                     IF ( IRAWEX(IEXP).NE.0 ) THEN
-                        ipd = ITMA(IEXP,jgl)
-                        DO jyi = 1 , idr
-                           ni = KSEQ(jyi,3)
-                           nf = KSEQ(jyi,4)
-                           decen = EN(ni) - EN(nf)
-                           cocos = SIN(ttttt)*SIN(gth)*COS(fm-figl)
-     &                             + COS(ttttt)*COS(gth)
-                           decen = decen*(1.+BETAR(IEXP)*cocos)
-                           CALL EFFIX(ipd,decen,effi)
-                           IF ( op2.EQ.'POIN' .AND. IPRM(20).EQ.1 )
-     &                          WRITE (23,99049) ni , nf , SPIN(ni) , 
-     &                                 SPIN(nf) , decen , effi
-                           YGN(jyi) = YGN(jyi)*effi
-                        ENDDO
-                        inclus = ICLUST(IEXP,jgl)
-                        IF ( inclus.NE.0 ) THEN
-                           DO jyi = 1 , idr
-                              SUMCL(inclus,jyi) = SUMCL(inclus,jyi)
-     &                           + YGN(jyi)
-                           ENDDO
-                           IF ( jgl.NE.LASTCL(IEXP,inclus) ) GOTO 1205
-                           DO jyi = 1 , idr
-                              YGN(jyi) = SUMCL(inclus,jyi)
-                           ENDDO
-                        ENDIF
-                     ENDIF
-                     jgl1 = jgl1 + 1
-                     lu = ILE(jgl1)
-                     IF ( op2.EQ.'POIN' .OR. IPRM(11).EQ.1 )
-     &                    WRITE (22,99048) IEXP , jgl1 , EP(IEXP) , 
-     &                    TLBDG(IEXP)
-                     jmm = 0
-                     ttttx = TLBDG(IEXP)/57.2957795
-                     YGN(IDRN) = YGN(IDRN)*dsig*SIN(ttttx)
-                     DO jyi = 1 , idr
-                        IF ( jyi.NE.IDRN ) YGN(jyi) = YGN(jyi)
-     &                       *dsig*SIN(ttttx)
-                     ENDDO
-                     DO jyi = 1 , idr
-                        ni = KSEQ(jyi,3)
-                        nf = KSEQ(jyi,4)
-                        IF ( op2.EQ.'POIN' .OR. IPRM(11).EQ.1 )
-     &                       WRITE (22,99049) ni , nf , SPIN(ni) , 
-     &                       SPIN(nf) , YGN(jyi) , YGN(jyi)/YGN(IDRN)
-                        IF ( ifwd.EQ.1 ) THEN
-                           IF ( (YGN(jyi)/YGN(IDRN)).GE.slim ) THEN
-                              IF ( jgl1.EQ.1 ) sh1 = YGN(IDRN)
-                              jmm = jmm + 1
-                              CORF(jmm,1) = DBLE(ni)
-                              CORF(jmm,2) = DBLE(nf)
-                              CORF(jmm,3) = YGN(jyi)/sh1
-                              IF ( YGN(jyi).GE.YGN(IDRN) ) CORF(jmm,4)
-     &                             = CORF(jmm,3)/20.
-                              IF ( YGN(jyi).LT.YGN(IDRN) ) CORF(jmm,4)
-     &                             = CORF(jmm,3)
-     &                             *(.05+.2*(1.-YGN(jyi)/YGN(IDRN)))
-                           ENDIF
-                        ENDIF
-                        IF ( op2.EQ.'CORR' ) THEN
-                           READ (15,*) yydd
-                           nch = nch + 1
-                           jjjj = IY(lu,jgl1)/1000
-                           jyi1 = IY(lu,jgl1) - jjjj*1000
-                           IF ( IY(lu,jgl1).EQ.jyi .OR. jjjj.EQ.jyi .OR. 
-     &                          jyi1.EQ.jyi ) THEN
-                              IF ( IY(lu,jgl1).GE.1000 ) THEN
-                                 jyi2 = jyi1 - jjjj
-                                 IF ( jyi2.LE.0 ) GOTO 1202
-                                 DO ihuj = 1 , jyi2
-                                    READ (15,*) yyd1
-                                 ENDDO
-                                 yydd = yydd + yyd1
-                                 YGN(jyi) = YGN(jyi) + YGN(jyi1)
-                                 REWIND 15
-                                 DO ihuj = 1 , nch
-                                    READ (15,*) yyd1
-                                 ENDDO
-                              ENDIF
-                              IF ( IEXP.EQ.1 .AND. lu.EQ.NYLDE(1,1)
-     &                             .AND. jgl1.EQ.1 )
-     &                             cnst = yydd/YGN(jyi)
-                              CORF(lu,jgl1) = YEXP(jgl1,lu)
-                              YEXP(jgl1,lu) = YEXP(jgl1,lu)
-     &                           /yydd*YGN(jyi)
-                              DYEX(jgl1,lu) = DYEX(jgl1,lu)
-     &                           /yydd*YGN(jyi)
-                              lu = lu + 1
-                           ENDIF
-                        ENDIF
- 1202                ENDDO
-                     IF ( ifwd.EQ.1 ) THEN
-                        xw = 1.
-                        WRITE (4,*) IEXP , jgl1 , ABS(IZ1(IEXP)) , 
-     &                              ABS(XA1(IEXP)) , ABS(EP(IEXP)) , 
-     &                              jmm , xw
-                        DO jyi = 1 , jmm
-                           WRITE (4,*) INT(CORF(jyi,1)) , 
-     &                                 INT(CORF(jyi,2)) , CORF(jyi,3) , 
-     &                                 CORF(jyi,4)
-                        ENDDO
-                     ENDIF
- 1205             ENDDO
-                  IF ( op2.EQ.'CORR' ) THEN
-                     jgl1 = 0
-                     DO jgl = 1 , nogeli
-                        IF ( IRAWEX(jexp).NE.0 ) THEN
-                           inclus = ICLUST(jexp,jgl)
-                           IF ( inclus.NE.0 ) THEN
-                              IF ( jgl.NE.LASTCL(jexp,inclus) )
-     &                             GOTO 1206
-                           ENDIF
-                        ENDIF
-                        jgl1 = jgl1 + 1
-                        READ (3,*) ne , na , zp , ap , xep , nval , waga
-                        WRITE (4,*) ne , na , zp , ap , EP(IEXP) , 
-     &                              nval , waga
-                        WRITE (22,99038) IEXP , jgl1
-99038                   FORMAT (///10X,'EXPERIMENT',1X,I2,8X,'DETECTOR',
-     &                          1X,I2,//9X,'NI',5X,'NF',5X,'YEXP',8X,
-     &                          'YCOR',8X,'COR.F'/)
-                        ile1 = ILE(jgl1)
-                        DO itp = 1 , nval
-                           READ (3,*) ns1 , ns2 , fiex1(1,1,1) , 
-     &                                fiex1(1,1,2)
-                           ltrn = IY(ile1+itp-1,jgl1)
-                           IF ( ltrn.LT.1000 ) THEN
-                              ns1 = KSEQ(ltrn,3)
-                              ns2 = KSEQ(ltrn,4)
-                           ELSE
-                              ltrn1 = ltrn/1000
-                              ns1 = KSEQ(ltrn1,3)*100
-                              ns2 = KSEQ(ltrn1,4)*100
-                              ltrn2 = ltrn - ltrn1*1000
-                              ns1 = ns1 + KSEQ(ltrn2,3)
-                              ns2 = ns2 + KSEQ(ltrn2,4)
-                           ENDIF
-                           ycorr = YEXP(jgl1,ile1+itp-1)*cnst
-                           WRITE (4,*) ns1 , ns2 , ycorr , 
-     &                                 DYEX(jgl1,ile1+itp-1)*cnst
-                           WRITE (22,99039) ns1 , ns2 , 
-     &                            CORF(ile1+itp-1,jgl1) , ycorr , 
-     &                            ycorr/CORF(ile1+itp-1,jgl1)
-99039                      FORMAT (5X,I4,5X,I4,3X,E8.3,4X,E8.3,4X,E8.3)
-                        ENDDO ! Loop over itp
- 1206                ENDDO ! Loop over jgl
-                  ENDIF ! if ( op2.EQ. 'CORR')
-               ENDIF
-            ENDDO ! Loop over jexp
-            IF ( op2.EQ.'STAR' ) oph = op2
-            IF ( op2.NE.'STAR' ) THEN
-               IF ( op2.EQ.'CORR' ) THEN
-                  ntap = 4
-                  CALL READY(idr,ntap,ipri)
-                  REWIND ntap
-               ENDIF
-            ENDIF
-            GOTO 100
-         ENDIF ! if (op2 .NE. 'GOSI') if statement
-      ENDIF ! if ( iobl.LT.1 ) if statement
 
  1300 IF ( iobl.GE.1 ) THEN ! OP,ERRO
          ient = 1
@@ -2119,7 +1813,7 @@ C Treat OP,MINI
       op2 = opcja
       IMIN = IMIN + 1
       IF ( IMIN.NE.1 ) GOTO 1400
-      GOTO 1200 ! End of OP,MINI
+      GOTO 3600 ! End of OP,MINI
       
 C---------------------------------------------------------------------
 C Treat OP,THEO
@@ -2622,6 +2316,322 @@ C                    Interpolate cross-section at this energy
          ENDDO
       ENDIF
       GOTO 100 ! End of OP,INTG
+
+C---------------------------------------------------------------------
+C Treat OP,CORR
+ 3500 CALL READY(idr,ntap,0)
+      REWIND 3
+      REWIND 15
+      REWIND 4
+      GOTO 3600 ! End of OP,CORR
+
+C---------------------------------------------------------------------
+C Treat OP,POIN, OP,STAR, OP,MAP, OP,MINI and OP,CORR
+ 3600 CALL CMLAB(0,dsig,ttttt)
+      IF ( ERR ) GOTO 2000
+      IF ( op2.EQ.'POIN' ) READ * , ifwd , slim
+      ient = 1
+      icg = 1
+      IF ( SPIN(1).LT.1.E-6 ) ISO = 0
+      IF ( iobl.LT.1 ) THEN
+         IF ( op2.NE.'GOSI' ) THEN
+            iapx = 0
+            DO ii = 1 , LP6
+               ILE(ii) = 1
+            ENDDO
+            nch = 0
+            DO jexp = 1 , NEXPT
+               IEXP = jexp
+               ttttt = TREP(IEXP)
+               dsig = DSIGS(IEXP)
+               IF ( op2.NE.'STAR' ) THEN
+                  jmm = IEXP
+                  IF ( IEXP.NE.1 ) THEN
+                     DO lli = 1 , LP6
+                        ILE(lli) = ILE(lli) + NYLDE(IEXP-1,lli)
+                     ENDDO
+                  ENDIF
+               ENDIF
+               fi0 = FIEX(IEXP,1)
+               fi1 = FIEX(IEXP,2)
+               CALL LOAD(IEXP,1,icg,0.D0,jj)
+               CALL ALLOC(ACCUR)
+               CALL SNAKE(IEXP,ZPOL)
+               CALL SETIN
+               DO j = 1 , LMAX
+                  polm = DBLE(j-1) - SPIN(1)
+                  CALL LOAD(IEXP,2,icg,polm,jj)
+                  CALL STING(jj)
+                  CALL PATH(jj)
+                  CALL INTG(IEXP)
+                  CALL TENB(j,bten,LMAX)
+                  pr = 0.
+                  IF ( op2.EQ.'STAR' .OR. IPRM(19).EQ.1 )
+     &                 WRITE (22,99034) (DBLE(j)-1.-SPIN(1)) , IEXP
+99034             FORMAT (1X//40X,'EXCITATION AMPLITUDES'//10X,'M=',
+     &                    1F5.1,5X,'EXPERIMENT',1X,1I2//5X,'LEVEL',2X,
+     &                    'SPIN',2X,'M',5X,'REAL AMPLITUDE',2X,
+     &                    'IMAGINARY AMPLITUDE'//)
+                  DO k = 1 , ISMAX
+                     pr = pr + DBLE(ARM(k,5))**2 + IMAG(ARM(k,5))**2
+                     IF ( op2.EQ.'STAR' .OR. IPRM(19).EQ.1 )
+     &                    WRITE (22,99035) INT(CAT(k,1)) , CAT(k,2) , 
+     &                    CAT(k,3) , DBLE(ARM(k,5)) , IMAG(ARM(k,5))
+99035                FORMAT (7X,1I2,3X,1F4.1,2X,1F5.1,2X,1E14.6,2X,
+     &                       1E14.6)
+                  ENDDO
+                  IF ( op2.EQ.'STAR' .OR. IPRM(19).EQ.1 )
+     &                 WRITE (22,99036) pr
+99036             FORMAT (1X/5X,'SUM OF PROBABILITIES=',1E14.6)
+               ENDDO
+               CALL TENS(bten)
+               IF ( itno.NE.0 ) THEN ! write statistical tensors on tape 17
+                  DO k = 2 , NMAX
+                     WRITE (17,*) k
+                     DO kk = 1 , 4
+                        in1 = (k-1)*28 + 1 + (kk-1)*7
+                        in2 = in1 + 2*kk - 2
+                        WRITE (17,*) (ZETA(kkk),kkk=in1,in2)
+                     ENDDO
+                  ENDDO
+               ENDIF
+               summm = 0.
+               DO jgl = 2 , NMAX
+                  loct = (jgl-1)*28 + 1
+                  summm = summm + ZETA(loct)
+               ENDDO
+               pop1 = 1. - summm
+               jgl = 1
+               IF ( op2.EQ.'STAR' .OR. IPRM(19).EQ.1 ) WRITE (22,99053)
+     &              jgl , pop1
+               DO jgl = 2 , NMAX
+                  loct = (jgl-1)*28 + 1
+                  IF ( op2.EQ.'STAR' .OR. IPRM(19).EQ.1 )
+     &                 WRITE (22,99053) jgl , ZETA(loct)
+               ENDDO
+               IF ( op2.NE.'STAR' ) THEN
+                  CALL DECAY(ccd,0,ccc)
+                  nogeli = NANG(IEXP)
+                  jgl1 = 0
+                  DO js = 1 , LP2
+                     DO jgl = 1 , 20
+                        SUMCL(jgl,js) = 0.
+                     ENDDO
+                  ENDDO
+                  DO jgl = 1 , nogeli
+                     IF ( IRAWEX(IEXP).NE.0 ) THEN
+                        IF ( op2.EQ.'POIN' .AND. IPRM(20).EQ.1 )
+     &                       WRITE (23,99037) IEXP , jgl , EP(IEXP) , 
+     &                       TLBDG(IEXP)
+99037                   FORMAT (1x//50x,'CALCULATED YIELDS'//5x,
+     &                          'EXPERIMENT ',1I2,2x,'DETECTOR ',1I2/5x,
+     &                          'ENERGY ',1F10.3,1x,'MEV',2x,'THETA ',
+     &                          1F7.3,1x,'DEG'//5x,'NI',5x,'NF',5x,'II',
+     &                          5x,'IF',5x,'E(MeV)',5x,'EFFICIENCY'/)
+                     ENDIF
+                     gth = AGELI(IEXP,jgl,1)
+                     figl = AGELI(IEXP,jgl,2)
+                     fm = (fi0+fi1)/2.
+                     CALL ANGULA(YGN,idr,1,fi0,fi1,ttttt,gth,figl,jgl)
+                     IF ( IFMO.NE.0 ) THEN
+                        id = ITMA(IEXP,jgl)
+                        d = ODL(id)
+                        rx = d*SIN(gth)*COS(figl-fm) - .25*SIN(ttttt)
+     &                       *COS(fm)
+                        ry = d*SIN(gth)*SIN(figl-fm) - .25*SIN(ttttt)
+     &                       *SIN(fm)
+                        rz = d*COS(gth) - .25*COS(ttttt)
+                        rl = SQRT(rx*rx+ry*ry+rz*rz)
+                        thc = TACOS(rz/rl)
+                        sf = d*d/rl/rl
+                        fic = ATAN2(ry,rx)
+                        CALL ANGULA(YGP,idr,1,fi0,fi1,ttttt,thc,fic,jgl)
+                        DO ixl = 1 , idr
+                           ixm = KSEQ(ixl,3)
+                           tfac = TAU(ixm)
+                           YGN(ixl) = YGN(ixl)
+     &                                + .01199182*tfac*BETAR(IEXP)
+     &                                *(sf*YGP(ixl)-YGN(ixl))
+                        ENDDO
+                     ENDIF
+                     IF ( IRAWEX(IEXP).NE.0 ) THEN
+                        ipd = ITMA(IEXP,jgl)
+                        DO jyi = 1 , idr
+                           ni = KSEQ(jyi,3)
+                           nf = KSEQ(jyi,4)
+                           decen = EN(ni) - EN(nf)
+                           cocos = SIN(ttttt)*SIN(gth)*COS(fm-figl)
+     &                             + COS(ttttt)*COS(gth)
+                           decen = decen*(1.+BETAR(IEXP)*cocos)
+                           CALL EFFIX(ipd,decen,effi)
+                           IF ( op2.EQ.'POIN' .AND. IPRM(20).EQ.1 )
+     &                          WRITE (23,99049) ni , nf , SPIN(ni) , 
+     &                                 SPIN(nf) , decen , effi
+                           YGN(jyi) = YGN(jyi)*effi
+                        ENDDO
+                        inclus = ICLUST(IEXP,jgl)
+                        IF ( inclus.NE.0 ) THEN
+                           DO jyi = 1 , idr
+                              SUMCL(inclus,jyi) = SUMCL(inclus,jyi)
+     &                           + YGN(jyi)
+                           ENDDO
+                           IF ( jgl.NE.LASTCL(IEXP,inclus) ) GOTO 1205
+                           DO jyi = 1 , idr
+                              YGN(jyi) = SUMCL(inclus,jyi)
+                           ENDDO
+                        ENDIF
+                     ENDIF
+                     jgl1 = jgl1 + 1
+                     lu = ILE(jgl1)
+                     IF ( op2.EQ.'POIN' .OR. IPRM(11).EQ.1 )
+     &                    WRITE (22,99048) IEXP , jgl1 , EP(IEXP) , 
+     &                    TLBDG(IEXP)
+                     jmm = 0
+                     ttttx = TLBDG(IEXP)/57.2957795
+                     YGN(IDRN) = YGN(IDRN)*dsig*SIN(ttttx)
+                     DO jyi = 1 , idr
+                        IF ( jyi.NE.IDRN ) YGN(jyi) = YGN(jyi)
+     &                       *dsig*SIN(ttttx)
+                     ENDDO
+                     DO jyi = 1 , idr
+                        ni = KSEQ(jyi,3)
+                        nf = KSEQ(jyi,4)
+                        IF ( op2.EQ.'POIN' .OR. IPRM(11).EQ.1 )
+     &                       WRITE (22,99049) ni , nf , SPIN(ni) , 
+     &                       SPIN(nf) , YGN(jyi) , YGN(jyi)/YGN(IDRN)
+                        IF ( ifwd.EQ.1 ) THEN
+                           IF ( (YGN(jyi)/YGN(IDRN)).GE.slim ) THEN
+                              IF ( jgl1.EQ.1 ) sh1 = YGN(IDRN)
+                              jmm = jmm + 1
+                              CORF(jmm,1) = DBLE(ni)
+                              CORF(jmm,2) = DBLE(nf)
+                              CORF(jmm,3) = YGN(jyi)/sh1
+                              IF ( YGN(jyi).GE.YGN(IDRN) ) CORF(jmm,4)
+     &                             = CORF(jmm,3)/20.
+                              IF ( YGN(jyi).LT.YGN(IDRN) ) CORF(jmm,4)
+     &                             = CORF(jmm,3)
+     &                             *(.05+.2*(1.-YGN(jyi)/YGN(IDRN)))
+                           ENDIF
+                        ENDIF
+                        IF ( op2.EQ.'CORR' ) THEN
+                           READ (15,*) yydd
+                           nch = nch + 1
+                           jjjj = IY(lu,jgl1)/1000
+                           jyi1 = IY(lu,jgl1) - jjjj*1000
+                           IF ( IY(lu,jgl1).EQ.jyi .OR. jjjj.EQ.jyi .OR. 
+     &                          jyi1.EQ.jyi ) THEN
+                              IF ( IY(lu,jgl1).GE.1000 ) THEN
+                                 jyi2 = jyi1 - jjjj
+                                 IF ( jyi2.LE.0 ) GOTO 1202
+                                 DO ihuj = 1 , jyi2
+                                    READ (15,*) yyd1
+                                 ENDDO
+                                 yydd = yydd + yyd1
+                                 YGN(jyi) = YGN(jyi) + YGN(jyi1)
+                                 REWIND 15
+                                 DO ihuj = 1 , nch
+                                    READ (15,*) yyd1
+                                 ENDDO
+                              ENDIF
+                              IF ( IEXP.EQ.1 .AND. lu.EQ.NYLDE(1,1)
+     &                             .AND. jgl1.EQ.1 )
+     &                             cnst = yydd/YGN(jyi)
+                              CORF(lu,jgl1) = YEXP(jgl1,lu)
+                              YEXP(jgl1,lu) = YEXP(jgl1,lu)
+     &                           /yydd*YGN(jyi)
+                              DYEX(jgl1,lu) = DYEX(jgl1,lu)
+     &                           /yydd*YGN(jyi)
+                              lu = lu + 1
+                           ENDIF
+                        ENDIF
+ 1202                ENDDO
+                     IF ( ifwd.EQ.1 ) THEN
+                        xw = 1.
+                        WRITE (4,*) IEXP , jgl1 , ABS(IZ1(IEXP)) , 
+     &                              ABS(XA1(IEXP)) , ABS(EP(IEXP)) , 
+     &                              jmm , xw
+                        DO jyi = 1 , jmm
+                           WRITE (4,*) INT(CORF(jyi,1)) , 
+     &                                 INT(CORF(jyi,2)) , CORF(jyi,3) , 
+     &                                 CORF(jyi,4)
+                        ENDDO
+                     ENDIF
+ 1205             ENDDO
+                  IF ( op2.EQ.'CORR' ) THEN
+                     jgl1 = 0
+                     DO jgl = 1 , nogeli
+                        IF ( IRAWEX(jexp).NE.0 ) THEN
+                           inclus = ICLUST(jexp,jgl)
+                           IF ( inclus.NE.0 ) THEN
+                              IF ( jgl.NE.LASTCL(jexp,inclus) )
+     &                             GOTO 1206
+                           ENDIF
+                        ENDIF
+                        jgl1 = jgl1 + 1
+                        READ (3,*) ne , na , zp , ap , xep , nval , waga
+                        WRITE (4,*) ne , na , zp , ap , EP(IEXP) , 
+     &                              nval , waga
+                        WRITE (22,99038) IEXP , jgl1
+99038                   FORMAT (///10X,'EXPERIMENT',1X,I2,8X,'DETECTOR',
+     &                          1X,I2,//9X,'NI',5X,'NF',5X,'YEXP',8X,
+     &                          'YCOR',8X,'COR.F'/)
+                        ile1 = ILE(jgl1)
+                        DO itp = 1 , nval
+                           READ (3,*) ns1 , ns2 , fiex1(1,1,1) , 
+     &                                fiex1(1,1,2)
+                           ltrn = IY(ile1+itp-1,jgl1)
+                           IF ( ltrn.LT.1000 ) THEN
+                              ns1 = KSEQ(ltrn,3)
+                              ns2 = KSEQ(ltrn,4)
+                           ELSE
+                              ltrn1 = ltrn/1000
+                              ns1 = KSEQ(ltrn1,3)*100
+                              ns2 = KSEQ(ltrn1,4)*100
+                              ltrn2 = ltrn - ltrn1*1000
+                              ns1 = ns1 + KSEQ(ltrn2,3)
+                              ns2 = ns2 + KSEQ(ltrn2,4)
+                           ENDIF
+                           ycorr = YEXP(jgl1,ile1+itp-1)*cnst
+                           WRITE (4,*) ns1 , ns2 , ycorr , 
+     &                                 DYEX(jgl1,ile1+itp-1)*cnst
+                           WRITE (22,99039) ns1 , ns2 , 
+     &                            CORF(ile1+itp-1,jgl1) , ycorr , 
+     &                            ycorr/CORF(ile1+itp-1,jgl1)
+99039                      FORMAT (5X,I4,5X,I4,3X,E8.3,4X,E8.3,4X,E8.3)
+                        ENDDO ! Loop over itp
+ 1206                ENDDO ! Loop over jgl
+                  ENDIF ! if ( op2.EQ. 'CORR')
+               ENDIF
+            ENDDO ! Loop over jexp
+            IF ( op2.EQ.'STAR' ) oph = op2
+            IF ( op2.NE.'STAR' ) THEN
+               IF ( op2.EQ.'CORR' ) THEN
+                  ntap = 4
+                  CALL READY(idr,ntap,ipri)
+                  REWIND ntap
+               ENDIF
+            ENDIF
+            GOTO 100
+         ENDIF ! if (op2 .NE. 'GOSI') if statement
+      ENDIF ! if ( iobl.LT.1 ) if statement
+
+C---------------------------------------------------------------------
+C Treat OP,SIXJ
+ 3700 DO k = 1 , 2
+         l = 4*k
+         DO j = 1 , 80
+            ixj = j - 1
+            DO ms = 1 , 5
+               mend = 2*(ms-3) + ixj
+               WRITE (14,*) WSIXJ(l,4,4,ixj,mend,ixj-4) , 
+     &                WSIXJ(l,4,4,ixj,mend,ixj-2) , 
+     &                WSIXJ(l,4,4,ixj,mend,ixj) , 
+     &                WSIXJ(l,4,4,ixj,mend,ixj+2) , 
+     &                WSIXJ(l,4,4,ixj,mend,ixj+4)
+            ENDDO
+         ENDDO
+      ENDDO
+      GOTO 2000 ! End of OP,SIXJ
 
 C---------------------------------------------------------------------
  1900 IF ( ITS.NE.0 ) THEN
