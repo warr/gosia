@@ -55,6 +55,7 @@ OBJS += fxis1.o
 OBJS += fxis2.o
 OBJS += gamatt.o
 OBJS += gcf.o
+OBJS += getq.o
 OBJS += gf.o
 OBJS += gkk.o
 OBJS += gkvac.o
@@ -97,6 +98,7 @@ OBJS += rndm.o
 OBJS += rotate.o
 OBJS += seq.o
 OBJS += setin.o
+OBJS += setq.o
 OBJS += simin.o
 OBJS += sixel.o
 OBJS += snake.o
@@ -147,5 +149,5 @@ single_file:
 	simin.f mixup.f fxis1.f fxis2.f podziel.f klopot.f \
 	mixr.f coord.f chmem.f pticc.f rndm.f kontur.f rk4.f \
 	qfit.f gamatt.f gcf.f tcexp.f tcabs.f tasin.f tacos.f \
-	openf.f effix.f adhoc.f elmt.f > $(SINGLE_FILE)
+	openf.f effix.f adhoc.f elmt.f getq.f setq.f > $(SINGLE_FILE)
 

@@ -3,7 +3,7 @@ C----------------------------------------------------------------------
 C SUBROUTINE LAISUM
 C
 C Called by: AMPDER, STING
-C Calls:     FAZA
+C Calls:     FAZA, GETQ
 C
 C Purpose: evaluate the sum  over matrix elements.
 C
@@ -19,8 +19,6 @@ C      ISO    -
 C      ISSTAR -
 C      ISSTO  -
 C      KDIV   -
-C      LOCQ   - location of collision functions in ZETA array
-C      LP7    - start of collision functions in ZETA (45100)
 C      MSTORE -
 C      NDIV   -
 C      NPT    -
@@ -46,19 +44,18 @@ C
 C EXPO is exp(i * xi * sinh(w) + w) calculated in function EXPON.
 C ARM is the reduced matrix element.
 C q is the Qe or Qm calculated by the functions QE and QM, respectively and
-C stored in ZETA array in the function SNAKE.
+C stored by calling SETQ from the function SNAKE.
 C z is the coupling parameter zeta, calculated in the function LSLOOP.
       
       SUBROUTINE LAISUM(Ir,N,Rsg,Lam,Ld,Nz,I57)
       IMPLICIT NONE
       REAL*8 ACCA , ACCUR , CAT , D2W , DIPOL , ELM , ELML , ELMU , EN , 
      &       q , rmir , rmis , rmu , Rsg , SA , SPIN , z , ZETA , ZPOL
-      INTEGER*4 i2 , i3 , I57 , iii , indq , indx , Ir , irs , is , 
+      REAL*8 GETQ
+      INTEGER*4 i2 , i3 , I57 , iii , indx , Ir , irs , is , 
      &          is1 , is2 , ISG , ISG1 , ISHA , ISMAX , ismin , ISO , 
      &          isplus , ISSTAR , ISSTO
-      INTEGER*4 KDIV , la , Lam , LAMR , Ld , LOCQ , LP1 , LP10 , LP11 , 
-     &          LP12 , LP13 , LP14 , LP2 , LP3 , LP4 , LP6 , LP7 , LP8 , 
-     &          LP9 , LZETA
+      INTEGER*4 KDIV , la , Lam , LAMR , Ld , LZETA
       INTEGER*4 m , mrange , MSTORE , mua , N , NDIV , NPT , NSTART , 
      &          NSTOP , NSW , Nz
       COMPLEX*16 ARM , FAZA , pamp , EXPO , pamp1
@@ -71,11 +68,8 @@ C z is the coupling parameter zeta, calculated in the function LSLOOP.
       COMMON /PINT  / ISSTAR(76) , ISSTO(75) , MSTORE(2,75)
       COMMON /ADBXI / EXPO(500)
       COMMON /CCOUP / ZETA(50000) , LZETA(8)
-      COMMON /MGN   / LP1 , LP2 , LP3 , LP4 , LP6 , LP7 , LP8 , LP9 , 
-     &                LP10 , LP11 , LP12 , LP13 , LP14
       COMMON /CLCOM8/ CAT(600,3) , ISMAX
       COMMON /COMME / ELM(500) , ELMU(500) , ELML(500) , SA(500)
-      COMMON /ALLC  / LOCQ(8,7)
       COMMON /CEXC0 / NSTART(76) , NSTOP(75)
       
       rmir = CAT(Ir,3)
@@ -106,13 +100,14 @@ C z is the coupling parameter zeta, calculated in the function LSLOOP.
                      rmu = rmis - rmir
                      mua = ABS(rmu) + 1.1
                      IF ( la.LE.6 .OR. mua.NE.1 ) THEN
-                        indq = LOCQ(Lam,mua) + NPT
                         Nz = Nz + 1
-                        z = ZETA(Nz)         ! Zeta
-                        q = ZETA(indq+LP7)   ! Q-function
-                        IF ( NDIV.NE.0 ) q = ZETA(indq+LP7) + DBLE(KDIV)
-     &                       *(ZETA(indq+LP7+ISG1)-ZETA(indq+LP7))
-     &                       /DBLE(NDIV)
+                        z = ZETA(Nz)              ! Zeta
+                        q = GETQ(NPT, Lam, mua)   ! Q-function
+                        IF ( NDIV.NE.0 ) q = GETQ(NPT + ISG1, Lam, mua)
+     &                    +DBLE(KDIV)
+     &                    *(GETQ(NPT+ISG1, Lam, mua)-
+     &                    GETQ(NPT, Lam, mua))
+     &                    /DBLE(NDIV)
                         pamp1 = FAZA(la,mua,rmu,Rsg)*q*z
                         IF ( ISO.NE.0 .OR. rmir.LE..1 ) THEN
                            pamp = pamp1*ARM(is,I57) + pamp

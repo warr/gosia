@@ -1,9 +1,14 @@
-ampder
-------
-ampder.f:         nz = LZETA(lam)
+------------------------------------------------------------------------------
+ampder.f
+--------
 
-angula
-------
+ampder.f:         nz = LZETA(lam)
+This is an index into ZETA, which is used by LAISUM.
+
+------------------------------------------------------------------------------
+angula.f
+--------
+
                         il = (nlv-1)*28 ! Number of level
                         is = iu + kq
                         ig = is + il
@@ -11,11 +16,17 @@ angula.f:               at(is) = ZETA(ig)*f(j)
   This seems to be near the beginning of ZETA. It looks like il is an index
   for the level and is for the sub state.
 
-decay
------
+------------------------------------------------------------------------------
+decay.f
+-------
+
 decay.f:                  ZETA(lc2) = ZETA(lc2) + gk(i)*vcd*ZETA(lc1)
 decay.f:                  ZETA(lc1) = ZETA(lc1)*vcd
    This seems to be similar to the use in ANGULA.
+
+------------------------------------------------------------------------------
+ftbm.f
+------
 
 ftbm.f:         ZETA(i1) = 0.
 ftbm.f:            ZETA(k) = 0.
@@ -35,6 +46,10 @@ ftbm.f:                                 val = 2.*ELM(lm)*ZETA(inzz)/ZETA(inzzz)
 ftbm.f:                              ZETA(izzz) = 0.
 ftbm.f:                     READ (14,*) (ZETA(i11),i11=LP8,loch)
 
+------------------------------------------------------------------------------
+gosia.f
+-------
+
 gosia.f:                                    YV(jtp) = ZETA(jyv)
 gosia.f:                                 ZETA(locat) = SIMIN(npct1,het,XI)
 gosia.f:                                 YV(jtp) = ZETA(jyv)
@@ -51,26 +66,65 @@ gosia.f:                           q2 = q2/ZETA(jd)
 gosia.f:99041             FORMAT (1X/30X,'E',1I1,8X,'MI=0',5X,'MAX.ZETA=',
 gosia.f:     &                       'MAX.ZETA=',1F6.3//)
 
+------------------------------------------------------------------------------
+klopot.f
+--------
+
 klopot.f:      ZETA(loc) = (VINF(iexh)*g1+TLBDG(iexh)*g2)/VINF(iexh)/VINF(iexh)
 klopot.f:         u = dy*EP(iexp)*b + a*ZETA(loc)/b
+
+------------------------------------------------------------------------------
+laiamp.f
+--------
 
 laiamp.f:         nz = LZETA(lam)
 laiamp.f:                           z = ZETA(nz)
     Here nz starts at 0 for lam = 2 (E2) and 128 for lam = 7 (M2)
 
+------------------------------------------------------------------------------
+laisum.f
+--------
+
 laisum.f:                        z = ZETA(Nz)         ! Zeta
+
+------------------------------------------------------------------------------
+load.f
+------
 
 load.f:            LZETA(i) = 0
 load.f:               LZETA(la) = nz
 load.f:     &              'ERROR - NUMBER OF ELEMENTS IN ZETA ARRAY EXCEEDS',
 
+------------------------------------------------------------------------------
+lsloop.f
+--------
+
 lsloop.f:                              ZETA(Nz) = phz*PSI(indx) ! This is really zeta
 lsloop.f:                                    QAPR(indx,1,inqa) = ZETA(Nz)
 
+------------------------------------------------------------------------------
+sting.f
+-------
+
 sting.f:                  nz = LZETA(lam)
+This is an index into ZETA, which is used by LAISUM.
+
+------------------------------------------------------------------------------
+tapma.f
+-------
 
 tapma.f:         READ (14,*) lx1 , Enb , tta , ng1 , DS , (ZETA(k),k=js,jf)
+
+As we are not using LZETA to index, I don't think this is the real zeta.
+
+
+------------------------------------------------------------------------------
+tens.f
+------
 
 tens.f:         ZETA(i) = 0.
 tens.f:               ZETA(inz) = Bten(ind)
 tens.f:                        ZETA(inz) = ZETA(inz) + Bten(ind)
+
+As we are not using LZETA to index, I don't think this is the real zeta.
+
