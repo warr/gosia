@@ -20,7 +20,7 @@ C Return value:
 C      Q-function value
 C
 C The index is Iomega + LOCQ(lambda, mu), where icnt is an index to the
-C appropriate value of omega.
+C appropriate value of omega. The steps of omega are in 0.03.
 
       REAL*8 FUNCTION GETQ(Iomega, Lambda, Mu)
 
