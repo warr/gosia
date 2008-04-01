@@ -21,6 +21,8 @@ decay.f:                  ZETA(lc1) = ZETA(lc1)*vcd
 ftbm.f
 ------
 
+We zero ZETA from 1 to  NDIM*MEMAX+LP11 at the beginning.
+
 ftbm.f:         ZETA(i1) = 0.
 ftbm.f:            ZETA(k) = 0.
 ftbm.f:                              ZETA(loc) = ZETA(loc) + fc*DBLE(ARM(kx,5))
@@ -39,6 +41,9 @@ ftbm.f:                                 val = 2.*ELM(lm)*ZETA(inzz)/ZETA(inzzz)
 ftbm.f:                              ZETA(izzz) = 0.
 ftbm.f:                     READ (14,*) (ZETA(i11),i11=LP8,loch)
 
+LP8 = 104, LP9 = 47900, LP11 = 103 and LP13 = 47901, so this doesn't look
+like the real ZETA.
+
 ------------------------------------------------------------------------------
 gosia.f
 -------
@@ -46,9 +51,15 @@ gosia.f
 gosia.f:                                    YV(jtp) = ZETA(jyv)
 gosia.f:                                 ZETA(locat) = SIMIN(npct1,het,XI)
 gosia.f:                                 YV(jtp) = ZETA(jyv)
+
+This is the ZETA read from unit 14 in TAPMA.
+
 gosia.f:                        WRITE (17,*) (ZETA(kkk),kkk=in1,in2)
 gosia.f:                  summm = summm + ZETA(loct)
 gosia.f:     &                 WRITE (22,99053) jgl , ZETA(loct)
+
+This is is the ZETA calculated in TENS, which it writes here to unit 17.
+
 gosia.f:                        ZETA(jk) = 0.
 gosia.f:                           ZETA(jd) = sz2*jz
 gosia.f:                           IF ( jd.EQ.1 .AND. MAGA(IEXP).NE.0 ) ZETA(jd)
@@ -57,7 +68,12 @@ gosia.f:                           IF ( ZETA(jd).GE..1 ) INTERV(IEXP) = intvh
 gosia.f: 1304                      q1 = q1/ZETA(jd)/2.
 gosia.f:                           q2 = q2/ZETA(jd)
 gosia.f:99041             FORMAT (1X/30X,'E',1I1,8X,'MI=0',5X,'MAX.ZETA=',
+
+Used in in OP,ERRO
+
 gosia.f:     &                       'MAX.ZETA=',1F6.3//)
+
+Used in OP,MAP
 
 ------------------------------------------------------------------------------
 klopot.f
