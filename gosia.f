@@ -639,21 +639,18 @@ C        Treat OP,RE,A (release A)
 C        Treat OP,RE,F (release F)
          ELSEIF ( op2.EQ.'RE,F' ) THEN
             GOTO 2500
+C        Treat OP,RE,C (release C)
+         ELSEIF ( op2.EQ.'RE,C' ) THEN
+            GOTO 2600
+C        Treat OP,ERRO (calculate errors)
+         ELSEIF ( op2.EQ.'ERRO' ) THEN
+            GOTO 2700
 C        Treat other options
          ELSE
 
 
-C           Treat OP,ERRO (calculate errors)
-            IF ( op2.EQ.'ERRO' ) THEN
-              GOTO 2600
-C           Treat OP,RE,C (release C)
-            ELSEIF ( op2.EQ.'RE,C' ) THEN
-               jfre = 1
-               irfix = 0
-               GOTO 1000 ! End of OP,RE,C
-
 C           Treat OP,TITL (title)
-            ELSEIF ( op2.EQ.'TITL' ) THEN
+            IF ( op2.EQ.'TITL' ) THEN
                READ 99009 , (title(k),k=1,20)
 99009          FORMAT (20A4)
                WRITE (22,99010) (title(k),k=1,20)
@@ -2539,8 +2536,14 @@ C Treat OP,RE,A and OP,RE,F
       GOTO 100 ! End of OP,RE,A and OP,RE,F
 
 C---------------------------------------------------------------------
+C Treat OP,RE,C
+ 2600 jfre = 1
+      irfix = 0
+      GOTO 1000 ! End of OP,RE,C
+
+C---------------------------------------------------------------------
 C Treat OP,ERRO
- 2600 READ * , idf , ms , mend , irep , ifc , remax
+ 2700 READ * , idf , ms , mend , irep , ifc , remax
       rem = LOG(remax)
       LOCKS = 0
       LOCKF = 0
