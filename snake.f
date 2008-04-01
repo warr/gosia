@@ -11,7 +11,6 @@ C Uses global variables:
 C      CH     - table of cosh values
 C      EPS    - epsilon
 C      EROOT  - sqrt(epsilon^2 -1)
-C      LOCQ   - location of collision function in ZETA array
 C      SH     - table of sinh values
 C      ZETA   - various coefficients (here the collision functions)
 C
@@ -24,8 +23,6 @@ C we call QRANGE to determine the range over which we need to calculate them.
 C
 C The results are stored by calling the subroutine SETQ.
 C
-C LOCQ (in ALLC) is used as an index to these values.
-C
 C EROOT is set in CMLAB to \sqrt(\epsilon^2 - 1).
 C
 C Note that when we call QE and QM that lmda = 1...6 for E1...6 and 7,8 for
@@ -37,12 +34,11 @@ C M1, M2.
      &       chi , cq , d , d2 , d3 , d4 , d5 , d6 , EPS
       REAL*8 EROOT , ert , FIEX , pol , SH , shi , ZETA , Zpol
       INTEGER*4 IAXS , ibm , icm , icnt , idm , IEXP , irl , j , k , 
-     &          lloc , lmd , lmda , LOCQ
-      INTEGER*4 LZETA , mimx , Nexp , nind , nlm
+     &          lloc , lmd , lmda
+      INTEGER*4 LZETA , mimx , Nexp , nlm
       DIMENSION lloc(8) , cq(7) , irl(8)
       COMMON /KIN   / EPS(50) , EROOT(50) , FIEX(50,2) , IEXP , IAXS(50)
       COMMON /CCOUP / ZETA(50000) , LZETA(8)
-      COMMON /ALLC  / LOCQ(8,7)
       COMMON /HIPER / SH(365) , CH(365)
       
       icnt = 0
@@ -106,16 +102,14 @@ C     Calculate some parameters, which we will pass to QE or QM
             CALL QM(c,d,b2,b4,ert,lmda,cq)
             mimx = lmda
             DO k = 1 , mimx
-               nind = LOCQ(lmd,k) + icnt
-               CALL SETQ(nind, cq(k)) ! These are the collision functions
+               CALL SETQ(icnt, lmd, k, cq(k)) ! These are the collision functions
             ENDDO
          ELSE
             CALL QE(c,d,b2,c2,d2,b4,b6,d3,b8,c4,d4,b10,d5,b12,d6,lmda,
      &              pol,cq)
             mimx = lmda + 1
             DO k = 1 , mimx
-               nind = LOCQ(lmda,k) + icnt
-               CALL SETQ(nind, cq(k)) ! These are the collision functions
+               CALL SETQ(icnt, lmda, k, cq(k)) ! These are the collision functions
             ENDDO
          ENDIF
       ENDDO
