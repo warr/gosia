@@ -5,7 +5,7 @@ C
 C Called by: AMPDER, STING
 C Calls:     FAZA, GETQ
 C
-C Purpose: evaluate the sum  over matrix elements.
+C Purpose: evaluate the sum over matrix elements.
 C
 C Uses global variables:
 C      ARM    - reduced matrix elements
