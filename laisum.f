@@ -34,7 +34,7 @@ C      N      -
 C      Rsg    -
 C      Lam    - multipolarity
 C      Ld     -
-C      Nz     -
+C      Nz     - index into ZETA array for this multipolarity
 C      I57    - switch which is either 5 or 7.
 C
 C   \sum_{lmn} \zeta^{lm}_{kn} . M^(1)_{kn} f_{lm}(\omega) a_n(\omega)
