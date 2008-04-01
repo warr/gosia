@@ -681,64 +681,13 @@ C        Treat OP,STAR
 C        Treat OP,SIXJ
          ELSEIF ( op2.EQ.'SIXJ' ) THEN
             GOTO 3700
-C        Treat other options
-         ELSE
-
-
-C           Treat OP,RAW (raw uncorrected gamma yields)
-            IF ( op2.EQ.'RAW ' ) THEN
-C              Read absorber coefficients from unit 8
-               REWIND 8
-               DO l = 1 , 8
-                  READ (8,*) (ABC(l,j),j=1,10) ! Absorption coefficients
-                  DO j = 1 , 10
-                     ABC(l,j) = LOG(ABC(l,j))
-                  ENDDO
-               ENDDO
-               DO l = 1 , nfd
-                  READ (8,*) (THICK(l,j),j=1,7) ! thickness of absorbers
-               ENDDO
-               DO l = 1 , LP1 ! LP1 = 50
-                  DO j = 1 , 200
-                     ICLUST(l,j) = 0
-                  ENDDO
-                  DO j = 1 , 20
-                     LASTCL(l,j) = 0
-                  ENDDO
-                  IRAWEX(l) = 0
-               ENDDO
-
-C              Read input from standard input
-               DO l = 1 , LP1 ! LP1 = 50
-                  READ * , mexl ! experiment number
-                  IF ( mexl.EQ.0 ) GOTO 100
-                  IRAWEX(mexl) = 1
-                  n = NANG(mexl)
-                  DO j = 1 , n
-                     jj = ITMA(mexl,j)
-                     READ * , (AKAVKA(k,jj),k=1,8) ! efficiency curve parameters
-                  ENDDO
-                  READ * , kclust ! number of clusters
-                  IF ( kclust.NE.0 ) THEN
-                     DO j = 1 , kclust
-                        READ * , numcl ! Number of detectors for this cluster
-                        READ * , (liscl(k),k=1,numcl) ! Indices of logical detectors
-                        LASTCL(l,j) = liscl(numcl)
-                        DO k = 1 , numcl
-                           kk = liscl(k)
-                           ICLUST(l,kk) = j
-                        ENDDO
-                     ENDDO
-                  ENDIF
-               ENDDO
-               GOTO 100 ! End of OP,RAW
-
-C           Treat OP,MAP
-            ELSEIF ( op2.EQ.'MAP ' ) THEN
-               iobl = 1
-               GOTO 3600 ! End of OP,MAP 
-            ENDIF ! OPs: ERRO, RE,C, TITL, GOSI, COUL, EXIT, MINI, THEO, YIEL, INTG, CORR, POIN, MAP, STAR, SIXJ, RAW, MAP
-         ENDIF ! OPs GDET, TROU, REST, RE,A, RE,F
+C        Treat OP,RAW (raw uncorrected gamma yields)
+         ELSEIF ( op2.EQ.'RAW ' ) THEN
+            GOTO 3800
+C        Treat OP,MAP
+         ELSEIF ( op2.EQ.'MAP ' ) THEN
+            GOTO 3900
+         ENDIF ! Options
       ENDIF ! End of if (op1.eq."OP, ") if statement
 
       WRITE (22,99022) op1 , op2
@@ -2632,6 +2581,58 @@ C Treat OP,SIXJ
          ENDDO
       ENDDO
       GOTO 2000 ! End of OP,SIXJ
+
+C---------------------------------------------------------------------
+C Treat OP,RAW
+ 3800 REWIND 8 ! Read absorber coefficients from unit 8
+      DO l = 1 , 8
+         READ (8,*) (ABC(l,j),j=1,10) ! Absorption coefficients
+         DO j = 1 , 10
+            ABC(l,j) = LOG(ABC(l,j))
+         ENDDO
+      ENDDO
+      DO l = 1 , nfd
+         READ (8,*) (THICK(l,j),j=1,7) ! thickness of absorbers
+      ENDDO
+      DO l = 1 , LP1 ! LP1 = 50
+         DO j = 1 , 200
+            ICLUST(l,j) = 0
+         ENDDO
+         DO j = 1 , 20
+            LASTCL(l,j) = 0
+         ENDDO
+         IRAWEX(l) = 0
+      ENDDO
+
+C     Read input from standard input
+      DO l = 1 , LP1 ! LP1 = 50
+         READ * , mexl ! experiment number
+         IF ( mexl.EQ.0 ) GOTO 100
+         IRAWEX(mexl) = 1
+         n = NANG(mexl)
+         DO j = 1 , n
+            jj = ITMA(mexl,j)
+            READ * , (AKAVKA(k,jj),k=1,8) ! efficiency curve parameters
+         ENDDO
+         READ * , kclust ! number of clusters
+         IF ( kclust.NE.0 ) THEN
+            DO j = 1 , kclust
+               READ * , numcl ! Number of detectors for this cluster
+               READ * , (liscl(k),k=1,numcl) ! Indices of logical detectors
+               LASTCL(l,j) = liscl(numcl)
+               DO k = 1 , numcl
+                  kk = liscl(k)
+                  ICLUST(l,kk) = j
+               ENDDO
+            ENDDO
+         ENDIF
+      ENDDO
+      GOTO 100 ! End of OP,RAW
+
+C---------------------------------------------------------------------
+C Treat OP,MAP
+ 3900 iobl = 1
+      GOTO 3600 ! End of OP,MAP 
 
 C---------------------------------------------------------------------
  1900 IF ( ITS.NE.0 ) THEN
