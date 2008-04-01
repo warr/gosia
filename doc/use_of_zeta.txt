@@ -1,11 +1,4 @@
 ------------------------------------------------------------------------------
-ampder.f
---------
-
-ampder.f:         nz = LZETA(lam)
-This is an index into ZETA, which is used by LAISUM.
-
-------------------------------------------------------------------------------
 angula.f
 --------
 
@@ -80,12 +73,15 @@ laiamp.f
 laiamp.f:         nz = LZETA(lam)
 laiamp.f:                           z = ZETA(nz)
     Here nz starts at 0 for lam = 2 (E2) and 128 for lam = 7 (M2)
+    Since we are using LZETA to index, this must be the real ZETA.
 
 ------------------------------------------------------------------------------
 laisum.f
 --------
 
 laisum.f:                        z = ZETA(Nz)         ! Zeta
+
+This is the real ZETA.
 
 ------------------------------------------------------------------------------
 load.f
@@ -95,6 +91,8 @@ load.f:            LZETA(i) = 0
 load.f:               LZETA(la) = nz
 load.f:     &              'ERROR - NUMBER OF ELEMENTS IN ZETA ARRAY EXCEEDS',
 
+LZETA are pointers to the real ZETA for each multipolarity.
+
 ------------------------------------------------------------------------------
 lsloop.f
 --------
@@ -102,12 +100,7 @@ lsloop.f
 lsloop.f:                              ZETA(Nz) = phz*PSI(indx) ! This is really zeta
 lsloop.f:                                    QAPR(indx,1,inqa) = ZETA(Nz)
 
-------------------------------------------------------------------------------
-sting.f
--------
-
-sting.f:                  nz = LZETA(lam)
-This is an index into ZETA, which is used by LAISUM.
+This is the real ZETA
 
 ------------------------------------------------------------------------------
 tapma.f
