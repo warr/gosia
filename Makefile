@@ -12,6 +12,7 @@ FC=g77
 # and then using a gives this warning, but in fact a is always set to
 # something
 #FFLAGS = -g -Wall
+FFLAGS += -fbounds-check
 
 # Turn on optimisation
 FFLAGS += -O2 -funroll-loops
