@@ -3,7 +3,7 @@ C----------------------------------------------------------------------
 C SUBROUTINE SNAKE
 C
 C Called by: FTBM, GOSIA
-C Calls:     QE, QM, QRANGE
+C Calls:     QE, QM, QRANGE, SETQ
 C
 C Purpose: evaluate and store the dimensionless collision functions Qe and Qm.
 C
