@@ -654,92 +654,18 @@ C        Treat OP,GOSI
 C        Treat OP,COUL
          ELSEIF ( op2.EQ.'COUL' ) THEN
             GOTO 2900
+C        Treat OP,EXIT
+         ELSEIF ( op2.EQ.'EXIT' ) THEN
+            GOTO 3000
+C        Treat OP,MINI
+         ELSEIF ( op2.EQ.'MINI' ) THEN
+            GOTO 3100
 C        Treat other options
          ELSE
 
 
-C           Treat OP,EXIT
-            IF ( op2.EQ.'EXIT' ) THEN
-               IF ( IPRM(18).NE.0 ) CALL PTICC(idr)
-               IF ( oph.EQ.'GOSI' ) THEN
-                  IF ( lfagg.NE.1 ) THEN
-                     IF ( IMIN.NE.0 ) THEN
-                        IF ( IPRM(4).EQ.-1 ) IPRM(4) = 111111
-                        iskok = IPRM(7) + IPRM(8) + IPRM(13)
-     &                          + IPRM(14)
-                        IF ( iskok.NE.0 .OR. IPRM(4).NE.111111 ) THEN
-                           IF ( iskok.NE.0 ) THEN
-                              IF ( IPRM(7).EQ.1 ) IPRM(7) = -1
-                              IF ( IPRM(8).EQ.1 ) IPRM(8) = -1
-                              IF ( IPRM(3).EQ.1 .AND. NBRA.NE.0 )
-     &                             IPRM(3) = -1
-                              IF ( IPRM(13).EQ.1 ) IPRM(13) = -1
-                              IF ( IPRM(14).EQ.1 ) IPRM(14) = -1
-                           ENDIF
-                           CALL MINI(chisq,chiok,+1,conu,2000,idr,
-     &                               xtest,2,0,0,bten)
-                        ENDIF
-                     ENDIF
-                     CALL MIXR(iva,1,chisq,chilo)
-                     IF ( IPRM(15).NE.0 .AND. KFERR.NE.1 .AND. 
-     &                    iyr.NE.0 ) THEN
-                        WRITE (22,99011)
-99011                   FORMAT (1X//20X,'CALCULATED LIFETIMES'//5X,
-     &                          'LEVEL',5X,'LIFETIME(PSEC)',5X,'EXP',
-     &                          8X,'ERROR'/)
-                        DO iva = 2 , NMAX
-                           DO iva1 = 1 , 10
-                              IF ( LIFCT(iva1).EQ.iva ) GOTO 122
-                           ENDDO
-                           WRITE (22,99012) iva , TAU(iva)
-99012                      FORMAT (7X,1I2,7X,1E10.4)
-                           GOTO 124
- 122                       WRITE (22,99013) iva , TAU(iva) , 
-     &                            TIMEL(1,iva1) , TIMEL(2,iva1)
-99013                      FORMAT (7X,1I2,7X,1E10.4,5X,1E10.4,4X,
-     &                             1E10.4)
- 124                       IF ( iva.EQ.NMAX ) THEN
-                              IF ( NAMX.GE.1 ) THEN
-                                 WRITE (22,99014)
-99014                            FORMAT (5x,//,
-     &                  'CALCULATED AND EXPERIMENTAL MATRIX ELEMENTS'
-     &                  ,//)
-                                 WRITE (22,99015)
-99015                            FORMAT (5x,'NI ','NF ',
-     &                              ' EXP. ME   ','CURRENT ME',
-     &                              '   SIGMA')
-                                 DO kq = 1 , NAMX
-                                    ni = IAMY(kq,1)
-                                    nf = IAMY(kq,2)
-                                    ind = IAMX(kq)
-                                    ess = ELM(ind)
-                                    esd = EAMX(kq,1)
-                                    dsd = EAMX(kq,2)
-                                    WRITE (22,99016) ni , nf , esd , 
-     &                                 ess , (ess-esd)/dsd
-99016                               FORMAT (5x,1I2,1x,1I2,1x,1F9.4,
-     &                                 1x,1F9.4,1x,1F9.4)
-                                 ENDDO
-                              ENDIF
-                           ENDIF
-                        ENDDO
-                     ENDIF
-                     IF ( IMIN.NE.0 ) CALL PRELM(3)
-                  ENDIF
-               ENDIF
-               GOTO 1900 ! End of OP,EXIT
-
-C           Treat OP,MINI
-            ELSEIF ( op2.EQ.'MINI' ) THEN
-               READ * , imode , nptl , chiok , conu , xtest , LOCKF , 
-     &              NLOCK , IFBFL , LOCKS , DLOCK
-               op2 = opcja
-               IMIN = IMIN + 1
-               IF ( IMIN.NE.1 ) GOTO 1400
-               GOTO 1200 ! End of OP,MINI
-
 C           Treat OP,THEO
-            ELSEIF ( op2.EQ.'THEO' ) THEN
+            IF ( op2.EQ.'THEO' ) THEN
                REWIND (12)
                ibaf = 1
                DO jb = 1 , LP1 ! LP1 = 50
@@ -2608,6 +2534,86 @@ C     Else we don't recognize the suboption
       ENDIF
       GOTO 2900 ! Get next suboption
 
+C---------------------------------------------------------------------
+C Treat OP,EXIT
+ 3000 IF ( IPRM(18).NE.0 ) CALL PTICC(idr)
+      IF ( oph.EQ.'GOSI' ) THEN
+         IF ( lfagg.NE.1 ) THEN
+            IF ( IMIN.NE.0 ) THEN
+               IF ( IPRM(4).EQ.-1 ) IPRM(4) = 111111
+               iskok = IPRM(7) + IPRM(8) + IPRM(13)
+     &                 + IPRM(14)
+               IF ( iskok.NE.0 .OR. IPRM(4).NE.111111 ) THEN
+                  IF ( iskok.NE.0 ) THEN
+                     IF ( IPRM(7).EQ.1 ) IPRM(7) = -1
+                     IF ( IPRM(8).EQ.1 ) IPRM(8) = -1
+                     IF ( IPRM(3).EQ.1 .AND. NBRA.NE.0 )
+     &                    IPRM(3) = -1
+                     IF ( IPRM(13).EQ.1 ) IPRM(13) = -1
+                     IF ( IPRM(14).EQ.1 ) IPRM(14) = -1
+                  ENDIF
+                  CALL MINI(chisq,chiok,+1,conu,2000,idr,
+     &                      xtest,2,0,0,bten)
+               ENDIF
+            ENDIF
+            CALL MIXR(iva,1,chisq,chilo)
+            IF ( IPRM(15).NE.0 .AND. KFERR.NE.1 .AND. 
+     &           iyr.NE.0 ) THEN
+               WRITE (22,99011)
+99011          FORMAT (1X//20X,'CALCULATED LIFETIMES'//5X,
+     &                 'LEVEL',5X,'LIFETIME(PSEC)',5X,'EXP',
+     &                 8X,'ERROR'/)
+               DO iva = 2 , NMAX
+                  DO iva1 = 1 , 10
+                     IF ( LIFCT(iva1).EQ.iva ) GOTO 122
+                  ENDDO
+                  WRITE (22,99012) iva , TAU(iva)
+99012             FORMAT (7X,1I2,7X,1E10.4)
+                  GOTO 124
+ 122              WRITE (22,99013) iva , TAU(iva) , 
+     &                   TIMEL(1,iva1) , TIMEL(2,iva1)
+99013             FORMAT (7X,1I2,7X,1E10.4,5X,1E10.4,4X,
+     &                    1E10.4)
+ 124              IF ( iva.EQ.NMAX ) THEN
+                     IF ( NAMX.GE.1 ) THEN
+                        WRITE (22,99014)
+99014                   FORMAT (5x,//,
+     &         'CALCULATED AND EXPERIMENTAL MATRIX ELEMENTS'
+     &         ,//)
+                        WRITE (22,99015)
+99015                   FORMAT (5x,'NI ','NF ',
+     &                     ' EXP. ME   ','CURRENT ME',
+     &                     '   SIGMA')
+                        DO kq = 1 , NAMX
+                           ni = IAMY(kq,1)
+                           nf = IAMY(kq,2)
+                           ind = IAMX(kq)
+                           ess = ELM(ind)
+                           esd = EAMX(kq,1)
+                           dsd = EAMX(kq,2)
+                           WRITE (22,99016) ni , nf , esd , 
+     &                        ess , (ess-esd)/dsd
+99016                      FORMAT (5x,1I2,1x,1I2,1x,1F9.4,
+     &                        1x,1F9.4,1x,1F9.4)
+                        ENDDO
+                     ENDIF
+                  ENDIF
+               ENDDO
+            ENDIF
+            IF ( IMIN.NE.0 ) CALL PRELM(3)
+         ENDIF
+      ENDIF
+      GOTO 1900 ! End of OP,EXIT
+
+C---------------------------------------------------------------------
+C Treat OP,MINI
+ 3100 READ * , imode , nptl , chiok , conu , xtest , LOCKF , 
+     &     NLOCK , IFBFL , LOCKS , DLOCK
+      op2 = opcja
+      IMIN = IMIN + 1
+      IF ( IMIN.NE.1 ) GOTO 1400
+      GOTO 1200 ! End of OP,MINI
+      
 C---------------------------------------------------------------------
  1900 IF ( ITS.NE.0 ) THEN
          iva = 0
