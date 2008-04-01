@@ -2593,7 +2593,7 @@ C     Handle map
          WRITE (18,*) iva , iva , iva , chisq
          IF ( ITS.NE.2 ) THEN
             WRITE (15,*) iva , chisq , chisq , chisq , chisq
-            CALL KLOPOT(kmat,rlr)
+            CALL KLOPOT(kmat,rlr) ! Troubleshooting
          ENDIF
       ENDIF
  2000 WRITE (22,99047)
