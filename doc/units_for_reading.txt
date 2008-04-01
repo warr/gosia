@@ -1,0 +1,113 @@
+adhoc.f
+-------
+Only reads from stdin.
+
+ftbm.f
+------
+Only reads from unit 14.
+
+gosia.f
+-------
+gosia.f: 100  READ 99001 , op1 , op2
+gosia.f:            READ * , nfdd ! number of physical detectors
+gosia.f:               READ * , (DIX(k),k=1,4) ! radius of core, outer radius, length, distance
+gosia.f:               READ * , (xl1(k),k=1,nl) ! thicknesses of 7 kinds of absorber
+gosia.f:            READ * , SE ! Seed for random number generator
+gosia.f:            READ * , kmat , rlr
+gosia.f:               READ (12,*) ELM(lkj)
+gosia.f:               READ * , lkj1 , xlk
+gosia.f:               READ * , idf , ms , mend , irep , ifc , remax
+gosia.f:                  READ (15,*) (DEVD(kh1),DEVU(kh1),kh1=1,MEMAX)
+gosia.f:               READ 99009 , (title(k),k=1,20)
+gosia.f:                  READ * , imode , nptl , chiok , conu , xtest , LOCKF , 
+gosia.f:                  READ * , nbands ! Number of bands
+gosia.f:                     READ * , bk , ilevls ! K of band, number of levels in band
+gosia.f:                     READ * , (levl(ib),ib=1,ilevls) ! Level list for band
+gosia.f:                     READ * , nnl ! Multipolarity
+gosia.f:                     READ * , jb1 , jb2 ! band indices
+gosia.f:                        READ * , (bm(nnl,jb1,jb2,j),j=1,3) ! intrinsic moments
+gosia.f:                           READ * , ne , ntt , emn , emx , wth , wph , 
+gosia.f:                           READ * , ne , ntt , emn , emx , tmn , tmx
+gosia.f:                        READ * , (XV(i),i=1,ne)
+gosia.f:                        IF ( iecd(lx).NE.1 ) READ * , (YV(i),i=1,ntt)
+gosia.f:                                       READ * , nfi
+gosia.f:                                       READ * , 
+gosia.f:                        READ (17,*,END=134) jjlx , jmpin , jkloo , 
+gosia.f:                     READ * , nptx ! Number of meshpoints for stopping powers
+gosia.f:                        READ * , (esp(i),i=1,nptx) ! Energy
+gosia.f:                        READ * , (dedx(i),i=1,nptx) ! Stopping power
+gosia.f:                     READ * , npce , npct
+gosia.f:                        READ (14,*) ne , ntt , emn , emx , tmn , tmx , 
+gosia.f:                           IF ( mfla.EQ.1 ) READ * , (pfi(j),j=1,npct1)
+gosia.f:                                    READ (15,*) xx
+gosia.f:                                 READ (15,*) xx
+gosia.f:                           READ (17,*) (GRAD(jdy),jdy=1,idr)
+gosia.f:                        READ (8,*) (ABC(l,j),j=1,10) ! Absorption coefficients
+gosia.f:                        READ (8,*) (THICK(l,j),j=1,7) ! thickness of absorbers
+gosia.f:                        READ * , mexl ! experiment number
+gosia.f:                           READ * , (AKAVKA(k,jj),k=1,8) ! efficiency curve parameters
+gosia.f:                        READ * , kclust ! number of clusters
+gosia.f:                              READ * , numcl ! Number of detectors for this cluster
+gosia.f:                              READ * , (liscl(k),k=1,numcl) ! Indices of logical detectors
+gosia.f: 200  READ 99023 , op1 ! Read the suboption
+gosia.f:           READ * , ipo1 , ipo2 , po2 , po1 ! leve number, parity, spin, energy
+gosia.f:               READ * , ipo1 , ipo2 , po1 , bl , bu ! lamda, 0, 0, 0, 0 OR ind1, ind2, me, lo, hi
+gosia.f:               READ * , ipo1 , ipo2 , po1 ! lambda, 0, 0 OR ind1, ind2, me
+gosia.f: 350     READ 99026 , op1 , fipo1
+gosia.f:               READ * , ipo2 , ijx
+gosia.f:                  READ * , ijx , val
+gosia.f:                     READ * , inm1 , inm2
+gosia.f:                        READ * , ijx
+gosia.f: 352                    READ * , lck1 , lck2
+gosia.f:                              READ * , ipo2
+gosia.f:                                 READ (*,*) ig1 , ig2
+gosia.f:            READ * , nallow
+gosia.f:               READ * , ijk
+gosia.f:         READ * , NEXPT , IZ , XA
+gosia.f:            READ * , IZ1(k) , XA1(k) , EP(k) , TLBDG(k) , EMMA(k) , 
+gosia.f:            READ (11) (CORF(kh1,kh2),kh2=1,LP6)
+gosia.f:         READ (3,*) ll , mm , kk , inn
+gosia.f:            READ (3,*) mm , yyy , zz
+gosia.f:            READ (3,*) mm , ll , kk
+gosia.f:            READ (3,*) mm , yyy
+gosia.f: 450     READ (3,*) mm , ll
+gosia.f:            READ (3,*) kk , ll , yyy
+gosia.f:            READ (3,*) (SA(mm),mm=1,MEMAX)
+gosia.f:            READ (17,*) ELM(lkj)
+gosia.f:      IF ( irea.EQ.1 ) READ * , ms , mend
+gosia.f:                  READ (18,*) (KVAR(jyi),jyi=1,MEMAX)
+gosia.f:      IF ( op2.EQ.'POIN' ) READ * , ifwd , slim
+gosia.f:                           READ (15,*) yydd
+gosia.f:                                    READ (15,*) yyd1
+gosia.f:                                    READ (15,*) yyd1
+gosia.f:                        READ (3,*) ne , na , zp , ap , xep , nval , waga
+gosia.f:                           READ (3,*) ns1 , ns2 , fiex1(1,1,1) , 
+gosia.f:            READ (7,*) (XIR(iuy,jj),jj=1,NEXPT)
+gosia.f:            READ (7,*) (zmir(iuy,1,jj),zmir(iuy,2,jj),jj=1,NEXPT)
+gosia.f:                  READ (7,*) (PARXM(jj,jk,jl,kuku),jl=1,10)
+gosia.f:               READ (7,*) (PARX(jj,jk,jl),jl=1,5)
+
+klopot.f
+--------
+Reads from units 14, 15, 17, 18.
+
+mini.f
+------
+Only reads from unit 11.
+
+openf.f
+-------
+Reads from stdin.
+
+openf.f: 100  READ * , i , j , k ! unit, old/new/unknown, formatted/unformatted
+openf.f:      READ 99001 , name ! name of file
+
+ready.f
+-------
+Only reads from unit Ntap, which is provided by the user as the unit of the
+yield file.
+
+tapma.f
+-------
+Only reads from unit 14.
+
