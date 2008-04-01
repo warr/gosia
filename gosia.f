@@ -779,8 +779,8 @@ C           Treat OP,ERRO (calculate errors)
                      DO inn = 1 , MEMAX
                         WRITE (3,*) inn , ELM(inn)
                      ENDDO
-                  ENDIF
-               ENDIF
+                  ENDIF ! IF ( irep.NE.2 )
+               ENDIF ! IF ( iosr.NE.0 .AND. idf.NE.0 )
                IF ( irep.NE.0 ) THEN
                   REWIND 15
                   READ (15,*) (DEVD(kh1),DEVU(kh1),kh1=1,MEMAX)
@@ -1486,7 +1486,7 @@ C                    Read input from standard input
 C                 Treat OP,MAP
                   ELSEIF ( op2.EQ.'MAP ' ) THEN
                      GOTO 1200 ! End of OP,MAP 
-                  ENDIF
+                  ENDIF ! IF ( op2.EQ.'SIXJ' )
                ENDIF
             ENDIF
          ENDIF
