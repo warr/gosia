@@ -1,3 +1,21 @@
+ 
+C----------------------------------------------------------------------
+C SUBROUTINE SETQ
+C
+C Called by: 
+C
+C Purpose: to store the collision functions in the QFUNC common block, so
+C that they can be retrieved by the function GETQ.
+C
+C Uses global variables:
+C      QQQ    - the collision functions Q
+C
+C Formal parameters:
+C      Ind    - Index of Q function to store
+C
+C Return value:
+C      Q-function value
+C
       SUBROUTINE SETQ(Ind, Value)
 
       IMPLICIT NONE

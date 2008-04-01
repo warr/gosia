@@ -1,3 +1,18 @@
+ 
+C----------------------------------------------------------------------
+C FUNCTION GETQ
+C
+C Called by: 
+C
+C Purpose: to retrieve the collision functions from the QFUNC common block,
+C that were set using the subroutine SETQ.
+C
+C Uses global variables:
+C      QQQ    - the collision functions Q
+C
+C Formal parameters:
+C      Ind    - Index of Q function to store
+C
       REAL*8 FUNCTION GETQ(Ind)
 
       IMPLICIT NONE
