@@ -1076,9 +1076,9 @@ C     Treat suboption CONT (control)
                         ENDDO
                         GOTO 350
                      ELSEIF ( op1.EQ.'END,' ) THEN
-                        GOTO 2900
+                        GOTO 2900 ! End of CONT suboption
                      ELSE
-                        GOTO 350
+                        GOTO 350 ! Back round CONT suboption loop
                      ENDIF
                   ENDIF
                ENDIF
