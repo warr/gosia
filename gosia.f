@@ -1931,6 +1931,8 @@ C     Handle OP,ERRO
       ENDIF
       GOTO 600
 
+C---------------------------------------------------------------------
+C Treat OP,RE,*
  900  jfre = 0
       irfix = 0
       IF ( op2.EQ.'RE,F' ) irfix = 1
