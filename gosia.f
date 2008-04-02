@@ -647,13 +647,12 @@ C        Treat other options
                GOTO 2800 ! Treat OP,TITL (title)
             ELSE
 
-               IF ( op2.EQ.'GOSI' ) GOTO 200 ! Treat OP,GOSI
-
-               IF ( op2.EQ.'COUL' ) GOTO 200 ! Treat OP,COUL
-
-               IF ( op2.EQ.'EXIT' ) THEN
+               IF ( op2.EQ.'GOSI' ) THEN
+                 GOTO 200 ! Treat OP,GOSI
+               ELSEIF ( op2.EQ.'COUL' ) THEN
+                 GOTO 200 ! Treat OP,COUL
+               ELSEIF ( op2.EQ.'EXIT' ) THEN
                  GOTO 3000 ! Treat OP,EXIT
-
                ELSEIF ( op2.EQ.'MINI' ) THEN ! Treat OP,MINI
                   READ * , imode , nptl , chiok , conu , xtest , LOCKF , 
      &                 NLOCK , IFBFL , LOCKS , DLOCK
