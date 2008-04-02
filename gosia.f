@@ -2572,9 +2572,8 @@ C     Handle map
             WRITE (15,*) iva , chisq , chisq , chisq , chisq
             CALL KLOPOT(kmat,rlr) ! Troubleshooting
          ENDIF
-      ENDIF
- 2000 WRITE (22,99047)
-99047 FORMAT (15X,'********* END OF EXECUTION **********')
+       ENDIF
+       GOTO 2000 ! Normal end of execution
 
 99048 FORMAT (1X//50X,'CALCULATED YIELDS'//5X,'EXPERIMENT ',1I2,2X,
      &        'DETECTOR ',1I2/5X,'ENERGY ',1F10.3,1X,'MEV',2X,'THETA ',
@@ -2589,4 +2588,9 @@ C     Handle map
 99054 FORMAT (5X,'XI',13X,'Q1',22X,'Q2'///13X,'SLOPE',2X,'INTERCEPT',7X,
      &        'SLOPE',5X,'INTERCEPT'//)
 99055 FORMAT (2X,1F6.4,3X,1E8.2,2X,1E8.2,6X,1E8.2,2X,1E8.2)
+
+C---------------------------------------------------------------------
+C End of execution
+ 2000 WRITE (22,99047)
+99047 FORMAT (15X,'********* END OF EXECUTION **********')
       END
