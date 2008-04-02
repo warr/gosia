@@ -2427,7 +2427,7 @@ C Treat OP,POINT, OP,STAR, OP,MAP, OP,MINI and OP,CORR
                         ENDIF
                      ENDDO ! Loop over jk
                   ENDDO ! Loop over jd
-               ENDIF
+               ENDIF ! IF ( ihlm(kk).NE.0 )
             ENDDO ! Loop over kk
             EMMA(IEXP) = emhl1
             NMAX = nmaxh
