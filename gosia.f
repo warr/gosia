@@ -999,13 +999,21 @@ C     Treat suboption CONT (control)
  350     READ 99026 , op1 , fipo1
 99026    FORMAT (1A4,1F7.1)
          ipo1 = INT(fipo1)
-         IF ( op1.EQ.'ACP,' ) ACCA = 10.**(-fipo1)
-         IF ( op1.EQ.'SEL,' ) ITS = 2
-         IF ( op1.EQ.'SMR,' ) iosr = 1
-         IF ( op1.EQ.'FMI,' ) ifm = 1
-         IF ( op1.EQ.'TEN,' ) itno = 1
-         IF ( op1.EQ.'NCM,' ) NCM = ipo1
-         IF ( op1.EQ.'WRN,' ) SGW = fipo1
+         IF ( op1.EQ.'ACP,' ) THEN
+            ACCA = 10.**(-fipo1)
+         ELSEIF ( op1.EQ.'SEL,' ) THEN
+            ITS = 2
+         ELSEIF ( op1.EQ.'SMR,' ) THEN
+            iosr = 1
+         ELSEIF ( op1.EQ.'FMI,' ) THEN
+            ifm = 1
+         ELSEIF ( op1.EQ.'TEN,' ) THEN
+            itno = 1
+         ELSEIF ( op1.EQ.'NCM,' ) THEN
+            NCM = ipo1
+         ELSEIF ( op1.EQ.'WRN,' ) THEN
+            SGW = fipo1
+         ENDIF
          IF ( op1.EQ.'INT,' ) THEN
             DO jjx = 1 , ipo1
                READ * , ipo2 , ijx
