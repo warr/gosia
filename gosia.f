@@ -1055,16 +1055,16 @@ C     Treat suboption CONT (control)
                            IVAR(jjx) = 0
                         ENDDO
                         GOTO 352
+                     ELSEIF ( op1.EQ.'INR,' ) THEN
+                        INNR = 1
+                     ELSEIF ( op1.EQ.'CRD,' ) THEN
+                        DO jjx = 1 , ipo1
+                           READ * , ipo2
+                           iecd(ipo2) = 1
+                        ENDDO
+                        GOTO 350 ! Back to beginning of CONT suboption
                      ELSE
-                        IF ( op1.EQ.'INR,' ) THEN
-                           INNR = 1
-                        ELSEIF ( op1.EQ.'CRD,' ) THEN
-                           DO jjx = 1 , ipo1
-                              READ * , ipo2
-                              iecd(ipo2) = 1
-                           ENDDO
-                           GOTO 350 ! Back to beginning of CONT suboption
-                        ELSEIF ( op1.EQ.'CCF,' ) THEN
+                        IF ( op1.EQ.'CCF,' ) THEN
                            IPS1 = ipo1
                         ELSE
                            IF ( op1.EQ.'PIN,' ) THEN
