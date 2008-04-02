@@ -1999,9 +1999,8 @@ C Treat OP,POIN, OP,STAR, OP,MAP, OP,MINI and OP,CORR
             GOTO 100 ! Back to input loop
          ENDIF ! if (op2 .NE. 'GOSI') if statement
       ENDIF ! if ( iobl.LT.1 ) if statement
-      GOTO 1300
 
- 1300 IF ( iobl.GE.1 ) THEN
+ 1300 IF ( iobl.GE.1 ) THEN ! OP,ERRO
          ient = 1
          icg = 2
          nmaxh = NMAX
