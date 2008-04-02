@@ -1076,10 +1076,10 @@ C     Treat suboption CONT (control)
                         ENDDO
                         GOTO 350
                      ELSE
-                        IF ( op1.NE.'END,' ) THEN
-                           GOTO 350
+                        IF ( op1.EQ.'END,' ) THEN
+                          GOTO 2900
                         ELSE
-                           GOTO 2900
+                           GOTO 350
                         ENDIF ! If CCF, PIN
                      ENDIF
                   ENDIF
