@@ -1346,9 +1346,9 @@ C Treat OP,INTG
                              fiex1(ktt,jfi,2)
      &                          = fiex1(ktt,jfi,2) + 180.
                              ENDDO ! Loop on jf1
-                           ENDIF ! IF ( kloop.EQ.1 )
+                           ENDIF ! IF ( tth.LT.0. )
                         ENDIF ! IF ( kloop.EQ.1 )
-                     ENDIF !IF ( iecd(lx).NE.1 )
+                     ENDIF ! IF ( iecd(lx).NE.1 )
                   ENDIF ! IF ( IAXS(lx).NE.0 )
                   TLBDG(lx) = tta
                   IF ( kloop.EQ.1 ) THEN
