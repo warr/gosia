@@ -2210,7 +2210,7 @@ C Treat OP,POINT, OP,STAR, OP,MAP, OP,MINI and OP,CORR
                         ENDDO ! Loop over itp
  1206                ENDDO ! Loop over jgl
                   ENDIF ! if ( op2.EQ. 'CORR')
-               ENDIF
+               ENDIF ! if ( op2.NE. 'STAR')
             ENDDO ! Loop over jexp
             IF ( op2.EQ.'STAR' ) oph = op2
             IF ( op2.NE.'STAR' ) THEN
@@ -2302,9 +2302,9 @@ C Treat OP,POINT, OP,STAR, OP,MAP, OP,MINI and OP,CORR
                      ENDDO
                      IF ( zmir(kk,1,IEXP).LT..5 ) zmir(kk,1,IEXP) = .5
                      IF ( zmir(kk,2,IEXP).LT..5 ) zmir(kk,2,IEXP) = .5
-                  ENDIF
-               ENDDO
-            ENDDO
+                  ENDIF ! IF ( ll.NE.0 )
+               ENDDO ! Loop on kk
+            ENDDO ! Loop on jgs
             DO kk = 1 , 6
                XIR(kk,IEXP) = XIR(kk,IEXP)*1.01
                DO kh = 1 , 8
