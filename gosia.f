@@ -1013,8 +1013,7 @@ C     Treat suboption CONT (control)
             NCM = ipo1
          ELSEIF ( op1.EQ.'WRN,' ) THEN
             SGW = fipo1
-         ENDIF
-         IF ( op1.EQ.'INT,' ) THEN
+         ELSEIF ( op1.EQ.'INT,' ) THEN
             DO jjx = 1 , ipo1
                READ * , ipo2 , ijx
                INTERV(ipo2) = ijx
