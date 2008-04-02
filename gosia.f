@@ -663,16 +663,16 @@ C        Treat other options
                   GOTO 3400 ! Treat OP,INTG
                ELSEIF ( op2.EQ.'CORR' ) THEN
                   GOTO 3500 ! Treat OP,CORR
+                ELSEIF ( op2.EQ.'POIN' ) THEN
+                  GOTO 1200 ! Treat OP,POIN
+                ELSEIF ( op2.EQ.'MAP ' ) THEN
+                  iobl = 1 ! Treat OP,MAP
+                ELSEIF ( op2.EQ.'STAR' ) THEN
+                  GOTO 1200 ! Treat OP,STAR
                ELSE
 
-                  IF ( op2.EQ.'POIN' ) THEN
-                    GOTO 1200 ! Treat OP,POIN
-                  ELSEIF ( op2.EQ.'MAP ' ) THEN
-                    iobl = 1 ! Treat OP,MAP
-                  ELSEIF ( op2.EQ.'STAR' ) THEN
-                    GOTO 1200 ! Treat OP,STAR
 
-                  ELSEIF ( op2.EQ.'SIXJ' ) THEN ! Treat OP,SIXJ
+                  IF ( op2.EQ.'SIXJ' ) THEN ! Treat OP,SIXJ
                      DO k = 1 , 2
                         l = 4*k
                         DO j = 1 , 80
