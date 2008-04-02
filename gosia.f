@@ -666,8 +666,7 @@ C        Treat OP,FILE (attach files to fortran units)
          ELSEIF ( op2.EQ.'RAW ' ) THEN
             GOTO 3800 ! Treat OP,RAW (raw uncorrected gamma yields)
          ELSEIF ( op2.EQ.'MAP ' ) THEN
-            iobl = 1 ! Treat OP,MAP
-            GOTO 3600 ! End of OP,MAP
+            GOTO 3900 ! Treat OP,MAP
          ENDIF
        ENDIF ! End of if (op1.eq."OP, ") if statement
 
@@ -1524,6 +1523,10 @@ C     Read input from standard input
       ENDDO
       GOTO 100 ! Back to input loop
 
+C---------------------------------------------------------------------
+C Treat OP,MAP
+ 3900 iobl = 1
+      GOTO 3600 ! End of OP,MAP
 
 C---------------------------------------------------------------------
 C     Treat suboptions of OP,COUL and OP,GOSI
