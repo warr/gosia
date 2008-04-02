@@ -655,7 +655,7 @@ C        Treat OP,FILE (attach files to fortran units)
             GOTO 3400 ! Treat OP,INTG
          ELSEIF ( op2.EQ.'CORR' ) THEN
             GOTO 3500 ! Treat OP,CORR
-         ELSEIF ( op2.EQ.'POIN') THEN
+         ELSEIF ( op2.EQ.'POIN' ) THEN
             GOTO 3600 ! Treat OP,POIN
          ELSEIF ( op2.EQ.'STAR' ) THEN
             GOTO 3600 ! Treat OP,STAR
