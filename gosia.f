@@ -874,7 +874,7 @@ C        Treat other options
                         IF ( IMIN.NE.0 ) CALL PRELM(3)
                      ENDIF
                   ENDIF
-                  GOTO 1900 ! End of OP,EXIT
+                  GOTO 1900 ! Troubleshoot
 
                ELSEIF ( op2.EQ.'MINI' ) THEN ! Treat OP,MINI
                   READ * , imode , nptl , chiok , conu , xtest , LOCKF , 
@@ -1024,7 +1024,7 @@ C        Treat other options
                               CALL CMLAB(lx,dsig,tetrc)
                               IF ( ERR ) GOTO 2000 ! Normal end of execution
                               tting = TLBDG(lx)
-                              IF ( ERR ) GOTO 1900
+                              IF ( ERR ) GOTO 1900 ! Troubleshoot
                               CALL LOAD(lx,1,1,0.D0,jj)
                               CALL ALLOC(ACCUR)
                               CALL SNAKE(lx,ZPOL)
@@ -1233,7 +1233,7 @@ C                       Now we calculate for all the mesh points.
                               isko = (je-1)*naa*ntt + ja - 1
                               CALL TAPMA(lx,iske,isko,iskf,ntt,idr,1,
      &                           nft,enb)
-                              IF ( nft.EQ.1 ) GOTO 1900
+                              IF ( nft.EQ.1 ) GOTO 1900 ! Troubleshoot
                               DO jd = 1 , idr
                                  DO jtp = 1 , ntt ! ntt = number of theta meshpoints
                                     IF ( jd.EQ.1 .AND. ja.EQ.1 )
@@ -2551,20 +2551,20 @@ C     Handle map
 
  1500 WRITE (22,99043)
 99043 FORMAT (5X,'ERROR-M.E. DOES NOT BELONG TO THE UPPER TRIANGLE')
-      GOTO 1900
+      GOTO 1900 ! Troubleshoot
 
  1600 WRITE (22,99044)
 99044 FORMAT (5X,'ERROR-WRONG SEQUENCE OF MULTIPOLARITIES')
-      GOTO 1900
+      GOTO 1900 ! Troubleshoot
 
  1700 WRITE (22,99045)
 99045 FORMAT (5X,'ERROR-REPEATED APPEARANCE OF THE STATE')
-      GOTO 1900
+      GOTO 1900 ! Troubleshoot
 
  1800 WRITE (22,99046)
 99046 FORMAT (1X///10X,'ERROR-INSUFFICIENT SPACE FOR E-THETA INTEGR ',
      &        'ATION')
-      GOTO 1900
+      GOTO 1900 ! Troubleshoot
 
 C---------------------------------------------------------------------
 C Perform troubleshooting (if this option is turned on)
