@@ -1196,10 +1196,8 @@ C Treat OP,MINI
      &     NLOCK , IFBFL , LOCKS , DLOCK
       op2 = opcja
       IMIN = IMIN + 1
-      IF ( IMIN.NE.1 ) GOTO 1400
-      GOTO 3600 ! End of OP,MINI
-
- 1400 DO kh1 = 1 , MEMAX
+      IF ( IMIN.EQ.1 ) GOTO 3600
+      DO kh1 = 1 , MEMAX
          HLM(kh1) = ELM(kh1)
       ENDDO
       lfagg = 0
@@ -1347,11 +1345,11 @@ C Treat OP,INTG
      &                          = fiex1(ktt,jfi,1) + 180.
                              fiex1(ktt,jfi,2)
      &                          = fiex1(ktt,jfi,2) + 180.
-                             ENDDO
-                           ENDIF
-                        ENDIF
-                     ENDIF
-                  ENDIF
+                             ENDDO ! Loop on jf1
+                           ENDIF ! IF ( kloop.EQ.1 )
+                        ENDIF ! IF ( kloop.EQ.1 )
+                     ENDIF !IF ( iecd(lx).NE.1 )
+                  ENDIF ! IF ( IAXS(lx).NE.0 )
                   TLBDG(lx) = tta
                   IF ( kloop.EQ.1 ) THEN
                      IF ( iecd(lx).NE.0 ) THEN
@@ -1717,8 +1715,8 @@ C                    Interpolate cross-section at this energy
                DO jd = 1 , idr
                   WRITE (15,*) GRAD(jd)
                ENDDO
-            ENDDO
-         ENDDO
+            ENDDO ! Loop on ija0
+         ENDDO ! Loop on experiments
       ENDIF
       GOTO 100 ! Back to input loop
 
@@ -2598,6 +2596,7 @@ C     Handle map
        ENDIF ! IPRM(12).ne.0
       IF ( op2.NE.'GOSI' .AND. op2.NE.'ERRO' ) GOTO 100 ! Back to input loop
       IF ( op2.EQ.'ERRO' ) GOTO 400
+      GOTO 1400
 
 99050 FORMAT (1X///44X,'OVERALL')
 99051 FORMAT (1X///43X,'DIAGONAL')
