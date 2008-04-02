@@ -781,7 +781,7 @@ C Treat OP,RE,*
  2500 IF ( op2.EQ.'RE,A' ) THEN        ! OP,RE,A
          jfre = 0
          irfix = 0
-      ELSE IF ( op2.EQ.'RE,F' ) THEN   ! OP,RE,F
+      ELSEIF ( op2.EQ.'RE,F' ) THEN   ! OP,RE,F
          jfre = 0
          irfix = 1
       ELSE                             ! OP,RE,C
