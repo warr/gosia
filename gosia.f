@@ -623,14 +623,8 @@ C        Treat OP,FILE (attach files to fortran units)
 
          IF ( op2.EQ.'GDET' ) THEN
             GOTO 2100 ! Handle OP,GDET (germanium detectors)
-          ELSEIF ( op2.EQ.'RAND' ) THEN ! Treat OP,RAND (randomise matrix elements)
-            READ * , SE ! Seed for random number generator
-            CALL MIXUP
-            WRITE (22,99007)
-99007       FORMAT (1X///5X,'MATRIX ELEMENTS RANDOMIZED...'///)
-            CALL PRELM(2)
-            GOTO 100 ! Back to input loop
-        
+         ELSEIF ( op2.EQ.'RAND' ) THEN
+            GOTO 2200 ! Treat OP,RAND (randomise matrix elements)
          ELSEIF ( op2.EQ.'TROU' ) THEN ! Treat OP,TROU (troubleshooting)
             ITS = 1 ! Create tape 18 flag
             READ * , kmat , rlr
@@ -1474,6 +1468,15 @@ C     attenuation coefficients
             ENDDO
          ENDDO
       ENDDO ! Loop on each detector
+      GOTO 100 ! Back to input loop
+
+C---------------------------------------------------------------------
+C Treat OP,RAND
+ 2200 READ * , SE ! Seed for random number generator
+      CALL MIXUP
+      WRITE (22,99007)
+99007 FORMAT (1X///5X,'MATRIX ELEMENTS RANDOMIZED...'///)
+      CALL PRELM(2)
       GOTO 100 ! Back to input loop
 
 C---------------------------------------------------------------------
