@@ -1934,7 +1934,9 @@ C     Handle OP,ERRO
       ENDDO
       GOTO 100 ! Back to input loop
 
- 1200 CALL CMLAB(0,dsig,ttttt) ! Options MAP, STAR, POINT, MINI etc.
+C---------------------------------------------------------------------
+C Treat OP,POINT, OP,STAR, OP,MAP, OP,MINI and OP,CORR
+ 1200 CALL CMLAB(0,dsig,ttttt)
       IF ( ERR ) GOTO 2000 ! Normal end of execution
       IF ( op2.EQ.'POIN' ) READ * , ifwd , slim
       ient = 1
