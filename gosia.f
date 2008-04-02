@@ -657,10 +657,8 @@ C        Treat other options
                   GOTO 3100 ! Treat OP,MINI
                ELSEIF ( op2.EQ.'THEO' ) THEN
                   GOTO 3200 ! Treat OP,THEO
-               ELSEIF ( op2.EQ.'YIEL' ) THEN ! Treat OP,YIEL
-                  CALL ADHOC(oph,idr,nfd,ntap,iyr)
-                  GOTO 100 ! Back to input loop
-
+               ELSEIF ( op2.EQ.'YIEL' ) THEN
+                  GOTO 3300 ! Treat OP,YIEL
                ELSEIF ( op2.EQ.'INTG' ) THEN ! Treat OP,INTG
                   REWIND 14
                   lfagg = 1
@@ -1500,6 +1498,10 @@ C Treat OP,THEO
       ENDDO
       GOTO 100 ! Back to input loop
 
+C---------------------------------------------------------------------
+C Treat OP,YIEL
+ 3300 CALL ADHOC(oph,idr,nfd,ntap,iyr)
+      GOTO 100 ! Back to input loop
 
 C---------------------------------------------------------------------
 C     Treat suboptions of OP,COUL and OP,GOSI
