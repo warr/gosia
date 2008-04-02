@@ -718,7 +718,7 @@ C     attenuation coefficients
 99006          FORMAT (8X,1F4.2,6X,1F9.4,5X,1F9.4,3X,1E10.2)
             ENDDO
          ENDDO
-      ENDDO
+      ENDDO ! Loop on each detector
       GOTO 100 ! Back to input loop
 
 C---------------------------------------------------------------------
@@ -2001,6 +2001,10 @@ C Treat OP,POIN, OP,STAR, OP,MAP, OP,MINI and OP,CORR
          ENDIF ! if (op2 .NE. 'GOSI') if statement
       ENDIF ! if ( iobl.LT.1 ) if statement
 
+99048 FORMAT (1X//50X,'CALCULATED YIELDS'//5X,'EXPERIMENT ',1I2,2X,
+     &        'DETECTOR ',1I2/5X,'ENERGY ',1F10.3,1X,'MEV',2X,'THETA ',
+     &        1F7.3,1X,'DEG'//5X,'NI',5X,'NF',5X,'II',5X,'IF',5X,
+     &        'YIELD',5X,'NORMALIZED YIELD'/)
 C---------------------------------------------------------------------
 C Treat OP,SIXJ
  3700 DO k = 1 , 2
@@ -2629,10 +2633,6 @@ C End of execution
 
 
 C---------------------------------------------------------------------
-99048 FORMAT (1X//50X,'CALCULATED YIELDS'//5X,'EXPERIMENT ',1I2,2X,
-     &        'DETECTOR ',1I2/5X,'ENERGY ',1F10.3,1X,'MEV',2X,'THETA ',
-     &        1F7.3,1X,'DEG'//5X,'NI',5X,'NF',5X,'II',5X,'IF',5X,
-     &        'YIELD',5X,'NORMALIZED YIELD'/)
 99049 FORMAT (5X,1I2,5X,1I2,3X,1F4.1,3X,1F4.1,3X,1E11.5,3X,1E11.5)
 99050 FORMAT (1X///44X,'OVERALL')
 99051 FORMAT (1X///43X,'DIAGONAL')
