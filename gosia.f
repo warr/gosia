@@ -676,7 +676,7 @@ C        Treat other options
                    GOTO 3700 ! Treat OP,SIXJ
 
                   ELSEIF ( op2.EQ.'RAW ' ) THEN
-                    GOTO 3800! Treat OP,RAW (raw uncorrected gamma yields)
+                    GOTO 3800 ! Treat OP,RAW (raw uncorrected gamma yields)
                   ELSEIF ( op2.EQ.'MAP ' ) THEN ! Treat OP,MAP
                      GOTO 1200 ! End of OP,MAP 
                   ENDIF ! IF ( op2.EQ.'SIXJ' )
