@@ -791,14 +791,14 @@ C Treat OP,RE,*
       DO jrls = 1 , MEMAX
          IF ( IVAR(jrls).NE.0 .OR. irfix.NE.1 ) THEN
             IF ( IVAR(jrls).GT.999 ) THEN
-               IF ( jfre.EQ.1 ) GOTO 1100
+               IF ( jfre.EQ.1 ) GOTO 2501
             ENDIF
             IVAR(jrls) = 2
             ELML(jrls) = -ABS(ELML(jrls))
             ELMU(jrls) = ABS(ELMU(jrls))
             IF ( jrls.GT.MEMX6 ) IVAR(jrls) = 1
          ENDIF
- 1100 ENDDO
+ 2501 ENDDO
       DO jrls = 1 , MEMAX
          ivarh(jrls) = IVAR(jrls)
       ENDDO
