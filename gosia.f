@@ -672,22 +672,8 @@ C        Treat other options
                ELSE
 
 
-                  IF ( op2.EQ.'SIXJ' ) THEN ! Treat OP,SIXJ
-                     DO k = 1 , 2
-                        l = 4*k
-                        DO j = 1 , 80
-                           ixj = j - 1
-                           DO ms = 1 , 5
-                              mend = 2*(ms-3) + ixj
-                              WRITE (14,*) WSIXJ(l,4,4,ixj,mend,ixj-4) , 
-     &                               WSIXJ(l,4,4,ixj,mend,ixj-2) , 
-     &                               WSIXJ(l,4,4,ixj,mend,ixj) , 
-     &                               WSIXJ(l,4,4,ixj,mend,ixj+2) , 
-     &                               WSIXJ(l,4,4,ixj,mend,ixj+4)
-                           ENDDO
-                        ENDDO
-                     ENDDO
-                     GOTO 2000 ! Normal end of execution
+                 IF ( op2.EQ.'SIXJ' ) THEN
+                   GOTO 3700 ! Treat OP,SIXJ
 
                   ELSEIF ( op2.EQ.'RAW ' ) THEN ! Treat OP,RAW (raw uncorrected gamma yields)
 C                    Read absorber coefficients from unit 8
@@ -1510,6 +1496,24 @@ C Treat OP,CORR
       REWIND 15
       REWIND 4
       GOTO 1200 ! End of OP,CORR
+
+C---------------------------------------------------------------------
+C Treat OP,SIXJ
+ 3700 DO k = 1 , 2
+         l = 4*k
+         DO j = 1 , 80
+            ixj = j - 1
+            DO ms = 1 , 5
+               mend = 2*(ms-3) + ixj
+               WRITE (14,*) WSIXJ(l,4,4,ixj,mend,ixj-4) , 
+     &                WSIXJ(l,4,4,ixj,mend,ixj-2) , 
+     &                WSIXJ(l,4,4,ixj,mend,ixj) , 
+     &                WSIXJ(l,4,4,ixj,mend,ixj+2) , 
+     &                WSIXJ(l,4,4,ixj,mend,ixj+4)
+            ENDDO
+         ENDDO
+      ENDDO
+      GOTO 2000 ! Normal end of execution
 
 C---------------------------------------------------------------------
 C     Treat suboptions of OP,COUL and OP,GOSI
