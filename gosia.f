@@ -1075,10 +1075,10 @@ C     Treat suboption CONT (control)
                            ENDDO
                            GOTO 350 ! Back to beginning of CONT suboption
                         ELSE
-                           IF ( op1.NE.'END,' ) THEN
-                             GOTO 350 ! Back to beginning of CONT suboption
-                           ELSE
+                           IF ( op1.EQ.'END,' ) THEN
                              GOTO 2900
+                           ELSE
+                             GOTO 350 ! Back to beginning of CONT suboption
                            ENDIF
                         ENDIF
                      ENDIF
