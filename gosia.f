@@ -1063,18 +1063,18 @@ C     Treat suboption CONT (control)
                      iecd(ipo2) = 1
                   ENDDO
                   GOTO 350
+               ELSEIF ( op1.EQ.'CCF,' ) THEN
+                  IPS1 = ipo1
+               ELSEIF ( op1.EQ.'PIN,' ) THEN
+                  ipine = ipo1
+                  ipinf = 1
+                  DO ipp = 1 , ipine
+                     READ (*,*) ig1 , ig2
+                     jpin(ig1) = ig2
+                  ENDDO
+                  GOTO 350
                ELSE
-                  IF ( op1.EQ.'CCF,' ) THEN
-                     IPS1 = ipo1
-                  ELSEIF ( op1.EQ.'PIN,' ) THEN
-                     ipine = ipo1
-                     ipinf = 1
-                     DO ipp = 1 , ipine
-                        READ (*,*) ig1 , ig2
-                        jpin(ig1) = ig2
-                     ENDDO
-                     GOTO 350
-                  ELSEIF ( op1.EQ.'END,' ) THEN
+                  IF ( op1.EQ.'END,' ) THEN
                      GOTO 2900 ! End of CONT suboption
                   ELSE
                      GOTO 350 ! Back round CONT suboption loop
