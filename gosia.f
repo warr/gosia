@@ -1040,7 +1040,6 @@ C     Treat suboption CONT (control)
                READ * , ijx
                JSKIP(ijx) = 0
             ENDDO
-            GOTO 350 ! Back to beginning of CONT suboption
          ELSEIF ( op1.EQ.'FIX,' ) THEN
             READ * , nallow
             DO jjx = 1 , nallow
@@ -1073,7 +1072,6 @@ C     Treat suboption CONT (control)
                READ * , ipo2
                iecd(ipo2) = 1
             ENDDO
-            GOTO 350 ! Back to beginning of CONT suboption
          ELSEIF ( op1.EQ.'CCF,' ) THEN
             IPS1 = ipo1
          ELSEIF ( op1.EQ.'PIN,' ) THEN
@@ -1083,12 +1081,10 @@ C     Treat suboption CONT (control)
                READ (*,*) ig1 , ig2
                jpin(ig1) = ig2
             ENDDO
-            GOTO 350 ! Back to beginning of CONT suboption
          ELSEIF ( op1.EQ.'END,' ) THEN
             GOTO 2900 ! End of CONT suboption
          ELSE
             WRITE (22,99027) op1
-            GOTO 350 ! Back to beginning of CONT suboption
          ENDIF
          GOTO 350 ! Back to beginning of CONT suboption
 
