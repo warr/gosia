@@ -1008,11 +1008,11 @@ C        Treat other options
      &                                      = fiex1(ktt,jfi,1) + 180.
                                          fiex1(ktt,jfi,2)
      &                                      = fiex1(ktt,jfi,2) + 180.
-                                         ENDDO
-                                       ENDIF
-                                    ENDIF
-                                 ENDIF
-                              ENDIF
+                                         ENDDO ! Loop on jf1
+                                       ENDIF ! IF ( tth.LT.0. )
+                                    ENDIF ! IF ( kloop.EQ.1 )
+                                 ENDIF ! IF ( iecd(lx).NE.1 )
+                              ENDIF ! IF ( IAXS(lx).NE.0 )
                               TLBDG(lx) = tta
                               IF ( kloop.EQ.1 ) THEN
                                  IF ( iecd(lx).NE.0 ) THEN
@@ -1141,15 +1141,15 @@ C        Treat other options
      &                                    SPIN(ni) , SPIN(nf) , 
      &                                    GRAD(jyi)*dsig*ax , GRAD(jyi)
      &                                    /GRAD(IDRN)
-                                    ENDDO
-                                 ENDIF
- 132                          ENDDO
-                           ENDDO
-                        ENDDO
-                     ENDDO
+                                    ENDDO ! Loop on jyi
+                                 ENDIF ! If (IPRM(11).EQ.1)
+ 132                          ENDDO ! Loop on ijan
+                           ENDDO ! Loop on ktt
+                        ENDDO ! Loop on kloop
+                     ENDDO ! Loop on mpin
                      EP(lx) = enh
                      TLBDG(lx) = tth
-                  ENDDO
+                  ENDDO ! Loop on experiments
                   REWIND 14
                   REWIND 15
                   iske = 0
