@@ -762,8 +762,8 @@ C Treat OP,REST
                kk2 = kk2 - 100*la1
             ENDIF
             inx1 = MEM(kk1,kk2,la1)
-C      ELML(KK)=ELML(INX1)*ELM(KK)/ELM(INX1)
-C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
+C           ELML(KK)=ELML(INX1)*ELM(KK)/ELM(INX1)
+C           ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
             SA(kk) = ELM(kk)/ELM(inx1)
             IVAR(kk) = 1000 + inx1
             IF ( ELMU(kk).LE.ELML(kk) ) THEN
