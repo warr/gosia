@@ -670,7 +670,7 @@ C        Treat OP,FILE (attach files to fortran units)
 
       WRITE (22,99022) op1 , op2
 99022 FORMAT (5X,'UNRECOGNIZED OPTION',1X,1A3,1A4)
-      GOTO 2000 ! End of execution
+      GOTO 2000 ! Normal end of execution
 
 C---------------------------------------------------------------------
 C Treat OP,GDET
@@ -861,7 +861,7 @@ C Treat OP,ERRO
          ENDDO
       ENDIF
       IF ( IMIN.EQ.0 ) CALL CMLAB(0,dsig,ttttt)
-      IF ( ERR ) GOTO 2000 ! End of execution
+      IF ( ERR ) GOTO 2000 ! Normal end of execution
       IF ( IMIN.NE.0 ) GOTO 400
       GOTO 1300 ! End of OP,ERRO
 
@@ -1117,7 +1117,7 @@ C     Else we don't recognize the suboption
       ELSE
          WRITE (22,99027) op1
 99027    FORMAT (5X,'UNRECOGNIZED SUBOPTION',1X,1A4)
-         GOTO 2000 ! End of execution
+         GOTO 2000 ! Normal end of execution
       ENDIF
       GOTO 2900 ! Get next suboption
 
@@ -1190,7 +1190,7 @@ C Treat OP,EXIT
             IF ( IMIN.NE.0 ) CALL PRELM(3)
          ENDIF
       ENDIF
-      GOTO 1900 ! End of OP,EXIT
+      GOTO 1900 ! Troubleshoot
 
 C---------------------------------------------------------------------
 C Treat OP,MINI
@@ -1342,9 +1342,9 @@ C Treat OP,INTG
                      ENDIF
                   ENDIF
                   CALL CMLAB(lx,dsig,tetrc)
-                  IF ( ERR ) GOTO 2000 ! End of execution
+                  IF ( ERR ) GOTO 2000 ! Normal end of execution
                   tting = TLBDG(lx)
-                  IF ( ERR ) GOTO 1900
+                  IF ( ERR ) GOTO 1900 ! Troubleshoot
                   CALL LOAD(lx,1,1,0.D0,jj)
                   CALL ALLOC(ACCUR)
                   CALL SNAKE(lx,ZPOL)
@@ -1553,7 +1553,7 @@ C           Now we calculate for all the mesh points.
                   isko = (je-1)*naa*ntt + ja - 1
                   CALL TAPMA(lx,iske,isko,iskf,ntt,idr,1,
      &               nft,enb)
-                  IF ( nft.EQ.1 ) GOTO 1900
+                  IF ( nft.EQ.1 ) GOTO 1900 ! Troubleshoot
                   DO jd = 1 , idr
                      DO jtp = 1 , ntt ! ntt = number of theta meshpoints
                         IF ( jd.EQ.1 .AND. ja.EQ.1 )
@@ -1714,7 +1714,7 @@ C Treat OP,CORR
 C---------------------------------------------------------------------
 C Treat OP,POIN, OP,STAR, OP,MAP, OP,MINI and OP,CORR
  3600 CALL CMLAB(0,dsig,ttttt)
-      IF ( ERR ) GOTO 2000 ! End of execution
+      IF ( ERR ) GOTO 2000 ! Normal end of execution
       IF ( op2.EQ.'POIN' ) READ * , ifwd , slim
       ient = 1
       icg = 1
@@ -2022,7 +2022,7 @@ C Treat OP,SIXJ
             ENDDO
          ENDDO
       ENDDO
-      GOTO 2000 ! End of execution
+      GOTO 2000 ! Normal end of execution
 
 C---------------------------------------------------------------------
 C Treat OP,RAW
@@ -2205,7 +2205,7 @@ C     Handle OP,ERRO
             ENDIF
          ENDIF
       ENDDO
-      GOTO 2000 ! End of execution
+      GOTO 2000 ! Normal end of execution
 
  700  irea = 0
       IF ( ms.LT.0 ) irea = 1
@@ -2587,7 +2587,7 @@ C     Handle map
          IVAR(kh1) = ivarh(kh1)
       ENDDO
       CALL MINI(chisq,chiok,nptl,conu,imode,idr,xtest,0,0,0,bten)
-      IF ( IPS1.EQ.0 ) GOTO 2000 ! End of execution
+      IF ( IPS1.EQ.0 ) GOTO 2000 ! Normal end of execution
       IMIN = IMIN + 1
       DO iva = 1 , LP1 ! LP1 = 50
          JSKIP(iva) = 1
@@ -2598,19 +2598,19 @@ C     Handle map
       ENDDO
       IF ( ifm.EQ.1 ) CALL PRELM(3) ! ifm = fast minimisation switch
       IF ( ifm.NE.1 ) GOTO 100 ! Back to input loop
-      GOTO 2000 ! End of execution
+      GOTO 2000 ! Normal end of execution
 
  1500 WRITE (22,99043)
 99043 FORMAT (5X,'ERROR-M.E. DOES NOT BELONG TO THE UPPER TRIANGLE')
-      GOTO 1900
+      GOTO 1900 ! Troubleshoot
 
  1600 WRITE (22,99044)
 99044 FORMAT (5X,'ERROR-WRONG SEQUENCE OF MULTIPOLARITIES')
-      GOTO 1900
+      GOTO 1900 ! Troubleshoot
 
  1700 WRITE (22,99045)
 99045 FORMAT (5X,'ERROR-REPEATED APPEARANCE OF THE STATE')
-      GOTO 1900
+      GOTO 1900 ! Troubleshoot
 
  1800 WRITE (22,99046)
 99046 FORMAT (1X///10X,'ERROR-INSUFFICIENT SPACE FOR E-THETA INTEGR ',
@@ -2625,6 +2625,7 @@ C     Handle map
 99055 FORMAT (2X,1F6.4,3X,1E8.2,2X,1E8.2,6X,1E8.2,2X,1E8.2)
 
 C---------------------------------------------------------------------
+C Troubleshooting
  1900 IF ( ITS.NE.0 ) THEN
          iva = 0
          WRITE (18,*) iva , iva , iva , chisq
