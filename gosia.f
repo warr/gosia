@@ -781,7 +781,7 @@ C Treat OP,RE,*
  2500 IF ( op2.EQ.'RE,A' ) THEN        ! OP,RE,A
          jfre = 0
          irfix = 0
-      ELSEIF ( op2.EQ.'RE,F' ) THEN   ! OP,RE,F
+      ELSEIF ( op2.EQ.'RE,F' ) THEN    ! OP,RE,F
          jfre = 0
          irfix = 1
       ELSE                             ! OP,RE,C
@@ -864,7 +864,7 @@ C Treat OP,ERRO
       IF ( ERR ) GOTO 2000 ! Normal end of execution
       IF ( IMIN.NE.0 ) GOTO 400
       GOTO 1300 ! End of OP,ERRO
- 
+
 C---------------------------------------------------------------------
 C Treat OP,TITL
  2800 READ 99009 , (title(k),k=1,20)
@@ -1198,7 +1198,7 @@ C Treat OP,MINI
       IMIN = IMIN + 1
       IF ( IMIN.NE.1 ) GOTO 1400
       GOTO 3600 ! End of OP,MINI
-      
+
 C---------------------------------------------------------------------
 C Treat OP,THEO
  3200 REWIND (12)
