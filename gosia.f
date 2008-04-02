@@ -621,8 +621,7 @@ C        Treat OP,FILE (attach files to fortran units)
      &           'LATEST REVISION- JUNE  2006'//////)
          jphd = 0
 
-C        Handle OP,GDET (germanium detectors)
-         IF ( op2.EQ.'GDET' ) THEN
+         IF ( op2.EQ.'GDET' ) THEN ! Handle OP,GDET (germanium detectors)
             nl = 7
             READ * , nfdd ! number of physical detectors
 
@@ -669,24 +668,21 @@ C           attenuation coefficients
                ENDDO
             ENDDO
             GOTO 100 ! Back to input loop
-
-C         Treat OP,RAND (randomise matrix elements)
-          ELSEIF ( op2.EQ.'RAND' ) THEN
+         
+          ELSEIF ( op2.EQ.'RAND' ) THEN ! Treat OP,RAND (randomise matrix elements)
             READ * , SE ! Seed for random number generator
             CALL MIXUP
             WRITE (22,99007)
 99007       FORMAT (1X///5X,'MATRIX ELEMENTS RANDOMIZED...'///)
             CALL PRELM(2)
             GOTO 100 ! Back to input loop
-
-C        Treat OP,TROU (troubleshooting)
-         ELSEIF ( op2.EQ.'TROU' ) THEN
+        
+         ELSEIF ( op2.EQ.'TROU' ) THEN ! Treat OP,TROU (troubleshooting)
             ITS = 1 ! Create tape 18 flag
             READ * , kmat , rlr
             GOTO 100 ! Back to input loop
 
-C        Treat OP,REST (restart)
-         ELSEIF ( op2.EQ.'REST' ) THEN
+         ELSEIF ( op2.EQ.'REST' ) THEN ! Treat OP,REST (restart)
             REWIND 12
             memax1 = MEMAX + 1
             DO lkj = 1 , MEMAX
@@ -727,15 +723,12 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
 
 C        Treat other options
          ELSE
-
-C           Treat OP,RE,A (release A)
-            IF ( op2.EQ.'RE,A' ) GOTO 900
+ 
+            IF ( op2.EQ.'RE,A' ) GOTO 900 ! Treat OP,RE,A (release A)
            
-C           Treat OP,RE,F (release F)
-            IF ( op2.EQ.'RE,F' ) GOTO 900
-
-C           Treat OP,ERRO (calculate errors)
-            IF ( op2.EQ.'ERRO' ) THEN
+            IF ( op2.EQ.'RE,F' ) GOTO 900 ! Treat OP,RE,F (release F)
+           
+            IF ( op2.EQ.'ERRO' ) THEN ! Treat OP,ERRO (calculate errors)
                READ * , idf , ms , mend , irep , ifc , remax
                rem = LOG(remax)
                LOCKS = 0
@@ -795,14 +788,12 @@ C           Treat OP,ERRO (calculate errors)
                IF ( IMIN.NE.0 ) GOTO 400
                GOTO 1300 ! End of OP,ERRO
 
-C           Treat OP,RE,C (release C)
-            ELSEIF ( op2.EQ.'RE,C' ) THEN
+            ELSEIF ( op2.EQ.'RE,C' ) THEN ! Treat OP,RE,C (release C)
                jfre = 1
                irfix = 0
                GOTO 1000 ! Back to input loop
 
-C           Treat OP,TITL (title)
-            ELSEIF ( op2.EQ.'TITL' ) THEN
+            ELSEIF ( op2.EQ.'TITL' ) THEN ! Treat OP,TITL (title)
                READ 99009 , (title(k),k=1,20)
 99009          FORMAT (20A4)
                WRITE (22,99010) (title(k),k=1,20)
@@ -811,14 +802,11 @@ C           Treat OP,TITL (title)
 
             ELSE
 
-C              Treat OP,GOSI
-               IF ( op2.EQ.'GOSI' ) GOTO 200
+               IF ( op2.EQ.'GOSI' ) GOTO 200 ! Treat OP,GOSI
 
-C              Treat OP,COUL
-               IF ( op2.EQ.'COUL' ) GOTO 200
+               IF ( op2.EQ.'COUL' ) GOTO 200 ! Treat OP,COUL
 
-C              Treat OP,EXIT
-               IF ( op2.EQ.'EXIT' ) THEN
+               IF ( op2.EQ.'EXIT' ) THEN ! Treat OP,EXIT
                   IF ( IPRM(18).NE.0 ) CALL PTICC(idr)
                   IF ( oph.EQ.'GOSI' ) THEN
                      IF ( lfagg.NE.1 ) THEN
@@ -888,8 +876,7 @@ C              Treat OP,EXIT
                   ENDIF
                   GOTO 1900 ! End of OP,EXIT
 
-C              Treat OP,MINI
-               ELSEIF ( op2.EQ.'MINI' ) THEN
+               ELSEIF ( op2.EQ.'MINI' ) THEN ! Treat OP,MINI
                   READ * , imode , nptl , chiok , conu , xtest , LOCKF , 
      &                 NLOCK , IFBFL , LOCKS , DLOCK
                   op2 = opcja
@@ -897,8 +884,7 @@ C              Treat OP,MINI
                   IF ( IMIN.NE.1 ) GOTO 1400
                   GOTO 1200 ! End of OP,MINI
 
-C              Treat OP,THEO
-               ELSEIF ( op2.EQ.'THEO' ) THEN
+               ELSEIF ( op2.EQ.'THEO' ) THEN ! Treat OP,THEO
                   REWIND (12)
                   ibaf = 1
                   DO jb = 1 , LP1 ! LP1 = 50
@@ -961,13 +947,11 @@ C              Treat OP,THEO
                   ENDDO
                   GOTO 100 ! Back to input loop
 
-C              Treat OP,YIEL
-               ELSEIF ( op2.EQ.'YIEL' ) THEN
+               ELSEIF ( op2.EQ.'YIEL' ) THEN ! Treat OP,YIEL
                   CALL ADHOC(oph,idr,nfd,ntap,iyr)
                   GOTO 100 ! Back to input loop
 
-C              Treat OP,INTG
-               ELSEIF ( op2.EQ.'INTG' ) THEN
+               ELSEIF ( op2.EQ.'INTG' ) THEN ! Treat OP,INTG
                   REWIND 14
                   lfagg = 1
                   IF ( SPIN(1).LT..25 ) ISO = 0
@@ -1399,8 +1383,7 @@ C                                Interpolate cross-section at this energy
                   ENDIF
                   GOTO 100 ! Back to input loop
 
-C              Treat OP,CORR
-               ELSEIF ( op2.EQ.'CORR' ) THEN
+               ELSEIF ( op2.EQ.'CORR' ) THEN ! Treat OP,CORR
                   CALL READY(idr,ntap,0)
                   REWIND 3
                   REWIND 15
@@ -1408,17 +1391,13 @@ C              Treat OP,CORR
                   GOTO 1200 ! End of OP,CORR
                ELSE
 
-C                 Treat OP,POIN
-                  IF ( op2.EQ.'POIN' ) GOTO 1200
+                  IF ( op2.EQ.'POIN' ) GOTO 1200 ! Treat OP,POIN
 
-C                 Treat OP,MAP
-                  IF ( op2.EQ.'MAP ' ) iobl = 1
+                  IF ( op2.EQ.'MAP ' ) iobl = 1 ! Treat OP,MAP
 
-C                 Treat OP,STAR
-                  IF ( op2.EQ.'STAR' ) GOTO 1200
+                  IF ( op2.EQ.'STAR' ) GOTO 1200 ! Treat OP,STAR
 
-C                 Treat OP,SIXJ
-                  IF ( op2.EQ.'SIXJ' ) THEN
+                  IF ( op2.EQ.'SIXJ' ) THEN ! Treat OP,SIXJ
                      DO k = 1 , 2
                         l = 4*k
                         DO j = 1 , 80
@@ -1435,8 +1414,7 @@ C                 Treat OP,SIXJ
                      ENDDO
                      GOTO 2000 ! End of OP,SIXJ
 
-C                 Treat OP,RAW (raw uncorrected gamma yields)
-                  ELSEIF ( op2.EQ.'RAW ' ) THEN
+                  ELSEIF ( op2.EQ.'RAW ' ) THEN ! Treat OP,RAW (raw uncorrected gamma yields)
 C                    Read absorber coefficients from unit 8
                      REWIND 8
                      DO l = 1 , 8
@@ -1483,8 +1461,7 @@ C                    Read input from standard input
                      ENDDO
                      GOTO 100 ! Back to input loop
 
-C                 Treat OP,MAP
-                  ELSEIF ( op2.EQ.'MAP ' ) THEN
+                  ELSEIF ( op2.EQ.'MAP ' ) THEN ! Treat OP,MAP
                      GOTO 1200 ! End of OP,MAP 
                   ENDIF ! IF ( op2.EQ.'SIXJ' )
                ENDIF
