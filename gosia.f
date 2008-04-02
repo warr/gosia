@@ -1168,8 +1168,201 @@ C     Handle map
          ENDDO ! Loop on jex
        ENDIF ! IPRM(12).ne.0
       IF ( op2.NE.'GOSI' .AND. op2.NE.'ERRO' ) GOTO 100 ! Back to input loop
-      IF ( op2.EQ.'ERRO' ) GOTO 400
-      GOTO 1400
+      IF ( op2.NE.'ERRO' ) GOTO 1400
+
+ 400  IF ( ICS.EQ.1 ) THEN
+         REWIND 11
+         DO kh1 = 1 , LP4
+            READ (11) (CORF(kh1,kh2),kh2=1,LP6)
+         ENDDO
+      ELSE
+         CALL FTBM(0,chiss,idr,0,chilo,bten)
+         REWIND 11
+         DO kh1 = 1 , LP4
+            WRITE (11) (CORF(kh1,kh2),kh2=1,LP6)
+         ENDDO
+      ENDIF
+
+      CALL FTBM(3,chiss,idr,1,chilo,bten)
+      chis0 = chiss
+      WRITE (22,99028) chis0
+99028 FORMAT (1X///10X,'***** CENTRAL CHISQ=',1E12.4,1X,'*****'//)
+      INHB = 1
+      chisl = chiss
+      DO kh = 1 , MEMAX
+         HLM(kh) = ELM(kh)
+      ENDDO
+      IF ( idf.EQ.1 ) THEN
+         IFBFL = 1
+         IF ( irep.NE.2 ) GOTO 700
+         IF ( iosr.EQ.0 ) GOTO 700
+         REWIND 3
+         READ (3,*) ll , mm , kk , inn
+         DO inn = 1 , ll
+            READ (3,*) mm , yyy , zz
+         ENDDO
+         DO inn = 1 , MEMAX
+            READ (3,*) mm , ll , kk
+         ENDDO
+         DO inn = 1 , MEMAX
+            READ (3,*) mm , yyy
+         ENDDO
+ 450     READ (3,*) mm , ll
+         IF ( mm.EQ.0 ) THEN
+            BACKSPACE 3
+            GOTO 700
+         ELSE
+            READ (3,*) kk , ll , yyy
+            READ (3,*) (SA(mm),mm=1,MEMAX)
+            GOTO 450
+         ENDIF
+      ELSE
+         naxfl = 0
+         IF ( ms.EQ.0 ) mend = MEMAX
+         IF ( ms.EQ.0 ) ms = 1
+         DO kh = ms , mend
+            DO ij = 1 , 2
+               pv = (ELMU(kh)-ELML(kh))/100.
+               IF ( ij.NE.1 .OR. (ELM(kh)-ELML(kh)).GE.pv ) THEN
+                  IF ( ij.NE.2 .OR. (ELMU(kh)-ELM(kh)).GE.pv ) THEN
+                     DO kh1 = 1 , MEMAX
+                        SA(kh1) = 0.
+                     ENDDO
+                     IF ( IVAR(kh).EQ.0 ) GOTO 500
+                     SA(kh) = 1.*(-1)**ij
+                     kh1 = kh
+                     CALL KONTUR(idr,chis0,chisl,ifbp,-1,kh1,sh,bten,
+     &                           rem)
+                     ELM(kh) = HLM(kh)
+                  ENDIF
+               ENDIF
+            ENDDO
+            REWIND 15
+            WRITE (15,*) (DEVD(ij),DEVU(ij),ij=1,MEMAX)
+ 500     ENDDO
+      ENDIF
+ 600  IF ( ifbp.EQ.1 ) THEN
+         REWIND 17
+         DO lkj = 1 , MEMAX
+            READ (17,*) ELM(lkj)
+         ENDDO
+         WRITE (22,99029)
+99029    FORMAT (1X///20X,'*** BEST POINT FOUND (TAPE17) ***'///)
+         CALL PRELM(3)
+      ENDIF
+      IF ( naxfl.EQ.0 ) WRITE (22,99051)
+      IF ( naxfl.NE.0 ) WRITE (22,99050)
+      WRITE (22,99030)
+99030 FORMAT (40X,'ESTIMATED ERRORS'//5X,'INDEX',5X,'NI',5X,'NF',5X,
+     &        'ME AND ERRORS'//)
+      DO kh1 = 1 , MEMAX
+         IF ( IVAR(kh1).NE.0 .AND. IVAR(kh1).LE.999 ) THEN
+            WRITE (22,99031) kh1 , LEAD(1,kh1) , LEAD(2,kh1) , HLM(kh1)
+     &                       , DEVD(kh1) , DEVU(kh1) , DEVD(kh1)
+     &                       *100./ABS(HLM(kh1)) , DEVU(kh1)
+     &                       *100./ABS(HLM(kh1))
+99031       FORMAT (6X,1I3,6X,1I2,5X,1I2,5X,1F9.5,2X,'(',1F9.5,' ,',
+     &              1F9.5,')','......',1F7.1,' ,',1F7.1,1X,'PC')
+         ENDIF
+      ENDDO
+      IF ( naxfl.NE.0 ) WRITE (22,99050)
+      IF ( naxfl.EQ.0 ) WRITE (22,99051)
+      WRITE (22,99032)
+99032 FORMAT (40X,'ESTIMATED ERRORS',//5X,'INDEX',5X,'NI',5X,'NF',5X,
+     &        'B(E,ML)(OR QUADRUPOLE MOMENT)',' AND ERRORS'//)
+
+      DO kh2 = 1 , MEMAX
+         IF ( IVAR(kh2).NE.0 .AND. IVAR(kh2).LE.999 ) THEN
+            ispa = LEAD(2,kh2)
+            IF ( LEAD(1,kh2).NE.LEAD(2,kh2) ) THEN
+               sbe = 2.*SPIN(ispa) + 1.
+               be2 = HLM(kh2)*HLM(kh2)/sbe
+               be2a = HLM(kh2) + DEVD(kh2)
+               be2b = HLM(kh2) + DEVU(kh2)
+               be2c = be2b
+               IF ( ABS(be2a).GT.ABS(be2b) ) be2b = be2a
+               IF ( ABS(be2a-be2c).LT.1.E-6 ) be2a = be2c
+               IF ( be2a/HLM(kh2).LE.0. .OR. be2b/HLM(kh2).LE.0. )
+     &              be2a = 0.
+               be2a = be2a**2/sbe
+               be2b = be2b**2/sbe
+               WRITE (22,99052) kh2 , LEAD(2,kh2) , LEAD(1,kh2) , be2 , 
+     &                          be2a - be2 , be2b - be2
+            ELSE
+               ispb = INT(SPIN(ispa))*2
+               qfac = 3.170662*WTHREJ(ispb,4,ispb,-ispb,0,ispb)
+               WRITE (22,99052) kh2 , LEAD(2,kh2) , LEAD(1,kh2) , 
+     &                          HLM(kh2)*qfac , DEVD(kh2)*qfac , 
+     &                          DEVU(kh2)*qfac
+            ENDIF
+         ENDIF
+      ENDDO
+      GOTO 2000 ! Normal end of execution
+
+ 700  irea = 0
+      IF ( ms.LT.0 ) irea = 1
+      IF ( ms.EQ.0 ) mend = MEMAX
+      IF ( ms.EQ.0 ) ms = 1
+ 800  naxfl = 1
+      IF ( irea.EQ.1 ) READ * , ms , mend
+      IF ( ms.NE.0 ) THEN
+         DO kh = ms , mend
+            IF ( ifc.NE.1 ) THEN
+               REWIND 18
+               DO kh1 = 1 , kh
+                  READ (18,*) (KVAR(jyi),jyi=1,MEMAX)
+               ENDDO
+               DO kh1 = 1 , MEMAX
+                  ivrh = IVAR(kh1)
+                  IF ( KVAR(kh1).EQ.0 ) IVAR(kh1) = 0
+                  KVAR(kh1) = ivrh
+               ENDDO
+            ENDIF
+            DO ij = 1 , 2
+               sh = DEVU(kh)
+               IF ( ij.EQ.1 ) sh = DEVD(kh)
+               IF ( ABS(sh).LT.1.E-6 ) sh = (-1)**ij*ABS(HLM(kh))/10.
+               ELM(kh) = HLM(kh) + 1.5*sh
+               mm = 0
+               DO kh1 = 1 , MEMAX
+                  IF ( ifc.EQ.1 ) KVAR(kh1) = IVAR(kh1)
+                  mm = mm + IVAR(kh1)
+               ENDDO
+               IF ( mm.EQ.0 ) WRITE (22,99033) kh
+99033          FORMAT (10X,'ME=',1I3,5X,'NO FREE MATRIX ELEMENTS')
+               IF ( mm.NE.0 ) THEN
+                  KFERR = 1
+                  IF ( iosr.EQ.1 ) WRITE (3,*) kh , kh ! For sigma program
+                  IF ( iosr.EQ.1 ) WRITE (3,*) kh , ij , ELM(kh)
+                  LOCKS = 1
+                  DLOCK = .05
+                  CALL MINI(chiss,-1.D0,2,.0001D0,1000,idr,100000.D0,0,
+     &                      iosr,kh,bten)
+                  DO kh1 = 1 , MEMAX
+                     SA(kh1) = (ELM(kh1)-HLM(kh1))/ABS(sh)
+                  ENDDO
+                  CALL KONTUR(idr,chis0,chisl,ifbp,inpo,kh,sh,bten,rem)
+               ENDIF
+               DO kh1 = 1 , MEMAX
+                  IF ( ifc.EQ.1 ) IVAR(kh1) = KVAR(kh1)
+                  ELM(kh1) = HLM(kh1)
+               ENDDO
+            ENDDO
+            IF ( ifc.NE.1 ) THEN
+               DO kh1 = 1 , MEMAX
+                  IVAR(kh1) = KVAR(kh1)
+               ENDDO
+            ENDIF
+            REWIND 15
+            WRITE (15,*) (DEVD(kh1),DEVU(kh1),kh1=1,MEMAX)
+         ENDDO
+         IF ( irea.EQ.1 ) GOTO 800
+      ENDIF
+      IF ( iosr.NE.0 ) THEN
+         im = 0
+         WRITE (3,*) im , im
+      ENDIF
+      GOTO 600
 
 99050 FORMAT (1X///44X,'OVERALL')
 99051 FORMAT (1X///43X,'DIAGONAL')
@@ -2408,203 +2601,6 @@ C---------------------------------------------------------------------
 C Treat OP,MAP
  3900 iobl = 1
       GOTO 3600 ! End of OP,MAP 
-
-C*******************************************************************
-C     Handle OP,ERRO      
- 400  IF ( ICS.EQ.1 ) THEN
-         REWIND 11
-         DO kh1 = 1 , LP4
-            READ (11) (CORF(kh1,kh2),kh2=1,LP6)
-         ENDDO
-      ELSE
-         CALL FTBM(0,chiss,idr,0,chilo,bten)
-         REWIND 11
-         DO kh1 = 1 , LP4
-            WRITE (11) (CORF(kh1,kh2),kh2=1,LP6)
-         ENDDO
-      ENDIF
-
-      CALL FTBM(3,chiss,idr,1,chilo,bten)
-      chis0 = chiss
-      WRITE (22,99028) chis0
-99028 FORMAT (1X///10X,'***** CENTRAL CHISQ=',1E12.4,1X,'*****'//)
-      INHB = 1
-      chisl = chiss
-      DO kh = 1 , MEMAX
-         HLM(kh) = ELM(kh)
-      ENDDO
-      IF ( idf.EQ.1 ) THEN
-         IFBFL = 1
-         IF ( irep.NE.2 ) GOTO 700
-         IF ( iosr.EQ.0 ) GOTO 700
-         REWIND 3
-         READ (3,*) ll , mm , kk , inn
-         DO inn = 1 , ll
-            READ (3,*) mm , yyy , zz
-         ENDDO
-         DO inn = 1 , MEMAX
-            READ (3,*) mm , ll , kk
-         ENDDO
-         DO inn = 1 , MEMAX
-            READ (3,*) mm , yyy
-         ENDDO
- 450     READ (3,*) mm , ll
-         IF ( mm.EQ.0 ) THEN
-            BACKSPACE 3
-            GOTO 700
-         ELSE
-            READ (3,*) kk , ll , yyy
-            READ (3,*) (SA(mm),mm=1,MEMAX)
-            GOTO 450
-         ENDIF
-      ELSE
-         naxfl = 0
-         IF ( ms.EQ.0 ) mend = MEMAX
-         IF ( ms.EQ.0 ) ms = 1
-         DO kh = ms , mend
-            DO ij = 1 , 2
-               pv = (ELMU(kh)-ELML(kh))/100.
-               IF ( ij.NE.1 .OR. (ELM(kh)-ELML(kh)).GE.pv ) THEN
-                  IF ( ij.NE.2 .OR. (ELMU(kh)-ELM(kh)).GE.pv ) THEN
-                     DO kh1 = 1 , MEMAX
-                        SA(kh1) = 0.
-                     ENDDO
-                     IF ( IVAR(kh).EQ.0 ) GOTO 500
-                     SA(kh) = 1.*(-1)**ij
-                     kh1 = kh
-                     CALL KONTUR(idr,chis0,chisl,ifbp,-1,kh1,sh,bten,
-     &                           rem)
-                     ELM(kh) = HLM(kh)
-                  ENDIF
-               ENDIF
-            ENDDO
-            REWIND 15
-            WRITE (15,*) (DEVD(ij),DEVU(ij),ij=1,MEMAX)
- 500     ENDDO
-      ENDIF
- 600  IF ( ifbp.EQ.1 ) THEN
-         REWIND 17
-         DO lkj = 1 , MEMAX
-            READ (17,*) ELM(lkj)
-         ENDDO
-         WRITE (22,99029)
-99029    FORMAT (1X///20X,'*** BEST POINT FOUND (TAPE17) ***'///)
-         CALL PRELM(3)
-      ENDIF
-      IF ( naxfl.EQ.0 ) WRITE (22,99051)
-      IF ( naxfl.NE.0 ) WRITE (22,99050)
-      WRITE (22,99030)
-99030 FORMAT (40X,'ESTIMATED ERRORS'//5X,'INDEX',5X,'NI',5X,'NF',5X,
-     &        'ME AND ERRORS'//)
-      DO kh1 = 1 , MEMAX
-         IF ( IVAR(kh1).NE.0 .AND. IVAR(kh1).LE.999 ) THEN
-            WRITE (22,99031) kh1 , LEAD(1,kh1) , LEAD(2,kh1) , HLM(kh1)
-     &                       , DEVD(kh1) , DEVU(kh1) , DEVD(kh1)
-     &                       *100./ABS(HLM(kh1)) , DEVU(kh1)
-     &                       *100./ABS(HLM(kh1))
-99031       FORMAT (6X,1I3,6X,1I2,5X,1I2,5X,1F9.5,2X,'(',1F9.5,' ,',
-     &              1F9.5,')','......',1F7.1,' ,',1F7.1,1X,'PC')
-         ENDIF
-      ENDDO
-      IF ( naxfl.NE.0 ) WRITE (22,99050)
-      IF ( naxfl.EQ.0 ) WRITE (22,99051)
-      WRITE (22,99032)
-99032 FORMAT (40X,'ESTIMATED ERRORS',//5X,'INDEX',5X,'NI',5X,'NF',5X,
-     &        'B(E,ML)(OR QUADRUPOLE MOMENT)',' AND ERRORS'//)
-
-      DO kh2 = 1 , MEMAX
-         IF ( IVAR(kh2).NE.0 .AND. IVAR(kh2).LE.999 ) THEN
-            ispa = LEAD(2,kh2)
-            IF ( LEAD(1,kh2).NE.LEAD(2,kh2) ) THEN
-               sbe = 2.*SPIN(ispa) + 1.
-               be2 = HLM(kh2)*HLM(kh2)/sbe
-               be2a = HLM(kh2) + DEVD(kh2)
-               be2b = HLM(kh2) + DEVU(kh2)
-               be2c = be2b
-               IF ( ABS(be2a).GT.ABS(be2b) ) be2b = be2a
-               IF ( ABS(be2a-be2c).LT.1.E-6 ) be2a = be2c
-               IF ( be2a/HLM(kh2).LE.0. .OR. be2b/HLM(kh2).LE.0. )
-     &              be2a = 0.
-               be2a = be2a**2/sbe
-               be2b = be2b**2/sbe
-               WRITE (22,99052) kh2 , LEAD(2,kh2) , LEAD(1,kh2) , be2 , 
-     &                          be2a - be2 , be2b - be2
-            ELSE
-               ispb = INT(SPIN(ispa))*2
-               qfac = 3.170662*WTHREJ(ispb,4,ispb,-ispb,0,ispb)
-               WRITE (22,99052) kh2 , LEAD(2,kh2) , LEAD(1,kh2) , 
-     &                          HLM(kh2)*qfac , DEVD(kh2)*qfac , 
-     &                          DEVU(kh2)*qfac
-            ENDIF
-         ENDIF
-      ENDDO
-      GOTO 2000 ! Normal end of execution
-
- 700  irea = 0
-      IF ( ms.LT.0 ) irea = 1
-      IF ( ms.EQ.0 ) mend = MEMAX
-      IF ( ms.EQ.0 ) ms = 1
- 800  naxfl = 1
-      IF ( irea.EQ.1 ) READ * , ms , mend
-      IF ( ms.NE.0 ) THEN
-         DO kh = ms , mend
-            IF ( ifc.NE.1 ) THEN
-               REWIND 18
-               DO kh1 = 1 , kh
-                  READ (18,*) (KVAR(jyi),jyi=1,MEMAX)
-               ENDDO
-               DO kh1 = 1 , MEMAX
-                  ivrh = IVAR(kh1)
-                  IF ( KVAR(kh1).EQ.0 ) IVAR(kh1) = 0
-                  KVAR(kh1) = ivrh
-               ENDDO
-            ENDIF
-            DO ij = 1 , 2
-               sh = DEVU(kh)
-               IF ( ij.EQ.1 ) sh = DEVD(kh)
-               IF ( ABS(sh).LT.1.E-6 ) sh = (-1)**ij*ABS(HLM(kh))/10.
-               ELM(kh) = HLM(kh) + 1.5*sh
-               mm = 0
-               DO kh1 = 1 , MEMAX
-                  IF ( ifc.EQ.1 ) KVAR(kh1) = IVAR(kh1)
-                  mm = mm + IVAR(kh1)
-               ENDDO
-               IF ( mm.EQ.0 ) WRITE (22,99033) kh
-99033          FORMAT (10X,'ME=',1I3,5X,'NO FREE MATRIX ELEMENTS')
-               IF ( mm.NE.0 ) THEN
-                  KFERR = 1
-                  IF ( iosr.EQ.1 ) WRITE (3,*) kh , kh ! For sigma program
-                  IF ( iosr.EQ.1 ) WRITE (3,*) kh , ij , ELM(kh)
-                  LOCKS = 1
-                  DLOCK = .05
-                  CALL MINI(chiss,-1.D0,2,.0001D0,1000,idr,100000.D0,0,
-     &                      iosr,kh,bten)
-                  DO kh1 = 1 , MEMAX
-                     SA(kh1) = (ELM(kh1)-HLM(kh1))/ABS(sh)
-                  ENDDO
-                  CALL KONTUR(idr,chis0,chisl,ifbp,inpo,kh,sh,bten,rem)
-               ENDIF
-               DO kh1 = 1 , MEMAX
-                  IF ( ifc.EQ.1 ) IVAR(kh1) = KVAR(kh1)
-                  ELM(kh1) = HLM(kh1)
-               ENDDO
-            ENDDO
-            IF ( ifc.NE.1 ) THEN
-               DO kh1 = 1 , MEMAX
-                  IVAR(kh1) = KVAR(kh1)
-               ENDDO
-            ENDIF
-            REWIND 15
-            WRITE (15,*) (DEVD(kh1),DEVU(kh1),kh1=1,MEMAX)
-         ENDDO
-         IF ( irea.EQ.1 ) GOTO 800
-      ENDIF
-      IF ( iosr.NE.0 ) THEN
-         im = 0
-         WRITE (3,*) im , im
-      ENDIF
-      GOTO 600
-
 
 C---------------------------------------------------------------------
  1500 WRITE (22,99043)
