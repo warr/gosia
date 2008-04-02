@@ -667,7 +667,7 @@ C        Treat OP,FILE (attach files to fortran units)
             GOTO 3800 ! Treat OP,RAW (raw uncorrected gamma yields)
          ELSEIF ( op2.EQ.'MAP ' ) THEN
             GOTO 3900 ! Treat OP,MAP
-         ENDIF
+         ENDIF ! Options
        ENDIF ! End of if (op1.eq."OP, ") if statement
 
       WRITE (22,99022) op1 , op2
