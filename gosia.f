@@ -1045,18 +1045,18 @@ C     Treat suboption CONT (control)
             IF ( op1.NE.'FIX,' ) THEN
                IF ( op1.EQ.'CRF,' ) THEN
                  ICS = 1
+               ELSEIF ( op1.EQ.'LCK,' ) THEN
+ 352              READ * , lck1 , lck2
+                  IF ( lck1.EQ.0 ) GOTO 350 ! Back to beginning of CONT suboption
+                  DO jjx = lck1 , lck2
+                     ivarh(jjx) = 0
+                     IVAR(jjx) = 0
+                  ENDDO
+                  GOTO 352
+               ELSEIF ( op1.EQ.'INR,' ) THEN
+                  INNR = 1
                ELSE
-                  IF ( op1.EQ.'LCK,' ) THEN
- 352                 READ * , lck1 , lck2
-                     IF ( lck1.EQ.0 ) GOTO 350 ! Back to beginning of CONT suboption
-                     DO jjx = lck1 , lck2
-                        ivarh(jjx) = 0
-                        IVAR(jjx) = 0
-                     ENDDO
-                     GOTO 352
-                  ELSEIF ( op1.EQ.'INR,' ) THEN
-                     INNR = 1
-                  ELSEIF ( op1.EQ.'CRD,' ) THEN
+                  IF ( op1.EQ.'CRD,' ) THEN
                      DO jjx = 1 , ipo1
                         READ * , ipo2
                         iecd(ipo2) = 1
