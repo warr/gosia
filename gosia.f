@@ -1019,18 +1019,18 @@ C     Treat suboption CONT (control)
                READ * , ipo2 , ijx
                INTERV(ipo2) = ijx
             ENDDO
+         ELSEIF ( op1.EQ.'VAC,' ) THEN
+            DO jjx = 1 , 7
+               READ * , ijx , val
+               IF ( ijx.EQ.0 ) GOTO 350 ! Back to beginning of CONT suboption
+               G(ijx) = val
+            ENDDO
+         ELSEIF ( op1.EQ.'DIP,' ) THEN
+          DIPOL = 0.001*fipo1
+         ELSEIF ( op1.EQ.'ACC,' ) THEN
+            ACCUR = 10.**(-fipo1)
          ELSE
-            IF ( op1.EQ.'VAC,' ) THEN
-               DO jjx = 1 , 7
-                  READ * , ijx , val
-                  IF ( ijx.EQ.0 ) GOTO 350 ! Back to beginning of CONT suboption
-                  G(ijx) = val
-               ENDDO
-            ELSEIF ( op1.EQ.'DIP,' ) THEN
-             DIPOL = 0.001*fipo1
-            ELSEIF ( op1.EQ.'ACC,' ) THEN
-               ACCUR = 10.**(-fipo1)
-            ELSEIF ( op1.EQ.'PRT,' ) THEN
+            IF ( op1.EQ.'PRT,' ) THEN
                DO jjx = 1 , 20
                   READ * , inm1 , inm2
                   IF ( inm1.EQ.0 ) GOTO 350 ! Back to beginning of CONT suboption
