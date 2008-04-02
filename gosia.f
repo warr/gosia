@@ -1075,12 +1075,10 @@ C     Treat suboption CONT (control)
                            jpin(ig1) = ig2
                         ENDDO
                         GOTO 350
+                     ELSEIF ( op1.EQ.'END,' ) THEN
+                        GOTO 2900
                      ELSE
-                        IF ( op1.EQ.'END,' ) THEN
-                          GOTO 2900
-                        ELSE
-                           GOTO 350
-                        ENDIF ! If CCF, PIN
+                        GOTO 350
                      ENDIF
                   ENDIF
                ENDIF
