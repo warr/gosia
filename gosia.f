@@ -608,7 +608,7 @@ C     Start reading input file.
 C        Treat OP,FILE (attach files to fortran units)
          IF ( op2.EQ.'FILE' ) THEN
            CALL OPENF
-           GOTO 100
+           GOTO 100 ! Back to input loop
          ENDIF
          
          IF ( jphd.EQ.1 ) WRITE (22,99002)
@@ -719,7 +719,7 @@ C     attenuation coefficients
             ENDDO
          ENDDO
       ENDDO
-      GOTO 100 ! End of OP,GDET
+      GOTO 100 ! Back to input loop
 
 C---------------------------------------------------------------------
 C Treat OP,RAND
@@ -728,15 +728,14 @@ C Treat OP,RAND
       WRITE (22,99007)
 99007 FORMAT (1X///5X,'MATRIX ELEMENTS RANDOMIZED...'///)
       CALL PRELM(2)
-      GOTO 100 ! End of OP,RAND
+      GOTO 100 ! Back to input loop
 
 
 C---------------------------------------------------------------------
 C Treat OP,TROU
  2300 ITS = 1 ! Create tape 18 flag
       READ * , kmat , rlr
-      GOTO 100 ! End of OP,TROU
-
+      GOTO 100 ! Back to input loop
 
 C---------------------------------------------------------------------
 C Treat OP,REST
@@ -776,7 +775,7 @@ C           ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
          ENDIF
       ENDDO
       CALL PRELM(2)
-      GOTO 100 ! End of OP,REST
+      GOTO 100 ! Back to input loop
 
 C---------------------------------------------------------------------
 C Treat OP,RE,A and OP,RE,F
@@ -797,13 +796,13 @@ C Treat OP,RE,A and OP,RE,F
       DO jrls = 1 , MEMAX
          ivarh(jrls) = IVAR(jrls)
       ENDDO
-      GOTO 100 ! End of OP,RE,A and OP,RE,F
+      GOTO 100 ! Back to input loop
 
 C---------------------------------------------------------------------
 C Treat OP,RE,C
  2600 jfre = 1
       irfix = 0
-      GOTO 1000 ! End of OP,RE,C
+      GOTO 1000 ! Back to input loop
 
 C---------------------------------------------------------------------
 C Treat OP,ERRO
@@ -872,13 +871,13 @@ C Treat OP,TITL
 99009 FORMAT (20A4)
       WRITE (22,99010) (title(k),k=1,20)
 99010 FORMAT (10X,20A4/10X,100('-'))
-      GOTO 100 ! End of OP,TITL
+      GOTO 100 ! Back to input loop
 
 C---------------------------------------------------------------------
 C     Treat suboptions of OP,COUL and OP,GOSI
  2900 READ 99023 , op1 ! Read the suboption
 99023 FORMAT (1A4)
-      IF ( op1.EQ.'    ' ) GOTO 100
+      IF ( op1.EQ.'    ' ) GOTO 100 ! Back to input loop
 
 C     Treat suboption LEVE (levels)
       IF ( op1.EQ.'LEVE' ) THEN
@@ -1264,12 +1263,12 @@ C Treat OP,THEO
             WRITE (12,*) ELM(kb)
          ENDIF
       ENDDO
-      GOTO 100 ! End of OP,THEO
+      GOTO 100 ! Back to input loop
 
 C---------------------------------------------------------------------
 C Treat OP,YIEL
  3300 CALL ADHOC(oph,idr,nfd,ntap,iyr)
-      GOTO 100 ! End of OP,YIEL
+      GOTO 100 ! Back to input loop
 
 C---------------------------------------------------------------------
 C Treat OP,INTG
@@ -1702,7 +1701,7 @@ C                    Interpolate cross-section at this energy
             ENDDO
          ENDDO
       ENDIF
-      GOTO 100 ! End of OP,INTG
+      GOTO 100 ! Back to input loop
 
 C---------------------------------------------------------------------
 C Treat OP,CORR
@@ -1998,7 +1997,7 @@ C Treat OP,POIN, OP,STAR, OP,MAP, OP,MINI and OP,CORR
                   REWIND ntap
                ENDIF
             ENDIF
-            GOTO 100
+            GOTO 100 ! Back to input loop
          ENDIF ! if (op2 .NE. 'GOSI') if statement
       ENDIF ! if ( iobl.LT.1 ) if statement
 
@@ -2045,7 +2044,7 @@ C Treat OP,RAW
 C     Read input from standard input
       DO l = 1 , LP1 ! LP1 = 50
          READ * , mexl ! experiment number
-         IF ( mexl.EQ.0 ) GOTO 100
+         IF ( mexl.EQ.0 ) GOTO 100 ! Back to input loop
          IRAWEX(mexl) = 1
          n = NANG(mexl)
          DO j = 1 , n
@@ -2065,7 +2064,7 @@ C     Read input from standard input
             ENDDO
          ENDIF
       ENDDO
-      GOTO 100 ! End of OP,RAW
+      GOTO 100 ! Back to input loop
 
 C---------------------------------------------------------------------
 C Treat OP,MAP
@@ -2572,7 +2571,7 @@ C     Handle map
             ENDDO ! Loop on lex
          ENDDO ! Loop on jex
        ENDIF ! IPRM(12).ne.0
-      IF ( op2.NE.'GOSI' .AND. op2.NE.'ERRO' ) GOTO 100
+      IF ( op2.NE.'GOSI' .AND. op2.NE.'ERRO' ) GOTO 100 ! Back to input loop
       IF ( op2.EQ.'ERRO' ) GOTO 400
 
  1400 DO kh1 = 1 , MEMAX
@@ -2593,7 +2592,7 @@ C     Handle map
          WRITE (12,*) ELM(lkj)
       ENDDO
       IF ( ifm.EQ.1 ) CALL PRELM(3) ! ifm = fast minimisation switch
-      IF ( ifm.NE.1 ) GOTO 100
+      IF ( ifm.NE.1 ) GOTO 100 ! Back to input loop
       GOTO 2000 ! End of execution
 
  1500 WRITE (22,99043)
