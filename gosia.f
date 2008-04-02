@@ -1056,16 +1056,16 @@ C     Treat suboption CONT (control)
                GOTO 352
             ELSEIF ( op1.EQ.'INR,' ) THEN
                INNR = 1
+            ELSEIF ( op1.EQ.'CRD,' ) THEN
+               DO jjx = 1 , ipo1
+                  READ * , ipo2
+                  iecd(ipo2) = 1
+               ENDDO
+               GOTO 350
+            ELSEIF ( op1.EQ.'CCF,' ) THEN
+               IPS1 = ipo1
             ELSEIF ( op1.NE.'FIX,' ) THEN
-               IF ( op1.EQ.'CRD,' ) THEN
-                  DO jjx = 1 , ipo1
-                     READ * , ipo2
-                     iecd(ipo2) = 1
-                  ENDDO
-                  GOTO 350
-               ELSEIF ( op1.EQ.'CCF,' ) THEN
-                  IPS1 = ipo1
-               ELSEIF ( op1.EQ.'PIN,' ) THEN
+               IF ( op1.EQ.'PIN,' ) THEN
                   ipine = ipo1
                   ipinf = 1
                   DO ipp = 1 , ipine
