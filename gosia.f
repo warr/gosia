@@ -670,7 +670,7 @@ C        Treat OP,FILE (attach files to fortran units)
 
       WRITE (22,99022) op1 , op2
 99022 FORMAT (5X,'UNRECOGNIZED OPTION',1X,1A3,1A4)
-      GOTO 2000
+      GOTO 2000 ! End of execution
 
 C---------------------------------------------------------------------
 C Treat OP,GDET
@@ -862,7 +862,7 @@ C Treat OP,ERRO
          ENDDO
       ENDIF
       IF ( IMIN.EQ.0 ) CALL CMLAB(0,dsig,ttttt)
-      IF ( ERR ) GOTO 2000
+      IF ( ERR ) GOTO 2000 ! End of execution
       IF ( IMIN.NE.0 ) GOTO 400
       GOTO 1300 ! End of OP,ERRO
 
@@ -1118,7 +1118,7 @@ C     Else we don't recognize the suboption
       ELSE
          WRITE (22,99027) op1
 99027    FORMAT (5X,'UNRECOGNIZED SUBOPTION',1X,1A4)
-         GOTO 2000
+         GOTO 2000 ! End of execution
       ENDIF
       GOTO 2900 ! Get next suboption
 
@@ -1343,7 +1343,7 @@ C Treat OP,INTG
                      ENDIF
                   ENDIF
                   CALL CMLAB(lx,dsig,tetrc)
-                  IF ( ERR ) GOTO 2000
+                  IF ( ERR ) GOTO 2000 ! End of execution
                   tting = TLBDG(lx)
                   IF ( ERR ) GOTO 1900
                   CALL LOAD(lx,1,1,0.D0,jj)
@@ -1715,7 +1715,7 @@ C Treat OP,CORR
 C---------------------------------------------------------------------
 C Treat OP,POIN, OP,STAR, OP,MAP, OP,MINI and OP,CORR
  3600 CALL CMLAB(0,dsig,ttttt)
-      IF ( ERR ) GOTO 2000
+      IF ( ERR ) GOTO 2000 ! End of execution
       IF ( op2.EQ.'POIN' ) READ * , ifwd , slim
       ient = 1
       icg = 1
@@ -2018,7 +2018,7 @@ C Treat OP,SIXJ
             ENDDO
          ENDDO
       ENDDO
-      GOTO 2000 ! End of OP,SIXJ
+      GOTO 2000 ! End of execution
 
 C---------------------------------------------------------------------
 C Treat OP,RAW
@@ -2201,7 +2201,7 @@ C     Handle OP,ERRO
             ENDIF
          ENDIF
       ENDDO
-      GOTO 2000
+      GOTO 2000 ! End of execution
 
  700  irea = 0
       IF ( ms.LT.0 ) irea = 1
@@ -2583,7 +2583,7 @@ C     Handle map
          IVAR(kh1) = ivarh(kh1)
       ENDDO
       CALL MINI(chisq,chiok,nptl,conu,imode,idr,xtest,0,0,0,bten)
-      IF ( IPS1.EQ.0 ) GOTO 2000
+      IF ( IPS1.EQ.0 ) GOTO 2000 ! End of execution
       IMIN = IMIN + 1
       DO iva = 1 , LP1 ! LP1 = 50
          JSKIP(iva) = 1
@@ -2594,7 +2594,7 @@ C     Handle map
       ENDDO
       IF ( ifm.EQ.1 ) CALL PRELM(3) ! ifm = fast minimisation switch
       IF ( ifm.NE.1 ) GOTO 100
-      GOTO 2000
+      GOTO 2000 ! End of execution
 
  1500 WRITE (22,99043)
 99043 FORMAT (5X,'ERROR-M.E. DOES NOT BELONG TO THE UPPER TRIANGLE')
@@ -2621,9 +2621,15 @@ C---------------------------------------------------------------------
             CALL KLOPOT(kmat,rlr) ! Troubleshooting
          ENDIF
       ENDIF
+
+C---------------------------------------------------------------------
+C End of execution
  2000 WRITE (22,99047)
 99047 FORMAT (15X,'********* END OF EXECUTION **********')
 
+
+
+C---------------------------------------------------------------------
 99048 FORMAT (1X//50X,'CALCULATED YIELDS'//5X,'EXPERIMENT ',1I2,2X,
      &        'DETECTOR ',1I2/5X,'ENERGY ',1F10.3,1X,'MEV',2X,'THETA ',
      &        1F7.3,1X,'DEG'//5X,'NI',5X,'NF',5X,'II',5X,'IF',5X,
