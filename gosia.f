@@ -633,10 +633,8 @@ C        Treat OP,FILE (attach files to fortran units)
             GOTO 2500 ! Treat OP,RE,A (release A)
          ELSEIF ( op2.EQ.'RE,F' ) THEN
             GOTO 2500 ! Treat OP,RE,F (release F)
-         ELSEIF ( op2.EQ.'RE,C' ) THEN ! Treat OP,RE,C (release C)
-            jfre = 1
-            irfix = 0
-            GOTO 1000 ! Back to input loop
+         ELSEIF ( op2.EQ.'RE,C' ) THEN
+            GOTO 2500 ! Treat OP,RE,C (release C)
          ELSEIF ( op2.EQ.'ERRO' ) THEN
             GOTO 2700 ! Treat OP,ERRO (calculate errors)
          ELSEIF ( op2.EQ.'TITL' ) THEN
@@ -780,9 +778,16 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
 
 C---------------------------------------------------------------------
 C Treat OP,RE,*
- 2500 jfre = 0
-      irfix = 0
-      IF ( op2.EQ.'RE,F' ) irfix = 1
+ 2500 IF ( op2.EQ.'RE,A' ) THEN        ! OP,RE,A
+         jfre = 0
+         irfix = 0
+      ELSEIF ( op2.EQ.'RE,F' ) THEN    ! OP,RE,F
+         jfre = 0
+         irfix = 1
+      ELSE                             ! OP,RE,C
+         jfre = 1
+         irfix = 0
+      ENDIF
  1000 DO jrls = 1 , MEMAX
          IF ( IVAR(jrls).NE.0 .OR. irfix.NE.1 ) THEN
             IF ( IVAR(jrls).GT.999 ) THEN
