@@ -1045,26 +1045,26 @@ C     Treat suboption CONT (control)
                      JSKIP(ijx) = 0
                   ENDDO
                   GOTO 350
+               ELSEIF ( op1.EQ.'CRF,' ) THEN
+                  ICS = 1
+               ELSEIF ( op1.EQ.'LCK,' ) THEN
+ 352              READ * , lck1 , lck2
+                  IF ( lck1.EQ.0 ) GOTO 350
+                  DO jjx = lck1 , lck2
+                     ivarh(jjx) = 0
+                     IVAR(jjx) = 0
+                  ENDDO
+                  GOTO 352
+               ELSEIF ( op1.EQ.'INR,' ) THEN
+                  INNR = 1
+               ELSEIF ( op1.EQ.'CRD,' ) THEN
+                  DO jjx = 1 , ipo1
+                     READ * , ipo2
+                     iecd(ipo2) = 1
+                  ENDDO
+                  GOTO 350
                ELSE
-                  IF ( op1.EQ.'CRF,' ) THEN
-                     ICS = 1
-                  ELSEIF ( op1.EQ.'LCK,' ) THEN
- 352                 READ * , lck1 , lck2
-                     IF ( lck1.EQ.0 ) GOTO 350
-                     DO jjx = lck1 , lck2
-                        ivarh(jjx) = 0
-                        IVAR(jjx) = 0
-                     ENDDO
-                     GOTO 352
-                  ELSEIF ( op1.EQ.'INR,' ) THEN
-                     INNR = 1
-                  ELSEIF ( op1.EQ.'CRD,' ) THEN
-                     DO jjx = 1 , ipo1
-                        READ * , ipo2
-                        iecd(ipo2) = 1
-                     ENDDO
-                     GOTO 350
-                  ELSEIF ( op1.EQ.'CCF,' ) THEN
+                  IF ( op1.EQ.'CCF,' ) THEN
                      IPS1 = ipo1
                   ELSE
                      IF ( op1.EQ.'PIN,' ) THEN
@@ -1084,7 +1084,7 @@ C     Treat suboption CONT (control)
                      ENDIF
                   ENDIF
                ENDIF
-            ENDIF
+            ENDIF ! If not fix,
          ENDIF
          READ * , nallow
          DO jjx = 1 , nallow
