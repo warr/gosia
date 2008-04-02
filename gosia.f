@@ -2397,9 +2397,8 @@ C Treat OP,MAP
  3900 iobl = 1
       GOTO 3600 ! End of OP,MAP
 
-
 C---------------------------------------------------------------------
-C Handle OP,ERRO      
+C Handle OP,ERRO
  400  IF ( ICS.EQ.1 ) THEN
          REWIND 11
          DO kh1 = 1 , LP4
@@ -2614,7 +2613,7 @@ C---------------------------------------------------------------------
 99046 FORMAT (1X///10X,'ERROR-INSUFFICIENT SPACE FOR E-THETA INTEGR ',
      &        'ATION')
       GOTO 1900 ! Troubleshoot
-
+      
 C---------------------------------------------------------------------
 C Perform troubleshooting (if this option is turned on)
  1900 IF ( ITS.NE.0 ) THEN ! If troubleshooting flag is set
