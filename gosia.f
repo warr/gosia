@@ -1039,6 +1039,21 @@ C     Treat suboption CONT (control)
                READ * , ijx
                JSKIP(ijx) = 0
             ENDDO
+         ELSEIF ( op1.EQ.'FIX,' ) THEN
+            READ * , nallow
+            DO jjx = 1 , nallow
+               READ * , ijk
+               IVAR(ijk) = -IVAR(ijk)
+            ENDDO
+            DO jjx = 1 , MEMAX
+               IF ( IVAR(jjx).GE.0 ) THEN
+                  IF ( IVAR(jjx).LE.999 ) IVAR(jjx) = 0
+               ENDIF
+            ENDDO
+            DO jjx = 1 , MEMAX
+               IF ( IVAR(jjx).LT.0 ) IVAR(jjx) = -IVAR(jjx)
+               ivarh(jjx) = IVAR(jjx)
+            ENDDO
          ELSEIF ( op1.EQ.'CRF,' ) THEN
             ICS = 1
          ELSEIF ( op1.EQ.'LCK,' ) THEN
@@ -1064,21 +1079,6 @@ C     Treat suboption CONT (control)
             DO ipp = 1 , ipine
                READ (*,*) ig1 , ig2
                jpin(ig1) = ig2
-            ENDDO
-         ELSEIF ( op1.EQ.'FIX,' ) THEN
-            READ * , nallow
-            DO jjx = 1 , nallow
-               READ * , ijk
-               IVAR(ijk) = -IVAR(ijk)
-            ENDDO
-            DO jjx = 1 , MEMAX
-               IF ( IVAR(jjx).GE.0 ) THEN
-                  IF ( IVAR(jjx).LE.999 ) IVAR(jjx) = 0
-               ENDIF
-            ENDDO
-            DO jjx = 1 , MEMAX
-               IF ( IVAR(jjx).LT.0 ) IVAR(jjx) = -IVAR(jjx)
-               ivarh(jjx) = IVAR(jjx)
             ENDDO
          ELSEIF ( op1.EQ.'END,' ) THEN
             GOTO 2900 ! End of CONT suboption
