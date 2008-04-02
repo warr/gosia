@@ -942,9 +942,9 @@ C Treat OP,ERRO
                      ENDDO
                      IF ( zmir(kk,1,IEXP).LT..5 ) zmir(kk,1,IEXP) = .5
                      IF ( zmir(kk,2,IEXP).LT..5 ) zmir(kk,2,IEXP) = .5
-                  ENDIF
-               ENDDO
-            ENDDO
+                  ENDIF ! IF ( ll.NE.0 )
+               ENDDO ! Loop on kk
+            ENDDO ! Loop on jgs
             DO kk = 1 , 6
                XIR(kk,IEXP) = XIR(kk,IEXP)*1.01
                DO kh = 1 , 8
