@@ -1064,10 +1064,10 @@ C     Treat suboption CONT (control)
                               iecd(ipo2) = 1
                            ENDDO
                            GOTO 350 ! Back to beginning of CONT suboption
+                        ELSEIF ( op1.EQ.'CCF,' ) THEN
+                           IPS1 = ipo1
                         ELSE
-                           IF ( op1.EQ.'CCF,' ) THEN
-                              IPS1 = ipo1
-                           ELSEIF ( op1.EQ.'PIN,' ) THEN
+                           IF ( op1.EQ.'PIN,' ) THEN
                               ipine = ipo1
                               ipinf = 1
                               DO ipp = 1 , ipine
