@@ -2395,7 +2395,7 @@ C     Read input from standard input
 C---------------------------------------------------------------------
 C Treat OP,MAP
  3900 iobl = 1
-      GOTO 3600 ! End of OP,MAP 
+      GOTO 3600 ! End of OP,MAP
 
 C---------------------------------------------------------------------
 c Handle OP,ERRO
