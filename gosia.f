@@ -784,7 +784,7 @@ C        Treat other options
                   ENDDO
                ENDIF
                IF ( IMIN.EQ.0 ) CALL CMLAB(0,dsig,ttttt)
-               IF ( ERR ) GOTO 2000
+               IF ( ERR ) GOTO 2000 ! Normal end of execution
                IF ( IMIN.NE.0 ) GOTO 400
                GOTO 1300 ! End of OP,ERRO
 
@@ -1022,7 +1022,7 @@ C        Treat other options
                                  ENDIF
                               ENDIF
                               CALL CMLAB(lx,dsig,tetrc)
-                              IF ( ERR ) GOTO 2000
+                              IF ( ERR ) GOTO 2000 ! Normal end of execution
                               tting = TLBDG(lx)
                               IF ( ERR ) GOTO 1900
                               CALL LOAD(lx,1,1,0.D0,jj)
@@ -1412,7 +1412,7 @@ C                                Interpolate cross-section at this energy
                            ENDDO
                         ENDDO
                      ENDDO
-                     GOTO 2000 ! End of OP,SIXJ
+                     GOTO 2000 ! Normal end of execution
 
                   ELSEIF ( op2.EQ.'RAW ' ) THEN ! Treat OP,RAW (raw uncorrected gamma yields)
 C                    Read absorber coefficients from unit 8
@@ -1471,7 +1471,7 @@ C                    Read input from standard input
 
       WRITE (22,99022) op1 , op2
 99022 FORMAT (5X,'UNRECOGNIZED OPTION',1X,1A3,1A4)
-      GOTO 2000
+      GOTO 2000 ! Normal end of execution
 
 C     Treat suboptions of OP,COUL and OP,GOSI
  200  READ 99023 , op1 ! Read the suboption
@@ -1716,7 +1716,7 @@ C     Else we don't recognize the suboption
       ELSE
          WRITE (22,99027) op1
 99027    FORMAT (5X,'UNRECOGNIZED SUBOPTION',1X,1A4)
-         GOTO 2000
+         GOTO 2000 ! Normal end of execution
       ENDIF
       GOTO 200 ! Get next suboption
 
@@ -1848,7 +1848,7 @@ C     Handle OP,ERRO
             ENDIF
          ENDIF
       ENDDO
-      GOTO 2000
+      GOTO 2000 ! Normal end of execution
 
  700  irea = 0
       IF ( ms.LT.0 ) irea = 1
@@ -1935,7 +1935,7 @@ C     Handle OP,ERRO
       GOTO 100 ! Back to input loop
 
  1200 CALL CMLAB(0,dsig,ttttt) ! Options MAP, STAR, POINT, MINI etc.
-      IF ( ERR ) GOTO 2000
+      IF ( ERR ) GOTO 2000 ! Normal end of execution
       IF ( op2.EQ.'POIN' ) READ * , ifwd , slim
       ient = 1
       icg = 1
@@ -2536,7 +2536,7 @@ C     Handle map
          IVAR(kh1) = ivarh(kh1)
       ENDDO
       CALL MINI(chisq,chiok,nptl,conu,imode,idr,xtest,0,0,0,bten)
-      IF ( IPS1.EQ.0 ) GOTO 2000
+      IF ( IPS1.EQ.0 ) GOTO 2000 ! Normal end of execution
       IMIN = IMIN + 1
       DO iva = 1 , LP1 ! LP1 = 50
          JSKIP(iva) = 1
@@ -2547,7 +2547,7 @@ C     Handle map
       ENDDO
       IF ( ifm.EQ.1 ) CALL PRELM(3) ! ifm = fast minimisation switch
       IF ( ifm.NE.1 ) GOTO 100 ! Back to input loop
-      GOTO 2000
+      GOTO 2000 ! Normal end of execution
 
  1500 WRITE (22,99043)
 99043 FORMAT (5X,'ERROR-M.E. DOES NOT BELONG TO THE UPPER TRIANGLE')
