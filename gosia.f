@@ -1035,15 +1035,15 @@ C     Treat suboption CONT (control)
                IPRM(inm1) = inm2
             ENDDO
             GOTO 350 ! Back to beginning of CONT suboption
+            ELSEIF ( op1.EQ.'SKP,' ) THEN
+               DO jjx = 1 , ipo1
+                  READ * , ijx
+                  JSKIP(ijx) = 0
+               ENDDO
+               GOTO 350 ! Back to beginning of CONT suboption
          ELSE
             IF ( op1.NE.'FIX,' ) THEN
-               IF ( op1.EQ.'SKP,' ) THEN
-                  DO jjx = 1 , ipo1
-                     READ * , ijx
-                     JSKIP(ijx) = 0
-                  ENDDO
-                  GOTO 350 ! Back to beginning of CONT suboption
-               ELSEIF ( op1.EQ.'CRF,' ) THEN
+               IF ( op1.EQ.'CRF,' ) THEN
                  ICS = 1
                ELSE
                   IF ( op1.EQ.'LCK,' ) THEN
