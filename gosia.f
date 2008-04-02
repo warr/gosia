@@ -656,7 +656,7 @@ C        Treat other options
                ELSEIF ( op2.EQ.'MINI' ) THEN
                   GOTO 3100 ! Treat OP,MINI
                ELSEIF ( op2.EQ.'THEO' ) THEN
-                  GOTO 3200! Treat OP,THEO
+                  GOTO 3200 ! Treat OP,THEO
                ELSEIF ( op2.EQ.'YIEL' ) THEN ! Treat OP,YIEL
                   CALL ADHOC(oph,idr,nfd,ntap,iyr)
                   GOTO 100 ! Back to input loop
