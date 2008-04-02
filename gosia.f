@@ -642,37 +642,34 @@ C        Treat OP,FILE (attach files to fortran units)
 C        Treat other options
          ELSE
             IF ( op2.EQ.'TITL' ) THEN
-               GOTO 2800 ! Treat OP,TITL (title)
-            ELSE
-
-               IF ( op2.EQ.'GOSI' ) THEN
-                 GOTO 2900 ! Treat OP,GOSI
-               ELSEIF ( op2.EQ.'COUL' ) THEN
-                 GOTO 2900 ! Treat OP,COUL
-               ELSEIF ( op2.EQ.'EXIT' ) THEN
-                 GOTO 3000 ! Treat OP,EXIT
-               ELSEIF ( op2.EQ.'MINI' ) THEN
-                  GOTO 3100 ! Treat OP,MINI
-               ELSEIF ( op2.EQ.'THEO' ) THEN
-                  GOTO 3200 ! Treat OP,THEO
-               ELSEIF ( op2.EQ.'YIEL' ) THEN
-                  GOTO 3300 ! Treat OP,YIEL
-               ELSEIF ( op2.EQ.'INTG' ) THEN
-                  GOTO 3400 ! Treat OP,INTG
-               ELSEIF ( op2.EQ.'CORR' ) THEN
-                  GOTO 3500 ! Treat OP,CORR
-                ELSEIF ( op2.EQ.'POIN' ) THEN
-                  GOTO 3600 ! Treat OP,POIN
-                ELSEIF ( op2.EQ.'MAP ' ) THEN
-                  iobl = 1 ! Treat OP,MAP
-                  GOTO 3600 ! End of OP,MAP
-                ELSEIF ( op2.EQ.'STAR' ) THEN
-                  GOTO 3600 ! Treat OP,STAR
-                ELSEIF ( op2.EQ.'SIXJ' ) THEN
-                  GOTO 3700 ! Treat OP,SIXJ
-                ELSEIF ( op2.EQ.'RAW ' ) THEN
-                  GOTO 3800 ! Treat OP,RAW (raw uncorrected gamma yields)
-               ENDIF
+              GOTO 2800 ! Treat OP,TITL (title)
+            ELSEIF ( op2.EQ.'GOSI' ) THEN
+              GOTO 2900 ! Treat OP,GOSI
+            ELSEIF ( op2.EQ.'COUL' ) THEN
+              GOTO 2900 ! Treat OP,COUL
+            ELSEIF ( op2.EQ.'EXIT' ) THEN
+              GOTO 3000 ! Treat OP,EXIT
+            ELSEIF ( op2.EQ.'MINI' ) THEN
+              GOTO 3100 ! Treat OP,MINI
+            ELSEIF ( op2.EQ.'THEO' ) THEN
+              GOTO 3200 ! Treat OP,THEO
+            ELSEIF ( op2.EQ.'YIEL' ) THEN
+              GOTO 3300 ! Treat OP,YIEL
+            ELSEIF ( op2.EQ.'INTG' ) THEN
+              GOTO 3400 ! Treat OP,INTG
+            ELSEIF ( op2.EQ.'CORR' ) THEN
+              GOTO 3500 ! Treat OP,CORR
+            ELSEIF ( op2.EQ.'POIN' ) THEN
+              GOTO 3600 ! Treat OP,POIN
+            ELSEIF ( op2.EQ.'MAP ' ) THEN
+              iobl = 1 ! Treat OP,MAP
+              GOTO 3600 ! End of OP,MAP
+            ELSEIF ( op2.EQ.'STAR' ) THEN
+              GOTO 3600 ! Treat OP,STAR
+            ELSEIF ( op2.EQ.'SIXJ' ) THEN
+              GOTO 3700 ! Treat OP,SIXJ
+            ELSEIF ( op2.EQ.'RAW ' ) THEN
+              GOTO 3800 ! Treat OP,RAW (raw uncorrected gamma yields)
             ENDIF
          ENDIF
        ENDIF ! End of if (op1.eq."OP, ") if statement
