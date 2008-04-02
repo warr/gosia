@@ -1035,61 +1035,59 @@ C     Treat suboption CONT (control)
                IPRM(inm1) = inm2
             ENDDO
             GOTO 350 ! Back to beginning of CONT suboption
-            ELSEIF ( op1.EQ.'SKP,' ) THEN
-               DO jjx = 1 , ipo1
-                  READ * , ijx
-                  JSKIP(ijx) = 0
-               ENDDO
-               GOTO 350 ! Back to beginning of CONT suboption
+         ELSEIF ( op1.EQ.'SKP,' ) THEN
+            DO jjx = 1 , ipo1
+               READ * , ijx
+               JSKIP(ijx) = 0
+            ENDDO
+            GOTO 350 ! Back to beginning of CONT suboption
+         ELSEIF ( op1.EQ.'FIX,' ) THEN
+            READ * , nallow
+            DO jjx = 1 , nallow
+               READ * , ijk
+               IVAR(ijk) = -IVAR(ijk)
+            ENDDO
+            DO jjx = 1 , MEMAX
+               IF ( IVAR(jjx).GE.0 ) THEN
+                  IF ( IVAR(jjx).LE.999 ) IVAR(jjx) = 0
+               ENDIF
+            ENDDO
+            DO jjx = 1 , MEMAX
+               IF ( IVAR(jjx).LT.0 ) IVAR(jjx) = -IVAR(jjx)
+               ivarh(jjx) = IVAR(jjx)
+            ENDDO
+         ELSEIF ( op1.EQ.'CRF,' ) THEN
+           ICS = 1
+         ELSEIF ( op1.EQ.'LCK,' ) THEN
+ 352        READ * , lck1 , lck2
+            IF ( lck1.EQ.0 ) GOTO 350 ! Back to beginning of CONT suboption
+            DO jjx = lck1 , lck2
+               ivarh(jjx) = 0
+               IVAR(jjx) = 0
+            ENDDO
+            GOTO 352
+         ELSEIF ( op1.EQ.'INR,' ) THEN
+            INNR = 1
+         ELSEIF ( op1.EQ.'CRD,' ) THEN
+            DO jjx = 1 , ipo1
+               READ * , ipo2
+               iecd(ipo2) = 1
+            ENDDO
+            GOTO 350 ! Back to beginning of CONT suboption
+         ELSEIF ( op1.EQ.'CCF,' ) THEN
+            IPS1 = ipo1
+         ELSEIF ( op1.EQ.'PIN,' ) THEN
+            ipine = ipo1
+            ipinf = 1
+            DO ipp = 1 , ipine
+               READ (*,*) ig1 , ig2
+               jpin(ig1) = ig2
+            ENDDO
+            GOTO 350 ! Back to beginning of CONT suboption
+         ELSEIF ( op1.EQ.'END,' ) THEN
+            GOTO 2900
          ELSE
-            IF ( op1.EQ.'FIX,' ) THEN
-               READ * , nallow
-               DO jjx = 1 , nallow
-                  READ * , ijk
-                  IVAR(ijk) = -IVAR(ijk)
-               ENDDO
-               DO jjx = 1 , MEMAX
-                  IF ( IVAR(jjx).GE.0 ) THEN
-                     IF ( IVAR(jjx).LE.999 ) IVAR(jjx) = 0
-                  ENDIF
-               ENDDO
-               DO jjx = 1 , MEMAX
-                  IF ( IVAR(jjx).LT.0 ) IVAR(jjx) = -IVAR(jjx)
-                  ivarh(jjx) = IVAR(jjx)
-               ENDDO
-            ELSEIF ( op1.EQ.'CRF,' ) THEN
-              ICS = 1
-            ELSEIF ( op1.EQ.'LCK,' ) THEN
- 352           READ * , lck1 , lck2
-               IF ( lck1.EQ.0 ) GOTO 350 ! Back to beginning of CONT suboption
-               DO jjx = lck1 , lck2
-                  ivarh(jjx) = 0
-                  IVAR(jjx) = 0
-               ENDDO
-               GOTO 352
-            ELSEIF ( op1.EQ.'INR,' ) THEN
-               INNR = 1
-            ELSEIF ( op1.EQ.'CRD,' ) THEN
-               DO jjx = 1 , ipo1
-                  READ * , ipo2
-                  iecd(ipo2) = 1
-               ENDDO
-               GOTO 350 ! Back to beginning of CONT suboption
-            ELSEIF ( op1.EQ.'CCF,' ) THEN
-               IPS1 = ipo1
-            ELSEIF ( op1.EQ.'PIN,' ) THEN
-               ipine = ipo1
-               ipinf = 1
-               DO ipp = 1 , ipine
-                  READ (*,*) ig1 , ig2
-                  jpin(ig1) = ig2
-               ENDDO
-               GOTO 350 ! Back to beginning of CONT suboption
-            ELSEIF ( op1.EQ.'END,' ) THEN
-               GOTO 2900
-            ELSE
-               GOTO 350 ! Back to beginning of CONT suboption
-            ENDIF
+            GOTO 350 ! Back to beginning of CONT suboption
          ENDIF
          GOTO 350 ! Back to beginning of CONT suboption
 
