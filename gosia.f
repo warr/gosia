@@ -1013,13 +1013,12 @@ C     Treat suboption CONT (control)
             NCM = ipo1
          ELSEIF ( op1.EQ.'WRN,' ) THEN
             SGW = fipo1
-         ENDIF
-         IF ( op1.EQ.'INT,' ) THEN
+         ELSEIF ( op1.EQ.'INT,' ) THEN
             DO jjx = 1 , ipo1
                READ * , ipo2 , ijx
                INTERV(ipo2) = ijx
             ENDDO
-         ELSE
+         ENDIF
          IF ( op1.EQ.'VAC,' ) THEN
             DO jjx = 1 , 7
                READ * , ijx , val
@@ -1077,7 +1076,6 @@ C     Treat suboption CONT (control)
             ELSEIF ( op1.NE.'FIX,' ) THEN
                GOTO 350 ! Back round CONT suboption loop
             ENDIF
-         ENDIF
          READ * , nallow
          DO jjx = 1 , nallow
             READ * , ijk
