@@ -730,7 +730,6 @@ C Treat OP,RAND
       CALL PRELM(2)
       GOTO 100 ! Back to input loop
 
-
 C---------------------------------------------------------------------
 C Treat OP,TROU
  2300 ITS = 1 ! Create tape 18 flag
@@ -802,7 +801,7 @@ C---------------------------------------------------------------------
 C Treat OP,RE,C
  2600 jfre = 1
       irfix = 0
-      GOTO 1000 ! Back to input loop
+      GOTO 1000 ! Jump into OP,RE,* treatment
 
 C---------------------------------------------------------------------
 C Treat OP,ERRO
@@ -2600,6 +2599,16 @@ C     Handle map
       IF ( ifm.NE.1 ) GOTO 100 ! Back to input loop
       GOTO 2000 ! Normal end of execution
 
+99050 FORMAT (1X///44X,'OVERALL')
+99051 FORMAT (1X///43X,'DIAGONAL')
+99052 FORMAT (6X,1I3,6X,1I2,5X,1I2,5X,1F10.5,2X,'(',1F10.5,' ,',1F10.5,
+     &        ')')
+99053 FORMAT (2X,'LEVEL',1X,1I2,10X,'POPULATION',1X,1E14.6)
+99054 FORMAT (5X,'XI',13X,'Q1',22X,'Q2'///13X,'SLOPE',2X,'INTERCEPT',7X,
+     &        'SLOPE',5X,'INTERCEPT'//)
+99055 FORMAT (2X,1F6.4,3X,1E8.2,2X,1E8.2,6X,1E8.2,2X,1E8.2)
+
+
  1500 WRITE (22,99043)
 99043 FORMAT (5X,'ERROR-M.E. DOES NOT BELONG TO THE UPPER TRIANGLE')
       GOTO 1900 ! Troubleshoot
@@ -2615,25 +2624,19 @@ C     Handle map
  1800 WRITE (22,99046)
 99046 FORMAT (1X///10X,'ERROR-INSUFFICIENT SPACE FOR E-THETA INTEGR ',
      &        'ATION')
-99050 FORMAT (1X///44X,'OVERALL')
-99051 FORMAT (1X///43X,'DIAGONAL')
-99052 FORMAT (6X,1I3,6X,1I2,5X,1I2,5X,1F10.5,2X,'(',1F10.5,' ,',1F10.5,
-     &        ')')
-99053 FORMAT (2X,'LEVEL',1X,1I2,10X,'POPULATION',1X,1E14.6)
-99054 FORMAT (5X,'XI',13X,'Q1',22X,'Q2'///13X,'SLOPE',2X,'INTERCEPT',7X,
-     &        'SLOPE',5X,'INTERCEPT'//)
-99055 FORMAT (2X,1F6.4,3X,1E8.2,2X,1E8.2,6X,1E8.2,2X,1E8.2)
-
+      GOTO 1900 ! Troubleshoot
+      
 C---------------------------------------------------------------------
-C Troubleshooting
- 1900 IF ( ITS.NE.0 ) THEN
+C Perform troubleshooting (if this option is turned on)
+ 1900 IF ( ITS.NE.0 ) THEN ! If troubleshooting flag is set
          iva = 0
          WRITE (18,*) iva , iva , iva , chisq
          IF ( ITS.NE.2 ) THEN
             WRITE (15,*) iva , chisq , chisq , chisq , chisq
             CALL KLOPOT(kmat,rlr) ! Troubleshooting
          ENDIF
-      ENDIF
+       ENDIF
+       GOTO 2000 ! Normal end of execution
 
 C---------------------------------------------------------------------
 C End of execution
