@@ -621,8 +621,8 @@ C        Treat OP,FILE (attach files to fortran units)
      &           'LATEST REVISION- JUNE  2006'//////)
          jphd = 0
 
-         IF ( op2.EQ.'GDET' ) THEN ! Handle OP,GDET (germanium detectors)
-            GOTO 2100
+         IF ( op2.EQ.'GDET' ) THEN
+            GOTO 2100 ! Handle OP,GDET (germanium detectors)
           ELSEIF ( op2.EQ.'RAND' ) THEN ! Treat OP,RAND (randomise matrix elements)
             READ * , SE ! Seed for random number generator
             CALL MIXUP
