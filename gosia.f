@@ -643,13 +643,8 @@ C        Treat other options
                irfix = 0
                GOTO 1000 ! Back to input loop
 
-            ELSEIF ( op2.EQ.'TITL' ) THEN ! Treat OP,TITL (title)
-               READ 99009 , (title(k),k=1,20)
-99009          FORMAT (20A4)
-               WRITE (22,99010) (title(k),k=1,20)
-99010          FORMAT (10X,20A4/10X,100('-'))
-               GOTO 100 ! Back to input loop
-
+            ELSEIF ( op2.EQ.'TITL' ) THEN
+               GOTO 2800 ! Treat OP,TITL (title)
             ELSE
 
                IF ( op2.EQ.'GOSI' ) GOTO 200 ! Treat OP,GOSI
@@ -1487,6 +1482,15 @@ C Treat OP,ERRO
       IF ( ERR ) GOTO 2000 ! Normal end of execution
       IF ( IMIN.NE.0 ) GOTO 400
       GOTO 1300 ! End of OP,ERRO
+
+C---------------------------------------------------------------------
+C Treat OP,TITL
+ 2800 READ 99009 , (title(k),k=1,20)
+99009 FORMAT (20A4)
+      WRITE (22,99010) (title(k),k=1,20)
+99010 FORMAT (10X,20A4/10X,100('-'))
+      GOTO 100 ! Back to input loop
+
 
 C---------------------------------------------------------------------
 C     Treat suboptions of OP,COUL and OP,GOSI
