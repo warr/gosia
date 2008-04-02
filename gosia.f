@@ -653,14 +653,8 @@ C        Treat other options
                  GOTO 200 ! Treat OP,COUL
                ELSEIF ( op2.EQ.'EXIT' ) THEN
                  GOTO 3000 ! Treat OP,EXIT
-               ELSEIF ( op2.EQ.'MINI' ) THEN ! Treat OP,MINI
-                  READ * , imode , nptl , chiok , conu , xtest , LOCKF , 
-     &                 NLOCK , IFBFL , LOCKS , DLOCK
-                  op2 = opcja
-                  IMIN = IMIN + 1
-                  IF ( IMIN.NE.1 ) GOTO 1400
-                  GOTO 1200 ! End of OP,MINI
-
+               ELSEIF ( op2.EQ.'MINI' ) THEN
+                  GOTO 3100 ! Treat OP,MINI
                ELSEIF ( op2.EQ.'THEO' ) THEN ! Treat OP,THEO
                   REWIND (12)
                   ibaf = 1
@@ -1493,7 +1487,15 @@ C Treat OP,EXIT
          ENDIF
       ENDIF
       GOTO 1900 ! Troubleshoot
-      
+
+C---------------------------------------------------------------------
+C Treat OP,MINI
+ 3100 READ * , imode , nptl , chiok , conu , xtest , LOCKF , 
+     &     NLOCK , IFBFL , LOCKS , DLOCK
+      op2 = opcja
+      IMIN = IMIN + 1
+      IF ( IMIN.NE.1 ) GOTO 1400
+      GOTO 1200 ! End of OP,MINI
 
 C---------------------------------------------------------------------
 C     Treat suboptions of OP,COUL and OP,GOSI
