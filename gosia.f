@@ -1198,6 +1198,27 @@ C Treat OP,MINI
       IMIN = IMIN + 1
       IF ( IMIN.NE.1 ) GOTO 1400
       GOTO 3600 ! End of OP,MINI
+
+ 1400 DO kh1 = 1 , MEMAX
+         HLM(kh1) = ELM(kh1)
+      ENDDO
+      lfagg = 0
+      DO kh1 = 1 , MEMAX
+         IVAR(kh1) = ivarh(kh1)
+      ENDDO
+      CALL MINI(chisq,chiok,nptl,conu,imode,idr,xtest,0,0,0,bten)
+      IF ( IPS1.EQ.0 ) GOTO 2000 ! Normal end of execution
+      IMIN = IMIN + 1
+      DO iva = 1 , LP1 ! LP1 = 50
+         JSKIP(iva) = 1
+      ENDDO
+      REWIND 12
+      DO lkj = 1 , MEMAX
+         WRITE (12,*) ELM(lkj)
+      ENDDO
+      IF ( ifm.EQ.1 ) CALL PRELM(3) ! ifm = fast minimisation switch
+      IF ( ifm.NE.1 ) GOTO 100 ! Back to input loop
+      GOTO 2000 ! Normal end of execution
       
 C---------------------------------------------------------------------
 C Treat OP,THEO
@@ -2577,27 +2598,6 @@ C     Handle map
        ENDIF ! IPRM(12).ne.0
       IF ( op2.NE.'GOSI' .AND. op2.NE.'ERRO' ) GOTO 100 ! Back to input loop
       IF ( op2.EQ.'ERRO' ) GOTO 400
-
- 1400 DO kh1 = 1 , MEMAX
-         HLM(kh1) = ELM(kh1)
-      ENDDO
-      lfagg = 0
-      DO kh1 = 1 , MEMAX
-         IVAR(kh1) = ivarh(kh1)
-      ENDDO
-      CALL MINI(chisq,chiok,nptl,conu,imode,idr,xtest,0,0,0,bten)
-      IF ( IPS1.EQ.0 ) GOTO 2000 ! Normal end of execution
-      IMIN = IMIN + 1
-      DO iva = 1 , LP1 ! LP1 = 50
-         JSKIP(iva) = 1
-      ENDDO
-      REWIND 12
-      DO lkj = 1 , MEMAX
-         WRITE (12,*) ELM(lkj)
-      ENDDO
-      IF ( ifm.EQ.1 ) CALL PRELM(3) ! ifm = fast minimisation switch
-      IF ( ifm.NE.1 ) GOTO 100 ! Back to input loop
-      GOTO 2000 ! Normal end of execution
 
 99050 FORMAT (1X///44X,'OVERALL')
 99051 FORMAT (1X///43X,'DIAGONAL')
