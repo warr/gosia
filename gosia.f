@@ -788,7 +788,7 @@ C Treat OP,RE,*
          jfre = 1
          irfix = 0
       ENDIF
- 1000 DO jrls = 1 , MEMAX
+      DO jrls = 1 , MEMAX
          IF ( IVAR(jrls).NE.0 .OR. irfix.NE.1 ) THEN
             IF ( IVAR(jrls).GT.999 ) THEN
                IF ( jfre.EQ.1 ) GOTO 1100
