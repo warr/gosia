@@ -2565,7 +2565,9 @@ C     Handle map
 99046 FORMAT (1X///10X,'ERROR-INSUFFICIENT SPACE FOR E-THETA INTEGR ',
      &        'ATION')
 
- 1900 IF ( ITS.NE.0 ) THEN
+C---------------------------------------------------------------------
+C Perform troubleshooting (if this option is turned on)
+ 1900 IF ( ITS.NE.0 ) THEN ! If troubleshooting flag is set
          iva = 0
          WRITE (18,*) iva , iva , iva , chisq
          IF ( ITS.NE.2 ) THEN
