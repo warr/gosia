@@ -1082,6 +1082,8 @@ C     Treat suboption CONT (control)
             ENDDO
          ELSEIF ( op1.EQ.'END,' ) THEN
             GOTO 2900 ! End of CONT suboption
+         ELSE
+            WRITE (22,99027) op1
          ENDIF
          GOTO 350 ! Back to beginning of CONT suboption
 
@@ -1457,15 +1459,15 @@ C Treat OP,INTG
      &                        SPIN(ni) , SPIN(nf) , 
      &                        GRAD(jyi)*dsig*ax , GRAD(jyi)
      &                        /GRAD(IDRN)
-                        ENDDO
-                     ENDIF
- 132              ENDDO
-               ENDDO
-            ENDDO
-         ENDDO
+                        ENDDO ! Loop on jyi
+                     ENDIF ! If (IPRM(11).EQ.1)
+ 132              ENDDO ! Loop on ijan
+               ENDDO ! Loop on ktt
+            ENDDO ! Loop on kloop
+         ENDDO ! Loop on mpin
          EP(lx) = enh
          TLBDG(lx) = tth
-      ENDDO
+      ENDDO ! Loop on experiments
       REWIND 14
       REWIND 15
       iske = 0
@@ -1983,7 +1985,7 @@ C Treat OP,POIN, OP,STAR, OP,MAP, OP,MINI and OP,CORR
                         ENDDO ! Loop over itp
  1206                ENDDO ! Loop over jgl
                   ENDIF ! if ( op2.EQ. 'CORR')
-               ENDIF
+               ENDIF ! If ( op2.NE. 'STAR')
             ENDDO ! Loop over jexp
             IF ( op2.EQ.'STAR' ) oph = op2
             IF ( op2.NE.'STAR' ) THEN
@@ -2473,7 +2475,7 @@ C*******************************************************************
                         ENDIF
                      ENDDO ! Loop over jk
                   ENDDO ! Loop over jd
-               ENDIF
+               ENDIF ! IF ( ihlm(kk).NE.0 )
             ENDDO ! Loop over kk
             EMMA(IEXP) = emhl1
             NMAX = nmaxh
