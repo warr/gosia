@@ -662,11 +662,11 @@ C        Treat other options
                ELSEIF ( op2.EQ.'CORR' ) THEN
                   GOTO 3500 ! Treat OP,CORR
                 ELSEIF ( op2.EQ.'POIN' ) THEN
-                  GOTO 1200 ! Treat OP,POIN
+                  GOTO 3600 ! Treat OP,POIN
                 ELSEIF ( op2.EQ.'MAP ' ) THEN
                   iobl = 1 ! Treat OP,MAP
                 ELSEIF ( op2.EQ.'STAR' ) THEN
-                  GOTO 1200 ! Treat OP,STAR
+                  GOTO 3600 ! Treat OP,STAR
                ELSE
 
 
@@ -676,7 +676,7 @@ C        Treat other options
                   ELSEIF ( op2.EQ.'RAW ' ) THEN
                     GOTO 3800 ! Treat OP,RAW (raw uncorrected gamma yields)
                   ELSEIF ( op2.EQ.'MAP ' ) THEN ! Treat OP,MAP
-                     GOTO 1200 ! End of OP,MAP 
+                    GOTO 3600 ! End of OP,MAP 
                   ENDIF ! IF ( op2.EQ.'SIXJ' )
                ENDIF
             ENDIF
@@ -938,7 +938,7 @@ C Treat OP,MINI
       op2 = opcja
       IMIN = IMIN + 1
       IF ( IMIN.NE.1 ) GOTO 1400
-      GOTO 1200 ! End of OP,MINI
+      GOTO 3600 ! End of OP,MINI
 
 C---------------------------------------------------------------------
 C Treat OP,THEO
@@ -1448,7 +1448,7 @@ C Treat OP,CORR
       REWIND 3
       REWIND 15
       REWIND 4
-      GOTO 1200 ! End of OP,CORR
+      GOTO 3600 ! End of OP,CORR
 
 C---------------------------------------------------------------------
 C Treat OP,SIXJ
@@ -1982,7 +1982,7 @@ C Treat OP,RE,*
 
 C---------------------------------------------------------------------
 C Treat OP,POINT, OP,STAR, OP,MAP, OP,MINI and OP,CORR
- 1200 CALL CMLAB(0,dsig,ttttt)
+ 3600 CALL CMLAB(0,dsig,ttttt)
       IF ( ERR ) GOTO 2000 ! Normal end of execution
       IF ( op2.EQ.'POIN' ) READ * , ifwd , slim
       ient = 1
