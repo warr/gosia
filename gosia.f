@@ -629,13 +629,13 @@ C        Treat OP,FILE (attach files to fortran units)
             GOTO 2300 ! Treat OP,TROU (troubleshooting)
          ELSEIF ( op2.EQ.'REST' ) THEN
             GOTO 2400 ! Treat OP,REST (restart)
+         ELSEIF ( op2.EQ.'RE,A' ) THEN
+            GOTO 2500 ! Treat OP,RE,A (release A)
+         ELSEIF ( op2.EQ.'RE,F' ) THEN
+            GOTO 2500 ! Treat OP,RE,F (release F)
 C        Treat other options
          ELSE
- 
-            IF ( op2.EQ.'RE,A' ) GOTO 900 ! Treat OP,RE,A (release A)
-           
-            IF ( op2.EQ.'RE,F' ) GOTO 900 ! Treat OP,RE,F (release F)
-           
+            
             IF ( op2.EQ.'ERRO' ) THEN
                GOTO 2700 ! Treat OP,ERRO (calculate errors)
             ELSEIF ( op2.EQ.'RE,C' ) THEN ! Treat OP,RE,C (release C)
@@ -1933,7 +1933,7 @@ C     Handle OP,ERRO
 
 C---------------------------------------------------------------------
 C Treat OP,RE,*
- 900  jfre = 0
+ 2500 jfre = 0
       irfix = 0
       IF ( op2.EQ.'RE,F' ) irfix = 1
  1000 DO jrls = 1 , MEMAX
