@@ -1012,80 +1012,80 @@ C     Treat suboption CONT (control)
                INTERV(ipo2) = ijx
             ENDDO
          ELSE
-            IF ( op1.EQ.'VAC,' ) THEN
-               DO jjx = 1 , 7
-                  READ * , ijx , val
-                  IF ( ijx.EQ.0 ) GOTO 350
-                  G(ijx) = val
+         IF ( op1.EQ.'VAC,' ) THEN
+            DO jjx = 1 , 7
+               READ * , ijx , val
+               IF ( ijx.EQ.0 ) GOTO 350
+               G(ijx) = val
+            ENDDO
+         ELSE
+            IF ( op1.EQ.'DIP,' ) DIPOL = 0.001*fipo1
+            IF ( op1.EQ.'ACC,' ) ACCUR = 10.**(-fipo1)
+            IF ( op1.EQ.'PRT,' ) THEN
+               DO jjx = 1 , 20
+                  READ * , inm1 , inm2
+                  IF ( inm1.EQ.0 ) GOTO 350
+                  IPRM(inm1) = inm2
                ENDDO
-            ELSE
-               IF ( op1.EQ.'DIP,' ) DIPOL = 0.001*fipo1
-               IF ( op1.EQ.'ACC,' ) ACCUR = 10.**(-fipo1)
-               IF ( op1.EQ.'PRT,' ) THEN
-                  DO jjx = 1 , 20
-                     READ * , inm1 , inm2
-                     IF ( inm1.EQ.0 ) GOTO 350
-                     IPRM(inm1) = inm2
+               GOTO 350
+            ELSEIF ( op1.NE.'FIX,' ) THEN
+               IF ( op1.EQ.'SKP,' ) THEN
+                  DO jjx = 1 , ipo1
+                     READ * , ijx
+                     JSKIP(ijx) = 0
                   ENDDO
                   GOTO 350
-               ELSEIF ( op1.NE.'FIX,' ) THEN
-                  IF ( op1.EQ.'SKP,' ) THEN
-                     DO jjx = 1 , ipo1
-                        READ * , ijx
-                        JSKIP(ijx) = 0
+               ELSE
+                  IF ( op1.EQ.'CRF,' ) ICS = 1
+                  IF ( op1.EQ.'LCK,' ) THEN
+ 352                 READ * , lck1 , lck2
+                     IF ( lck1.EQ.0 ) GOTO 350
+                     DO jjx = lck1 , lck2
+                        ivarh(jjx) = 0
+                        IVAR(jjx) = 0
                      ENDDO
-                     GOTO 350
+                     GOTO 352
                   ELSE
-                     IF ( op1.EQ.'CRF,' ) ICS = 1
-                     IF ( op1.EQ.'LCK,' ) THEN
- 352                    READ * , lck1 , lck2
-                        IF ( lck1.EQ.0 ) GOTO 350
-                        DO jjx = lck1 , lck2
-                           ivarh(jjx) = 0
-                           IVAR(jjx) = 0
+                     IF ( op1.EQ.'INR,' ) INNR = 1
+                     IF ( op1.EQ.'CRD,' ) THEN
+                        DO jjx = 1 , ipo1
+                           READ * , ipo2
+                           iecd(ipo2) = 1
                         ENDDO
-                        GOTO 352
+                        GOTO 350
                      ELSE
-                        IF ( op1.EQ.'INR,' ) INNR = 1
-                        IF ( op1.EQ.'CRD,' ) THEN
-                           DO jjx = 1 , ipo1
-                              READ * , ipo2
-                              iecd(ipo2) = 1
+                        IF ( op1.EQ.'CCF,' ) IPS1 = ipo1
+                        IF ( op1.EQ.'PIN,' ) THEN
+                           ipine = ipo1
+                           ipinf = 1
+                           DO ipp = 1 , ipine
+                              READ (*,*) ig1 , ig2
+                              jpin(ig1) = ig2
                            ENDDO
                            GOTO 350
                         ELSE
-                           IF ( op1.EQ.'CCF,' ) IPS1 = ipo1
-                           IF ( op1.EQ.'PIN,' ) ipine = ipo1
-                           IF ( op1.EQ.'PIN,' ) ipinf = 1
-                           IF ( op1.EQ.'PIN,' ) THEN
-                              DO ipp = 1 , ipine
-                                 READ (*,*) ig1 , ig2
-                                 jpin(ig1) = ig2
-                              ENDDO
-                              GOTO 350
-                           ELSE
-                              IF ( op1.NE.'END,' ) GOTO 350
-                              GOTO 2900
-                           ENDIF
-                        ENDIF
+                           IF ( op1.NE.'END,' ) GOTO 350
+                           GOTO 2900
+                        ENDIF ! If PIN,
                      ENDIF
                   ENDIF
                ENDIF
             ENDIF
-            READ * , nallow
-            DO jjx = 1 , nallow
-               READ * , ijk
-               IVAR(ijk) = -IVAR(ijk)
-            ENDDO
-            DO jjx = 1 , MEMAX
-               IF ( IVAR(jjx).GE.0 ) THEN
-                  IF ( IVAR(jjx).LE.999 ) IVAR(jjx) = 0
-               ENDIF
-            ENDDO
-            DO jjx = 1 , MEMAX
-               IF ( IVAR(jjx).LT.0 ) IVAR(jjx) = -IVAR(jjx)
-               ivarh(jjx) = IVAR(jjx)
-            ENDDO
+         ENDIF
+         READ * , nallow
+         DO jjx = 1 , nallow
+            READ * , ijk
+            IVAR(ijk) = -IVAR(ijk)
+         ENDDO
+         DO jjx = 1 , MEMAX
+            IF ( IVAR(jjx).GE.0 ) THEN
+               IF ( IVAR(jjx).LE.999 ) IVAR(jjx) = 0
+            ENDIF
+         ENDDO
+         DO jjx = 1 , MEMAX
+            IF ( IVAR(jjx).LT.0 ) IVAR(jjx) = -IVAR(jjx)
+            ivarh(jjx) = IVAR(jjx)
+         ENDDO
          ENDIF
          GOTO 350
 
@@ -2273,6 +2273,7 @@ C     Handle OP,ERRO
       GOTO 600
 
 
+C*******************************************************************
  1300 IF ( iobl.GE.1 ) THEN ! OP,ERRO
          ient = 1
          icg = 2
