@@ -1087,6 +1087,7 @@ C     Treat suboption CONT (control)
          ELSEIF ( op1.EQ.'END,' ) THEN
             GOTO 2900
          ELSE
+            WRITE (22,99027) op1
             GOTO 350 ! Back to beginning of CONT suboption
          ENDIF
          GOTO 350 ! Back to beginning of CONT suboption
