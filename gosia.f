@@ -627,45 +627,8 @@ C        Treat OP,FILE (attach files to fortran units)
             GOTO 2200 ! Treat OP,RAND (randomise matrix elements)
          ELSEIF ( op2.EQ.'TROU' ) THEN
             GOTO 2300 ! Treat OP,TROU (troubleshooting)
-         ELSEIF ( op2.EQ.'REST' ) THEN ! Treat OP,REST (restart)
-            REWIND 12
-            memax1 = MEMAX + 1
-            DO lkj = 1 , MEMAX
-               READ (12,*) ELM(lkj)
-            ENDDO
-            DO lkj = 1 , memax1
-               READ * , lkj1 , xlk
-               IF ( lkj1.EQ.0 ) GOTO 120
-               ELM(lkj1) = xlk
-            ENDDO
- 120        WRITE (22,99008)
-99008       FORMAT (1X///5X,'*****',2X,
-     &              'RESTART-MATRIX ELEMENTS OVERWRITTEN',2X,'*****'///)
-            DO kk = 1 , MEMAX
-               la = mlt(kk)
-               IF ( ivari(kk).GE.10000 ) THEN
-                  kk1 = ivari(kk)/10000
-                  kk2 = ivari(kk) - 10000*kk1
-                  la1 = la
-                  IF ( kk2.GE.100 ) THEN
-                     la1 = kk2/100
-                     kk2 = kk2 - 100*la1
-                  ENDIF
-                  inx1 = MEM(kk1,kk2,la1)
-C      ELML(KK)=ELML(INX1)*ELM(KK)/ELM(INX1)
-C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
-                  SA(kk) = ELM(kk)/ELM(inx1)
-                  IVAR(kk) = 1000 + inx1
-                  IF ( ELMU(kk).LE.ELML(kk) ) THEN
-                     elmi = ELMU(kk)
-                     ELMU(kk) = ELML(kk)
-                     ELML(kk) = elmi
-                  ENDIF
-               ENDIF
-            ENDDO
-            CALL PRELM(2)
-            GOTO 100 ! Back to input loop
-
+         ELSEIF ( op2.EQ.'REST' ) THEN
+            GOTO 2400 ! Treat OP,REST (restart)
 C        Treat other options
          ELSE
  
@@ -1480,6 +1443,46 @@ C---------------------------------------------------------------------
 C Treat OP,TROU
  2300 ITS = 1 ! Create tape 18 flag
       READ * , kmat , rlr
+      GOTO 100 ! Back to input loop
+
+C---------------------------------------------------------------------
+C Treat OP,REST
+ 2400 REWIND 12
+      memax1 = MEMAX + 1
+      DO lkj = 1 , MEMAX
+         READ (12,*) ELM(lkj)
+      ENDDO
+      DO lkj = 1 , memax1
+         READ * , lkj1 , xlk
+         IF ( lkj1.EQ.0 ) GOTO 120
+         ELM(lkj1) = xlk
+      ENDDO
+ 120  WRITE (22,99008)
+99008 FORMAT (1X///5X,'*****',2X,
+     &        'RESTART-MATRIX ELEMENTS OVERWRITTEN',2X,'*****'///)
+      DO kk = 1 , MEMAX
+         la = mlt(kk)
+         IF ( ivari(kk).GE.10000 ) THEN
+            kk1 = ivari(kk)/10000
+            kk2 = ivari(kk) - 10000*kk1
+            la1 = la
+            IF ( kk2.GE.100 ) THEN
+               la1 = kk2/100
+               kk2 = kk2 - 100*la1
+            ENDIF
+            inx1 = MEM(kk1,kk2,la1)
+C      ELML(KK)=ELML(INX1)*ELM(KK)/ELM(INX1)
+C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
+            SA(kk) = ELM(kk)/ELM(inx1)
+            IVAR(kk) = 1000 + inx1
+            IF ( ELMU(kk).LE.ELML(kk) ) THEN
+               elmi = ELMU(kk)
+               ELMU(kk) = ELML(kk)
+               ELML(kk) = elmi
+            ENDIF
+         ENDIF
+      ENDDO
+      CALL PRELM(2)
       GOTO 100 ! Back to input loop
 
 C---------------------------------------------------------------------
