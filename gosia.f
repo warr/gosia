@@ -1712,7 +1712,7 @@ C Treat OP,CORR
       GOTO 3600 ! End of OP,CORR
 
 C---------------------------------------------------------------------
-C Treat OP,POINT, OP,STAR, OP,MAP, OP,MINI and OP,CORR
+C Treat OP,POIN, OP,STAR, OP,MAP, OP,MINI and OP,CORR
  3600 CALL CMLAB(0,dsig,ttttt)
       IF ( ERR ) GOTO 2000 ! Normal end of execution
       IF ( op2.EQ.'POIN' ) READ * , ifwd , slim
