@@ -622,53 +622,7 @@ C        Treat OP,FILE (attach files to fortran units)
          jphd = 0
 
          IF ( op2.EQ.'GDET' ) THEN ! Handle OP,GDET (germanium detectors)
-            nl = 7
-            READ * , nfdd ! number of physical detectors
-
-            nfd = ABS(nfdd) ! Negative value means graded absorber
-            IF ( nfdd.LE.0 ) THEN
-               REWIND 8
-               DO i = 1 , nl
-                  WRITE (8,*) (tau2(l,i),l=1,10)
-               ENDDO
-               WRITE (8,*) (eng(l),l=1,10)
-            ENDIF
-
-C           Write file for gamma-ray energy dependence of Ge solid-angle
-C           attenuation coefficients
-            REWIND 9
-            WRITE (9,*) nfd
-            DO i = 1 , nfd ! For each detector
-               READ * , (DIX(k),k=1,4) ! radius of core, outer radius, length, distance
-               READ * , (xl1(k),k=1,nl) ! thicknesses of 7 kinds of absorber
-               IF ( DIX(1).LE.0. ) DIX(1) = .01
-               WRITE (9,*) DIX(4) ! length
-               IF ( nfdd.LE.0 ) WRITE (8,*) (xl1(k),k=1,nl)
-               ind = 1
-               IF ( xl1(5).GT.0. ) ind = 3
-               IF ( xl1(6).GT.0. ) ind = 4
-               IF ( xl1(7).GT.0. ) ind = 5
-               WRITE (9,*) eng(ind) ! First energy
-               CALL QFIT(qui,tau1,tau2,eng,xl1,cf,nl,ind)
-               WRITE (22,99004) i
-99004          FORMAT (10X,'DETECTOR',1X,1I2)
-               DO k = 1 , 8
-                  WRITE (22,99005) k , cf(k,1) , cf(k,2)
-99005             FORMAT (1X,//5X,'K=',1I1,2X,'C1=',1E14.6,2X,'C2=',
-     &                    1E14.6/5X,'ENERGY(MEV)',5X,'FITTED QK',5X,
-     &                    'CALC.QK',5X,'PC.DIFF.'/)
-                  WRITE (9,*) cf(k,1) , cf(k,2) , qui(k,ind)
-                  DO l = 1 , 10
-                     arg = (eng(l)-eng(ind))**2
-                     qc = (qui(k,ind)*cf(k,2)+cf(k,1)*arg)/(cf(k,2)+arg)
-                     WRITE (22,99006) eng(l) , qc , qui(k,l) , 
-     &                                100.*(qc-qui(k,l))/qui(k,l)
-99006                FORMAT (8X,1F4.2,6X,1F9.4,5X,1F9.4,3X,1E10.2)
-                  ENDDO
-               ENDDO
-            ENDDO ! Loop on each detector
-            GOTO 100 ! Back to input loop
-         
+            GOTO 2100
           ELSEIF ( op2.EQ.'RAND' ) THEN ! Treat OP,RAND (randomise matrix elements)
             READ * , SE ! Seed for random number generator
             CALL MIXUP
@@ -1473,6 +1427,56 @@ C                    Read input from standard input
 99022 FORMAT (5X,'UNRECOGNIZED OPTION',1X,1A3,1A4)
       GOTO 2000 ! Normal end of execution
 
+C---------------------------------------------------------------------
+C Treat OP,GDET
+ 2100 nl = 7
+      READ * , nfdd ! number of physical detectors
+
+      nfd = ABS(nfdd) ! Negative value means graded absorber
+      IF ( nfdd.LE.0 ) THEN
+         REWIND 8
+         DO i = 1 , nl
+            WRITE (8,*) (tau2(l,i),l=1,10)
+         ENDDO
+         WRITE (8,*) (eng(l),l=1,10)
+      ENDIF
+
+C     Write file for gamma-ray energy dependence of Ge solid-angle
+C     attenuation coefficients
+      REWIND 9
+      WRITE (9,*) nfd
+      DO i = 1 , nfd ! For each detector
+         READ * , (DIX(k),k=1,4) ! radius of core, outer radius, length, distance
+         READ * , (xl1(k),k=1,nl) ! thicknesses of 7 kinds of absorber
+         IF ( DIX(1).LE.0. ) DIX(1) = .01
+         WRITE (9,*) DIX(4) ! length
+         IF ( nfdd.LE.0 ) WRITE (8,*) (xl1(k),k=1,nl)
+         ind = 1
+         IF ( xl1(5).GT.0. ) ind = 3
+         IF ( xl1(6).GT.0. ) ind = 4
+         IF ( xl1(7).GT.0. ) ind = 5
+         WRITE (9,*) eng(ind) ! First energy
+         CALL QFIT(qui,tau1,tau2,eng,xl1,cf,nl,ind)
+         WRITE (22,99004) i
+99004    FORMAT (10X,'DETECTOR',1X,1I2)
+         DO k = 1 , 8
+            WRITE (22,99005) k , cf(k,1) , cf(k,2)
+99005       FORMAT (1X,//5X,'K=',1I1,2X,'C1=',1E14.6,2X,'C2=',
+     &              1E14.6/5X,'ENERGY(MEV)',5X,'FITTED QK',5X,
+     &              'CALC.QK',5X,'PC.DIFF.'/)
+            WRITE (9,*) cf(k,1) , cf(k,2) , qui(k,ind)
+            DO l = 1 , 10
+               arg = (eng(l)-eng(ind))**2
+               qc = (qui(k,ind)*cf(k,2)+cf(k,1)*arg)/(cf(k,2)+arg)
+               WRITE (22,99006) eng(l) , qc , qui(k,l) , 
+     &                          100.*(qc-qui(k,l))/qui(k,l)
+99006          FORMAT (8X,1F4.2,6X,1F9.4,5X,1F9.4,3X,1E10.2)
+            ENDDO
+         ENDDO
+      ENDDO ! Loop on each detector
+      GOTO 100 ! Back to input loop
+
+C---------------------------------------------------------------------
 C     Treat suboptions of OP,COUL and OP,GOSI
  200  READ 99023 , op1 ! Read the suboption
 99023 FORMAT (1A4)
