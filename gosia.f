@@ -1056,16 +1056,16 @@ C     Treat suboption CONT (control)
                         GOTO 350
                      ELSEIF ( op1.EQ.'CCF,' ) THEN
                         IPS1 = ipo1
+                     ELSEIF ( op1.EQ.'PIN,' ) THEN
+                        ipine = ipo1
+                        ipinf = 1
+                        DO ipp = 1 , ipine
+                           READ (*,*) ig1 , ig2
+                           jpin(ig1) = ig2
+                        ENDDO
+                        GOTO 350
                      ELSE
-                        IF ( op1.EQ.'PIN,' ) THEN
-                           ipine = ipo1
-                           ipinf = 1
-                           DO ipp = 1 , ipine
-                              READ (*,*) ig1 , ig2
-                              jpin(ig1) = ig2
-                           ENDDO
-                           GOTO 350
-                        ELSEIF ( op1.NE.'END,' ) THEN
+                        IF ( op1.NE.'END,' ) THEN
                            GOTO 350
                         ELSE
                            GOTO 2900
