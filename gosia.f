@@ -1046,8 +1046,9 @@ C     Treat suboption CONT (control)
                      ENDDO
                      GOTO 350 ! Back to beginning of CONT suboption
                   ELSE
-                     IF ( op1.EQ.'CRF,' ) ICS = 1
-                     IF ( op1.EQ.'LCK,' ) THEN
+                     IF ( op1.EQ.'CRF,' ) THEN
+                       ICS = 1
+                     ELSEIF ( op1.EQ.'LCK,' ) THEN
  352                    READ * , lck1 , lck2
                         IF ( lck1.EQ.0 ) GOTO 350 ! Back to beginning of CONT suboption
                         DO jjx = lck1 , lck2
