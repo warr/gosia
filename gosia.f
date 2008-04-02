@@ -1046,8 +1046,9 @@ C     Treat suboption CONT (control)
                         ENDDO
                         GOTO 352
                      ELSE
-                        IF ( op1.EQ.'INR,' ) INNR = 1
-                        IF ( op1.EQ.'CRD,' ) THEN
+                        IF ( op1.EQ.'INR,' ) THEN
+                           INNR = 1
+                        ELSEIF ( op1.EQ.'CRD,' ) THEN
                            DO jjx = 1 , ipo1
                               READ * , ipo2
                               iecd(ipo2) = 1
