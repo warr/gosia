@@ -1985,7 +1985,7 @@ C Treat OP,POIN, OP,STAR, OP,MAP, OP,MINI and OP,CORR
                         ENDDO ! Loop over itp
  1206                ENDDO ! Loop over jgl
                   ENDIF ! if ( op2.EQ. 'CORR')
-               ENDIF ! If ( op2.NE. 'STAR')
+               ENDIF ! if ( op2.NE. 'STAR')
             ENDDO ! Loop over jexp
              
             IF ( op2.EQ.'STAR' ) THEN
