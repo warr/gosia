@@ -2398,7 +2398,7 @@ C Treat OP,MAP
       GOTO 3600 ! End of OP,MAP
 
 C---------------------------------------------------------------------
-c Handle OP,ERRO
+C Handle OP,ERRO
  400  IF ( ICS.EQ.1 ) THEN
          REWIND 11
          DO kh1 = 1 , LP4
