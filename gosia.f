@@ -666,7 +666,7 @@ C        Treat OP,FILE (attach files to fortran units)
          ELSEIF ( op2.EQ.'MAP ' ) THEN
             GOTO 3900 ! Treat OP,MAP
          ENDIF ! Options
-       ENDIF ! End of if (op1.eq."OP, ") if statement
+      ENDIF ! End of if (op1.eq."OP, ") if statement
 
       WRITE (22,99022) op1 , op2
 99022 FORMAT (5X,'UNRECOGNIZED OPTION',1X,1A3,1A4)
