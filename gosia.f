@@ -1026,19 +1026,19 @@ C     Treat suboption CONT (control)
                   IF ( ijx.EQ.0 ) GOTO 350 ! Back to beginning of CONT suboption
                   G(ijx) = val
                ENDDO
+            ELSEIF ( op1.EQ.'DIP,' ) THEN
+             DIPOL = 0.001*fipo1
+            ELSEIF ( op1.EQ.'ACC,' ) THEN
+               ACCUR = 10.**(-fipo1)
+            ELSEIF ( op1.EQ.'PRT,' ) THEN
+               DO jjx = 1 , 20
+                  READ * , inm1 , inm2
+                  IF ( inm1.EQ.0 ) GOTO 350 ! Back to beginning of CONT suboption
+                  IPRM(inm1) = inm2
+               ENDDO
+               GOTO 350 ! Back to beginning of CONT suboption
             ELSE
-               IF ( op1.EQ.'DIP,' ) THEN
-                DIPOL = 0.001*fipo1
-               ELSEIF ( op1.EQ.'ACC,' ) THEN
-                  ACCUR = 10.**(-fipo1)
-               ELSEIF ( op1.EQ.'PRT,' ) THEN
-                  DO jjx = 1 , 20
-                     READ * , inm1 , inm2
-                     IF ( inm1.EQ.0 ) GOTO 350 ! Back to beginning of CONT suboption
-                     IPRM(inm1) = inm2
-                  ENDDO
-                  GOTO 350 ! Back to beginning of CONT suboption
-               ELSEIF ( op1.NE.'FIX,' ) THEN
+               IF ( op1.NE.'FIX,' ) THEN
                   IF ( op1.EQ.'SKP,' ) THEN
                      DO jjx = 1 , ipo1
                         READ * , ijx
