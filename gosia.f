@@ -674,7 +674,7 @@ C        Treat OP,FILE (attach files to fortran units)
 
 C---------------------------------------------------------------------
 C Treat OP,GDET
-2100  l = 7
+2100  nl = 7
       READ * , nfdd ! number of physical detectors
 
       nfd = ABS(nfdd) ! Negative value means graded absorber
