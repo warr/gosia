@@ -639,7 +639,6 @@ C        Treat OP,FILE (attach files to fortran units)
             GOTO 1000 ! Back to input loop
          ELSEIF ( op2.EQ.'ERRO' ) THEN
             GOTO 2700 ! Treat OP,ERRO (calculate errors)
-C        Treat other options
          ELSEIF ( op2.EQ.'TITL' ) THEN
             GOTO 2800 ! Treat OP,TITL (title)
          ELSEIF ( op2.EQ.'GOSI' ) THEN
