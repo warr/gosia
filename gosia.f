@@ -661,12 +661,8 @@ C        Treat other options
                   GOTO 3300 ! Treat OP,YIEL
                ELSEIF ( op2.EQ.'INTG' ) THEN
                   GOTO 3400 ! Treat OP,INTG
-               ELSEIF ( op2.EQ.'CORR' ) THEN ! Treat OP,CORR
-                  CALL READY(idr,ntap,0)
-                  REWIND 3
-                  REWIND 15
-                  REWIND 4
-                  GOTO 1200 ! End of OP,CORR
+               ELSEIF ( op2.EQ.'CORR' ) THEN
+                  GOTO 3500 ! Treat OP,CORR
                ELSE
 
                   IF ( op2.EQ.'POIN' ) GOTO 1200 ! Treat OP,POIN
@@ -1506,6 +1502,13 @@ C                    Interpolate cross-section at this energy
       ENDIF
       GOTO 100 ! Back to input loop
 
+C---------------------------------------------------------------------
+C Treat OP,CORR
+ 3500 CALL READY(idr,ntap,0)
+      REWIND 3
+      REWIND 15
+      REWIND 4
+      GOTO 1200 ! End of OP,CORR
 
 C---------------------------------------------------------------------
 C     Treat suboptions of OP,COUL and OP,GOSI
