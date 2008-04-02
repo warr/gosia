@@ -666,7 +666,7 @@ C           attenuation coefficients
 99006                FORMAT (8X,1F4.2,6X,1F9.4,5X,1F9.4,3X,1E10.2)
                   ENDDO
                ENDDO
-            ENDDO
+            ENDDO ! Loop on each detector
             GOTO 100 ! Back to input loop
          
           ELSEIF ( op2.EQ.'RAND' ) THEN ! Treat OP,RAND (randomise matrix elements)
