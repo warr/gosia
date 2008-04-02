@@ -665,16 +665,13 @@ C        Treat other options
                   GOTO 3600 ! Treat OP,POIN
                 ELSEIF ( op2.EQ.'MAP ' ) THEN
                   iobl = 1 ! Treat OP,MAP
+                  GOTO 3600 ! End of OP,MAP
                 ELSEIF ( op2.EQ.'STAR' ) THEN
                   GOTO 3600 ! Treat OP,STAR
                 ELSEIF ( op2.EQ.'SIXJ' ) THEN
                   GOTO 3700 ! Treat OP,SIXJ
                 ELSEIF ( op2.EQ.'RAW ' ) THEN
                   GOTO 3800 ! Treat OP,RAW (raw uncorrected gamma yields)
-               ELSE
-                  IF ( op2.EQ.'MAP ' ) THEN ! Treat OP,MAP
-                    GOTO 3600 ! End of OP,MAP 
-                  ENDIF ! IF ( op2.EQ.'SIXJ' )
                ENDIF
             ENDIF
          ENDIF
