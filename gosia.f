@@ -864,7 +864,7 @@ C Treat OP,ERRO
       IF ( ERR ) GOTO 2000 ! Normal end of execution
       IF ( IMIN.NE.0 ) GOTO 400
  
-      IF ( iobl.GE.1 ) THEN
+ 1300 IF ( iobl.GE.1 ) THEN
          ient = 1
          icg = 2
          nmaxh = NMAX
@@ -2527,6 +2527,7 @@ C Treat OP,POIN, OP,STAR, OP,MAP, OP,MINI and OP,CORR
             GOTO 100 ! Back to input loop
          ENDIF ! if (op2 .NE. 'GOSI') if statement
       ENDIF ! if ( iobl.LT.1 ) if statement
+      GOTO 1300
 
 99048 FORMAT (1X//50X,'CALCULATED YIELDS'//5X,'EXPERIMENT ',1I2,2X,
      &        'DETECTOR ',1I2/5X,'ENERGY ',1F10.3,1X,'MEV',2X,'THETA ',
