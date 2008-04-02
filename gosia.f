@@ -2564,6 +2564,7 @@ C     Handle map
  1800 WRITE (22,99046)
 99046 FORMAT (1X///10X,'ERROR-INSUFFICIENT SPACE FOR E-THETA INTEGR ',
      &        'ATION')
+      GOTO 1900
 
 C---------------------------------------------------------------------
 C Perform troubleshooting (if this option is turned on)
