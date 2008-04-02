@@ -2522,20 +2522,6 @@ C     Handle map
       ENDIF
       GOTO 600
 
-99048 FORMAT (1X//50X,'CALCULATED YIELDS'//5X,'EXPERIMENT ',1I2,2X,
-     &        'DETECTOR ',1I2/5X,'ENERGY ',1F10.3,1X,'MEV',2X,'THETA ',
-     &        1F7.3,1X,'DEG'//5X,'NI',5X,'NF',5X,'II',5X,'IF',5X,
-     &        'YIELD',5X,'NORMALIZED YIELD'/)
-99049 FORMAT (5X,1I2,5X,1I2,3X,1F4.1,3X,1F4.1,3X,1E11.5,3X,1E11.5)
-99050 FORMAT (1X///44X,'OVERALL')
-99051 FORMAT (1X///43X,'DIAGONAL')
-99052 FORMAT (6X,1I3,6X,1I2,5X,1I2,5X,1F10.5,2X,'(',1F10.5,' ,',1F10.5,
-     &        ')')
-99053 FORMAT (2X,'LEVEL',1X,1I2,10X,'POPULATION',1X,1E14.6)
-99054 FORMAT (5X,'XI',13X,'Q1',22X,'Q2'///13X,'SLOPE',2X,'INTERCEPT',7X,
-     &        'SLOPE',5X,'INTERCEPT'//)
-99055 FORMAT (2X,1F6.4,3X,1E8.2,2X,1E8.2,6X,1E8.2,2X,1E8.2)
-
 C---------------------------------------------------------------------
 C Treat OP,SIXJ
  3700 DO k = 1 , 2
@@ -2638,6 +2624,20 @@ C Perform troubleshooting (if this option is turned on)
          ENDIF
        ENDIF
        GOTO 2000 ! Normal end of execution
+
+99048 FORMAT (1X//50X,'CALCULATED YIELDS'//5X,'EXPERIMENT ',1I2,2X,
+     &        'DETECTOR ',1I2/5X,'ENERGY ',1F10.3,1X,'MEV',2X,'THETA ',
+     &        1F7.3,1X,'DEG'//5X,'NI',5X,'NF',5X,'II',5X,'IF',5X,
+     &        'YIELD',5X,'NORMALIZED YIELD'/)
+99049 FORMAT (5X,1I2,5X,1I2,3X,1F4.1,3X,1F4.1,3X,1E11.5,3X,1E11.5)
+99050 FORMAT (1X///44X,'OVERALL')
+99051 FORMAT (1X///43X,'DIAGONAL')
+99052 FORMAT (6X,1I3,6X,1I2,5X,1I2,5X,1F10.5,2X,'(',1F10.5,' ,',1F10.5,
+     &        ')')
+99053 FORMAT (2X,'LEVEL',1X,1I2,10X,'POPULATION',1X,1E14.6)
+99054 FORMAT (5X,'XI',13X,'Q1',22X,'Q2'///13X,'SLOPE',2X,'INTERCEPT',7X,
+     &        'SLOPE',5X,'INTERCEPT'//)
+99055 FORMAT (2X,1F6.4,3X,1E8.2,2X,1E8.2,6X,1E8.2,2X,1E8.2)
 
 C---------------------------------------------------------------------
 C End of execution
