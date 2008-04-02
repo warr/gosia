@@ -1987,7 +1987,7 @@ C Treat OP,POIN, OP,STAR, OP,MAP, OP,MINI and OP,CORR
                   ENDIF ! if ( op2.EQ. 'CORR')
                ENDIF ! if ( op2.NE. 'STAR')
             ENDDO ! Loop over jexp
-             
+
             IF ( op2.EQ.'STAR' ) THEN
                oph = op2
             ELSEIF ( op2.EQ.'CORR' ) THEN
