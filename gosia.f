@@ -625,11 +625,8 @@ C        Treat OP,FILE (attach files to fortran units)
             GOTO 2100 ! Handle OP,GDET (germanium detectors)
          ELSEIF ( op2.EQ.'RAND' ) THEN
             GOTO 2200 ! Treat OP,RAND (randomise matrix elements)
-         ELSEIF ( op2.EQ.'TROU' ) THEN ! Treat OP,TROU (troubleshooting)
-            ITS = 1 ! Create tape 18 flag
-            READ * , kmat , rlr
-            GOTO 100 ! Back to input loop
-
+         ELSEIF ( op2.EQ.'TROU' ) THEN
+            GOTO 2300 ! Treat OP,TROU (troubleshooting)
          ELSEIF ( op2.EQ.'REST' ) THEN ! Treat OP,REST (restart)
             REWIND 12
             memax1 = MEMAX + 1
@@ -1477,6 +1474,12 @@ C Treat OP,RAND
       WRITE (22,99007)
 99007 FORMAT (1X///5X,'MATRIX ELEMENTS RANDOMIZED...'///)
       CALL PRELM(2)
+      GOTO 100 ! Back to input loop
+
+C---------------------------------------------------------------------
+C Treat OP,TROU
+ 2300 ITS = 1 ! Create tape 18 flag
+      READ * , kmat , rlr
       GOTO 100 ! Back to input loop
 
 C---------------------------------------------------------------------
