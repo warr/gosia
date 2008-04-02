@@ -2549,18 +2549,22 @@ C     Handle map
       IF ( ifm.NE.1 ) GOTO 100 ! Back to input loop
       GOTO 2000 ! Normal end of execution
 
+C---------------------------------------------------------------------
  1500 WRITE (22,99043)
 99043 FORMAT (5X,'ERROR-M.E. DOES NOT BELONG TO THE UPPER TRIANGLE')
       GOTO 1900 ! Troubleshoot
 
+C---------------------------------------------------------------------
  1600 WRITE (22,99044)
 99044 FORMAT (5X,'ERROR-WRONG SEQUENCE OF MULTIPOLARITIES')
       GOTO 1900 ! Troubleshoot
 
+C---------------------------------------------------------------------
  1700 WRITE (22,99045)
 99045 FORMAT (5X,'ERROR-REPEATED APPEARANCE OF THE STATE')
       GOTO 1900 ! Troubleshoot
 
+C---------------------------------------------------------------------
  1800 WRITE (22,99046)
 99046 FORMAT (1X///10X,'ERROR-INSUFFICIENT SPACE FOR E-THETA INTEGR ',
      &        'ATION')
