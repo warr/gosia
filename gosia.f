@@ -2305,7 +2305,7 @@ C     Handle map
        ENDIF ! IPRM(12).ne.0
       IF ( op2.NE.'GOSI' .AND. op2.NE.'ERRO' ) GOTO 100 ! Back to input loop
       IF ( op2.EQ.'ERRO' ) GOTO 400
-      
+
  1400 DO kh1 = 1 , MEMAX
          HLM(kh1) = ELM(kh1)
       ENDDO
