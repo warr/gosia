@@ -863,9 +863,8 @@ C Treat OP,ERRO
       IF ( IMIN.EQ.0 ) CALL CMLAB(0,dsig,ttttt)
       IF ( ERR ) GOTO 2000 ! Normal end of execution
       IF ( IMIN.NE.0 ) GOTO 400
-      GOTO 1300 ! End of OP,ERRO
-
- 1300 IF ( iobl.GE.1 ) THEN ! OP,ERRO
+ 
+      IF ( iobl.GE.1 ) THEN
          ient = 1
          icg = 2
          nmaxh = NMAX
@@ -2612,14 +2611,17 @@ C---------------------------------------------------------------------
 99043 FORMAT (5X,'ERROR-M.E. DOES NOT BELONG TO THE UPPER TRIANGLE')
       GOTO 1900 ! Troubleshoot
 
+C---------------------------------------------------------------------
  1600 WRITE (22,99044)
 99044 FORMAT (5X,'ERROR-WRONG SEQUENCE OF MULTIPOLARITIES')
       GOTO 1900 ! Troubleshoot
 
+C---------------------------------------------------------------------
  1700 WRITE (22,99045)
 99045 FORMAT (5X,'ERROR-REPEATED APPEARANCE OF THE STATE')
       GOTO 1900 ! Troubleshoot
 
+C---------------------------------------------------------------------
  1800 WRITE (22,99046)
 99046 FORMAT (1X///10X,'ERROR-INSUFFICIENT SPACE FOR E-THETA INTEGR ',
      &        'ATION')
