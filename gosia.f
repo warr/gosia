@@ -1201,7 +1201,7 @@ C Treat OP,MINI
          HLM(kh1) = ELM(kh1)
       ENDDO
       lfagg = 0
-      DO kh1 = 1 , MEMAX
+ 1400 DO kh1 = 1 , MEMAX
          IVAR(kh1) = ivarh(kh1)
       ENDDO
       CALL MINI(chisq,chiok,nptl,conu,imode,idr,xtest,0,0,0,bten)
