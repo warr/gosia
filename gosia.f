@@ -1028,57 +1028,55 @@ C     Treat suboption CONT (control)
           DIPOL = 0.001*fipo1
          ELSEIF ( op1.EQ.'ACC,' ) THEN
             ACCUR = 10.**(-fipo1)
+         ELSEIF ( op1.EQ.'PRT,' ) THEN
+            DO jjx = 1 , 20
+               READ * , inm1 , inm2
+               IF ( inm1.EQ.0 ) GOTO 350 ! Back to beginning of CONT suboption
+               IPRM(inm1) = inm2
+            ENDDO
+            GOTO 350 ! Back to beginning of CONT suboption
          ELSE
-            IF ( op1.EQ.'PRT,' ) THEN
-               DO jjx = 1 , 20
-                  READ * , inm1 , inm2
-                  IF ( inm1.EQ.0 ) GOTO 350 ! Back to beginning of CONT suboption
-                  IPRM(inm1) = inm2
-               ENDDO
-               GOTO 350 ! Back to beginning of CONT suboption
-            ELSE
-               IF ( op1.NE.'FIX,' ) THEN
-                  IF ( op1.EQ.'SKP,' ) THEN
+            IF ( op1.NE.'FIX,' ) THEN
+               IF ( op1.EQ.'SKP,' ) THEN
+                  DO jjx = 1 , ipo1
+                     READ * , ijx
+                     JSKIP(ijx) = 0
+                  ENDDO
+                  GOTO 350 ! Back to beginning of CONT suboption
+               ELSEIF ( op1.EQ.'CRF,' ) THEN
+                 ICS = 1
+               ELSE
+                  IF ( op1.EQ.'LCK,' ) THEN
+ 352                 READ * , lck1 , lck2
+                     IF ( lck1.EQ.0 ) GOTO 350 ! Back to beginning of CONT suboption
+                     DO jjx = lck1 , lck2
+                        ivarh(jjx) = 0
+                        IVAR(jjx) = 0
+                     ENDDO
+                     GOTO 352
+                  ELSEIF ( op1.EQ.'INR,' ) THEN
+                     INNR = 1
+                  ELSEIF ( op1.EQ.'CRD,' ) THEN
                      DO jjx = 1 , ipo1
-                        READ * , ijx
-                        JSKIP(ijx) = 0
+                        READ * , ipo2
+                        iecd(ipo2) = 1
                      ENDDO
                      GOTO 350 ! Back to beginning of CONT suboption
-                  ELSEIF ( op1.EQ.'CRF,' ) THEN
-                    ICS = 1
                   ELSE
-                     IF ( op1.EQ.'LCK,' ) THEN
- 352                    READ * , lck1 , lck2
-                        IF ( lck1.EQ.0 ) GOTO 350 ! Back to beginning of CONT suboption
-                        DO jjx = lck1 , lck2
-                           ivarh(jjx) = 0
-                           IVAR(jjx) = 0
-                        ENDDO
-                        GOTO 352
-                     ELSEIF ( op1.EQ.'INR,' ) THEN
-                        INNR = 1
-                     ELSEIF ( op1.EQ.'CRD,' ) THEN
-                        DO jjx = 1 , ipo1
-                           READ * , ipo2
-                           iecd(ipo2) = 1
-                        ENDDO
-                        GOTO 350 ! Back to beginning of CONT suboption
+                     IF ( op1.EQ.'CCF,' ) THEN
+                        IPS1 = ipo1
                      ELSE
-                        IF ( op1.EQ.'CCF,' ) THEN
-                           IPS1 = ipo1
+                        IF ( op1.EQ.'PIN,' ) THEN
+                           ipine = ipo1
+                           ipinf = 1
+                           DO ipp = 1 , ipine
+                              READ (*,*) ig1 , ig2
+                              jpin(ig1) = ig2
+                           ENDDO
+                           GOTO 350 ! Back to beginning of CONT suboption
                         ELSE
-                           IF ( op1.EQ.'PIN,' ) THEN
-                              ipine = ipo1
-                              ipinf = 1
-                              DO ipp = 1 , ipine
-                                 READ (*,*) ig1 , ig2
-                                 jpin(ig1) = ig2
-                              ENDDO
-                              GOTO 350 ! Back to beginning of CONT suboption
-                           ELSE
-                              IF ( op1.NE.'END,' ) GOTO 350 ! Back to beginning of CONT suboption
-                              GOTO 2900
-                           ENDIF
+                           IF ( op1.NE.'END,' ) GOTO 350 ! Back to beginning of CONT suboption
+                           GOTO 2900
                         ENDIF
                      ENDIF
                   ENDIF
