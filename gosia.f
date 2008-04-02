@@ -1042,7 +1042,22 @@ C     Treat suboption CONT (control)
                ENDDO
                GOTO 350 ! Back to beginning of CONT suboption
          ELSE
-            IF ( op1.NE.'FIX,' ) THEN
+            IF ( op1.EQ.'FIX,' ) THEN
+               READ * , nallow
+               DO jjx = 1 , nallow
+                  READ * , ijk
+                  IVAR(ijk) = -IVAR(ijk)
+               ENDDO
+               DO jjx = 1 , MEMAX
+                  IF ( IVAR(jjx).GE.0 ) THEN
+                     IF ( IVAR(jjx).LE.999 ) IVAR(jjx) = 0
+                  ENDIF
+               ENDDO
+               DO jjx = 1 , MEMAX
+                  IF ( IVAR(jjx).LT.0 ) IVAR(jjx) = -IVAR(jjx)
+                  ivarh(jjx) = IVAR(jjx)
+               ENDDO
+            ELSE
                IF ( op1.EQ.'CRF,' ) THEN
                  ICS = 1
                ELSEIF ( op1.EQ.'LCK,' ) THEN
@@ -1077,20 +1092,6 @@ C     Treat suboption CONT (control)
                   GOTO 350 ! Back to beginning of CONT suboption
                ENDIF
             ENDIF
-            READ * , nallow
-            DO jjx = 1 , nallow
-               READ * , ijk
-               IVAR(ijk) = -IVAR(ijk)
-            ENDDO
-            DO jjx = 1 , MEMAX
-               IF ( IVAR(jjx).GE.0 ) THEN
-                  IF ( IVAR(jjx).LE.999 ) IVAR(jjx) = 0
-               ENDIF
-            ENDDO
-            DO jjx = 1 , MEMAX
-               IF ( IVAR(jjx).LT.0 ) IVAR(jjx) = -IVAR(jjx)
-               ivarh(jjx) = IVAR(jjx)
-            ENDDO
          ENDIF
          GOTO 350 ! Back to beginning of CONT suboption
 
