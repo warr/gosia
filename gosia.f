@@ -635,15 +635,13 @@ C        Treat OP,FILE (attach files to fortran units)
             GOTO 2500 ! Treat OP,RE,F (release F)
           ELSEIF ( op2.EQ.'ERRO' ) THEN
             GOTO 2700 ! Treat OP,ERRO (calculate errors)
+          ELSEIF ( op2.EQ.'RE,C' ) THEN ! Treat OP,RE,C (release C)
+            jfre = 1
+            irfix = 0
+            GOTO 1000 ! Back to input loop
 C        Treat other options
          ELSE
-            
-            IF ( op2.EQ.'RE,C' ) THEN ! Treat OP,RE,C (release C)
-               jfre = 1
-               irfix = 0
-               GOTO 1000 ! Back to input loop
-
-            ELSEIF ( op2.EQ.'TITL' ) THEN
+            IF ( op2.EQ.'TITL' ) THEN
                GOTO 2800 ! Treat OP,TITL (title)
             ELSE
 
