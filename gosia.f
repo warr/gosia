@@ -780,6 +780,27 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
       GOTO 100 ! Back to input loop
 
 C---------------------------------------------------------------------
+C Treat OP,RE,*
+ 2500 jfre = 0
+      irfix = 0
+      IF ( op2.EQ.'RE,F' ) irfix = 1
+ 1000 DO jrls = 1 , MEMAX
+         IF ( IVAR(jrls).NE.0 .OR. irfix.NE.1 ) THEN
+            IF ( IVAR(jrls).GT.999 ) THEN
+               IF ( jfre.EQ.1 ) GOTO 1100
+            ENDIF
+            IVAR(jrls) = 2
+            ELML(jrls) = -ABS(ELML(jrls))
+            ELMU(jrls) = ABS(ELMU(jrls))
+            IF ( jrls.GT.MEMX6 ) IVAR(jrls) = 1
+         ENDIF
+ 1100 ENDDO
+      DO jrls = 1 , MEMAX
+         ivarh(jrls) = IVAR(jrls)
+      ENDDO
+      GOTO 100 ! Back to input loop
+
+C---------------------------------------------------------------------
 C Treat OP,ERRO
  2700 READ * , idf , ms , mend , irep , ifc , remax
       rem = LOG(remax)
@@ -1946,27 +1967,6 @@ C     Handle OP,ERRO
          WRITE (3,*) im , im
       ENDIF
       GOTO 600
-
-C---------------------------------------------------------------------
-C Treat OP,RE,*
- 2500 jfre = 0
-      irfix = 0
-      IF ( op2.EQ.'RE,F' ) irfix = 1
- 1000 DO jrls = 1 , MEMAX
-         IF ( IVAR(jrls).NE.0 .OR. irfix.NE.1 ) THEN
-            IF ( IVAR(jrls).GT.999 ) THEN
-               IF ( jfre.EQ.1 ) GOTO 1100
-            ENDIF
-            IVAR(jrls) = 2
-            ELML(jrls) = -ABS(ELML(jrls))
-            ELMU(jrls) = ABS(ELMU(jrls))
-            IF ( jrls.GT.MEMX6 ) IVAR(jrls) = 1
-         ENDIF
- 1100 ENDDO
-      DO jrls = 1 , MEMAX
-         ivarh(jrls) = IVAR(jrls)
-      ENDDO
-      GOTO 100 ! Back to input loop
 
 C---------------------------------------------------------------------
 C Treat OP,POINT, OP,STAR, OP,MAP, OP,MINI and OP,CORR
