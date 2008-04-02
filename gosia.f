@@ -2212,14 +2212,15 @@ C Treat OP,POINT, OP,STAR, OP,MAP, OP,MINI and OP,CORR
                   ENDIF ! if ( op2.EQ. 'CORR')
                ENDIF ! if ( op2.NE. 'STAR')
             ENDDO ! Loop over jexp
-            IF ( op2.EQ.'STAR' ) oph = op2
-            IF ( op2.NE.'STAR' ) THEN
-               IF ( op2.EQ.'CORR' ) THEN
-                  ntap = 4
-                  CALL READY(idr,ntap,ipri)
-                  REWIND ntap
-               ENDIF
+
+            IF ( op2.EQ.'STAR' ) THEN
+               oph = op2
+            ELSEIF ( op2.EQ.'CORR' ) THEN
+               ntap = 4
+               CALL READY(idr,ntap,ipri)
+               REWIND ntap
             ENDIF
+
             GOTO 100 ! Back to input loop
          ENDIF ! if (op2 .NE. 'GOSI') if statement
       ENDIF ! if ( iobl.LT.1 ) if statement
