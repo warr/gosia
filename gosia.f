@@ -863,7 +863,7 @@ C Treat OP,ERRO
       IF ( IMIN.EQ.0 ) CALL CMLAB(0,dsig,ttttt)
       IF ( ERR ) GOTO 2000 ! Normal end of execution
       IF ( IMIN.NE.0 ) GOTO 400
-      GOTO 1300
+      GOTO 1300 ! End of OP,ERRO
  
 C---------------------------------------------------------------------
 C Treat OP,TITL
