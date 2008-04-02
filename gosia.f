@@ -865,6 +865,323 @@ C Treat OP,ERRO
       IF ( IMIN.NE.0 ) GOTO 400
       GOTO 1300 ! End of OP,ERRO
 
+ 1300 IF ( iobl.GE.1 ) THEN ! OP,ERRO
+         ient = 1
+         icg = 2
+         nmaxh = NMAX
+         lmax1 = LMAX
+         sh1 = SPIN(1)
+         sh2 = SPIN(2)
+         ih1 = IFAC(1)
+         ih2 = IFAC(2)
+         magh = MAGEXC
+         lmaxh = LMAXE
+         isoh = ISO
+         ISO = 0
+         eh1 = ELM(1)
+         lh1 = LEAD(1,1)
+         lh2 = LEAD(2,1)
+         lamh = LAMMAX
+         memh = MEMAX
+         DO kh = 1 , 8
+            ihlm(kh) = MULTI(kh)
+            ihlm(kh+24) = LDNUM(kh,2)
+            ihlm(kh+8) = LAMDA(kh)
+            ihlm(kh+16) = LDNUM(kh,1)
+         ENDDO
+         DO jexp = 1 , NEXPT
+            IEXP = jexp
+            intvh = INTERV(IEXP)
+            DO jgs = 1 , MEMAX
+               DO jgr = 1 , 7
+                  QAPR(jgs,1,jgr) = 0.
+               ENDDO
+            ENDDO
+            DO iuy = 1 , 6
+               XIR(iuy,IEXP) = 0.
+            ENDDO
+            emhl1 = EMMA(IEXP)
+            EMMA(IEXP) = DBLE(MAGA(IEXP))
+            jde = 2
+            IF ( MAGA(IEXP).EQ.0 ) jde = 1
+            DO iuy = 1 , 6
+               zmir(iuy,1,IEXP) = 0.
+               zmir(iuy,2,IEXP) = 0.
+            ENDDO
+            CALL LOAD(IEXP,1,2,0.D0,jj)
+            DO jgs = 1 , LMAX
+               polm = DBLE(jgs-1) - SPIN(1)
+               CALL LOAD(IEXP,3,2,polm,jj)
+               CALL PATH(jj)
+               CALL LOAD(IEXP,2,2,polm,jj)
+               ictl = 1
+               DO kk = 1 , 6
+                  ll = ihlm(kk)
+                  IF ( ll.NE.0 ) THEN
+                     lfini = ll + ictl - 1
+                     ict = ictl
+                     DO lll = ict , lfini
+                        ictl = ictl + 1
+                        IF ( jgs.EQ.1 ) XIR(kk,IEXP)
+     &                       = MAX(XIR(kk,IEXP),ABS(XI(lll)))
+                        r1 = ABS(QAPR(lll,1,1))
+                        r2 = ABS(QAPR(lll,1,4))
+                        r3 = ABS(QAPR(lll,1,7))
+                        rm = MAX(r1,r2,r3)
+                        bmx = MAX(ABS(ELMU(lll)),ABS(ELML(lll)))
+                        zmir(kk,2,IEXP)
+     &                     = MAX(zmir(kk,2,IEXP),rm*bmx/ABS(ELM(lll)),
+     &                     rm)
+                        r1 = ABS(QAPR(lll,1,2))
+                        r2 = ABS(QAPR(lll,1,3))
+                        r3 = ABS(QAPR(lll,1,5))
+                        r4 = ABS(QAPR(lll,1,6))
+                        rm = MAX(r1,r2,r3,r4)
+                        zmir(kk,1,IEXP)
+     &                     = MAX(zmir(kk,1,IEXP),rm*bmx/ABS(ELM(lll)),
+     &                     rm)
+                     ENDDO
+                     IF ( zmir(kk,1,IEXP).LT..5 ) zmir(kk,1,IEXP) = .5
+                     IF ( zmir(kk,2,IEXP).LT..5 ) zmir(kk,2,IEXP) = .5
+                  ENDIF
+               ENDDO
+            ENDDO
+            DO kk = 1 , 6
+               XIR(kk,IEXP) = XIR(kk,IEXP)*1.01
+               DO kh = 1 , 8
+                  MULTI(kh) = 0
+                  LAMDA(kh) = 0
+                  LDNUM(kh,2) = 0
+                  LDNUM(kh,1) = 0
+               ENDDO
+               NMAX = 2
+               ELM(1) = 1.
+               LEAD(1,1) = 1
+               LEAD(2,1) = 2
+               SPIN(1) = 0.
+               IFAC(1) = 1
+               LAMMAX = 1
+               MEMAX = 1
+               MAGEXC = 0
+               kkk = 0
+               icg = 1
+               IF ( ihlm(kk).NE.0 ) THEN
+                  MULTI(kk) = 1
+                  LAMDA(1) = kk
+                  SPIN(2) = DBLE(kk)
+                  IFAC(2) = 1
+                  LDNUM(kk,1) = 1
+                  icg = 1
+                  CALL LOAD(IEXP,1,icg,0.D0,jj)
+                  CALL LOAD(IEXP,2,icg,0.D0,jj)
+                  CALL PATH(1)
+                  sz1 = MIN(zmir(kk,1,IEXP),10.)
+                  sz2 = zmir(kk,2,IEXP)/50.
+                  acof = 2.4009604E-3/zmir(kk,2,IEXP)
+                  bcof = 8.163265E-4
+                  DO jd = 1 , jde
+                     nksi = 5
+                     IF ( jd.EQ.2 ) nksi = 10
+                     IF ( MAGA(IEXP).EQ.0 ) nksi = 10
+                     DO jk = 1 , 3
+                        ZETA(jk) = 0.
+                     ENDDO
+                     nz = 50
+                     IF ( jd.EQ.1 .AND. MAGA(IEXP).NE.0 ) nz = 1
+                     DO jk = 1 , nksi
+                        XI(1) = XIR(kk,IEXP)*(jk-1)/(nksi-1)
+                        IF ( jk.EQ.1 ) XI(1) = .02
+                        s11 = 0.
+                        s21 = 0.
+                        s12 = 0.
+                        s22 = 0.
+                        ph1 = 0.
+                        ph2 = 0.
+                        DO jz = 1 , nz
+                           ZETA(jd) = sz2*jz
+                           IF ( jd.EQ.1 .AND. MAGA(IEXP).NE.0 ) ZETA(jd)
+     &                          = sz1
+                           IF ( ZETA(jd).LT..1 ) INTERV(IEXP) = 1000
+                           IF ( ZETA(jd).GE..1 ) INTERV(IEXP) = intvh
+                           CALL ALLOC(ACCUR)
+                           CALL SNAKE(IEXP,ZPOL)
+                           CALL SETIN
+                           CALL STING(1)
+                           IF ( kk.GT.2 ) THEN
+                              ARM(1,5) = (.9999999,0.)
+                              ARM(2,5) = (1.2E-6,0.)
+                              ARM(1,6) = (.9999998,0.)
+                              ARM(2,6) = (.9E-6,0.)
+                              DO kh = 1 , 4
+                                 ARM(1,kh) = (-1.E-6,0.)
+                                 ARM(2,kh) = (1.E-6,0.)
+                              ENDDO
+                           ENDIF
+                           CALL INTG(IEXP)
+                           jp = 2
+                           IF ( MAGA(IEXP).NE.0 .AND. jd.EQ.2 ) jp = 3
+                           p = DBLE(ARM(1,5))
+                           r = IMAG(ARM(1,5))
+                           qr = DBLE(ARM(jp,5))
+                           s = IMAG(ARM(jp,5))
+                           test = p*p + r*r + qr*qr + s*s
+                           p = p/SQRT(test)
+                           s = ABS(r/s)
+                           IF ( jk.EQ.1 ) THEN
+                              IF ( MAGA(IEXP).EQ.0 ) THEN
+                                 q1 = 0.
+                                 GOTO 1302
+                              ELSEIF ( jd.EQ.2 .OR. MAGA(IEXP).EQ.0 )
+     &                                 THEN
+                                 q1 = 0.
+                                 GOTO 1302
+                              ENDIF
+                           ENDIF
+                           q1 = ARCTG(s,ph1,pi)
+                           ph1 = q1
+ 1302                      IF ( jk.EQ.1 ) THEN
+                              IF ( jd.EQ.1 .AND. MAGA(IEXP).NE.0 ) THEN
+                                 q2 = 0.
+                                 GOTO 1304
+                              ENDIF
+                           ENDIF
+                           q2 = ARCCOS(p,ph2,pi)
+                           ph2 = q2
+ 1304                      q1 = q1/ZETA(jd)/2.
+                           q2 = q2/ZETA(jd)
+                           IF ( jd.EQ.1 .AND. MAGA(IEXP).NE.0 ) q2 = -q2
+                           IF ( jd.NE.1 .OR. MAGA(IEXP).EQ.0 ) THEN
+                              s11 = s11 + q1
+                              s12 = s12 + q1*jz
+                              s21 = s21 + q2
+                              s22 = s22 + jz*q2
+                           ENDIF
+                        ENDDO
+                        IF ( jd.EQ.1 .AND. MAGA(IEXP).NE.0 ) THEN
+                           PARX(IEXP,2*kk-1,jk) = q1
+                           PARX(IEXP,2*kk,jk) = q2
+                        ELSE
+                           PARXM(IEXP,1,jk,kk) = acof*(2.*s12-51.*s11)
+                           PARXM(IEXP,2,jk,kk) = bcof*(101.*s11-3.*s12)
+                           PARXM(IEXP,3,jk,kk) = acof*(2.*s22-51.*s21)
+                           PARXM(IEXP,4,jk,kk) = bcof*(101.*s21-3.*s22)
+                        ENDIF
+                     ENDDO ! Loop over jk
+                  ENDDO ! Loop over jd
+               ENDIF ! IF ( ihlm(kk).NE.0 )
+            ENDDO ! Loop over kk
+            EMMA(IEXP) = emhl1
+            NMAX = nmaxh
+            SPIN(1) = sh1
+            SPIN(2) = sh2
+            IFAC(1) = ih1
+            IFAC(2) = ih2
+            MAGEXC = magh
+            ISO = isoh
+            ELM(1) = eh1
+            LEAD(1,1) = lh1
+            LEAD(2,1) = lh2
+            LAMMAX = lamh
+            MEMAX = memh
+            DO kh = 1 , 8
+               LDNUM(kh,2) = ihlm(kh+24)
+               MULTI(kh) = ihlm(kh)
+               LAMDA(kh) = ihlm(kh+8)
+               LDNUM(kh,1) = ihlm(kh+16)
+            ENDDO
+            INTERV(IEXP) = intvh
+         ENDDO
+         REWIND 7
+         DO iuy = 1 , 6
+            WRITE (7,*) (XIR(iuy,jj),jj=1,NEXPT)
+            WRITE (7,*) (zmir(iuy,1,jj),zmir(iuy,2,jj),jj=1,NEXPT)
+         ENDDO
+         DO jj = 1 , NEXPT
+            DO jk = 1 , 4
+               DO kuku = 1 , 6
+                  WRITE (7,*) (PARXM(jj,jk,jl,kuku),jl=1,10)
+               ENDDO
+            ENDDO
+            DO jk = 1 , 12
+               WRITE (7,*) (PARX(jj,jk,jl),jl=1,5)
+            ENDDO
+         ENDDO
+         DO jj = 1 , 2
+            DO jj1 = 1 , LP1 ! LP1 = 50
+               IDIVE(jj1,jj) = 1
+            ENDDO
+         ENDDO
+      ELSE ! iobl .lt. 1
+         REWIND 7
+         DO iuy = 1 , 6
+            READ (7,*) (XIR(iuy,jj),jj=1,NEXPT)
+            READ (7,*) (zmir(iuy,1,jj),zmir(iuy,2,jj),jj=1,NEXPT)
+         ENDDO
+         DO jj = 1 , NEXPT
+            DO jk = 1 , 4
+               DO kuku = 1 , 6
+                  READ (7,*) (PARXM(jj,jk,jl,kuku),jl=1,10)
+               ENDDO
+            ENDDO
+            DO jk = 1 , 12
+               READ (7,*) (PARX(jj,jk,jl),jl=1,5)
+            ENDDO
+         ENDDO
+         DO jgs = 1 , MEMAX
+            DO jgr = 1 , 7
+               QAPR(jgs,1,jgr) = 0.
+            ENDDO
+         ENDDO
+      ENDIF
+
+C     Handle map
+      IF ( IPRM(12).NE.0 ) THEN
+         IPRM(12) = 0
+         DO jex = 1 , NEXPT
+            DO lex = 1 , 6
+               IF ( MULTI(lex).NE.0 ) THEN
+                  WRITE (22,99040) jex , XIR(lex,jex)
+99040             FORMAT (1X//30X,'EXPERIMENT',1X,1I2,10X,'MAX.XI=',
+     &                    1F6.4)
+                  WRITE (22,99041) lex , zmir(lex,2,jex)
+99041             FORMAT (1X/30X,'E',1I1,8X,'MI=0',5X,'MAX.ZETA=',
+     &                    1F6.3//)
+                  WRITE (22,99054)
+                  DO kex = 1 , 10
+                     xxi = XIR(lex,jex)*(kex-1)/9.
+                     WRITE (22,99055) xxi , 
+     &                                (PARXM(jex,ilx,kex,lex),ilx=1,4)
+                  ENDDO
+                  IF ( MAGA(jex).NE.0 ) THEN
+                     WRITE (22,99042) lex , zmir(lex,1,jex)
+99042                FORMAT (1X//30X,'E',1I1,8X,'MI=+/-1',5X,
+     &                       'MAX.ZETA=',1F6.3//)
+                     WRITE (22,99054)
+                     DO kex = 1 , 5
+                        xxi = XIR(lex,jex)*(kex-1)/4.
+                        u = 0.
+                        WRITE (22,99055) xxi , u , PARX(jex,2*lex-1,kex)
+     &                         , u , PARX(jex,2*lex,kex)
+                     ENDDO ! Loop on kex
+                  ENDIF ! if maga(jex).ne.0
+               ENDIF ! if multi(lex).ne.0
+            ENDDO ! Loop on lex
+         ENDDO ! Loop on jex
+       ENDIF ! IPRM(12).ne.0
+      IF ( op2.NE.'GOSI' .AND. op2.NE.'ERRO' ) GOTO 100 ! Back to input loop
+      IF ( op2.EQ.'ERRO' ) GOTO 400
+      GOTO 1400
+
+99050 FORMAT (1X///44X,'OVERALL')
+99051 FORMAT (1X///43X,'DIAGONAL')
+99052 FORMAT (6X,1I3,6X,1I2,5X,1I2,5X,1F10.5,2X,'(',1F10.5,' ,',1F10.5,
+     &        ')')
+99053 FORMAT (2X,'LEVEL',1X,1I2,10X,'POPULATION',1X,1E14.6)
+99054 FORMAT (5X,'XI',13X,'Q1',22X,'Q2'///13X,'SLOPE',2X,'INTERCEPT',7X,
+     &        'SLOPE',5X,'INTERCEPT'//)
+99055 FORMAT (2X,1F6.4,3X,1E8.2,2X,1E8.2,6X,1E8.2,2X,1E8.2)
+
+
 C---------------------------------------------------------------------
 C Treat OP,TITL
  2800 READ 99009 , (title(k),k=1,20)
@@ -2290,324 +2607,7 @@ C     Handle OP,ERRO
       GOTO 600
 
 
-C*******************************************************************
- 1300 IF ( iobl.GE.1 ) THEN ! OP,ERRO
-         ient = 1
-         icg = 2
-         nmaxh = NMAX
-         lmax1 = LMAX
-         sh1 = SPIN(1)
-         sh2 = SPIN(2)
-         ih1 = IFAC(1)
-         ih2 = IFAC(2)
-         magh = MAGEXC
-         lmaxh = LMAXE
-         isoh = ISO
-         ISO = 0
-         eh1 = ELM(1)
-         lh1 = LEAD(1,1)
-         lh2 = LEAD(2,1)
-         lamh = LAMMAX
-         memh = MEMAX
-         DO kh = 1 , 8
-            ihlm(kh) = MULTI(kh)
-            ihlm(kh+24) = LDNUM(kh,2)
-            ihlm(kh+8) = LAMDA(kh)
-            ihlm(kh+16) = LDNUM(kh,1)
-         ENDDO
-         DO jexp = 1 , NEXPT
-            IEXP = jexp
-            intvh = INTERV(IEXP)
-            DO jgs = 1 , MEMAX
-               DO jgr = 1 , 7
-                  QAPR(jgs,1,jgr) = 0.
-               ENDDO
-            ENDDO
-            DO iuy = 1 , 6
-               XIR(iuy,IEXP) = 0.
-            ENDDO
-            emhl1 = EMMA(IEXP)
-            EMMA(IEXP) = DBLE(MAGA(IEXP))
-            jde = 2
-            IF ( MAGA(IEXP).EQ.0 ) jde = 1
-            DO iuy = 1 , 6
-               zmir(iuy,1,IEXP) = 0.
-               zmir(iuy,2,IEXP) = 0.
-            ENDDO
-            CALL LOAD(IEXP,1,2,0.D0,jj)
-            DO jgs = 1 , LMAX
-               polm = DBLE(jgs-1) - SPIN(1)
-               CALL LOAD(IEXP,3,2,polm,jj)
-               CALL PATH(jj)
-               CALL LOAD(IEXP,2,2,polm,jj)
-               ictl = 1
-               DO kk = 1 , 6
-                  ll = ihlm(kk)
-                  IF ( ll.NE.0 ) THEN
-                     lfini = ll + ictl - 1
-                     ict = ictl
-                     DO lll = ict , lfini
-                        ictl = ictl + 1
-                        IF ( jgs.EQ.1 ) XIR(kk,IEXP)
-     &                       = MAX(XIR(kk,IEXP),ABS(XI(lll)))
-                        r1 = ABS(QAPR(lll,1,1))
-                        r2 = ABS(QAPR(lll,1,4))
-                        r3 = ABS(QAPR(lll,1,7))
-                        rm = MAX(r1,r2,r3)
-                        bmx = MAX(ABS(ELMU(lll)),ABS(ELML(lll)))
-                        zmir(kk,2,IEXP)
-     &                     = MAX(zmir(kk,2,IEXP),rm*bmx/ABS(ELM(lll)),
-     &                     rm)
-                        r1 = ABS(QAPR(lll,1,2))
-                        r2 = ABS(QAPR(lll,1,3))
-                        r3 = ABS(QAPR(lll,1,5))
-                        r4 = ABS(QAPR(lll,1,6))
-                        rm = MAX(r1,r2,r3,r4)
-                        zmir(kk,1,IEXP)
-     &                     = MAX(zmir(kk,1,IEXP),rm*bmx/ABS(ELM(lll)),
-     &                     rm)
-                     ENDDO
-                     IF ( zmir(kk,1,IEXP).LT..5 ) zmir(kk,1,IEXP) = .5
-                     IF ( zmir(kk,2,IEXP).LT..5 ) zmir(kk,2,IEXP) = .5
-                  ENDIF
-               ENDDO
-            ENDDO
-            DO kk = 1 , 6
-               XIR(kk,IEXP) = XIR(kk,IEXP)*1.01
-               DO kh = 1 , 8
-                  MULTI(kh) = 0
-                  LAMDA(kh) = 0
-                  LDNUM(kh,2) = 0
-                  LDNUM(kh,1) = 0
-               ENDDO
-               NMAX = 2
-               ELM(1) = 1.
-               LEAD(1,1) = 1
-               LEAD(2,1) = 2
-               SPIN(1) = 0.
-               IFAC(1) = 1
-               LAMMAX = 1
-               MEMAX = 1
-               MAGEXC = 0
-               kkk = 0
-               icg = 1
-               IF ( ihlm(kk).NE.0 ) THEN
-                  MULTI(kk) = 1
-                  LAMDA(1) = kk
-                  SPIN(2) = DBLE(kk)
-                  IFAC(2) = 1
-                  LDNUM(kk,1) = 1
-                  icg = 1
-                  CALL LOAD(IEXP,1,icg,0.D0,jj)
-                  CALL LOAD(IEXP,2,icg,0.D0,jj)
-                  CALL PATH(1)
-                  sz1 = MIN(zmir(kk,1,IEXP),10.)
-                  sz2 = zmir(kk,2,IEXP)/50.
-                  acof = 2.4009604E-3/zmir(kk,2,IEXP)
-                  bcof = 8.163265E-4
-                  DO jd = 1 , jde
-                     nksi = 5
-                     IF ( jd.EQ.2 ) nksi = 10
-                     IF ( MAGA(IEXP).EQ.0 ) nksi = 10
-                     DO jk = 1 , 3
-                        ZETA(jk) = 0.
-                     ENDDO
-                     nz = 50
-                     IF ( jd.EQ.1 .AND. MAGA(IEXP).NE.0 ) nz = 1
-                     DO jk = 1 , nksi
-                        XI(1) = XIR(kk,IEXP)*(jk-1)/(nksi-1)
-                        IF ( jk.EQ.1 ) XI(1) = .02
-                        s11 = 0.
-                        s21 = 0.
-                        s12 = 0.
-                        s22 = 0.
-                        ph1 = 0.
-                        ph2 = 0.
-                        DO jz = 1 , nz
-                           ZETA(jd) = sz2*jz
-                           IF ( jd.EQ.1 .AND. MAGA(IEXP).NE.0 ) ZETA(jd)
-     &                          = sz1
-                           IF ( ZETA(jd).LT..1 ) INTERV(IEXP) = 1000
-                           IF ( ZETA(jd).GE..1 ) INTERV(IEXP) = intvh
-                           CALL ALLOC(ACCUR)
-                           CALL SNAKE(IEXP,ZPOL)
-                           CALL SETIN
-                           CALL STING(1)
-                           IF ( kk.GT.2 ) THEN
-                              ARM(1,5) = (.9999999,0.)
-                              ARM(2,5) = (1.2E-6,0.)
-                              ARM(1,6) = (.9999998,0.)
-                              ARM(2,6) = (.9E-6,0.)
-                              DO kh = 1 , 4
-                                 ARM(1,kh) = (-1.E-6,0.)
-                                 ARM(2,kh) = (1.E-6,0.)
-                              ENDDO
-                           ENDIF
-                           CALL INTG(IEXP)
-                           jp = 2
-                           IF ( MAGA(IEXP).NE.0 .AND. jd.EQ.2 ) jp = 3
-                           p = DBLE(ARM(1,5))
-                           r = IMAG(ARM(1,5))
-                           qr = DBLE(ARM(jp,5))
-                           s = IMAG(ARM(jp,5))
-                           test = p*p + r*r + qr*qr + s*s
-                           p = p/SQRT(test)
-                           s = ABS(r/s)
-                           IF ( jk.EQ.1 ) THEN
-                              IF ( MAGA(IEXP).EQ.0 ) THEN
-                                 q1 = 0.
-                                 GOTO 1302
-                              ELSEIF ( jd.EQ.2 .OR. MAGA(IEXP).EQ.0 )
-     &                                 THEN
-                                 q1 = 0.
-                                 GOTO 1302
-                              ENDIF
-                           ENDIF
-                           q1 = ARCTG(s,ph1,pi)
-                           ph1 = q1
- 1302                      IF ( jk.EQ.1 ) THEN
-                              IF ( jd.EQ.1 .AND. MAGA(IEXP).NE.0 ) THEN
-                                 q2 = 0.
-                                 GOTO 1304
-                              ENDIF
-                           ENDIF
-                           q2 = ARCCOS(p,ph2,pi)
-                           ph2 = q2
- 1304                      q1 = q1/ZETA(jd)/2.
-                           q2 = q2/ZETA(jd)
-                           IF ( jd.EQ.1 .AND. MAGA(IEXP).NE.0 ) q2 = -q2
-                           IF ( jd.NE.1 .OR. MAGA(IEXP).EQ.0 ) THEN
-                              s11 = s11 + q1
-                              s12 = s12 + q1*jz
-                              s21 = s21 + q2
-                              s22 = s22 + jz*q2
-                           ENDIF
-                        ENDDO
-                        IF ( jd.EQ.1 .AND. MAGA(IEXP).NE.0 ) THEN
-                           PARX(IEXP,2*kk-1,jk) = q1
-                           PARX(IEXP,2*kk,jk) = q2
-                        ELSE
-                           PARXM(IEXP,1,jk,kk) = acof*(2.*s12-51.*s11)
-                           PARXM(IEXP,2,jk,kk) = bcof*(101.*s11-3.*s12)
-                           PARXM(IEXP,3,jk,kk) = acof*(2.*s22-51.*s21)
-                           PARXM(IEXP,4,jk,kk) = bcof*(101.*s21-3.*s22)
-                        ENDIF
-                     ENDDO ! Loop over jk
-                  ENDDO ! Loop over jd
-               ENDIF ! IF ( ihlm(kk).NE.0 )
-            ENDDO ! Loop over kk
-            EMMA(IEXP) = emhl1
-            NMAX = nmaxh
-            SPIN(1) = sh1
-            SPIN(2) = sh2
-            IFAC(1) = ih1
-            IFAC(2) = ih2
-            MAGEXC = magh
-            ISO = isoh
-            ELM(1) = eh1
-            LEAD(1,1) = lh1
-            LEAD(2,1) = lh2
-            LAMMAX = lamh
-            MEMAX = memh
-            DO kh = 1 , 8
-               LDNUM(kh,2) = ihlm(kh+24)
-               MULTI(kh) = ihlm(kh)
-               LAMDA(kh) = ihlm(kh+8)
-               LDNUM(kh,1) = ihlm(kh+16)
-            ENDDO
-            INTERV(IEXP) = intvh
-         ENDDO
-         REWIND 7
-         DO iuy = 1 , 6
-            WRITE (7,*) (XIR(iuy,jj),jj=1,NEXPT)
-            WRITE (7,*) (zmir(iuy,1,jj),zmir(iuy,2,jj),jj=1,NEXPT)
-         ENDDO
-         DO jj = 1 , NEXPT
-            DO jk = 1 , 4
-               DO kuku = 1 , 6
-                  WRITE (7,*) (PARXM(jj,jk,jl,kuku),jl=1,10)
-               ENDDO
-            ENDDO
-            DO jk = 1 , 12
-               WRITE (7,*) (PARX(jj,jk,jl),jl=1,5)
-            ENDDO
-         ENDDO
-         DO jj = 1 , 2
-            DO jj1 = 1 , LP1 ! LP1 = 50
-               IDIVE(jj1,jj) = 1
-            ENDDO
-         ENDDO
-      ELSE ! iobl .lt. 1
-         REWIND 7
-         DO iuy = 1 , 6
-            READ (7,*) (XIR(iuy,jj),jj=1,NEXPT)
-            READ (7,*) (zmir(iuy,1,jj),zmir(iuy,2,jj),jj=1,NEXPT)
-         ENDDO
-         DO jj = 1 , NEXPT
-            DO jk = 1 , 4
-               DO kuku = 1 , 6
-                  READ (7,*) (PARXM(jj,jk,jl,kuku),jl=1,10)
-               ENDDO
-            ENDDO
-            DO jk = 1 , 12
-               READ (7,*) (PARX(jj,jk,jl),jl=1,5)
-            ENDDO
-         ENDDO
-         DO jgs = 1 , MEMAX
-            DO jgr = 1 , 7
-               QAPR(jgs,1,jgr) = 0.
-            ENDDO
-         ENDDO
-      ENDIF
-
-C     Handle map
-      IF ( IPRM(12).NE.0 ) THEN
-         IPRM(12) = 0
-         DO jex = 1 , NEXPT
-            DO lex = 1 , 6
-               IF ( MULTI(lex).NE.0 ) THEN
-                  WRITE (22,99040) jex , XIR(lex,jex)
-99040             FORMAT (1X//30X,'EXPERIMENT',1X,1I2,10X,'MAX.XI=',
-     &                    1F6.4)
-                  WRITE (22,99041) lex , zmir(lex,2,jex)
-99041             FORMAT (1X/30X,'E',1I1,8X,'MI=0',5X,'MAX.ZETA=',
-     &                    1F6.3//)
-                  WRITE (22,99054)
-                  DO kex = 1 , 10
-                     xxi = XIR(lex,jex)*(kex-1)/9.
-                     WRITE (22,99055) xxi , 
-     &                                (PARXM(jex,ilx,kex,lex),ilx=1,4)
-                  ENDDO
-                  IF ( MAGA(jex).NE.0 ) THEN
-                     WRITE (22,99042) lex , zmir(lex,1,jex)
-99042                FORMAT (1X//30X,'E',1I1,8X,'MI=+/-1',5X,
-     &                       'MAX.ZETA=',1F6.3//)
-                     WRITE (22,99054)
-                     DO kex = 1 , 5
-                        xxi = XIR(lex,jex)*(kex-1)/4.
-                        u = 0.
-                        WRITE (22,99055) xxi , u , PARX(jex,2*lex-1,kex)
-     &                         , u , PARX(jex,2*lex,kex)
-                     ENDDO ! Loop on kex
-                  ENDIF ! if maga(jex).ne.0
-               ENDIF ! if multi(lex).ne.0
-            ENDDO ! Loop on lex
-         ENDDO ! Loop on jex
-       ENDIF ! IPRM(12).ne.0
-      IF ( op2.NE.'GOSI' .AND. op2.NE.'ERRO' ) GOTO 100 ! Back to input loop
-      IF ( op2.EQ.'ERRO' ) GOTO 400
-      GOTO 1400
-
-99050 FORMAT (1X///44X,'OVERALL')
-99051 FORMAT (1X///43X,'DIAGONAL')
-99052 FORMAT (6X,1I3,6X,1I2,5X,1I2,5X,1F10.5,2X,'(',1F10.5,' ,',1F10.5,
-     &        ')')
-99053 FORMAT (2X,'LEVEL',1X,1I2,10X,'POPULATION',1X,1E14.6)
-99054 FORMAT (5X,'XI',13X,'Q1',22X,'Q2'///13X,'SLOPE',2X,'INTERCEPT',7X,
-     &        'SLOPE',5X,'INTERCEPT'//)
-99055 FORMAT (2X,1F6.4,3X,1E8.2,2X,1E8.2,6X,1E8.2,2X,1E8.2)
-
-
+C---------------------------------------------------------------------
  1500 WRITE (22,99043)
 99043 FORMAT (5X,'ERROR-M.E. DOES NOT BELONG TO THE UPPER TRIANGLE')
       GOTO 1900 ! Troubleshoot
