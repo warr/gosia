@@ -1034,7 +1034,6 @@ C     Treat suboption CONT (control)
                IF ( inm1.EQ.0 ) GOTO 350 ! Back to beginning of CONT suboption
                IPRM(inm1) = inm2
             ENDDO
-            GOTO 350 ! Back to beginning of CONT suboption
          ELSEIF ( op1.EQ.'SKP,' ) THEN
             DO jjx = 1 , ipo1
                READ * , ijx
