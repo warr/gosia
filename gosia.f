@@ -1614,7 +1614,7 @@ C     Treat suboption CONT (control)
             IF ( op1.EQ.'VAC,' ) THEN
                DO jjx = 1 , 7
                   READ * , ijx , val
-                  IF ( ijx.EQ.0 ) GOTO 350
+                  IF ( ijx.EQ.0 ) GOTO 350 ! Back to beginning of CONT suboption
                   G(ijx) = val
                ENDDO
             ELSE
@@ -1623,22 +1623,22 @@ C     Treat suboption CONT (control)
                IF ( op1.EQ.'PRT,' ) THEN
                   DO jjx = 1 , 20
                      READ * , inm1 , inm2
-                     IF ( inm1.EQ.0 ) GOTO 350
+                     IF ( inm1.EQ.0 ) GOTO 350 ! Back to beginning of CONT suboption
                      IPRM(inm1) = inm2
                   ENDDO
-                  GOTO 350
+                  GOTO 350 ! Back to beginning of CONT suboption
                ELSEIF ( op1.NE.'FIX,' ) THEN
                   IF ( op1.EQ.'SKP,' ) THEN
                      DO jjx = 1 , ipo1
                         READ * , ijx
                         JSKIP(ijx) = 0
                      ENDDO
-                     GOTO 350
+                     GOTO 350 ! Back to beginning of CONT suboption
                   ELSE
                      IF ( op1.EQ.'CRF,' ) ICS = 1
                      IF ( op1.EQ.'LCK,' ) THEN
  352                    READ * , lck1 , lck2
-                        IF ( lck1.EQ.0 ) GOTO 350
+                        IF ( lck1.EQ.0 ) GOTO 350 ! Back to beginning of CONT suboption
                         DO jjx = lck1 , lck2
                            ivarh(jjx) = 0
                            IVAR(jjx) = 0
@@ -1651,7 +1651,7 @@ C     Treat suboption CONT (control)
                               READ * , ipo2
                               iecd(ipo2) = 1
                            ENDDO
-                           GOTO 350
+                           GOTO 350 ! Back to beginning of CONT suboption
                         ELSE
                            IF ( op1.EQ.'CCF,' ) IPS1 = ipo1
                            IF ( op1.EQ.'PIN,' ) THEN
@@ -1661,9 +1661,9 @@ C     Treat suboption CONT (control)
                                  READ (*,*) ig1 , ig2
                                  jpin(ig1) = ig2
                               ENDDO
-                              GOTO 350
+                              GOTO 350 ! Back to beginning of CONT suboption
                            ELSE
-                              IF ( op1.NE.'END,' ) GOTO 350
+                              IF ( op1.NE.'END,' ) GOTO 350 ! Back to beginning of CONT suboption
                               GOTO 200
                            ENDIF
                         ENDIF
@@ -1686,7 +1686,7 @@ C     Treat suboption CONT (control)
                ivarh(jjx) = IVAR(jjx)
             ENDDO
          ENDIF
-         GOTO 350
+         GOTO 350 ! Back to beginning of CONT suboption
 
 C     Treat suboption EXPT
       ELSEIF ( op1.EQ.'EXPT' ) THEN
