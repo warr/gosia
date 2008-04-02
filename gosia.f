@@ -1055,7 +1055,7 @@ C     Treat suboption CONT (control)
                ivarh(jjx) = IVAR(jjx)
             ENDDO
          ELSEIF ( op1.EQ.'CRF,' ) THEN
-           ICS = 1
+            ICS = 1
          ELSEIF ( op1.EQ.'LCK,' ) THEN
  352        READ * , lck1 , lck2
             IF ( lck1.EQ.0 ) GOTO 350 ! Back to beginning of CONT suboption
@@ -2399,7 +2399,7 @@ C Treat OP,MAP
 
 
 C---------------------------------------------------------------------
-C     Handle OP,ERRO      
+C Handle OP,ERRO      
  400  IF ( ICS.EQ.1 ) THEN
          REWIND 11
          DO kh1 = 1 , LP4
