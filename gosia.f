@@ -1378,8 +1378,8 @@ C                                Interpolate cross-section at this energy
                            DO jd = 1 , idr
                               WRITE (15,*) GRAD(jd)
                            ENDDO
-                        ENDDO
-                     ENDDO
+                        ENDDO ! Loop on ija0
+                     ENDDO ! Loop on experiments
                   ENDIF
                   GOTO 100 ! Back to input loop
 
