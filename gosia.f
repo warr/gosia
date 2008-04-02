@@ -1995,7 +1995,7 @@ C Treat OP,POIN, OP,STAR, OP,MAP, OP,MINI and OP,CORR
                CALL READY(idr,ntap,ipri)
                REWIND ntap
             ENDIF
-             
+
             GOTO 100 ! Back to input loop
          ENDIF ! if (op2 .NE. 'GOSI') if statement
       ENDIF ! if ( iobl.LT.1 ) if statement
