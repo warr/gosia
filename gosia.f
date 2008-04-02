@@ -646,9 +646,9 @@ C        Treat other options
             ELSE
 
                IF ( op2.EQ.'GOSI' ) THEN
-                 GOTO 200 ! Treat OP,GOSI
+                 GOTO 2900 ! Treat OP,GOSI
                ELSEIF ( op2.EQ.'COUL' ) THEN
-                 GOTO 200 ! Treat OP,COUL
+                 GOTO 2900 ! Treat OP,COUL
                ELSEIF ( op2.EQ.'EXIT' ) THEN
                  GOTO 3000 ! Treat OP,EXIT
                ELSEIF ( op2.EQ.'MINI' ) THEN
@@ -1518,7 +1518,7 @@ C     Read input from standard input
 
 C---------------------------------------------------------------------
 C     Treat suboptions of OP,COUL and OP,GOSI
- 200  READ 99023 , op1 ! Read the suboption
+ 2900 READ 99023 , op1 ! Read the suboption
 99023 FORMAT (1A4)
       IF ( op1.EQ.'    ' ) GOTO 100 ! Back to input loop
 
@@ -1531,7 +1531,7 @@ C     Treat suboption LEVE (levels)
          ndima = NDIM + 1
          DO k = 1 , ndima
            READ * , ipo1 , ipo2 , po2 , po1 ! leve number, parity, spin, energy
-            IF ( ipo1.EQ.0 ) GOTO 200
+            IF ( ipo1.EQ.0 ) GOTO 2900
             IF ( ipo1.EQ.1 .AND. ABS(po2).LT.1.E-6 ) ISO = 0
             NMAX = NMAX + 1
             SPIN(ipo1) = po2
@@ -1708,7 +1708,7 @@ C     Treat suboption CONT (control)
                               GOTO 350 ! Back to beginning of CONT suboption
                            ELSE
                               IF ( op1.NE.'END,' ) GOTO 350 ! Back to beginning of CONT suboption
-                              GOTO 200
+                              GOTO 2900
                            ENDIF
                         ENDIF
                      ENDIF
@@ -1762,7 +1762,7 @@ C     Else we don't recognize the suboption
 99027    FORMAT (5X,'UNRECOGNIZED SUBOPTION',1X,1A4)
          GOTO 2000 ! Normal end of execution
       ENDIF
-      GOTO 200 ! Get next suboption
+      GOTO 2900 ! Get next suboption
 
 C     Handle OP,ERRO      
  400  IF ( ICS.EQ.1 ) THEN
