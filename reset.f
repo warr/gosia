@@ -10,7 +10,7 @@ C          set to the old value of f(n).
 C
 C Uses global variables:
 C      ARM    - reduced matrix elements
-C      CAT    -
+C      CAT    - substates of levels (n_level, J, m)
 C      ISMAX  -
 C      NMAX   - number of levels
 C      NSTART -
@@ -36,7 +36,7 @@ C      Iso    -
             ARM(ir,1) = ARM(ir,2)
             ARM(ir,2) = ARM(ir,3)
             ARM(ir,3) = ARM(ir,4)
-            IF ( CAT(ir,3).LT.-.1 ) GOTO 20
+            IF ( CAT(ir,3).LT.-.1 ) GOTO 20 ! m quantum number of substate ir
          ENDDO
          GOTO 99999
       ENDIF
