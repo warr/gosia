@@ -7,7 +7,7 @@ C
 C Purpose:
 C
 C Uses global variables:
-C      CAT    - catalog of matrix elements
+C      CAT    - substates of levels (n_level, J, m)
 C      IPATH  -
 C      NMAX   - number of levels
 C      NSTART -
@@ -26,14 +26,14 @@ C      Irld   - index into ARM array
       COMMON /COEX2 / NMAX , NDIM , NMAX1
       COMMON /CLCOM8/ CAT(600,3) , ISMAX
 
-      spm = CAT(Irld,3)
+      spm = CAT(Irld,3) ! m quantum number for substate Irld
       DO i = 2 , NMAX
          IPATH(i) = 0
          ist = NSTART(i)
          IF ( ist.NE.0 ) THEN
             isp = NSTOP(i)
             DO j = ist , isp
-               vl = CAT(j,3)
+               vl = CAT(j,3) ! m quantum number for substate j
                IF ( ABS(vl-spm).LT.1.E-6 ) GOTO 50
             ENDDO
          ENDIF
