@@ -26,7 +26,7 @@ C
 C Formal parameters:
 C      Ir     -
 C      N      -
-C      Nz     -
+C      Nz     - index into ZETA array for this multipolarity
 C      Ld     - number of matrix elements with this multipolarity
 C      Lam    - lambda
 C      La     - 1...6 for E1...6 or 7,8 for M1,2

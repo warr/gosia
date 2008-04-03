@@ -65,7 +65,7 @@ C      I57    - switch which is either 5 or 7.
       DO i1 = 1 , LAMMAX ! Loop over lambda
          lam = LAMDA(i1)
          lax = lam
-         nz = LZETA(lam)
+         nz = LZETA(lam) ! Index into ZETA array for each multipolarity
          IF ( LAMR(lam).NE.0 ) THEN
             iflg = 1
             nhold = 1
@@ -102,11 +102,11 @@ C      I57    - switch which is either 5 or 7.
                      ELSE
                         nhold = n
                      ENDIF
-                  ENDIF
+                  ENDIF ! If n .ne. nhold
                   CALL LAISUM(ir,n,rsg,lax,ld,nz,I57)
                   GOTO 40
-               ENDIF
-            ENDIF
-         ENDIF
- 100  ENDDO
+               ENDIF ! If IR .le ISMAX
+            ENDIF ! If LD .ne. 0
+          ENDIF ! If LAMR(lam) .ne. 0
+ 100  ENDDO ! Loop over lambda
       END
