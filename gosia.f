@@ -75,7 +75,7 @@ C      AVJI   - average J (N.B. here it is G(1))
 C      B      - table of factorials
 C      BEQ    - beta
 C      BETAR  - recoil beta
-C      CAT    - catalog of matrix elements
+C      CAT    - substates of levels (n_level, J, m)
 C      CC     - conversion coefficients
 C      CNOR   - normalization factors
 C      CORF   - internal correction factors
