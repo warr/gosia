@@ -10,7 +10,7 @@ C          ZETA array starting at the beginning of this array (note that
 C          this array has other things in it as well as zeta).
 C
 C Uses global variables:
-C      CAT    -
+C      CAT    - substates of levels (n_level, J, m)
 C      ELM    - matrix elements
 C      IAPR   -
 C      ISO    -
@@ -26,12 +26,12 @@ C
 C Formal parameters:
 C      Ir     -
 C      N      -
-C      Nz     -
+C      Nz     - index into ZETA array for this multipolarity
 C      Ld     - number of matrix elements with this multipolarity
 C      Lam    - lambda
 C      La     - 1...6 for E1...6 or 7,8 for M1,2
 C      Ssqrt  - sqrt(2 * lambda + 1)
-C      Icg    -
+C      Icg    - (read only)
 C      Iexp   - experiment number
 C
 C \zeta_{kn}^{(\lambda n)} = \sqrt{2 \lambda + 1} *
@@ -71,8 +71,8 @@ C half-integers.
       COMMON /CLCOM0/ IFAC(75)
       
       lam2 = 2*Lam
-      inr = CAT(Ir,2)*2.
-      rmir = CAT(Ir,3)
+      inr = CAT(Ir,2)*2. ! 2 * Spin of substate Ir
+      rmir = CAT(Ir,3)   ! m quantum number of substate Ir
       jrmir = 2.*rmir
       DO i2 = 1 , Ld
          m = LEADF(N,i2,La)
@@ -94,7 +94,7 @@ C half-integers.
             IF ( mrange.GT.0 ) THEN
                DO i3 = 1 , mrange
                   is = is2 + i3
-                  rmis = CAT(is,3)
+                  rmis = CAT(is,3) ! m quantum number of substate is
                   IF ( ISO.NE.0 .OR. rmis.LE..1 .OR. rmir.LE..1 ) THEN
                      jg1 = -rmis*2.
                      jg2 = (rmis-rmir)*2.
@@ -108,7 +108,7 @@ C half-integers.
      &                           *Ssqrt*WTHREJ(ins,lam2,inr,jg1,jg2,
      &                           jrmir)
                               IF ( Icg.NE.1 ) THEN
-                                 mt = CAT(is,1)
+                                 mt = CAT(is,1) ! level number of substate is
                                  CALL CODE7(Ir,is,N,mt,inqa,indx)
                                  IF ( ABS(ELM(indx)).LT.1.E-6 )
      &                                ELM(indx) = 1.E-6
