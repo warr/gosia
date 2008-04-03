@@ -1,0 +1,139 @@
+------------------------------------------------------------------------------
+angula.f
+--------
+
+                        il = (nlv-1)*28 ! Number of level
+                        is = iu + kq
+                        ig = is + il
+angula.f:               at(is) = ZETA(ig)*f(j)
+  This seems to be near the beginning of ZETA. It looks like il is an index
+  for the level and is for the sub state.
+
+------------------------------------------------------------------------------
+decay.f
+-------
+
+decay.f:                  ZETA(lc2) = ZETA(lc2) + gk(i)*vcd*ZETA(lc1)
+decay.f:                  ZETA(lc1) = ZETA(lc1)*vcd
+   This seems to be similar to the use in ANGULA.
+
+------------------------------------------------------------------------------
+ftbm.f
+------
+
+We zero ZETA from 1 to  NDIM*MEMAX+LP11 at the beginning.
+
+ftbm.f:         ZETA(i1) = 0.
+ftbm.f:            ZETA(k) = 0.
+ftbm.f:                              ZETA(loc) = ZETA(loc) + fc*DBLE(ARM(kx,5))
+ftbm.f:            WRITE (14,*) (ZETA(i11),i11=LP8,loch)
+ftbm.f:            ZETA(LP9+lx) = ZETA(lx)
+ftbm.f:               WRITE (22,99003) jjgg , ZETA(loct)
+ftbm.f:               READ (14,*) (ZETA(i11),i11=LP8,loch)
+ftbm.f:                  ZETA(LP9+lix) = ZETA(lix)
+ftbm.f:                     wz = ZETA(lst+lcc)
+ftbm.f:                        IF ( jy.EQ.1 ) pr = ZETA(LP13+inp) + 1.E-12
+ftbm.f:                           ZETA(inp) = ZETA(inp+LP9)*(1.+.1*EMH*wz/pr)
+ftbm.f:     &                         (ZETA(LP13+(jpz-1)*28),jpz=inpo,inko)
+ftbm.f:                                 IF ( ABS(ZETA(inzzz)).LT.1.E-20 )
+ftbm.f:     &                                ZETA(inzzz) = 1.E-20
+ftbm.f:                                 val = 2.*ELM(lm)*ZETA(inzz)/ZETA(inzzz)
+ftbm.f:                              ZETA(izzz) = 0.
+ftbm.f:                     READ (14,*) (ZETA(i11),i11=LP8,loch)
+
+LP8 = 104, LP9 = 47900, LP11 = 103 and LP13 = 47901, so this doesn't look
+like the real ZETA.
+
+------------------------------------------------------------------------------
+gosia.f
+-------
+
+gosia.f:                                    YV(jtp) = ZETA(jyv)
+gosia.f:                                 ZETA(locat) = SIMIN(npct1,het,XI)
+gosia.f:                                 YV(jtp) = ZETA(jyv)
+
+This is the ZETA read from unit 14 in TAPMA.
+
+gosia.f:                        WRITE (17,*) (ZETA(kkk),kkk=in1,in2)
+gosia.f:                  summm = summm + ZETA(loct)
+gosia.f:     &                 WRITE (22,99053) jgl , ZETA(loct)
+
+This is is the ZETA calculated in TENS, which it writes here to unit 17.
+
+gosia.f:                        ZETA(jk) = 0.
+gosia.f:                           ZETA(jd) = sz2*jz
+gosia.f:                           IF ( jd.EQ.1 .AND. MAGA(IEXP).NE.0 ) ZETA(jd)
+gosia.f:                           IF ( ZETA(jd).LT..1 ) INTERV(IEXP) = 1000
+gosia.f:                           IF ( ZETA(jd).GE..1 ) INTERV(IEXP) = intvh
+gosia.f: 1304                      q1 = q1/ZETA(jd)/2.
+gosia.f:                           q2 = q2/ZETA(jd)
+gosia.f:99041             FORMAT (1X/30X,'E',1I1,8X,'MI=0',5X,'MAX.ZETA=',
+
+Used in in OP,ERRO
+
+gosia.f:     &                       'MAX.ZETA=',1F6.3//)
+
+Used in OP,MAP
+
+------------------------------------------------------------------------------
+klopot.f
+--------
+
+klopot.f:      ZETA(loc) = (VINF(iexh)*g1+TLBDG(iexh)*g2)/VINF(iexh)/VINF(iexh)
+klopot.f:         u = dy*EP(iexp)*b + a*ZETA(loc)/b
+
+------------------------------------------------------------------------------
+laiamp.f
+--------
+
+laiamp.f:         nz = LZETA(lam)
+laiamp.f:                           z = ZETA(nz)
+    Here nz starts at 0 for lam = 2 (E2) and 128 for lam = 7 (M2)
+    Since we are using LZETA to index, this must be the real ZETA.
+
+------------------------------------------------------------------------------
+laisum.f
+--------
+
+laisum.f:                        z = ZETA(Nz)         ! Zeta
+
+This is the real ZETA.
+
+------------------------------------------------------------------------------
+load.f
+------
+
+load.f:            LZETA(i) = 0
+load.f:               LZETA(la) = nz
+load.f:     &              'ERROR - NUMBER OF ELEMENTS IN ZETA ARRAY EXCEEDS',
+
+LZETA are pointers to the real ZETA for each multipolarity.
+
+------------------------------------------------------------------------------
+lsloop.f
+--------
+
+lsloop.f:                              ZETA(Nz) = phz*PSI(indx) ! This is really zeta
+lsloop.f:                                    QAPR(indx,1,inqa) = ZETA(Nz)
+
+This is the real ZETA
+
+------------------------------------------------------------------------------
+tapma.f
+-------
+
+tapma.f:         READ (14,*) lx1 , Enb , tta , ng1 , DS , (ZETA(k),k=js,jf)
+
+As we are not using LZETA to index, I don't think this is the real zeta.
+
+
+------------------------------------------------------------------------------
+tens.f
+------
+
+tens.f:         ZETA(i) = 0.
+tens.f:               ZETA(inz) = Bten(ind)
+tens.f:                        ZETA(inz) = ZETA(inz) + Bten(ind)
+
+As we are not using LZETA to index, I don't think this is the real zeta.
+
