@@ -9,7 +9,7 @@ C Purpose: evaluate the sum  over matrix elements.
 C
 C Uses global variables:
 C      ARM    - reduced matrix elements
-C      CAT    -
+C      CAT    - substates of levels (n_level, J, m)
 C      ELM    - matrix elements
 C      EXPO   - adiabatic exponential
 C      ISG    -
@@ -34,7 +34,7 @@ C      N      -
 C      Rsg    -
 C      Lam    - multipolarity
 C      Ld     -
-C      Nz     -
+C      Nz     - index into ZETA array for this multipolarity
 C      I57    - switch which is either 5 or 7.
 C
 C   \sum_{lmn} \zeta^{lm}_{kn} . M^(1)_{kn} f_{lm}(\omega) a_n(\omega)
@@ -78,7 +78,7 @@ C z is the coupling parameter zeta, calculated in the function LSLOOP.
       COMMON /ALLC  / LOCQ(8,7)
       COMMON /CEXC0 / NSTART(76) , NSTOP(75)
       
-      rmir = CAT(Ir,3)
+      rmir = CAT(Ir,3) ! m quantum number of substate Ir
       iii = 0
       IF ( Lam.GT.6 ) iii = 1
       la = Lam
@@ -101,7 +101,7 @@ C z is the coupling parameter zeta, calculated in the function LSLOOP.
             IF ( mrange.GT.0 ) THEN
                DO i3 = 1 , mrange
                   is = is2 + i3
-                  rmis = CAT(is,3)
+                  rmis = CAT(is,3) ! m quantum number of substate is
                   IF ( ISO.NE.0 .OR. rmir.LE..1 .OR. rmis.LE..1 ) THEN
                      rmu = rmis - rmir
                      mua = ABS(rmu) + 1.1
