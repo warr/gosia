@@ -9,7 +9,7 @@ C Purpose: calculate the state of polarization of the decaying level
 C
 C Uses global variables:
 C      ARM    - reduced matrix elements
-C      CAT    - Quantum numbers of states. CAT(n,3) is the M quantum number.
+C      CAT    - substates of levels (n_level, J, m)
 C      NMAX   - number of levels
 C      NSTART -
 C      NSTOP  -
@@ -68,9 +68,9 @@ C can cope with half-integers.
                      DO m = ms , msp
                         mm = m
                         mp = m + l
-                        jm = INT(2.01*CAT(mm,3))
+                        jm = INT(2.01*CAT(mm,3)) ! 2 * m quantum number of substate mm
                         IF ( mp.GT.NSTOP(i) ) GOTO 4
-                        ilg = (-1)**INT(si-CAT(mp,3))
+                        ilg = (-1)**INT(si-CAT(mp,3)) ! 2 * m quantum number of substate mp
                         jmp = -INT(2.01*CAT(mp,3))
                         fc = WTHREJ(isi,kk,isi,jmp,ll,jm)
                         ite = 1
@@ -86,7 +86,7 @@ C can cope with half-integers.
                            ite = 2
                            mp = mp - 2*l
                            IF ( mp.GE.NSTART(i) ) THEN
-                              jmp = INT(2.01*CAT(mp,3))
+                              jmp = INT(2.01*CAT(mp,3)) ! 2 * m quantum number of substate mp
                               jm = -jm
                               fc = WTHREJ(isi,kk,isi,jmp,ll,jm)
                               ilg = (-1)**INT(si+CAT(mp,3))
