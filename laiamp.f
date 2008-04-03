@@ -9,7 +9,7 @@ C Purpose: calculate reduced matrix element
 C
 C Uses global variables:
 C      ARM    - reduced matrix elements
-C      CAT    -
+C      CAT    - substates of levels (n_level, J, m)
 C      ELM    - matrix elements
 C      EPS    - epsilon
 C      EROOT  - sqrt(epsilon^2 - 1)
@@ -58,7 +58,7 @@ C      W0     - omega
       ppp = 0.
       epsi = EPS(IEXP)
       errt = EROOT(IEXP)
-      rmir = CAT(Ir,3)
+      rmir = CAT(Ir,3) ! m quantum number of substate Ir
       DO i1 = 1 , LAMMAX
          lam = LAMDA(i1)
          nz = LZETA(lam)
@@ -88,7 +88,7 @@ C      W0     - omega
                            is = is2 + i3
                            nz = nz + 1
                            z = ZETA(nz)
-                           rmis = CAT(is,3)
+                           rmis = CAT(is,3) ! m quantum number of substate is
                            rmu = rmis - rmir
                            mua = ABS(rmu) + 1.1
                            IF ( lam.LE.6 .OR. mua.NE.1 ) THEN
