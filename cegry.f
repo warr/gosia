@@ -142,6 +142,12 @@ C      Iredv  -
       ifxd = 0
       tetrc = TREP(IEXP)
 
+C     If the user set print flag 13 to +1, it is set to -1 by OP,EXIT and then
+C     if it is -1, it is set to -2 in MINI, which is called from there, which
+C     in turn calls FTBM, which calls this function. In other words, this
+C     routine is called with IPRM(13) set to -2 if the user sets IPRM(13) to 1
+C     with CONT:PRT, and then does OP,EXIT
+
       IF ( Icall.EQ.4 .AND. IPRM(13).EQ.-2 ) THEN
          IPRM(13) = 0
          WRITE (22,99001)
@@ -158,7 +164,7 @@ C      Iredv  -
             IF ( ABS(cnr(1,jpc)).LT.1.E-9 ) cnr(1,jpc) = 1.
             k = NDST(jpc)
             WRITE (22,99012) jpc , (cnr(l,jpc)/cnr(1,jpc),l=1,k)
-         ENDDO
+         ENDDO ! Loop on experiments
       ENDIF ! if Icall.EQ.4 .AND. IPRM(13).EQ.-2
 
       DO jpc = 1 , LP6
@@ -498,7 +504,7 @@ C      Iredv  -
             DO jk = 1 , kc
                cnr(jk,jj) = -.5*part(jk,jj,2)/part(jk,jj,1)
                IF ( INNR.NE.0 ) CNOR(jk,jj) = cnr(jk,jj)
-            ENDDO
+            ENDDO ! Loop on datasets
             IF ( INNR.NE.1 ) THEN
                d = 0.
                g = 0.
@@ -508,21 +514,21 @@ C      Iredv  -
                      DO jk = 1 , k
                         d = d + YNRM(jk,jj1)*part(jk,jj1,1)*YNRM(jk,jj1)
                         g = g - .5*YNRM(jk,jj1)*part(jk,jj1,2)
-                     ENDDO
-                  ENDIF
-               ENDDO
+                     ENDDO ! Loop on datasets
+                  ENDIF ! IF ( LNORM(jj1).EQ.jj )
+               ENDDO ! Loop on experiment
                IF ( LNORM(jj).EQ.jj ) THEN
                   CNOR(1,jj) = g*YNRM(1,jj)/d
                   k = NDST(jj)
                   IF ( k.NE.1 ) THEN
                      DO jk = 2 , k
                         CNOR(jk,jj) = YNRM(jk,jj)*CNOR(1,jj)/YNRM(1,jj)
-                     ENDDO
-                  ENDIF
-               ENDIF
-            ENDIF
-         ENDIF
-      ENDDO
+                     ENDDO ! Loop on jk
+                  ENDIF ! IF ( k.NE.1 )
+               ENDIF ! IF ( LNORM(jj).EQ.jj )
+            ENDIF ! IF ( INNR.NE.1 )
+         ENDIF ! IF ( JSKIP(jj).NE.0 )
+      ENDDO ! Loop on experiment
 
       IF ( INNR.NE.1 ) THEN
          DO jj = 1 , NEXPT
@@ -531,10 +537,10 @@ C      Iredv  -
                k = NDST(jj)
                DO jk = 1 , k
                   CNOR(jk,jj) = CNOR(1,iw)*YNRM(jk,jj)/YNRM(1,iw)
-               ENDDO
-            ENDIF
-         ENDDO
-      ENDIF
+               ENDDO ! Loop on datasets
+            ENDIF ! IF ( LNORM(jj).NE.jj )
+         ENDDO ! Loop on experiment
+      ENDIF ! IF ( INNR.NE.1 )
 
 C     Calculate chi squared
       IF ( Icall.EQ.7 ) Chisq = 0.
@@ -545,8 +551,8 @@ C     Calculate chi squared
      &              **2 + partl(jk,jj,2)*2.*LOG(CNOR(jk,jj))
             Chisq = Chisq + CNOR(jk,jj)*CNOR(jk,jj)*part(jk,jj,1)
      &              + CNOR(jk,jj)*part(jk,jj,2)
-         ENDDO
-      ENDDO
+         ENDDO ! Loop on datasets
+      ENDDO ! Loop on experiment
 
       Chisq = Chisq + sumpr
       Chilo = Chilo + sum3
