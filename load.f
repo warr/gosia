@@ -9,7 +9,7 @@ C Purpose: calculates various parameters, xi, psi which are stored in
 C variables XI (common CXI) and PSI (common PCOM).
 C
 C Uses global variables:
-C      CAT    -
+C      CAT    - substates of levels (n_level, J, m)
 C      DIPOL  -
 C      EMMA   - Controls number of magnetic substates in full coulex calc.
 C      EN     - energy of level
@@ -46,10 +46,10 @@ C      ZPOL   -
 C
 C Formal parameters:
 C      Iexp   - Number of experiment
-C      Ient   -
-C      Icg    -
-C      Polm   -
-C      Joj    -
+C      Ient   - Flag : 1, 2, 3 (read only)
+C      Icg    - Flag : 1, 2 (read only)
+C      Polm   - (read only)
+C      Joj    - index of substate (write only)
  
       SUBROUTINE LOAD(Iexp,Ient,Icg,Polm,Joj)
       IMPLICIT NONE
@@ -204,9 +204,9 @@ C     Initialise NSTART and NSTOP arrays
             IF ( wrtm.GT.SPIN(n) ) wrtm = SPIN(n)
             mstop = INT(wrtm-wrt+1.01)
             DO i = 1 , mstop
-               CAT(is,1) = n
-               CAT(is,2) = SPIN(n)
-               CAT(is,3) = wrt + DBLE(i-1)
+               CAT(is,1) = n               ! Number of level
+               CAT(is,2) = SPIN(n)         ! Spin of level
+               CAT(is,3) = wrt + DBLE(i-1) ! m quantum number of substate
                IF ( n.EQ.1 .AND. ABS(CAT(is,3)-Polm).LT.1.E-6 ) Joj = is
                is = is + 1
             ENDDO
@@ -216,7 +216,7 @@ C     Initialise NSTART and NSTOP arrays
       ENDDO
 
       ISMAX = is - 1
-      IF ( ISMAX.LE.LP10 ) THEN
+      IF ( ISMAX.LE.LP10 ) THEN ! LP10 is max. number of substates (600)
          IF ( Ient.EQ.3 ) RETURN
          nz = 0
          DO jj = 1 , 7
@@ -225,9 +225,12 @@ C     Initialise NSTART and NSTOP arrays
                QAPR(jjj,2,jj) = 0.
             ENDDO
          ENDDO
+
+C        Initialise pointers to ZETA array
          DO i = 1 , 8
             LZETA(i) = 0
          ENDDO
+
          DO i1 = 1 , LAMMAX
             lam = LAMDA(i1)
             IF ( Icg.NE.2 .OR. lam.LE.6 ) THEN
@@ -239,7 +242,7 @@ C     Initialise NSTART and NSTOP arrays
                ir = 0
  10            ir = ir + 1
                IF ( ir.LE.ISMAX ) THEN
-                  n = CAT(ir,1)
+                  n = CAT(ir,1) ! number of level for substate ir
                   IF ( Icg.NE.1 ) THEN
                      IF ( MAGA(Iexp).EQ.0 .AND. ir.NE.IPATH(n) ) GOTO 10
                      IF ( ABS(ir-IPATH(n)).GT.1 ) GOTO 10
@@ -253,7 +256,8 @@ C     Initialise NSTART and NSTOP arrays
                   GOTO 10
                ENDIF
             ENDIF
-         ENDDO
+         ENDDO ! Loop over multipolarity
+          
          IF ( nz.GT.LP7 ) THEN
             WRITE (22,99001) LP7
 99001       FORMAT (1x,
