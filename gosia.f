@@ -779,8 +779,8 @@ C           Treat OP,ERRO (calculate errors)
                      DO inn = 1 , MEMAX
                         WRITE (3,*) inn , ELM(inn)
                      ENDDO
-                  ENDIF
-               ENDIF
+                  ENDIF ! IF ( irep.NE.2 )
+               ENDIF ! IF ( iosr.NE.0 .AND. idf.NE.0 )
                IF ( irep.NE.0 ) THEN
                   REWIND 15
                   READ (15,*) (DEVD(kh1),DEVU(kh1),kh1=1,MEMAX)
@@ -1486,7 +1486,7 @@ C                    Read input from standard input
 C                 Treat OP,MAP
                   ELSEIF ( op2.EQ.'MAP ' ) THEN
                      GOTO 1200 ! End of OP,MAP 
-                  ENDIF
+                  ENDIF ! IF ( op2.EQ.'SIXJ' )
                ENDIF
             ENDIF
          ENDIF
@@ -1539,7 +1539,7 @@ C     Treat suboption ME (matrix elements)
             ENDIF
             IF ( ipo1.NE.0 ) THEN
                IF ( ipo2.EQ.0 ) THEN
-                  IF ( ipo1.LE.la ) GOTO 1600
+                  IF ( ipo1.LE.la ) GOTO 1600 ! Error - wrong sequence of multipolarities
                   LAMMAX = LAMMAX + 1
                   LAMDA(LAMMAX) = ipo1
                   ipo3 = 0
@@ -1547,9 +1547,9 @@ C     Treat suboption ME (matrix elements)
                ELSE
                   MULTI(la) = MULTI(la) + 1
                   indx = indx + 1
-                  IF ( ipo1.GT.ABS(ipo2) ) GOTO 1500
+                  IF ( ipo1.GT.ABS(ipo2) ) GOTO 1500 ! Error - M.E. does not belong to the upper triangle
                   IF ( ipo1.NE.ipo3 ) THEN
-                     IF ( ipo1.LT.ipo3 ) GOTO 1700
+                     IF ( ipo1.LT.ipo3 ) GOTO 1700 ! Error - repeated appearance of the state
                      ipo3 = ipo1
                   ENDIF
                   ELM(indx) = po1
@@ -2593,7 +2593,7 @@ C     Handle map
          WRITE (18,*) iva , iva , iva , chisq
          IF ( ITS.NE.2 ) THEN
             WRITE (15,*) iva , chisq , chisq , chisq , chisq
-            CALL KLOPOT(kmat,rlr)
+            CALL KLOPOT(kmat,rlr) ! Troubleshooting
          ENDIF
       ENDIF
  2000 WRITE (22,99047)
