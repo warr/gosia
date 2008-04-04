@@ -67,8 +67,11 @@ AMPDER}, {\em APRAM}, {\em DOUBLE}, {\em FTBM}, {\em GOSIA}, {\em HALF},
 SIXEL}, {\em STING} and {\em TENB}.
 
 \begin{itemize}
-\item COMPLEX*16 ARM(600,7) - excitation amplitudes of substates. ARM(I,5)
-is the excitation amplitude for substate I.
+\item COMPLEX*16 ARM(600,7) - excitation amplitudes of substates. It is used
+in the Adams-Moulton predictor-corrector method. ARM(I,1) = f(n-3), ARM(I,2)
+= f(n-2), ARM(I,3) = f(n-1), ARM(I,4) = f(n). ARM(I,5) is the corrector,
+ARM(I,7) is the predictor. This is in {\em intg.f}. In {\em sting.f}
+ARM(I,6) is also used.
 \end{itemize}
 
 \section{BREC}
