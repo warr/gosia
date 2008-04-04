@@ -12,6 +12,7 @@ C      ACC50  - accuracy required for integration
 C      ARM    - excitation amplitudes of substates.
 C      CAT    - substates of levels (n_level, J, m)
 C      D2W    - step in omega (= 0.03)
+C      IFAC   - spin/parity phase factor
 C      IFLG   - flag to determine whether to calculate exponential (so we don't calculate twice)
 C      INTERV - default accuracy check parameter (see OP,CONT:INT)
 C      IPATH  -

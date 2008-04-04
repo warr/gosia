@@ -10,7 +10,6 @@ C       exp(i \xi_{kn} (\epsilon \sinh(\omega) + \omega))
 C
 C Uses global variables:
 C      EXPO   - adiabatic exponential
-C      IFAC   -
 C      IFLG   - flag to determine whether to calculate exponential (so we don't calculate twice)
 C      ISG    -
 C      ISSTAR -

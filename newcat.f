@@ -9,7 +9,6 @@ C Purpose: create a new catalog of matrix elements
 C
 C Uses global variables:
 C      IAPR   -
-C      IFAC   -
 C      MAGA   - number of magnetic substates in approximate calculation
 C      MULTI  - number of matrix elements having given multipolarity
 C      NMAX   - number of levels

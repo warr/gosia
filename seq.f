@@ -16,7 +16,6 @@ C      EN     - energy of level
 C      ENDEC  -
 C      FP     -
 C      GKP    -
-C      IFAC   -
 C      KLEC   -
 C      KSEQ   - index into ELM for pair of levels, and into EN or SPIN
 C      LDNUM  - number of matrix elements with each multipolarity populating levels

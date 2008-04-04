@@ -11,7 +11,6 @@ C Uses global variables:
 C      ARM    - excitation amplitudes of substates.
 C      ELM    - matrix elements
 C      EXPO   - adiabatic exponential
-C      IFAC   -
 C      IFLG   - flag to determine whether to calculate exponential (so we don't calculate twice)
 C      IRA    - limit of omega for integration for each multipolarity
 C      ISG    -

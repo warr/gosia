@@ -7,7 +7,6 @@ C
 C Purpose: determine the range for which we will need Qe and Qm values.
 C
 C Uses global variables:
-C      IFAC   -
 C      IRA    - range to integrate over omega
 C      MAXLA  -
 C      MULTI  - number of matrix elements having given multipolarity

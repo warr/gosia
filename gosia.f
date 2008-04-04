@@ -114,7 +114,7 @@ C      ICS    - read internal correction factors flag (OP,CONT switch CRF,)
 C      IDIVE  - number of subdivisions
 C      IDRN   - normalising transition for yields
 C      IEXP   - experiment number
-C      IFAC   -
+C      IFAC   - spin/parity phase factor
 C      IFBFL  - calculate derivatives with forward-backward method
 C      IFMO   - include correction to angular distance for finite recoil distance.
 C      ILE    -
