@@ -12,7 +12,7 @@ C
 C Uses global variables:
 C      CAT    - substates of levels (n_level, J, m)
 C      ELM    - matrix elements
-C      IAPR   -
+C      IAPR   - index of initial and final levels for each matrix element
 C      IFAC   - spin/parity phase factor
 C      ISO    - isotropic flag
 C      LP7    - maximum number of zeta coefficients (45100)
@@ -25,8 +25,8 @@ C      SPIN   - spin of level
 C      ZETA   -
 C
 C Formal parameters:
-C      Ir     -
-C      N      -
+C      Ir     - index of first substate of level
+C      N      - index of level
 C      Nz     - index into ZETA array for this multipolarity
 C      Ld     - number of matrix elements with this multipolarity
 C      Lam    - lambda
@@ -76,13 +76,13 @@ C half-integers.
       rmir = CAT(Ir,3)   ! m quantum number of substate Ir
       jrmir = 2.*rmir
       DO i2 = 1 , Ld
-         m = LEADF(N,i2,La)
-         indx = MEM(N,m,La)
-         IAPR(indx,1) = N
-         IAPR(indx,2) = m
+         m = LEADF(N,i2,La) ! Index of final level
+         indx = MEM(N,m,La) ! Index of matrix element
+         IAPR(indx,1) = N   ! Index of initial level
+         IAPR(indx,2) = m   ! Index of final level
          ismin = 0
          ins = SPIN(m)*2.
-         is1 = NSTART(m)
+         is1 = NSTART(m) ! Index of first substate of level m
          IF ( is1.NE.0 ) THEN
             isplus = INT(rmir-CAT(is1,3)) - Lam
             IF ( isplus.LT.0 ) THEN
@@ -124,9 +124,9 @@ C half-integers.
                            ENDIF
                         ENDIF
                      ENDIF
-                  ENDIF
-               ENDDO
-            ENDIF
-         ENDIF
-      ENDDO
+                  ENDIF ! If isotropic or rmis < 1 or rmir < 1
+               ENDDO ! Loop on substates
+            ENDIF ! If range of substates is greater than 0
+         ENDIF ! If there are substates
+      ENDDO ! Loop on matrix elements
       END

@@ -10,7 +10,7 @@ C          amplitudes
 C
 C Uses global variables:
 C      ARM    - excitation amplitudes of substates.
-C      IAPR   -
+C      IAPR   - index of initial and final levels for each matrix element
 C      INHB   - inhibit error flag setting (LERF)
 C      IPATH  -
 C      ISEX   -

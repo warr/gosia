@@ -8,7 +8,7 @@ C
 C Purpose: create a new catalog of matrix elements
 C
 C Uses global variables:
-C      IAPR   -
+C      IAPR   - index of initial and final levels for each matrix element
 C      MAGA   - number of magnetic substates in approximate calculation
 C      MULTI  - number of matrix elements having given multipolarity
 C      NMAX   - number of levels
