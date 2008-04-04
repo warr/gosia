@@ -27,7 +27,7 @@ C      ZETA   - various coefficients
 C
 C Formal parameters:
 C      Ir     - index into ARM array
-C      W0     - omega
+C      W0     - omega limit
       
       SUBROUTINE LAIAMP(Ir,W0)
       IMPLICIT NONE
@@ -55,12 +55,13 @@ C      W0     - omega
       COMMON /CXI   / XI(500)
 
       ppp = 0.
-      epsi = EPS(IEXP)
-      errt = EROOT(IEXP)
+      epsi = EPS(IEXP) ! epsilon
+      errt = EROOT(IEXP) ! sqrt(epsilon^2 - 1)
       rmir = CAT(Ir,3) ! m quantum number of substate Ir
-      DO i1 = 1 , LAMMAX ! Loop on lambda
-         lam = LAMDA(i1)
-         nz = LZETA(lam)
+      
+      DO i1 = 1 , LAMMAX ! Loop on multipolarity
+         lam = LAMDA(i1) ! Get multipolarity
+         nz = LZETA(lam) ! nz is an index into ZETA array for this multipolarity
          IF ( LAMR(lam).NE.0 ) THEN
             la = lam
             IF ( lam.GT.6 ) lam = lam - 6 ! la = 7,8 for M1,M2
@@ -69,7 +70,7 @@ C      W0     - omega
                DO i2 = 1 , ld ! Loop on matrix elements of that multipolarity connected to ground state
                   m = LEADF(1,i2,la) ! m is level index connected to ground state by element i2, mul. la
                   indx = MEM(1,m,la)
-                  xiv = XI(indx)
+                  xiv = XI(indx) ! xi value
                   ismin = 0
                   is1 = NSTART(m) ! Index of first substate for level m
                   IF ( NSTART(m).NE.0 ) THEN
@@ -82,25 +83,31 @@ C      W0     - omega
                      mrange = 2*lam + 1 + ismin
                      IF ( is2+mrange.GT.NSTOP(m) ) mrange = NSTOP(m)
      &                    - is2
-                     IF ( mrange.GT.0 ) THEN
+                     IF ( mrange.GT.0 ) THEN ! If there are substates for level m
                         DO i3 = 1 , mrange
                            is = is2 + i3
                            nz = nz + 1
-                           z = ZETA(nz)
+                           z = ZETA(nz) ! zeta coefficient
                            rmis = CAT(is,3) ! m quantum number of substate is
                            rmu = rmis - rmir
-                           mua = ABS(rmu) + 1.1
+                           mua = ABS(rmu) + 1.1 ! delta-mu + 1
+
+C                          Only consider electromagnetic and delta-mu = 0 magnetic
+C                          contribution
                            IF ( lam.LE.6 .OR. mua.NE.1 ) THEN
+C                             calculate complex phase (dis)
                               CALL FAZA1(la,mua,rmir,rmis,dis,rmu)
-                              pm = ELM(indx)*z
+                              pm = ELM(indx)*z ! Matrix element * zeta
+C                             estimate amplitude
                               uhuj = STAMP(epsi,errt,xiv,.03D0,W0,lam,
      &                               mua)
                               ARM(is,5) = dis*pm*uhuj
                               ppp = ppp + TCABS(ARM(is,5))
      &                              *TCABS(ARM(is,5))
                            ENDIF
+
                         ENDDO ! Loop over substates
-                     ENDIF
+                     ENDIF ! If there are substates
                   ENDIF ! If there are substates for level m
                ENDDO ! Loop on matrix elements connected to ground state with multipolarity la
             ENDIF ! If there are matrix elements of this multipolarity connecting to the ground state
