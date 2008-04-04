@@ -910,12 +910,13 @@ TAMPA}. It has something to do with the sensitivity maps.
 \begin{itemize}
 \item REAL*8 XV(51) - energy meshpoints at which the exact calculation is
 performed.
-\item REAL*8 YV(51) - projectile scattering angle in the lab frame used as
-meshpoints.
-\item REAL*8 ZV(20) - 
-\item REAL*8 DSG(20) - differential cross section interpolated over $\theta$?
-\item REAL*8 DSE(20) - differential cross section interpolated over energy?
-\item REAL*8 DS - integrated rutherford cross section
+\item REAL*8 YV(51) - projectile scattering angle meshpoints in the lab
+frame, at which the exact calculation is performed.
+\item REAL*8 ZV(20) - energy meshpoints.
+\item REAL*8 DSG(20) - differential $\gamma$-ray yield at meshpoints
+\item REAL*8 DSE(20) - Rutherford cross section at given energy integrated
+over angles.
+\item REAL*8 DS - integrated rutherford cross section.
 \end{itemize}
 
 \section{WARN}
