@@ -15,7 +15,7 @@ C      D2W    - step in omega (= 0.03)
 C      IFAC   - spin/parity phase factor
 C      IFLG   - flag to determine whether to calculate exponential (so we don't calculate twice)
 C      INTERV - default accuracy check parameter (see OP,CONT:INT)
-C      IPATH  -
+C      IPATH  - index of substate in level with same m as substate Irld
 C      IRA    - limit of omega for integration for each multipolarity
 C      ISG    - index for sigma
 C      ISMAX  - number of substates used

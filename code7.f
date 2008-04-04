@@ -8,7 +8,7 @@ C Purpose:
 C
 C Uses global variables:
 C      IAPR   - index of initial and final levels for each matrix element
-C      IPATH  -
+C      IPATH  - index of substate in level with same m as substate Irld
 C
 C Formal parameters:
 C      Ir     - index of initial substate

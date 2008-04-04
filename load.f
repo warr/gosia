@@ -15,7 +15,7 @@ C      EMMA   - Controls number of magnetic substates in full coulex calc.
 C      EN     - energy of level
 C      EP     - bombarding energy
 C      ERR    -
-C      IPATH  -
+C      IPATH  - index of substate in level with same m as substate Irld
 C      ISHA   -
 C      ISMAX  - number of substates used
 C      IZ     - Z of investigated nucleus

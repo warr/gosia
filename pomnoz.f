@@ -12,7 +12,7 @@ C Uses global variables:
 C      ARM    - excitation amplitudes of substates.
 C      IAPR   - index of initial and final levels for each matrix element
 C      INHB   - inhibit error flag setting (LERF)
-C      IPATH  -
+C      IPATH  - index of substate in level with same m as substate Irld
 C      ISEX   -
 C      LERF   - error flag which is set here and used in APRAM
 C      MEMX6  - number of matrix elements with E1...6 multipolarity
