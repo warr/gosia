@@ -5,8 +5,9 @@ C
 C Called by: LAIAMP, LSLOOP, NEWLV, SEQ
 C
 C Uses global variables:
+C      LDNUM  - number of matrix elements with each multipolarity populating levels
+C      LEAD   - pair of levels involved in each matrix element
 C      MULTI  - number of matrix elements with a given multipolarity
-C      IFAC   -
 C
 C Formal parameters:
 C      N1     - number of levels

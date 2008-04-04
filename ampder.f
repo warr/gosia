@@ -13,7 +13,6 @@ C      ARM    - excitation amplitudes of substates.
 C      CAT    - substates of levels (n_level, J, m)
 C      ELM    - matrix elements
 C      EXPO   - exponents of adiabatic term
-C      IFAC   - 
 C      ISG    -
 C      ISG1   -
 C      ISSTAR -

@@ -14,7 +14,6 @@ C      ELM    - matrix elements
 C      EPS    - epsilon
 C      EROOT  - sqrt(epsilon^2 - 1)
 C      IEXP   - number of experiment
-C      IFAC   -
 C      ISG    -
 C      LAMDA  - list of multipolarities to calculate
 C      LAMMAX - number of multipolarities to calculate

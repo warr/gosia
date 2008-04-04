@@ -14,7 +14,6 @@ C      DELTA  -
 C      ELM    - matrix elements
 C      EN     - level energy
 C      IBRC   - index branching ratios
-C      IFAC   -
 C      IPRM   - printing flags (see suboption PRT of OP,CONT)
 C      KSEQ   - index into ELM for pair of levels, and into EN or SPIN
 C      MULTI  - number of matrix elements with given multipolarity
