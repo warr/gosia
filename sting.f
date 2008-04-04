@@ -88,7 +88,7 @@ C              Calculate and store exponentials
                IF ( ld.NE.0 ) THEN
                   nz = LZETA(lam)
                   ld = LDNUM(lam,1)
-                  i57 = 5
+                  i57 = 5 ! Use ARM(I,5) in LAISUM for excitation amplitudes
 C                 Calculate sum over matrix elements
                   CALL LAISUM(Irld,n,rsg,lam,ld,nz,i57)
                   DO mm = 1 , ld
