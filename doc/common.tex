@@ -21,7 +21,7 @@ AMPDER}, {\em GOSIA}, {\em LAISUM}, {\em NEWLV} and {\em STING}.
 \section{ADX}
 
 This common block contains the adiabatic parameters for each of the 365
-possible different values of $\omega$. It is used in the functiosn {\em
+possible different values of $\omega$. It is used in the functions {\em
 EXPON} and {\em SETIN}.\\
 
 \begin{itemize}
@@ -33,7 +33,9 @@ EXPON} and {\em SETIN}.\\
 This common block is used in {\em ALLOC}, {\em LAISUM} and {\em SNAKE}.
 
 \begin{itemize}
-\item INTEGER*4 LOCQ(8,7)
+\item INTEGER*4 LOCQ(8,7) - The position of the start of the collision
+coefficients for each ($\lamda$,$\mu$) relative to the start of the
+collision coeficients, which is in the ZETA array starting at LP7 (45100).
 \end{itemize}
 
 \section{APRCAT}
@@ -171,7 +173,10 @@ KLOPOT}, {\em LAIAMP}, {\em LAISUM}, {\em LOAD}, {\em LSLOOP}, {\em SNAKE},
 {\em STING}, {\em TAPMA} and {\em TENS}.
 
 \begin{itemize}
-\item ZETA(50000)
+\item ZETA(50000) - a variety of coefficients including $\zeta$, collision
+coefficients etc.
+\item LZETA(8) - points to the start of the $\zeta$ coefficients for each
+multipolarity. The index is E1{\ldots}6, M1, M2 in that order.
 \end{itemize}
 
 \section{CEXC}
@@ -259,7 +264,9 @@ GOSIA}, {\em HALF}, {\em INTG}, {\em LAIAMP}, {\em LAISUM}, {\em LOAD}, {\em
 LSLOOP}, {\em PATH}, {\em RESET}, {\em STING} and {\em TENB}.
 
 \begin{itemize}
-\item REAL*8 CAT(600,3)
+\item REAL*8 CAT(600,3) - this array has one entry for each substate.
+CAT(I,1) is the level number associated with the substate, CAT(I,2) is the
+spin of that level and CAT(I,3) is the $m$ quantum number of the substate.
 \item INTEGER*4 ISMAX
 \end{itemize}
 
@@ -691,7 +698,7 @@ LAISUM}, {\em LOAD}, {\em LSLOOP}, {\em MINI}, {\em PODZIEL}, {\em READY},
 \item INTEGER*4 LP3 - maximum number of levels = 75.
 \item INTEGER*4 LP4 - maximum number of yields = 1500.
 \item INTEGER*4 LP6 - maximum number of $\gamma$ detectors = 32.
-\item INTEGER*4 LP7 - offset of collision functions in ZETA array.
+\item INTEGER*4 LP7 - offset of collision functions in ZETA array (45100).
 \item INTEGER*4 LP8 - ? = 104.
 \item INTEGER*4 LP9 - length of ZETA array - 2100 = 47900.
 \item INTEGER*4 LP10 - maximum number of reduced matrix elements = 600.
