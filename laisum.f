@@ -16,8 +16,8 @@ C      ISG    - index for sigma
 C      ISG1   -
 C      ISHA   -
 C      ISO    -
-C      ISSTAR -
-C      ISSTO  -
+C      ISSTAR - first substate for given matrix element index
+C      ISSTO  - last substate for given matrix element index
 C      KDIV   - index for division
 C      LOCQ   - location of collision functions in ZETA array
 C      LP7    - start of collision functions in ZETA (45100)
@@ -29,8 +29,8 @@ C      NSTOP  - index in CAT of last substate associated with a level
 C      ZETA   - various coefficients
 C
 C Formal parameters:
-C      Ir     -
-C      N      -
+C      Ir     - index of substate
+C      N      - index of level
 C      Rsg    -
 C      Lam    - multipolarity
 C      Ld     - number of matrix elements for level with given multipolarity
@@ -104,12 +104,14 @@ C z is the coupling parameter zeta, calculated in the function LSLOOP.
                   rmis = CAT(is,3) ! m quantum number of substate is
                   IF ( ISO.NE.0 .OR. rmir.LE..1 .OR. rmis.LE..1 ) THEN
                      rmu = rmis - rmir
-                     mua = ABS(rmu) + 1.1
+                     mua = ABS(rmu) + 1.1 ! delta-m + 1
+C                    Only consider electromagnetic and delta-mu = 0 magnetic
+C                    contribution
                      IF ( la.LE.6 .OR. mua.NE.1 ) THEN
-                        indq = LOCQ(Lam,mua) + NPT
-                        Nz = Nz + 1
-                        z = ZETA(Nz)         ! Zeta
-                        q = ZETA(indq+LP7)   ! Q-function
+                        indq = LOCQ(Lam,mua) + NPT ! Index to Q function
+                        Nz = Nz + 1                ! Index to Zeta
+                        z = ZETA(Nz)               ! Zeta
+                        q = ZETA(indq+LP7)         ! Q-function
                         IF ( NDIV.NE.0 ) q = ZETA(indq+LP7) + DBLE(KDIV)
      &                       *(ZETA(indq+LP7+ISG1)-ZETA(indq+LP7))
      &                       /DBLE(NDIV)

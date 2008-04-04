@@ -5,8 +5,9 @@ C
 C Called by: AMPDER, STING
 C Calls:     EXPON, LEADF, MEM
 C
-C Purpose: calculate and store the exponential:
-C       exp(i \xi_{kn} (\epsilon \sinh(\omega) + \omega))
+C Purpose: Setup a new level which can be excited from ground state. We store
+C       ISSTAR, ISSTO and MSTORE for the level and calculate and store the
+C       exponential: exp(i \xi_{kn} (\epsilon \sinh(\omega) + \omega))
 C
 C Uses global variables:
 C      EXPO   - adiabatic exponential
