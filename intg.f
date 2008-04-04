@@ -135,7 +135,7 @@ C     Predictor
       ISG = 1
  200  CALL RESET(ISO)
       IFLG = 1
-      i57 = 7
+      i57 = 7 ! Tell LAISUM to use ARM(I,7) for excitation amplitudes
 
 C     Calculate derivatives of amplitudes
       CALL AMPDER(i57)
@@ -162,7 +162,7 @@ C     Corrector
       ENDIF
       kast = kast + 1
       IFLG = 0
-      i57 = 5
+      i57 = 5 ! Tell LAISUM to use ARM(I,5) for excitation amplitudes
 
 C     Calculate derivatives of amplitudes
       CALL AMPDER(i57)
