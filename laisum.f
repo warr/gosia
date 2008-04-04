@@ -12,18 +12,18 @@ C      ARM    - excitation amplitudes of substates.
 C      CAT    - substates of levels (n_level, J, m)
 C      ELM    - matrix elements
 C      EXPO   - adiabatic exponential
-C      ISG    -
+C      ISG    - index for sigma
 C      ISG1   -
 C      ISHA   -
 C      ISO    -
 C      ISSTAR -
 C      ISSTO  -
-C      KDIV   -
+C      KDIV   - index for division
 C      LOCQ   - location of collision functions in ZETA array
 C      LP7    - start of collision functions in ZETA (45100)
 C      MSTORE - index of final level number and index of matrix element
-C      NDIV   -
-C      NPT    -
+C      NDIV   - number of divisions
+C      NPT    - index in ADB array (this is omega / 0.03)
 C      NSTART - index in CAT of first substate associated with a level
 C      NSTOP  - index in CAT of last substate associated with a level
 C      ZETA   - various coefficients

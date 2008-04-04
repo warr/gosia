@@ -16,10 +16,10 @@ C
 C Formal parameters:
 C      Inx    - index in XI array
 C      Npt    - index in ADB array (this is omega / 0.03)
-C      Isg    -
+C      Isg    - index for sigma
 C      Isg1   -
-C      Ndiv   -
-C      Kdiv   -
+C      Ndiv   - number of divisions
+C      Kdiv   - index for division
 C
 C Return value:
 C      the exponential

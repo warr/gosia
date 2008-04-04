@@ -11,14 +11,14 @@ C
 C Uses global variables:
 C      EXPO   - adiabatic exponential
 C      IFLG   - flag to determine whether to calculate exponential (so we don't calculate twice)
-C      ISG    -
+C      ISG    - index for sigma
 C      ISSTAR - index of last substate for that level
 C      ISSTO  - index of first substate for that level
-C      KDIV   -
+C      KDIV   - index for division
 C      LDNUM  - number of matrix elements with each multipolarity populating level
 C      MSTORE - index of final level number and index of matrix element
-C      NDIV   -
-C      NPT    -
+C      NDIV   - number of divisions
+C      NPT    - index in ADB array (this is omega / 0.03)
 C      NSTART - index in CAT of first substate associated with a level
 C      NSTOP  - index in CAT of last substate associated with a level
 C

@@ -111,15 +111,15 @@ This common block is used in {\em AMPDER}, {\em INTG}, {\em LAIAMP}, {\em
 LAISUM}, {\em NEWLV} and {\em STING}.
 
 \begin{itemize}
-\item INTEGER*4 NPT
-\item INTEGER*4 NDIV
-\item INTEGER*4 KDIV
+\item INTEGER*4 NPT - index in ADB array (this is $\omega$ / 0.03).
+\item INTEGER*4 NDIV - number of divisions for integration
+\item INTEGER*4 KDIV - index of division
 \item INTEGER*4 LAMR(8) - flag = 1 if we should calculate for this
 multipolarity.
-\item INTEGER*4 ISG
+\item INTEGER*4 ISG - index of sigma
 \item REAL*8 D2W - step in $\omega$ = 0.03
-\item INTEGER*4 NSW
-\item INTEGER*4 ISG1
+\item INTEGER*4 NSW - number of sigma values?
+\item INTEGER*4 ISG1 - used in EXPO.
 \end{itemize}
 
 \section{CAUX0}
@@ -253,7 +253,7 @@ PRELM}, {\em PTICC}, {\em QRANGE}, {\em RANGEL}, {\em SEQ} and {\em STING}.
 \item INTEGER*4 LAMDA(8) - list of multipolarities to calculate
 \item INTEGER*4 LEAD(2,500) - pair of levels involved in each matrix element
 \item INTEGER*4 LDNUM(8,75) - number of matrix elements with each multipolarity populating each level
-\item INTEGER*4 LAMMAX
+\item INTEGER*4 LAMMAX - number of multipolarities to calculate
 \item INTEGER*4 MULTI - number of matrix elements for a given multipolarity
 \end{itemize}
 
@@ -810,7 +810,7 @@ This common block is used in {\em ALLOC}, {\em INTG}, {\em QRANGE}, {\em
 RANGEL} and {\em STING}.
 
 \begin{itemize}
-\item INTEGER*4 IRA(8)
+\item INTEGER*4 IRA(8) - range of omega needed for each multipolarity.
 \item INTEGER*4 MAXLA
 \end{itemize}
 
