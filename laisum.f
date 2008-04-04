@@ -15,7 +15,7 @@ C      EXPO   - adiabatic exponential
 C      ISG    - index for sigma
 C      ISG1   -
 C      ISHA   -
-C      ISO    -
+C      ISO    - isotropic flag
 C      ISSTAR - first substate for given matrix element index
 C      ISSTO  - last substate for given matrix element index
 C      KDIV   - index for division

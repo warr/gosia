@@ -16,7 +16,7 @@ C      NMAX   - number of levels
 C      NSTART - index in CAT of first substate associated with a level
 C
 C Formal parameters:
-C      Iso    -
+C      Iso    - isotropic flag
  
       SUBROUTINE RESET(Iso)
       IMPLICIT NONE
@@ -30,8 +30,8 @@ C      Iso    -
       COMMON /COEX2 / NMAX , NDIM , NMAX1
       
       IF ( Iso.EQ.0 ) THEN
-         DO j = 1 , NMAX
-            ir = NSTART(j) - 1
+         DO j = 1 , NMAX ! Loop over levels
+            ir = NSTART(j) - 1 ! Index of first substate of level - 1
  20         ir = ir + 1
             ARM(ir,1) = ARM(ir,2)
             ARM(ir,2) = ARM(ir,3)
@@ -41,7 +41,7 @@ C      Iso    -
          GOTO 99999
       ENDIF
        
-      DO j = 1 , ISMAX
+      DO j = 1 , ISMAX ! Loop over substates
          ARM(j,1) = ARM(j,2)
          ARM(j,2) = ARM(j,3)
          ARM(j,3) = ARM(j,4)

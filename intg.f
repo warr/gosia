@@ -19,7 +19,7 @@ C      IPATH  -
 C      IRA    - limit of omega for integration for each multipolarity
 C      ISG    - index for sigma
 C      ISMAX  - number of substates used
-C      ISO    -
+C      ISO    - Isotropic flag
 C      KDIV   - index for division
 C      LAMR   - flag = 1 if we should calculate this multipolarity
 C      MAXLA  -

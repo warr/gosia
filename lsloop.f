@@ -14,7 +14,7 @@ C      CAT    - substates of levels (n_level, J, m)
 C      ELM    - matrix elements
 C      IAPR   -
 C      IFAC   - spin/parity phase factor
-C      ISO    -
+C      ISO    - isotropic flag
 C      LP7    - maximum number of zeta coefficients (45100)
 C      MAGA   - number of magnetic substates in approximate calculation
 C      NSTART - index in CAT of first substate associated with a level

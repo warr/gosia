@@ -15,9 +15,9 @@ C      ELM    - matrix elements
 C      EXPO   - exponents of adiabatic term
 C      ISG    -
 C      ISG1   -
-C      ISSTAR -
-C      ISSTO  -
 C      ISMAX  - number of substates used
+C      ISSTAR - first substate for given matrix element index
+C      ISSTO  - last substate for given matrix element index
 C      LAMDA  - list of multipolarities to calculate
 C      LAMMAX - number of multipolarities to calculate
 C      LAMR   - flag = 1 if we should calculate this multipolarity

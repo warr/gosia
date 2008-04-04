@@ -25,7 +25,7 @@ C      INM    -
 C      INTR   -
 C      IPRM   - printing flags (see suboption PRT of OP,CONT)
 C      ISMAX  - number of substates used
-C      ISO    -
+C      ISO    - isotropic flag
 C      ITAK2  -
 C      IY     - index of experimental yields
 C      JSKIP  - Experiments to skip during minimisation.
