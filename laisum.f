@@ -35,7 +35,7 @@ C      Rsg    -
 C      Lam    - multipolarity
 C      Ld     -
 C      Nz     - index into ZETA array for this multipolarity
-C      I57    - switch which is either 5 or 7.
+C      I57    - switch which is either 5 or 7 so we access ARM(I,5) or ARM(I,7)
 C
 C   \sum_{lmn} \zeta^{lm}_{kn} . M^(1)_{kn} f_{lm}(\omega) a_n(\omega)
 C where
@@ -44,7 +44,7 @@ C and
 C   M^(1)_{kn} = <k||E(M)\lambda||n>
 C
 C EXPO is exp(i * xi * sinh(w) + w) calculated in function EXPON.
-C ARM is the reduced matrix element.
+C ARM are the excitation amplitudes of the substates.
 C q is the Qe or Qm calculated by the functions QE and QM, respectively and
 C stored in ZETA array in the function SNAKE.
 C z is the coupling parameter zeta, calculated in the function LSLOOP.

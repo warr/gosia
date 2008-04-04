@@ -5,7 +5,7 @@ C
 C Called by: STING
 C Calls:     FAZA1, LEADF, STAMP, TCABS
 C
-C Purpose: calculate reduced matrix element
+C Purpose: calculate excitation amplitudes
 C
 C Uses global variables:
 C      ARM    - excitation amplitudes of substates.

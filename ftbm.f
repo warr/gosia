@@ -231,7 +231,7 @@ C      Bten   -
 99001       FORMAT (1X//40X,'EXCITATION AMPLITUDES'//10X,'M=',1F4.1,5X,
      &              'EXPERIMENT',1X,1I2//5X,'LEVEL',2X,'SPIN',2X,'M',5X,
      &              'REAL AMPLITUDE',2X,'IMAGINARY AMPLITUDE'//)
-            CALL STING(kk) ! Calculate reduced matrix elements
+            CALL STING(kk) ! Calculate excitation amplitudes
             CALL PATH(kk)
             CALL INTG(IEXP) ! Integrate
             CALL TENB(k,Bten,LMAX)
