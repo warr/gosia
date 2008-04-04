@@ -22,10 +22,10 @@ AMPDER}, {\em GOSIA}, {\em LAISUM}, {\em NEWLV} and {\em STING}.
 
 This common block contains the adiabatic parameters for each of the 365
 possible different values of $\omega$. It is used in the functions {\em
-EXPON} and {\em SETIN}.\\
+EXPON} and {\em SETIN}. This is $\epsilon \sinh(\omega) + \omega$\\
 
 \begin{itemize}
-\item REAL*8 ABB(365)
+\item REAL*8 ADB(365) - adiabatic parameter for each $\omega$.
 \end{itemize}
 
 \section{ALLC}
