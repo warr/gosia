@@ -19,12 +19,12 @@ C      ISSTAR -
 C      ISSTO  -
 C      KDIV   -
 C      LAMDA  - list of multipolarities to calculate
-C      LAMMAY - number of multipolarities to calculate
-C      LAMR   -
+C      LAMMAX - number of multipolarities to calculate
+C      LAMR   - flag = 1 if we should calculate this multipolarity
 C      LDNUM  - number of matrix elements with each multipolarity populating levels
 C      LZETA  - index in ZETA to coupling coefficients for a given multipolarity
 C      MAXLA  -
-C      MSTORE -
+C      MSTORE - index of final level number and index of matrix element
 C      NDIV   -
 C      NPT    -
 C
@@ -90,8 +90,8 @@ C              Calculate and store exponentials
                   i57 = 5 ! Use ARM(I,5) in LAISUM for excitation amplitudes
 C                 Calculate sum over matrix elements
                   CALL LAISUM(Irld,n,rsg,lam,ld,nz,i57)
-                  DO mm = 1 , ld
-                     indx = MSTORE(2,mm)
+                  DO mm = 1 , ld ! Loop over matrix elements
+                     indx = MSTORE(2,mm) ! Index of matrix element in ELM
                      ibg = ISSTAR(mm)
                      iend = ISSTO(mm)
                      DO is2 = ibg , iend

@@ -17,7 +17,7 @@ C      IEXP   - number of experiment
 C      ISG    -
 C      LAMDA  - list of multipolarities to calculate
 C      LAMMAX - number of multipolarities to calculate
-C      LAMR   -
+C      LAMR   - flag = 1 if we should calculate this multipolarity
 C      LDNUM  - number of matrix elements with each multipolarity populating levels
 C      LZETA  - index in ZETA to coupling coefficients for given multipolarity
 C      NSTART - index in CAT of first substate associated with a level
@@ -58,20 +58,20 @@ C      W0     - omega
       epsi = EPS(IEXP)
       errt = EROOT(IEXP)
       rmir = CAT(Ir,3) ! m quantum number of substate Ir
-      DO i1 = 1 , LAMMAX
+      DO i1 = 1 , LAMMAX ! Loop on lambda
          lam = LAMDA(i1)
          nz = LZETA(lam)
          IF ( LAMR(lam).NE.0 ) THEN
             la = lam
-            IF ( lam.GT.6 ) lam = lam - 6
-            ld = LDNUM(la,1)
+            IF ( lam.GT.6 ) lam = lam - 6 ! la = 7,8 for M1,M2
+            ld = LDNUM(la,1) ! Number of matrix elements with multipolarity la, connecting to ground state
             IF ( ld.NE.0 ) THEN
-               DO i2 = 1 , ld
-                  m = LEADF(1,i2,la)
+               DO i2 = 1 , ld ! Loop on matrix elements of that multipolarity connected to ground state
+                  m = LEADF(1,i2,la) ! m is level index connected to ground state by element i2, mul. la
                   indx = MEM(1,m,la)
                   xiv = XI(indx)
                   ismin = 0
-                  is1 = NSTART(m)
+                  is1 = NSTART(m) ! Index of first substate for level m
                   IF ( NSTART(m).NE.0 ) THEN
                      isplus = INT(rmir-CAT(is1,3)) - lam
                      IF ( isplus.LT.0 ) THEN
@@ -99,12 +99,12 @@ C      W0     - omega
                               ppp = ppp + TCABS(ARM(is,5))
      &                              *TCABS(ARM(is,5))
                            ENDIF
-                        ENDDO
+                        ENDDO ! Loop over substates
                      ENDIF
-                  ENDIF
-               ENDDO
-            ENDIF
+                  ENDIF ! If there are substates for level m
+               ENDDO ! Loop on matrix elements connected to ground state with multipolarity la
+            ENDIF ! If there are matrix elements of this multipolarity connecting to the ground state
          ENDIF
-      ENDDO
+      ENDDO ! Loop on lambda
       ARM(Ir,5) = CMPLX(SQRT(1.-ppp),0.)
       END

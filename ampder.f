@@ -20,10 +20,10 @@ C      ISSTO  -
 C      ISMAX  - number of substates used
 C      LAMDA  - list of multipolarities to calculate
 C      LAMMAX - number of multipolarities to calculate
-C      LAMR   -
+C      LAMR   - flag = 1 if we should calculate this multipolarity
 C      LZETA  - index in ZETA to coupling coefficients for given multipolarity
-C      MSTORE -
-C      NMAX   -
+C      MSTORE - index of final level number and index of matrix element
+C      NMAX   - number of levels
 C      NPT    -
 C      NSTART - index in CAT of first substate associated with a level
 C      NSTOP  - index in CAT of last substate associated with a level
@@ -54,18 +54,21 @@ C      I57    - switch which is either 5 or 7. This tells LAISUM to access eithe
       COMMON /CLCOM8/ CAT(600,3) , ISMAX
       COMMON /CEXC0 / NSTART(76) , NSTOP(75)
 
-      DO k = 1 , ISMAX
+C     Zero ARM(k,4) and ARM(k,6) for each substate used
+      DO k = 1 , ISMAX ! ISMAX is number of substates used
          ARM(k,6) = (0.,0.)
          ARM(k,4) = (0.,0.)
       ENDDO
+
       ISG1 = ISG
       IF ( NPT.EQ.1 ) ISG1 = ABS(ISG1)
       rsg = DBLE(ISG)
-      DO i1 = 1 , LAMMAX ! Loop over lambda
-         lam = LAMDA(i1)
+
+      DO i1 = 1 , LAMMAX ! LAMMAX is number of multipolarities to calculate
+         lam = LAMDA(i1) ! For each value of lambda, the user wants to calculate for
          lax = lam
          nz = LZETA(lam) ! Index into ZETA array for each multipolarity
-         IF ( LAMR(lam).NE.0 ) THEN
+         IF ( LAMR(lam).NE.0 ) THEN ! LAMR is flag to decide if we calculate for this multipolarity
             iflg = 1
             nhold = 1
  20         CALL NEWLV(nhold,ld,lam)
@@ -74,18 +77,18 @@ C      I57    - switch which is either 5 or 7. This tells LAISUM to access eithe
                IF ( NSTART(nhold).NE.0 ) GOTO 20
                GOTO 30
             ELSE
-               ir = NSTART(nhold) - 1
- 40            ir = ir + 1
+               ir = NSTART(nhold) - 1 ! Get first substate - 1 for this level
+ 40            ir = ir + 1 ! ir is a substate
                IF ( ir.LE.ISMAX ) THEN
-                  n = CAT(ir,1)
+                  n = CAT(ir,1) ! Level number of substate ir
                   IF ( n.NE.nhold ) THEN
-                     DO mm = 1 , ld
-                        m = MSTORE(1,mm)
+                     DO mm = 1 , ld ! Loop over matrix elements
+                        m = MSTORE(1,mm) ! Index of final level
                         IF ( m.NE.nhold ) THEN
-                           indx = MSTORE(2,mm)
+                           indx = MSTORE(2,mm) ! Index of matrix element in ELM
                            ibg = ISSTAR(mm)
                            iend = ISSTO(mm)
-                           DO is2 = ibg , iend
+                           DO is2 = ibg , iend ! Loop over substates for level
                               ARM(is2,4) = ARM(is2,4) + ARM(is2,6)
      &                           *ELM(indx)/EXPO(indx)
                               ARM(is2,6) = (0.,0.)
@@ -93,11 +96,11 @@ C      I57    - switch which is either 5 or 7. This tells LAISUM to access eithe
                         ENDIF
                      ENDDO
  42                  CALL NEWLV(n,ld,lam)
-                     IF ( ld.EQ.0 ) THEN
+                     IF ( ld.EQ.0 ) THEN ! if ld is zero, skip all the states for this level
                         ir = ir + NSTOP(n) - NSTART(n) + 1
                         n = n + 1
                         IF ( n.LE.NMAX ) GOTO 42
-                        GOTO 100
+                        GOTO 100 ! IF this was the last level, loop back over lambda
                      ELSE
                         nhold = n
                      ENDIF

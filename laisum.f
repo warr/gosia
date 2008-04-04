@@ -21,7 +21,7 @@ C      ISSTO  -
 C      KDIV   -
 C      LOCQ   - location of collision functions in ZETA array
 C      LP7    - start of collision functions in ZETA (45100)
-C      MSTORE -
+C      MSTORE - index of final level number and index of matrix element
 C      NDIV   -
 C      NPT    -
 C      NSTART - index in CAT of first substate associated with a level
@@ -33,7 +33,7 @@ C      Ir     -
 C      N      -
 C      Rsg    -
 C      Lam    - multipolarity
-C      Ld     -
+C      Ld     - number of matrix elements for level with given multipolarity
 C      Nz     - index into ZETA array for this multipolarity
 C      I57    - switch which is either 5 or 7 so we access ARM(I,5) or ARM(I,7)
 C
@@ -85,10 +85,10 @@ C z is the coupling parameter zeta, calculated in the function LSLOOP.
       IF ( Lam.GT.6 ) Lam = Lam - 6
       DO i2 = 1 , Ld
          pamp = (0.,0.)
-         m = MSTORE(1,i2)
-         indx = MSTORE(2,i2)
+         m = MSTORE(1,i2) ! Index of final level
+         indx = MSTORE(2,i2) ! Index of matrix element in ELM
          ismin = 0
-         is1 = NSTART(m)
+         is1 = NSTART(m) ! Index of first substate for level m
          IF ( is1.NE.0 ) THEN
             isplus = INT(rmir-CAT(is1,3)) - Lam
             IF ( isplus.LT.0 ) THEN

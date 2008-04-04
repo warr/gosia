@@ -114,7 +114,8 @@ LAISUM}, {\em NEWLV} and {\em STING}.
 \item INTEGER*4 NPT
 \item INTEGER*4 NDIV
 \item INTEGER*4 KDIV
-\item INTEGER*4 LAMR(8)
+\item INTEGER*4 LAMR(8) - flag = 1 if we should calculate for this
+multipolarity.
 \item INTEGER*4 ISG
 \item REAL*8 D2W - step in $\omega$ = 0.03
 \item INTEGER*4 NSW
@@ -253,7 +254,7 @@ PRELM}, {\em PTICC}, {\em QRANGE}, {\em RANGEL}, {\em SEQ} and {\em STING}.
 \item INTEGER*4 LEAD(2,500) - pair of levels involved in each matrix element
 \item INTEGER*4 LDNUM(8,75) - number of matrix elements with each multipolarity populating each level
 \item INTEGER*4 LAMMAX
-\item INTEGER*4 MULTI
+\item INTEGER*4 MULTI - number of matrix elements for a given multipolarity
 \end{itemize}
 
 \section{CLCOM0}
@@ -338,7 +339,7 @@ LOAD}, {\em NEWCAT}, {\em PATH}, {\em PRELM}, {\em RESET}, {\em SEQ}, {\em
 TENB} and {\em TENS}.
 
 \begin{itemize}
-\item INTEGER*4 NMAX
+\item INTEGER*4 NMAX - number of levels used
 \item INTEGER*4 NDIM
 \item INTEGER*4 NMAX1
 \end{itemize}
@@ -767,7 +768,8 @@ This common block is used in {\em AMPDER}, {\em LAISUM}, {\em NEWLV} and
 \begin{itemize}
 \item INTEGER*4 ISSTAR(76)
 \item INTEGER*4 ISSTO(75)
-\item INTEGER*4 MSTORE(2,75)
+\item INTEGER*4 MSTORE(2,75) - MSTORE(1,75) is index of final level and
+MSTORE(2,75) is index of matrix element in ELM.
 \end{itemize}
 
 \section{PRT}

@@ -21,7 +21,7 @@ C      ISG    -
 C      ISMAX  - number of substates used
 C      ISO    -
 C      KDIV   -
-C      LAMR   -
+C      LAMR   - flag = 1 if we should calculate this multipolarity
 C      MAXLA  -
 C      NDIV   -
 C      NMAX   - number of levels
