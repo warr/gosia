@@ -17,7 +17,7 @@ C      EP     - bombarding energy
 C      ERR    -
 C      IPATH  -
 C      ISHA   -
-C      ISMAX  -
+C      ISMAX  - number of substates used
 C      IZ     - Z of investigated nucleus
 C      IZ1    - Z of not-investated nucleus
 C      LAMDA  - list of multipolarities to calculate
@@ -214,7 +214,7 @@ C     Initialise NSTART and NSTOP arrays
          NSTOP(n) = is - 1
       ENDDO
 
-      ISMAX = is - 1
+      ISMAX = is - 1 ! ISMAX is the number of substates used
       IF ( ISMAX.LE.LP10 ) THEN ! LP10 is max. number of substates (600)
          IF ( Ient.EQ.3 ) RETURN
          nz = 0

@@ -24,7 +24,7 @@ C      ILE    -
 C      INM    -
 C      INTR   -
 C      IPRM   - printing flags (see suboption PRT of OP,CONT)
-C      ISMAX  -
+C      ISMAX  - number of substates used
 C      ISO    -
 C      ITAK2  -
 C      IY     - index of experimental yields

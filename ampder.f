@@ -17,7 +17,7 @@ C      ISG    -
 C      ISG1   -
 C      ISSTAR -
 C      ISSTO  -
-C      ISMAX  -
+C      ISMAX  - number of substates used
 C      LAMDA  - list of multipolarities to calculate
 C      LAMMAX - number of multipolarities to calculate
 C      LAMR   -

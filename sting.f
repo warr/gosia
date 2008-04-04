@@ -14,7 +14,7 @@ C      EXPO   - adiabatic exponential
 C      IFLG   - flag to determine whether to calculate exponential (so we don't calculate twice)
 C      IRA    - limit of omega for integration for each multipolarity
 C      ISG    -
-C      ISMAX  -
+C      ISMAX  - number of substates used
 C      ISSTAR -
 C      ISSTO  -
 C      KDIV   -

@@ -9,7 +9,7 @@ C
 C Uses global variables:
 C      ARM    - excitation amplitudes of substates.
 C      CAT    - substates of levels (n_level, J, m)
-C      ISMAX  -
+C      ISMAX  - number of substates used
 C      NMAX   - number of levels
 C      NSTART - index in CAT of first substate associated with a level
 C

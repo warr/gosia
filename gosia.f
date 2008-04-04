@@ -129,7 +129,7 @@ C      IPS1   - terminate after calculating and storing internal correction fact
 C      IRAWEX - flag to indicate raw uncorrected yield
 C      ISEX   -
 C      ISKIN  - kinematic flag (0,1)
-C      ISMAX  -
+C      ISMAX  - number of substates used
 C      ISO    -
 C      ITMA   - identify detectors according to OP,GDET
 C      ITS    - create tape 18 file (OP,CONT switch SEL,)

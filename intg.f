@@ -18,7 +18,7 @@ C      INTERV - default accuracy check parameter (see OP,CONT:INT)
 C      IPATH  -
 C      IRA    - limit of omega for integration for each multipolarity
 C      ISG    -
-C      ISMAX  -
+C      ISMAX  - number of substates used
 C      ISO    -
 C      KDIV   -
 C      LAMR   -
