@@ -30,7 +30,7 @@ C      NSTART -
 C      NSTOP  -
 C
 C Formal parameters:
-C      I57    - switch which is either 5 or 7.
+C      I57    - switch which is either 5 or 7. This tells LAISUM to access either ARM(I,5) or ARM(I,7)
 
       SUBROUTINE AMPDER(I57)
       IMPLICIT NONE
