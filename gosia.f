@@ -70,7 +70,7 @@ C      ACCA   - accuracy
 C      ACCUR  - accuracy required
 C      AGELI  - angles of Ge detectors
 C      AKAVKA - efficiency curve parameters
-C      ARM    - reduced matrix elements
+C      ARM    - excitation amplitudes of substates.
 C      AVJI   - average J (N.B. here it is G(1))
 C      B      - table of factorials
 C      BEQ    - beta

@@ -12,7 +12,7 @@ C
 C Uses global variables:
 C      ACCA   - accuracy
 C      ACCUR  - accuracy required
-C      ARM    - the reduced matrix elements
+C      ARM    - excitation amplitudes of substates.
 C      CAT    - substates of levels (n_level, J, m)
 C      CHIS11 - 
 C      ELM    - matrix elements given by user

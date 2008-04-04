@@ -8,7 +8,7 @@ C
 C Purpose: evaluate the sum  over matrix elements.
 C
 C Uses global variables:
-C      ARM    - reduced matrix elements
+C      ARM    - excitation amplitudes of substates.
 C      CAT    - substates of levels (n_level, J, m)
 C      ELM    - matrix elements
 C      EXPO   - adiabatic exponential

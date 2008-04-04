@@ -9,7 +9,7 @@ C Purpose: the main integration routine.
 C
 C Uses global variables:
 C      ACC50  - accuracy required for integration
-C      ARM    - reduced matrix elements
+C      ARM    - excitation amplitudes of substates.
 C      CAT    - substates of levels (n_level, J, m)
 C      D2W    - step in omega (= 0.03)
 C      IFLG   - flag to determine whether to calculate exponential (so we don't calculate twice)

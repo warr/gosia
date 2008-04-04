@@ -7,7 +7,7 @@ C
 C Purpose:
 C
 C Uses global variables:
-C      ARM    - reduced matrix elements
+C      ARM    - excitation amplitudes of substates.
 C      DEV    -
 C      IEXP   - experiment number
 C      ITS    - create tape 18 file (OP,CONT switch SEL,)

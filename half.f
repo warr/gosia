@@ -7,7 +7,7 @@ C
 C Purpose: to halve the step size for the integeration in INTG.
 C
 C Uses global variables:
-C      ARM    - reduced matrix elements
+C      ARM    - excitation amplitudes of substates.
 C      CAT    - substates of levels (n_level, J, m)
 C      ISMAX  -
 C      NMAX   - number of levels

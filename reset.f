@@ -9,7 +9,7 @@ C          of f(n-2), f(n-2) is set to the old value of f(n-1) and f(n-1) is
 C          set to the old value of f(n).
 C
 C Uses global variables:
-C      ARM    - reduced matrix elements
+C      ARM    - excitation amplitudes of substates.
 C      CAT    - substates of levels (n_level, J, m)
 C      ISMAX  -
 C      NMAX   - number of levels

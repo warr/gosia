@@ -9,7 +9,7 @@ C Purpose: perform the expansion to calculate the approximate Coulomb
 C          amplitudes
 C
 C Uses global variables:
-C      ARM    - reduced matrix elements
+C      ARM    - excitation amplitudes of substates.
 C      IAPR   -
 C      INHB   - inhibit error flag setting (LERF)
 C      IPATH  -

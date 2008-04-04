@@ -5,10 +5,10 @@ C
 C Called by: FTBM, GOSIA
 C Calls:     LAIAMP, LAISUM, NEWLV
 C
-C Purpose: calculate and store reduced matrix elements.
+C Purpose: calculate and store excitation amplitudes,
 C
 C Uses global variables:
-C      ARM    - reduced matrix elements
+C      ARM    - excitation amplitudes of substates.
 C      ELM    - matrix elements
 C      EXPO   - adiabatic exponential
 C      IFAC   -
