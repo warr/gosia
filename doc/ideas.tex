@@ -4,6 +4,11 @@ More comments and documentation!\\
 
 Separate the different things in the {\em ZETA} array.\\
 
+Unravel some of the IF THEN statements in gosia.f, so that the logic is
+easier to understand. At the moment we have several layers of IFs testing
+the same variable, which could become IF {\ldots} ELSEIF {\ldots}
+ELSIF{\ldots} ENDIF.\\
+
 Try to decouple some of the variables in common blocks from the functions.
 For example, {\em YLM} need common block {\em KIN} only for the axial
 symmetry flag for the current experiment, which could be passed to it as a
@@ -16,9 +21,16 @@ calculation of those which we are not going to used.\\
 In {\em GKK}, the variable {\em SUM} is in a common block, but it doesn't
 seem to be used anywhere else, so why don't we just make it STATIC?\\
 
-In line 1895 of gosia.f we have to successive tests on iosr, which could be
-merged into an IF (iosr.eq.1) then {\ldots} endif construction.\\
+In lines 1909-1910 of gosia.f we have to successive tests on iosr, which
+could be merged into an IF (iosr.eq.1) THEN {\ldots} ENDIF construction.\\
+
+In lines 1680-1681 of gosia.f we have successive tests on op1.eq.`PIN,'
+which could be merged into an IF (op1.eq.'PIN,') THEN {\ldots} ENDIF
+construction.\\
 
 There are some integer flags, which should be replaced with logicals. This
 would prevent them accidently being given values $>$ 1.\\
+
+The limit on NT in OP,INTG is 11 due to the dimensions of fiex1 and wpi in
+gosia.f and Wpi in coord.f.\\
 
