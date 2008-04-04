@@ -10,8 +10,8 @@ C Uses global variables:
 C      CAT    - substates of levels (n_level, J, m)
 C      IPATH  -
 C      NMAX   - number of levels
-C      NSTART -
-C      NSTOP  -
+C      NSTART - index in CAT of first substate associated with a level
+C      NSTOP  - index in CAT of last substate associated with a level
 C
 C Formal parameters:
 C      Irld   - index into ARM array

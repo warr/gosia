@@ -16,8 +16,8 @@ C      IAPR   -
 C      ISO    -
 C      LP7    - maximum number of zeta coefficients (45100)
 C      MAGA   - number of magnetic substates in approximate calculation
-C      NSTART -
-C      NSTOP  -
+C      NSTART - index in CAT of first substate associated with a level
+C      NSTOP  - index in CAT of last substate associated with a level
 C      PSI    - psi coefficients
 C      QAPR   -
 C      SPIN   - spin of level

@@ -22,7 +22,7 @@ AMPDER}, {\em GOSIA}, {\em LAISUM}, {\em NEWLV} and {\em STING}.
 
 This common block contains the adiabatic parameters for each of the 365
 possible different values of $\omega$. It is used in the functions {\em
-EXPON} and {\em SETIN}. This is $\epsilon \sinh(\omega) + \omega$\\
+EXPON} and {\em SETIN}. This is $\epsilon \sinh(\omega) + \omega$.\\
 
 \begin{itemize}
 \item REAL*8 ADB(365) - adiabatic parameter for each $\omega$.
@@ -207,8 +207,10 @@ HALF}, {\em INTG}, {\em LAIAMP}, {\em LAISUM}, {\em LOAD}, {\em LSLOOP},
 {\em NEWLV}, {\em PATH}, {\em RESET} and {\em TENB}.
 
 \begin{itemize}
-\item INTEGER*4 NSTART(76)
-\item INTEGER*4 NSTOP(75)
+\item INTEGER*4 NSTART(76) - NSTART(I) gives the index in the CAT and ARM
+arrays for the first substate associated with the level I.
+\item INTEGER*4 NSTOP(75) - NSTART(I) gives the index in the CAT and ARM
+arrays for the last substate associated with the level I.
 \end{itemize}
 
 \section{CEXC9}

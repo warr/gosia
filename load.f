@@ -33,8 +33,8 @@ C      LZETA  - index into ZETA array for zeta for a given multipolarity
 C      MAGA   - number of magnetic substates in approximate calculation
 C      MAGEXC -
 C      MEMAX  - number of matrix elements
-C      NSTART -
-C      NSTOP  -
+C      NSTART - index in CAT of first substate associated with a level
+C      NSTOP  - index in CAT of last substate associated with a level
 C      PSI    - psi coefficients
 C      QAPR   -
 C      SPIN   - spin of level

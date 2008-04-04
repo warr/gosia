@@ -24,8 +24,8 @@ C      LP7    - start of collision functions in ZETA (45100)
 C      MSTORE -
 C      NDIV   -
 C      NPT    -
-C      NSTART -
-C      NSTOP  -
+C      NSTART - index in CAT of first substate associated with a level
+C      NSTOP  - index in CAT of last substate associated with a level
 C      ZETA   - various coefficients
 C
 C Formal parameters:

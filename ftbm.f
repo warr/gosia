@@ -49,8 +49,8 @@ C      NDIM   - maximum number of levels (75)
 C      NEXPT  - number of experiments
 C      NLIFT  - number of lifetimes
 C      NMAX   - number of levels
-C      NSTART -
-C      NSTOP  - 
+C      NSTART - index in CAT of first substate associated with a level
+C      NSTOP  - index in CAT of last substate associated with a level
 C      NWR    - number of datapoints used in fit
 C      NYLDE  -
 C      SPIN   - spin of level

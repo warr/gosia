@@ -26,8 +26,8 @@ C      LZETA  - index in ZETA to coupling coefficients for given multipolarity
 C      MSTORE -
 C      NMAX   -
 C      NPT    -
-C      NSTART -
-C      NSTOP  -
+C      NSTART - index in CAT of first substate associated with a level
+C      NSTOP  - index in CAT of last substate associated with a level
 C
 C Formal parameters:
 C      I57    - switch which is either 5 or 7. This tells LAISUM to access either ARM(I,5) or ARM(I,7)

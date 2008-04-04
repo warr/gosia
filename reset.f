@@ -13,7 +13,7 @@ C      ARM    - excitation amplitudes of substates.
 C      CAT    - substates of levels (n_level, J, m)
 C      ISMAX  -
 C      NMAX   - number of levels
-C      NSTART -
+C      NSTART - index in CAT of first substate associated with a level
 C
 C Formal parameters:
 C      Iso    -

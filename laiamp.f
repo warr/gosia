@@ -21,8 +21,8 @@ C      LAMMAX - number of multipolarities to calculate
 C      LAMR   -
 C      LDNUM  - number of matrix elements with each multipolarity populating levels
 C      LZETA  - index in ZETA to coupling coefficients for given multipolarity
-C      NSTART -
-C      NSTOP  -
+C      NSTART - index in CAT of first substate associated with a level
+C      NSTOP  - index in CAT of last substate associated with a level
 C      XI     - xi coupling coefficients
 C      ZETA   - various coefficients
 C

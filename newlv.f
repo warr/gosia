@@ -20,8 +20,8 @@ C      LDNUM  - number of matrix elements with each multipolarity populating lev
 C      MSTORE -
 C      NDIV   -
 C      NPT    -
-C      NSTART -
-C      NSTOP  -
+C      NSTART - index in CAT of first substate associated with a level
+C      NSTOP  - index in CAT of last substate associated with a level
 C
 C Formal parameters:
 C      N      - level number

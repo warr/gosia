@@ -25,7 +25,7 @@ C      MAXLA  -
 C      NDIV   -
 C      NMAX   - number of levels
 C      NPT    -
-C      NSTART -
+C      NSTART - index in CAT of first substate associated with a level
 C      NSW    -
 C
 C Formal parameters:
