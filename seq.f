@@ -101,7 +101,7 @@ C 8 = M2.
                            IF ( is.NE.jsave .OR. EN(m).LT.EN(is) ) THEN
                               IF ( m.NE.jsave .OR. EN(is).LT.EN(m) )
      &                             THEN
-                                 indx = MEM(is,m,la)
+                                 indx = MEM(is,m,la) ! Matrix element from level is to level m with multipolarity la
                                  idecay = idecay + 1
                                  KSEQ(idecay,1) = m
                                  KSEQ(idecay,2) = is
