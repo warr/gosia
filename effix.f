@@ -88,7 +88,16 @@ C     AKAVKA(8) = c
       Effi = EXP(-s)
 
 c FITEFF or GREMLIN check
-      IF ( AKAVKA(5,Ipd).GT.0. .AND. AKAVKA(5,Ipd).LT.10. ) THEN
+      IF ( AKAVKA(8,Ipd).LE.-999. ) THEN
+C        LEUVEN CALIBRATION
+         Effi = AKAVKA(1,Ipd)
+         w = LOG(1000.*En)
+         DO i = 1 , 6
+            Effi = Effi + AKAVKA(i+1,Ipd)*w**i
+         ENDDO
+         Effi = EXP(Effi)
+         RETURN
+      ELSEIF ( AKAVKA(5,Ipd).GT.0. .AND. AKAVKA(5,Ipd).LT.10. ) THEN
 c FITEFF eff. calib. by P.Olbratowski use
 c PJN@2000
          w = LOG(En/AKAVKA(5,Ipd))
