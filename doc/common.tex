@@ -103,7 +103,7 @@ This common block is used in {\em ANGULA}, {\em DECAY} and {\em SEQ}.
 \begin{itemize}
 \item FP(4,500,3) - F coefficient multiplied by delta.
 \item GKP(4,500,2)
-\item KLEC(75)
+\item KLEC(75) - number of decays for each level
 \end{itemize}
 
 \section{CAUX}
@@ -342,7 +342,7 @@ TENB} and {\em TENS}.
 \begin{itemize}
 \item INTEGER*4 NMAX - number of levels used
 \item INTEGER*4 NDIM
-\item INTEGER*4 NMAX1
+\item INTEGER*4 NMAX1 - number of levels with decays
 \end{itemize}
 
 \section{COMME}
@@ -616,8 +616,10 @@ CEGRY}, {\em DECAY}, {\em FTBM}, {\em GKVAC}, {\em GOSIA}, {\em MIXR}, {\em
 PTICC}, {\em READY} and {\em SEQ}.
 
 \begin{itemize}
-\item REAL*8 TAU(75)
-\item INTEGER*4 KSEQ(500,4)
+\item REAL*8 TAU(75) - lifetime in picoseconds, but also used for energies
+in {\em SEQ}.
+\item INTEGER*4 KSEQ(500,4) - For each decay: level1, level2, matrix element
+and multipolarity + 10.
 \end{itemize}
 
 \section{LIFE}

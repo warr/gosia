@@ -197,7 +197,7 @@ C      SUBCH1 -
 C      SUBCH2 -
 C      SUMCL  -
 C      SWG    -
-C      TAU    - 
+C      TAU    - lifetime in picoseconds
 C      THICK  - thickness of each absorber type
 C      TIMEC  - Tau_C (N.B. here it is G(4))
 C      TIMEL  - lifetimes and their errors
