@@ -106,8 +106,8 @@ C      GFAC   - g (N.B. here it is G(5))
 C      GRAD   - partial derivative of chi squared wrt. each matrix element
 C      HLM    -
 C      HLMLM  - old value of matrix element or chi squared
-C      IAMX   -
-C      IAMY   -
+C      IAMX   - index of matrix element for known matrix element
+C      IAMY   - level indices of pair of levels for which matrix element is known
 C      IAX    - axial symmetry flag
 C      IBYP   - flag to indicate whether we calculate <\alpha_k>
 C      ICLUST -

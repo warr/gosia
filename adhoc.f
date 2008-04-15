@@ -17,8 +17,8 @@ C      EAMX   - known matrix elements and their error
 C      EG     - energies for conversion coefficients
 C      EN     - energy of level
 C      ENZ    -
-C      IAMX   -
-C      IAMY   -
+C      IAMX   - index of matrix element for known matrix element
+C      IAMY   - level indices of pair of levels for which matrix element is known
 C      IBRC   - index branching ratios
 C      IDRN   -
 C      IFMO   - include correction to angular distance for finite recoil distance.
@@ -121,13 +121,13 @@ C     coefficients Q
          ENDDO
       ENDDO
 
-      DO jic = 1 , NEXPT
+      DO jic = 1 , NEXPT ! For each experiment
          juf = NANG(jic)
          IF ( juf.LT.0 ) THEN
-            juf = ABS(juf)
-            DO jicc = 1 , juf
-               AGELI(jic,jicc,1) = AGELI(jic-1,jicc,1)
-               AGELI(jic,jicc,2) = AGELI(jic-1,jicc,2)
+            juf = ABS(juf) ! Number of detector angles
+            DO jicc = 1 , juf ! For each detector angle
+               AGELI(jic,jicc,1) = AGELI(jic-1,jicc,1) ! theta
+               AGELI(jic,jicc,2) = AGELI(jic-1,jicc,2) ! phi
                ITMA(jic,jicc) = ITMA(jic-1,jicc)
             ENDDO
             IF ( Oph.NE.'GOSI' ) NANG(jic) = ABS(NANG(jic))
@@ -136,21 +136,23 @@ C     coefficients Q
             READ * , (AGELI(jic,jicc,1),jicc=1,juf) ! Theta Ge det
             READ * , (AGELI(jic,jicc,2),jicc=1,juf) ! Phi Ge det
          ENDIF
-      ENDDO
+      ENDDO ! Loop jic on experiments
 
 C     Call SEQ to calculate "chronological" order of levels, so we can
 C     account for feeding
       CALL SEQ(Idr)
-      
-      DO jic = 1 , NEXPT
+
+C     Convert angles into radians
+      DO jic = 1 , NEXPT ! For each experiment
          juf = NANG(jic)
-         juf = ABS(juf)
-         DO jicc = 1 , juf
-            DO lxt = 1 , 2
+         juf = ABS(juf) ! Number of detector angles
+         DO jicc = 1 , juf ! For each detector angle
+            DO lxt = 1 , 2 ! 1 is theta, 2 is phi
                AGELI(jic,jicc,lxt) = AGELI(jic,jicc,lxt)*.0174532925 ! 0.017452925 = pi / 180
             ENDDO
          ENDDO
-      ENDDO
+      ENDDO ! Loop jic on experiments
+
       TAU(1) = 1.E+25
       READ * , ns1 , ns2 ! NS1, NS2
       DO li = 1 , Idr
@@ -158,13 +160,14 @@ C     account for feeding
       ENDDO
  100  IDRN = li
       IF ( Oph.NE.'GOSI' ) RETURN
-      DO li = 1 , NEXPT
+
+      DO li = 1 , NEXPT ! Loop on experiments
          juf = NANG(li)
          IF ( juf.LT.0 ) THEN
             juf = ABS(juf)
-            NANG(li) = juf
+            NANG(li) = juf ! Number of detector angles
             NDST(li) = NDST(li-1)
-            DO jicc = 1 , juf
+            DO jicc = 1 , juf ! For each detector angle
                UPL(jicc,li) = UPL(jicc,li-1)
                YNRM(jicc,li) = YNRM(jicc,li-1)
             ENDDO
@@ -174,7 +177,8 @@ C     account for feeding
             READ * , (UPL(jicc,li),jicc=1,ndas) ! UPL1...N
             READ * , (YNRM(jicc,li),jicc=1,ndas) ! YNRM1...N
          ENDIF
-      ENDDO
+      ENDDO ! Loop li on experiments
+       
       READ * , Ntap ! NTAP
       IF ( Ntap.NE.0 ) THEN
          ipri = IPRM(2)
@@ -195,12 +199,14 @@ C        Count free variables
          WRITE (22,99001) ndtp , nvare
 99001    FORMAT (1X//5X,1I4,1X,'EXPERIMENTAL YIELDS',10X,1I3,1X,
      &           'MATRIX ELEMENTS TO BE VARIED'///)
-      ENDIF
+      ENDIF ! IF ( Ntap.NE.0 )
+
       READ * , NBRA , wbra ! NBRA, WBRA
       IF ( ITS.EQ.2 ) THEN
          REWIND 18
          WRITE (18,*) MEMAX
       ENDIF
+
       IF ( NBRA.NE.0 ) THEN
          WRITE (22,99002)
 99002    FORMAT (40X,'BRANCHING RATIOS',//5X,'NS1',5X,'NF1',5X,'NS2',5X,
@@ -233,6 +239,7 @@ C        Count free variables
          WRITE (22,99004) wbra
 99004    FORMAT (5X,'BRANCHING RATIOS ARE TAKEN WITH WEIGHT',2X,1E14.6)
       ENDIF
+
       READ * , NLIFT , wlf ! NL, WL
       IF ( NLIFT.NE.0 ) THEN
          WRITE (22,99005)
@@ -247,6 +254,7 @@ C        Count free variables
          WRITE (22,99007) wlf
 99007    FORMAT (1X/10X,'LIFETIMES ARE TAKEN WITH WEIGHT',2X,1E14.6)
       ENDIF
+
       READ * , NDL , wdl ! NDL, WDL
       IF ( NDL.NE.0 ) THEN
          WRITE (22,99008)
@@ -268,20 +276,26 @@ C        Count free variables
 99009    FORMAT (/10X,'E2/M1 MIXING RATIOS ARE TAKEN WITH WEIGHT',2X,
      &           1E14.6)
       ENDIF
+
       IF ( ITS.EQ.2 ) WRITE (18,*) iosr , iosr
+
       READ * , NAMX , wamx ! NAMX, WAMX
       IF ( NAMX.EQ.0 ) RETURN
+
       WRITE (22,99010)
 99010 FORMAT (1X//30X,'EXPERIMENTAL MATRIX ELEMENT(S)'///10X,
      &        'TRANSITION',10X,'MAT.EL.',10X,'ERROR'/)
+
+C     Read known matrix elements
       DO iax = 1 , NAMX ! LAMBDA, INDEX1, INDEX2, ME, DME repeated NAMX times
          READ * , llia , ns1 , ns2 , EAMX(iax,1) , EAMX(iax,2)
-         IAMY(iax,1) = ns1
-         IAMY(iax,2) = ns2
-         EAMX(iax,2) = EAMX(iax,2)/(SQRT(wamx)+1.E-10)
+         IAMY(iax,1) = ns1 ! Level index
+         IAMY(iax,2) = ns2 ! Level index
+         EAMX(iax,2) = EAMX(iax,2)/(SQRT(wamx)+1.E-10) ! Relative error of ME
          WRITE (22,99012) ns1 , ns2 , EAMX(iax,1) , EAMX(iax,2)
-         IAMX(iax) = MEM(ns1,ns2,llia)
+         IAMX(iax) = MEM(ns1,ns2,llia) ! Index to matrix element
       ENDDO
+
       WRITE (22,99011) wamx
 99011 FORMAT (/10X,' MATRIX ELEMENT(S) ARE TAKEN WITH WEIGHT',2X,1E14.6)
 99012 FORMAT (10X,1I2,'---',1I2,14X,1F9.4,8X,1F9.4)

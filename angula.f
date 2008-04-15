@@ -22,7 +22,7 @@ C      TAU    -
 C      ZETA   - various coefficients
 C
 C Formal parameters:
-C      Ygn    -
+C      Ygn    - Gamma-ray yield
 C      Idr    - number of decays
 C      Iful   - flag to select full basis or not
 C      Fi0    - phi_0
@@ -112,7 +112,7 @@ C      Ngl    - detector number
                      sm = sm + 2.*ylmr(j,k)*alab(j,k)
                   ENDDO
                ENDIF
-               ipd = ITMA(IEXP,Ngl)
+               ipd = ITMA(IEXP,Ngl) ! Detector ID
                arg = (ENDEC(l)-ENZ(ipd))**2
                qv = (Q(3,ipd,j-1)*Q(2,ipd,j-1)+Q(1,ipd,j-1)*arg)
      &              /(Q(2,ipd,j-1)+arg)
