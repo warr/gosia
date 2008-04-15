@@ -15,7 +15,7 @@ C      CORF   - internal correction factors
 C      DEV    -
 C      DYEX   - error on experimental yield
 C      EMH    -
-C      ENDEC  -
+C      ENDEC  - energy difference for each matrix element
 C      FIEX   - phi range of particle detector
 C      ICLUST -
 C      IDRN   -

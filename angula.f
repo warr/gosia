@@ -10,7 +10,7 @@ C
 C Uses global variables:
 C      BETAR  - recoil beta
 C      DELLA  -
-C      ENDEC  -
+C      ENDEC  - energy difference for each matrix element
 C      ENZ    -
 C      FP     -
 C      IAXS   - axial symmetry flag

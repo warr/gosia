@@ -13,7 +13,7 @@ C
 C Uses global variables:
 C      DELTA  - 
 C      EN     - energy of level
-C      ENDEC  -
+C      ENDEC  - energy difference for each matrix element
 C      FP     -
 C      GKP    -
 C      KLEC   -
