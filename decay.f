@@ -9,7 +9,7 @@ C Purpose: Calculate the gamma decay following excitation.
 C
 C Uses global variables:
 C      DELLA  -
-C      DELTA  -
+C      DELTA  - \delta_\lambda: index 1 = electric^2, 2 = magnetic^2, 3 = cross term
 C      GKP    -
 C      IAXS   - axial symmetry flag
 C      IBYP   -

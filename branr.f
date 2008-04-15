@@ -10,7 +10,7 @@ C experimental ones.
 C
 C Uses global variables:
 C      BRAT   - branching ratio and its error
-C      DELTA  -
+C      DELTA  - \delta_\lambda: index 1 = electric^2, 2 = magnetic^2, 3 = cross term
 C      ELM    - matrix elements
 C      EN     - level energy
 C      IBRC   - index branching ratios

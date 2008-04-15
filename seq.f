@@ -11,7 +11,7 @@ C levels and take this into account, gradually working our way down to the
 C ground state.
 C
 C Uses global variables:
-C      DELTA  - 
+C      DELTA  - \delta_\lambda: index 1 = electric^2, 2 = magnetic^2, 3 = cross term
 C      EN     - energy of level
 C      ENDEC  - energy difference for each matrix element
 C      FP     -
