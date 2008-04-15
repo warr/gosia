@@ -14,8 +14,8 @@ C Uses global variables:
 C      DELTA  - \delta_\lambda: index 1 = electric^2, 2 = magnetic^2, 3 = cross term
 C      EN     - energy of level
 C      ENDEC  - energy difference for each matrix element
-C      FP     -
-C      GKP    -
+C      FP     - F coefficient * DELTA^2
+C      GKP    - Gk * DELTA^2
 C      KLEC   - number of decays for each level
 C      KSEQ   - indices for each decay (level1, level2, matrix element, multipolarity + 10)
 C      LDNUM  - number of matrix elements with each multipolarity populating levels

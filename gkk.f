@@ -14,8 +14,8 @@ C      DQ     - width of gaussian distribution
 C      FILE   - K          (this is G(6) in GOSIA)
 C      GAMMA  - Gamma      (this is G(2) in GOSIA)
 C      GFAC   - g          (this is G(5) in GOSIA)
-C      GKI    - G_k
-C      IBYP   -
+C      GKI    - G_k for a single level
+C      IBYP   - flag to indicate whether we calculate <\alpha_k>
 C      POWER  - x          (this is G(7) in GOSIA)
 C      QCEN   - center of gaussian distribution
 C      SUM    - sum over 6-j symbol squared
@@ -82,7 +82,7 @@ C element.
          DO j = inq , ifq
             l = l + 1
             nz = Iz - j
-            xji = ATS(nz) ! Ground-state spin of nucleus
+            xji = ATS(nz) ! Ground-state spin of atom
             sm = Spin
             IF ( imean.EQ.1 ) xji = AVJI
             IF ( Spin.GT.xji ) sm = xji
@@ -121,6 +121,7 @@ C element.
          imean = imean + 1
          IF ( imean.EQ.1 ) GOTO 50
       ENDIF
+
       hmean = FIEL*Iz*(Beta**POWER) ! Mean magnetic field in fluctuating state
       wsp = 4789.*GFAC*hmean/AVJI ! 4789 is the nuclear magneton
       wsp = wsp*TIMEC

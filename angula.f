@@ -12,7 +12,7 @@ C      BETAR  - recoil beta
 C      DELLA  -
 C      ENDEC  - energy difference for each matrix element
 C      ENZ    -
-C      FP     -
+C      FP     - F coefficient * DELTA^2
 C      IAXS   - axial symmetry flag
 C      IEXP   - experiment number
 C      ITMA   - identify detectors according to OP,GDET

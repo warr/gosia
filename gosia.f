@@ -109,6 +109,7 @@ C      HLMLM  - old value of matrix element or chi squared
 C      IAMX   -
 C      IAMY   -
 C      IAX    - axial symmetry flag
+C      IBYP   - flag to indicate whether we calculate <\alpha_k>
 C      ICLUST -
 C      ICS    - read internal correction factors flag (OP,CONT switch CRF,)
 C      IDIVE  - number of subdivisions

@@ -101,8 +101,8 @@ BRANR} and {\em GOSIA}.
 This common block is used in {\em ANGULA}, {\em DECAY} and {\em SEQ}.
 
 \begin{itemize}
-\item FP(4,500,3) - F coefficient multiplied by delta.
-\item GKP(4,500,2)
+\item FP(4,500,3) - F coefficient multiplied by $\delta_lambda^2$.
+\item GKP(4,500,2) - G$_k$ multiplied by $\delta_lambda^2$.
 \item KLEC(75) - number of decays for each level
 \end{itemize}
 
@@ -525,7 +525,8 @@ used in {\em GKK}, {\em GKVAC} and {\em GOSIA}.
 This common block is used in {\em GKK} and {\em GKVAC}.
 
 \begin{itemize}
-\item REAL*8 GKI(3) - $G_k$.
+\item REAL*8 GKI(3) - $G_k$ for a single level. Perhaps we should just pass
+this array as a parameter.
 \item REAL*8 SUM(3) - Sum over square of 6-j symbol used to calculate
 $<\alpha_k>$.
 \end{itemize}
@@ -636,7 +637,7 @@ This common block holds the number of lifetimes. It is used in {\em ADHOC},
 This common block is used in {\em ADHOC}, {\em DECAY} and {\em GOSIA}.
 
 \begin{itemize}
-\item INTEGER*4 LIFCT(50) - index for lifetimes.
+\item INTEGER*4 LIFCT(50) - index of level for lifetimes.
 \item REAL*8 TIMEL(2,50) - lifetimes and their errors.
 \end{itemize}
 
@@ -907,7 +908,7 @@ This common block holds the vacuum polaristation parameters. It is used in
 XSTATIC}.
 
 \begin{itemize}
-\item REAL*8 VACDP(3,75)
+\item REAL*8 VACDP(3,75) - G$_k$ for each level.
 \item REAL*8 QCEN - centre of gaussian distribution.
 \item REAL*8 DQ - width of gaussian distribution.
 \item REAL*8 XNOR - normalisation factor.

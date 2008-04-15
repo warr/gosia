@@ -10,12 +10,12 @@ C GKI array of common GVAC
 C
 C Uses global variables:
 C      BETAR  - recoil beta
-C      GKI    - G_k
+C      GKI    - G_k for a single level
 C      IEXP   - experiment number
 C      ITTE   - thick target experiment flag
 C      SPIN   - spin of level
 C      TAU    -
-C      VACDP  -
+C      VACDP  - G_k for each level
 C      XLAMB  - Lambda*       (this is G(3) in GOSIA)
 C
 C Formal parameters:
