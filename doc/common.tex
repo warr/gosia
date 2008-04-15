@@ -875,7 +875,9 @@ CEGRY}, {\em DECAY}, {\em GOSIA} and {\em SEQ}.
 \item REAL*8 DELTA(500,3)
 \item REAL*8 ENDEC(500) - energy difference between levels for each matrix
 element.
-\item INTEGER*4 ITMA(50,200)
+\item INTEGER*4 ITMA(50,200) - identity of each detector for each
+experiment. This is used as an index for the array ODL and as a parameter
+for the function {\em EFFIX}.
 \end{itemize}
 
 \section{TRB}

@@ -214,8 +214,8 @@ C     with CONT:PRT, and then does OP,EXIT
                IF ( Icall.EQ.4 ) ifxd = 1
                CALL ANGULA(YGN,Idr,ifxd,fi0,fi1,tetrc,gth,figl,k)
                IF ( IFMO.NE.0 ) THEN
-                  id = ITMA(IEXP,k)
-                  d = ODL(id)
+                  id = ITMA(IEXP,k) ! Get identity for detector
+                  d = ODL(id) ! Results of OP,GDET for this detector
                   rx = d*SIN(gth)*COS(figl-fm) - .25*SIN(tetrc)*COS(fm)
                   ry = d*SIN(gth)*SIN(figl-fm) - .25*SIN(tetrc)*SIN(fm)
                   rz = d*COS(gth) - .25*COS(tetrc)
@@ -232,7 +232,7 @@ C     with CONT:PRT, and then does OP,EXIT
                   ENDDO
                ENDIF
                IF ( IRAWEX(IEXP).NE.0 ) THEN
-                  ipd = ITMA(IEXP,k)
+                  ipd = ITMA(IEXP,k) ! Get identity for detector
                   DO l = 1 , Idr
                      decen = ENDEC(l)
                      cocos = SIN(tetrc)*SIN(gth)*COS(fm-figl)
@@ -429,8 +429,8 @@ C     with CONT:PRT, and then does OP,EXIT
                fm = (fi0+fi1)/2.
                CALL ANGULA(YGN,Idr,ifxd,fi0,fi1,tetrc,gth,figl,k)
                IF ( IFMO.NE.0 ) THEN
-                  id = ITMA(IEXP,k)
-                  d = ODL(id)
+                  id = ITMA(IEXP,k) ! Get identity for detector
+                  d = ODL(id) ! Get results of OP,GDET for detector
                   rx = d*SIN(gth)*COS(figl-fm) - .25*SIN(tetrc)*COS(fm)
                   ry = d*SIN(gth)*SIN(figl-fm) - .25*SIN(tetrc)*SIN(fm)
                   rz = d*COS(gth) - .25*COS(tetrc)
@@ -453,7 +453,7 @@ C     with CONT:PRT, and then does OP,EXIT
      &    )
                ENDIF
                IF ( IRAWEX(IEXP).NE.0 ) THEN
-                  ipd = ITMA(IEXP,k)
+                  ipd = ITMA(IEXP,k) ! Get identity of detector
                   DO l = 1 , Idr
                      decen = ENDEC(l)
                      cocos = SIN(tetrc)*SIN(gth)*COS(fm-figl)

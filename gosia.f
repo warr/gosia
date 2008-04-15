@@ -1076,8 +1076,8 @@ C              Treat OP,INTG
                                     CALL ANGULA(YGN,idr,1,fi0,fi1,tetrc,
      &                                 gth,figl,ijan)
                                     IF ( IFMO.NE.0 ) THEN
-                                       id = ITMA(IEXP,ijan)
-                                       d = ODL(id)
+                                       id = ITMA(IEXP,ijan) ! Get detector identity
+                                       d = ODL(id) ! Get result of OP,GDET calculation
                                        rx = d*SIN(gth)*COS(figl-fm)
      &                                    - .25*SIN(tetrc)*COS(fm)
                                        ry = d*SIN(gth)*SIN(figl-fm)
@@ -1098,7 +1098,7 @@ C              Treat OP,INTG
                                        ENDDO
                                     ENDIF
                                     IF ( IRAWEX(lx).NE.0 ) THEN
-                                       ipd = ITMA(lx,ijan)
+                                       ipd = ITMA(lx,ijan) ! Get identity of detector
                                        DO jyi = 1 , idr
                                          ni = KSEQ(jyi,3)
                                          nf = KSEQ(jyi,4)
@@ -1465,7 +1465,7 @@ C                    Read input from standard input
                         IRAWEX(mexl) = 1
                         n = NANG(mexl)
                         DO j = 1 , n
-                           jj = ITMA(mexl,j)
+                           jj = ITMA(mexl,j) ! Get identity of detector
                            READ * , (AKAVKA(k,jj),k=1,8) ! efficiency curve parameters
                         ENDDO
                         READ * , kclust ! number of clusters
@@ -2064,8 +2064,8 @@ C     Handle OP,ERRO
                      fm = (fi0+fi1)/2.
                      CALL ANGULA(YGN,idr,1,fi0,fi1,ttttt,gth,figl,jgl)
                      IF ( IFMO.NE.0 ) THEN
-                        id = ITMA(IEXP,jgl)
-                        d = ODL(id)
+                        id = ITMA(IEXP,jgl) ! Get identity of detector
+                        d = ODL(id) ! Get results of OP,GDET for that detector
                         rx = d*SIN(gth)*COS(figl-fm) - .25*SIN(ttttt)
      &                       *COS(fm)
                         ry = d*SIN(gth)*SIN(figl-fm) - .25*SIN(ttttt)
@@ -2085,7 +2085,7 @@ C     Handle OP,ERRO
                         ENDDO
                      ENDIF
                      IF ( IRAWEX(IEXP).NE.0 ) THEN
-                        ipd = ITMA(IEXP,jgl)
+                        ipd = ITMA(IEXP,jgl) ! Get identity of detector
                         DO jyi = 1 , idr
                            ni = KSEQ(jyi,3)
                            nf = KSEQ(jyi,4)
