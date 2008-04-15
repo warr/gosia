@@ -52,8 +52,8 @@ C      SPIN   - spin of level
 C      SUBCH1 -
 C      SUBCH2 -
 C      SUMCL  -
-C      TAU    -
-C      TREP   -
+C      TAU    - lifetime in picoseconds
+C      TREP   - theta of recoiling nucleus
 C      UPL    - upper limits for all gamma detectors
 C      VACDP  - G_k for each level
 C      YEXP   - experimental yield
@@ -140,7 +140,7 @@ C      Iredv  -
       COMMON /CCCDS / NDST(50)
 
       ifxd = 0
-      tetrc = TREP(IEXP)
+      tetrc = TREP(IEXP) ! Theta of recoiling nucleus
 
 C     If the user set print flag 13 to +1, it is set to -1 by OP,EXIT and then
 C     if it is -1, it is set to -2 in MINI, which is called from there, which
@@ -167,7 +167,7 @@ C     with CONT:PRT, and then does OP,EXIT
          ENDDO ! Loop on experiments
       ENDIF ! if Icall.EQ.4 .AND. IPRM(13).EQ.-2
 
-      DO jpc = 1 , LP6
+      DO jpc = 1 , LP6 ! LP6 is 32
          lic(jpc) = 0
       ENDDO
 
@@ -184,7 +184,9 @@ C     with CONT:PRT, and then does OP,EXIT
                   ENDDO
                ENDDO
             ENDIF
+
             CALL DECAY(Chisq,NLIFT,Chilo)
+
             IF ( Icall.EQ.4 .AND. IPRM(14).EQ.-1 ) THEN
                IF ( IEXP.EQ.NEXPT ) IPRM(14) = 0
                WRITE (22,99003)
@@ -197,22 +199,27 @@ C     with CONT:PRT, and then does OP,EXIT
 99005             FORMAT (7X,1I2,9X,3(1F6.4,6X))
                ENDDO
             ENDIF
-            fi0 = FIEX(IEXP,1)
-            fi1 = FIEX(IEXP,2)
-            na = NANG(IEXP)
-            DO k = 1 , LP2
+
+            fi0 = FIEX(IEXP,1) ! Lower phi limit
+            fi1 = FIEX(IEXP,2) ! Upper phi limit
+            na = NANG(IEXP) ! Number of detector angles
+
+            DO k = 1 , LP2 ! LP2 is 500
                DO k9 = 1 , 20
                   SUMCL(k9,k) = 0.
                ENDDO
             ENDDO
+
             k9 = 0
-            DO k = 1 , na
-               gth = AGELI(IEXP,k,1)
-               figl = AGELI(IEXP,k,2)
+            DO k = 1 , na ! For each detector angle
+               gth = AGELI(IEXP,k,1) ! theta
+               figl = AGELI(IEXP,k,2) ! phi
                ifxd = 0
                fm = (fi0+fi1)/2.
                IF ( Icall.EQ.4 ) ifxd = 1
                CALL ANGULA(YGN,Idr,ifxd,fi0,fi1,tetrc,gth,figl,k)
+
+C              Correct for finite recoil
                IF ( IFMO.NE.0 ) THEN
                   id = ITMA(IEXP,k) ! Get identity for detector
                   d = ODL(id) ! Results of OP,GDET for this detector
@@ -224,13 +231,14 @@ C     with CONT:PRT, and then does OP,EXIT
                   thc = TACOS(rz/rl)
                   fic = ATAN2(ry,rx)
                   CALL ANGULA(YGP,Idr,ifxd,fi0,fi1,tetrc,thc,fic,k)
-                  DO ixl = 1 , Idr
+                  DO ixl = 1 , Idr ! For each decay
                      ixm = KSEQ(ixl,3) ! Initial level of ixl'th decay
-                     tfac = TAU(ixm)
+                     tfac = TAU(ixm) ! Get lifetime
                      YGN(ixl) = YGN(ixl) + .01199182*tfac*BETAR(IEXP)
      &                          *(sf*YGP(ixl)-YGN(ixl))
-                  ENDDO
-               ENDIF
+                  ENDDO ! Loop on decays ixl
+               ENDIF ! If correction for finite recoil
+
                IF ( IRAWEX(IEXP).NE.0 ) THEN
                   ipd = ITMA(IEXP,k) ! Get identity for detector
                   DO l = 1 , Idr
@@ -265,7 +273,7 @@ C     with CONT:PRT, and then does OP,EXIT
                DO iabc = 1 , LP2
                   lth(iabc) = 0
                ENDDO
-               DO l = 1 , Idr
+               DO l = 1 , Idr ! For each decay
                   ni = KSEQ(l,3) ! Intial level of l'th decay
                   nf = KSEQ(l,4) ! Final level of l'th decay
                   IF ( l.EQ.IY(lu,k9) .OR. l.EQ.(IY(lu,k9)/1000) ) THEN
@@ -398,14 +406,15 @@ C     with CONT:PRT, and then does OP,EXIT
                         ENDIF
                      ENDIF
                   ENDIF
-               ENDDO
+               ENDDO ! Loop on decays l
                IF ( IEXP.EQ.NEXPT ) IWF = 0
                IF ( Icall.EQ.4 .AND. IPRM(8).EQ.-2 ) THEN
                   WRITE (22,99010) SUBCH1 - SUBCH2
 99010             FORMAT (1X/50X,'CHISQ SUBTOTAL = ',E14.6)
                   SUBCH2 = SUBCH1
                ENDIF
- 20         ENDDO
+ 20         ENDDO ! Loop on detector angles k
+
             IF ( IGRD.EQ.1 ) RETURN
             IF ( IEXP.NE.NEXPT ) RETURN
             IF ( Icall.EQ.1 ) RETURN
@@ -427,7 +436,10 @@ C     with CONT:PRT, and then does OP,EXIT
                gth = AGELI(IEXP,k,1)
                figl = AGELI(IEXP,k,2)
                fm = (fi0+fi1)/2.
+
                CALL ANGULA(YGN,Idr,ifxd,fi0,fi1,tetrc,gth,figl,k)
+
+C              Correct for finite recoil
                IF ( IFMO.NE.0 ) THEN
                   id = ITMA(IEXP,k) ! Get identity for detector
                   d = ODL(id) ! Get results of OP,GDET for detector
@@ -451,7 +463,8 @@ C     with CONT:PRT, and then does OP,EXIT
 99011             FORMAT (1X,/,2X,'DURING THE MINIMIZATION',1X,
      &    'IT WAS NECESSARY TO SWITCH OFF THE TIME-OF-FLIGHT CORRECTION'
      &    )
-               ENDIF
+               ENDIF ! if correction for finite recoil
+
                IF ( IRAWEX(IEXP).NE.0 ) THEN
                   ipd = ITMA(IEXP,k) ! Get identity of detector
                   DO l = 1 , Idr
@@ -498,44 +511,49 @@ C     with CONT:PRT, and then does OP,EXIT
          ENDIF ! if Itemp.EQ.0
       ENDIF ! if Icall.NE.7
 
-      DO jj = 1 , NEXPT
+C     Sort out normalisation coefficients
+      DO jj = 1 , NEXPT ! For each experiment
          IF ( JSKIP(jj).NE.0 ) THEN
-            kc = NDST(jj)
-            DO jk = 1 , kc
+            kc = NDST(jj) ! Number of datasets
+            DO jk = 1 , kc ! For each dataset
                cnr(jk,jj) = -.5*part(jk,jj,2)/part(jk,jj,1)
                IF ( INNR.NE.0 ) CNOR(jk,jj) = cnr(jk,jj)
             ENDDO ! Loop on datasets
+
+C           If we want a common normalisation, sort it out here
             IF ( INNR.NE.1 ) THEN
                d = 0.
                g = 0.
-               DO jj1 = jj , NEXPT
+               DO jj1 = jj , NEXPT ! For each experiment
                   IF ( LNORM(jj1).EQ.jj ) THEN
-                     k = NDST(jj1)
-                     DO jk = 1 , k
+                     k = NDST(jj1) ! Number of datasets
+                     DO jk = 1 , k ! For each dataset
                         d = d + YNRM(jk,jj1)*part(jk,jj1,1)*YNRM(jk,jj1)
                         g = g - .5*YNRM(jk,jj1)*part(jk,jj1,2)
                      ENDDO ! Loop on datasets
                   ENDIF ! IF ( LNORM(jj1).EQ.jj )
                ENDDO ! Loop on experiment
-               IF ( LNORM(jj).EQ.jj ) THEN
+               IF ( LNORM(jj).EQ.jj ) THEN ! If this is the normalisation transition
                   CNOR(1,jj) = g*YNRM(1,jj)/d
-                  k = NDST(jj)
+                  k = NDST(jj) ! Number of datasets
                   IF ( k.NE.1 ) THEN
-                     DO jk = 2 , k
+                     DO jk = 2 , k ! For each dataset
                         CNOR(jk,jj) = YNRM(jk,jj)*CNOR(1,jj)/YNRM(1,jj)
                      ENDDO ! Loop on jk
                   ENDIF ! IF ( k.NE.1 )
                ENDIF ! IF ( LNORM(jj).EQ.jj )
             ENDIF ! IF ( INNR.NE.1 )
+             
          ENDIF ! IF ( JSKIP(jj).NE.0 )
       ENDDO ! Loop on experiment
 
+C     If there is a common normalisation, normalise to it
       IF ( INNR.NE.1 ) THEN
-         DO jj = 1 , NEXPT
+         DO jj = 1 , NEXPT ! For each experiment
             IF ( LNORM(jj).NE.jj ) THEN
-               iw = LNORM(jj)
-               k = NDST(jj)
-               DO jk = 1 , k
+               iw = LNORM(jj) ! Get index of normalisation transition
+               k = NDST(jj) ! Get number of datasets
+               DO jk = 1 , k ! For each dataset
                   CNOR(jk,jj) = CNOR(1,iw)*YNRM(jk,jj)/YNRM(1,iw)
                ENDDO ! Loop on datasets
             ENDIF ! IF ( LNORM(jj).NE.jj )
