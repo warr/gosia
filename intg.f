@@ -22,7 +22,7 @@ C      ISMAX  - number of substates used
 C      ISO    - Isotropic flag
 C      KDIV   - index for division
 C      LAMR   - flag = 1 if we should calculate this multipolarity
-C      MAXLA  -
+C      MAXLA  - multipolarity to calculate
 C      NDIV   - number of divisions
 C      NMAX   - number of levels
 C      NPT    - index in ADB array (this is omega / 0.03)
@@ -105,8 +105,8 @@ C value of f(n).
       ENDDO
 C     Predictor 
       IF ( ISO.EQ.0 ) THEN
-         DO n = 1 , NMAX
-            ir = NSTART(n) - 1
+         DO n = 1 , NMAX ! For each level
+            ir = NSTART(n) - 1 ! First substate - 1
  120        ir = ir + 1
             ARM(ir,7) = ARM(ir,5)
      &                  + D2W/24.*(55.0*ARM(ir,4)-59.0*ARM(ir,3)
@@ -143,8 +143,8 @@ C     Calculate derivatives of amplitudes
       
 C     Corrector
       IF ( ISO.EQ.0 ) THEN
-         DO n = 1 , NMAX
-            ir = NSTART(n) - 1
+         DO n = 1 , NMAX ! For each level
+            ir = NSTART(n) - 1 ! First substate - 1
  220        ir = ir + 1
             ARM(ir,5) = ARM(ir,5)
      &                  + D2W/24.*(9.0*ARM(ir,4)+19.0*ARM(ir,3)
@@ -155,7 +155,7 @@ C     Corrector
             IF ( DBLE(mir).LT.-0.1 ) GOTO 220
          ENDDO
       ELSE
-         DO ir = 1 , ISMAX
+         DO ir = 1 , ISMAX ! For each substate
             ARM(ir,5) = ARM(ir,5)
      &                  + D2W/24.*(9.0*ARM(ir,4)+19.0*ARM(ir,3)
      &                  -5.0*ARM(ir,2)+ARM(ir,1))
@@ -171,7 +171,7 @@ C     Calculate derivatives of amplitudes
          IF ( kast.GE.intend ) THEN
             kast = 0
             f = 0.
-            DO k = 1 , NMAX
+            DO k = 1 , NMAX ! For each level
                ihold = IPATH(k)
                IF ( ihold.NE.0 ) THEN
                   hold = ARM(ihold,5) - ARM(ihold,7)
