@@ -8,13 +8,13 @@ C
 C Purpose: perform the minimization
 C
 C Uses global variables:
-C      CHIS11 -
+C      CHIS11 - chi squared
 C      CORF   - internal correction factors
 C      DEVD   -
 C      DEVU   -
 C      DLOCK  - limit of derivative below which matrix element fixed if LOCKS=1
 C      ELM    - matrix elements
-C      ELMH   -
+C      ELMH   - matrix element
 C      GRAD   - partial derivative of chi squared wrt. matrix element
 C      HLMLM  - old value of matrix element or chi squared
 C      ICS    - read internal correction factors from file rather than recalculating

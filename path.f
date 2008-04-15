@@ -4,7 +4,7 @@ C SUBROUTINE PATH
 C
 C Called by: GOSIA
 C
-C Purpose:
+C Purpose: Calculate path for each level
 C
 C Uses global variables:
 C      CAT    - substates of levels (n_level, J, m)
