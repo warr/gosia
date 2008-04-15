@@ -8,7 +8,7 @@ C Purpose: calculate the rotation functions D^k_{\xi \xi^\prime}
 C
 C Uses global variables:
 C      B      - array of factorials
-C      BEQ    - beta
+C      BEQ    - identifier for angle for rotations
 C
 C Formal parameters:
 C      Beta   - v/c
@@ -47,7 +47,7 @@ C which is created freshly each time the function is called.
          DO ill = 1 , 525
             iczy(ill) = 0
          ENDDO
-      ELSEIF ( iczy(loc).EQ.1 ) THEN
+      ELSEIF ( iczy(loc).EQ.1 ) THEN ! We have already calculated it, so return
          DJMM = djm(loc)*ifza
          GOTO 99999
       ENDIF

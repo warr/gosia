@@ -73,7 +73,7 @@ C      AKAVKA - efficiency curve parameters
 C      ARM    - excitation amplitudes of substates.
 C      AVJI   - average J (N.B. here it is G(1))
 C      B      - table of factorials
-C      BEQ    - beta
+C      BEQ    - identifier for angle for rotations
 C      BETAR  - recoil beta
 C      CAT    - substates of levels (n_level, J, m)
 C      CC     - conversion coefficients
