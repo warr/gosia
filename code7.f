@@ -15,7 +15,7 @@ C      Ir     - index of initial substate
 C      Is     - index of final substate
 C      N      - index of initial level
 C      Mt     - index of final level
-C      Inqa   -
+C      Inqa   - result of operation
 C      Indx   - Index of matrix element
  
       SUBROUTINE CODE7(Ir,Is,N,Mt,Inqa,Indx)
