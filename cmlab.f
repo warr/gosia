@@ -9,7 +9,7 @@ C Purpose: calculate for center of mass frame
 C
 C Uses global variables:
 C      BETAR  - recoil beta
-C      DSIGS  -
+C      DSIGS  - dsigma for each experiment
 C      EN     - level energies
 C      EP     - bombarding energy
 C      EPS    - epsilon
@@ -31,7 +31,7 @@ C      TREP   - theta of recoiling nucleus
 C
 C Formal parameters:
 C      Ii     - experiment number (or zero for all experiments)
-C      Dsig   -
+C      Dsig   - dsigma
 C      Tetrn  -
 
       SUBROUTINE CMLAB(Ii,Dsig,Tetrn)

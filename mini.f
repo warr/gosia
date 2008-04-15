@@ -16,7 +16,7 @@ C      DLOCK  - limit of derivative below which matrix element fixed if LOCKS=1
 C      ELM    - matrix elements
 C      ELMH   -
 C      GRAD   - partial derivative of chi squared wrt. matrix element
-C      HLMLM  -
+C      HLMLM  - old value of matrix element or chi squared
 C      ICS    - read internal correction factors from file rather than recalculating
 C      IFBFL  - calculate derivatives with forward-backward method
 C      INTR   -

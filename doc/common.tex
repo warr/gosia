@@ -426,8 +426,9 @@ N.B. Sometimes A, R, XL, D are referred to as DIX(4).
 This common block is used in {\em GOSIA} and {\em MINI}.
 
 \begin{itemize}
-\item REAL*8 GRAD(500)
-\item REAL*8 HLMLM(500)
+\item REAL*8 GRAD(500) - partial derivatives of $\xi^2$.
+\item REAL*8 HLMLM(500) - old value of matrix element or $\xi^2$ (it is used
+for both).
 \item REAL*8 ELMH(500)
 \end{itemize}
 
@@ -854,7 +855,7 @@ TENS}.
 \item REAL*8 TETACM(50) - $\theta$ of particle detector in centre of mass
 frame.
 \item REAL*8 TREP(50) - $\theta$ of recoiling nucleus?
-\item REAL*8 DSIGS(50)
+\item REAL*8 DSIGS(50) - d$\sigma$.
 \end{itemize}
 
 \section{THTAR}

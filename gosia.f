@@ -87,7 +87,7 @@ C      DLOCK  - limit derivative below which matrix element is fixed if LOCKS=1
 C      DS     - integrated rutherford cross-section
 C      DSE    - rutherford cross section at given energy integrated over angles
 C      DSG    - differential gamma-ray yield at meshpoints
-C      DSIGS  -
+C      DSIGS  - dsigma for each experiment
 C      DYEX   - error on experimental yield
 C      EAMX   - known matrix elements and their errors
 C      ELM    - matrix elements
@@ -105,7 +105,7 @@ C      GAMMA  - Gamma (N.B. here it is G(2))
 C      GFAC   - g (N.B. here it is G(5))
 C      GRAD   - partial derivative of chi squared wrt. each matrix element
 C      HLM    -
-C      HLMLM  -
+C      HLMLM  - old value of matrix element or chi squared
 C      IAMX   -
 C      IAMY   -
 C      IAX    - axial symmetry flag
