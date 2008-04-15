@@ -16,8 +16,8 @@ C      EXPO   - exponents of adiabatic term
 C      ISG    -
 C      ISG1   -
 C      ISMAX  - number of substates used
-C      ISSTAR - first substate for given matrix element index
-C      ISSTO  - last substate for given matrix element index
+C      ISSTAR - first substate for given level
+C      ISSTO  - last substate for given level
 C      LAMDA  - list of multipolarities to calculate
 C      LAMMAX - number of multipolarities to calculate
 C      LAMR   - flag = 1 if we should calculate this multipolarity
@@ -86,8 +86,8 @@ C     Zero ARM(k,4) and ARM(k,6) for each substate used
                         m = MSTORE(1,mm) ! Index of final level
                         IF ( m.NE.nhold ) THEN
                            indx = MSTORE(2,mm) ! Index of matrix element in ELM
-                           ibg = ISSTAR(mm)
-                           iend = ISSTO(mm)
+                           ibg = ISSTAR(mm) ! First substate for this level
+                           iend = ISSTO(mm) ! Last substate for this level
                            DO is2 = ibg , iend ! Loop over substates for level
                               ARM(is2,4) = ARM(is2,4) + ARM(is2,6)
      &                           *ELM(indx)/EXPO(indx)

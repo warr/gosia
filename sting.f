@@ -15,8 +15,8 @@ C      IFLG   - flag to determine whether to calculate exponential (so we don't 
 C      IRA    - limit of omega for integration for each multipolarity
 C      ISG    -
 C      ISMAX  - number of substates used
-C      ISSTAR - first substate for given matrix element index
-C      ISSTO  - last substate for given matrix element index
+C      ISSTAR - first substate for given level
+C      ISSTO  - last substate for given level
 C      KDIV   - index of division
 C      LAMDA  - list of multipolarities to calculate
 C      LAMMAX - number of multipolarities to calculate
@@ -98,10 +98,10 @@ C              Calculate and store exponentials in EXPO
                   i57 = 5 ! Use ARM(I,5) in LAISUM for excitation amplitudes
 C                 Calculate sum over matrix elements
                   CALL LAISUM(Irld,n,rsg,lam,ld,nz,i57)
-                  DO mm = 1 , ld ! Loop over matrix elements for ground state for this multipolarity
+                  DO mm = 1 , ld ! Loop over levels
                      indx = MSTORE(2,mm) ! Index of matrix element in ELM
-                     ibg = ISSTAR(mm) ! First substate for this matrix element
-                     iend = ISSTO(mm) ! Last substate for this matrix element
+                     ibg = ISSTAR(mm) ! First substate for this level
+                     iend = ISSTO(mm) ! Last substate for this level
                      DO is2 = ibg , iend ! Loop over substates
                         ARM(is2,4) = ARM(is2,4) + ARM(is2,6)*ELM(indx)
      &                               /EXPO(indx)

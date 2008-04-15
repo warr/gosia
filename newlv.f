@@ -48,9 +48,10 @@ C storage part.
       COMMON /FLA   / IFLG
       COMMON /CEXC0 / NSTART(76) , NSTOP(75)
 
-      Ld = LDNUM(La,N) ! Get number of matrix elements for level N multipolarity La
+      Ld = LDNUM(La,N) ! Get number of levels connected to level N by multipolarity La
       IF ( Ld.EQ.0 ) RETURN ! Return if there aren't any
-      DO i2 = 1 , Ld ! For each matrix element associated with that N,La
+
+      DO i2 = 1 , Ld ! For each level
          m = LEADF(N,i2,La) ! Get the other level associated
          ISSTAR(i2) = NSTOP(m) ! Get the index of last substate for that level
          ISSTO(i2) = NSTART(m) ! Get the index of first substate for that level
