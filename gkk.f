@@ -8,7 +8,7 @@ C
 C Purpose: calculate time-dependent deorientation coefficients
 C
 C Uses global variables:
-C      AKS    -
+C      AKS    - <\alpha_k> values
 C      AVJI   - average J  (this is G(1) in GOSIA)
 C      DQ     - width of gaussian distribution
 C      FILE   - K          (this is G(6) in GOSIA)

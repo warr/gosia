@@ -14,7 +14,7 @@ C      GKI    - G_k for a single level
 C      IEXP   - experiment number
 C      ITTE   - thick target experiment flag
 C      SPIN   - spin of level
-C      TAU    -
+C      TAU    - lifetime in picoseconds
 C      VACDP  - G_k for each level
 C      XLAMB  - Lambda*       (this is G(3) in GOSIA)
 C

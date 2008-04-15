@@ -184,7 +184,7 @@ C      NDST   - number of data sets
 C      NEXPT  - number of experiments
 C      NLOCK  - number of elemnts to fix if LOCKF=1
 C      NMAX   - number of levels
-C      NMAX1  -
+C      NMAX1  - number of levels with decays
 C      NYLDE  - number of yields
 C      ODL    - results of OP,GDET calculation
 C      PARX   - [for maps]
@@ -192,7 +192,7 @@ C      PARXM  - [for maps]
 C      POWER  - x (N.B. here it is G(7))
 C      QAPR   - approximate Coulomb amplitudes
 C      SA     - ratio of matrix elements for correlated elements
-C      SE     -
+C      SE     - seed for random number generator of OP,RAND
 C      SPIN   - spin of level
 C      SUBCH1 -
 C      SUBCH2 -

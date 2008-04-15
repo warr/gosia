@@ -55,7 +55,7 @@ C      SUMCL  -
 C      TAU    -
 C      TREP   -
 C      UPL    - upper limits for all gamma detectors
-C      VACDP  -
+C      VACDP  - G_k for each level
 C      YEXP   - experimental yield
 C      YGN    - gamma yield calculated without correction to angular distribution from finite recoil distance
 C      YGP    - gamma yield calculated with correction to angular distribution from finite recoil distance

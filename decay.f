@@ -14,14 +14,14 @@ C      GKP    - Gk * DELTA^2
 C      IAXS   - axial symmetry flag
 C      IBYP   - flag to indicate whether we calculate <\alpha_k>
 C      IEXP   - experiment number
-C      KLEC   -
+C      KLEC   - number of decays for each level
 C      KSEQ   - index into ELM for pair of levels, and into EN or SPIN
 C      LIFCT  - index of level for lifetimes
 C      NMAX   - number of levels
-C      NMAX1  -
-C      TAU    -
+C      NMAX1  - number of levels with decays
+C      TAU    - lifetime in picoseconds
 C      TIMEL  - lifetimes and their errors
-C      VACDP  -
+C      VACDP  - G_k for each level
 C      ZETA   - various coefficients
 C
 C Formal parameters:
@@ -111,7 +111,7 @@ C      Chilo  - chi squared of logs
          ENDDO ! Loop on j
       ENDDO ! Loop on l
 
-      IBYP = 1
+      IBYP = 1 ! Set flag to indicate we have calculated <\alpha_k>
       IF ( Nlift.NE.0 .AND. IEXP.EQ.1 ) THEN
          DO jlt = 1 , Nlift ! For each lifetime
             kl = LIFCT(jlt) ! Get level for this lifetime
