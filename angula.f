@@ -18,7 +18,7 @@ C      IEXP   - experiment number
 C      ITMA   - identify detectors according to OP,GDET
 C      ITTE   - thick target experiment flag
 C      KSEQ   - index into ELM for pair of levels, and into EN or SPIN
-C      TAU    - 
+C      TAU    - lifetime in picoseconds
 C      ZETA   - various coefficients
 C
 C Formal parameters:
