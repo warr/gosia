@@ -41,7 +41,7 @@ C      NLIFT  - number of lifetimes
 C      NYLDE  - number of yields
 C      ODL    - results of OP,GDET calculation
 C      Q      - solid angle attenuation coefficients
-C      TAU    -
+C      TAU    - lifetime in picoseconds
 C      TIMEL  - lifetimes and their errors
 C      UPL    - upper limits for all gamma detectors
 C      YNRM   - relative normalization factors for gamma detectors
@@ -155,7 +155,7 @@ C     Convert angles into radians
       ENDDO ! Loop jic on experiments
 
 C     Set normalising transition
-      TAU(1) = 1.E+25
+      TAU(1) = 1.E+25 ! Initialise ground-state lifetime to 1E25 picoseconds
       READ * , ns1 , ns2 ! NS1, NS2
       DO li = 1 , Idr ! Search through decays for right pair of levels
          IF ( KSEQ(li,3).EQ.ns1 .AND. KSEQ(li,4).EQ.ns2 ) GOTO 100
