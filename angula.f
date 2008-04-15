@@ -9,7 +9,7 @@ C Purpose: calculate angular distribution of emitted gamma rays
 C
 C Uses global variables:
 C      BETAR  - recoil beta
-C      DELLA  -
+C      DELLA  - products of matrix elements: e1^2, e2^2, e1*e2
 C      ENDEC  - energy difference for each matrix element
 C      ENZ    -
 C      FP     - F coefficient * DELTA^2
