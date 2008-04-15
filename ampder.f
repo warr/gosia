@@ -13,8 +13,8 @@ C      ARM    - excitation amplitudes of substates.
 C      CAT    - substates of levels (n_level, J, m)
 C      ELM    - matrix elements
 C      EXPO   - exponents of adiabatic term
-C      ISG    -
-C      ISG1   -
+C      ISG    - phase
+C      ISG1   - index of sigma
 C      ISMAX  - number of substates used
 C      ISSTAR - first substate for given level
 C      ISSTO  - last substate for given level
@@ -72,7 +72,7 @@ C     Zero ARM(k,4) and ARM(k,6) for each substate used
             iflg = 1
             nhold = 1
  20         CALL NEWLV(nhold,ld,lam)
-            IF ( ld.EQ.0 ) THEN
+            IF ( ld.EQ.0 ) THEN ! If there are no decays
  30            nhold = nhold + 1
                IF ( NSTART(nhold).NE.0 ) GOTO 20
                GOTO 30

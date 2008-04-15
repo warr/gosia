@@ -13,6 +13,7 @@ C Uses global variables:
 C      EXPO   - adiabatic exponential
 C      IFLG   - flag to determine whether to calculate exponential (so we don't calculate twice)
 C      ISG    - index for sigma
+C      ISG1   - 
 C      ISSTAR - index of last substate for that level
 C      ISSTO  - index of first substate for that level
 C      KDIV   - index for division
