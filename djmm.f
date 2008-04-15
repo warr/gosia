@@ -41,8 +41,11 @@ C which is created freshly each time the function is called.
       sk = DBLE(K)
       ul = sk*((sk-1.)*(4.*sk+7)/6.+1.)
       lca = INT(ul+.1)
+
+C     Calculate position in djm and iczy arrays
       loc = lca + (2*K+1)*Kp + Kpp + K + 1
-      IF ( ABS(BEQ-ABS(Beta)).GT.1.E-6 ) THEN
+
+      IF ( ABS(BEQ-ABS(Beta)).LE.1.E-6 ) THEN ! If beta doesn't match the identifier, initialise
          BEQ = ABS(Beta)
          DO ill = 1 , 525
             iczy(ill) = 0
@@ -51,7 +54,8 @@ C which is created freshly each time the function is called.
          DJMM = djm(loc)*ifza
          GOTO 99999
       ENDIF
-       
+
+C     We have to calculate it
       be = BEQ/2.
       cb = COS(be)
       sb = SIN(be)
