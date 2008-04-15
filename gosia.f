@@ -1015,7 +1015,7 @@ C              Treat OP,INTG
                               IF ( IAXS(lx).NE.0 ) THEN
                                  IF ( iecd(lx).NE.1 ) THEN
                                     IF ( kloop.EQ.1 ) THEN
-                                       READ * , nfi
+                                       READ * , nfi ! Number of phi ranges
                                        READ * , 
      &                                    (fiex1(ktt,jfi,1),fiex1(ktt,
      &                                    jfi,2),jfi=1,nfi)
@@ -1034,8 +1034,8 @@ C              Treat OP,INTG
                               IF ( kloop.EQ.1 ) THEN
                                  IF ( iecd(lx).NE.0 ) THEN
                                     nfi = 1
-                                    fiex1(ktt,1,1) = wpi(ktt,1)
-                                    fiex1(ktt,1,2) = wpi(ktt,2)
+                                    fiex1(ktt,1,1) = wpi(ktt,1) ! Lower phi limit
+                                    fiex1(ktt,1,2) = wpi(ktt,2) ! Upper phi limit
                                  ENDIF
                               ENDIF
                               CALL CMLAB(lx,dsig,tetrc)
