@@ -211,7 +211,7 @@ C      XA1    - A of non-investigated nucleus
 C      XI     - xi coupling coefficients
 C      XIR    - [for maps]
 C      XLAMB  - Lambda* (N.B. here it is G(3))
-C      XV     - energy meshpoints where we calculate exact Coulex
+C      XV     - energy meshpoints (sometimes theta meshpoints) where we calculate exact Coulex
 C      YEXP   - experimental yields
 C      YGN    - gamma yield calculated without correction to angular distribution from finite recoil distance
 C      YGP    - gamma yield calculated with correction to angular distribution from finite recoil distance
@@ -1795,7 +1795,7 @@ C     Handle OP,ERRO
          naxfl = 0
          IF ( ms.EQ.0 ) mend = MEMAX
          IF ( ms.EQ.0 ) ms = 1
-         DO kh = ms , mend
+         DO kh = ms , mend ! Loop over matrix elements
             DO ij = 1 , 2
                pv = (ELMU(kh)-ELML(kh))/100.
                IF ( ij.NE.1 .OR. (ELM(kh)-ELML(kh)).GE.pv ) THEN
