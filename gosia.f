@@ -113,7 +113,7 @@ C      IBYP   - flag to indicate whether we calculate <\alpha_k>
 C      ICLUST -
 C      ICS    - read internal correction factors flag (OP,CONT switch CRF,)
 C      IDIVE  - number of subdivisions
-C      IDRN   - normalising transition for yields
+C      IDRN   - index of normalising transition for yields
 C      IEXP   - experiment number
 C      IFAC   - spin/parity phase factor
 C      IFBFL  - calculate derivatives with forward-backward method

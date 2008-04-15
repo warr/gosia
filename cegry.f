@@ -18,7 +18,7 @@ C      EMH    -
 C      ENDEC  - energy difference for each matrix element
 C      FIEX   - phi range of particle detector
 C      ICLUST -
-C      IDRN   -
+C      IDRN   - index of normalising transition for yields
 C      IEXP   - number of experiment
 C      IFMO   - include correction to angular distance for finite recoil distance.
 C      IGRD   -

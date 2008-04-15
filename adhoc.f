@@ -11,18 +11,18 @@ C Uses global variables:
 C      AGELI  - angles of the Ge detectors
 C      BRAT   - branching ratio and its error
 C      CC     - conversion coefficients for different energies and multipolarities
-C      DMIX   -
+C      DMIX   - 0.8326 * gamma energy
 C      DMIXE  - mixing ratio and its error
 C      EAMX   - known matrix elements and their error
 C      EG     - energies for conversion coefficients
 C      EN     - energy of level
-C      ENZ    -
+C      ENZ    - depends on absorber
 C      IAMX   - index of matrix element for known matrix element
 C      IAMY   - level indices of pair of levels for which matrix element is known
 C      IBRC   - index branching ratios
-C      IDRN   -
+C      IDRN   - index of normalising transition for yields
 C      IFMO   - include correction to angular distance for finite recoil distance.
-C      IMIX   -
+C      IMIX   - matrix element associated with known mixing ratio
 C      IPRM   - printing flags (see suboption PRT of OP,CONT)
 C      ITMA   - identify detectors according to OP,GDET
 C      ITS    - create tape 18 file (OP,CONT switch SEL,)
@@ -121,13 +121,14 @@ C     coefficients Q
          ENDDO
       ENDDO
 
+C     Read detector identities, theta and phi
       DO jic = 1 , NEXPT ! For each experiment
          juf = NANG(jic)
-         IF ( juf.LT.0 ) THEN
+         IF ( juf.LT.0 ) THEN ! If NANG < 0 use previous values
             juf = ABS(juf) ! Number of detector angles
             DO jicc = 1 , juf ! For each detector angle
-               AGELI(jic,jicc,1) = AGELI(jic-1,jicc,1) ! theta
-               AGELI(jic,jicc,2) = AGELI(jic-1,jicc,2) ! phi
+               AGELI(jic,jicc,1) = AGELI(jic-1,jicc,1) ! theta same as previous detector
+               AGELI(jic,jicc,2) = AGELI(jic-1,jicc,2) ! phi same as previous detector
                ITMA(jic,jicc) = ITMA(jic-1,jicc)
             ENDDO
             IF ( Oph.NE.'GOSI' ) NANG(jic) = ABS(NANG(jic))
@@ -153,23 +154,25 @@ C     Convert angles into radians
          ENDDO
       ENDDO ! Loop jic on experiments
 
+C     Set normalising transition
       TAU(1) = 1.E+25
       READ * , ns1 , ns2 ! NS1, NS2
-      DO li = 1 , Idr
+      DO li = 1 , Idr ! Search through decays for right pair of levels
          IF ( KSEQ(li,3).EQ.ns1 .AND. KSEQ(li,4).EQ.ns2 ) GOTO 100
       ENDDO
- 100  IDRN = li
+ 100  IDRN = li ! Index of normalising transition
       IF ( Oph.NE.'GOSI' ) RETURN
 
+C     Read upper limits and relative normalisation factors
       DO li = 1 , NEXPT ! Loop on experiments
          juf = NANG(li)
-         IF ( juf.LT.0 ) THEN
+         IF ( juf.LT.0 ) THEN ! If NANG < 0, use same as previous
             juf = ABS(juf)
             NANG(li) = juf ! Number of detector angles
-            NDST(li) = NDST(li-1)
+            NDST(li) = NDST(li-1) ! Number of datasets same as previous
             DO jicc = 1 , juf ! For each detector angle
-               UPL(jicc,li) = UPL(jicc,li-1)
-               YNRM(jicc,li) = YNRM(jicc,li-1)
+               UPL(jicc,li) = UPL(jicc,li-1) ! Upper limits same as previous
+               YNRM(jicc,li) = YNRM(jicc,li-1) ! Relative normalisation same as previous
             ENDDO
          ELSE
             READ * , NDST(li) ! NDST
@@ -178,15 +181,16 @@ C     Convert angles into radians
             READ * , (YNRM(jicc,li),jicc=1,ndas) ! YNRM1...N
          ENDIF
       ENDDO ! Loop li on experiments
-       
+
+C     Read file for experimental yields       
       READ * , Ntap ! NTAP
       IF ( Ntap.NE.0 ) THEN
          ipri = IPRM(2)
-         CALL READY(Idr,Ntap,ipri)
+         CALL READY(Idr,Ntap,ipri) ! Read yields from unit Ntap
          ndtp = 0
-         DO iexp1 = 1 , NEXPT
-            juf = NDST(iexp1)
-            DO iuf = 1 , juf
+         DO iexp1 = 1 , NEXPT ! Loop on experiments
+            juf = NDST(iexp1) ! Number of datasets
+            DO iuf = 1 , juf ! Loop on datasets
                ndtp = ndtp + NYLDE(iexp1,iuf)
             ENDDO
           ENDDO
@@ -201,32 +205,32 @@ C        Count free variables
      &           'MATRIX ELEMENTS TO BE VARIED'///)
       ENDIF ! IF ( Ntap.NE.0 )
 
+C     Read branching ratios
       READ * , NBRA , wbra ! NBRA, WBRA
       IF ( ITS.EQ.2 ) THEN
          REWIND 18
          WRITE (18,*) MEMAX
       ENDIF
-
       IF ( NBRA.NE.0 ) THEN
          WRITE (22,99002)
 99002    FORMAT (40X,'BRANCHING RATIOS',//5X,'NS1',5X,'NF1',5X,'NS2',5X,
      &           'NF2',5X,'RATIO(1:2)',9X,'ERROR')
          DO lb = 1 , NBRA ! I1,I2,I3,I4,B,DB repeated NBRA times
             READ * , ns1 , ns2 , ns3 , ns4 , BRAT(lb,1) , BRAT(lb,2)
-            BRAT(lb,2) = BRAT(lb,2)/(SQRT(wbra)+1.E-10)
+            BRAT(lb,2) = BRAT(lb,2)/(SQRT(wbra)+1.E-10) ! Relative error
             WRITE (22,99003) ns1 , ns2 , ns3 , ns4 , BRAT(lb,1) , 
      &                       BRAT(lb,2)
 99003       FORMAT (5X,1I2,6X,1I2,6X,1I2,6X,1I2,5X,1F10.5,5X,1F10.5)
-            DO li = 1 , Idr
+            DO li = 1 , Idr ! Search decays for these pairs of levels
                IF ( KSEQ(li,3).EQ.ns3 .AND. KSEQ(li,4).EQ.ns4 ) THEN
-                  IBRC(2,lb) = li
+                  IBRC(2,lb) = li ! Decay index for first pair
                ELSEIF ( KSEQ(li,3).EQ.ns1 .AND. KSEQ(li,4).EQ.ns2 ) THEN
-                  IBRC(1,lb) = li
+                  IBRC(1,lb) = li ! Decay index for second pair
                ENDIF
             ENDDO
             IF ( ITS.EQ.2 ) THEN
-               n1 = IBRC(1,lb)
-               n2 = IBRC(2,lb)
+               n1 = IBRC(1,lb) ! Decay of first pair
+               n2 = IBRC(2,lb) ! Decay of second pair
                WRITE (18,*) KSEQ(n1,1) , KSEQ(n2,1)
                WRITE (18,*) KSEQ(n1,1) , KSEQ(n2,2)
                WRITE (18,*) KSEQ(n1,1) , KSEQ(n1,2)
@@ -240,6 +244,7 @@ C        Count free variables
 99004    FORMAT (5X,'BRANCHING RATIOS ARE TAKEN WITH WEIGHT',2X,1E14.6)
       ENDIF
 
+C     Read lifetimes
       READ * , NLIFT , wlf ! NL, WL
       IF ( NLIFT.NE.0 ) THEN
          WRITE (22,99005)
@@ -247,7 +252,7 @@ C        Count free variables
      &           5X,'ERROR'/)
          DO ilft = 1 , NLIFT ! INDEX, T, DT repeated NL times
             READ * , LIFCT(ilft) , TIMEL(1,ilft) , TIMEL(2,ilft)
-            TIMEL(2,ilft) = TIMEL(2,ilft)/(SQRT(wlf)+1.E-10)
+            TIMEL(2,ilft) = TIMEL(2,ilft)/(SQRT(wlf)+1.E-10) ! Relative error
             WRITE (22,99006) LIFCT(ilft) , TIMEL(1,ilft) , TIMEL(2,ilft)
 99006       FORMAT (7X,1I2,6X,1F10.2,3X,1F10.2)
          ENDDO
@@ -255,6 +260,7 @@ C        Count free variables
 99007    FORMAT (1X/10X,'LIFETIMES ARE TAKEN WITH WEIGHT',2X,1E14.6)
       ENDIF
 
+C     Read known mixing ratios
       READ * , NDL , wdl ! NDL, WDL
       IF ( NDL.NE.0 ) THEN
          WRITE (22,99008)
@@ -264,10 +270,10 @@ C        Count free variables
             READ * , ns1 , ns2 , DMIXE(li,1) , DMIXE(li,2)
             DMIXE(li,2) = DMIXE(li,2)/(SQRT(wdl)+1.E-10)
             WRITE (22,99012) ns1 , ns2 , DMIXE(li,1) , DMIXE(li,2)
-            DO lb = 1 , Idr
+            DO lb = 1 , Idr ! Search through decays for right pair of levels
                IF ( KSEQ(lb,3).EQ.ns1 .AND. KSEQ(lb,4).EQ.ns2 ) THEN
-                  IMIX(li) = lb
-                  DMIX(li) = .8326*(EN(ns1)-EN(ns2))
+                  IMIX(li) = lb ! Decay index
+                  DMIX(li) = .8326*(EN(ns1)-EN(ns2)) ! 0.8326 * energy of gamma
                   IF ( ITS.EQ.2 ) WRITE (18,*) KSEQ(lb,1) , KSEQ(lb,2)
                ENDIF
             ENDDO
@@ -276,17 +282,15 @@ C        Count free variables
 99009    FORMAT (/10X,'E2/M1 MIXING RATIOS ARE TAKEN WITH WEIGHT',2X,
      &           1E14.6)
       ENDIF
-
       IF ( ITS.EQ.2 ) WRITE (18,*) iosr , iosr
 
+C     Read known matrix elements
       READ * , NAMX , wamx ! NAMX, WAMX
       IF ( NAMX.EQ.0 ) RETURN
-
       WRITE (22,99010)
 99010 FORMAT (1X//30X,'EXPERIMENTAL MATRIX ELEMENT(S)'///10X,
      &        'TRANSITION',10X,'MAT.EL.',10X,'ERROR'/)
 
-C     Read known matrix elements
       DO iax = 1 , NAMX ! LAMBDA, INDEX1, INDEX2, ME, DME repeated NAMX times
          READ * , llia , ns1 , ns2 , EAMX(iax,1) , EAMX(iax,2)
          IAMY(iax,1) = ns1 ! Level index
@@ -295,8 +299,8 @@ C     Read known matrix elements
          WRITE (22,99012) ns1 , ns2 , EAMX(iax,1) , EAMX(iax,2)
          IAMX(iax) = MEM(ns1,ns2,llia) ! Index to matrix element
       ENDDO
-
       WRITE (22,99011) wamx
 99011 FORMAT (/10X,' MATRIX ELEMENT(S) ARE TAKEN WITH WEIGHT',2X,1E14.6)
+
 99012 FORMAT (10X,1I2,'---',1I2,14X,1F9.4,8X,1F9.4)
       END
