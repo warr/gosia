@@ -49,8 +49,8 @@ C      NMAX   - number of levels
 C      NYLDE  - number of yields
 C      ODL    - results of OP,GDET calculation
 C      SPIN   - spin of level
-C      SUBCH1 -
-C      SUBCH2 -
+C      SUBCH1 - partial chisqr
+C      SUBCH2 - partial chisqr
 C      SUMCL  - sum of yields for clusters
 C      TAU    - lifetime in picoseconds
 C      TREP   - theta of recoiling nucleus

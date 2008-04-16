@@ -372,8 +372,8 @@ C      QAPR   - approximate Coulomb amplitudes
 C      SA     - ratio of matrix elements for correlated elements
 C      SE     - seed for random number generator of OP,RAND
 C      SPIN   - spin of level
-C      SUBCH1 -
-C      SUBCH2 -
+C      SUBCH1 - partial chisqr
+C      SUBCH2 - partial chisqr
 C      SUMCL  - sum of yields for clusters
 C      SWG    -
 C      TAU    - lifetime in picoseconds
