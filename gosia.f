@@ -288,7 +288,7 @@ C      IAMX   - index of matrix element for known matrix element
 C      IAMY   - level indices of pair of levels for which matrix element is known
 C      IAX    - axial symmetry flag
 C      IBYP   - flag to indicate whether we calculate <\alpha_k>
-C      ICLUST -
+C      ICLUST - cluster number for each experiment and detector
 C      ICS    - read internal correction factors flag (OP,CONT switch CRF,)
 C      IDIVE  - number of subdivisions
 C      IDRN   - index of normalising transition for yields
@@ -325,7 +325,7 @@ C      KSEQ   - index of level
 C      KVAR   -
 C      LAMAX  - number of multipolarities to calculate
 C      LAMBDA - list of multipolarities to calculate
-C      LASTCL -
+C      LASTCL - index of last detector in cluster
 C      LDNUM  - number of matrix elements with each multipolarity populating each level
 C      LEAD   - pair of levels involved in each matrix element
 C      LIFCT  - index for lifetimes
@@ -374,7 +374,7 @@ C      SE     - seed for random number generator of OP,RAND
 C      SPIN   - spin of level
 C      SUBCH1 -
 C      SUBCH2 -
-C      SUMCL  -
+C      SUMCL  - sum of yields for clusters
 C      SWG    -
 C      TAU    - lifetime in picoseconds
 C      THICK  - thickness of each absorber type
@@ -1280,7 +1280,7 @@ C              Treat OP,INTG
                                     ENDIF
                                     IF ( IRAWEX(lx).NE.0 ) THEN
                                        ipd = ITMA(lx,ijan) ! Get identity of detector
-                                       DO jyi = 1 , idr
+                                       DO jyi = 1 , idr 1 ! For each decay
                                          ni = KSEQ(jyi,3)
                                          nf = KSEQ(jyi,4)
                                          decen = EN(ni) - EN(nf)
@@ -1292,16 +1292,16 @@ C              Treat OP,INTG
                                          CALL EFFIX(ipd,decen,effi)
                                          YGN(jyi) = YGN(jyi)*effi
                                        ENDDO
-                                       inclus = ICLUST(lx,ijan)
+                                       inclus = ICLUST(lx,ijan) ! Cluster number for detector ijan
                                        IF ( inclus.NE.0 ) THEN
-                                         DO jyi = 1 , idr
+                                         DO jyi = 1 , idr ! For each decay
                                          SUMCL(inclus,jyi)
      &                                      = SUMCL(inclus,jyi)
      &                                      + YGN(jyi)
                                          ENDDO
                                          IF ( ijan.NE.LASTCL(lx,inclus)
-     &                                      ) GOTO 132
-                                         DO jyi = 1 , idr
+     &                                      ) GOTO 132 ! If it is not the last detector in the cluster
+                                         DO jyi = 1 , idr ! For each decay
                                          YGN(jyi) = SUMCL(inclus,jyi)
                                          ENDDO
                                        ENDIF
@@ -1654,10 +1654,10 @@ C                    Read input from standard input
                            DO j = 1 , kclust
                               READ * , numcl ! Number of detectors for this cluster
                               READ * , (liscl(k),k=1,numcl) ! Indices of logical detectors
-                              LASTCL(l,j) = liscl(numcl)
+                              LASTCL(l,j) = liscl(numcl) ! Index of last detector in cluster
                               DO k = 1 , numcl
                                  kk = liscl(k)
-                                 ICLUST(l,kk) = j
+                                 ICLUST(l,kk) = j ! Set cluster number
                               ENDDO
                            ENDDO
                         ENDIF
@@ -2267,7 +2267,7 @@ C     Handle OP,ERRO
                      ENDIF
                      IF ( IRAWEX(IEXP).NE.0 ) THEN
                         ipd = ITMA(IEXP,jgl) ! Get identity of detector
-                        DO jyi = 1 , idr
+                        DO jyi = 1 , idr ! For each decay
                            ni = KSEQ(jyi,3)
                            nf = KSEQ(jyi,4)
                            decen = EN(ni) - EN(nf)
@@ -2280,14 +2280,14 @@ C     Handle OP,ERRO
      &                                 SPIN(nf) , decen , effi
                            YGN(jyi) = YGN(jyi)*effi
                         ENDDO
-                        inclus = ICLUST(IEXP,jgl)
+                        inclus = ICLUST(IEXP,jgl) ! Cluster number for detector jgl
                         IF ( inclus.NE.0 ) THEN
-                           DO jyi = 1 , idr
+                           DO jyi = 1 , idr ! For each decay
                               SUMCL(inclus,jyi) = SUMCL(inclus,jyi)
      &                           + YGN(jyi)
                            ENDDO
-                           IF ( jgl.NE.LASTCL(IEXP,inclus) ) GOTO 1205
-                           DO jyi = 1 , idr
+                           IF ( jgl.NE.LASTCL(IEXP,inclus) ) GOTO 1205 ! If it is not the last detector in the cluster
+                           DO jyi = 1 , idr ! For each decay
                               YGN(jyi) = SUMCL(inclus,jyi)
                            ENDDO
                         ENDIF
@@ -2370,11 +2370,11 @@ C     Handle OP,ERRO
  1205             ENDDO ! Loop on detector angles jgl
                   IF ( op2.EQ.'CORR' ) THEN
                      jgl1 = 0
-                     DO jgl = 1 , nogeli
+                     DO jgl = 1 , nogeli ! For each detector
                         IF ( IRAWEX(jexp).NE.0 ) THEN
-                           inclus = ICLUST(jexp,jgl)
+                           inclus = ICLUST(jexp,jgl) ! Cluster number for detector jgl
                            IF ( inclus.NE.0 ) THEN
-                              IF ( jgl.NE.LASTCL(jexp,inclus) )
+                              IF ( jgl.NE.LASTCL(jexp,inclus) ) ! If detector is not the last in the cluster
      &                             GOTO 1206
                            ENDIF
                         ENDIF

@@ -21,7 +21,7 @@ C      IAXS   - axial symmetry flag
 C      IEXP   - experiment number
 C      IGRD   -
 C      ILE    - yield number for each detector
-C      INM    -
+C      INM    - index of matrix element
 C      INTR   -
 C      IPRM   - printing flags (see suboption PRT of OP,CONT)
 C      ISMAX  - number of substates used

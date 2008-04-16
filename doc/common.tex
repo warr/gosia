@@ -304,9 +304,10 @@ This common block is used in {\em FTBM}, {\em GOSIA} and {\em LOAD}.
 This common block is used in {\em CEGRY} and {\em GOSIA}.
 
 \begin{itemize}
-\item INTEGER*4 ICLUST(50,200)
-\item INTEGER*4 LASTCL(50,20)
-\item REAL*8 SUMCL(20,500)
+\item INTEGER*4 ICLUST(50,200) - cluster number for each detector and
+experiment.
+\item INTEGER*4 LASTCL(50,20) - index of last detector in cluster.
+\item REAL*8 SUMCL(20,500) - sum of cluster yield.
 \end{itemize}
 
 \section{COEX}

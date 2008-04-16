@@ -17,14 +17,14 @@ C      DYEX   - error on experimental yield
 C      EMH    -
 C      ENDEC  - energy difference for each matrix element
 C      FIEX   - phi range of particle detector
-C      ICLUST -
+C      ICLUST - cluster number for each experiment and detector
 C      IDRN   - index of normalising transition for yields
 C      IEXP   - number of experiment
 C      IFMO   - include correction to angular distance for finite recoil distance.
 C      IGRD   -
 C      ILE    - yield number for each detector
 C      IMIN   -
-C      INM    -
+C      INM    - index of matrix element
 C      INNR   - independent normalisation switch (see OP,CONT INR,)
 C      IPRM   - printing flags (see suboption PRT of OP,CONT)
 C      IRAWEX -
@@ -35,7 +35,7 @@ C      IY     - index for yields
 C      JSKIP  - Experiments to skip during minimisation.
 C      KSEQ   - index into ELM for pair of levels, and into EN or SPIN
 C      KVAR   -
-C      LASTCL -
+C      LASTCL - index of last detector in cluster
 C      LFL    -
 C      LNORM  - normalization constant control
 C      LP2    - maximum number of matrix elements (500)
@@ -51,7 +51,7 @@ C      ODL    - results of OP,GDET calculation
 C      SPIN   - spin of level
 C      SUBCH1 -
 C      SUBCH2 -
-C      SUMCL  -
+C      SUMCL  - sum of yields for clusters
 C      TAU    - lifetime in picoseconds
 C      TREP   - theta of recoiling nucleus
 C      UPL    - upper limits for all gamma detectors
@@ -249,13 +249,13 @@ C              Correct for finite recoil
                      CALL EFFIX(ipd,decen,effi)
                      YGN(l) = YGN(l)*effi
                   ENDDO
-                  inclus = ICLUST(IEXP,k)
+                  inclus = ICLUST(IEXP,k) ! Cluster number for detector k
                   IF ( inclus.NE.0 ) THEN
-                     DO l = 1 , Idr
+                     DO l = 1 , Idr ! For each decay
                         SUMCL(inclus,l) = SUMCL(inclus,l) + YGN(l)
                      ENDDO
-                     IF ( k.NE.LASTCL(IEXP,inclus) ) GOTO 20
-                     DO l = 1 , Idr
+                     IF ( k.NE.LASTCL(IEXP,inclus) ) GOTO 20 ! If it is not the last detector in the cluster
+                     DO l = 1 , Idr ! For each decay
                         YGN(l) = SUMCL(inclus,l)
                      ENDDO
                   ENDIF
@@ -475,13 +475,13 @@ C              Correct for finite recoil
                      CALL EFFIX(ipd,decen,effi)
                      YGN(l) = YGN(l)*effi
                   ENDDO
-                  inclus = ICLUST(IEXP,k)
+                  inclus = ICLUST(IEXP,k) ! Cluster number for detector k
                   IF ( inclus.NE.0 ) THEN
-                     DO l = 1 , Idr
+                     DO l = 1 , Idr ! For each decay
                         SUMCL(inclus,l) = SUMCL(inclus,l) + YGN(l)
                      ENDDO
-                     IF ( k.NE.LASTCL(IEXP,inclus) ) GOTO 40
-                     DO l = 1 , Idr
+                     IF ( k.NE.LASTCL(IEXP,inclus) ) GOTO 40 ! If it is not the last detector in the cluster
+                     DO l = 1 , Idr ! For each decay
                         YGN(l) = SUMCL(inclus,l)
                      ENDDO
                   ENDIF
