@@ -171,7 +171,7 @@ C      LP7    - start of collision functions (45100)
 C      LP8    - (104)
 C      LP9    - length of ZETA - 2100 (47900)
 C      MAGA   - number of magnetic substates in approximate calculation
-C      MAGEXC -
+C      MAGEXC - flag: 0 means no magnetic excitations, 1 means with mag. exc.
 C      MEMAX  - number of matrix elements
 C      MEMX6  - number of matrix elements with E1...6 multipolarity
 C      MULTI  - number of matrix elements having given multipolarity
@@ -562,7 +562,7 @@ C     Initialize normalization to 1.
       ient = 1
       jphd = 1
       DIPOL = 0.005
-      MAGEXC = 0
+      MAGEXC = 0 ! Initially flag that we don't need magnetic excitations
       LAMMAX = 0
       DO lam = 1 , 8
          DO lexp = 1 , LP3 ! LP3 = 75
@@ -1608,7 +1608,7 @@ C     Treat suboption ME (matrix elements)
             IF ( la.GT.LMAXE .AND. la.LE.6 ) LMAXE = la
  250     ENDDO
  300     MEMAX = indx
-         IF ( la.GT.6 ) MAGEXC = 1
+         IF ( la.GT.6 ) MAGEXC = 1 ! Flag that we need magnetic excitations
          memx4 = MULTI(1) + MULTI(2) + MULTI(3) + MULTI(4)
          MEMX6 = memx4 + MULTI(5) + MULTI(6)
          IF ( ABS(IPRM(1)).EQ.1 ) CALL PRELM(iopri)
