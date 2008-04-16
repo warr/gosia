@@ -296,7 +296,7 @@ C      IEXP   - experiment number
 C      IFAC   - spin/parity phase factor
 C      IFBFL  - calculate derivatives with forward-backward method
 C      IFMO   - include correction to angular distance for finite recoil distance.
-C      ILE    -
+C      ILE    - yield number for each detector
 C      IMIN   -
 C      INHB   - inhibit error flag (LERF) setting in POMNOZ
 C      INNR   - independent normalisation switch (see OP,CONT INR,)

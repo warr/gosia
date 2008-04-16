@@ -20,7 +20,7 @@ C      EMH    - matrix element
 C      IAXS   - axial symmetry flag
 C      IEXP   - experiment number
 C      IGRD   -
-C      ILE    -
+C      ILE    - yield number for each detector
 C      INM    -
 C      INTR   -
 C      IPRM   - printing flags (see suboption PRT of OP,CONT)

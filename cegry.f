@@ -22,7 +22,7 @@ C      IDRN   - index of normalising transition for yields
 C      IEXP   - number of experiment
 C      IFMO   - include correction to angular distance for finite recoil distance.
 C      IGRD   -
-C      ILE    -
+C      ILE    - yield number for each detector
 C      IMIN   -
 C      INM    -
 C      INNR   - independent normalisation switch (see OP,CONT INR,)
@@ -269,8 +269,8 @@ C              Correct for finite recoil
      &                 'II',8X,'IF',9X,'ENERGY(MEV)',6X,'YCAL',8X,
      &                 'YEXP',7X,'PC. DIFF.',2X,'(YE-YC)/SIGMA')
                ENDIF
-               lu = ILE(k9)
-               DO iabc = 1 , LP2
+               lu = ILE(k9) ! Yield number for detector k9
+               DO iabc = 1 , LP2 ! LP2 = 500
                   lth(iabc) = 0
                ENDDO
                DO l = 1 , Idr ! For each decay
