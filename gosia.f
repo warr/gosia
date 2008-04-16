@@ -2253,8 +2253,8 @@ C     Handle OP,ERRO
          icg = 2
          nmaxh = NMAX
          lmax1 = LMAX
-         sh1 = SPIN(1)
-         sh2 = SPIN(2)
+         sh1 = SPIN(1) ! Save ground-state spin
+         sh2 = SPIN(2) ! Save spin of first excited state
          ih1 = IFAC(1)
          ih2 = IFAC(2)
          magh = MAGEXC
@@ -2455,8 +2455,8 @@ C     Handle OP,ERRO
             ENDDO ! Loop over kk
             EMMA(IEXP) = emhl1
             NMAX = nmaxh
-            SPIN(1) = sh1
-            SPIN(2) = sh2
+            SPIN(1) = sh1 ! Restore ground-state spin
+            SPIN(2) = sh2 ! Restore spin of first excited state
             IFAC(1) = ih1
             IFAC(2) = ih2
             MAGEXC = magh
