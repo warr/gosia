@@ -1,62 +1,240 @@
-C      PROGRAM GOSIA(INPUT,OUTPUT,TAPE6=OUTPUT,TAPE3,TAPE14,TAPE1,
-C        *TAPE15,TAPE17,TAPE18,TAPE4,TAPE2,TAPE7,TAPE9)
-C************************
-C   THIS IS A 32-GE DETECTOR 386+WEITEK SCALAR VERSION FROM MAR., 1989
-C FULL Q MAPS CALCULATED FOR E1 THROUGH E4 - UPDATE FROM AUG. 1989
-C NOTE: THERE IS NO LONGER THE DOMINANT MULTIPOLARITY SELECTED
-C FULL MAPS AND FITTING OF E5,E6 ADDED - APRIL 1990
-C XI AND ZETA RANGES CALCULATED FOR EACH MULTIPOLARITY INDEPENDENTLY
+C                               GOSIA 2007 (64-bit)
 C
-C May 1995 additions - matrix elements generator following general
-C structure of matrix elements as given in Bohr-Mottelson book.
-C Generator is activated by OP,THEO
-C Using OP,THEO the starting values are set according to the model while
-C all couplings are kept as given using ME suboption. OP,THEO writes
-C matrix elements to restart file which should be used subsequently.
+C                                March 2008 Update
 C
-C Eh. Vogt's addition - OP,FILE - allows to specify OPEN statements,
-C if convenient.
+C        http://www.pas.rochester.edu/~cline/Research/GOSIA.htm
 C
-C November 1990 update - number of levels = 75, yields=32 x 1500
-C magnetic substates = 600 matrix elements=500
-C April 1991 update - OP,RAW added - handles non-efficiency-corrected
-C spectra, allows to form Ge detector clusters. Up to 20 clusters
-C can be defined. Number of physical Ge's increased to 200, while
-C number of datasets (i.e. single detector+cluster gamma yields)
-C is still limited to 32
-C Output is written on unit 22 to avoid mixing it with system
-C messages on some computers
-C PIN diode option added -Sept. 96
-C July 1997 - known matrix elements input in OP,YIEL extended to
-C all multipolarities. Note change in the input, now:
-C LAMDA, NS1, NS2, ME, DME
-C************************
-C            GOSIA HAS BEEN DEVELOPED BY T.CZOSNYKA,D.CLINE AND C.Y.WU
-C            AT NUCLEAR STRUCTURE RESEARCH LABORATORY,UNIV. OF ROCHESTER
+C        Gosia was developed by T. Czosnyka, D. Cline and C.Y. Wu at
+C        the University of Rochester, Rochester, NY, USA.  It is being
+C        maintained by the U. of Rochester group led by Prof. D. Cline.
 C
-C            SOME CONCEPTS USED COME FROM 1978 WINTHER/DE BOER CODE
-C            C O U L E X AND FROM NSRL DEEXCITATION CODE C E G R Y.
-C            HOWEVER,THE PARTS TAKEN FROM BOTH CODES ARE IN MOST
-C            CASES COMPLETELY REWRITTEN,SO THE SIMILARITY OF
-C            VARIABLE AND ROUTINE NAMES MAY BE MISLEADING.
+C        Valuable contributions were made by:
 C
-C            VALUABLE CONTRIBUTIONS WERE ALSO MADE BY:
-C            L.HASSELGREN AND A.BACKLIN  (UPPSALA)
-C            J.SREBRNY  (WARSAW)
-C            B.KOTLINSKI  (WARSAW AND ROCHESTER)
+C          L. Hasselgren (Uppsala)
+C          A.B. Hayes (Rochester)
+C          R. Ibbotson (Rochester)
+C          A.E. Kavka (Uppsala and Rochester)
+C          B. Kotlinski (Warsaw and Rochester)
+C          J. Srebrny  (Warsaw)
+C          Eh. Vogt (Munchen and Rochester)
+C          N. Warr (Cologne)
+C
+C         Nigel Warr of the University of Cologne has contributed many 
+C         important improvements to the coding of the 2007 version of 
+C         GOSIA, as well as the March 2008 update.  These include the
+C         repair of several bugs, significant improvements in structure, 
+C         standards and compatibility, and the addition of many detailed 
+C         comments to the code.  Descriptions of these improvements can 
+C         be found in the "Version History" below.
+C
+C        References and Credits
+C
+C          T. Czosnyka, D. Cline and C. Y. Wu,
+C          Bull. Am. Phys. Soc. 28, 745 (1983)
+C
+C          Internal laboratory report UR/NSRL 308/1986
+C 
+C          Some concepts used come from the 1978 Winther, de Boer code 
+C          COULEX and from the deexcitation code CEGRY developed by Cline 
+C          and coworkers at Rochester.  However, the parts taken from 
+C          both codes are in most cases completely rewritten, so the 
+C          similarity of variable and routine names may be misleading.
+C
+C        Resources
+C
+C          It is recommended that users check the GOSIA website at 
+C          Rochester periodically for important updates to the code and 
+C          the manual, as well as sample input and output files and other 
+C          information. Chapter 11 of this manual provides novice users 
+C          with instructions, tutorials, etc.
+C
+C          http://www.pas.rochester.edu/~cline/Research/GOSIA.htm
+C
+C          If you need additional information, please contact:
+C
+C          Prof. Douglas Cline
+C          Department of Physics and Astronomy 
+C          University of Rochester
+C          Rochester, NY 14627, U.S.A.           Phone (585)275-4934
+C          Cline@pas.rochester.edu
+C          http://www.pas.rochester.edu/~cline/
+C
+C        Compiling Gosia 2007
+C
+C          Gosia 2007 compiles on most 64-bit systems with GNU g77,
+C          using the default compiler settings.  Previous versions of
+C          the Gosia code did not explicitly specify 64-bit precision
+C          and were intended to be compiled by the user at the highest
+C          machine precision available.  The current availability of
+C          64-bit machines and the accuracy problems which may arise
+C          when relying on 32-bit precision led to the decision to make
+C          this code explicitly 64-bit.  Modifying the code to run
+C          with 32-bit precision is discouraged.
+C
+C        Version History
+C
+C          There are considerable improvements in the 2007 version of
+C          the code including the 64-bit upgrade (below, "Explicit
+C          64-bit Precision") and the repair of two bugs which affected
+C          some newer platforms (below, "Bugs Fixed").  There are two
+C          minor changes to the input format from the pre-2007
+C          versions, which can be updated without difficulty in older
+C          input files.  The remainder of this header describes these
+C          and other major improvements.
+C
+C          Changes to the Input Format
+C
+C            (July 2007, N. Warr) - Tapes 1 and 2 in the pre-2007
+C            versions have been reassigned to tapes 11 and 12,
+C            respectively, in order to make switching between Gosia and
+C            Gosia2 (the mutual excitation code) easier.  This change
+C            affects only OP,FILE (optional--see below) and the default
+C            naming of files.  For example, on a typical Unix-like
+C            system, the file formerly called "fort.2" will now be
+C            called "fort.12" and will contain the best set of matrix
+C            elements written at the end of the minimization.
+C
+C            (July 1997, T. Czosnyka) - Known matrix elements of all
+C            multipolarities may now be entered as data in OP,YIEL.
+C            Note that this necessitates adding the multipole order
+C            LAMBDA as the first field in the new input format:
+C              LAMBDA, NS1, NS2, ME, DME 
+C            where LAMBDA=7 and 8 represent M1 and M2, respectively.
+C
+C          Bugs Fixed  (2007 and 2008, N. Warr)
+C
+C            The routine DJMM relies on the values of DJM being
+C            preserved between repeated calls to DJMM, which occurred
+C            automatically on many older systems (e.g. DEC Alpha, VAX).
+C            On some newer machines, DJM was effectively randomized
+C            between calls, causing unpredictable errors including
+C            negative values of chi-squared.  This was fixed by adding
+C            the command "SAVE DJM" to the routine DJMM.
+C
+C            The routine ALLOC now handles error conditions gracefully,
+C            and execution is halted in the event of a fatal error.
+C
+C            The WRN,X. switch in the CONT section of OP,GOSI and 
+C            OP,COUL was unintentionally disabled in the 2007 version.
+C            It is restored in the present update.
+C
+C          Explicit 64-bit Precision Upgrade (2007, N. Warr)
+C
+C            All routines and functions including the main routine now
+C            have "IMPLICIT NONE" declared, and all variables are
+C            explicitly defined as either REAL*8, COMPLEX*16, or
+C            INTEGER*4.  Numerical constants have been changed as
+C            necessary to double precision.  Archaic functions have
+C            been updated (below, "Archaic Functions"), in part to
+C            preserve 64-bit precision during type-conversions.
+C            (Precision in type conversion may be limited in some cases
+C            by the compiler.)
+C
+C          Structure and Standards  (2007, N. Warr)
+C
+C            The 2007 code has been updated to remove many archaic
+C            functions and made to compile using GNU g77 on most or all
+C            modern 64-bit machines.  
+C
+C            Sections of the code have been restructured using Spag 
+C            (Polyhedron Software) under the academic license.  This
+C            included unraveling of loops and goto statements, and
+C            indenting the source code to make loops and if statements
+C            more obvious.  The initialization in the main routine has
+C            been slightly restructured, mainly to make it similar to
+C            the 2007 version of Gosia2.  Other sections have been
+C            restructured for clarity, without altering their function
+C            (e.g. WTHREJ).
+C
+C            Common Blocks 
+C
+C              The common blocks ME2D, CCC, KIN, COEX, CAUX0, and LCZP
+C              were re-ordered so that the 64-bit real variables come
+C              before the 32-bit integer variables in order to
+C              eliminate alignment problems.  Several unused common
+C              blocks were removed from routines.
+C
+C            Archaic Functions
+C
+C              All instances of the following archaic functions have
+C              been replaced by their modern counterparts.
+C
+C                Archaic    Replacement        Archaic    Replacement
+C
+C                IFIX       INT                MIN0       MIN  
+C                FLOAT      REAL               AMIN1      MIN  
+C                IABS       ABS                ALOG10     LOG10 
+C                MAX0       MAX                ALOG       LOG     
+C                AMAX1      MAX                
+C
+C          Chronology of Major Changes
+C
+C            (June 2006, T. Czosnyka) - The size of the array of
+C            internal conversion coefficients (CC) has been increased
+C            to 50.
+C
+C            (Nov 2000, T. Czosnyka) - A Jaeri efficiency calibration
+C            has been added.
+C
+C            (2000) - A FITEFF efficiency calibration has been added
+C            with credit to P. Olbratowski, P. Napiorkowski.
+C
+C            (July 1997, T. Czosnyka) - Known matrix elements of all
+C            multipolarities may now be entered as data in OP,YIEL.
+C            See above, "Changes to the Input Format."
+C
+C            (September 1996, T. Czosnyka) - The PIN diode particle
+C            detector option has been added.  See the entry for
+C            "PIN,X."  under the sub-option CONT in the Gosia manual.
+C
+C            (May 1995, T. Czosnyka) - Added a matrix element generator
+C            "OP,THEO" following the "general structure of matrix
+C            elements" as given in Bohr & Mottelson vol. II.  Refer to
+C            the Gosia manual.
+C
+C            (April 1991, T. Czosnyka) - The OP,RAW function has been
+C            added.  OP,RAW handles non-efficiency-corrected spectra
+C            and allows the definition of Ge detector "clusters."  Up
+C            to 20 clusters can be defined.  This effectively increases
+C            the number of physical Ge detectors to 200, while the
+C            number of data sets (i.e. single detectors + cluster
+C            detectors) is still limited to 32.
+C
+C            (April 1991, T. Czosnyka) - Output is now written on unit
+C            22 to avoid mixing it with system messages on some
+C            systems.
+C
+C            (November 1990, T. Czosnyka) - The level scheme data
+C            arrays have been increased to the following sizes:
+C               number of levels   = 75
+C               gamma-ray yields   = 32 x 1500 
+C               magnetic substates = 600 
+C               matrix elements    = 500
 C
 C
-C            FOR INFORMATION,PLEASE CONTACT:
-C            TOMASZ CZOSNYKA,SLCJ, WARSAW UNIVERSITY, WARSZAWA, POLAND
-C            02-297 WARSZAWA, BANACHA 4-----PHONE (22)-222-123
-C            DOUGLAS CLINE,DEPARTMENT OF PHYSICS,THE UNIVERSITY OF ROCHESTER
-C            ROCHESTER,NY14627,USA------PHONE(585)275-4943
+C            (April 1990, T. Czosnyka) - The dominant multipolarity
+C            switch is now ignored by the code and does not need to be
+C            set.  Full Q-maps are now calculated for electric
+C            multipole orders E1 through E4.  The electric matrix
+C            elements up to multipole order E6 may be entered and fit.
+C            The Xi and Zeta function ranges are now calculated for
+C            each multipolarity individually.
 C
-C            REF.----   UR/NSRL REPORT 308/1986
+C            (1990, Eh. Vogt, T. Czosnyka) - OP,FILE has been added,
+C            giving the user the option of specifying descriptive names
+C            of the input and output files in the Gosia input, rather
+C            than using the Fortran default names fort.1, fort.2, etc.
+C            Refer to the Gosia website for sample input files that use
+C            OP,FILE.
 C
-C************************  VERSION FROM JUNE, 2006  *******************
+C            (March 1989, T. Czosnyka) - The code has been updated to
+C            allow input of data from 32 Ge detectors.  [As of the 2007
+C            version, this means a total of 32 X 1500 data points.]
 C
-C**********************************************************************
+C            (1980, T. Czosnyka, D. Cline, C.Y. Wu) - Original version.
+C
+C---------------------------------------------------------------------------
+C
 C PROGRAM GOSIA
 C
 C Calls: ADHOC, ALLOC, ANGULA, ARCCOS, ARCTG, CMLAB, COORD, DECAY, DJMM,
