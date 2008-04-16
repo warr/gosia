@@ -1883,13 +1883,13 @@ C     Handle OP,ERRO
  800  naxfl = 1
       IF ( irea.EQ.1 ) READ * , ms , mend
       IF ( ms.NE.0 ) THEN
-         DO kh = ms , mend
+         DO kh = ms , mend ! For matrix elements
             IF ( ifc.NE.1 ) THEN
                REWIND 18
                DO kh1 = 1 , kh
                   READ (18,*) (KVAR(jyi),jyi=1,MEMAX)
                ENDDO
-               DO kh1 = 1 , MEMAX
+               DO kh1 = 1 , MEMAX ! For each matrix element
                   ivrh = IVAR(kh1)
                   IF ( KVAR(kh1).EQ.0 ) IVAR(kh1) = 0
                   KVAR(kh1) = ivrh
@@ -1901,7 +1901,7 @@ C     Handle OP,ERRO
                IF ( ABS(sh).LT.1.E-6 ) sh = (-1)**ij*ABS(HLM(kh))/10.
                ELM(kh) = HLM(kh) + 1.5*sh
                mm = 0
-               DO kh1 = 1 , MEMAX
+               DO kh1 = 1 , MEMAX ! For each matrix element
                   IF ( ifc.EQ.1 ) KVAR(kh1) = IVAR(kh1)
                   mm = mm + IVAR(kh1)
                ENDDO
@@ -1915,24 +1915,24 @@ C     Handle OP,ERRO
                   DLOCK = .05
                   CALL MINI(chiss,-1.D0,2,.0001D0,1000,idr,100000.D0,0,
      &                      iosr,kh,bten)
-                  DO kh1 = 1 , MEMAX
+                  DO kh1 = 1 , MEMAX ! For each matrix element
                      SA(kh1) = (ELM(kh1)-HLM(kh1))/ABS(sh)
                   ENDDO
                   CALL KONTUR(idr,chis0,chisl,ifbp,inpo,kh,sh,bten,rem)
                ENDIF
-               DO kh1 = 1 , MEMAX
+               DO kh1 = 1 , MEMAX ! For each matrix element
                   IF ( ifc.EQ.1 ) IVAR(kh1) = KVAR(kh1)
                   ELM(kh1) = HLM(kh1)
                ENDDO
             ENDDO
             IF ( ifc.NE.1 ) THEN
-               DO kh1 = 1 , MEMAX
+               DO kh1 = 1 , MEMAX ! For each matrix element
                   IVAR(kh1) = KVAR(kh1)
                ENDDO
             ENDIF
             REWIND 15
             WRITE (15,*) (DEVD(kh1),DEVU(kh1),kh1=1,MEMAX)
-         ENDDO
+         ENDDO ! Loop on matrix elements kh
          IF ( irea.EQ.1 ) GOTO 800
       ENDIF
       IF ( iosr.NE.0 ) THEN
@@ -1944,7 +1944,7 @@ C     Handle OP,ERRO
  900  jfre = 0
       irfix = 0
       IF ( op2.EQ.'RE,F' ) irfix = 1
- 1000 DO jrls = 1 , MEMAX
+ 1000 DO jrls = 1 , MEMAX ! For each matrix element
          IF ( IVAR(jrls).NE.0 .OR. irfix.NE.1 ) THEN
             IF ( IVAR(jrls).GT.999 ) THEN
                IF ( jfre.EQ.1 ) GOTO 1100
@@ -1954,7 +1954,7 @@ C     Handle OP,ERRO
             ELMU(jrls) = ABS(ELMU(jrls))
             IF ( jrls.GT.MEMX6 ) IVAR(jrls) = 1
          ENDIF
- 1100 ENDDO
+ 1100 ENDDO ! For each matrix element jrls
       DO jrls = 1 , MEMAX
          ivarh(jrls) = IVAR(jrls)
       ENDDO
@@ -1973,7 +1973,7 @@ C     Handle OP,ERRO
                ILE(ii) = 1
             ENDDO
             nch = 0
-            DO jexp = 1 , NEXPT
+            DO jexp = 1 , NEXPT ! For each experiment
                IEXP = jexp
                ttttt = TREP(IEXP)
                dsig = DSIGS(IEXP)
@@ -1985,13 +1985,13 @@ C     Handle OP,ERRO
                      ENDDO
                   ENDIF
                ENDIF
-               fi0 = FIEX(IEXP,1)
-               fi1 = FIEX(IEXP,2)
+               fi0 = FIEX(IEXP,1) ! Lower phi limit
+               fi1 = FIEX(IEXP,2) ! Upper phi limit
                CALL LOAD(IEXP,1,icg,0.D0,jj)
                CALL ALLOC(ACCUR)
                CALL SNAKE(IEXP,ZPOL)
                CALL SETIN
-               DO j = 1 , LMAX
+               DO j = 1 , LMAX ! For each spin up to ground-state spin + 1
                   polm = DBLE(j-1) - SPIN(1)
                   CALL LOAD(IEXP,2,icg,polm,jj)
                   CALL STING(jj)
@@ -2005,18 +2005,18 @@ C     Handle OP,ERRO
      &                    1F5.1,5X,'EXPERIMENT',1X,1I2//5X,'LEVEL',2X,
      &                    'SPIN',2X,'M',5X,'REAL AMPLITUDE',2X,
      &                    'IMAGINARY AMPLITUDE'//)
-                  DO k = 1 , ISMAX
+                  DO k = 1 , ISMAX ! For substates
                      pr = pr + DBLE(ARM(k,5))**2 + IMAG(ARM(k,5))**2
                      IF ( op2.EQ.'STAR' .OR. IPRM(19).EQ.1 )
      &                    WRITE (22,99035) INT(CAT(k,1)) , CAT(k,2) , 
      &                    CAT(k,3) , DBLE(ARM(k,5)) , IMAG(ARM(k,5))
 99035                FORMAT (7X,1I2,3X,1F4.1,2X,1F5.1,2X,1E14.6,2X,
      &                       1E14.6)
-                  ENDDO
+                  ENDDO ! Loop on substates k
                   IF ( op2.EQ.'STAR' .OR. IPRM(19).EQ.1 )
      &                 WRITE (22,99036) pr
 99036             FORMAT (1X/5X,'SUM OF PROBABILITIES=',1E14.6)
-               ENDDO
+               ENDDO ! Loop over spins j
                CALL TENS(bten)
                IF ( itno.NE.0 ) THEN ! write statistical tensors on tape 17
                   DO k = 2 , NMAX
@@ -2044,14 +2044,14 @@ C     Handle OP,ERRO
                ENDDO
                IF ( op2.NE.'STAR' ) THEN
                   CALL DECAY(ccd,0,ccc)
-                  nogeli = NANG(IEXP)
+                  nogeli = NANG(IEXP) ! Number of detector angles for expt
                   jgl1 = 0
                   DO js = 1 , LP2
                      DO jgl = 1 , 20
                         SUMCL(jgl,js) = 0.
                      ENDDO
                   ENDDO
-                  DO jgl = 1 , nogeli
+                  DO jgl = 1 , nogeli ! For each detector angle
                      IF ( IRAWEX(IEXP).NE.0 ) THEN
                         IF ( op2.EQ.'POIN' .AND. IPRM(20).EQ.1 )
      &                       WRITE (23,99037) IEXP , jgl , EP(IEXP) , 
@@ -2189,7 +2189,7 @@ C     Handle OP,ERRO
      &                                 CORF(jyi,4)
                         ENDDO
                      ENDIF
- 1205             ENDDO
+ 1205             ENDDO ! Loop on detector angles jgl
                   IF ( op2.EQ.'CORR' ) THEN
                      jgl1 = 0
                      DO jgl = 1 , nogeli
@@ -2266,13 +2266,13 @@ C     Handle OP,ERRO
          lh2 = LEAD(2,1)
          lamh = LAMMAX
          memh = MEMAX
-         DO kh = 1 , 8
+         DO kh = 1 , 8 ! For each multipolarity
             ihlm(kh) = MULTI(kh)
             ihlm(kh+24) = LDNUM(kh,2)
             ihlm(kh+8) = LAMDA(kh)
             ihlm(kh+16) = LDNUM(kh,1)
          ENDDO
-         DO jexp = 1 , NEXPT
+         DO jexp = 1 , NEXPT ! For each experiment
             IEXP = jexp
             intvh = INTERV(IEXP)
             DO jgs = 1 , MEMAX
@@ -2292,7 +2292,7 @@ C     Handle OP,ERRO
                zmir(iuy,2,IEXP) = 0.
             ENDDO
             CALL LOAD(IEXP,1,2,0.D0,jj)
-            DO jgs = 1 , LMAX
+            DO jgs = 1 , LMAX ! For each spin up to ground-state spin + 1
                polm = DBLE(jgs-1) - SPIN(1)
                CALL LOAD(IEXP,3,2,polm,jj)
                CALL PATH(jj)
@@ -2466,20 +2466,21 @@ C     Handle OP,ERRO
             LEAD(2,1) = lh2
             LAMMAX = lamh
             MEMAX = memh
-            DO kh = 1 , 8
+            DO kh = 1 , 8 ! For each multipolarity
                LDNUM(kh,2) = ihlm(kh+24)
                MULTI(kh) = ihlm(kh)
                LAMDA(kh) = ihlm(kh+8)
                LDNUM(kh,1) = ihlm(kh+16)
             ENDDO
             INTERV(IEXP) = intvh
-         ENDDO
+         ENDDO ! Loop over experiments jexp
+
          REWIND 7
          DO iuy = 1 , 6
             WRITE (7,*) (XIR(iuy,jj),jj=1,NEXPT)
             WRITE (7,*) (zmir(iuy,1,jj),zmir(iuy,2,jj),jj=1,NEXPT)
          ENDDO
-         DO jj = 1 , NEXPT
+         DO jj = 1 , NEXPT ! For each experiment
             DO jk = 1 , 4
                DO kuku = 1 , 6
                   WRITE (7,*) (PARXM(jj,jk,jl,kuku),jl=1,10)
@@ -2500,7 +2501,7 @@ C     Handle OP,ERRO
             READ (7,*) (XIR(iuy,jj),jj=1,NEXPT)
             READ (7,*) (zmir(iuy,1,jj),zmir(iuy,2,jj),jj=1,NEXPT)
          ENDDO
-         DO jj = 1 , NEXPT
+         DO jj = 1 , NEXPT ! For each experiment
             DO jk = 1 , 4
                DO kuku = 1 , 6
                   READ (7,*) (PARXM(jj,jk,jl,kuku),jl=1,10)
@@ -2510,7 +2511,7 @@ C     Handle OP,ERRO
                READ (7,*) (PARX(jj,jk,jl),jl=1,5)
             ENDDO
          ENDDO
-         DO jgs = 1 , MEMAX
+         DO jgs = 1 , MEMAX ! For each matrix element
             DO jgr = 1 , 7
                QAPR(jgs,1,jgr) = 0.
             ENDDO
