@@ -14,9 +14,9 @@ C      MULTI  - number of matrix elements having given multipolarity
 C      NMAX   - number of levels
 C      PARX   -
 C      PARXM  -
-C      QAPR   -
+C      QAPR   - approximate Coulomb amplitudes
 C      XI     - xi coupling coefficients
-C      XIR    -
+C      XIR    - [for maps]
 C
 C Formal parameters:
 C     Iexp    - experiment number

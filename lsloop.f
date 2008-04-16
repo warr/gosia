@@ -20,7 +20,7 @@ C      MAGA   - number of magnetic substates in approximate calculation
 C      NSTART - index in CAT of first substate associated with a level
 C      NSTOP  - index in CAT of last substate associated with a level
 C      PSI    - psi coefficients
-C      QAPR   -
+C      QAPR   - approximate Coulomb amplitudes
 C      SPIN   - spin of level
 C      ZETA   -
 C

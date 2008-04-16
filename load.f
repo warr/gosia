@@ -36,7 +36,7 @@ C      NMAX   - number of levels
 C      NSTART - index in CAT of first substate associated with a level
 C      NSTOP  - index in CAT of last substate associated with a level
 C      PSI    - psi coefficients
-C      QAPR   -
+C      QAPR   - approximate Coulomb amplitudes
 C      SPIN   - spin of level
 C      VINF   - speed of projectile at infinity
 C      XA     - A of investigated nucleus
