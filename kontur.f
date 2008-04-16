@@ -12,7 +12,7 @@ C      DEVU   -
 C      ELM    - matrix elements
 C      ELML   - lower limit on matrix elements
 C      ELMU   - upper limit on matrix elements
-C      HLM    -
+C      HLM    - previous values of matrix elements
 C      INTR   -
 C      IPS1   - terminate after calculating and writing correction factors
 C      LNY    - use logs to calculate chi squared

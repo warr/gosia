@@ -11,7 +11,7 @@ C Uses global variables:
 C      ELM    - matrix elements
 C      ELML   - lower limits on matrix elements
 C      ELMU   - upper limits on matrix elements
-C      HLM    -
+C      HLM    - matrix elements before minimisation
 C      IVAR   - indicates a limit or correlation is set
 C      LDNUM  - number of matrix elements with each multipolarity populating levels
 C      LEAD   - pair of levels involved in each matrix element

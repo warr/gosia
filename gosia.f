@@ -104,7 +104,7 @@ C      FIEX   - phi range of particle detector
 C      GAMMA  - Gamma (N.B. here it is G(2))
 C      GFAC   - g (N.B. here it is G(5))
 C      GRAD   - partial derivative of chi squared wrt. each matrix element
-C      HLM    -
+C      HLM    - matrix elements before minimisation
 C      HLMLM  - old value of matrix element or chi squared
 C      IAMX   - index of matrix element for known matrix element
 C      IAMY   - level indices of pair of levels for which matrix element is known
