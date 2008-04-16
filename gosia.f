@@ -1280,7 +1280,7 @@ C              Treat OP,INTG
                                     ENDIF
                                     IF ( IRAWEX(lx).NE.0 ) THEN
                                        ipd = ITMA(lx,ijan) ! Get identity of detector
-                                       DO jyi = 1 , idr 1 ! For each decay
+                                       DO jyi = 1 , idr ! For each decay
                                          ni = KSEQ(jyi,3)
                                          nf = KSEQ(jyi,4)
                                          decen = EN(ni) - EN(nf)
