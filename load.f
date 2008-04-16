@@ -16,7 +16,7 @@ C      EN     - energy of level
 C      EP     - bombarding energy
 C      ERR    -
 C      IPATH  - index of substate in level with same m as substate Irld
-C      ISHA   -
+C      ISHA   - is half-integer spin
 C      ISMAX  - number of substates used
 C      IZ     - Z of investigated nucleus
 C      IZ1    - Z of not-investated nucleus
@@ -98,7 +98,7 @@ C      Joj    - index of substate (write only)
          ISHA = 0
          ispi = INT(SPIN(1)+.51)
          ispo = INT(SPIN(1)+.49)
-         IF ( ispi.NE.ispo ) ISHA = 1
+         IF ( ispi.NE.ispo ) ISHA = 1 ! Half-integer spin
          z1 = DBLE(ABS(IZ1(Iexp)))
          z2 = DBLE(IZ)
          a1 = XA1(Iexp)
