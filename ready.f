@@ -18,7 +18,7 @@ C      NYLDE  - number of yields
 C      YEXP   - experimental yield
 C
 C Formal parameters:
-C      Idr    -
+C      Idr    - number of decays
 C      Ntap   - unit for yield file
 C      Ipri   - printing flag (Ipri=1 gives additional output)
 C
