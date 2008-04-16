@@ -140,7 +140,7 @@ C      IWF    -
 C      IY     - index for yields
 C      IZ     - Z of investigated nucleus
 C      IZ1    - Z of non-investigated nucleus
-C      JENTR  -
+C      JENTR  - flag set to 0 normally, 1 in OP,ERRO
 C      JSKIP  - Experiments to skip during minimisation.
 C      KFERR  - error flag for minimization
 C      KSEQ   - index of level
@@ -477,7 +477,7 @@ C     Initialize normalization to 1.
       ifwd = -1
       INTR = 0
       LNY = 0
-      JENTR = 0
+      JENTR = 0 ! Flag to indicate we are not in OP,ERRO
       ICS = 0
 
       DO i = 1 , LP1 ! LP1 = 50
@@ -743,7 +743,7 @@ C           Treat OP,ERRO (calculate errors)
                rem = LOG(remax)
                LOCKS = 0
                LOCKF = 0
-               JENTR = 1
+               JENTR = 1 ! Flag to indicate we are in OP,ERRO
                sh = 1.
                ifbp = 0
                inpo = 1

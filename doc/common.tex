@@ -448,7 +448,7 @@ in {\em EFFIX} and {\em GOSIA}.
 This common block is used in {\em GOSIA} and {\em MINI}.
 
 \begin{itemize}
-\item INTEGER*4 JENTR
+\item INTEGER*4 JENTR - flag: 0 normally, 1 if we are in OP,ERRO
 \item INTEGER*4 ICS - flag: read internal correction factors (see OP,CONT
 switch ``CRF,'').
 \end{itemize}
@@ -818,7 +818,7 @@ RANGEL} and {\em STING}.
 
 \begin{itemize}
 \item INTEGER*4 IRA(8) - range of omega needed for each multipolarity.
-\item INTEGER*4 MAXLA
+\item INTEGER*4 MAXLA - multipolarity to calculate
 \end{itemize}
 
 \section{SECK}

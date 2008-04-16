@@ -24,7 +24,7 @@ C      IPRM   - printing flags (see suboption PRT of OP,CONT)
 C      IPS1   - terminate after calculating and writing correction factors
 C      ITAK2  -
 C      IVAR   - fixed, correlated or free flag
-C      JENTR  -
+C      JENTR  - flag set to 0 normally, 1 in OP,ERRO
 C      KFERR  - error flag for minimization
 C      KVAR   -
 C      LFL1   -
@@ -132,11 +132,11 @@ C        L=1 => logs used to claculate chi squared
          IF ( Imode.GE.1100 ) metf = 1
          IF ( (Imode-1000-100*metf).GE.10 ) lnm = 1
          IF ( (Imode-1000-100*metf-10*lnm).EQ.1 ) LNY = 1 ! Use logs
-         IF ( JENTR.EQ.1 ) GOTO 200
+         IF ( JENTR.EQ.1 ) GOTO 200 ! If we are in OP,ERRO, jump
          IF ( ICS.NE.0 ) THEN ! Read correction factors from file, rather than recalculating
             REWIND 11
-            DO jnm = 1 , LP4
-               READ (11) (CORF(jnm,kh2),kh2=1,LP6)
+            DO jnm = 1 , LP4 ! LP4 is 1500
+               READ (11) (CORF(jnm,kh2),kh2=1,LP6) ! LP6 is 32
             ENDDO
             ICS = 0
             GOTO 200
