@@ -314,7 +314,7 @@ C      ITMA   - identify detectors according to OP,GDET
 C      ITS    - create tape 18 file (OP,CONT switch SEL,)
 C      ITTE   - thick target experiment flag
 C      IVAR   - indicates a limit or correlation is set
-C      IWF    -
+C      IWF    - warning flag
 C      IY     - index for yields
 C      IZ     - Z of investigated nucleus
 C      IZ1    - Z of non-investigated nucleus
@@ -649,7 +649,7 @@ C     Initialize normalization to 1.
       itno = 0
       chisq = 0.
       chilo = 0.
-      IWF = 1
+      IWF = 1 ! Turn on warnings
       ifm = 0 ! Fast minimisation switch off by default
       IPS1 = 11
       ifwd = -1

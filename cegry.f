@@ -30,7 +30,7 @@ C      IPRM   - printing flags (see suboption PRT of OP,CONT)
 C      IRAWEX -
 C      ITMA   - identify detectors according to OP,GDET
 C      ITS    - create tape 18 file (OP,CONT switch SEL,)
-C      IWF    -
+C      IWF    - warning flag
 C      IY     - index for yields
 C      JSKIP  - Experiments to skip during minimisation.
 C      KSEQ   - index into ELM for pair of levels, and into EN or SPIN
@@ -396,7 +396,7 @@ C              Correct for finite recoil
      &                          *(ry-UPL(k9,IEXP))/UPL(k9,IEXP)
      &                          /UPL(k9,IEXP)
                         Chilo = Chilo + LOG(ry/UPL(k9,IEXP))**2
-                        IF ( IWF.NE.0 ) THEN
+                        IF ( IWF.NE.0 ) THEN ! If warning flag is set
                            WRITE (22,99009) IEXP , ni , nf , 
      &                            ry/UPL(k9,IEXP)
 99009                      FORMAT (5X,'WARNING-EXP.',1I2,2X,'TRANS. ',
@@ -407,7 +407,7 @@ C              Correct for finite recoil
                      ENDIF
                   ENDIF
                ENDDO ! Loop on decays l
-               IF ( IEXP.EQ.NEXPT ) IWF = 0
+               IF ( IEXP.EQ.NEXPT ) IWF = 0 ! Turn off warnings now
                IF ( Icall.EQ.4 .AND. IPRM(8).EQ.-2 ) THEN
                   WRITE (22,99010) SUBCH1 - SUBCH2
 99010             FORMAT (1X/50X,'CHISQ SUBTOTAL = ',E14.6)
