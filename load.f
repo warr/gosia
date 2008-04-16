@@ -10,11 +10,11 @@ C variables XI (common CXI) and PSI (common PCOM).
 C
 C Uses global variables:
 C      CAT    - substates of levels (n_level, J, m)
-C      DIPOL  -
+C      DIPOL  - E1 polarization parameter
 C      EMMA   - Controls number of magnetic substates in full coulex calc.
 C      EN     - energy of level
 C      EP     - bombarding energy
-C      ERR    -
+C      ERR    - error flag
 C      IPATH  - index of substate in level with same m as substate Irld
 C      ISHA   - is half-integer spin
 C      ISMAX  - number of substates used
@@ -27,7 +27,7 @@ C      LEAD   - pair of levels involved in each matrix element
 C      LMAX   - ground-state spin + 1
 C      LMAXE  - maximum multipolarity needed for calculation
 C      LP7    - maximum number of zeta coefficients (45100)
-C      LP10   - 600
+C      LP10   - maximum number of reduced matrix elements (600)
 C      LZETA  - index into ZETA array for zeta for a given multipolarity
 C      MAGA   - number of magnetic substates in approximate calculation
 C      MAGEXC - flag: 0 means no magnetic excitations, 1 means with mag. exc.
@@ -276,5 +276,5 @@ C        Make sure we haven't reached the limit of zeta coefficients
 99002    FORMAT (' ERROR-ISMAX EXCEEDS MAGMAX',5X,'(MAGMAX =',I4,')')
       ENDIF
 
-      ERR = .TRUE.
+      ERR = .TRUE. ! Set error flag
       END

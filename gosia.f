@@ -972,7 +972,7 @@ C           Treat OP,ERRO (calculate errors)
                   ENDDO
                ENDIF
                IF ( IMIN.EQ.0 ) CALL CMLAB(0,dsig,ttttt)
-               IF ( ERR ) GOTO 2000 ! Normal end of execution
+               IF ( ERR ) GOTO 2000 ! Error
                IF ( IMIN.NE.0 ) GOTO 400
                GOTO 1300 ! End of OP,ERRO
 
@@ -1219,7 +1219,7 @@ C              Treat OP,INTG
                                  ENDIF
                               ENDIF
                               CALL CMLAB(lx,dsig,tetrc)
-                              IF ( ERR ) GOTO 2000 ! Normal end of execution
+                              IF ( ERR ) GOTO 2000 ! Error
                               tting = TLBDG(lx)
                               IF ( ERR ) GOTO 1900 ! Troubleshoot
                               CALL LOAD(lx,1,1,0.D0,jj)
@@ -2139,7 +2139,7 @@ C     Handle OP,ERRO
       GOTO 100 ! Back to input loop
 
  1200 CALL CMLAB(0,dsig,ttttt) ! Options MAP, STAR, POINT, MINI etc.
-      IF ( ERR ) GOTO 2000 ! Normal end of execution
+      IF ( ERR ) GOTO 2000 ! Error
       IF ( op2.EQ.'POIN' ) READ * , ifwd , slim
       ient = 1
       icg = 1
@@ -2778,6 +2778,8 @@ C     Handle map
             CALL KLOPOT(kmat,rlr) ! Troubleshooting
          ENDIF
       ENDIF
+
+C     End of execution
  2000 WRITE (22,99047)
 99047 FORMAT (15X,'********* END OF EXECUTION **********')
 

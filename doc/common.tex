@@ -287,7 +287,8 @@ This common block is used in {\em CMLAB} and {\em GOSIA}.
 
 \begin{itemize}
 \item REAL*8 ERR - error flag, set in {\em CMLAB} if the maximum scattering
-angle or excitation energy is exceeded.
+angle or excitation energy is exceeded, or in {\em LOAD} if there are too
+many collision functions needed.
 \end{itemize}
 
 \section{CLM}
@@ -585,7 +586,7 @@ This common block is used in {\em KONTUR} and {\em MINI}.
 This common block is used in {\em GOSIA} and {\em POMNOZ}.
 
 \begin{itemize}
-\item INTEGER*4 INHB
+\item INTEGER*4 INHB - inhibit error flag setting
 \end{itemize}
 
 

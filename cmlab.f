@@ -221,5 +221,5 @@ C        More additional printout
       RETURN
 
 C     An error has occured, so set error flag and return
- 200  ERR = .TRUE.
+ 200  ERR = .TRUE. ! Set error flag
       END
