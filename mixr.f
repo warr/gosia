@@ -9,7 +9,7 @@ C
 C Uses global variables:
 C      DMIX   - 0.8326 * gamma energy
 C      DMIXE  - mixing ratio and its error
-C      IMIX   - matrix element associated with known mixing ratio
+C      IMIX   - decay associated with known mixing ratio
 C      KSEQ   - index into ELM for pair of levels, and into EN or SPIN
 C      LNY    - use logs to calculate chi squared
 C      NDL    - number of mixing ratios
@@ -35,7 +35,7 @@ C      Chilo  - chi squared using logs
       Nw = Nw + NDL
 
       DO i = 1 , NDL ! For each mixing ratio
-         it = IMIX(i) ! Matrix element for this mixing ratio
+         it = IMIX(i) ! Decay for this mixing ratio
          inx = KSEQ(it,1) ! Index 1 of it'th decay
          inx1 = KSEQ(it,2) ! Index 2 of it'th decay
          IF ( ABS(ELM(inx1)).LT.1.E-5 ) ELM(inx1) = 1.E-5

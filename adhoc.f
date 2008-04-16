@@ -22,7 +22,7 @@ C      IAMY   - level indices of pair of levels for which matrix element is know
 C      IBRC   - index branching ratios
 C      IDRN   - index of normalising transition for yields
 C      IFMO   - include correction to angular distance for finite recoil distance.
-C      IMIX   - matrix element associated with known mixing ratio
+C      IMIX   - decay associated with known mixing ratio
 C      IPRM   - printing flags (see suboption PRT of OP,CONT)
 C      ITMA   - identify detectors according to OP,GDET
 C      ITS    - create tape 18 file (OP,CONT switch SEL,)
