@@ -33,7 +33,7 @@ C      KSEQ   - index into ELM for pair of levels, and into EN or SPIN
 C      LFL    -
 C      LFL1   -
 C      LFL2   -
-C      LMAX   -
+C      LMAX   - ground-state spin + 1
 C      LP3    - maximum number of levels (75)
 C      LP6    - (32)
 C      LP8    - (104)
@@ -174,7 +174,7 @@ C      Bten   -
             ZETA(k) = 0.
          ENDDO
          CALL LOAD(IEXP,1,2,0.D0,jj)
-         DO k = 1 , LMAX ! For each multipolarity
+         DO k = 1 , LMAX ! For each multipolarity up to ground-state spin + 1
             fc = 2.
             IF ( k.EQ.LMAX ) fc = 1.
             IF ( DBLE(INT(SPIN(1))).LT.SPIN(1) ) fc = 2.

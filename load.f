@@ -24,7 +24,7 @@ C      LAMDA  - list of multipolarities to calculate
 C      LAMMAX - number of multipolarities to calculate
 C      LDNUM  - number of matrix elements with each multipolarity populating level
 C      LEAD   - pair of levels involved in each matrix element
-C      LMAX   -
+C      LMAX   - ground-state spin + 1
 C      LMAXE  - maximum multipolarity needed for calculation
 C      LP7    - maximum number of zeta coefficients (45100)
 C      LP10   - 600
@@ -92,7 +92,7 @@ C      Joj    - index of substate (write only)
       COMMON /PTH   / IPATH(75) , MAGA(75)
       DIMENSION etan(75) , cpsi(8)
       
-      LMAX = INT(SPIN(1)+1.1)
+      LMAX = INT(SPIN(1)+1.1) ! ground-state spin + 1
       IF ( Ient.EQ.1 ) THEN
          ISHA = 0
          ispi = INT(SPIN(1)+.51)

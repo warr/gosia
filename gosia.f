@@ -151,7 +151,7 @@ C      LASTCL -
 C      LDNUM  - number of matrix elements with each multipolarity populating each level
 C      LEAD   - pair of levels involved in each matrix element
 C      LIFCT  - index for lifetimes
-C      LMAX   -
+C      LMAX   - ground-state spin + 1
 C      LMAXE  - maxmium multipolarity needed for calculation
 C      LNORM  - normalisation constant control
 C      LNY    - use logs to calculate chi squared
@@ -1048,7 +1048,7 @@ C              Treat OP,INTG
                               CALL ALLOC(ACCUR)
                               CALL SNAKE(lx,ZPOL)
                               CALL SETIN
-                              DO j = 1 , LMAX
+                              DO j = 1 , LMAX ! For each spin up to ground-state spin + 1
                                  polm = DBLE(j-1) - SPIN(1)
                                  CALL LOAD(lx,2,1,polm,jj)
                                  CALL STING(jj)
