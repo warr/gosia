@@ -126,7 +126,7 @@ C        K=1 => relative changes
 C
 C        L=0 => yields, branching ratios used to calculate chi squared
 C        L=1 => logs used to claculate chi squared
-      IF ( Imode.LT.2000 ) THEN !Fast approximation for chi squared and derivatives
+      IF ( Imode.LT.2000 ) THEN ! Fast approximation for chi squared and derivatives
          icl1 = 0
          icl2 = 3
          IF ( Imode.GE.1100 ) metf = 1
