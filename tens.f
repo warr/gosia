@@ -35,7 +35,7 @@ C      Bten   -
          ZETA(i) = 0.
       ENDDO
 
-      DO i = 2 , NMAX ! For each level
+      DO i = 2 , NMAX ! For each level except ground state
          DO kp = 1 , 7 , 2
             k = kp - 1
             k1 = INT(DBLE(k)/2.+.01)
