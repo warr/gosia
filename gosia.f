@@ -1739,8 +1739,8 @@ C     Treat suboption ME (matrix elements)
                   LEAD(2,indx) = ABS(ipo2)
                   LDNUM(la,ipo1) = LDNUM(la,ipo1) + 1
                   IF ( op2.EQ.'GOSI' ) THEN
-                    IF ( ipo2.LT.0 ) THEN ! If negative, bl and bu are indices
-                                          ! to which we fix this element
+                     IF ( ipo2.LT.0 ) THEN ! If negative, bl and bu are indices
+                                           ! to which we fix this element
                         IVAR(indx) = 10000*INT(bl) + INT(bu)
                      ELSE                 ! Otherwise they are limits
                         ELMU(indx) = bu
