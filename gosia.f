@@ -1671,7 +1671,7 @@ C                 Treat OP,MAP
                ENDIF
             ENDIF
          ENDIF
-       ENDIF ! End of if (op1.eq."OP, ") if statement
+      ENDIF ! End of if (op1.eq."OP, ") if statement
 
       WRITE (22,99022) op1 , op2
 99022 FORMAT (5X,'UNRECOGNIZED OPTION',1X,1A3,1A4)
