@@ -1424,7 +1424,7 @@ C                       Now we calculate for all the mesh points.
                         IF ( IRAWEX(lx).EQ.0 ) naa = NANG(lx)
                         iskf = naa - 1
                         DO ja = 1 , naa
-                          icll = 3 ! Weighting mode
+                           icll = 3 ! Weighting mode
                            DO je = 1 , ne ! ne = number of energy mesh points
                               lu = ILE(ja)
                               isko = (je-1)*naa*ntt + ja - 1
