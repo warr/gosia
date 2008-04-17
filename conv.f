@@ -1,6 +1,6 @@
  
 C----------------------------------------------------------------------
-C SUBROUTINE CONV
+C FUNCTION CONV
 C
 C Called by: BRANR, PTICC, SEQ
 C Calls:     LAGRAN
