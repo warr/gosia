@@ -193,10 +193,11 @@ C     Read file for experimental yields
             DO iuf = 1 , juf ! Loop on datasets
                ndtp = ndtp + NYLDE(iexp1,iuf)
             ENDDO
-          ENDDO
+         ENDDO ! Loop iexp1 on experiments
+
 C        Count free variables
          nvare = 0
-         DO iexp1 = 1 , MEMAX
+         DO iexp1 = 1 , MEMAX ! For each matrix element
             IF ( IVAR(iexp1).EQ.1 .OR. IVAR(iexp1).EQ.2 )
      &           nvare = nvare + 1
          ENDDO
