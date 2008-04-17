@@ -99,7 +99,7 @@ C Here we parse the input of the OP,YIEL command and store the values.
 C     Read OP,YIEL parameters
       iosr = 0
       READ * , IFMO ! IFLAG
-      READ * , NICC , nistr !N1, N2
+      READ * , NICC , nistr ! N1, N2
       READ * , (EG(jicc),jicc=1,NICC) ! E1,E2...
       Iyr = 1
       DO jic = 1 , nistr
