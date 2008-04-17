@@ -121,7 +121,7 @@ C                    contribution
                            IF ( ISO.EQ.0 .AND. rmis.GT..1 ) GOTO 10
                         ENDIF
                         IF ( N.NE.m ) THEN
-                          irs = (-1)**(INT(rmir+rmis)-ISHA+iii) ! ISHA = 1 if half-integer spins
+                           irs = (-1)**(INT(rmir+rmis)-ISHA+iii) ! ISHA = 1 if half-integer spins
                            ARM(is,6) = ARM(is,6) + irs*pamp1*ARM(Ir,I57)
                            ISSTAR(i2) = MIN(is,ISSTAR(i2))
                            ISSTO(i2) = MAX(is,ISSTO(i2))
