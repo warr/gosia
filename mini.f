@@ -166,9 +166,9 @@ C     Write correction factors
       REWIND 11
       DO jnm = 1 , LP4
          WRITE (11) (CORF(jnm,kh2),kh2=1,LP6)
-       ENDDO
+      ENDDO
        
-       IF ( IPS1.EQ.0 ) RETURN ! If IPS1 = 0, terminate after writing correction factors
+      IF ( IPS1.EQ.0 ) RETURN ! If IPS1 = 0, terminate after writing correction factors
        
  200  noflg = 0
       ncall = 1
