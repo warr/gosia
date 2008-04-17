@@ -139,10 +139,10 @@ C element.
          GKI(k) = up/down
          alp = 9.*xlam*xlam + 8.*xlam*TIMEC*(w2-xlam*xlam)
          alp = SQRT(alp) - 3.*xlam
-         alp = alp/4./xlam/TIMEC                             ! alp is p
+         alp = alp/4./xlam/TIMEC                      ! alp is p
          upc = xlam*Time*(down-2.*alp*alp*Time*TIMEC) ! numerator
          dwc = (down+alp*Time)*(down+2.*alp*Time)     ! denominator
-         ccf = 1. + upc/dwc                     ! ccf is correction factor
+         ccf = 1. + upc/dwc                           ! ccf is correction factor
          GKI(k) = GKI(k)*ccf
       ENDDO
       END
