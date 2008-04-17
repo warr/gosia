@@ -48,6 +48,7 @@ C      NLIFT  - number of lifetimes
 C      NMAX   - number of levels
 C      NYLDE  - number of yields
 C      ODL    - results of OP,GDET calculation
+C      SGW    - number of standard deviations to generate warning (see control option WRN,X)
 C      SPIN   - spin of level
 C      SUBCH1 - partial chisqr
 C      SUBCH2 - partial chisqr
@@ -177,7 +178,7 @@ C     with CONT:PRT, and then does OP,EXIT
             IF ( IGRD.NE.1 ) THEN
                IF ( IEXP.EQ.1 ) sumpr = 0.
                IF ( IEXP.EQ.1 ) sum3 = 0.
-               DO jj = 1 , LP6
+               DO jj = 1 , LP6 ! LP6 is 32
                   DO jk = 1 , 2
                      partl(jj,IEXP,jk) = 0.
                      part(jj,IEXP,jk) = 0.
@@ -260,7 +261,7 @@ C              Correct for finite recoil
                      ENDDO
                   ENDIF
                ENDIF
-               k9 = k9 + 1
+               k9 = k9 + 1 ! Increment detector number
                IF ( Icall.EQ.4 .AND. IPRM(8).EQ.-2 ) THEN
                   WRITE (22,99006) IEXP , k9
 99006             FORMAT (1X//5X,
@@ -333,7 +334,7 @@ C              Correct for finite recoil
                         IF ( LFL.EQ.1 ) THEN
                            IF ( k9.EQ.1 ) THEN
                               luu = 6*licz - 5
-                              jk = (luu-1)/LP10 + 1
+                              jk = (luu-1)/LP10 + 1 ! LP10 is 600
                               kk = luu - LP10*(jk-1)
                               rik = DEV(licz) + YEXP(k9,lu)
                               sgm = -DEV(licz)/DYEX(k9,lu)

@@ -371,11 +371,11 @@ C      POWER  - x (N.B. here it is G(7))
 C      QAPR   - approximate Coulomb amplitudes
 C      SA     - ratio of matrix elements for correlated elements
 C      SE     - seed for random number generator of OP,RAND
+C      SGW    - number of standard deviations to generate warning (see control option WRN,X)
 C      SPIN   - spin of level
 C      SUBCH1 - partial chisqr
 C      SUBCH2 - partial chisqr
 C      SUMCL  - sum of yields for clusters
-C      SWG    -
 C      TAU    - lifetime in picoseconds
 C      THICK  - thickness of each absorber type
 C      TIMEC  - Tau_C (N.B. here it is G(4))
