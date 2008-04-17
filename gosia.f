@@ -788,8 +788,8 @@ C     Start reading input file.
 
 C        Treat OP,FILE (attach files to fortran units)
          IF ( op2.EQ.'FILE' ) THEN
-           CALL OPENF
-           GOTO 100 ! End of OP,FILE - back to input loop
+            CALL OPENF
+            GOTO 100 ! End of OP,FILE - back to input loop
          ENDIF
          
          IF ( jphd.EQ.1 ) WRITE (22,99002)
