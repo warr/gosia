@@ -45,7 +45,7 @@ C which is created freshly each time the function is called.
 C     Calculate position in djm and iczy arrays
       loc = lca + (2*K+1)*Kp + Kpp + K + 1
 
-      IF ( ABS(BEQ-ABS(Beta)).LE.1.E-6 ) THEN ! If beta doesn't match the identifier, initialise
+      IF ( ABS(BEQ-ABS(Beta)).GT.1.E-6 ) THEN ! If beta doesn't match the identifier, initialise
          BEQ = ABS(Beta)
          DO ill = 1 , 525
             iczy(ill) = 0
