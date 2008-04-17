@@ -48,7 +48,7 @@ C can cope with half-integers.
          ENDDO
       ENDIF
 
-      DO i = 2 , NMAX ! For each level
+      DO i = 2 , NMAX ! For each level except ground state
          ms = NSTART(i) ! First substate of level
          IF ( ms.NE.0 ) THEN
             msp = NSTOP(i) ! Last substate of level
