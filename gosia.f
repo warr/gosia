@@ -851,8 +851,8 @@ C           attenuation coefficients
             ENDDO
             GOTO 100 ! End of OP,GDET - back to input loop
 
-C         Treat OP,RAND (randomise matrix elements)
-          ELSEIF ( op2.EQ.'RAND' ) THEN
+C        Treat OP,RAND (randomise matrix elements)
+         ELSEIF ( op2.EQ.'RAND' ) THEN
             READ * , SE ! Seed for random number generator
             CALL MIXUP
             WRITE (22,99007)
