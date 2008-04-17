@@ -980,7 +980,7 @@ C           Treat OP,RE,C (release C)
             ELSEIF ( op2.EQ.'RE,C' ) THEN
                jfre = 1
                irfix = 0
-               GOTO 1000 ! End of OP,RE,C - back to input loop
+               GOTO 1000 ! End of OP,RE,C
 
 C           Treat OP,TITL (title)
             ELSEIF ( op2.EQ.'TITL' ) THEN
