@@ -675,7 +675,7 @@ C     Initialize normalization to 1.
       NLOCK = 0
       LOCKF = 0
       DO i = 1 , LP4 ! LP4 = 1500
-        DO j = 1 , LP6 ! LP6 = 32
+         DO j = 1 , LP6 ! LP6 = 32
             CORF(i,j) = 1.
          ENDDO
       ENDDO
