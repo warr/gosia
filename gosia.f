@@ -1417,7 +1417,7 @@ C                       with the number of steps specified.
                            xx = (j-1)*hen + emn
                            CALL LAGRAN(esp,dedx,npt,1,xx,yy,3,1)
                            HLMLM(j) = 1./yy
-                         ENDDO
+                        ENDDO
                          
 C                       Now we calculate for all the mesh points. 
                         naa = NDST(lx)
