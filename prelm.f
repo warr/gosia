@@ -62,7 +62,8 @@ C      Iop    - print flag (controls what is written to output).
                IF ( l.NE.0 ) THEN
                   DO kk = 1 , l
                      inx = inx + 1
-                     IF ( Iop.EQ.2 ) THEN
+
+                     IF ( Iop.EQ.2 ) THEN ! Iop is 2
                         IF ( IVAR(inx).EQ.0 ) THEN ! Fixed
                            WRITE (22,99006) inx , LEAD(1,inx) , 
      &                            LEAD(2,inx) , ELM(inx)
@@ -75,7 +76,8 @@ C      Iop    - print flag (controls what is written to output).
      &                            LEAD(2,inx) , ELM(inx) , ELML(inx) , 
      &                            ELMU(inx)
                         ENDIF
-                     ELSEIF ( Iop.EQ.3 ) THEN
+
+                     ELSEIF ( Iop.EQ.3 ) THEN ! Iop is 3
                         isp = LEAD(2,inx)
                         pv = (ELMU(inx)-ELML(inx))/100.
                         wrn = '   '
@@ -87,10 +89,11 @@ C      Iop    - print flag (controls what is written to output).
                         WRITE (22,99009) inx , LEAD(1,inx) , LEAD(2,inx)
      &                         , ELM(inx) , 100.*(ELM(inx)-ste)/ste , 
      &                         b , wrn
-                     ELSE
+                     ELSE ! Iop is 1
                         WRITE (22,99008) inx , LEAD(1,inx) , LEAD(2,inx)
      &                         , ELM(inx)
                      ENDIF
+
                   ENDDO ! Loop on kk
                ENDIF ! If l .ne. 0
             ENDDO ! Loop on k
