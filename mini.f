@@ -19,7 +19,7 @@ C      GRAD   - partial derivative of chi squared wrt. matrix element
 C      HLMLM  - old value of matrix element or chi squared
 C      ICS    - read internal correction factors from file rather than recalculating
 C      IFBFL  - calculate derivatives with forward-backward method
-C      INTR   -
+C      INTR   - flag to swap chisqr and log(chisqr)
 C      IPRM   - printing flags (see suboption PRT of OP,CONT)
 C      IPS1   - terminate after calculating and writing correction factors
 C      ITAK2  -

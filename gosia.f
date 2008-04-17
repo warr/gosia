@@ -301,7 +301,7 @@ C      IMIN   -
 C      INHB   - inhibit error flag (LERF) setting in POMNOZ
 C      INNR   - independent normalisation switch (see OP,CONT INR,)
 C      INTERV - default accuracy check parameter for Adams-Moulton (see OP,CONT:INT)
-C      INTR   -
+C      INTR   - flag to swap chisqr and log(chisqr)
 C      IP     - table of prime numbers
 C      IPRM   - various flags to control output
 C      IPS1   - terminate after calculating and storing internal correction factors

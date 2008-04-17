@@ -22,7 +22,7 @@ C      IEXP   - experiment number
 C      IGRD   -
 C      ILE    - yield number for each detector
 C      INM    - index of matrix element
-C      INTR   -
+C      INTR   - flag to swap chisqr and log(chisqr)
 C      IPRM   - printing flags (see suboption PRT of OP,CONT)
 C      ISMAX  - number of substates used
 C      ISO    - isotropic flag
@@ -408,7 +408,7 @@ C      Bten   -
          NWR = NWR + NLIFT
          Chisq = Chisq/NWR
          IF ( INTR.NE.0 ) THEN
-            chx = Chisq
+            chx = Chisq ! Swap chisqr and log(chisqr)
             Chisq = Chilo
             Chilo = chx
          ENDIF

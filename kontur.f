@@ -13,7 +13,7 @@ C      ELM    - matrix elements
 C      ELML   - lower limit on matrix elements
 C      ELMU   - upper limit on matrix elements
 C      HLM    - previous values of matrix elements
-C      INTR   -
+C      INTR   - flag to swap chisqr and log(chisqr)
 C      IPS1   - terminate after calculating and writing correction factors
 C      LNY    - use logs to calculate chi squared
 C      MEMAX  - number of matrix elements
