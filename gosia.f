@@ -2729,7 +2729,7 @@ C     Handle map
                ENDIF ! if multi(lex).ne.0
             ENDDO ! Loop on lex
          ENDDO ! Loop on jex
-       ENDIF ! IPRM(12).ne.0
+      ENDIF ! IPRM(12).ne.0
       IF ( op2.NE.'GOSI' .AND. op2.NE.'ERRO' ) GOTO 100 ! Back to input loop
       IF ( op2.EQ.'ERRO' ) GOTO 400
 
