@@ -1000,7 +1000,7 @@ C              Treat OP,COUL
 
 C              Treat OP,EXIT
                IF ( op2.EQ.'EXIT' ) THEN
-                  GOTO 430
+                  GOTO 430 ! End of OP,EXIT
 
 C              Treat OP,MINI
                ELSEIF ( op2.EQ.'MINI' ) THEN
