@@ -29,3 +29,29 @@
 21Jul2007
 ° Fix initialisation of CNOR from 1 to 75 not 1 to 50 in GOSIA
 ° Make both parameters of SIGN have same precision in FXIS1
+
+09Jul2007
+° Restucture IF statement in GOSIA
+° Add explicit STOP statement to ALLOC
+° Move duplicated lines out of IF/ELSE in MINI
+° Make both parameters of SIGN have same precision in FXIS2
+° Run spag
+° Convert to double precision
+° Reorder common LCZP
+° Reorder common CAUX0
+° Reorder common COEX
+° Reorder common KIN
+° Reorder common CCC
+° Reorder common ME2D
+° Declare all variables explicitly
+° Add PROGRAM statement to GOSIA
+° Replace ALOG with LOG
+° Replace ALOG10 with LOG10
+° Replace AMIN1 with MIN
+° Replace MIN0 with MIN
+° Replace AMAX1 with MAX
+° Replace MAX0 with MAX
+° Replace IABS with ABS
+° Replace FLOAT with REAL
+° Replace IFIX with INT
+° Add SAVE statement in DJMM
