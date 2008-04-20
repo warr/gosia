@@ -1,0 +1,31 @@
+18Apr2008
+° Increased dimensions of arrays fiex1, wpi in GOSIA
+° Increased dimensions of XV, YV, ZV, DSG and DSE in GOSIA
+° Moved OP,EXIT code to end of GOSIA (as in gosia2)
+° Limited ABS(NI2) rather than NI2 to 50 in GOSIA
+° Fixed call to MIN so both parameters have same precision in GOSIA
+° Remove unused variables u and v in ALLOC
+° Changed format of normalisation coefficients write in CEGRY
+° Changed dimensions of X, Y, w and arh in LAGRAN
+° Changed dimensions of XV, YV, ZV, DSG and DSE in TAPMA
+° Changed dimensions of Wpi in COORD
+° Changed dimensions of XV, YV, ZV, DSG and DSE in COORD
+° Changed dimensions of XV, YV, ZV, DSG and DSE in KONTUR
+° Added Leuven (Radware) efficiency calibration in EFFIX (as in gosia2)
+
+28Mar2008
+° Put back warnings in CEGRY which was removed by mistake
+° Fix typo misspelling "WARNING" in CEGRY
+
+29Feb2008
+° Limit NI2 to 50 in GOSIA
+
+26Jul2007
+° Reorder initialisation so it is similar to gosia2 in GOSIA
+° Remove spurious attempt to provoke floating point exception in ALLOC
+° Remove superfluous ELSE in WTHREJ
+° Move some format statements in PRELM
+
+21Jul2007
+° Fix initialisation of CNOR from 1 to 75 not 1 to 50 in GOSIA
+° Make both parameters of SIGN have same precision in FXIS1
