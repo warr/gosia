@@ -854,6 +854,10 @@ C     Treat OP,EXIT
       ELSEIF ( op2.EQ.'EXIT' ) THEN
          GOTO 4000 ! End of OP,EXIT
 
+C     Treat OP,SIXJ
+      ELSEIF ( op2.EQ.'SIXJ' ) THEN
+         GOTO 4100
+
 C     Treat OP,GOSI
       ELSEIF ( op2.EQ.'GOSI' ) THEN
          oph = op2
@@ -888,24 +892,6 @@ C     Treat OP,POIN
 C     Treat OP,STAR
       ELSEIF ( op2.EQ.'STAR' ) THEN
          GOTO 1200
-
-C     Treat OP,SIXJ
-      ELSEIF ( op2.EQ.'SIXJ' ) THEN
-         DO k = 1 , 2
-            l = 4*k
-            DO j = 1 , 80
-               ixj = j - 1
-               DO ms = 1 , 5
-                  mend = 2*(ms-3) + ixj
-                  WRITE (14,*) WSIXJ(l,4,4,ixj,mend,ixj-4) , 
-     &                         WSIXJ(l,4,4,ixj,mend,ixj-2) , 
-     &                         WSIXJ(l,4,4,ixj,mend,ixj) , 
-     &                         WSIXJ(l,4,4,ixj,mend,ixj+2) , 
-     &                         WSIXJ(l,4,4,ixj,mend,ixj+4)
-               ENDDO
-            ENDDO
-         ENDDO
-         GOTO 2000 ! End of OP,SIXJ - normal end of execution
 
 C     Treat OP,MAP
       ELSEIF ( op2.EQ.'MAP ' ) THEN
@@ -2810,6 +2796,24 @@ C     Handle OP,EXIT
          ENDIF
       ENDIF
       GOTO 1900 ! End of OP,EXIT - troubleshoot
+
+C.............................................................................
+C     Handle OP,SIXJ
+ 4100 DO k = 1 , 2
+         l = 4*k
+         DO j = 1 , 80
+            ixj = j - 1
+            DO ms = 1 , 5
+               mend = 2*(ms-3) + ixj
+               WRITE (14,*) WSIXJ(l,4,4,ixj,mend,ixj-4) , 
+     &                      WSIXJ(l,4,4,ixj,mend,ixj-2) , 
+     &                      WSIXJ(l,4,4,ixj,mend,ixj) , 
+     &                      WSIXJ(l,4,4,ixj,mend,ixj+2) , 
+     &                      WSIXJ(l,4,4,ixj,mend,ixj+4)
+            ENDDO
+         ENDDO
+      ENDDO
+      GOTO 2000 ! End of OP,SIXJ - normal end of execution
 
 
 99048 FORMAT (1X//50X,'CALCULATED YIELDS'//5X,'EXPERIMENT ',1I2,2X,
