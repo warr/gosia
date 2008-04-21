@@ -844,7 +844,7 @@ C     Treat OP,POIN
 
 C     Treat OP,RAND (randomise matrix elements)
       ELSEIF ( op2.EQ.'RAND' ) THEN
-         GOTO 4800
+         GOTO 4100
 
 C     Treat OP,RAW (raw uncorrected gamma yields)
       ELSEIF ( op2.EQ.'RAW ' ) THEN
@@ -868,7 +868,7 @@ C     Treat OP,REST (restart)
 
 C     Treat OP,SIXJ
       ELSEIF ( op2.EQ.'SIXJ' ) THEN
-         GOTO 4100
+         GOTO 6100
 
 C     Treat OP,STAR
       ELSEIF ( op2.EQ.'STAR' ) THEN
@@ -2608,10 +2608,9 @@ C     Handle map
       IF ( ifm.NE.1 ) GOTO 100 ! Back to input loop
       GOTO 2000 ! Normal end of execution
 
-
 C.............................................................................
 C     Handle OP,RAND
- 4800 READ * , SE ! Seed for random number generator
+ 4100 READ * , SE ! Seed for random number generator
       CALL MIXUP
       WRITE (22,99007)
 99007 FORMAT (1X///5X,'MATRIX ELEMENTS RANDOMIZED...'///)
@@ -2820,7 +2819,7 @@ C     Read input from standard input
 
 C.............................................................................
 C     Handle OP,SIXJ
- 4100 DO k = 1 , 2
+ 6100 DO k = 1 , 2
          l = 4*k
          DO j = 1 , 80
             ixj = j - 1
