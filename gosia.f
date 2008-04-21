@@ -876,7 +876,7 @@ C     Treat OP,STAR
 
 C     Treat OP,THEO
       ELSEIF ( op2.EQ.'THEO' ) THEN
-         GOTO 3800
+         GOTO 4600
 
 C     Treat OP,TITL (title)
       ELSEIF ( op2.EQ.'TITL' ) THEN
@@ -2759,22 +2759,8 @@ C     Handle OP,SIXJ
       GOTO 2000 ! End of OP,SIXJ - normal end of execution
 
 C.............................................................................
-C     Handle OP,TROU
- 5300 ITS = 1 ! Create tape 18 flag
-      READ * , kmat , rlr
-      GOTO 100 ! End of OP,TROU - back to input loop
-
-C.............................................................................
-C     Handle OP,TITL
- 5700 READ 99009 , (title(k),k=1,20)
-99009 FORMAT (20A4)
-      WRITE (22,99010) (title(k),k=1,20)
-99010 FORMAT (10X,20A4/10X,100('-'))
-      GOTO 100 ! End of OP,TITL - back to input loop
-
-C.............................................................................
 C     Handle OP,THEO
- 3800 REWIND (12)
+ 4600 REWIND (12)
       ibaf = 1
       DO jb = 1 , LP1 ! LP1 = 50 (maximum number of experiments)
          DO lb = 1 , 2
@@ -2834,6 +2820,20 @@ C     Handle OP,THEO
          ENDIF
       ENDDO
       GOTO 100 ! End of OP,THEO - back to input loop
+
+C.............................................................................
+C     Handle OP,TROU
+ 5300 ITS = 1 ! Create tape 18 flag
+      READ * , kmat , rlr
+      GOTO 100 ! End of OP,TROU - back to input loop
+
+C.............................................................................
+C     Handle OP,TITL
+ 5700 READ 99009 , (title(k),k=1,20)
+99009 FORMAT (20A4)
+      WRITE (22,99010) (title(k),k=1,20)
+99010 FORMAT (10X,20A4/10X,100('-'))
+      GOTO 100 ! End of OP,TITL - back to input loop
 
 
 99048 FORMAT (1X//50X,'CALCULATED YIELDS'//5X,'EXPERIMENT ',1I2,2X,
