@@ -2724,17 +2724,17 @@ C                    Interpolate cross-section at this energy
 
       IF ( ipinf.NE.0 ) THEN
          ngpr = 0
-         DO lx = 1 , NEXPT
+         DO lx = 1 , NEXPT ! For each experiment
             nged = NDST(lx)
             IF ( IRAWEX(lx).EQ.0 ) nged = NANG(lx)
             IF ( lx.NE.1 ) ngpr = ngpr + idr*jpin(lx-1)*NDST(lx-1)
             lpin = jpin(lx)
             IF ( lpin.EQ.0 ) lpin = 1
-            DO jgd = 1 , nged
+            DO jgd = 1 , nged ! For each angle or dataset
                DO jd = 1 , idr
                   GRAD(jd) = 0.
                ENDDO
-               DO mpin = 1 , lpin
+               DO mpin = 1 , lpin ! For each pin diode
                   REWIND 15
                   ndum = ngpr + (jgd-1)*idr + (mpin-1)*jgd*idr
                   IF ( ndum.NE.0 ) THEN
@@ -2742,14 +2742,14 @@ C                    Interpolate cross-section at this energy
                         READ (15,*) xx
                      ENDDO
                   ENDIF
-                  DO jd = 1 , idr
+                  DO jd = 1 , idr ! For each decay
                      READ (15,*) xx
                      GRAD(jd) = GRAD(jd) + xx
-                  ENDDO
-               ENDDO
+                  ENDDO ! Loop on decays jd
+               ENDDO ! Loop on pin diodes mpin
                WRITE (17,*) (GRAD(jd),jd=1,idr)
-            ENDDO
-         ENDDO
+            ENDDO ! Loop on angle or dataset jgd
+         ENDDO ! Loop on experiment lx
          REWIND 15
          REWIND 17
          DO lx = 1 , NEXPT ! For each experiment
@@ -2760,7 +2760,7 @@ C                    Interpolate cross-section at this energy
                DO jd = 1 , idr ! For each decay
                   WRITE (15,*) GRAD(jd)
                ENDDO ! Loop on decays jd
-            ENDDO ! Loop on angle or dataset
+            ENDDO ! Loop on angle or dataset ija0
          ENDDO ! Loop on experiments lx
       ENDIF
 
