@@ -903,8 +903,8 @@ C     Unrecognised options
 
 C.............................................................................
 C     Handle OP,CORR
- 3000 CALL READY(idr,ntap,0)
-      REWIND 3
+ 3000 CALL READY(idr,ntap,0) ! Read yields
+      REWIND 3 ! Rewind tapes 3, 15 and 4
       REWIND 15
       REWIND 4
       GOTO 3900 ! End of OP,CORR
