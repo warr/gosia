@@ -816,7 +816,7 @@ C     Treat OP,ERRO (calculate errors)
 
 C     Treat OP,EXIT
       ELSEIF ( op2.EQ.'EXIT' ) THEN
-         GOTO 3300 ! End of OP,EXIT
+         GOTO 3300
 
 C     Handle OP,GDET (germanium detectors)
       ELSEIF ( op2.EQ.'GDET' ) THEN
@@ -832,8 +832,7 @@ C     Treat OP,INTG
 
 C     Treat OP,MAP
       ELSEIF ( op2.EQ.'MAP ' ) THEN
-         iobl = 1
-         GOTO 1200 ! End of OP,MAP
+         GOTO 3700
 
 C     Treat OP,MINI
       ELSEIF ( op2.EQ.'MINI' ) THEN
@@ -862,7 +861,7 @@ C     Treat OP,RE,A (release A)
 
 C     Treat OP,RE,C (release C)
       ELSEIF ( op2.EQ.'RE,C' ) THEN
-         GOTO 5500 ! End of OP,RE,C
+         GOTO 5500
 
 C     Treat OP,RE,F (release F)
       ELSEIF ( op2.EQ.'RE,F' ) THEN
@@ -886,7 +885,7 @@ C     Treat OP,THEO
 
 C     Treat OP,TITL (title)
       ELSEIF ( op2.EQ.'TITL' ) THEN
-         GOTO 3700
+         GOTO 5700
 
 C     Treat OP,TROU (troubleshooting)
       ELSEIF ( op2.EQ.'TROU' ) THEN
@@ -2600,6 +2599,11 @@ C                    Interpolate cross-section at this energy
       GOTO 100 ! End of OP,INTG - back to input loop
 
 C.............................................................................
+C     Handle OP,MAP
+ 3700 iobl = 1
+      GOTO 1200
+
+C.............................................................................
 C     Handle OP,RAND
  4800 READ * , SE ! Seed for random number generator
       CALL MIXUP
@@ -2692,7 +2696,7 @@ C     Handle OP,RE,*
 
 C.............................................................................
 C     Handle OP,TITL
- 3700 READ 99009 , (title(k),k=1,20)
+ 5700 READ 99009 , (title(k),k=1,20)
 99009 FORMAT (20A4)
       WRITE (22,99010) (title(k),k=1,20)
 99010 FORMAT (10X,20A4/10X,100('-'))
