@@ -818,8 +818,6 @@ C     Treat OP,REST (restart)
       ELSEIF ( op2.EQ.'REST' ) THEN
          GOTO 3400
 
-C     Treat other options
-
 C     Treat OP,RE,A (release A)
       ELSEIF ( op2.EQ.'RE,A' ) THEN
          GOTO 900
