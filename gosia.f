@@ -1734,7 +1734,6 @@ C     Treat suboption CONT (control)
       ELSEIF ( op1.EQ.'CONT' ) THEN
  350     READ 99026 , op1 , fipo1
 99026    FORMAT (1A4,1F7.1)
-         write(*,*)op1,fipo1
          ipo1 = INT(fipo1)
          IF ( op1.EQ.'ACC,' ) THEN
             ACCUR = 10.**(-fipo1)
