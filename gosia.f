@@ -816,43 +816,7 @@ C     Treat OP,TROU (troubleshooting)
 
 C     Treat OP,REST (restart)
       ELSEIF ( op2.EQ.'REST' ) THEN
-         REWIND 12
-         memax1 = MEMAX + 1
-         DO lkj = 1 , MEMAX
-            READ (12,*) ELM(lkj)
-         ENDDO
-         DO lkj = 1 , memax1
-            READ * , lkj1 , xlk
-            IF ( lkj1.EQ.0 ) GOTO 120
-            ELM(lkj1) = xlk
-         ENDDO
- 120     WRITE (22,99008)
-99008    FORMAT (1X///5X,'*****',2X,
-     &           'RESTART-MATRIX ELEMENTS OVERWRITTEN',2X,'*****'///)
-         DO kk = 1 , MEMAX
-            la = mlt(kk)
-            IF ( ivari(kk).GE.10000 ) THEN
-               kk1 = ivari(kk)/10000
-               kk2 = ivari(kk) - 10000*kk1
-               la1 = la
-               IF ( kk2.GE.100 ) THEN
-                  la1 = kk2/100
-                  kk2 = kk2 - 100*la1
-               ENDIF
-               inx1 = MEM(kk1,kk2,la1)
-C     ML(KK)=ELML(INX1)*ELM(KK)/ELM(INX1)
-C     MU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
-               SA(kk) = ELM(kk)/ELM(inx1)
-               IVAR(kk) = 1000 + inx1
-               IF ( ELMU(kk).LE.ELML(kk) ) THEN
-                  elmi = ELMU(kk)
-                  ELMU(kk) = ELML(kk)
-                  ELML(kk) = elmi
-               ENDIF
-            ENDIF
-         ENDDO
-         CALL PRELM(2)
-         GOTO 100 ! End of OP,REST - back to input loop
+         GOTO 3400
 
 C     Treat other options
 
@@ -2779,6 +2743,53 @@ C     Handle OP,TROU
       GOTO 100 ! End of OP,TROU - back to input loop
 
 C.............................................................................
+C     Handle OP,REST
+ 3400 REWIND 12
+      memax1 = MEMAX + 1
+
+      DO lkj = 1 , MEMAX ! For each matrix element
+         READ (12,*) ELM(lkj)
+      ENDDO ! Loop on each matrix element lkj
+
+      DO lkj = 1 , memax1 ! For each matrix element
+         READ * , lkj1 , xlk
+         IF ( lkj1.EQ.0 ) GOTO 120
+         ELM(lkj1) = xlk
+      ENDDO ! Loop on matrix element lkj
+
+ 120  WRITE (22,99008)
+99008 FORMAT (1X///5X,'*****',2X,
+     &        'RESTART-MATRIX ELEMENTS OVERWRITTEN',2X,'*****'///)
+
+      DO kk = 1 , MEMAX ! For each matrix element
+         la = mlt(kk)
+         IF ( ivari(kk).GE.10000 ) THEN ! If element is correlated
+            kk1 = ivari(kk)/10000
+            kk2 = ivari(kk) - 10000*kk1
+            la1 = la
+            IF ( kk2.GE.100 ) THEN
+               la1 = kk2/100
+               kk2 = kk2 - 100*la1
+            ENDIF
+            inx1 = MEM(kk1,kk2,la1)
+C     ELML(KK)=ELML(INX1)*ELM(KK)/ELM(INX1)
+C     ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
+            SA(kk) = ELM(kk)/ELM(inx1)
+            IVAR(kk) = 1000 + inx1
+            IF ( ELMU(kk).LE.ELML(kk) ) THEN
+               elmi = ELMU(kk)
+               ELMU(kk) = ELML(kk)
+               ELML(kk) = elmi
+            ENDIF
+         ENDIF ! IF element is correlated
+      ENDDO ! Loop on matrix elements
+
+      CALL PRELM(2)
+
+      GOTO 100 ! End of OP,REST - back to input loop
+
+C.............................................................................
+
 
 99048 FORMAT (1X//50X,'CALCULATED YIELDS'//5X,'EXPERIMENT ',1I2,2X,
      &        'DETECTOR ',1I2/5X,'ENERGY ',1F10.3,1X,'MEV',2X,'THETA ',
