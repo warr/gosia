@@ -738,7 +738,7 @@ C     Initialize normalization to 1.
       ACCUR = .00001
       icg = 1
       ient = 1
-      jphd = 1
+      jphd = 1 ! Print header flag
       DIPOL = 0.005
       MAGEXC = 0 ! Initially flag that we don't need magnetic excitations
       LAMMAX = 0
@@ -791,6 +791,7 @@ C     Treat OP,FILE (attach files to fortran units)
          GOTO 100 ! End of OP,FILE - back to input loop
       ENDIF
 
+C     Print header
       IF ( jphd.EQ.1 ) WRITE (22,99002)
 99002 FORMAT ('1'/1X,125('*')/1X,125('*')/1X,50('*'),25X,50('*')/1X,
      &        50('*'),10X,'GOSIA',10X,50('*')/1X,50('*'),25X,50('*')/1X,
@@ -799,7 +800,7 @@ C     Treat OP,FILE (attach files to fortran units)
 99003 FORMAT (1X/20X,'ROCHESTER COULOMB EXCITATION DATA ANALYSIS ',
      &        'CODE BY T.CZOSNYKA,D.CLINE AND C.Y.WU'/50X,
      &        'LATEST REVISION- JUNE  2006'//////)
-      jphd = 0
+      jphd = 0 ! Set print header flag to zero, so we don't repeat header
 
 C     Handle OP,GDET (germanium detectors)
       IF ( op2.EQ.'GDET' ) THEN
