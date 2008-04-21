@@ -812,7 +812,7 @@ C     Treat OP,COUL
 
 C     Treat OP,ERRO (calculate errors)
       ELSEIF ( op2.EQ.'ERRO' ) THEN
-         GOTO 4600
+         GOTO 3200
 
 C     Treat OP,EXIT
       ELSEIF ( op2.EQ.'EXIT' ) THEN
@@ -852,7 +852,7 @@ C     Treat OP,POIN
 
 C     Treat OP,RAND (randomise matrix elements)
       ELSEIF ( op2.EQ.'RAND' ) THEN
-         GOTO 3200
+         GOTO 4800
 
 C     Treat OP,RAW (raw uncorrected gamma yields)
       ELSEIF ( op2.EQ.'RAW ' ) THEN
@@ -2009,6 +2009,67 @@ C     Else we don't recognize the suboption
       GOTO 3100 ! Get next suboption
 
 C.............................................................................
+C     Handle OP,ERRO
+ 3200 READ * , idf , ms , mend , irep , ifc , remax
+      rem = LOG(remax)
+      LOCKS = 0
+      LOCKF = 0
+      JENTR = 1 ! Flag to indicate we are in OP,ERRO
+      sh = 1.
+      ifbp = 0
+      inpo = 1
+      inko = 1
+      IF ( iosr.NE.0 .AND. idf.NE.0 ) THEN
+         inn = 0
+         ij = MULTI(1)
+         IF ( ij.NE.0 ) THEN
+            DO ij = 1 , NMAX
+               lxd = LDNUM(1,ij)
+               IF ( lxd.NE.0 ) THEN
+                  DO ijk = 1 , lxd
+                     inn = inn + 1
+                  ENDDO
+               ENDIF
+            ENDDO
+            inpo = inn + 1
+         ENDIF
+         DO ij = 1 , NMAX
+            lxd = LDNUM(2,ij)
+            IF ( lxd.NE.0 ) THEN
+               DO ijk = 1 , lxd
+                  inn = inn + 1
+               ENDDO
+            ENDIF
+         ENDDO
+         inko = inn
+         IF ( irep.NE.2 ) THEN
+            WRITE (3,*) NMAX , MEMAX , inpo , inko
+            DO inn = 1 , NMAX
+               WRITE (3,*) inn , SPIN(inn) , EN(inn)
+            ENDDO
+            DO inn = 1 , MEMAX
+               WRITE (3,*) inn , LEAD(1,inn) , LEAD(2,inn)
+            ENDDO
+            DO inn = 1 , MEMAX
+               WRITE (3,*) inn , ELM(inn)
+            ENDDO
+         ENDIF ! IF ( irep.NE.2 )
+      ENDIF ! IF ( iosr.NE.0 .AND. idf.NE.0 )
+      IF ( irep.NE.0 ) THEN
+         REWIND 15
+         READ (15,*) (DEVD(kh1),DEVU(kh1),kh1=1,MEMAX)
+      ELSE
+         DO kh1 = 1 , MEMAX
+            DEVD(kh1) = ELML(kh1) - ELM(kh1)
+            DEVU(kh1) = ELMU(kh1) - ELM(kh1)
+         ENDDO
+      ENDIF
+      IF ( IMIN.EQ.0 ) CALL CMLAB(0,dsig,ttttt)
+      IF ( ERR ) GOTO 2000 ! Error
+      IF ( IMIN.NE.0 ) GOTO 400
+      GOTO 1300 ! End of OP,ERRO
+
+C.............................................................................
 C     Handle OP,INTG
  3600 REWIND 14
       lfagg = 1
@@ -2471,7 +2532,7 @@ C     attenuation coefficients
 
 C.............................................................................
 C     Handle OP,RAND
- 3200 READ * , SE ! Seed for random number generator
+ 4800 READ * , SE ! Seed for random number generator
       CALL MIXUP
       WRITE (22,99007)
 99007 FORMAT (1X///5X,'MATRIX ELEMENTS RANDOMIZED...'///)
@@ -2559,67 +2620,6 @@ C     Handle OP,RE,*
          ivarh(jrls) = IVAR(jrls)
       ENDDO ! Loop on matrix elements jrls
       GOTO 100 ! Back to input loop
-
-C.............................................................................
-C     Handle OP,ERRO
- 4600 READ * , idf , ms , mend , irep , ifc , remax
-      rem = LOG(remax)
-      LOCKS = 0
-      LOCKF = 0
-      JENTR = 1 ! Flag to indicate we are in OP,ERRO
-      sh = 1.
-      ifbp = 0
-      inpo = 1
-      inko = 1
-      IF ( iosr.NE.0 .AND. idf.NE.0 ) THEN
-         inn = 0
-         ij = MULTI(1)
-         IF ( ij.NE.0 ) THEN
-            DO ij = 1 , NMAX
-               lxd = LDNUM(1,ij)
-               IF ( lxd.NE.0 ) THEN
-                  DO ijk = 1 , lxd
-                     inn = inn + 1
-                  ENDDO
-               ENDIF
-            ENDDO
-            inpo = inn + 1
-         ENDIF
-         DO ij = 1 , NMAX
-            lxd = LDNUM(2,ij)
-            IF ( lxd.NE.0 ) THEN
-               DO ijk = 1 , lxd
-                  inn = inn + 1
-               ENDDO
-            ENDIF
-         ENDDO
-         inko = inn
-         IF ( irep.NE.2 ) THEN
-            WRITE (3,*) NMAX , MEMAX , inpo , inko
-            DO inn = 1 , NMAX
-               WRITE (3,*) inn , SPIN(inn) , EN(inn)
-            ENDDO
-            DO inn = 1 , MEMAX
-               WRITE (3,*) inn , LEAD(1,inn) , LEAD(2,inn)
-            ENDDO
-            DO inn = 1 , MEMAX
-               WRITE (3,*) inn , ELM(inn)
-            ENDDO
-         ENDIF ! IF ( irep.NE.2 )
-      ENDIF ! IF ( iosr.NE.0 .AND. idf.NE.0 )
-      IF ( irep.NE.0 ) THEN
-         REWIND 15
-         READ (15,*) (DEVD(kh1),DEVU(kh1),kh1=1,MEMAX)
-      ELSE
-         DO kh1 = 1 , MEMAX
-            DEVD(kh1) = ELML(kh1) - ELM(kh1)
-            DEVU(kh1) = ELMU(kh1) - ELM(kh1)
-         ENDDO
-      ENDIF
-      IF ( IMIN.EQ.0 ) CALL CMLAB(0,dsig,ttttt)
-      IF ( ERR ) GOTO 2000 ! Error
-      IF ( IMIN.NE.0 ) GOTO 400
-      GOTO 1300 ! End of OP,ERRO
 
 C.............................................................................
 C     Handle OP,TITL
