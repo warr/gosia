@@ -824,9 +824,7 @@ C     Handle OP,GDET (germanium detectors)
 
 C     Treat OP,GOSI
       ELSEIF ( op2.EQ.'GOSI' ) THEN
-         oph = op2
-         opcja = op2
-         GOTO 3100
+        GOTO 3500
 
 C     Treat OP,INTG
       ELSEIF ( op2.EQ.'INTG' ) THEN
@@ -860,15 +858,15 @@ C     Treat OP,RAW (raw uncorrected gamma yields)
 
 C     Treat OP,RE,A (release A)
       ELSEIF ( op2.EQ.'RE,A' ) THEN
-         GOTO 3500
+         GOTO 5500
 
 C     Treat OP,RE,C (release C)
       ELSEIF ( op2.EQ.'RE,C' ) THEN
-         GOTO 3500 ! End of OP,RE,C
+         GOTO 5500 ! End of OP,RE,C
 
 C     Treat OP,RE,F (release F)
       ELSEIF ( op2.EQ.'RE,F' ) THEN
-         GOTO 3500
+         GOTO 5500
 
 C     Treat OP,REST (restart)
       ELSEIF ( op2.EQ.'REST' ) THEN
@@ -2184,6 +2182,12 @@ C     attenuation coefficients
       GOTO 100 ! End of OP,GDET - back to input loop
 
 C.............................................................................
+C     Handle OP,GOSI
+ 3500 oph = op2
+      opcja = op2
+      GOTO 3100
+
+C.............................................................................
 C     Handle OP,INTG
  3600 REWIND 14
       lfagg = 1
@@ -2658,7 +2662,7 @@ C     ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
 
 C.............................................................................
 C     Handle OP,RE,*
- 3500 IF ( op2.EQ.'RE,A' ) THEN
+ 5500 IF ( op2.EQ.'RE,A' ) THEN
          jfre = 0
          irfix = 0
       ELSEIF ( op2.EQ.'RE,F' ) THEN
