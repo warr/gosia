@@ -836,12 +836,7 @@ C     Treat OP,MAP
 
 C     Treat OP,MINI
       ELSEIF ( op2.EQ.'MINI' ) THEN
-         READ * , imode , nptl , chiok , conu , xtest , LOCKF , NLOCK , 
-     &        IFBFL , LOCKS , DLOCK
-         op2 = opcja
-         IMIN = IMIN + 1
-         IF ( IMIN.NE.1 ) GOTO 1400
-         GOTO 1200 ! End of OP,MINI
+         GOTO 3900
 
 C     Treat OP,POIN
       ELSEIF ( op2.EQ.'POIN' ) THEN
@@ -853,7 +848,7 @@ C     Treat OP,RAND (randomise matrix elements)
 
 C     Treat OP,RAW (raw uncorrected gamma yields)
       ELSEIF ( op2.EQ.'RAW ' ) THEN
-         GOTO 3900
+         GOTO 5900
 
 C     Treat OP,RE,A (release A)
       ELSEIF ( op2.EQ.'RE,A' ) THEN
@@ -2604,6 +2599,15 @@ C     Handle OP,MAP
       GOTO 1200
 
 C.............................................................................
+C     Handle OP,MINI
+ 3900 READ * , imode , nptl , chiok , conu , xtest , LOCKF , NLOCK , 
+     &     IFBFL , LOCKS , DLOCK
+      op2 = opcja
+      IMIN = IMIN + 1
+      IF ( IMIN.NE.1 ) GOTO 1400
+      GOTO 1200 ! End of OP,MINI
+
+C.............................................................................
 C     Handle OP,RAND
  4800 READ * , SE ! Seed for random number generator
       CALL MIXUP
@@ -2767,7 +2771,7 @@ C     Handle OP,THEO
 
 C.............................................................................
 C     Handle OP,RAW        
- 3900 REWIND 8 ! Read absorber coefficients from unit 8
+ 5900 REWIND 8 ! Read absorber coefficients from unit 8
       DO l = 1 , 8
          READ (8,*) (ABC(l,j),j=1,10) ! Absorption coefficients
          DO j = 1 , 10
