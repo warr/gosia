@@ -802,8 +802,12 @@ C     Print header
      &        'LATEST REVISION- JUNE  2006'//////)
       jphd = 0 ! Set print header flag to zero, so we don't repeat header
 
+C     Treat OP,INTG
+      IF ( op2.EQ.'INTG' ) THEN
+         GOTO 3000
+
 C     Handle OP,GDET (germanium detectors)
-      IF ( op2.EQ.'GDET' ) THEN
+      ELSEIF ( op2.EQ.'GDET' ) THEN
          GOTO 3100
 
 C     Treat OP,RAND (randomise matrix elements)
@@ -869,10 +873,6 @@ C     Treat OP,YIEL
       ELSEIF ( op2.EQ.'YIEL' ) THEN
          CALL ADHOC(oph,idr,nfd,ntap,iyr)
          GOTO 100 ! End of OP,YIEL - back to input loop
-
-C     Treat OP,INTG
-      ELSEIF ( op2.EQ.'INTG' ) THEN
-         GOTO 3000
 
 C     Treat OP,CORR
       ELSEIF ( op2.EQ.'CORR' ) THEN
