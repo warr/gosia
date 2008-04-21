@@ -812,9 +812,7 @@ C     Treat OP,RAND (randomise matrix elements)
 
 C     Treat OP,TROU (troubleshooting)
       ELSEIF ( op2.EQ.'TROU' ) THEN
-         ITS = 1 ! Create tape 18 flag
-         READ * , kmat , rlr
-         GOTO 100 ! End of OP,TROU - back to input loop
+         GOTO 3300
 
 C     Treat OP,REST (restart)
       ELSEIF ( op2.EQ.'REST' ) THEN
@@ -2775,7 +2773,12 @@ C     Handle OP,RAND
       GOTO 100 ! End of OP,RAND - back to input loop
 
 C.............................................................................
+C     Handle OP,TROU
+ 3300 ITS = 1 ! Create tape 18 flag
+      READ * , kmat , rlr
+      GOTO 100 ! End of OP,TROU - back to input loop
 
+C.............................................................................
 
 99048 FORMAT (1X//50X,'CALCULATED YIELDS'//5X,'EXPERIMENT ',1I2,2X,
      &        'DETECTOR ',1I2/5X,'ENERGY ',1F10.3,1X,'MEV',2X,'THETA ',
