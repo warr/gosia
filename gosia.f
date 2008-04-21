@@ -1790,8 +1790,10 @@ C     Treat suboption CONT (control)
                            ENDDO
                            GOTO 350
                         ELSE
-                           IF ( op1.EQ.'CCF,' ) IPS1 = ipo1
-                           IF ( op1.EQ.'PIN,' ) THEN
+                           IF ( op1.EQ.'CCF,' ) THEN
+                             IPS1 = ipo1
+                             GOTO 350
+                           ELSEIF ( op1.EQ.'PIN,' ) THEN
                               ipine = ipo1
                               ipinf = 1
                               DO ipp = 1 , ipine
