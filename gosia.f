@@ -869,11 +869,6 @@ C     Treat OP,MINI
          IF ( IMIN.NE.1 ) GOTO 1400
          GOTO 1200 ! End of OP,MINI
 
-C     Treat OP,YIEL
-      ELSEIF ( op2.EQ.'YIEL' ) THEN
-         CALL ADHOC(oph,idr,nfd,ntap,iyr)
-         GOTO 100 ! End of OP,YIEL - back to input loop
-
 C     Treat OP,CORR
       ELSEIF ( op2.EQ.'CORR' ) THEN
          CALL READY(idr,ntap,0)
@@ -960,6 +955,11 @@ C     Treat OP,MAP
       ELSEIF ( op2.EQ.'MAP ' ) THEN
          iobl = 1
          GOTO 1200 ! End of OP,MAP
+
+C     Treat OP,YIEL
+      ELSEIF ( op2.EQ.'YIEL' ) THEN
+         CALL ADHOC(oph,idr,nfd,ntap,iyr)
+         GOTO 100 ! End of OP,YIEL - back to input loop
 
 C     Unrecognised options
       ELSE
