@@ -846,6 +846,10 @@ C     Treat OP,THEO
       ELSEIF ( op2.EQ.'THEO' ) THEN
          GOTO 3800
 
+C     Treat OP,RAW (raw uncorrected gamma yields)
+      ELSEIF ( op2.EQ.'RAW ' ) THEN
+         GOTO 3900
+
 C     Treat OP,GOSI
       ELSEIF ( op2.EQ.'GOSI' ) THEN
          oph = op2
@@ -902,10 +906,6 @@ C     Treat OP,SIXJ
             ENDDO
          ENDDO
          GOTO 2000 ! End of OP,SIXJ - normal end of execution
-
-C     Treat OP,RAW (raw uncorrected gamma yields)
-      ELSEIF ( op2.EQ.'RAW ' ) THEN
-         GOTO 3900
 
 C     Treat OP,MAP
       ELSEIF ( op2.EQ.'MAP ' ) THEN
