@@ -622,7 +622,7 @@ C     Initialize pointers
       LP2 = 500 ! Maximum number of matrix elements
       LP3 = 75 ! Maximum number of levels
       LP4 = 1500
-      LP6 = 32
+      LP6 = 32 ! Maximum number of gamma detectors
       LP7 = lp0 - 4900 ! Start of collision coefficients in ZETA
       LP8 = LP3*28 + 1
       LP9 = lp0 - LP3*28
@@ -633,8 +633,8 @@ C     Initialize pointers
       LP14 = 4900 ! Maximum number of collision coefficients
 
 C     Initialize normalization to 1.
-      DO i = 1 , LP3 ! LP3 = 75
-         DO j = 1 , LP6 ! LP6 = 32
+      DO i = 1 , LP3 ! LP3 = 75 (maximum number of levels)
+         DO j = 1 , LP6 ! LP6 = 32 (maximum number of gamma detectors)
             CNOR(j,i) = 1.
          ENDDO
       ENDDO
@@ -658,7 +658,7 @@ C     Initialize normalization to 1.
       JENTR = 0 ! Flag to indicate we are not in OP,ERRO
       ICS = 0
 
-      DO i = 1 , LP1 ! LP1 = 50
+      DO i = 1 , LP1 ! LP1 = 50 (maximum number of experiments)
          jpin(i) = 0
          iecd(i) = 0
       ENDDO
@@ -675,7 +675,7 @@ C     Initialize normalization to 1.
       NLOCK = 0
       LOCKF = 0
       DO i = 1 , LP4 ! LP4 = 1500
-         DO j = 1 , LP6 ! LP6 = 32
+         DO j = 1 , LP6 ! LP6 = 32 (maximum number of gamma detectors)
             CORF(i,j) = 1.
          ENDDO
       ENDDO
@@ -694,7 +694,7 @@ C     Initialize normalization to 1.
       IPRM(18) = 0
       IPRM(19) = 0
       IPRM(20) = 0
-      DO i = 1 , LP1 ! LP1 = 50
+      DO i = 1 , LP1 ! LP1 = 50 (maximum number of experiments)
          DO j = 1 , 5
             IF ( j.NE.5 ) THEN
                DO k = 1 , 10
@@ -708,7 +708,7 @@ C     Initialize normalization to 1.
             ENDDO
          ENDDO
       ENDDO
-      DO k = 1 , LP1 ! LP1 = 50
+      DO k = 1 , LP1 ! LP1 = 50 (maximum number of experiments)
          IDIVE(k,1) = 1
          IDIVE(k,2) = 1
          DO iuy = 1 , 6
@@ -719,7 +719,7 @@ C     Initialize normalization to 1.
       lfagg = 0
       izcap = 12800
       KFERR = 0
-      NDIM = LP3 ! LP3 = 75
+      NDIM = LP3 ! LP3 = 75 (maximum number of levels)
       ISO = 1
       B(1) = 1.
       DO i = 2 , 20
@@ -729,7 +729,7 @@ C     Initialize normalization to 1.
       CALL FAKP
       CALL FHIP
       NCM = 2 ! Default final spin for kinematics calculation (OP,CONT NCM,)
-      DO ijx = 1 , LP1 ! LP1 = 50
+      DO ijx = 1 , LP1 ! LP1 = 50 (maximum number of experiments)
          INTERV(ijx) = 1
       ENDDO
       la = 0
@@ -743,7 +743,7 @@ C     Initialize normalization to 1.
       MAGEXC = 0 ! Initially flag that we don't need magnetic excitations
       LAMMAX = 0
       DO lam = 1 , 8
-         DO lexp = 1 , LP3 ! LP3 = 75
+         DO lexp = 1 , LP3 ! LP3 = 75 (maximum number of levels)
             LDNUM(lam,lexp) = 0
          ENDDO
          MULTI(lam) = 0
@@ -754,11 +754,11 @@ C     Initialize normalization to 1.
          KVAR(j) = 1
          ELM(j) = 0.
       ENDDO
-      DO j = 1 , LP1 ! LP1 = 50
+      DO j = 1 , LP1 ! LP1 = 50 (maximum number of experiments)
          JSKIP(j) = 1
          ISKIN(j) = 0
       ENDDO
-      DO j = 1 , LP3 ! LP3 = 75
+      DO j = 1 , LP3 ! LP3 = 75 (maximum number of levels)
          ISEX(j) = 1111
       ENDDO
       ISEX(1) = 0
@@ -1018,7 +1018,7 @@ C     Treat OP,THEO
       ELSEIF ( op2.EQ.'THEO' ) THEN
          REWIND (12)
          ibaf = 1
-         DO jb = 1 , LP1 ! LP1 = 50
+         DO jb = 1 , LP1 ! LP1 = 50 (maximum number of experiments)
             DO lb = 1 , 2
                xlevb(jb,lb) = 0
             ENDDO
@@ -1133,7 +1133,7 @@ C        Read absorber coefficients from unit 8
          DO l = 1 , nfd
             READ (8,*) (THICK(l,j),j=1,7) ! thickness of absorbers
          ENDDO
-         DO l = 1 , LP1 ! LP1 = 50
+         DO l = 1 , LP1 ! LP1 = 50 (maximum number of experiments)
             DO j = 1 , 200
                ICLUST(l,j) = 0
             ENDDO
@@ -1144,7 +1144,7 @@ C        Read absorber coefficients from unit 8
          ENDDO
 
 C        Read input from standard input
-         DO l = 1 , LP1 ! LP1 = 50
+         DO l = 1 , LP1 ! LP1 = 50 (maximum number of experiments)
             READ * , mexl ! experiment number
             IF ( mexl.EQ.0 ) GOTO 100 ! Back to input loop
             IRAWEX(mexl) = 1
@@ -1433,13 +1433,13 @@ C     Handle OP,ERRO
  400  IF ( ICS.EQ.1 ) THEN
          REWIND 11
          DO kh1 = 1 , LP4
-            READ (11) (CORF(kh1,kh2),kh2=1,LP6)
+            READ (11) (CORF(kh1,kh2),kh2=1,LP6) ! LP6 = 32 (maximum number of gamma detectors)
          ENDDO
       ELSE
          CALL FTBM(0,chiss,idr,0,chilo,bten)
          REWIND 11
          DO kh1 = 1 , LP4
-            WRITE (11) (CORF(kh1,kh2),kh2=1,LP6)
+            WRITE (11) (CORF(kh1,kh2),kh2=1,LP6) ! LP6 = 32 (maximum number of gamma detectors)
          ENDDO
       ENDIF
 
@@ -1652,7 +1652,7 @@ C     Handle OP,ERRO
       IF ( iobl.LT.1 ) THEN
          IF ( op2.NE.'GOSI' ) THEN
             iapx = 0
-            DO ii = 1 , LP6
+            DO ii = 1 , LP6 ! LP6 = 32 (maximum number of gamma detectors)
                ILE(ii) = 1
             ENDDO
             nch = 0
@@ -1663,7 +1663,7 @@ C     Handle OP,ERRO
                IF ( op2.NE.'STAR' ) THEN
                   jmm = IEXP
                   IF ( IEXP.NE.1 ) THEN
-                     DO lli = 1 , LP6
+                     DO lli = 1 , LP6 ! LP6 = 32 (maximum number of gamma detectors)
                         ILE(lli) = ILE(lli) + NYLDE(IEXP-1,lli)
                      ENDDO
                   ENDIF
@@ -2174,7 +2174,7 @@ C     Handle OP,ERRO
             ENDDO
          ENDDO
          DO jj = 1 , 2
-            DO jj1 = 1 , LP1 ! LP1 = 50
+            DO jj1 = 1 , LP1 ! LP1 = 50 (maximum number of experiments)
                IDIVE(jj1,jj) = 1
             ENDDO
          ENDDO
@@ -2248,7 +2248,7 @@ C     Handle map
       CALL MINI(chisq,chiok,nptl,conu,imode,idr,xtest,0,0,0,bten)
       IF ( IPS1.EQ.0 ) GOTO 2000 ! Normal end of execution
       IMIN = IMIN + 1
-      DO iva = 1 , LP1 ! LP1 = 50
+      DO iva = 1 , LP1 ! LP1 = 50 (maximum number of experiments)
          JSKIP(iva) = 1
       ENDDO
       REWIND 12
@@ -2546,7 +2546,7 @@ C     Handle OP,INTG
       REWIND 14
       REWIND 15
       iske = 0
-      DO na = 1 , LP6
+      DO na = 1 , LP6 ! LP6 = 32 (maximum number of gamma detectors)
          ILE(na) = 1
       ENDDO
       ilx = 0
@@ -2558,7 +2558,7 @@ C     Handle OP,INTG
          ENDDO
  134     na = NANG(lx)
          IF ( lx.NE.1 ) THEN
-            DO na1 = 1 , LP6
+            DO na1 = 1 , LP6 ! LP6 = 32 (maximum number of gamma detectors)
                ILE(na1) = ILE(na1) + NYLDE(lx-1,na1)
             ENDDO
          ENDIF
