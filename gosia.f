@@ -802,61 +802,29 @@ C     Print header
      &        'LATEST REVISION- JUNE  2006'//////)
       jphd = 0 ! Set print header flag to zero, so we don't repeat header
 
-C     Treat OP,INTG
-      IF ( op2.EQ.'INTG' ) THEN
-         GOTO 3000
+C     Treat OP,CORR
+      IF ( op2.EQ.'CORR' ) THEN
+         CALL READY(idr,ntap,0)
+         REWIND 3
+         REWIND 15
+         REWIND 4
+         GOTO 1200 ! End of OP,CORR
 
-C     Handle OP,GDET (germanium detectors)
-      ELSEIF ( op2.EQ.'GDET' ) THEN
-         GOTO 3100
-
-C     Treat OP,RAND (randomise matrix elements)
-      ELSEIF ( op2.EQ.'RAND' ) THEN
-         GOTO 3200
-
-C     Treat OP,TROU (troubleshooting)
-      ELSEIF ( op2.EQ.'TROU' ) THEN
-         GOTO 3300
-
-C     Treat OP,REST (restart)
-      ELSEIF ( op2.EQ.'REST' ) THEN
-         GOTO 3400
-
-C     Treat OP,RE,A (release A)
-      ELSEIF ( op2.EQ.'RE,A' ) THEN
-         GOTO 3500
-
-C     Treat OP,RE,F (release F)
-      ELSEIF ( op2.EQ.'RE,F' ) THEN
-         GOTO 3500
-
-C     Treat OP,RE,C (release C)
-      ELSEIF ( op2.EQ.'RE,C' ) THEN
-         GOTO 3500 ! End of OP,RE,C
+C     Treat OP,COUL
+      ELSEIF ( op2.EQ.'COUL' ) THEN
+         GOTO 200
 
 C     Treat OP,ERRO (calculate errors)
       ELSEIF ( op2.EQ.'ERRO' ) THEN
          GOTO 3600
 
-C     Treat OP,TITL (title)
-      ELSEIF ( op2.EQ.'TITL' ) THEN
-         GOTO 3700
-
-C     Treat OP,THEO
-      ELSEIF ( op2.EQ.'THEO' ) THEN
-         GOTO 3800
-
-C     Treat OP,RAW (raw uncorrected gamma yields)
-      ELSEIF ( op2.EQ.'RAW ' ) THEN
-         GOTO 3900
-
 C     Treat OP,EXIT
       ELSEIF ( op2.EQ.'EXIT' ) THEN
          GOTO 4000 ! End of OP,EXIT
 
-C     Treat OP,SIXJ
-      ELSEIF ( op2.EQ.'SIXJ' ) THEN
-         GOTO 4100
+C     Handle OP,GDET (germanium detectors)
+      ELSEIF ( op2.EQ.'GDET' ) THEN
+         GOTO 3100
 
 C     Treat OP,GOSI
       ELSEIF ( op2.EQ.'GOSI' ) THEN
@@ -864,9 +832,14 @@ C     Treat OP,GOSI
          opcja = op2
          GOTO 200
 
-C     Treat OP,COUL
-      ELSEIF ( op2.EQ.'COUL' ) THEN
-         GOTO 200
+C     Treat OP,INTG
+      ELSEIF ( op2.EQ.'INTG' ) THEN
+         GOTO 3000
+
+C     Treat OP,MAP
+      ELSEIF ( op2.EQ.'MAP ' ) THEN
+         iobl = 1
+         GOTO 1200 ! End of OP,MAP
 
 C     Treat OP,MINI
       ELSEIF ( op2.EQ.'MINI' ) THEN
@@ -877,26 +850,53 @@ C     Treat OP,MINI
          IF ( IMIN.NE.1 ) GOTO 1400
          GOTO 1200 ! End of OP,MINI
 
-C     Treat OP,CORR
-      ELSEIF ( op2.EQ.'CORR' ) THEN
-         CALL READY(idr,ntap,0)
-         REWIND 3
-         REWIND 15
-         REWIND 4
-         GOTO 1200 ! End of OP,CORR
-
 C     Treat OP,POIN
       ELSEIF ( op2.EQ.'POIN' ) THEN
          GOTO 1200
+
+C     Treat OP,RAND (randomise matrix elements)
+      ELSEIF ( op2.EQ.'RAND' ) THEN
+         GOTO 3200
+
+C     Treat OP,RAW (raw uncorrected gamma yields)
+      ELSEIF ( op2.EQ.'RAW ' ) THEN
+         GOTO 3900
+
+C     Treat OP,RE,A (release A)
+      ELSEIF ( op2.EQ.'RE,A' ) THEN
+         GOTO 3500
+
+C     Treat OP,RE,C (release C)
+      ELSEIF ( op2.EQ.'RE,C' ) THEN
+         GOTO 3500 ! End of OP,RE,C
+
+C     Treat OP,RE,F (release F)
+      ELSEIF ( op2.EQ.'RE,F' ) THEN
+         GOTO 3500
+
+C     Treat OP,REST (restart)
+      ELSEIF ( op2.EQ.'REST' ) THEN
+         GOTO 3400
+
+C     Treat OP,SIXJ
+      ELSEIF ( op2.EQ.'SIXJ' ) THEN
+         GOTO 4100
 
 C     Treat OP,STAR
       ELSEIF ( op2.EQ.'STAR' ) THEN
          GOTO 1200
 
-C     Treat OP,MAP
-      ELSEIF ( op2.EQ.'MAP ' ) THEN
-         iobl = 1
-         GOTO 1200 ! End of OP,MAP
+C     Treat OP,THEO
+      ELSEIF ( op2.EQ.'THEO' ) THEN
+         GOTO 3800
+
+C     Treat OP,TITL (title)
+      ELSEIF ( op2.EQ.'TITL' ) THEN
+         GOTO 3700
+
+C     Treat OP,TROU (troubleshooting)
+      ELSEIF ( op2.EQ.'TROU' ) THEN
+         GOTO 3300
 
 C     Treat OP,YIEL
       ELSEIF ( op2.EQ.'YIEL' ) THEN
