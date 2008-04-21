@@ -836,11 +836,7 @@ C     Treat OP,ERRO (calculate errors)
 
 C     Treat OP,TITL (title)
       ELSEIF ( op2.EQ.'TITL' ) THEN
-         READ 99009 , (title(k),k=1,20)
-99009    FORMAT (20A4)
-         WRITE (22,99010) (title(k),k=1,20)
-99010    FORMAT (10X,20A4/10X,100('-'))
-         GOTO 100 ! End of OP,TITL - back to input loop
+         GOTO 3700
 
 C     Treat OP,GOSI
       ELSEIF ( op2.EQ.'GOSI' ) THEN
@@ -2800,7 +2796,14 @@ C     Handle OP,ERRO
       GOTO 1300 ! End of OP,ERRO
 
 C.............................................................................
+C     Handle OP,TITL
+ 3700 READ 99009 , (title(k),k=1,20)
+99009 FORMAT (20A4)
+      WRITE (22,99010) (title(k),k=1,20)
+99010 FORMAT (10X,20A4/10X,100('-'))
+      GOTO 100 ! End of OP,TITL - back to input loop
 
+C.............................................................................
 
 99048 FORMAT (1X//50X,'CALCULATED YIELDS'//5X,'EXPERIMENT ',1I2,2X,
      &        'DETECTOR ',1I2/5X,'ENERGY ',1F10.3,1X,'MEV',2X,'THETA ',
