@@ -836,51 +836,51 @@ C     Treat OP,MAP
 
 C     Treat OP,MINI
       ELSEIF ( op2.EQ.'MINI' ) THEN
-         GOTO 3900
+         GOTO 3800
 
 C     Treat OP,POIN
       ELSEIF ( op2.EQ.'POIN' ) THEN
-         GOTO 4000
+         GOTO 3900
 
 C     Treat OP,RAND (randomise matrix elements)
       ELSEIF ( op2.EQ.'RAND' ) THEN
-         GOTO 4100
+         GOTO 4000
 
 C     Treat OP,RAW (raw uncorrected gamma yields)
       ELSEIF ( op2.EQ.'RAW ' ) THEN
-         GOTO 4200
+         GOTO 4100
 
 C     Treat OP,RE,A (release A)
       ELSEIF ( op2.EQ.'RE,A' ) THEN
-         GOTO 4300
+         GOTO 4200
 
 C     Treat OP,RE,C (release C)
       ELSEIF ( op2.EQ.'RE,C' ) THEN
-         GOTO 4300
+         GOTO 4200
 
 C     Treat OP,RE,F (release F)
       ELSEIF ( op2.EQ.'RE,F' ) THEN
-         GOTO 4300
+         GOTO 4200
 
 C     Treat OP,REST (restart)
       ELSEIF ( op2.EQ.'REST' ) THEN
-         GOTO 4400
+         GOTO 4300
 
 C     Treat OP,SIXJ
       ELSEIF ( op2.EQ.'SIXJ' ) THEN
-         GOTO 4500
+         GOTO 4400
 
 C     Treat OP,STAR
       ELSEIF ( op2.EQ.'STAR' ) THEN
-         GOTO 4000
+         GOTO 3900
 
 C     Treat OP,THEO
       ELSEIF ( op2.EQ.'THEO' ) THEN
-         GOTO 4600
+         GOTO 4500
 
 C     Treat OP,TITL (title)
       ELSEIF ( op2.EQ.'TITL' ) THEN
-         GOTO 5700
+         GOTO 4600
 
 C     Treat OP,TROU (troubleshooting)
       ELSEIF ( op2.EQ.'TROU' ) THEN
@@ -1135,7 +1135,7 @@ C     Handle OP,CORR
       REWIND 3
       REWIND 15
       REWIND 4
-      GOTO 4000 ! End of OP,CORR
+      GOTO 3900 ! End of OP,CORR
 
 C.............................................................................
 C     Handle OP,COUL and OP,GOSI
@@ -1979,20 +1979,20 @@ C                    Interpolate cross-section at this energy
 C.............................................................................
 C     Handle OP,MAP
  3700 iobl = 1
-      GOTO 4000
+      GOTO 3900
 
 C.............................................................................
 C     Handle OP,MINI
- 3900 READ * , imode , nptl , chiok , conu , xtest , LOCKF , NLOCK , 
+ 3800 READ * , imode , nptl , chiok , conu , xtest , LOCKF , NLOCK , 
      &     IFBFL , LOCKS , DLOCK
       op2 = opcja
       IMIN = IMIN + 1
       IF ( IMIN.NE.1 ) GOTO 1400
-      GOTO 4000 ! End of OP,MINI
+      GOTO 3900 ! End of OP,MINI
 
 C.............................................................................
 C     Handle OP,CORR, OP, MAP, OP,MINI, OP,POIN, and OP, STAR
- 4000 CALL CMLAB(0,dsig,ttttt)
+ 3900 CALL CMLAB(0,dsig,ttttt)
       IF ( ERR ) GOTO 2000 ! Error
       IF ( op2.EQ.'POIN' ) READ * , ifwd , slim
       ient = 1
@@ -2610,7 +2610,7 @@ C     Handle map
 
 C.............................................................................
 C     Handle OP,RAND
- 4100 READ * , SE ! Seed for random number generator
+ 4000 READ * , SE ! Seed for random number generator
       CALL MIXUP
       WRITE (22,99007)
 99007 FORMAT (1X///5X,'MATRIX ELEMENTS RANDOMIZED...'///)
@@ -2619,7 +2619,7 @@ C     Handle OP,RAND
 
 C.............................................................................
 C     Handle OP,RAW        
- 4200 REWIND 8 ! Read absorber coefficients from unit 8
+ 4100 REWIND 8 ! Read absorber coefficients from unit 8
       DO l = 1 , 8
          READ (8,*) (ABC(l,j),j=1,10) ! Absorption coefficients
          DO j = 1 , 10
@@ -2666,7 +2666,7 @@ C     Read input from standard input
 
 C.............................................................................
 C     Handle OP,RE,*
- 4300 IF ( op2.EQ.'RE,A' ) THEN
+ 4200 IF ( op2.EQ.'RE,A' ) THEN
          jfre = 0
          irfix = 0
       ELSEIF ( op2.EQ.'RE,F' ) THEN
@@ -2696,7 +2696,7 @@ C     Handle OP,RE,*
 
 C.............................................................................
 C     Handle OP,REST
- 4400 REWIND 12
+ 4300 REWIND 12
       memax1 = MEMAX + 1
 
       DO lkj = 1 , MEMAX ! For each matrix element
@@ -2742,7 +2742,7 @@ C     ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
 
 C.............................................................................
 C     Handle OP,SIXJ
- 4500 DO k = 1 , 2
+ 4400 DO k = 1 , 2
          l = 4*k
          DO j = 1 , 80
             ixj = j - 1
@@ -2760,7 +2760,7 @@ C     Handle OP,SIXJ
 
 C.............................................................................
 C     Handle OP,THEO
- 4600 REWIND (12)
+ 4500 REWIND (12)
       ibaf = 1
       DO jb = 1 , LP1 ! LP1 = 50 (maximum number of experiments)
          DO lb = 1 , 2
@@ -2822,18 +2822,18 @@ C     Handle OP,THEO
       GOTO 100 ! End of OP,THEO - back to input loop
 
 C.............................................................................
-C     Handle OP,TROU
- 5300 ITS = 1 ! Create tape 18 flag
-      READ * , kmat , rlr
-      GOTO 100 ! End of OP,TROU - back to input loop
-
-C.............................................................................
 C     Handle OP,TITL
- 5700 READ 99009 , (title(k),k=1,20)
+ 4600 READ 99009 , (title(k),k=1,20)
 99009 FORMAT (20A4)
       WRITE (22,99010) (title(k),k=1,20)
 99010 FORMAT (10X,20A4/10X,100('-'))
       GOTO 100 ! End of OP,TITL - back to input loop
+
+C.............................................................................
+C     Handle OP,TROU
+ 5300 ITS = 1 ! Create tape 18 flag
+      READ * , kmat , rlr
+      GOTO 100 ! End of OP,TROU - back to input loop
 
 
 99048 FORMAT (1X//50X,'CALCULATED YIELDS'//5X,'EXPERIMENT ',1I2,2X,
