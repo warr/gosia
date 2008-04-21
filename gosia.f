@@ -808,12 +808,7 @@ C     Handle OP,GDET (germanium detectors)
 
 C     Treat OP,RAND (randomise matrix elements)
       ELSEIF ( op2.EQ.'RAND' ) THEN
-         READ * , SE ! Seed for random number generator
-         CALL MIXUP
-         WRITE (22,99007)
-99007    FORMAT (1X///5X,'MATRIX ELEMENTS RANDOMIZED...'///)
-         CALL PRELM(2)
-         GOTO 100 ! End of OP,RAND - back to input loop
+         GOTO 3200
 
 C     Treat OP,TROU (troubleshooting)
       ELSEIF ( op2.EQ.'TROU' ) THEN
@@ -2769,6 +2764,16 @@ C     attenuation coefficients
          ENDDO
       ENDDO
       GOTO 100 ! End of OP,GDET - back to input loop
+
+C.............................................................................
+C     Handle OP,RAND
+ 3200 READ * , SE ! Seed for random number generator
+      CALL MIXUP
+      WRITE (22,99007)
+99007 FORMAT (1X///5X,'MATRIX ELEMENTS RANDOMIZED...'///)
+      CALL PRELM(2)
+      GOTO 100 ! End of OP,RAND - back to input loop
+
 C.............................................................................
 
 
