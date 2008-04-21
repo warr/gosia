@@ -97,6 +97,7 @@ C don't go outside the limits specified by the user.
       COMMON /ERRAN / KFERR
       COMMON /LOGY  / LNY , INTR , IPS1
       COMMON /ERCAL / JENTR , ICS
+      DATA chirf/0./,dm/0./,sumg2/0./
 
 C     Initialise gradp to zero for each matrix element
       DO i = 1 , MEMAX
