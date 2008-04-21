@@ -852,15 +852,15 @@ C     Treat OP,RAW (raw uncorrected gamma yields)
 
 C     Treat OP,RE,A (release A)
       ELSEIF ( op2.EQ.'RE,A' ) THEN
-         GOTO 5500
+         GOTO 4300
 
 C     Treat OP,RE,C (release C)
       ELSEIF ( op2.EQ.'RE,C' ) THEN
-         GOTO 5500
+         GOTO 4300
 
 C     Treat OP,RE,F (release F)
       ELSEIF ( op2.EQ.'RE,F' ) THEN
-         GOTO 5500
+         GOTO 4300
 
 C     Treat OP,REST (restart)
       ELSEIF ( op2.EQ.'REST' ) THEN
@@ -2665,6 +2665,36 @@ C     Read input from standard input
       GOTO 100 ! End of OP,RAW - back to input loop
 
 C.............................................................................
+C     Handle OP,RE,*
+ 4300 IF ( op2.EQ.'RE,A' ) THEN
+         jfre = 0
+         irfix = 0
+      ELSEIF ( op2.EQ.'RE,F' ) THEN
+         jfre = 0
+         irfix = 1
+      ELSEIF ( op2.EQ.'RE,C' ) THEN
+         jfre = 1
+         irfix = 0
+      ENDIF
+
+      DO jrls = 1 , MEMAX ! For each matrix element
+         IF ( IVAR(jrls).NE.0 .OR. irfix.NE.1 ) THEN
+            IF ( IVAR(jrls).GT.999 ) THEN
+               IF ( jfre.EQ.1 ) GOTO 1100
+            ENDIF
+            IVAR(jrls) = 2
+            ELML(jrls) = -ABS(ELML(jrls))
+            ELMU(jrls) = ABS(ELMU(jrls))
+            IF ( jrls.GT.MEMX6 ) IVAR(jrls) = 1
+         ENDIF
+ 1100 ENDDO ! Loop on matrix elements jrls
+
+      DO jrls = 1 , MEMAX ! For each matrix element
+         ivarh(jrls) = IVAR(jrls)
+      ENDDO ! Loop on matrix elements jrls
+      GOTO 100 ! Back to input loop
+
+C.............................................................................
 C     Handle OP,TROU
  5300 ITS = 1 ! Create tape 18 flag
       READ * , kmat , rlr
@@ -2715,36 +2745,6 @@ C     ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
       CALL PRELM(2)
 
       GOTO 100 ! End of OP,REST - back to input loop
-
-C.............................................................................
-C     Handle OP,RE,*
- 5500 IF ( op2.EQ.'RE,A' ) THEN
-         jfre = 0
-         irfix = 0
-      ELSEIF ( op2.EQ.'RE,F' ) THEN
-         jfre = 0
-         irfix = 1
-      ELSEIF ( op2.EQ.'RE,C' ) THEN
-         jfre = 1
-         irfix = 0
-      ENDIF
-
-      DO jrls = 1 , MEMAX ! For each matrix element
-         IF ( IVAR(jrls).NE.0 .OR. irfix.NE.1 ) THEN
-            IF ( IVAR(jrls).GT.999 ) THEN
-               IF ( jfre.EQ.1 ) GOTO 1100
-            ENDIF
-            IVAR(jrls) = 2
-            ELML(jrls) = -ABS(ELML(jrls))
-            ELMU(jrls) = ABS(ELMU(jrls))
-            IF ( jrls.GT.MEMX6 ) IVAR(jrls) = 1
-         ENDIF
- 1100 ENDDO ! Loop on matrix elements jrls
-
-      DO jrls = 1 , MEMAX ! For each matrix element
-         ivarh(jrls) = IVAR(jrls)
-      ENDDO ! Loop on matrix elements jrls
-      GOTO 100 ! Back to input loop
 
 C.............................................................................
 C     Handle OP,TITL
