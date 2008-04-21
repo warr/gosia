@@ -793,8 +793,8 @@ C     Treat OP,FILE (attach files to fortran units)
 
       IF ( jphd.EQ.1 ) WRITE (22,99002)
 99002 FORMAT ('1'/1X,125('*')/1X,125('*')/1X,50('*'),25X,50('*')/1X,
-     &        50('*'),10X,'GOSIA',10X,50('*')/1X,50('*'),25X,50('*')
-     &        /1X,125('*')/1X,125('*')////)
+     &        50('*'),10X,'GOSIA',10X,50('*')/1X,50('*'),25X,50('*')/1X,
+     &        125('*')/1X,125('*')////)
       IF ( jphd.EQ.1 ) WRITE (22,99003)
 99003 FORMAT (1X/20X,'ROCHESTER COULOMB EXCITATION DATA ANALYSIS ',
      &        'CODE BY T.CZOSNYKA,D.CLINE AND C.Y.WU'/50X,
@@ -1006,8 +1006,8 @@ C     Treat OP,EXIT
 
 C     Treat OP,MINI
       ELSEIF ( op2.EQ.'MINI' ) THEN
-         READ * , imode , nptl , chiok , conu , xtest , LOCKF , 
-     &        NLOCK , IFBFL , LOCKS , DLOCK
+         READ * , imode , nptl , chiok , conu , xtest , LOCKF , NLOCK , 
+     &        IFBFL , LOCKS , DLOCK
          op2 = opcja
          IMIN = IMIN + 1
          IF ( IMIN.NE.1 ) GOTO 1400
@@ -1069,8 +1069,7 @@ C     Treat OP,THEO
                xm1 = bm(lamd,nb1,nb2,1)
                xm2 = bm(lamd,nb1,nb2,2)
                xm3 = bm(lamd,nb1,nb2,3)
-               ELM(kb) = ELMT(xi1,xi2,lamd,nb1,nb2,xk1,xk2,xm1,
-     &                   xm2,xm3)
+               ELM(kb) = ELMT(xi1,xi2,lamd,nb1,nb2,xk1,xk2,xm1,xm2,xm3)
                IF ( ABS(ELM(kb)).LT.1E-6 ) ELM(kb) = 1.E-6
                WRITE (12,*) ELM(kb)
             ENDIF
