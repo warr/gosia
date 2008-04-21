@@ -19,12 +19,12 @@ C          J. Srebrny  (Warsaw)
 C          Eh. Vogt (Munchen and Rochester)
 C          N. Warr (Cologne)
 C
-C         Nigel Warr of the University of Cologne has contributed many 
-C         important improvements to the coding of the 2007 version of 
+C         Nigel Warr of the University of Cologne has contributed many
+C         important improvements to the coding of the 2007 version of
 C         GOSIA, as well as the March 2008 update.  These include the
-C         repair of several bugs, significant improvements in structure, 
-C         standards and compatibility, and the addition of many detailed 
-C         comments to the code.  Descriptions of these improvements can 
+C         repair of several bugs, significant improvements in structure,
+C         standards and compatibility, and the addition of many detailed
+C         comments to the code.  Descriptions of these improvements can
 C         be found in the "Version History" below.
 C
 C        References and Credits
@@ -33,19 +33,19 @@ C          T. Czosnyka, D. Cline and C. Y. Wu,
 C          Bull. Am. Phys. Soc. 28, 745 (1983)
 C
 C          Internal laboratory report UR/NSRL 308/1986
-C 
-C          Some concepts used come from the 1978 Winther, de Boer code 
-C          COULEX and from the deexcitation code CEGRY developed by Cline 
-C          and coworkers at Rochester.  However, the parts taken from 
-C          both codes are in most cases completely rewritten, so the 
+C
+C          Some concepts used come from the 1978 Winther, de Boer code
+C          COULEX and from the deexcitation code CEGRY developed by Cline
+C          and coworkers at Rochester.  However, the parts taken from
+C          both codes are in most cases completely rewritten, so the
 C          similarity of variable and routine names may be misleading.
 C
 C        Resources
 C
-C          It is recommended that users check the GOSIA website at 
-C          Rochester periodically for important updates to the code and 
-C          the manual, as well as sample input and output files and other 
-C          information. Chapter 11 of this manual provides novice users 
+C          It is recommended that users check the GOSIA website at
+C          Rochester periodically for important updates to the code and
+C          the manual, as well as sample input and output files and other
+C          information. Chapter 11 of this manual provides novice users
 C          with instructions, tutorials, etc.
 C
 C          http://www.pas.rochester.edu/~cline/Research/GOSIA.htm
@@ -53,7 +53,7 @@ C
 C          If you need additional information, please contact:
 C
 C          Prof. Douglas Cline
-C          Department of Physics and Astronomy 
+C          Department of Physics and Astronomy
 C          University of Rochester
 C          Rochester, NY 14627, U.S.A.           Phone (585)275-4934
 C          Cline@pas.rochester.edu
@@ -98,7 +98,7 @@ C            (July 1997, T. Czosnyka) - Known matrix elements of all
 C            multipolarities may now be entered as data in OP,YIEL.
 C            Note that this necessitates adding the multipole order
 C            LAMBDA as the first field in the new input format:
-C              LAMBDA, NS1, NS2, ME, DME 
+C              LAMBDA, NS1, NS2, ME, DME
 C            where LAMBDA=7 and 8 represent M1 and M2, respectively.
 C
 C          Bugs Fixed  (2007 and 2008, N. Warr)
@@ -114,7 +114,7 @@ C
 C            The routine ALLOC now handles error conditions gracefully,
 C            and execution is halted in the event of a fatal error.
 C
-C            The WRN,X. switch in the CONT section of OP,GOSI and 
+C            The WRN,X. switch in the CONT section of OP,GOSI and
 C            OP,COUL was unintentionally disabled in the 2007 version.
 C            It is restored in the present update.
 C
@@ -134,9 +134,9 @@ C          Structure and Standards  (2007, N. Warr)
 C
 C            The 2007 code has been updated to remove many archaic
 C            functions and made to compile using GNU g77 on most or all
-C            modern 64-bit machines.  
+C            modern 64-bit machines.
 C
-C            Sections of the code have been restructured using Spag 
+C            Sections of the code have been restructured using Spag
 C            (Polyhedron Software) under the academic license.  This
 C            included unraveling of loops and goto statements, and
 C            indenting the source code to make loops and if statements
@@ -146,7 +146,7 @@ C            the 2007 version of Gosia2.  Other sections have been
 C            restructured for clarity, without altering their function
 C            (e.g. WTHREJ).
 C
-C            Common Blocks 
+C            Common Blocks
 C
 C              The common blocks ME2D, CCC, KIN, COEX, CAUX0, and LCZP
 C              were re-ordered so that the 64-bit real variables come
@@ -161,11 +161,11 @@ C              been replaced by their modern counterparts.
 C
 C                Archaic    Replacement        Archaic    Replacement
 C
-C                IFIX       INT                MIN0       MIN  
-C                FLOAT      REAL               AMIN1      MIN  
-C                IABS       ABS                ALOG10     LOG10 
-C                MAX0       MAX                ALOG       LOG     
-C                AMAX1      MAX                
+C                IFIX       INT                MIN0       MIN
+C                FLOAT      REAL               AMIN1      MIN
+C                IABS       ABS                ALOG10     LOG10
+C                MAX0       MAX                ALOG       LOG
+C                AMAX1      MAX
 C
 C          Chronology of Major Changes
 C
@@ -207,8 +207,8 @@ C
 C            (November 1990, T. Czosnyka) - The level scheme data
 C            arrays have been increased to the following sizes:
 C               number of levels   = 75
-C               gamma-ray yields   = 32 x 1500 
-C               magnetic substates = 600 
+C               gamma-ray yields   = 32 x 1500
+C               magnetic substates = 600
 C               matrix elements    = 500
 C
 C
@@ -784,13 +784,13 @@ C     Start reading input file.
 99001 FORMAT (1A3,1A4)
 
       IF ( op1.NE.'OP, ' ) GOTO 110
-      
+
 C     Treat OP,FILE (attach files to fortran units)
       IF ( op2.EQ.'FILE' ) THEN
          CALL OPENF
          GOTO 100 ! End of OP,FILE - back to input loop
       ENDIF
-      
+
       IF ( jphd.EQ.1 ) WRITE (22,99002)
 99002 FORMAT ('1'/1X,125('*')/1X,125('*')/1X,50('*'),25X,50('*')/1X,
      &        50('*'),10X,'GOSIA',10X,50('*')/1X,50('*'),25X,50('*')
@@ -910,7 +910,7 @@ C     Treat other options
 C     Treat OP,RE,A (release A)
       ELSEIF ( op2.EQ.'RE,A' ) THEN
          GOTO 900
-      
+
 C     Treat OP,RE,F (release F)
       ELSEIF ( op2.EQ.'RE,F' ) THEN
          GOTO 900
@@ -995,7 +995,7 @@ C     Treat OP,GOSI
          oph = op2
          opcja = op2
          GOTO 200
-       
+
 C     Treat OP,COUL
       ELSEIF ( op2.EQ.'COUL' ) THEN
          GOTO 200
@@ -1084,7 +1084,7 @@ C     Treat OP,YIEL
 
 C     Treat OP,INTG
       ELSEIF ( op2.EQ.'INTG' ) THEN
-        GOTO 3000
+         GOTO 3000
 
 C     Treat OP,CORR
       ELSEIF ( op2.EQ.'CORR' ) THEN
@@ -1111,10 +1111,10 @@ C     Treat OP,SIXJ
                DO ms = 1 , 5
                   mend = 2*(ms-3) + ixj
                   WRITE (14,*) WSIXJ(l,4,4,ixj,mend,ixj-4) , 
-     &                   WSIXJ(l,4,4,ixj,mend,ixj-2) , 
-     &                   WSIXJ(l,4,4,ixj,mend,ixj) , 
-     &                   WSIXJ(l,4,4,ixj,mend,ixj+2) , 
-     &                   WSIXJ(l,4,4,ixj,mend,ixj+4)
+     &                         WSIXJ(l,4,4,ixj,mend,ixj-2) , 
+     &                         WSIXJ(l,4,4,ixj,mend,ixj) , 
+     &                         WSIXJ(l,4,4,ixj,mend,ixj+2) , 
+     &                         WSIXJ(l,4,4,ixj,mend,ixj+4)
                ENDDO
             ENDDO
          ENDDO
@@ -1171,14 +1171,14 @@ C        Read input from standard input
 C     Treat OP,MAP
       ELSEIF ( op2.EQ.'MAP ' ) THEN
          iobl = 1
-         GOTO 1200 ! End of OP,MAP 
+         GOTO 1200 ! End of OP,MAP
 
 C     Unrecognised options
       ELSE
          GOTO 110 ! Unrecognised option
       ENDIF
 
-  110 WRITE (22,99022) op1 , op2
+ 110  WRITE (22,99022) op1 , op2
       WRITE (*,99022) op1 , op2
 99022 FORMAT (5X,'UNRECOGNIZED OPTION',1X,1A3,1A4)
       GOTO 2000 ! Normal end of execution
@@ -1393,7 +1393,7 @@ C     Treat suboption CONT (control)
          ELSEIF ( op1.EQ.'WRN,' ) THEN
             SGW = fipo1
          ELSE
-            WRITE (*,*) 'Invalid CONTrol option ', op1
+            WRITE (*,*) 'Invalid CONTrol option ' , op1
          ENDIF
          GOTO 350 ! Back to beginning of CONT loop
 
@@ -1429,7 +1429,7 @@ C     Else we don't recognize the suboption
       ENDIF
       GOTO 200 ! Get next suboption
 
-C     Handle OP,ERRO      
+C     Handle OP,ERRO
  400  IF ( ICS.EQ.1 ) THEN
          REWIND 11
          DO kh1 = 1 , LP4
@@ -2343,7 +2343,7 @@ C     Handle OP,EXIT
                            WRITE (22,99016) ni , nf , esd , ess , 
      &                        (ess-esd)/dsd
 99016                      FORMAT (5x,1I2,1x,1I2,1x,1F9.4,1x,1F9.4,1x,
-     &                              1F9.4)
+     &                             1F9.4)
                         ENDDO
                      ENDIF
                   ENDIF
@@ -2353,7 +2353,6 @@ C     Handle OP,EXIT
          ENDIF
       ENDIF
       GOTO 1900 ! End of OP,EXIT - troubleshoot
-
 
 C.............................................................................
 C     Handle OP,INTG
@@ -2758,7 +2757,6 @@ C                    Interpolate cross-section at this energy
          ENDDO
       ENDIF
       GOTO 100 ! End of OP,INTG - back to input loop
-
 
 99048 FORMAT (1X//50X,'CALCULATED YIELDS'//5X,'EXPERIMENT ',1I2,2X,
      &        'DETECTOR ',1I2/5X,'ENERGY ',1F10.3,1X,'MEV',2X,'THETA ',
