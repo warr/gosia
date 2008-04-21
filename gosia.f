@@ -749,7 +749,7 @@ C     Initialize normalization to 1.
          MULTI(lam) = 0
          LAMDA(lam) = 0
       ENDDO
-      DO j = 1 , LP2 ! LP2 = 500
+      DO j = 1 , LP2 ! LP2 = 500 (maximum number of matrix elements)
          EXPO(j) = (1.,0.)
          KVAR(j) = 1
          ELM(j) = 0.
@@ -764,11 +764,11 @@ C     Initialize normalization to 1.
       ISEX(1) = 0
       ACCA = .00001
       oph = '    '
-      nmemx = LP2 + 9 ! LP2 = 500
+      nmemx = LP2 + 9 ! LP2 = 500 (maximum number of matrix elements)
       IEXP = 1
       IMIN = 0
       i122 = 0
-      DO j = 1 , LP2 ! LP2 = 500
+      DO j = 1 , LP2 ! LP2 = 500 (maximum number of matrix elements)
          DO k = 1 , 2
             DO l = 1 , 7
                QAPR(j,k,l) = 0.
@@ -1729,7 +1729,7 @@ C     Handle OP,ERRO
                   CALL DECAY(ccd,0,ccc)
                   nogeli = NANG(IEXP) ! Number of detector angles for expt
                   jgl1 = 0
-                  DO js = 1 , LP2
+                  DO js = 1 , LP2 ! LP2 = 500 (maximum number of matrix elements)
                      DO jgl = 1 , 20
                         SUMCL(jgl,js) = 0.
                      ENDDO
@@ -2441,7 +2441,7 @@ C     Handle OP,INTG
                   ENDDO
                   CALL TENS(bten)
                   CALL DECAY(ccd,0,ccc)
-                  DO j = 1 , LP2
+                  DO j = 1 , LP2 ! LP2 = 500 (maximum number of matrix elements)
                      DO ijan = 1 , 20
                         SUMCL(ijan,j) = 0.
                      ENDDO
@@ -2550,7 +2550,7 @@ C     Handle OP,INTG
          ILE(na) = 1
       ENDDO
       ilx = 0
-      DO lx = 1 , NEXPT
+      DO lx = 1 , NEXPT ! Loop over experiments
          REWIND 17
          DO ijaja = 1 , 300000
             READ (17,*,END=134) jjlx , jmpin , jkloo , jktt , dsx
