@@ -139,7 +139,7 @@ C      Iredv  -
       COMMON /TRB   / ITS
       COMMON /TCM   / TETACM(50) , TREP(50) , DSIGS(50)
       COMMON /CCCDS / NDST(50)
-
+      DATA sum3/0./,sumpr/0./
       ifxd = 0
       tetrc = TREP(IEXP) ! Theta of recoiling nucleus
 
