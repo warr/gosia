@@ -864,7 +864,7 @@ C     Treat OP,RE,F (release F)
 
 C     Treat OP,REST (restart)
       ELSEIF ( op2.EQ.'REST' ) THEN
-         GOTO 5400
+         GOTO 4400
 
 C     Treat OP,SIXJ
       ELSEIF ( op2.EQ.'SIXJ' ) THEN
@@ -2695,14 +2695,8 @@ C     Handle OP,RE,*
       GOTO 100 ! Back to input loop
 
 C.............................................................................
-C     Handle OP,TROU
- 5300 ITS = 1 ! Create tape 18 flag
-      READ * , kmat , rlr
-      GOTO 100 ! End of OP,TROU - back to input loop
-
-C.............................................................................
 C     Handle OP,REST
- 5400 REWIND 12
+ 4400 REWIND 12
       memax1 = MEMAX + 1
 
       DO lkj = 1 , MEMAX ! For each matrix element
@@ -2745,6 +2739,12 @@ C     ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
       CALL PRELM(2)
 
       GOTO 100 ! End of OP,REST - back to input loop
+
+C.............................................................................
+C     Handle OP,TROU
+ 5300 ITS = 1 ! Create tape 18 flag
+      READ * , kmat , rlr
+      GOTO 100 ! End of OP,TROU - back to input loop
 
 C.............................................................................
 C     Handle OP,TITL
