@@ -804,11 +804,7 @@ C     Print header
 
 C     Treat OP,CORR
       IF ( op2.EQ.'CORR' ) THEN
-         CALL READY(idr,ntap,0)
-         REWIND 3
-         REWIND 15
-         REWIND 4
-         GOTO 1200 ! End of OP,CORR
+         GOTO 3000
 
 C     Treat OP,COUL
       ELSEIF ( op2.EQ.'COUL' ) THEN
@@ -816,7 +812,7 @@ C     Treat OP,COUL
 
 C     Treat OP,ERRO (calculate errors)
       ELSEIF ( op2.EQ.'ERRO' ) THEN
-         GOTO 3600
+         GOTO 4600
 
 C     Treat OP,EXIT
       ELSEIF ( op2.EQ.'EXIT' ) THEN
@@ -834,7 +830,7 @@ C     Treat OP,GOSI
 
 C     Treat OP,INTG
       ELSEIF ( op2.EQ.'INTG' ) THEN
-         GOTO 3000
+         GOTO 3600
 
 C     Treat OP,MAP
       ELSEIF ( op2.EQ.'MAP ' ) THEN
@@ -2003,8 +1999,16 @@ C     End of execution
       STOP
 
 C.............................................................................
+C     Handle OP,CORR
+ 3000 CALL READY(idr,ntap,0)
+      REWIND 3
+      REWIND 15
+      REWIND 4
+      GOTO 1200 ! End of OP,CORR
+
+C.............................................................................
 C     Handle OP,INTG
- 3000 REWIND 14
+ 3600 REWIND 14
       lfagg = 1
       IF ( SPIN(1).LT..25 ) ISO = 0
       DO lx = 1 , NEXPT ! For each experiment
@@ -2556,7 +2560,7 @@ C     Handle OP,RE,*
 
 C.............................................................................
 C     Handle OP,ERRO
- 3600 READ * , idf , ms , mend , irep , ifc , remax
+ 4600 READ * , idf , ms , mend , irep , ifc , remax
       rem = LOG(remax)
       LOCKS = 0
       LOCKF = 0
