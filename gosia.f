@@ -2755,14 +2755,15 @@ C                    Interpolate cross-section at this energy
          DO lx = 1 , NEXPT ! For each experiment
             nged = NDST(lx)
             IF ( IRAWEX(lx).EQ.0 ) nged = NANG(lx)
-            DO ija0 = 1 , nged
+            DO ija0 = 1 , nged ! For each angle or dataset
                READ (17,*) (GRAD(jdy),jdy=1,idr)
-               DO jd = 1 , idr
+               DO jd = 1 , idr ! For each decay
                   WRITE (15,*) GRAD(jd)
-               ENDDO
-            ENDDO
+               ENDDO ! Loop on decays jd
+            ENDDO ! Loop on angle or dataset
          ENDDO ! Loop on experiments lx
       ENDIF
+
       GOTO 100 ! End of OP,INTG - back to input loop
 
 99048 FORMAT (1X//50X,'CALCULATED YIELDS'//5X,'EXPERIMENT ',1I2,2X,
