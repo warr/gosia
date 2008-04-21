@@ -820,11 +820,15 @@ C     Treat OP,REST (restart)
 
 C     Treat OP,RE,A (release A)
       ELSEIF ( op2.EQ.'RE,A' ) THEN
-         GOTO 900
+         GOTO 3500
 
 C     Treat OP,RE,F (release F)
       ELSEIF ( op2.EQ.'RE,F' ) THEN
-         GOTO 900
+         GOTO 3500
+
+C     Treat OP,RE,C (release C)
+      ELSEIF ( op2.EQ.'RE,C' ) THEN
+         GOTO 3500 ! End of OP,RE,C
 
 C     Treat OP,ERRO (calculate errors)
       ELSEIF ( op2.EQ.'ERRO' ) THEN
@@ -886,12 +890,6 @@ C     Treat OP,ERRO (calculate errors)
          IF ( ERR ) GOTO 2000 ! Error
          IF ( IMIN.NE.0 ) GOTO 400
          GOTO 1300 ! End of OP,ERRO
-
-C     Treat OP,RE,C (release C)
-      ELSEIF ( op2.EQ.'RE,C' ) THEN
-         jfre = 1
-         irfix = 0
-         GOTO 1000 ! End of OP,RE,C
 
 C     Treat OP,TITL (title)
       ELSEIF ( op2.EQ.'TITL' ) THEN
@@ -1533,25 +1531,6 @@ C     Handle OP,ERRO
          WRITE (3,*) im , im
       ENDIF
       GOTO 600
-
- 900  jfre = 0
-      irfix = 0
-      IF ( op2.EQ.'RE,F' ) irfix = 1
- 1000 DO jrls = 1 , MEMAX ! For each matrix element
-         IF ( IVAR(jrls).NE.0 .OR. irfix.NE.1 ) THEN
-            IF ( IVAR(jrls).GT.999 ) THEN
-               IF ( jfre.EQ.1 ) GOTO 1100
-            ENDIF
-            IVAR(jrls) = 2
-            ELML(jrls) = -ABS(ELML(jrls))
-            ELMU(jrls) = ABS(ELMU(jrls))
-            IF ( jrls.GT.MEMX6 ) IVAR(jrls) = 1
-         ENDIF
- 1100 ENDDO ! For each matrix element jrls
-      DO jrls = 1 , MEMAX
-         ivarh(jrls) = IVAR(jrls)
-      ENDDO
-      GOTO 100 ! Back to input loop
 
  1200 CALL CMLAB(0,dsig,ttttt) ! Options MAP, STAR, POINT, MINI etc.
       IF ( ERR ) GOTO 2000 ! Error
@@ -2787,6 +2766,32 @@ C     ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
       GOTO 100 ! End of OP,REST - back to input loop
 
 C.............................................................................
+C     Handle OP,RE,*
+ 3500 IF ( op2.EQ.'RE,A' ) THEN
+         jfre = 0
+         irfix = 0
+      ELSEIF ( op2.EQ.'RE,F' ) THEN
+         jfre = 0
+         irfix = 1
+      ELSEIF ( op2.EQ.'RE,C' ) THEN
+         jfre = 1
+         irfix = 0
+      ENDIF
+      DO jrls = 1 , MEMAX ! For each matrix element
+         IF ( IVAR(jrls).NE.0 .OR. irfix.NE.1 ) THEN
+            IF ( IVAR(jrls).GT.999 ) THEN
+               IF ( jfre.EQ.1 ) GOTO 1100
+            ENDIF
+            IVAR(jrls) = 2
+            ELML(jrls) = -ABS(ELML(jrls))
+            ELMU(jrls) = ABS(ELMU(jrls))
+            IF ( jrls.GT.MEMX6 ) IVAR(jrls) = 1
+         ENDIF
+ 1100 ENDDO ! For each matrix element jrls
+      DO jrls = 1 , MEMAX
+         ivarh(jrls) = IVAR(jrls)
+      ENDDO
+      GOTO 100 ! Back to input loop
 
 
 99048 FORMAT (1X//50X,'CALCULATED YIELDS'//5X,'EXPERIMENT ',1I2,2X,
