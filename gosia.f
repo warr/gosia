@@ -2777,6 +2777,7 @@ C     Handle OP,RE,*
          jfre = 1
          irfix = 0
       ENDIF
+
       DO jrls = 1 , MEMAX ! For each matrix element
          IF ( IVAR(jrls).NE.0 .OR. irfix.NE.1 ) THEN
             IF ( IVAR(jrls).GT.999 ) THEN
@@ -2787,11 +2788,14 @@ C     Handle OP,RE,*
             ELMU(jrls) = ABS(ELMU(jrls))
             IF ( jrls.GT.MEMX6 ) IVAR(jrls) = 1
          ENDIF
- 1100 ENDDO ! For each matrix element jrls
-      DO jrls = 1 , MEMAX
+ 1100 ENDDO ! Loop on matrix elements jrls
+
+      DO jrls = 1 , MEMAX ! For each matrix element
          ivarh(jrls) = IVAR(jrls)
-      ENDDO
+      ENDDO ! Loop on matrix elements jrls
       GOTO 100 ! Back to input loop
+
+C.............................................................................
 
 
 99048 FORMAT (1X//50X,'CALCULATED YIELDS'//5X,'EXPERIMENT ',1I2,2X,
