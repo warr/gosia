@@ -884,7 +884,7 @@ C     Treat OP,TITL (title)
 
 C     Treat OP,TROU (troubleshooting)
       ELSEIF ( op2.EQ.'TROU' ) THEN
-         GOTO 5300
+         GOTO 4700
 
 C     Treat OP,YIEL
       ELSEIF ( op2.EQ.'YIEL' ) THEN
@@ -2831,10 +2831,11 @@ C     Handle OP,TITL
 
 C.............................................................................
 C     Handle OP,TROU
- 5300 ITS = 1 ! Create tape 18 flag
+ 4700 ITS = 1 ! Create tape 18 flag
       READ * , kmat , rlr
       GOTO 100 ! End of OP,TROU - back to input loop
 
+C.............................................................................
 
 99048 FORMAT (1X//50X,'CALCULATED YIELDS'//5X,'EXPERIMENT ',1I2,2X,
      &        'DETECTOR ',1I2/5X,'ENERGY ',1F10.3,1X,'MEV',2X,'THETA ',
