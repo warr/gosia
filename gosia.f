@@ -1354,6 +1354,7 @@ C     Handle OP,ERRO
       ENDIF
       GOTO 600
 
+C.............................................................................
  1200 CALL CMLAB(0,dsig,ttttt) ! Options MAP, STAR, POINT, MINI etc.
       IF ( ERR ) GOTO 2000 ! Error
       IF ( op2.EQ.'POIN' ) READ * , ifwd , slim
