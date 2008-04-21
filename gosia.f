@@ -1734,42 +1734,25 @@ C     Treat suboption CONT (control)
       ELSEIF ( op1.EQ.'CONT' ) THEN
  350     READ 99026 , op1 , fipo1
 99026    FORMAT (1A4,1F7.1)
+         write(*,*)op1,fipo1
          ipo1 = INT(fipo1)
-         IF ( op1.EQ.'ACP,' ) THEN
+         IF ( op1.EQ.'ACC,' ) THEN
+            ACCUR = 10.**(-fipo1)
+         ELSEIF ( op1.EQ.'ACP,' ) THEN
             ACCA = 10.**(-fipo1)
-         ELSEIF ( op1.EQ.'SEL,' ) THEN
-            ITS = 2
-         ELSEIF ( op1.EQ.'SMR,' ) THEN
-            iosr = 1
-         ELSEIF ( op1.EQ.'FMI,' ) THEN
-            ifm = 1
-         ELSEIF ( op1.EQ.'TEN,' ) THEN
-            itno = 1
-         ELSEIF ( op1.EQ.'NCM,' ) THEN
-            NCM = ipo1
-         ELSEIF ( op1.EQ.'WRN,' ) THEN
-            SGW = fipo1
-         ELSEIF ( op1.EQ.'INT,' ) THEN
+         ELSEIF ( op1.EQ.'CCF,' ) THEN
+            IPS1 = ipo1
+         ELSEIF ( op1.EQ.'CRF,' ) THEN
+            ICS = 1
+         ELSEIF ( op1.EQ.'CRD,' ) THEN
             DO jjx = 1 , ipo1
-               READ * , ipo2 , ijx
-               INTERV(ipo2) = ijx
-            ENDDO
-         ELSEIF ( op1.EQ.'VAC,' ) THEN
-            DO jjx = 1 , 7
-               READ * , ijx , val
-               IF ( ijx.EQ.0 ) GOTO 350
-               G(ijx) = val
+               READ * , ipo2
+               iecd(ipo2) = 1
             ENDDO
          ELSEIF ( op1.EQ.'DIP,' ) THEN
             DIPOL = 0.001*fipo1
-         ELSEIF ( op1.EQ.'ACC,' ) THEN
-            ACCUR = 10.**(-fipo1)
-         ELSEIF ( op1.EQ.'PRT,' ) THEN
-            DO jjx = 1 , 20
-               READ * , inm1 , inm2
-               IF ( inm1.EQ.0 ) GOTO 350
-               IPRM(inm1) = inm2
-            ENDDO
+         ELSEIF ( op1.EQ.'END,' ) THEN
+            GOTO 200 ! Back to main input loop
          ELSEIF ( op1.EQ.'FIX,' ) THEN
             READ * , nallow
             DO jjx = 1 , nallow
@@ -1785,13 +1768,15 @@ C     Treat suboption CONT (control)
                IF ( IVAR(jjx).LT.0 ) IVAR(jjx) = -IVAR(jjx)
                ivarh(jjx) = IVAR(jjx)
             ENDDO
-         ELSEIF ( op1.EQ.'SKP,' ) THEN
+         ELSEIF ( op1.EQ.'FMI,' ) THEN
+            ifm = 1
+         ELSEIF ( op1.EQ.'INR,' ) THEN
+            INNR = 1
+         ELSEIF ( op1.EQ.'INT,' ) THEN
             DO jjx = 1 , ipo1
-               READ * , ijx
-               JSKIP(ijx) = 0
+               READ * , ipo2 , ijx
+               INTERV(ipo2) = ijx
             ENDDO
-         ELSEIF ( op1.EQ.'CRF,' ) THEN
-            ICS = 1
          ELSEIF ( op1.EQ.'LCK,' ) THEN
  352        READ * , lck1 , lck2
             IF ( lck1.EQ.0 ) GOTO 350
@@ -1800,15 +1785,8 @@ C     Treat suboption CONT (control)
                IVAR(jjx) = 0
             ENDDO
             GOTO 352
-         ELSEIF ( op1.EQ.'INR,' ) THEN
-            INNR = 1
-         ELSEIF ( op1.EQ.'CRD,' ) THEN
-            DO jjx = 1 , ipo1
-               READ * , ipo2
-               iecd(ipo2) = 1
-            ENDDO
-         ELSEIF ( op1.EQ.'CCF,' ) THEN
-            IPS1 = ipo1
+         ELSEIF ( op1.EQ.'NCM,' ) THEN
+            NCM = ipo1
          ELSEIF ( op1.EQ.'PIN,' ) THEN
             ipine = ipo1
             ipinf = 1
@@ -1816,8 +1794,31 @@ C     Treat suboption CONT (control)
                READ (*,*) ig1 , ig2
                jpin(ig1) = ig2
             ENDDO
-         ELSEIF ( op1.EQ.'END,' ) THEN
-            GOTO 200 ! Back to main input loop
+         ELSEIF ( op1.EQ.'PRT,' ) THEN
+            DO jjx = 1 , 20
+               READ * , inm1 , inm2
+               IF ( inm1.EQ.0 ) GOTO 350
+               IPRM(inm1) = inm2
+            ENDDO
+         ELSEIF ( op1.EQ.'SEL,' ) THEN
+            ITS = 2
+         ELSEIF ( op1.EQ.'SKP,' ) THEN
+            DO jjx = 1 , ipo1
+               READ * , ijx
+               JSKIP(ijx) = 0
+            ENDDO
+         ELSEIF ( op1.EQ.'SMR,' ) THEN
+            iosr = 1
+         ELSEIF ( op1.EQ.'TEN,' ) THEN
+            itno = 1
+         ELSEIF ( op1.EQ.'VAC,' ) THEN
+            DO jjx = 1 , 7
+               READ * , ijx , val
+               IF ( ijx.EQ.0 ) GOTO 350
+               G(ijx) = val
+            ENDDO
+         ELSEIF ( op1.EQ.'WRN,' ) THEN
+            SGW = fipo1
          ELSE
             WRITE (*,*) 'Invalid CONTrol option ', op1
          ENDIF
