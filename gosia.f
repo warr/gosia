@@ -840,7 +840,7 @@ C     Treat OP,MINI
 
 C     Treat OP,POIN
       ELSEIF ( op2.EQ.'POIN' ) THEN
-         GOTO 1200
+         GOTO 4000
 
 C     Treat OP,RAND (randomise matrix elements)
       ELSEIF ( op2.EQ.'RAND' ) THEN
@@ -872,7 +872,7 @@ C     Treat OP,SIXJ
 
 C     Treat OP,STAR
       ELSEIF ( op2.EQ.'STAR' ) THEN
-         GOTO 1200
+         GOTO 4000
 
 C     Treat OP,THEO
       ELSEIF ( op2.EQ.'THEO' ) THEN
@@ -1098,623 +1098,6 @@ C     Handle OP,ERRO
       ENDIF
       GOTO 600
 
-C.............................................................................
- 1200 CALL CMLAB(0,dsig,ttttt) ! Options MAP, STAR, POINT, MINI etc.
-      IF ( ERR ) GOTO 2000 ! Error
-      IF ( op2.EQ.'POIN' ) READ * , ifwd , slim
-      ient = 1
-      icg = 1
-      IF ( SPIN(1).LT.1.E-6 ) ISO = 0
-      IF ( iobl.LT.1 ) THEN
-         IF ( op2.NE.'GOSI' ) THEN
-            iapx = 0
-            DO ii = 1 , LP6 ! LP6 = 32 (maximum number of gamma detectors)
-               ILE(ii) = 1
-            ENDDO
-            nch = 0
-            DO jexp = 1 , NEXPT ! For each experiment
-               IEXP = jexp
-               ttttt = TREP(IEXP)
-               dsig = DSIGS(IEXP)
-               IF ( op2.NE.'STAR' ) THEN
-                  jmm = IEXP
-                  IF ( IEXP.NE.1 ) THEN
-                     DO lli = 1 , LP6 ! LP6 = 32 (maximum number of gamma detectors)
-                        ILE(lli) = ILE(lli) + NYLDE(IEXP-1,lli)
-                     ENDDO
-                  ENDIF
-               ENDIF
-               fi0 = FIEX(IEXP,1) ! Lower phi limit
-               fi1 = FIEX(IEXP,2) ! Upper phi limit
-               CALL LOAD(IEXP,1,icg,0.D0,jj)
-               CALL ALLOC(ACCUR)
-               CALL SNAKE(IEXP,ZPOL)
-               CALL SETIN
-               DO j = 1 , LMAX ! For each spin up to ground-state spin + 1
-                  polm = DBLE(j-1) - SPIN(1)
-                  CALL LOAD(IEXP,2,icg,polm,jj)
-                  CALL STING(jj)
-                  CALL PATH(jj)
-                  CALL INTG(IEXP)
-                  CALL TENB(j,bten,LMAX)
-                  pr = 0.
-                  IF ( op2.EQ.'STAR' .OR. IPRM(19).EQ.1 )
-     &                 WRITE (22,99034) (DBLE(j)-1.-SPIN(1)) , IEXP
-99034             FORMAT (1X//40X,'EXCITATION AMPLITUDES'//10X,'M=',
-     &                    1F5.1,5X,'EXPERIMENT',1X,1I2//5X,'LEVEL',2X,
-     &                    'SPIN',2X,'M',5X,'REAL AMPLITUDE',2X,
-     &                    'IMAGINARY AMPLITUDE'//)
-                  DO k = 1 , ISMAX ! For substates
-                     pr = pr + DBLE(ARM(k,5))**2 + IMAG(ARM(k,5))**2
-                     IF ( op2.EQ.'STAR' .OR. IPRM(19).EQ.1 )
-     &                    WRITE (22,99035) INT(CAT(k,1)) , CAT(k,2) , 
-     &                    CAT(k,3) , DBLE(ARM(k,5)) , IMAG(ARM(k,5))
-99035                FORMAT (7X,1I2,3X,1F4.1,2X,1F5.1,2X,1E14.6,2X,
-     &                       1E14.6)
-                  ENDDO ! Loop on substates k
-                  IF ( op2.EQ.'STAR' .OR. IPRM(19).EQ.1 )
-     &                 WRITE (22,99036) pr
-99036             FORMAT (1X/5X,'SUM OF PROBABILITIES=',1E14.6)
-               ENDDO ! Loop over spins j
-               CALL TENS(bten)
-               IF ( itno.NE.0 ) THEN ! write statistical tensors on tape 17
-                  DO k = 2 , NMAX
-                     WRITE (17,*) k
-                     DO kk = 1 , 4
-                        in1 = (k-1)*28 + 1 + (kk-1)*7
-                        in2 = in1 + 2*kk - 2
-                        WRITE (17,*) (ZETA(kkk),kkk=in1,in2)
-                     ENDDO
-                  ENDDO
-               ENDIF
-               summm = 0.
-               DO jgl = 2 , NMAX
-                  loct = (jgl-1)*28 + 1
-                  summm = summm + ZETA(loct)
-               ENDDO
-               pop1 = 1. - summm
-               jgl = 1
-               IF ( op2.EQ.'STAR' .OR. IPRM(19).EQ.1 ) WRITE (22,99053)
-     &              jgl , pop1
-               DO jgl = 2 , NMAX
-                  loct = (jgl-1)*28 + 1
-                  IF ( op2.EQ.'STAR' .OR. IPRM(19).EQ.1 )
-     &                 WRITE (22,99053) jgl , ZETA(loct)
-               ENDDO
-               IF ( op2.NE.'STAR' ) THEN
-                  CALL DECAY(ccd,0,ccc)
-                  nogeli = NANG(IEXP) ! Number of detector angles for expt
-                  jgl1 = 0
-                  DO js = 1 , LP2 ! LP2 = 500 (maximum number of matrix elements)
-                     DO jgl = 1 , 20
-                        SUMCL(jgl,js) = 0.
-                     ENDDO
-                  ENDDO
-                  DO jgl = 1 , nogeli ! For each detector angle
-                     IF ( IRAWEX(IEXP).NE.0 ) THEN
-                        IF ( op2.EQ.'POIN' .AND. IPRM(20).EQ.1 )
-     &                       WRITE (23,99037) IEXP , jgl , EP(IEXP) , 
-     &                       TLBDG(IEXP)
-99037                   FORMAT (1x//50x,'CALCULATED YIELDS'//5x,
-     &                          'EXPERIMENT ',1I2,2x,'DETECTOR ',1I2/5x,
-     &                          'ENERGY ',1F10.3,1x,'MEV',2x,'THETA ',
-     &                          1F7.3,1x,'DEG'//5x,'NI',5x,'NF',5x,'II',
-     &                          5x,'IF',5x,'E(MeV)',5x,'EFFICIENCY'/)
-                     ENDIF
-                     gth = AGELI(IEXP,jgl,1)
-                     figl = AGELI(IEXP,jgl,2)
-                     fm = (fi0+fi1)/2.
-                     CALL ANGULA(YGN,idr,1,fi0,fi1,ttttt,gth,figl,jgl)
-                     IF ( IFMO.NE.0 ) THEN
-                        id = ITMA(IEXP,jgl) ! Get identity of detector
-                        d = ODL(id) ! Get results of OP,GDET for that detector
-                        rx = d*SIN(gth)*COS(figl-fm) - .25*SIN(ttttt)
-     &                       *COS(fm)
-                        ry = d*SIN(gth)*SIN(figl-fm) - .25*SIN(ttttt)
-     &                       *SIN(fm)
-                        rz = d*COS(gth) - .25*COS(ttttt)
-                        rl = SQRT(rx*rx+ry*ry+rz*rz)
-                        thc = TACOS(rz/rl)
-                        sf = d*d/rl/rl
-                        fic = ATAN2(ry,rx)
-                        CALL ANGULA(YGP,idr,1,fi0,fi1,ttttt,thc,fic,jgl)
-                        DO ixl = 1 , idr
-                           ixm = KSEQ(ixl,3)
-                           tfac = TAU(ixm)
-                           YGN(ixl) = YGN(ixl)
-     &                                + .01199182*tfac*BETAR(IEXP)
-     &                                *(sf*YGP(ixl)-YGN(ixl))
-                        ENDDO
-                     ENDIF
-                     IF ( IRAWEX(IEXP).NE.0 ) THEN
-                        ipd = ITMA(IEXP,jgl) ! Get identity of detector
-                        DO jyi = 1 , idr ! For each decay
-                           ni = KSEQ(jyi,3)
-                           nf = KSEQ(jyi,4)
-                           decen = EN(ni) - EN(nf)
-                           cocos = SIN(ttttt)*SIN(gth)*COS(fm-figl)
-     &                             + COS(ttttt)*COS(gth)
-                           decen = decen*(1.+BETAR(IEXP)*cocos)
-                           CALL EFFIX(ipd,decen,effi)
-                           IF ( op2.EQ.'POIN' .AND. IPRM(20).EQ.1 )
-     &                          WRITE (23,99049) ni , nf , SPIN(ni) , 
-     &                                 SPIN(nf) , decen , effi
-                           YGN(jyi) = YGN(jyi)*effi
-                        ENDDO
-                        inclus = ICLUST(IEXP,jgl) ! Cluster number for detector jgl
-                        IF ( inclus.NE.0 ) THEN
-                           DO jyi = 1 , idr ! For each decay
-                              SUMCL(inclus,jyi) = SUMCL(inclus,jyi)
-     &                           + YGN(jyi)
-                           ENDDO
-                           IF ( jgl.NE.LASTCL(IEXP,inclus) ) GOTO 1205 ! If it is not the last detector in the cluster
-                           DO jyi = 1 , idr ! For each decay
-                              YGN(jyi) = SUMCL(inclus,jyi)
-                           ENDDO
-                        ENDIF
-                     ENDIF
-                     jgl1 = jgl1 + 1
-                     lu = ILE(jgl1)
-                     IF ( op2.EQ.'POIN' .OR. IPRM(11).EQ.1 )
-     &                    WRITE (22,99048) IEXP , jgl1 , EP(IEXP) , 
-     &                    TLBDG(IEXP)
-                     jmm = 0
-                     ttttx = TLBDG(IEXP)/57.2957795
-                     YGN(IDRN) = YGN(IDRN)*dsig*SIN(ttttx)
-                     DO jyi = 1 , idr
-                        IF ( jyi.NE.IDRN ) YGN(jyi) = YGN(jyi)
-     &                       *dsig*SIN(ttttx)
-                     ENDDO
-                     DO jyi = 1 , idr
-                        ni = KSEQ(jyi,3)
-                        nf = KSEQ(jyi,4)
-                        IF ( op2.EQ.'POIN' .OR. IPRM(11).EQ.1 )
-     &                       WRITE (22,99049) ni , nf , SPIN(ni) , 
-     &                       SPIN(nf) , YGN(jyi) , YGN(jyi)/YGN(IDRN)
-                        IF ( ifwd.EQ.1 ) THEN
-                           IF ( (YGN(jyi)/YGN(IDRN)).GE.slim ) THEN
-                              IF ( jgl1.EQ.1 ) sh1 = YGN(IDRN)
-                              jmm = jmm + 1
-                              CORF(jmm,1) = DBLE(ni)
-                              CORF(jmm,2) = DBLE(nf)
-                              CORF(jmm,3) = YGN(jyi)/sh1
-                              IF ( YGN(jyi).GE.YGN(IDRN) ) CORF(jmm,4)
-     &                             = CORF(jmm,3)/20.
-                              IF ( YGN(jyi).LT.YGN(IDRN) ) CORF(jmm,4)
-     &                             = CORF(jmm,3)
-     &                             *(.05+.2*(1.-YGN(jyi)/YGN(IDRN)))
-                           ENDIF
-                        ENDIF
-                        IF ( op2.EQ.'CORR' ) THEN
-                           READ (15,*) yydd
-                           nch = nch + 1
-                           jjjj = IY(lu,jgl1)/1000
-                           jyi1 = IY(lu,jgl1) - jjjj*1000
-                           IF ( IY(lu,jgl1).EQ.jyi .OR. jjjj.EQ.jyi .OR. 
-     &                          jyi1.EQ.jyi ) THEN
-                              IF ( IY(lu,jgl1).GE.1000 ) THEN
-                                 jyi2 = jyi1 - jjjj
-                                 IF ( jyi2.LE.0 ) GOTO 1202
-                                 DO ihuj = 1 , jyi2
-                                    READ (15,*) yyd1
-                                 ENDDO
-                                 yydd = yydd + yyd1
-                                 YGN(jyi) = YGN(jyi) + YGN(jyi1)
-                                 REWIND 15
-                                 DO ihuj = 1 , nch
-                                    READ (15,*) yyd1
-                                 ENDDO
-                              ENDIF
-                              IF ( IEXP.EQ.1 .AND. lu.EQ.NYLDE(1,1)
-     &                             .AND. jgl1.EQ.1 )
-     &                             cnst = yydd/YGN(jyi)
-                              CORF(lu,jgl1) = YEXP(jgl1,lu)
-                              YEXP(jgl1,lu) = YEXP(jgl1,lu)
-     &                           /yydd*YGN(jyi)
-                              DYEX(jgl1,lu) = DYEX(jgl1,lu)
-     &                           /yydd*YGN(jyi)
-                              lu = lu + 1
-                           ENDIF
-                        ENDIF
- 1202                ENDDO
-                     IF ( ifwd.EQ.1 ) THEN
-                        xw = 1.
-                        WRITE (4,*) IEXP , jgl1 , ABS(IZ1(IEXP)) , 
-     &                              ABS(XA1(IEXP)) , ABS(EP(IEXP)) , 
-     &                              jmm , xw
-                        DO jyi = 1 , jmm
-                           WRITE (4,*) INT(CORF(jyi,1)) , 
-     &                                 INT(CORF(jyi,2)) , CORF(jyi,3) , 
-     &                                 CORF(jyi,4)
-                        ENDDO
-                     ENDIF
- 1205             ENDDO ! Loop on detector angles jgl
-                  IF ( op2.EQ.'CORR' ) THEN
-                     jgl1 = 0
-                     DO jgl = 1 , nogeli ! For each detector
-                        IF ( IRAWEX(jexp).NE.0 ) THEN
-                           inclus = ICLUST(jexp,jgl) ! Cluster number for detector jgl
-                           IF ( inclus.NE.0 ) THEN
-                              IF ( jgl.NE.LASTCL(jexp,inclus) ) ! If detector is not the last in the cluster
-     &                             GOTO 1206
-                           ENDIF
-                        ENDIF
-                        jgl1 = jgl1 + 1
-                        READ (3,*) ne , na , zp , ap , xep , nval , waga
-                        WRITE (4,*) ne , na , zp , ap , EP(IEXP) , 
-     &                              nval , waga
-                        WRITE (22,99038) IEXP , jgl1
-99038                   FORMAT (///10X,'EXPERIMENT',1X,I2,8X,'DETECTOR',
-     &                          1X,I2,//9X,'NI',5X,'NF',5X,'YEXP',8X,
-     &                          'YCOR',8X,'COR.F'/)
-                        ile1 = ILE(jgl1)
-                        DO itp = 1 , nval
-                           READ (3,*) ns1 , ns2 , fiex1(1,1,1) , 
-     &                                fiex1(1,1,2)
-                           ltrn = IY(ile1+itp-1,jgl1)
-                           IF ( ltrn.LT.1000 ) THEN
-                              ns1 = KSEQ(ltrn,3)
-                              ns2 = KSEQ(ltrn,4)
-                           ELSE
-                              ltrn1 = ltrn/1000
-                              ns1 = KSEQ(ltrn1,3)*100
-                              ns2 = KSEQ(ltrn1,4)*100
-                              ltrn2 = ltrn - ltrn1*1000
-                              ns1 = ns1 + KSEQ(ltrn2,3)
-                              ns2 = ns2 + KSEQ(ltrn2,4)
-                           ENDIF
-                           ycorr = YEXP(jgl1,ile1+itp-1)*cnst
-                           WRITE (4,*) ns1 , ns2 , ycorr , 
-     &                                 DYEX(jgl1,ile1+itp-1)*cnst
-                           WRITE (22,99039) ns1 , ns2 , 
-     &                            CORF(ile1+itp-1,jgl1) , ycorr , 
-     &                            ycorr/CORF(ile1+itp-1,jgl1)
-99039                      FORMAT (5X,I4,5X,I4,3X,E8.3,4X,E8.3,4X,E8.3)
-                        ENDDO ! Loop over itp
- 1206                ENDDO ! Loop over jgl
-                  ENDIF ! if ( op2.EQ. 'CORR')
-               ENDIF
-            ENDDO ! Loop over jexp
-            IF ( op2.EQ.'STAR' ) oph = op2
-            IF ( op2.NE.'STAR' ) THEN
-               IF ( op2.EQ.'CORR' ) THEN
-                  ntap = 4
-                  CALL READY(idr,ntap,ipri)
-                  REWIND ntap
-               ENDIF
-            ENDIF
-            GOTO 100 ! Back to input loop
-         ENDIF ! if (op2 .NE. 'GOSI') if statement
-      ENDIF ! if ( iobl.LT.1 ) if statement
-
- 1300 IF ( iobl.GE.1 ) THEN ! OP,ERRO
-         ient = 1
-         icg = 2
-         nmaxh = NMAX
-         lmax1 = LMAX
-         sh1 = SPIN(1) ! Save ground-state spin
-         sh2 = SPIN(2) ! Save spin of first excited state
-         ih1 = IFAC(1)
-         ih2 = IFAC(2)
-         magh = MAGEXC
-         lmaxh = LMAXE
-         isoh = ISO
-         ISO = 0
-         eh1 = ELM(1)
-         lh1 = LEAD(1,1)
-         lh2 = LEAD(2,1)
-         lamh = LAMMAX
-         memh = MEMAX
-         DO kh = 1 , 8 ! For each multipolarity
-            ihlm(kh) = MULTI(kh)
-            ihlm(kh+24) = LDNUM(kh,2)
-            ihlm(kh+8) = LAMDA(kh)
-            ihlm(kh+16) = LDNUM(kh,1)
-         ENDDO
-         DO jexp = 1 , NEXPT ! For each experiment
-            IEXP = jexp
-            intvh = INTERV(IEXP)
-            DO jgs = 1 , MEMAX
-               DO jgr = 1 , 7
-                  QAPR(jgs,1,jgr) = 0.
-               ENDDO
-            ENDDO
-            DO iuy = 1 , 6
-               XIR(iuy,IEXP) = 0.
-            ENDDO
-            emhl1 = EMMA(IEXP)
-            EMMA(IEXP) = DBLE(MAGA(IEXP))
-            jde = 2
-            IF ( MAGA(IEXP).EQ.0 ) jde = 1
-            DO iuy = 1 , 6
-               zmir(iuy,1,IEXP) = 0.
-               zmir(iuy,2,IEXP) = 0.
-            ENDDO
-            CALL LOAD(IEXP,1,2,0.D0,jj)
-            DO jgs = 1 , LMAX ! For each spin up to ground-state spin + 1
-               polm = DBLE(jgs-1) - SPIN(1)
-               CALL LOAD(IEXP,3,2,polm,jj)
-               CALL PATH(jj)
-               CALL LOAD(IEXP,2,2,polm,jj)
-               ictl = 1
-               DO kk = 1 , 6
-                  ll = ihlm(kk)
-                  IF ( ll.NE.0 ) THEN
-                     lfini = ll + ictl - 1
-                     ict = ictl
-                     DO lll = ict , lfini
-                        ictl = ictl + 1
-                        IF ( jgs.EQ.1 ) XIR(kk,IEXP)
-     &                       = MAX(XIR(kk,IEXP),ABS(XI(lll)))
-                        r1 = ABS(QAPR(lll,1,1))
-                        r2 = ABS(QAPR(lll,1,4))
-                        r3 = ABS(QAPR(lll,1,7))
-                        rm = MAX(r1,r2,r3)
-                        bmx = MAX(ABS(ELMU(lll)),ABS(ELML(lll)))
-                        zmir(kk,2,IEXP)
-     &                     = MAX(zmir(kk,2,IEXP),rm*bmx/ABS(ELM(lll)),
-     &                     rm)
-                        r1 = ABS(QAPR(lll,1,2))
-                        r2 = ABS(QAPR(lll,1,3))
-                        r3 = ABS(QAPR(lll,1,5))
-                        r4 = ABS(QAPR(lll,1,6))
-                        rm = MAX(r1,r2,r3,r4)
-                        zmir(kk,1,IEXP)
-     &                     = MAX(zmir(kk,1,IEXP),rm*bmx/ABS(ELM(lll)),
-     &                     rm)
-                     ENDDO
-                     IF ( zmir(kk,1,IEXP).LT..5 ) zmir(kk,1,IEXP) = .5
-                     IF ( zmir(kk,2,IEXP).LT..5 ) zmir(kk,2,IEXP) = .5
-                  ENDIF
-               ENDDO
-            ENDDO
-            DO kk = 1 , 6
-               XIR(kk,IEXP) = XIR(kk,IEXP)*1.01
-               DO kh = 1 , 8
-                  MULTI(kh) = 0
-                  LAMDA(kh) = 0
-                  LDNUM(kh,2) = 0
-                  LDNUM(kh,1) = 0
-               ENDDO
-               NMAX = 2
-               ELM(1) = 1.
-               LEAD(1,1) = 1
-               LEAD(2,1) = 2
-               SPIN(1) = 0.
-               IFAC(1) = 1
-               LAMMAX = 1
-               MEMAX = 1
-               MAGEXC = 0
-               kkk = 0
-               icg = 1
-               IF ( ihlm(kk).NE.0 ) THEN
-                  MULTI(kk) = 1
-                  LAMDA(1) = kk
-                  SPIN(2) = DBLE(kk)
-                  IFAC(2) = 1
-                  LDNUM(kk,1) = 1
-                  icg = 1
-                  CALL LOAD(IEXP,1,icg,0.D0,jj)
-                  CALL LOAD(IEXP,2,icg,0.D0,jj)
-                  CALL PATH(1)
-                  sz1 = MIN(zmir(kk,1,IEXP),10.D0)
-                  sz2 = zmir(kk,2,IEXP)/50.
-                  acof = 2.4009604E-3/zmir(kk,2,IEXP)
-                  bcof = 8.163265E-4
-                  DO jd = 1 , jde
-                     nksi = 5
-                     IF ( jd.EQ.2 ) nksi = 10
-                     IF ( MAGA(IEXP).EQ.0 ) nksi = 10
-                     DO jk = 1 , 3
-                        ZETA(jk) = 0.
-                     ENDDO
-                     nz = 50
-                     IF ( jd.EQ.1 .AND. MAGA(IEXP).NE.0 ) nz = 1
-                     DO jk = 1 , nksi
-                        XI(1) = XIR(kk,IEXP)*(jk-1)/(nksi-1)
-                        IF ( jk.EQ.1 ) XI(1) = .02
-                        s11 = 0.
-                        s21 = 0.
-                        s12 = 0.
-                        s22 = 0.
-                        ph1 = 0.
-                        ph2 = 0.
-                        DO jz = 1 , nz
-                           ZETA(jd) = sz2*jz
-                           IF ( jd.EQ.1 .AND. MAGA(IEXP).NE.0 ) ZETA(jd)
-     &                          = sz1
-                           IF ( ZETA(jd).LT..1 ) INTERV(IEXP) = 1000
-                           IF ( ZETA(jd).GE..1 ) INTERV(IEXP) = intvh
-                           CALL ALLOC(ACCUR)
-                           CALL SNAKE(IEXP,ZPOL)
-                           CALL SETIN
-                           CALL STING(1)
-                           IF ( kk.GT.2 ) THEN
-                              ARM(1,5) = (.9999999,0.)
-                              ARM(2,5) = (1.2E-6,0.)
-                              ARM(1,6) = (.9999998,0.)
-                              ARM(2,6) = (.9E-6,0.)
-                              DO kh = 1 , 4
-                                 ARM(1,kh) = (-1.E-6,0.)
-                                 ARM(2,kh) = (1.E-6,0.)
-                              ENDDO
-                           ENDIF
-                           CALL INTG(IEXP)
-                           jp = 2
-                           IF ( MAGA(IEXP).NE.0 .AND. jd.EQ.2 ) jp = 3
-                           p = DBLE(ARM(1,5))
-                           r = IMAG(ARM(1,5))
-                           qr = DBLE(ARM(jp,5))
-                           s = IMAG(ARM(jp,5))
-                           test = p*p + r*r + qr*qr + s*s
-                           p = p/SQRT(test)
-                           s = ABS(r/s)
-                           IF ( jk.EQ.1 ) THEN
-                              IF ( MAGA(IEXP).EQ.0 ) THEN
-                                 q1 = 0.
-                                 GOTO 1302
-                              ELSEIF ( jd.EQ.2 .OR. MAGA(IEXP).EQ.0 )
-     &                                 THEN
-                                 q1 = 0.
-                                 GOTO 1302
-                              ENDIF
-                           ENDIF
-                           q1 = ARCTG(s,ph1,pi)
-                           ph1 = q1
- 1302                      IF ( jk.EQ.1 ) THEN
-                              IF ( jd.EQ.1 .AND. MAGA(IEXP).NE.0 ) THEN
-                                 q2 = 0.
-                                 GOTO 1304
-                              ENDIF
-                           ENDIF
-                           q2 = ARCCOS(p,ph2,pi)
-                           ph2 = q2
- 1304                      q1 = q1/ZETA(jd)/2.
-                           q2 = q2/ZETA(jd)
-                           IF ( jd.EQ.1 .AND. MAGA(IEXP).NE.0 ) q2 = -q2
-                           IF ( jd.NE.1 .OR. MAGA(IEXP).EQ.0 ) THEN
-                              s11 = s11 + q1
-                              s12 = s12 + q1*jz
-                              s21 = s21 + q2
-                              s22 = s22 + jz*q2
-                           ENDIF
-                        ENDDO
-                        IF ( jd.EQ.1 .AND. MAGA(IEXP).NE.0 ) THEN
-                           PARX(IEXP,2*kk-1,jk) = q1
-                           PARX(IEXP,2*kk,jk) = q2
-                        ELSE
-                           PARXM(IEXP,1,jk,kk) = acof*(2.*s12-51.*s11)
-                           PARXM(IEXP,2,jk,kk) = bcof*(101.*s11-3.*s12)
-                           PARXM(IEXP,3,jk,kk) = acof*(2.*s22-51.*s21)
-                           PARXM(IEXP,4,jk,kk) = bcof*(101.*s21-3.*s22)
-                        ENDIF
-                     ENDDO ! Loop over jk
-                  ENDDO ! Loop over jd
-               ENDIF
-            ENDDO ! Loop over kk
-            EMMA(IEXP) = emhl1
-            NMAX = nmaxh
-            SPIN(1) = sh1 ! Restore ground-state spin
-            SPIN(2) = sh2 ! Restore spin of first excited state
-            IFAC(1) = ih1
-            IFAC(2) = ih2
-            MAGEXC = magh
-            ISO = isoh
-            ELM(1) = eh1
-            LEAD(1,1) = lh1
-            LEAD(2,1) = lh2
-            LAMMAX = lamh
-            MEMAX = memh
-            DO kh = 1 , 8 ! For each multipolarity
-               LDNUM(kh,2) = ihlm(kh+24)
-               MULTI(kh) = ihlm(kh)
-               LAMDA(kh) = ihlm(kh+8)
-               LDNUM(kh,1) = ihlm(kh+16)
-            ENDDO
-            INTERV(IEXP) = intvh
-         ENDDO ! Loop over experiments jexp
-
-         REWIND 7
-         DO iuy = 1 , 6
-            WRITE (7,*) (XIR(iuy,jj),jj=1,NEXPT)
-            WRITE (7,*) (zmir(iuy,1,jj),zmir(iuy,2,jj),jj=1,NEXPT)
-         ENDDO
-         DO jj = 1 , NEXPT ! For each experiment
-            DO jk = 1 , 4
-               DO kuku = 1 , 6
-                  WRITE (7,*) (PARXM(jj,jk,jl,kuku),jl=1,10)
-               ENDDO
-            ENDDO
-            DO jk = 1 , 12
-               WRITE (7,*) (PARX(jj,jk,jl),jl=1,5)
-            ENDDO
-         ENDDO
-         DO jj = 1 , 2
-            DO jj1 = 1 , LP1 ! LP1 = 50 (maximum number of experiments)
-               IDIVE(jj1,jj) = 1
-            ENDDO
-         ENDDO
-      ELSE ! iobl .lt. 1
-         REWIND 7
-         DO iuy = 1 , 6
-            READ (7,*) (XIR(iuy,jj),jj=1,NEXPT)
-            READ (7,*) (zmir(iuy,1,jj),zmir(iuy,2,jj),jj=1,NEXPT)
-         ENDDO
-         DO jj = 1 , NEXPT ! For each experiment
-            DO jk = 1 , 4
-               DO kuku = 1 , 6
-                  READ (7,*) (PARXM(jj,jk,jl,kuku),jl=1,10)
-               ENDDO
-            ENDDO
-            DO jk = 1 , 12
-               READ (7,*) (PARX(jj,jk,jl),jl=1,5)
-            ENDDO
-         ENDDO
-         DO jgs = 1 , MEMAX ! For each matrix element
-            DO jgr = 1 , 7
-               QAPR(jgs,1,jgr) = 0.
-            ENDDO
-         ENDDO
-      ENDIF
-
-C     Handle map
-      IF ( IPRM(12).NE.0 ) THEN
-         IPRM(12) = 0
-         DO jex = 1 , NEXPT
-            DO lex = 1 , 6
-               IF ( MULTI(lex).NE.0 ) THEN
-                  WRITE (22,99040) jex , XIR(lex,jex)
-99040             FORMAT (1X//30X,'EXPERIMENT',1X,1I2,10X,'MAX.XI=',
-     &                    1F6.4)
-                  WRITE (22,99041) lex , zmir(lex,2,jex)
-99041             FORMAT (1X/30X,'E',1I1,8X,'MI=0',5X,'MAX.ZETA=',
-     &                    1F6.3//)
-                  WRITE (22,99054)
-                  DO kex = 1 , 10
-                     xxi = XIR(lex,jex)*(kex-1)/9.
-                     WRITE (22,99055) xxi , 
-     &                                (PARXM(jex,ilx,kex,lex),ilx=1,4)
-                  ENDDO
-                  IF ( MAGA(jex).NE.0 ) THEN
-                     WRITE (22,99042) lex , zmir(lex,1,jex)
-99042                FORMAT (1X//30X,'E',1I1,8X,'MI=+/-1',5X,
-     &                       'MAX.ZETA=',1F6.3//)
-                     WRITE (22,99054)
-                     DO kex = 1 , 5
-                        xxi = XIR(lex,jex)*(kex-1)/4.
-                        u = 0.
-                        WRITE (22,99055) xxi , u , PARX(jex,2*lex-1,kex)
-     &                         , u , PARX(jex,2*lex,kex)
-                     ENDDO ! Loop on kex
-                  ENDIF ! if maga(jex).ne.0
-               ENDIF ! if multi(lex).ne.0
-            ENDDO ! Loop on lex
-         ENDDO ! Loop on jex
-      ENDIF ! IPRM(12).ne.0
-      IF ( op2.NE.'GOSI' .AND. op2.NE.'ERRO' ) GOTO 100 ! Back to input loop
-      IF ( op2.EQ.'ERRO' ) GOTO 400
-
- 1400 DO kh1 = 1 , MEMAX
-         HLM(kh1) = ELM(kh1)
-      ENDDO
-      lfagg = 0
-      DO kh1 = 1 , MEMAX
-         IVAR(kh1) = ivarh(kh1)
-      ENDDO
-      CALL MINI(chisq,chiok,nptl,conu,imode,idr,xtest,0,0,0,bten)
-      IF ( IPS1.EQ.0 ) GOTO 2000 ! Normal end of execution
-      IMIN = IMIN + 1
-      DO iva = 1 , LP1 ! LP1 = 50 (maximum number of experiments)
-         JSKIP(iva) = 1
-      ENDDO
-      REWIND 12
-      DO lkj = 1 , MEMAX
-         WRITE (12,*) ELM(lkj)
-      ENDDO
-      IF ( ifm.EQ.1 ) CALL PRELM(3) ! ifm = fast minimisation switch
-      IF ( ifm.NE.1 ) GOTO 100 ! Back to input loop
-      GOTO 2000 ! Normal end of execution
-
  1500 WRITE (22,99043)
 99043 FORMAT (5X,'ERROR-M.E. DOES NOT BELONG TO THE UPPER TRIANGLE')
       GOTO 1900 ! Troubleshoot
@@ -1752,7 +1135,7 @@ C     Handle OP,CORR
       REWIND 3
       REWIND 15
       REWIND 4
-      GOTO 1200 ! End of OP,CORR
+      GOTO 4000 ! End of OP,CORR
 
 C.............................................................................
 C     Handle OP,COUL and OP,GOSI
@@ -2596,7 +1979,7 @@ C                    Interpolate cross-section at this energy
 C.............................................................................
 C     Handle OP,MAP
  3700 iobl = 1
-      GOTO 1200
+      GOTO 4000
 
 C.............................................................................
 C     Handle OP,MINI
@@ -2605,7 +1988,626 @@ C     Handle OP,MINI
       op2 = opcja
       IMIN = IMIN + 1
       IF ( IMIN.NE.1 ) GOTO 1400
-      GOTO 1200 ! End of OP,MINI
+      GOTO 4000 ! End of OP,MINI
+
+C.............................................................................
+C     Handle OP,CORR, OP, MAP, OP,MINI, OP,POIN, and OP, STAR
+ 4000 CALL CMLAB(0,dsig,ttttt)
+      IF ( ERR ) GOTO 2000 ! Error
+      IF ( op2.EQ.'POIN' ) READ * , ifwd , slim
+      ient = 1
+      icg = 1
+      IF ( SPIN(1).LT.1.E-6 ) ISO = 0
+      IF ( iobl.LT.1 ) THEN
+         IF ( op2.NE.'GOSI' ) THEN
+            iapx = 0
+            DO ii = 1 , LP6 ! LP6 = 32 (maximum number of gamma detectors)
+               ILE(ii) = 1
+            ENDDO
+            nch = 0
+            DO jexp = 1 , NEXPT ! For each experiment
+               IEXP = jexp
+               ttttt = TREP(IEXP)
+               dsig = DSIGS(IEXP)
+               IF ( op2.NE.'STAR' ) THEN
+                  jmm = IEXP
+                  IF ( IEXP.NE.1 ) THEN
+                     DO lli = 1 , LP6 ! LP6 = 32 (maximum number of gamma detectors)
+                        ILE(lli) = ILE(lli) + NYLDE(IEXP-1,lli)
+                     ENDDO
+                  ENDIF
+               ENDIF
+               fi0 = FIEX(IEXP,1) ! Lower phi limit
+               fi1 = FIEX(IEXP,2) ! Upper phi limit
+               CALL LOAD(IEXP,1,icg,0.D0,jj)
+               CALL ALLOC(ACCUR)
+               CALL SNAKE(IEXP,ZPOL)
+               CALL SETIN
+               DO j = 1 , LMAX ! For each spin up to ground-state spin + 1
+                  polm = DBLE(j-1) - SPIN(1)
+                  CALL LOAD(IEXP,2,icg,polm,jj)
+                  CALL STING(jj)
+                  CALL PATH(jj)
+                  CALL INTG(IEXP)
+                  CALL TENB(j,bten,LMAX)
+                  pr = 0.
+                  IF ( op2.EQ.'STAR' .OR. IPRM(19).EQ.1 )
+     &                 WRITE (22,99034) (DBLE(j)-1.-SPIN(1)) , IEXP
+99034             FORMAT (1X//40X,'EXCITATION AMPLITUDES'//10X,'M=',
+     &                    1F5.1,5X,'EXPERIMENT',1X,1I2//5X,'LEVEL',2X,
+     &                    'SPIN',2X,'M',5X,'REAL AMPLITUDE',2X,
+     &                    'IMAGINARY AMPLITUDE'//)
+                  DO k = 1 , ISMAX ! For substates
+                     pr = pr + DBLE(ARM(k,5))**2 + IMAG(ARM(k,5))**2
+                     IF ( op2.EQ.'STAR' .OR. IPRM(19).EQ.1 )
+     &                    WRITE (22,99035) INT(CAT(k,1)) , CAT(k,2) , 
+     &                    CAT(k,3) , DBLE(ARM(k,5)) , IMAG(ARM(k,5))
+99035                FORMAT (7X,1I2,3X,1F4.1,2X,1F5.1,2X,1E14.6,2X,
+     &                       1E14.6)
+                  ENDDO ! Loop on substates k
+                  IF ( op2.EQ.'STAR' .OR. IPRM(19).EQ.1 )
+     &                 WRITE (22,99036) pr
+99036             FORMAT (1X/5X,'SUM OF PROBABILITIES=',1E14.6)
+               ENDDO ! Loop over spins j
+               CALL TENS(bten)
+               IF ( itno.NE.0 ) THEN ! write statistical tensors on tape 17
+                  DO k = 2 , NMAX
+                     WRITE (17,*) k
+                     DO kk = 1 , 4
+                        in1 = (k-1)*28 + 1 + (kk-1)*7
+                        in2 = in1 + 2*kk - 2
+                        WRITE (17,*) (ZETA(kkk),kkk=in1,in2)
+                     ENDDO
+                  ENDDO
+               ENDIF
+               summm = 0.
+               DO jgl = 2 , NMAX
+                  loct = (jgl-1)*28 + 1
+                  summm = summm + ZETA(loct)
+               ENDDO
+               pop1 = 1. - summm
+               jgl = 1
+               IF ( op2.EQ.'STAR' .OR. IPRM(19).EQ.1 ) WRITE (22,99053)
+     &              jgl , pop1
+               DO jgl = 2 , NMAX
+                  loct = (jgl-1)*28 + 1
+                  IF ( op2.EQ.'STAR' .OR. IPRM(19).EQ.1 )
+     &                 WRITE (22,99053) jgl , ZETA(loct)
+               ENDDO
+               IF ( op2.NE.'STAR' ) THEN
+                  CALL DECAY(ccd,0,ccc)
+                  nogeli = NANG(IEXP) ! Number of detector angles for expt
+                  jgl1 = 0
+                  DO js = 1 , LP2 ! LP2 = 500 (maximum number of matrix elements)
+                     DO jgl = 1 , 20
+                        SUMCL(jgl,js) = 0.
+                     ENDDO
+                  ENDDO
+                  DO jgl = 1 , nogeli ! For each detector angle
+                     IF ( IRAWEX(IEXP).NE.0 ) THEN
+                        IF ( op2.EQ.'POIN' .AND. IPRM(20).EQ.1 )
+     &                       WRITE (23,99037) IEXP , jgl , EP(IEXP) , 
+     &                       TLBDG(IEXP)
+99037                   FORMAT (1x//50x,'CALCULATED YIELDS'//5x,
+     &                          'EXPERIMENT ',1I2,2x,'DETECTOR ',1I2/5x,
+     &                          'ENERGY ',1F10.3,1x,'MEV',2x,'THETA ',
+     &                          1F7.3,1x,'DEG'//5x,'NI',5x,'NF',5x,'II',
+     &                          5x,'IF',5x,'E(MeV)',5x,'EFFICIENCY'/)
+                     ENDIF
+                     gth = AGELI(IEXP,jgl,1)
+                     figl = AGELI(IEXP,jgl,2)
+                     fm = (fi0+fi1)/2.
+                     CALL ANGULA(YGN,idr,1,fi0,fi1,ttttt,gth,figl,jgl)
+                     IF ( IFMO.NE.0 ) THEN
+                        id = ITMA(IEXP,jgl) ! Get identity of detector
+                        d = ODL(id) ! Get results of OP,GDET for that detector
+                        rx = d*SIN(gth)*COS(figl-fm) - .25*SIN(ttttt)
+     &                       *COS(fm)
+                        ry = d*SIN(gth)*SIN(figl-fm) - .25*SIN(ttttt)
+     &                       *SIN(fm)
+                        rz = d*COS(gth) - .25*COS(ttttt)
+                        rl = SQRT(rx*rx+ry*ry+rz*rz)
+                        thc = TACOS(rz/rl)
+                        sf = d*d/rl/rl
+                        fic = ATAN2(ry,rx)
+                        CALL ANGULA(YGP,idr,1,fi0,fi1,ttttt,thc,fic,jgl)
+                        DO ixl = 1 , idr
+                           ixm = KSEQ(ixl,3)
+                           tfac = TAU(ixm)
+                           YGN(ixl) = YGN(ixl)
+     &                                + .01199182*tfac*BETAR(IEXP)
+     &                                *(sf*YGP(ixl)-YGN(ixl))
+                        ENDDO
+                     ENDIF
+                     IF ( IRAWEX(IEXP).NE.0 ) THEN
+                        ipd = ITMA(IEXP,jgl) ! Get identity of detector
+                        DO jyi = 1 , idr ! For each decay
+                           ni = KSEQ(jyi,3)
+                           nf = KSEQ(jyi,4)
+                           decen = EN(ni) - EN(nf)
+                           cocos = SIN(ttttt)*SIN(gth)*COS(fm-figl)
+     &                             + COS(ttttt)*COS(gth)
+                           decen = decen*(1.+BETAR(IEXP)*cocos)
+                           CALL EFFIX(ipd,decen,effi)
+                           IF ( op2.EQ.'POIN' .AND. IPRM(20).EQ.1 )
+     &                          WRITE (23,99049) ni , nf , SPIN(ni) , 
+     &                                 SPIN(nf) , decen , effi
+                           YGN(jyi) = YGN(jyi)*effi
+                        ENDDO
+                        inclus = ICLUST(IEXP,jgl) ! Cluster number for detector jgl
+                        IF ( inclus.NE.0 ) THEN
+                           DO jyi = 1 , idr ! For each decay
+                              SUMCL(inclus,jyi) = SUMCL(inclus,jyi)
+     &                           + YGN(jyi)
+                           ENDDO
+                           IF ( jgl.NE.LASTCL(IEXP,inclus) ) GOTO 1205 ! If it is not the last detector in the cluster
+                           DO jyi = 1 , idr ! For each decay
+                              YGN(jyi) = SUMCL(inclus,jyi)
+                           ENDDO
+                        ENDIF
+                     ENDIF
+                     jgl1 = jgl1 + 1
+                     lu = ILE(jgl1)
+                     IF ( op2.EQ.'POIN' .OR. IPRM(11).EQ.1 )
+     &                    WRITE (22,99048) IEXP , jgl1 , EP(IEXP) , 
+     &                    TLBDG(IEXP)
+                     jmm = 0
+                     ttttx = TLBDG(IEXP)/57.2957795
+                     YGN(IDRN) = YGN(IDRN)*dsig*SIN(ttttx)
+                     DO jyi = 1 , idr
+                        IF ( jyi.NE.IDRN ) YGN(jyi) = YGN(jyi)
+     &                       *dsig*SIN(ttttx)
+                     ENDDO
+                     DO jyi = 1 , idr
+                        ni = KSEQ(jyi,3)
+                        nf = KSEQ(jyi,4)
+                        IF ( op2.EQ.'POIN' .OR. IPRM(11).EQ.1 )
+     &                       WRITE (22,99049) ni , nf , SPIN(ni) , 
+     &                       SPIN(nf) , YGN(jyi) , YGN(jyi)/YGN(IDRN)
+                        IF ( ifwd.EQ.1 ) THEN
+                           IF ( (YGN(jyi)/YGN(IDRN)).GE.slim ) THEN
+                              IF ( jgl1.EQ.1 ) sh1 = YGN(IDRN)
+                              jmm = jmm + 1
+                              CORF(jmm,1) = DBLE(ni)
+                              CORF(jmm,2) = DBLE(nf)
+                              CORF(jmm,3) = YGN(jyi)/sh1
+                              IF ( YGN(jyi).GE.YGN(IDRN) ) CORF(jmm,4)
+     &                             = CORF(jmm,3)/20.
+                              IF ( YGN(jyi).LT.YGN(IDRN) ) CORF(jmm,4)
+     &                             = CORF(jmm,3)
+     &                             *(.05+.2*(1.-YGN(jyi)/YGN(IDRN)))
+                           ENDIF
+                        ENDIF
+                        IF ( op2.EQ.'CORR' ) THEN
+                           READ (15,*) yydd
+                           nch = nch + 1
+                           jjjj = IY(lu,jgl1)/1000
+                           jyi1 = IY(lu,jgl1) - jjjj*1000
+                           IF ( IY(lu,jgl1).EQ.jyi .OR. jjjj.EQ.jyi .OR. 
+     &                          jyi1.EQ.jyi ) THEN
+                              IF ( IY(lu,jgl1).GE.1000 ) THEN
+                                 jyi2 = jyi1 - jjjj
+                                 IF ( jyi2.LE.0 ) GOTO 1202
+                                 DO ihuj = 1 , jyi2
+                                    READ (15,*) yyd1
+                                 ENDDO
+                                 yydd = yydd + yyd1
+                                 YGN(jyi) = YGN(jyi) + YGN(jyi1)
+                                 REWIND 15
+                                 DO ihuj = 1 , nch
+                                    READ (15,*) yyd1
+                                 ENDDO
+                              ENDIF
+                              IF ( IEXP.EQ.1 .AND. lu.EQ.NYLDE(1,1)
+     &                             .AND. jgl1.EQ.1 )
+     &                             cnst = yydd/YGN(jyi)
+                              CORF(lu,jgl1) = YEXP(jgl1,lu)
+                              YEXP(jgl1,lu) = YEXP(jgl1,lu)
+     &                           /yydd*YGN(jyi)
+                              DYEX(jgl1,lu) = DYEX(jgl1,lu)
+     &                           /yydd*YGN(jyi)
+                              lu = lu + 1
+                           ENDIF
+                        ENDIF
+ 1202                ENDDO
+                     IF ( ifwd.EQ.1 ) THEN
+                        xw = 1.
+                        WRITE (4,*) IEXP , jgl1 , ABS(IZ1(IEXP)) , 
+     &                              ABS(XA1(IEXP)) , ABS(EP(IEXP)) , 
+     &                              jmm , xw
+                        DO jyi = 1 , jmm
+                           WRITE (4,*) INT(CORF(jyi,1)) , 
+     &                                 INT(CORF(jyi,2)) , CORF(jyi,3) , 
+     &                                 CORF(jyi,4)
+                        ENDDO
+                     ENDIF
+ 1205             ENDDO ! Loop on detector angles jgl
+                  IF ( op2.EQ.'CORR' ) THEN
+                     jgl1 = 0
+                     DO jgl = 1 , nogeli ! For each detector
+                        IF ( IRAWEX(jexp).NE.0 ) THEN
+                           inclus = ICLUST(jexp,jgl) ! Cluster number for detector jgl
+                           IF ( inclus.NE.0 ) THEN
+                              IF ( jgl.NE.LASTCL(jexp,inclus) ) ! If detector is not the last in the cluster
+     &                             GOTO 1206
+                           ENDIF
+                        ENDIF
+                        jgl1 = jgl1 + 1
+                        READ (3,*) ne , na , zp , ap , xep , nval , waga
+                        WRITE (4,*) ne , na , zp , ap , EP(IEXP) , 
+     &                              nval , waga
+                        WRITE (22,99038) IEXP , jgl1
+99038                   FORMAT (///10X,'EXPERIMENT',1X,I2,8X,'DETECTOR',
+     &                          1X,I2,//9X,'NI',5X,'NF',5X,'YEXP',8X,
+     &                          'YCOR',8X,'COR.F'/)
+                        ile1 = ILE(jgl1)
+                        DO itp = 1 , nval
+                           READ (3,*) ns1 , ns2 , fiex1(1,1,1) , 
+     &                                fiex1(1,1,2)
+                           ltrn = IY(ile1+itp-1,jgl1)
+                           IF ( ltrn.LT.1000 ) THEN
+                              ns1 = KSEQ(ltrn,3)
+                              ns2 = KSEQ(ltrn,4)
+                           ELSE
+                              ltrn1 = ltrn/1000
+                              ns1 = KSEQ(ltrn1,3)*100
+                              ns2 = KSEQ(ltrn1,4)*100
+                              ltrn2 = ltrn - ltrn1*1000
+                              ns1 = ns1 + KSEQ(ltrn2,3)
+                              ns2 = ns2 + KSEQ(ltrn2,4)
+                           ENDIF
+                           ycorr = YEXP(jgl1,ile1+itp-1)*cnst
+                           WRITE (4,*) ns1 , ns2 , ycorr , 
+     &                                 DYEX(jgl1,ile1+itp-1)*cnst
+                           WRITE (22,99039) ns1 , ns2 , 
+     &                            CORF(ile1+itp-1,jgl1) , ycorr , 
+     &                            ycorr/CORF(ile1+itp-1,jgl1)
+99039                      FORMAT (5X,I4,5X,I4,3X,E8.3,4X,E8.3,4X,E8.3)
+                        ENDDO ! Loop over itp
+ 1206                ENDDO ! Loop over jgl
+                  ENDIF ! if ( op2.EQ. 'CORR')
+               ENDIF
+            ENDDO ! Loop over jexp
+            IF ( op2.EQ.'STAR' ) oph = op2
+            IF ( op2.NE.'STAR' ) THEN
+               IF ( op2.EQ.'CORR' ) THEN
+                  ntap = 4
+                  CALL READY(idr,ntap,ipri)
+                  REWIND ntap
+               ENDIF
+            ENDIF
+            GOTO 100 ! Back to input loop
+         ENDIF ! if (op2 .NE. 'GOSI') if statement
+      ENDIF ! if ( iobl.LT.1 ) if statement
+
+ 1300 IF ( iobl.GE.1 ) THEN ! OP,ERRO
+         ient = 1
+         icg = 2
+         nmaxh = NMAX
+         lmax1 = LMAX
+         sh1 = SPIN(1) ! Save ground-state spin
+         sh2 = SPIN(2) ! Save spin of first excited state
+         ih1 = IFAC(1)
+         ih2 = IFAC(2)
+         magh = MAGEXC
+         lmaxh = LMAXE
+         isoh = ISO
+         ISO = 0
+         eh1 = ELM(1)
+         lh1 = LEAD(1,1)
+         lh2 = LEAD(2,1)
+         lamh = LAMMAX
+         memh = MEMAX
+         DO kh = 1 , 8 ! For each multipolarity
+            ihlm(kh) = MULTI(kh)
+            ihlm(kh+24) = LDNUM(kh,2)
+            ihlm(kh+8) = LAMDA(kh)
+            ihlm(kh+16) = LDNUM(kh,1)
+         ENDDO
+         DO jexp = 1 , NEXPT ! For each experiment
+            IEXP = jexp
+            intvh = INTERV(IEXP)
+            DO jgs = 1 , MEMAX
+               DO jgr = 1 , 7
+                  QAPR(jgs,1,jgr) = 0.
+               ENDDO
+            ENDDO
+            DO iuy = 1 , 6
+               XIR(iuy,IEXP) = 0.
+            ENDDO
+            emhl1 = EMMA(IEXP)
+            EMMA(IEXP) = DBLE(MAGA(IEXP))
+            jde = 2
+            IF ( MAGA(IEXP).EQ.0 ) jde = 1
+            DO iuy = 1 , 6
+               zmir(iuy,1,IEXP) = 0.
+               zmir(iuy,2,IEXP) = 0.
+            ENDDO
+            CALL LOAD(IEXP,1,2,0.D0,jj)
+            DO jgs = 1 , LMAX ! For each spin up to ground-state spin + 1
+               polm = DBLE(jgs-1) - SPIN(1)
+               CALL LOAD(IEXP,3,2,polm,jj)
+               CALL PATH(jj)
+               CALL LOAD(IEXP,2,2,polm,jj)
+               ictl = 1
+               DO kk = 1 , 6
+                  ll = ihlm(kk)
+                  IF ( ll.NE.0 ) THEN
+                     lfini = ll + ictl - 1
+                     ict = ictl
+                     DO lll = ict , lfini
+                        ictl = ictl + 1
+                        IF ( jgs.EQ.1 ) XIR(kk,IEXP)
+     &                       = MAX(XIR(kk,IEXP),ABS(XI(lll)))
+                        r1 = ABS(QAPR(lll,1,1))
+                        r2 = ABS(QAPR(lll,1,4))
+                        r3 = ABS(QAPR(lll,1,7))
+                        rm = MAX(r1,r2,r3)
+                        bmx = MAX(ABS(ELMU(lll)),ABS(ELML(lll)))
+                        zmir(kk,2,IEXP)
+     &                     = MAX(zmir(kk,2,IEXP),rm*bmx/ABS(ELM(lll)),
+     &                     rm)
+                        r1 = ABS(QAPR(lll,1,2))
+                        r2 = ABS(QAPR(lll,1,3))
+                        r3 = ABS(QAPR(lll,1,5))
+                        r4 = ABS(QAPR(lll,1,6))
+                        rm = MAX(r1,r2,r3,r4)
+                        zmir(kk,1,IEXP)
+     &                     = MAX(zmir(kk,1,IEXP),rm*bmx/ABS(ELM(lll)),
+     &                     rm)
+                     ENDDO
+                     IF ( zmir(kk,1,IEXP).LT..5 ) zmir(kk,1,IEXP) = .5
+                     IF ( zmir(kk,2,IEXP).LT..5 ) zmir(kk,2,IEXP) = .5
+                  ENDIF
+               ENDDO
+            ENDDO
+            DO kk = 1 , 6
+               XIR(kk,IEXP) = XIR(kk,IEXP)*1.01
+               DO kh = 1 , 8
+                  MULTI(kh) = 0
+                  LAMDA(kh) = 0
+                  LDNUM(kh,2) = 0
+                  LDNUM(kh,1) = 0
+               ENDDO
+               NMAX = 2
+               ELM(1) = 1.
+               LEAD(1,1) = 1
+               LEAD(2,1) = 2
+               SPIN(1) = 0.
+               IFAC(1) = 1
+               LAMMAX = 1
+               MEMAX = 1
+               MAGEXC = 0
+               kkk = 0
+               icg = 1
+               IF ( ihlm(kk).NE.0 ) THEN
+                  MULTI(kk) = 1
+                  LAMDA(1) = kk
+                  SPIN(2) = DBLE(kk)
+                  IFAC(2) = 1
+                  LDNUM(kk,1) = 1
+                  icg = 1
+                  CALL LOAD(IEXP,1,icg,0.D0,jj)
+                  CALL LOAD(IEXP,2,icg,0.D0,jj)
+                  CALL PATH(1)
+                  sz1 = MIN(zmir(kk,1,IEXP),10.D0)
+                  sz2 = zmir(kk,2,IEXP)/50.
+                  acof = 2.4009604E-3/zmir(kk,2,IEXP)
+                  bcof = 8.163265E-4
+                  DO jd = 1 , jde
+                     nksi = 5
+                     IF ( jd.EQ.2 ) nksi = 10
+                     IF ( MAGA(IEXP).EQ.0 ) nksi = 10
+                     DO jk = 1 , 3
+                        ZETA(jk) = 0.
+                     ENDDO
+                     nz = 50
+                     IF ( jd.EQ.1 .AND. MAGA(IEXP).NE.0 ) nz = 1
+                     DO jk = 1 , nksi
+                        XI(1) = XIR(kk,IEXP)*(jk-1)/(nksi-1)
+                        IF ( jk.EQ.1 ) XI(1) = .02
+                        s11 = 0.
+                        s21 = 0.
+                        s12 = 0.
+                        s22 = 0.
+                        ph1 = 0.
+                        ph2 = 0.
+                        DO jz = 1 , nz
+                           ZETA(jd) = sz2*jz
+                           IF ( jd.EQ.1 .AND. MAGA(IEXP).NE.0 ) ZETA(jd)
+     &                          = sz1
+                           IF ( ZETA(jd).LT..1 ) INTERV(IEXP) = 1000
+                           IF ( ZETA(jd).GE..1 ) INTERV(IEXP) = intvh
+                           CALL ALLOC(ACCUR)
+                           CALL SNAKE(IEXP,ZPOL)
+                           CALL SETIN
+                           CALL STING(1)
+                           IF ( kk.GT.2 ) THEN
+                              ARM(1,5) = (.9999999,0.)
+                              ARM(2,5) = (1.2E-6,0.)
+                              ARM(1,6) = (.9999998,0.)
+                              ARM(2,6) = (.9E-6,0.)
+                              DO kh = 1 , 4
+                                 ARM(1,kh) = (-1.E-6,0.)
+                                 ARM(2,kh) = (1.E-6,0.)
+                              ENDDO
+                           ENDIF
+                           CALL INTG(IEXP)
+                           jp = 2
+                           IF ( MAGA(IEXP).NE.0 .AND. jd.EQ.2 ) jp = 3
+                           p = DBLE(ARM(1,5))
+                           r = IMAG(ARM(1,5))
+                           qr = DBLE(ARM(jp,5))
+                           s = IMAG(ARM(jp,5))
+                           test = p*p + r*r + qr*qr + s*s
+                           p = p/SQRT(test)
+                           s = ABS(r/s)
+                           IF ( jk.EQ.1 ) THEN
+                              IF ( MAGA(IEXP).EQ.0 ) THEN
+                                 q1 = 0.
+                                 GOTO 1302
+                              ELSEIF ( jd.EQ.2 .OR. MAGA(IEXP).EQ.0 )
+     &                                 THEN
+                                 q1 = 0.
+                                 GOTO 1302
+                              ENDIF
+                           ENDIF
+                           q1 = ARCTG(s,ph1,pi)
+                           ph1 = q1
+ 1302                      IF ( jk.EQ.1 ) THEN
+                              IF ( jd.EQ.1 .AND. MAGA(IEXP).NE.0 ) THEN
+                                 q2 = 0.
+                                 GOTO 1304
+                              ENDIF
+                           ENDIF
+                           q2 = ARCCOS(p,ph2,pi)
+                           ph2 = q2
+ 1304                      q1 = q1/ZETA(jd)/2.
+                           q2 = q2/ZETA(jd)
+                           IF ( jd.EQ.1 .AND. MAGA(IEXP).NE.0 ) q2 = -q2
+                           IF ( jd.NE.1 .OR. MAGA(IEXP).EQ.0 ) THEN
+                              s11 = s11 + q1
+                              s12 = s12 + q1*jz
+                              s21 = s21 + q2
+                              s22 = s22 + jz*q2
+                           ENDIF
+                        ENDDO
+                        IF ( jd.EQ.1 .AND. MAGA(IEXP).NE.0 ) THEN
+                           PARX(IEXP,2*kk-1,jk) = q1
+                           PARX(IEXP,2*kk,jk) = q2
+                        ELSE
+                           PARXM(IEXP,1,jk,kk) = acof*(2.*s12-51.*s11)
+                           PARXM(IEXP,2,jk,kk) = bcof*(101.*s11-3.*s12)
+                           PARXM(IEXP,3,jk,kk) = acof*(2.*s22-51.*s21)
+                           PARXM(IEXP,4,jk,kk) = bcof*(101.*s21-3.*s22)
+                        ENDIF
+                     ENDDO ! Loop over jk
+                  ENDDO ! Loop over jd
+               ENDIF
+            ENDDO ! Loop over kk
+            EMMA(IEXP) = emhl1
+            NMAX = nmaxh
+            SPIN(1) = sh1 ! Restore ground-state spin
+            SPIN(2) = sh2 ! Restore spin of first excited state
+            IFAC(1) = ih1
+            IFAC(2) = ih2
+            MAGEXC = magh
+            ISO = isoh
+            ELM(1) = eh1
+            LEAD(1,1) = lh1
+            LEAD(2,1) = lh2
+            LAMMAX = lamh
+            MEMAX = memh
+            DO kh = 1 , 8 ! For each multipolarity
+               LDNUM(kh,2) = ihlm(kh+24)
+               MULTI(kh) = ihlm(kh)
+               LAMDA(kh) = ihlm(kh+8)
+               LDNUM(kh,1) = ihlm(kh+16)
+            ENDDO
+            INTERV(IEXP) = intvh
+         ENDDO ! Loop over experiments jexp
+
+         REWIND 7
+         DO iuy = 1 , 6
+            WRITE (7,*) (XIR(iuy,jj),jj=1,NEXPT)
+            WRITE (7,*) (zmir(iuy,1,jj),zmir(iuy,2,jj),jj=1,NEXPT)
+         ENDDO
+         DO jj = 1 , NEXPT ! For each experiment
+            DO jk = 1 , 4
+               DO kuku = 1 , 6
+                  WRITE (7,*) (PARXM(jj,jk,jl,kuku),jl=1,10)
+               ENDDO
+            ENDDO
+            DO jk = 1 , 12
+               WRITE (7,*) (PARX(jj,jk,jl),jl=1,5)
+            ENDDO
+         ENDDO
+         DO jj = 1 , 2
+            DO jj1 = 1 , LP1 ! LP1 = 50 (maximum number of experiments)
+               IDIVE(jj1,jj) = 1
+            ENDDO
+         ENDDO
+      ELSE ! iobl .lt. 1
+         REWIND 7
+         DO iuy = 1 , 6
+            READ (7,*) (XIR(iuy,jj),jj=1,NEXPT)
+            READ (7,*) (zmir(iuy,1,jj),zmir(iuy,2,jj),jj=1,NEXPT)
+         ENDDO
+         DO jj = 1 , NEXPT ! For each experiment
+            DO jk = 1 , 4
+               DO kuku = 1 , 6
+                  READ (7,*) (PARXM(jj,jk,jl,kuku),jl=1,10)
+               ENDDO
+            ENDDO
+            DO jk = 1 , 12
+               READ (7,*) (PARX(jj,jk,jl),jl=1,5)
+            ENDDO
+         ENDDO
+         DO jgs = 1 , MEMAX ! For each matrix element
+            DO jgr = 1 , 7
+               QAPR(jgs,1,jgr) = 0.
+            ENDDO
+         ENDDO
+      ENDIF
+
+C     Handle map
+      IF ( IPRM(12).NE.0 ) THEN
+         IPRM(12) = 0
+         DO jex = 1 , NEXPT
+            DO lex = 1 , 6
+               IF ( MULTI(lex).NE.0 ) THEN
+                  WRITE (22,99040) jex , XIR(lex,jex)
+99040             FORMAT (1X//30X,'EXPERIMENT',1X,1I2,10X,'MAX.XI=',
+     &                    1F6.4)
+                  WRITE (22,99041) lex , zmir(lex,2,jex)
+99041             FORMAT (1X/30X,'E',1I1,8X,'MI=0',5X,'MAX.ZETA=',
+     &                    1F6.3//)
+                  WRITE (22,99054)
+                  DO kex = 1 , 10
+                     xxi = XIR(lex,jex)*(kex-1)/9.
+                     WRITE (22,99055) xxi , 
+     &                                (PARXM(jex,ilx,kex,lex),ilx=1,4)
+                  ENDDO
+                  IF ( MAGA(jex).NE.0 ) THEN
+                     WRITE (22,99042) lex , zmir(lex,1,jex)
+99042                FORMAT (1X//30X,'E',1I1,8X,'MI=+/-1',5X,
+     &                       'MAX.ZETA=',1F6.3//)
+                     WRITE (22,99054)
+                     DO kex = 1 , 5
+                        xxi = XIR(lex,jex)*(kex-1)/4.
+                        u = 0.
+                        WRITE (22,99055) xxi , u , PARX(jex,2*lex-1,kex)
+     &                         , u , PARX(jex,2*lex,kex)
+                     ENDDO ! Loop on kex
+                  ENDIF ! if maga(jex).ne.0
+               ENDIF ! if multi(lex).ne.0
+            ENDDO ! Loop on lex
+         ENDDO ! Loop on jex
+      ENDIF ! IPRM(12).ne.0
+      IF ( op2.NE.'GOSI' .AND. op2.NE.'ERRO' ) GOTO 100 ! Back to input loop
+      IF ( op2.EQ.'ERRO' ) GOTO 400
+
+ 1400 DO kh1 = 1 , MEMAX
+         HLM(kh1) = ELM(kh1)
+      ENDDO
+      lfagg = 0
+      DO kh1 = 1 , MEMAX
+         IVAR(kh1) = ivarh(kh1)
+      ENDDO
+      CALL MINI(chisq,chiok,nptl,conu,imode,idr,xtest,0,0,0,bten)
+      IF ( IPS1.EQ.0 ) GOTO 2000 ! Normal end of execution
+      IMIN = IMIN + 1
+      DO iva = 1 , LP1 ! LP1 = 50 (maximum number of experiments)
+         JSKIP(iva) = 1
+      ENDDO
+      REWIND 12
+      DO lkj = 1 , MEMAX
+         WRITE (12,*) ELM(lkj)
+      ENDDO
+      IF ( ifm.EQ.1 ) CALL PRELM(3) ! ifm = fast minimisation switch
+      IF ( ifm.NE.1 ) GOTO 100 ! Back to input loop
+      GOTO 2000 ! Normal end of execution
+
 
 C.............................................................................
 C     Handle OP,RAND
