@@ -868,7 +868,7 @@ C     Treat OP,REST (restart)
 
 C     Treat OP,SIXJ
       ELSEIF ( op2.EQ.'SIXJ' ) THEN
-         GOTO 6100
+         GOTO 4500
 
 C     Treat OP,STAR
       ELSEIF ( op2.EQ.'STAR' ) THEN
@@ -2741,6 +2741,24 @@ C     ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
       GOTO 100 ! End of OP,REST - back to input loop
 
 C.............................................................................
+C     Handle OP,SIXJ
+ 4500 DO k = 1 , 2
+         l = 4*k
+         DO j = 1 , 80
+            ixj = j - 1
+            DO ms = 1 , 5
+               mend = 2*(ms-3) + ixj
+               WRITE (14,*) WSIXJ(l,4,4,ixj,mend,ixj-4) , 
+     &                      WSIXJ(l,4,4,ixj,mend,ixj-2) , 
+     &                      WSIXJ(l,4,4,ixj,mend,ixj) , 
+     &                      WSIXJ(l,4,4,ixj,mend,ixj+2) , 
+     &                      WSIXJ(l,4,4,ixj,mend,ixj+4)
+            ENDDO
+         ENDDO
+      ENDDO
+      GOTO 2000 ! End of OP,SIXJ - normal end of execution
+
+C.............................................................................
 C     Handle OP,TROU
  5300 ITS = 1 ! Create tape 18 flag
       READ * , kmat , rlr
@@ -2816,24 +2834,6 @@ C     Handle OP,THEO
          ENDIF
       ENDDO
       GOTO 100 ! End of OP,THEO - back to input loop
-
-C.............................................................................
-C     Handle OP,SIXJ
- 6100 DO k = 1 , 2
-         l = 4*k
-         DO j = 1 , 80
-            ixj = j - 1
-            DO ms = 1 , 5
-               mend = 2*(ms-3) + ixj
-               WRITE (14,*) WSIXJ(l,4,4,ixj,mend,ixj-4) , 
-     &                      WSIXJ(l,4,4,ixj,mend,ixj-2) , 
-     &                      WSIXJ(l,4,4,ixj,mend,ixj) , 
-     &                      WSIXJ(l,4,4,ixj,mend,ixj+2) , 
-     &                      WSIXJ(l,4,4,ixj,mend,ixj+4)
-            ENDDO
-         ENDDO
-      ENDDO
-      GOTO 2000 ! End of OP,SIXJ - normal end of execution
 
 
 99048 FORMAT (1X//50X,'CALCULATED YIELDS'//5X,'EXPERIMENT ',1I2,2X,
