@@ -102,7 +102,7 @@ C      Iredv  -
       INTEGER*4 NDST , NEXPT , nf , nf1 , ni , ni1 , NICC , NLIFT , 
      &          NMAX , NMAX1 , Nwyr , NYLDE
       CHARACTER*4 wupl , war
-      DIMENSION part(32,50,2) , lic(32) , lth(500) , cnr(32,50) , 
+      DIMENSION part(32,50,2) , lic(32) , lth(1500) , cnr(32,50) , 
      &          partl(32,50,2)
       COMMON /CLUST / ICLUST(50,200) , LASTCL(50,20) , SUMCL(20,1500) , 
      &                IRAWEX(50)
