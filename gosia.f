@@ -341,7 +341,7 @@ C      LP11   - LP8 - 1 (103)
 C      LP12   - number of steps of omega (365)
 C      LP13   - LP9 + 1 (47901)
 C      LP14   - maximum space for collision functions (4900)
-C      LP2    - maximum number of matrix elements (500)
+C      LP2    - maximum number of matrix elements (1500)
 C      LP3    - maximum number of levels (75)
 C      LP4    - maximum number of yields (1500)
 C      LP6    - maximum number of gamma detectors (32)
@@ -750,7 +750,7 @@ C     Initialize normalization to 1.
          MULTI(lam) = 0
          LAMDA(lam) = 0
       ENDDO
-      DO j = 1 , LP2 ! LP2 = 500 (maximum number of matrix elements)
+      DO j = 1 , LP2 ! LP2 = 1500 (maximum number of matrix elements)
          EXPO(j) = (1.,0.)
          KVAR(j) = 1
          ELM(j) = 0.
@@ -765,11 +765,11 @@ C     Initialize normalization to 1.
       ISEX(1) = 0
       ACCA = .00001
       oph = '    '
-      nmemx = LP2 + 9 ! LP2 = 500 (maximum number of matrix elements)
+      nmemx = LP2 + 9 ! LP2 = 1500 (maximum number of matrix elements)
       IEXP = 1
       IMIN = 0
       i122 = 0
-      DO j = 1 , LP2 ! LP2 = 500 (maximum number of matrix elements)
+      DO j = 1 , LP2 ! LP2 = 1500 (maximum number of matrix elements)
          DO k = 1 , 2
             DO l = 1 , 7
                QAPR(j,k,l) = 0.
@@ -1617,7 +1617,7 @@ C     Handle OP,INTG
                   ENDDO
                   CALL TENS(bten)
                   CALL DECAY(ccd,0,ccc)
-                  DO j = 1 , LP2 ! LP2 = 500 (maximum number of matrix elements)
+                  DO j = 1 , LP2 ! LP2 = 1500 (maximum number of matrix elements)
                      DO ijan = 1 , 20
                         SUMCL(ijan,j) = 0.
                      ENDDO
@@ -2044,7 +2044,7 @@ C     Handle OP,CORR, OP, MAP, OP,MINI, OP,POIN, and OP, STAR
                   CALL DECAY(ccd,0,ccc)
                   nogeli = NANG(IEXP) ! Number of detector angles for expt
                   jgl1 = 0
-                  DO js = 1 , LP2 ! LP2 = 500 (maximum number of matrix elements)
+                  DO js = 1 , LP2 ! LP2 = 1500 (maximum number of matrix elements)
                      DO jgl = 1 , 20
                         SUMCL(jgl,js) = 0.
                      ENDDO
