@@ -493,7 +493,7 @@ C      ZV     - energy meshpoints
      &          iecd(50) , wpi(100,2) , tau1(10) , eng(10) , 
      &          tau2(10,7) , xl1(7) , qui(8,10) , cf(8,2) , ivarh(500) , 
      &          liscl(200) , dsxm(100,100,100) , levl(50) , 
-     &          xlevb(50,2) , bm(8,20,20,3) , mlt(500) , ivari(500) ,
+     &          xlevb(50,2) , bm(8,20,20,3) , mlt(1500) , ivari(500) ,
      &          jpin(50)
       COMMON /CLUST / ICLUST(50,200) , LASTCL(50,20) , SUMCL(20,500) , 
      &                IRAWEX(50)
