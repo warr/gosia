@@ -620,7 +620,7 @@ C     Initialize prime numbers
 C     Initialize pointers
       lp0 = 50000 ! Size of ZETA array
       LP1 = 50 ! Maximum number of experiments
-      LP2 = 500 ! Maximum number of matrix elements
+      LP2 = 1500 ! Maximum number of matrix elements
       LP3 = 75 ! Maximum number of levels
       LP4 = 1500
       LP6 = 32 ! Maximum number of gamma detectors
