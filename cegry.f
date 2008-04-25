@@ -38,7 +38,7 @@ C      KVAR   -
 C      LASTCL - index of last detector in cluster
 C      LFL    -
 C      LNORM  - normalization constant control
-C      LP2    - maximum number of matrix elements (500)
+C      LP2    - maximum number of matrix elements (1500)
 C      LP6    - 32
 C      LP10   - 600
 C      NANG   - number of gamma-ray detectors for each experiment
