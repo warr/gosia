@@ -42,7 +42,7 @@ C      Chilo  - chi squared of logs
       COMMON /TRA   / DELTA(500,3) , ENDEC(500) , ITMA(50,200) , 
      &                ENZ(200)
       COMMON /PRT   / IPRM(20)
-      COMMON /COMME / ELM(500) , ELMU(500) , ELML(500) , SA(500)
+      COMMON /COMME / ELM(1500) , ELMU(500) , ELML(500) , SA(500)
       COMMON /LEV   / TAU(75) , KSEQ(500,4)
 
 C     If no branching ratios were defined, return doing nothing

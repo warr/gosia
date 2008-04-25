@@ -47,7 +47,7 @@ C      Rem    -
       COMMON /VLIN  / XV(101) , YV(101) , ZV(100) , DSG(100) ,
      &                DSE(100) , DS
       COMMON /DFTB  / DEVD(500) , DEVU(500)
-      COMMON /COMME / ELM(500) , ELMU(500) , ELML(500) , SA(500)
+      COMMON /COMME / ELM(1500) , ELMU(500) , ELML(500) , SA(500)
       COMMON /CEXC  / MAGEXC , MEMAX , LMAXE , MEMX6 , IVAR(500)
       COMMON /HHH   / HLM(500)
       COMMON /ILEWY / NWR

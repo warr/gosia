@@ -110,7 +110,7 @@ C      Bten   -
       COMMON /YEXPT / YEXP(32,1500) , IY(1500,32) , CORF(1500,32) , 
      &                DYEX(32,1500) , NYLDE(50,32) , UPL(32,50) , 
      &                YNRM(32,50) , IDRN , ILE(32)
-      COMMON /COMME / ELM(500) , ELMU(500) , ELML(500) , SA(500)
+      COMMON /COMME / ELM(1500) , ELMU(500) , ELML(500) , SA(500)
       COMMON /CLM   / LMAX
       COMMON /COEX  / EN(75) , SPIN(75) , ACCUR , DIPOL , ZPOL , ACCA , 
      &                ISO
