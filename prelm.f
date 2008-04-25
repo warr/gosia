@@ -31,7 +31,7 @@ C      Iop    - print flag (controls what is written to output).
      &          MEMX6 , MULTI , NDIM
       INTEGER*4 NMAX , NMAX1
       CHARACTER*3 wrn
-      COMMON /HHH   / HLM(500)
+      COMMON /HHH   / HLM(1500)
       COMMON /COMME / ELM(1500) , ELMU(1500) , ELML(1500) , SA(1500)
       COMMON /CEXC  / MAGEXC , MEMAX , LMAXE , MEMX6 , IVAR(1500)
       COMMON /COEX  / EN(75) , SPIN(75) , ACCUR , DIPOL , ZPOL , ACCA , 
