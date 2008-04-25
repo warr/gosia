@@ -43,7 +43,7 @@ C      Chilo  - chi squared of logs
      &                ENZ(200)
       COMMON /PRT   / IPRM(20)
       COMMON /COMME / ELM(1500) , ELMU(1500) , ELML(1500) , SA(1500)
-      COMMON /LEV   / TAU(75) , KSEQ(500,4)
+      COMMON /LEV   / TAU(75) , KSEQ(1500,4)
 
 C     If no branching ratios were defined, return doing nothing
       IF ( NBRA.EQ.0 ) RETURN
