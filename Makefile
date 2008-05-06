@@ -97,6 +97,7 @@ OBJS += rk4.o
 OBJS += rndm.o
 OBJS += rotate.o
 OBJS += seq.o
+OBJS += select.o
 OBJS += setin.o
 OBJS += simin.o
 OBJS += sixel.o
@@ -148,5 +149,5 @@ single_file:
 	simin.f mixup.f fxis1.f fxis2.f podziel.f klopot.f \
 	mixr.f coord.f chmem.f pticc.f rndm.f kontur.f rk4.f \
 	qfit.f gamatt.f gcf.f tcexp.f tcabs.f tasin.f tacos.f \
-	openf.f effix.f adhoc.f elmt.f > $(SINGLE_FILE)
+	openf.f effix.f adhoc.f elmt.f select.f > $(SINGLE_FILE)
 

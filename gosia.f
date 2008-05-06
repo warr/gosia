@@ -871,6 +871,10 @@ C     Treat OP,REST (restart)
       ELSEIF ( op2.EQ.'REST' ) THEN
          GOTO 4300
 
+C     Treat OP,SELE
+      ELSEIF ( op2.EQ.'SELE' ) THEN
+         GOTO 4800
+
 C     Treat OP,SIXJ
       ELSEIF ( op2.EQ.'SIXJ' ) THEN
          GOTO 4400
@@ -2815,6 +2819,12 @@ C     Handle OP,TROU
  4700 ITS = 1 ! Create tape 18 flag
       READ * , kmat , rlr
       GOTO 100 ! End of OP,TROU - back to input loop
+
+C.............................................................................
+C     Handle OP,SELE
+ 4800 CALL SELECT
+      GOTO 2000 ! End of execution
+
 C.............................................................................
  1500 WRITE (22,99043)
 99043 FORMAT (5X,'ERROR-M.E. DOES NOT BELONG TO THE UPPER TRIANGLE')
