@@ -659,6 +659,7 @@ C     Initialize normalization to 1.
       LNY = 0
       JENTR = 0 ! Flag to indicate we are not in OP,ERRO
       ICS = 0
+      ISPL = 0 ! Flag to indicate we should use LAGRAN not SPLINE
 
       DO i = 1 , LP1 ! LP1 = 50 (maximum number of experiments)
          jpin(i) = 0
@@ -1110,6 +1111,8 @@ C     Treat suboption CONT (control)
             ENDDO
          ELSEIF ( op1.EQ.'SMR,' ) THEN
             iosr = 1
+         ELSEIF ( op1.EQ.'SPL,' ) THEN
+            ISPL = ipo1
          ELSEIF ( op1.EQ.'TEN,' ) THEN
             itno = 1
          ELSEIF ( op1.EQ.'VAC,' ) THEN
