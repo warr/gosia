@@ -1,3 +1,14 @@
+ 
+C----------------------------------------------------------------------
+C SUBROUTINE SELECT
+C
+C Called by: GOSIA
+C
+C Purpose: integrate the functionality of the program SELECT into gosia as
+C          OP,SELE
+C
+C PJN April 2008
+C
       SUBROUTINE SELECT
       IMPLICIT NONE
       REAL*8 a , al , am , y
