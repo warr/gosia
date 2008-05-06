@@ -158,6 +158,8 @@ multipolarity.
 \item REAL*8 Q(3,200,8) - solid angle attenuation coefficients.
 \item INTEGER*4 NICC - number of conversion coefficients.
 \item INTEGER*4 NANG(200) - number of $\gamma$-ray detectors.
+\item INTEGER*4 ISPL - ISPL=0 means use LAGRAN for interpolation, ISPL=1
+means use spline.
 \end{itemize}
 
 \section{CCCDS}
@@ -441,7 +443,7 @@ in {\em EFFIX} and {\em GOSIA}.
 
 \begin{itemize}
 \item REAL*8 ABC(8,10) - absorption coefficients.
-\item REAL*8 AKAVKA(8,200) - efficiency curve parameters.
+\item REAL*8 AKAVKA(9,200) - efficiency curve parameters.
 \item REAL*8 THICK(200,7) - thickness of each absorber type.
 \end{itemize}
 
