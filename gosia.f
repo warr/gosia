@@ -1436,7 +1436,7 @@ C     Handle OP,EXIT
 99011          FORMAT (1X//20X,'CALCULATED LIFETIMES'//5X,'LEVEL',5X,
      &                 'LIFETIME(PSEC)',5X,'EXP',8X,'ERROR'/)
                DO iva = 2 , NMAX
-                  DO iva1 = 1 , 10
+                  DO iva1 = 1 , NLIFT
                      IF ( LIFCT(iva1).EQ.iva ) GOTO 122
                   ENDDO
                   WRITE (22,99012) iva , TAU(iva)
