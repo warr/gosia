@@ -14,7 +14,7 @@ C
       REAL*8 a , al , am , y
       INTEGER*4 i , ie , iexp , indx , ixf , j , l , lm , lu , lum , 
      &        lx , memax
-      DIMENSION lm(500) , y(175,500) , a(500,500)
+      DIMENSION lm(1500) , y(175,1500) , a(1500,1500)
 
       ixf = 0
       REWIND 18
