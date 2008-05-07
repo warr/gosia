@@ -53,6 +53,7 @@ C      Chilo  - chi squared of logs
       COMMON /CATLF / FP(4,500,3) , GKP(4,500,2) , KLEC(75)
       COMMON /LCDL  / DELLA(500,3)
       DIMENSION gk(4)
+      DATA emt1/0./
 
       idr = 1
       DO il = 1 , NMAX1 ! For each level with decays
