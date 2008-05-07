@@ -360,6 +360,7 @@ C      NCM    - calculate kinematics assuming this state for final state (defaul
 C      NDIM   - maximum number of levels
 C      NDST   - number of data sets
 C      NEXPT  - number of experiments
+C      NLIFT  - number of lifetimes
 C      NLOCK  - number of elemnts to fix if LOCKF=1
 C      NMAX   - number of levels
 C      NMAX1  - number of levels with decays
@@ -480,9 +481,9 @@ C      ZV     - energy meshpoints
       INTEGER*4 naxfl , nb1 , nb2 , nbands , NBRA , nch , NCM , NDIM , 
      &          ndima , NDST , ndum , ne , NEXPT , nf , nfd , nfdd , 
      &          nfi , nflr , nft , nged
-      INTEGER*4 ngpr , ni , NICC , nksi , nl , NLOCK , NMAX , NMAX1 , 
-     &          nmaxh , nmemx , nnl , nogeli , npce , npce1 , npct , 
-     &          npct1 , npt , nptl , nptx , ns1
+      INTEGER*4 ngpr , ni , NICC , nksi , nl , NLIFT , NLOCK , NMAX , 
+     &          NMAX1 , nmaxh , nmemx , nnl , nogeli , npce , npce1 , 
+     &          npct , npct1 , npt , nptl , nptx , ns1
       INTEGER*4 ns2 , ntap , ntt , numcl , nval , NYLDE , nz
       LOGICAL ERR
       COMPLEX*16 ARM , EXPO
@@ -565,6 +566,7 @@ C      ZV     - energy meshpoints
       COMMON /ERCAL / JENTR , ICS
       COMMON /LOGY  / LNY , INTR , IPS1
       COMMON /FAKUL / IP(26) , IPI(26) , KF(101,26) , PILOG(26)
+      COMMON /LIFE  / NLIFT
       DATA (eng(k),k=1,10)/.05 , .06 , .08 , .1 , .15 , .2 , .3 , .5 , 
      &      1. , 1.5/
 C     Absorption coefficients in units of 1/cm for Ge
@@ -2743,7 +2745,7 @@ C     Handle OP,EXIT
 99011          FORMAT (1X//20X,'CALCULATED LIFETIMES'//5X,'LEVEL',5X,
      &                 'LIFETIME(PSEC)',5X,'EXP',8X,'ERROR'/)
                DO iva = 2 , NMAX
-                  DO iva1 = 1 , 10
+                  DO iva1 = 1 , NLIFT
                      IF ( LIFCT(iva1).EQ.iva ) GOTO 122
                   ENDDO
                   WRITE (22,99012) iva , TAU(iva)
