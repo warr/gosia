@@ -356,7 +356,7 @@ C      MULTI  - number of matrix elements having given multipolarity
 C      NAMX   - number of known matrix elements
 C      NANG   - number of gamma-ray detectors for each experiment
 C      NBRA   - number of branching ratios
-C      NCM    - calculate kinematics assuming this spin for final state (default = 2.0)
+C      NCM    - calculate kinematics assuming this state for final state (default = 2)
 C      NDIM   - maximum number of levels
 C      NDST   - number of data sets
 C      NEXPT  - number of experiments
