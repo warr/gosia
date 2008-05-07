@@ -75,7 +75,7 @@ C Here we parse the input of the OP,YIEL command and store the values.
       CHARACTER*4 Oph
       COMMON /CCCDS / NDST(50)
       COMMON /DIMX  / DIX(4) , ODL(200)
-      COMMON /TRA   / DELTA(1500,3) , ENDEC(1500) , ITMA(50,200) ,
+      COMMON /TRA   / DELTA(1500,3) , ENDEC(1500) , ITMA(50,200) , 
      &                ENZ(200)
       COMMON /LIFE  / NLIFT
       COMMON /MIXD  / DMIXE(20,2) , DMIX(20) , IMIX(20) , NDL
@@ -87,7 +87,7 @@ C Here we parse the input of the OP,YIEL command and store the values.
      &                YNRM(32,50) , IDRN , ILE(32)
       COMMON /YTEOR / YGN(1500) , YGP(1500) , IFMO
       COMMON /LEV   / TAU(75) , KSEQ(1500,4)
-      COMMON /CCC   / EG(50) , CC(50,5) , AGELI(50,200,2) , Q(3,200,8) ,
+      COMMON /CCC   / EG(50) , CC(50,5) , AGELI(50,200,2) , Q(3,200,8) , 
      &                NICC , NANG(200) , ISPL
       COMMON /COEX  / EN(75) , SPIN(75) , ACCUR , DIPOL , ZPOL , ACCA , 
      &                ISO
