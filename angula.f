@@ -54,7 +54,7 @@ C      Ngl    - detector number
      &                NICC , NANG(200) , ISPL
       COMMON /KIN   / EPS(50) , EROOT(50) , FIEX(50,2) , IEXP , IAXS(50)
       COMMON /LCDL  / DELLA(500,3)
-      COMMON /CATLF / FP(4,500,3) , GKP(4,500,2) , KLEC(75)
+      COMMON /CATLF / FP(4,1500,3) , GKP(4,1500,2) , KLEC(75)
       COMMON /BREC  / BETAR(50)
       COMMON /THTAR / ITTE(50)
       
