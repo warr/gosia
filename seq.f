@@ -237,5 +237,4 @@ C     multipolarity
       DO n = 1 , NMAX ! For each level count those which have decays
          IF ( KLEC(n).NE.0 ) NMAX1 = NMAX1 + 1
       ENDDO
- 4444 FORMAT(I3,12E20.12)
       END
