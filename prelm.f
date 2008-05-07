@@ -33,10 +33,10 @@ C      Iop    - print flag (controls what is written to output).
       CHARACTER*3 wrn
       COMMON /HHH   / HLM(1500)
       COMMON /COMME / ELM(500) , ELMU(500) , ELML(500) , SA(500)
-      COMMON /CEXC  / MAGEXC , MEMAX , LMAXE , MEMX6 , IVAR(500)
+      COMMON /CEXC  / MAGEXC , MEMAX , LMAXE , MEMX6 , IVAR(1500)
       COMMON /COEX  / EN(75) , SPIN(75) , ACCUR , DIPOL , ZPOL , ACCA , 
      &                ISO
-      COMMON /CLCOM / LAMDA(8) , LEAD(2,1500) , LDNUM(8,75) , LAMMAX , 
+      COMMON /CLCOM / LAMDA(8) , LEAD(2,1500) , LDNUM(8,75) , LAMMAX ,
      &                MULTI(8)
       COMMON /COEX2 / NMAX , NDIM , NMAX1
 

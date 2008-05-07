@@ -543,7 +543,7 @@ C      ZV     - energy meshpoints
       COMMON /MINNI / IMIN , LNORM(50)
       COMMON /CX    / NEXPT , IZ , XA , IZ1(50) , XA1(50) , EP(50) , 
      &                TLBDG(50) , VINF(50)
-      COMMON /CEXC  / MAGEXC , MEMAX , LMAXE , MEMX6 , IVAR(500)
+      COMMON /CEXC  / MAGEXC , MEMAX , LMAXE , MEMX6 , IVAR(1500)
       COMMON /PRT   / IPRM(20)
       COMMON /CCOUP / ZETA(50000) , LZETA(8)
       COMMON /CB    / B(20)
