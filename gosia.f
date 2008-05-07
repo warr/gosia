@@ -485,6 +485,7 @@ C      ZV     - energy meshpoints
      &          NMAX1 , nmaxh , nmemx , nnl , nogeli , npce , npce1 , 
      &          npct , npct1 , npt , nptl , nptx , ns1
       INTEGER*4 ns2 , ntap , ntt , numcl , nval , NYLDE , nz
+      INTEGER*4 ISPL ! Added for spline
       LOGICAL ERR
       COMPLEX*16 ARM , EXPO
       CHARACTER*4 oph , op1 , opcja , op2
@@ -529,8 +530,8 @@ C      ZV     - energy meshpoints
       COMMON /YTEOR / YGN(500) , YGP(500) , IFMO
       COMMON /LEV   / TAU(75) , KSEQ(500,4)
       COMMON /MAP   / PARX(50,12,5) , PARXM(50,4,10,6) , XIR(6,50)
-      COMMON /CCC   / EG(50) , CC(50,5) , AGELI(50,200,2) , Q(3,200,8) , 
-     &                NICC , NANG(200)
+      COMMON /CCC   / EG(50) , CC(50,5) , AGELI(50,200,2) , Q(3,200,8) ,
+     &                NICC , NANG(200) , ISPL
       COMMON /GGG   / G(7)
       COMMON /AZ    / ARM(600,7)
       COMMON /KIN   / EPS(50) , EROOT(50) , FIEX(50,2) , IEXP , IAXS(50)
@@ -660,6 +661,7 @@ C     Initialize normalization to 1.
       LNY = 0
       JENTR = 0 ! Flag to indicate we are not in OP,ERRO
       ICS = 0
+      ISPL = 0 ! Flag to indicate we should use LAGRAN not SPLINE
 
       DO i = 1 , LP1 ! LP1 = 50
          jpin(i) = 0
@@ -1741,6 +1743,7 @@ C     Treat suboption CONT (control)
          IF ( op1.EQ.'ACP,' ) ACCA = 10.**(-fipo1)
          IF ( op1.EQ.'SEL,' ) ITS = 2
          IF ( op1.EQ.'SMR,' ) iosr = 1
+         IF ( op1.EQ.'SPL,' ) ISPL = ipo1
          IF ( op1.EQ.'FMI,' ) ifm = 1
          IF ( op1.EQ.'TEN,' ) itno = 1
          IF ( op1.EQ.'NCM,' ) NCM = ipo1

@@ -43,6 +43,7 @@ C      Ngl    - detector number
      &          ipd , is , ITMA , ITTE , iu , ixs , j , ji , jj , jm , k
       INTEGER*4 KLEC , kq , KSEQ , l , lf , lf1 , LZETA , mind , NANG , 
      &          Ngl , NICC , nlv
+      INTEGER*4 ISPL ! Added for spline
       DIMENSION f(4) , ylmr(9,9) , at(28) , alab(9,9) , attl(9,9) , 
      &          Ygn(500)
       COMMON /CCOUP / ZETA(50000) , LZETA(8)
@@ -50,7 +51,7 @@ C      Ngl    - detector number
      &                ENZ(200)
       COMMON /LEV   / TAU(75) , KSEQ(500,4)
       COMMON /CCC   / EG(50) , CC(50,5) , AGELI(50,200,2) , Q(3,200,8) , 
-     &                NICC , NANG(200)
+     &                NICC , NANG(200) , ISPL
       COMMON /KIN   / EPS(50) , EROOT(50) , FIEX(50,2) , IEXP , IAXS(50)
       COMMON /LCDL  / DELLA(500,3)
       COMMON /CATLF / FP(4,500,3) , GKP(4,500,2) , KLEC(75)
