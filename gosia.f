@@ -19,12 +19,12 @@ C          J. Srebrny  (Warsaw)
 C          Eh. Vogt (Munchen and Rochester)
 C          N. Warr (Cologne)
 C
-C         Nigel Warr of the University of Cologne has contributed many 
-C         important improvements to the coding of the 2007 version of 
+C         Nigel Warr of the University of Cologne has contributed many
+C         important improvements to the coding of the 2007 version of
 C         GOSIA, as well as the March 2008 update.  These include the
-C         repair of several bugs, significant improvements in structure, 
-C         standards and compatibility, and the addition of many detailed 
-C         comments to the code.  Descriptions of these improvements can 
+C         repair of several bugs, significant improvements in structure,
+C         standards and compatibility, and the addition of many detailed
+C         comments to the code.  Descriptions of these improvements can
 C         be found in the "Version History" below.
 C
 C        References and Credits
@@ -33,19 +33,19 @@ C          T. Czosnyka, D. Cline and C. Y. Wu,
 C          Bull. Am. Phys. Soc. 28, 745 (1983)
 C
 C          Internal laboratory report UR/NSRL 308/1986
-C 
-C          Some concepts used come from the 1978 Winther, de Boer code 
-C          COULEX and from the deexcitation code CEGRY developed by Cline 
-C          and coworkers at Rochester.  However, the parts taken from 
-C          both codes are in most cases completely rewritten, so the 
+C
+C          Some concepts used come from the 1978 Winther, de Boer code
+C          COULEX and from the deexcitation code CEGRY developed by Cline
+C          and coworkers at Rochester.  However, the parts taken from
+C          both codes are in most cases completely rewritten, so the
 C          similarity of variable and routine names may be misleading.
 C
 C        Resources
 C
-C          It is recommended that users check the GOSIA website at 
-C          Rochester periodically for important updates to the code and 
-C          the manual, as well as sample input and output files and other 
-C          information. Chapter 11 of this manual provides novice users 
+C          It is recommended that users check the GOSIA website at
+C          Rochester periodically for important updates to the code and
+C          the manual, as well as sample input and output files and other
+C          information. Chapter 11 of this manual provides novice users
 C          with instructions, tutorials, etc.
 C
 C          http://www.pas.rochester.edu/~cline/Research/GOSIA.htm
@@ -53,7 +53,7 @@ C
 C          If you need additional information, please contact:
 C
 C          Prof. Douglas Cline
-C          Department of Physics and Astronomy 
+C          Department of Physics and Astronomy
 C          University of Rochester
 C          Rochester, NY 14627, U.S.A.           Phone (585)275-4934
 C          Cline@pas.rochester.edu
@@ -98,7 +98,7 @@ C            (July 1997, T. Czosnyka) - Known matrix elements of all
 C            multipolarities may now be entered as data in OP,YIEL.
 C            Note that this necessitates adding the multipole order
 C            LAMBDA as the first field in the new input format:
-C              LAMBDA, NS1, NS2, ME, DME 
+C              LAMBDA, NS1, NS2, ME, DME
 C            where LAMBDA=7 and 8 represent M1 and M2, respectively.
 C
 C          Bugs Fixed  (2007 and 2008, N. Warr)
@@ -114,7 +114,7 @@ C
 C            The routine ALLOC now handles error conditions gracefully,
 C            and execution is halted in the event of a fatal error.
 C
-C            The WRN,X. switch in the CONT section of OP,GOSI and 
+C            The WRN,X. switch in the CONT section of OP,GOSI and
 C            OP,COUL was unintentionally disabled in the 2007 version.
 C            It is restored in the present update.
 C
@@ -134,9 +134,9 @@ C          Structure and Standards  (2007, N. Warr)
 C
 C            The 2007 code has been updated to remove many archaic
 C            functions and made to compile using GNU g77 on most or all
-C            modern 64-bit machines.  
+C            modern 64-bit machines.
 C
-C            Sections of the code have been restructured using Spag 
+C            Sections of the code have been restructured using Spag
 C            (Polyhedron Software) under the academic license.  This
 C            included unraveling of loops and goto statements, and
 C            indenting the source code to make loops and if statements
@@ -146,7 +146,7 @@ C            the 2007 version of Gosia2.  Other sections have been
 C            restructured for clarity, without altering their function
 C            (e.g. WTHREJ).
 C
-C            Common Blocks 
+C            Common Blocks
 C
 C              The common blocks ME2D, CCC, KIN, COEX, CAUX0, and LCZP
 C              were re-ordered so that the 64-bit real variables come
@@ -161,11 +161,11 @@ C              been replaced by their modern counterparts.
 C
 C                Archaic    Replacement        Archaic    Replacement
 C
-C                IFIX       INT                MIN0       MIN  
-C                FLOAT      REAL               AMIN1      MIN  
-C                IABS       ABS                ALOG10     LOG10 
-C                MAX0       MAX                ALOG       LOG     
-C                AMAX1      MAX                
+C                IFIX       INT                MIN0       MIN
+C                FLOAT      REAL               AMIN1      MIN
+C                IABS       ABS                ALOG10     LOG10
+C                MAX0       MAX                ALOG       LOG
+C                AMAX1      MAX
 C
 C          Chronology of Major Changes
 C
@@ -207,8 +207,8 @@ C
 C            (November 1990, T. Czosnyka) - The level scheme data
 C            arrays have been increased to the following sizes:
 C               number of levels   = 75
-C               gamma-ray yields   = 32 x 1500 
-C               magnetic substates = 600 
+C               gamma-ray yields   = 32 x 1500
+C               magnetic substates = 600
 C               matrix elements    = 500
 C
 C
@@ -481,7 +481,7 @@ C      ZV     - energy meshpoints
       INTEGER*4 naxfl , nb1 , nb2 , nbands , NBRA , nch , NCM , NDIM , 
      &          ndima , NDST , ndum , ne , NEXPT , nf , nfd , nfdd , 
      &          nfi , nflr , nft , nged
-      INTEGER*4 ngpr , ni , NICC , nksi , nl , NLIFT , NLOCK , NMAX , 
+      INTEGER*4 ngpr , ni , NICC , nksi , nl , NLIFT , NLOCK , NMAX ,
      &          NMAX1 , nmaxh , nmemx , nnl , nogeli , npce , npce1 , 
      &          npct , npct1 , npt , nptl , nptx , ns1
       INTEGER*4 ns2 , ntap , ntt , numcl , nval , NYLDE , nz
@@ -495,7 +495,7 @@ C      ZV     - energy meshpoints
      &          iecd(50) , wpi(100,2) , tau1(10) , eng(10) , 
      &          tau2(10,7) , xl1(7) , qui(8,10) , cf(8,2) , 
      &          ivarh(1500) , liscl(200) , dsxm(100,100,100) , 
-     &          levl(50) , xlevb(50,2) , bm(8,20,20,3) , mlt(1500) ,
+     &          levl(50) , xlevb(50,2) , bm(8,20,20,3) , mlt(1500) , 
      &          ivari(1500) , jpin(50)
       COMMON /CLUST / ICLUST(50,200) , LASTCL(50,20) , SUMCL(20,1500) , 
      &                IRAWEX(50)
@@ -530,7 +530,7 @@ C      ZV     - energy meshpoints
       COMMON /YTEOR / YGN(1500) , YGP(1500) , IFMO
       COMMON /LEV   / TAU(75) , KSEQ(1500,4)
       COMMON /MAP   / PARX(50,12,5) , PARXM(50,4,10,6) , XIR(6,50)
-      COMMON /CCC   / EG(50) , CC(50,5) , AGELI(50,200,2) , Q(3,200,8) ,
+      COMMON /CCC   / EG(50) , CC(50,5) , AGELI(50,200,2) , Q(3,200,8) , 
      &                NICC , NANG(200) , ISPL
       COMMON /GGG   / G(7)
       COMMON /AZ    / ARM(600,7)
