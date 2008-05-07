@@ -166,15 +166,15 @@ C     multipolarity
          nob = 1
  50      IF ( la.LE.3 ) THEN
             IF ( la.EQ.1 ) THEN
-               DELTA(Idr,1) = 399.05*ega*egs ! E1
+              DELTA(Idr,1) = 398.77393*ega*egs ! E1
                mule = 1
                istr1 = 1
             ELSEIF ( la.EQ.2 ) THEN
-               DELTA(Idr,1) = 3.4928*egs*ega*ega ! E2
+              DELTA(Idr,1) = 3.5002636*egs*ega*ega ! E2
                mule = 2
                istr1 = 2
             ELSEIF ( la.EQ.3 ) THEN
-               DELTA(Idr,1) = .02391*ega*ega*ega*egs ! E3
+              DELTA(Idr,1) = 0.023891302*ega*ega*ega*egs ! E3
                mule = 3
                istr1 = 3
             ELSE
@@ -184,11 +184,11 @@ C     multipolarity
          ENDIF
  100     la = la - 6
          IF ( la.EQ.2 ) THEN
-            DELTA(Idr,2) = .0368*ega*ega*egs ! M2
+           DELTA(Idr,2) = 0.036806836*ega*ega*egs ! M2
             mulm = 2
             istr2 = 5
          ELSE
-            DELTA(Idr,2) = 4.1952*ega*egs ! M1
+           DELTA(Idr,2) = 4.1932861*ega*egs ! M1
             mulm = 1
             istr2 = 4
          ENDIF
@@ -237,4 +237,5 @@ C     multipolarity
       DO n = 1 , NMAX ! For each level count those which have decays
          IF ( KLEC(n).NE.0 ) NMAX1 = NMAX1 + 1
       ENDDO
+ 4444 FORMAT(I3,12E20.12)
       END
