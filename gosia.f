@@ -733,7 +733,7 @@ C     Initialize normalization to 1.
       LMAXE = 0
       CALL FAKP
       CALL FHIP
-      NCM = 2 ! Default final spin for kinematics calculation (OP,CONT NCM,)
+      NCM = 2 ! Default final state for kinematics calculation (OP,CONT NCM,)
       DO ijx = 1 , LP1 ! LP1 = 50 (maximum number of experiments)
          INTERV(ijx) = 1
       ENDDO
