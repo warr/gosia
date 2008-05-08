@@ -11,7 +11,7 @@
 ° Changed dimensions of Wpi in COORD
 ° Changed dimensions of XV, YV, ZV, DSG and DSE in COORD
 ° Changed dimensions of XV, YV, ZV, DSG and DSE in KONTUR
-° Added Leuven (Radware) efficiency calibration in EFFIX (as in gosia2)
+° Added Leuven efficiency calibration in EFFIX (as in gosia2)
 
 28Mar2008
 ° Put back warnings in CEGRY which was removed by mistake
