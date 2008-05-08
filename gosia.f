@@ -913,6 +913,11 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
             CALL PRELM(2)
             GOTO 100 ! End of OP,REST - back to input loop
 
+C     Treat OP,SELE
+         ELSEIF ( op2.EQ.'SELE' ) THEN
+            CALL SELECT
+            GOTO 2000
+
 C        Treat other options
          ELSE
 
