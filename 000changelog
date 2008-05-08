@@ -1,19 +1,19 @@
-08May2008
-Increased size of arrays for matrix elements from 500 to 1500. N.B. we are
+20080508
+° Increased size of arrays for matrix elements from 500 to 1500. N.B. we are
   still limited to 999 matrix elements because 1000 is used as a flag.
 ° Added OP,SELE
 
-07May2008
+20080507
 ° Correct inaccurate constants in SEQ
 ° Replaced constant 10 with NLIFT in loop (this was a bug)
 ° Initialized some variables explicitly to remove compiler warnings
 ° Increased AKAVKA dimensions from 8 to 9 to prepare for merge of Pawel
   Napiorkowski's efficiency code
 ° Added ISPL variable in CCC common to prepare for merge of Pawel
-  Napiorkowski's spline code
+  Napiorkowski's spline code and SPL, option in CONT
 ° Restructured a repeated IF with the same condition to use IF/THEN
 
-18Apr2008
+20080418
 ° Increased dimensions of arrays fiex1, wpi in GOSIA
 ° Increased dimensions of XV, YV, ZV, DSG and DSE in GOSIA
 ° Moved OP,EXIT code to end of GOSIA (as in gosia2)
@@ -28,24 +28,24 @@ Increased size of arrays for matrix elements from 500 to 1500. N.B. we are
 ° Changed dimensions of XV, YV, ZV, DSG and DSE in KONTUR
 ° Added Leuven efficiency calibration in EFFIX (as in gosia2)
 
-28Mar2008
+20080328
 ° Put back warnings in CEGRY which was removed by mistake
 ° Fix typo misspelling "WARNING" in CEGRY
 
-29Feb2008
+20080229
 ° Limit NI2 to 50 in GOSIA
 
-26Jul2007
+20070726
 ° Reorder initialisation so it is similar to gosia2 in GOSIA
 ° Remove spurious attempt to provoke floating point exception in ALLOC
 ° Remove superfluous ELSE in WTHREJ
 ° Move some format statements in PRELM
 
-21Jul2007
+20070721
 ° Fix initialisation of CNOR from 1 to 75 not 1 to 50 in GOSIA
 ° Make both parameters of SIGN have same precision in FXIS1
 
-09Jul2007
+20070709
 ° Restucture IF statement in GOSIA
 ° Add explicit STOP statement to ALLOC
 ° Move duplicated lines out of IF/ELSE in MINI
