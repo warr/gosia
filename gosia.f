@@ -783,6 +783,7 @@ C     Initialize normalization to 1.
       ERR = .FALSE.
       intend = 0 ! End of initialization
 
+C.............................................................................
 C     Start reading input file.
  100  READ 99001 , op1 , op2
 99001 FORMAT (1A3,1A4)
@@ -1834,7 +1835,7 @@ C     Treat suboption CONT (control)
                ivarh(jjx) = IVAR(jjx)
             ENDDO
          ENDIF
-         GOTO 350
+         GOTO 350 ! Back to beginning of CONT loop
 
 C     Treat suboption EXPT
       ELSEIF ( op1.EQ.'EXPT' ) THEN
@@ -1872,13 +1873,13 @@ C     Handle OP,ERRO
  400  IF ( ICS.EQ.1 ) THEN
          REWIND 11
          DO kh1 = 1 , LP4
-            READ (11) (CORF(kh1,kh2),kh2=1,LP6)
+            READ (11) (CORF(kh1,kh2),kh2=1,LP6) ! LP6 = 32 (maximum number of gamma detectors)
          ENDDO
       ELSE
          CALL FTBM(0,chiss,idr,0,chilo,bten)
          REWIND 11
          DO kh1 = 1 , LP4
-            WRITE (11) (CORF(kh1,kh2),kh2=1,LP6)
+            WRITE (11) (CORF(kh1,kh2),kh2=1,LP6) ! LP6 = 32 (maximum number of gamma detectors)
          ENDDO
       ENDIF
 
@@ -2698,22 +2699,28 @@ C     Handle map
       IF ( ifm.NE.1 ) GOTO 100 ! Back to input loop
       GOTO 2000 ! Normal end of execution
 
+C.............................................................................
  1500 WRITE (22,99043)
 99043 FORMAT (5X,'ERROR-M.E. DOES NOT BELONG TO THE UPPER TRIANGLE')
       GOTO 1900 ! Troubleshoot
 
+C.............................................................................
  1600 WRITE (22,99044)
 99044 FORMAT (5X,'ERROR-WRONG SEQUENCE OF MULTIPOLARITIES')
       GOTO 1900 ! Troubleshoot
 
+C.............................................................................
  1700 WRITE (22,99045)
 99045 FORMAT (5X,'ERROR-REPEATED APPEARANCE OF THE STATE')
       GOTO 1900 ! Troubleshoot
 
+C.............................................................................
  1800 WRITE (22,99046)
 99046 FORMAT (1X///10X,'ERROR-INSUFFICIENT SPACE FOR E-THETA INTEGR ',
      &        'ATION')
+      GOTO 1900 ! Troubleshoot
 
+C.............................................................................
 C     Troubleshooting
  1900 IF ( ITS.NE.0 ) THEN
          iva = 0
