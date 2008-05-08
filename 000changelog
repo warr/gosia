@@ -1,7 +1,7 @@
 08May2008
 Increased size of arrays for matrix elements from 500 to 1500. N.B. we are
   still limited to 999 matrix elements because 1000 is used as a flag.
-° Add OP,SELE
+° Added OP,SELE
 
 07May2008
 ° Correct inaccurate constants in SEQ
