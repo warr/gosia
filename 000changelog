@@ -1,3 +1,9 @@
+20080515
+° Fixed bug in OP,RE,* which set lower limit to be negative and upper limit
+  to be positive, no matter what.
+° Made OP,ERRO ignore the value of RMAX given in the input and use a
+  hard-coded value of EXP(88).
+
 20080508
 ° Increased size of arrays for matrix elements from 500 to 1500. N.B. we are
   still limited to 999 matrix elements because 1000 is used as a flag.
