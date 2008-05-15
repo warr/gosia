@@ -52,7 +52,7 @@ C      Bten   -
       COMMON /ILEWY / NWR
       COMMON /LOGY  / LNY , INTR , IPS1
 
-      rem = 700 ! Log of largest REAL*8 (1E304)
+      rem = 88 ! Log of largest real (1.65E38)
       LNY = 0
       h = .05*ABS(HLM(Jj))
       IF ( Inpo.NE.-1 ) h = ABS(Sh)
