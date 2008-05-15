@@ -421,7 +421,7 @@ C      ZV     - energy meshpoints
      &       ph1 , ph2 , pi , PILOG , po1 , po2 , polm , pop1 , pr , 
      &       pv , Q
       REAL*8 q1 , q2 , QAPR , qc , QCEN , qfac , qr , qui , r , r1 , 
-     &       r2 , r3 , r4 , rem , remax , rl , rlr , rm , rx , ry
+     &       r2 , r3 , r4 , remax , rl , rlr , rm , rx , ry
       REAL*8 rz , s , s11 , s12 , s21 , s22 , SA , sbe , SE , sf , SGW , 
      &       sh , sh1 , sh2 , SIMIN , slim , SPIN , SUBCH1 , SUBCH2 , 
      &       SUMCL
@@ -930,7 +930,6 @@ C           Treat OP,RE,F (release F)
 C           Treat OP,ERRO (calculate errors)
             IF ( op2.EQ.'ERRO' ) THEN
                READ * , idf , ms , mend , irep , ifc , remax
-               rem = LOG(remax)
                LOCKS = 0
                LOCKF = 0
                JENTR = 1 ! Flag to indicate we are in OP,ERRO
@@ -1936,8 +1935,7 @@ C     Handle OP,ERRO
                      IF ( IVAR(kh).EQ.0 ) GOTO 500
                      SA(kh) = 1.*(-1)**ij
                      kh1 = kh
-                     CALL KONTUR(idr,chis0,chisl,ifbp,-1,kh1,sh,bten,
-     &                           rem)
+                     CALL KONTUR(idr,chis0,chisl,ifbp,-1,kh1,sh,bten)
                      ELM(kh) = HLM(kh)
                   ENDIF
                ENDIF
@@ -2046,7 +2044,7 @@ C     Handle OP,ERRO
                   DO kh1 = 1 , MEMAX ! For each matrix element
                      SA(kh1) = (ELM(kh1)-HLM(kh1))/ABS(sh)
                   ENDDO
-                  CALL KONTUR(idr,chis0,chisl,ifbp,inpo,kh,sh,bten,rem)
+                  CALL KONTUR(idr,chis0,chisl,ifbp,inpo,kh,sh,bten)
                ENDIF
                DO kh1 = 1 , MEMAX ! For each matrix element
                   IF ( ifc.EQ.1 ) IVAR(kh1) = KVAR(kh1)

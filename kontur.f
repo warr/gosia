@@ -31,14 +31,13 @@ C      Inpo   -
 C      Jj     - matrix element
 C      Sh     -
 C      Bten   -
-C      Rem    - natural log of the largest value the computer can represent
  
-      SUBROUTINE KONTUR(Idr,Chis0,Chil,Ifbf,Inpo,Jj,Sh,Bten,Rem)
+      SUBROUTINE KONTUR(Idr,Chis0,Chil,Ifbf,Inpo,Jj,Sh,Bten)
       IMPLICIT NONE
       REAL*8 ac , Bten , c , Chil , chilo , Chis0 , chis1 , chis2 , d1 , 
      &       d2 , DEVD , DEVU , DS , DSE , DSG , ELM , ELML , ELMU , f , 
      &       h
-      REAL*8 HLM , Rem , RK4 , SA , sajj , Sh , t , v , ww , x , XV , 
+      REAL*8 HLM , rem , RK4 , SA , sajj , Sh , t , v , ww , x , XV , 
      &       y , YV , ZV
       INTEGER*4 i , Idr , Ifbf , Inpo , INTR , IPS1 , itl , IVAR , ix , 
      &          j , Jj , l , LMAXE , LNY , m , MAGEXC , MEMAX , MEMX6 , 
@@ -53,6 +52,7 @@ C      Rem    - natural log of the largest value the computer can represent
       COMMON /ILEWY / NWR
       COMMON /LOGY  / LNY , INTR , IPS1
 
+      rem = 700 ! Log of largest REAL*8 (1E304)
       LNY = 0
       h = .05*ABS(HLM(Jj))
       IF ( Inpo.NE.-1 ) h = ABS(Sh)
@@ -89,7 +89,7 @@ C      Rem    - natural log of the largest value the computer can represent
          ENDIF
       ENDIF
  300  ww = .5*(Chis0-chis1)*NWR
-      IF ( ww.GE.Rem ) GOTO 700
+      IF ( ww.GE.rem ) GOTO 700
       f(2) = EXP(ww)
       IF ( i.EQ.2 .AND. f(2).LT..1 .AND. ABS(XV(1)-HLM(Jj)).LT.1E-9 )
      &     THEN
@@ -115,7 +115,7 @@ C      Rem    - natural log of the largest value the computer can represent
          ENDIF
       ENDIF
  400  ww = .5*(Chis0-chis2)*NWR
-      IF ( ww.GT.Rem ) GOTO 700
+      IF ( ww.GT.rem ) GOTO 700
       f(3) = EXP(ww)
       IF ( itl.EQ.1 ) WRITE (22,99001) Jj
 99001 FORMAT (5X,'WARNING-ME(',1I3,')',5X,
@@ -138,7 +138,7 @@ C      Rem    - natural log of the largest value the computer can represent
                   i = 1
                   CALL FTBM(3,chis1,Idr,1,chilo,Bten)
                   ww = .5*(Chis0-chis1)*NWR
-                  IF ( ww.GE.Rem ) GOTO 700
+                  IF ( ww.GE.rem ) GOTO 700
                   f(3) = EXP(ww)
                   GOTO 200
                ELSE
