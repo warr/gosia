@@ -2076,8 +2076,8 @@ C     Handle OP,ERRO
                IF ( jfre.EQ.1 ) GOTO 1100
             ENDIF
             IVAR(jrls) = 2
-            ELML(jrls) = -ABS(ELML(jrls))
-            ELMU(jrls) = ABS(ELMU(jrls))
+            ELML(jrls) = ELML(jrls)
+            ELMU(jrls) = ELMU(jrls)
             IF ( jrls.GT.MEMX6 ) IVAR(jrls) = 1
          ENDIF
  1100 ENDDO ! For each matrix element jrls
