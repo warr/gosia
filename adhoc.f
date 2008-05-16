@@ -101,12 +101,12 @@ C     Read OP,YIEL parameters
       iosr = 0
       READ * , IFMO ! IFLAG
       READ * , NICC , nistr ! N1, N2
-      READ * , (EG(jicc),jicc=1,NICC) ! E1,E2...
+      READ * , (EG(jicc),jicc=1,ABS(NICC)) ! E1,E2...
       Iyr = 1
       DO jic = 1 , nistr
         READ * , isrt1 ! I1
          IF ( isrt1.GT.6 ) isrt1 = isrt1 - 3
-         READ * , (CC(jicc,isrt1),jicc=1,NICC) ! CC(I1,1)...CC(I1,N1)
+         READ * , (CC(jicc,isrt1),jicc=1,ABS(NICC)) ! CC(I1,1)...CC(I1,N1)
       ENDDO
       READ * , (NANG(jicc),jicc=1,NEXPT) ! NANG(I)...NANG(NEXP)
 
