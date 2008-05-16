@@ -336,7 +336,7 @@ C      LNY    - use logs to calculate chi squared
 C      LOCKF  - flag to fix matrix elements with most significant derivative
 C      LOCKS  - lock flag. If LOCKS=1, fix at first stage of minimization
 C      LP1    - maximum number of experiments (50)
-C      LP10   - maximum number of reduced matrix elements (600)
+C      LP10   - maximum number of substates (600)
 C      LP11   - LP8 - 1 (103)
 C      LP12   - number of steps of omega (365)
 C      LP13   - LP9 + 1 (47901)
@@ -630,7 +630,7 @@ C     Initialize pointers
       LP7 = lp0 - 4900 ! Start of collision coefficients in ZETA
       LP8 = LP3*28 + 1
       LP9 = lp0 - LP3*28
-      LP10 = 600
+      LP10 = 600 ! Maximum number of substates
       LP11 = LP8 - 1
       LP12 = 365 ! Maximum number of steps of omega (dimension of ADB, SH, CH)
       LP13 = LP9 + 1
