@@ -78,6 +78,7 @@ OBJS += mini.o
 OBJS += mixr.o
 OBJS += mixup.o
 OBJS += newcat.o
+OBJS += newcnv.o
 OBJS += newlv.o
 OBJS += openf.o
 OBJS += path.o
@@ -154,6 +155,6 @@ single_file:
 	simin.f mixup.f fxis1.f fxis2.f podziel.f klopot.f \
 	mixr.f coord.f chmem.f pticc.f rndm.f kontur.f rk4.f \
 	qfit.f gamatt.f gcf.f tcexp.f tcabs.f tasin.f tacos.f \
-	openf.f effix.f adhoc.f elmt.f select.f bricc.f \
+	openf.f effix.f adhoc.f elmt.f select.f bricc.f newcnv.f \
 	cclkup.f splner.f spline.f splint.f > $(SINGLE_FILE)
 
