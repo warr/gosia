@@ -1,8 +1,7 @@
 C----------------------------------------------------------------------
 C FUNCTION NEWCNV
 C
-C Called by: BRANR, PTICC, SEQ
-C Calls:     LAGRAN
+C Called by: CONV
 C
 C Purpose: calculate the conversion coefficient at a particular energy by
 C interpolating over the values provided by the user.
