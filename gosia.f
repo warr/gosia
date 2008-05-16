@@ -916,7 +916,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
 C     Treat OP,SELE
          ELSEIF ( op2.EQ.'SELE' ) THEN
             CALL SELECT
-            GOTO 2000
+            GOTO 2000 ! End of execution
 
 C        Treat other options
          ELSE
