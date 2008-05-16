@@ -918,6 +918,11 @@ C     Treat OP,SELE
             CALL SELECT
             GOTO 2000
 
+C     Treat OP,BRIC
+         ELSEIF ( op2.EQ.'BRIC' ) THEN
+            CALL BRICC
+            GOTO 100 ! End of OP,BRIC - back to input loop
+
 C        Treat other options
          ELSE
 

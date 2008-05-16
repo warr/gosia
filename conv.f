@@ -25,6 +25,7 @@ C      conversion coefficient interpolated to energy Ega
 
 C     The first time, we need to read the data
       IF ( isfirst.eq.1 ) THEN
+        rewind(29)
         isfirst = 0
         DO nenergies = 1, 1500
           READ(29,*,END=100) energies(nenergies),
