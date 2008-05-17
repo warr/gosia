@@ -67,12 +67,12 @@ C           if it is more than the last data point, otherwise we interpolate
           IF ( Egamma.LE.energy(ishell,1) ) THEN
                result = DBLE(CC(ishell,1,Myimult))
                WRITE (22,'(A,F7.4,3A)') 'Warning Egamma=',Egamma/1.D3,
-     &           ' is in regime where solid state effects dominate ',
-     &           'conversion coefficients for shell ',name(ishell)
+     &           ' is in regime where solid state effects dominate',
+     &           ' conversion coefficients for shell ',name(ishell)
             ELSEIF ( Egamma .GE. energy(ishell,nrec(ishell)) ) THEN
                result = DBLE(cc(ishell,nrec(ishell),Myimult))
                WRITE (22,'(A,F7.4,3A)') 'Warning Egamma=',Egamma/1.D3,
-     &           ' exceeds range of conversion coefficients table ',
+     &           ' exceeds range of conversion coefficients table',
      &           ' for shell ',name(ishell)
             ELSE
 C             Set up for interpolation
