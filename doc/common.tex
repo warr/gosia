@@ -15,7 +15,7 @@ This common block contains the adiabatic exponential. It is used in {\em
 AMPDER}, {\em GOSIA}, {\em LAISUM}, {\em NEWLV} and {\em STING}.
 
 \begin{itemize}
-\item REAL*8 EXPO(500) - adiabatic exponential for each matrix element.
+\item REAL*8 EXPO(LP2) - adiabatic exponential for each matrix element.
 \end{itemize}
 
 \section{ADX}
@@ -44,8 +44,8 @@ This common block is used in {\em APRAM}, {\em CODE7}, {\em GOSIA}, {\em
 LOAD}, {\em LSLOOP}, {\em NEWCAT}, {\em PODZIEL} and {\em POMNOZ}.
 
 \begin{itemize}
-\item REAL*8 QAPR(500,2,7) - approximate Coulomb amplitudes
-\item INTEGER*4 IAPR(500,2) - indices of intitial and final levels for
+\item REAL*8 QAPR(LP2,2,7) - approximate Coulomb amplitudes
+\item INTEGER*4 IAPR(LP2,2) - indices of intitial and final levels for
 matrix element.
 \item INTEGER*4 ISEX(75)
 \end{itemize}
@@ -101,8 +101,8 @@ BRANR} and {\em GOSIA}.
 This common block is used in {\em ANGULA}, {\em DECAY} and {\em SEQ}.
 
 \begin{itemize}
-\item FP(4,500,3) - F coefficient multiplied by $\delta_lambda^2$.
-\item GKP(4,500,2) - G$_k$ multiplied by $\delta_lambda^2$.
+\item FP(4,LP2,3) - F coefficient multiplied by $\delta_lambda^2$.
+\item GKP(4,LP2,2) - G$_k$ multiplied by $\delta_lambda^2$.
 \item KLEC(75) - number of decays for each level
 \end{itemize}
 
@@ -158,6 +158,8 @@ multipolarity.
 \item REAL*8 Q(3,200,8) - solid angle attenuation coefficients.
 \item INTEGER*4 NICC - number of conversion coefficients.
 \item INTEGER*4 NANG(200) - number of $\gamma$-ray detectors.
+\item INTEGER*4 ISPL - ISPL=0 means use LAGRAN for interpolation, ISPL=1
+means use spline.
 \end{itemize}
 
 \section{CCCDS}
@@ -200,7 +202,7 @@ used by {\em LOAD} to limit the number of $\xi$ and $\psi$ parameters
 calculated to those actually needed.
 \item INTEGER*4 MEMX6 - number of matrix elements with E1{\ldots}6
 multipolarity.
-\item INTEGER*4 IVAR(500) - Indicates a limit or correlation is set.
+\item INTEGER*4 IVAR(LP2) - Indicates a limit or correlation is set.
 \end{itemize}
 
 \section{CEXC0}
@@ -252,7 +254,7 @@ PRELM}, {\em PTICC}, {\em QRANGE}, {\em RANGEL}, {\em SEQ} and {\em STING}.
 
 \begin{itemize}
 \item INTEGER*4 LAMDA(8) - list of multipolarities to calculate
-\item INTEGER*4 LEAD(2,500) - pair of levels involved in each matrix element
+\item INTEGER*4 LEAD(2,LP2) - pair of levels involved in each matrix element
 \item INTEGER*4 LDNUM(8,75) - number of matrix elements with each multipolarity populating each level
 \item INTEGER*4 LAMMAX - number of multipolarities to calculate
 \item INTEGER*4 MULTI - number of matrix elements for a given multipolarity
@@ -307,7 +309,7 @@ This common block is used in {\em CEGRY} and {\em GOSIA}.
 \item INTEGER*4 ICLUST(50,200) - cluster number for each detector and
 experiment.
 \item INTEGER*4 LASTCL(50,20) - index of last detector in cluster.
-\item REAL*8 SUMCL(20,500) - sum of cluster yield.
+\item REAL*8 SUMCL(20,LP2) - sum of cluster yield.
 \end{itemize}
 
 \section{COEX}
@@ -356,10 +358,10 @@ CHMEM}, {\em DECAY}, {\em FTBM}, {\em GOSIA}, {\em KLOPOT}, {\em KONTUR},
 MIXR}, {\em MIXUP}, {\em PRELM} and {\em STING}.
 
 \begin{itemize}
-\item REAL*8 ELM(500) - matrix elements.
-\item REAL*8 ELMU(500) - upper limit on matrix elements.
-\item REAL*8 ELML(500) - lower limit on matrix elements.
-\item REAL*8 SA(500) - ratio of matrix elements for correlated elements.
+\item REAL*8 ELM(LP2) - matrix elements.
+\item REAL*8 ELMU(LP2) - upper limit on matrix elements.
+\item REAL*8 ELML(LP2) - lower limit on matrix elements.
+\item REAL*8 SA(LP2) - ratio of matrix elements for correlated elements.
 \end{itemize}
 
 \section{CX}
@@ -396,7 +398,7 @@ EXPON}, {\em FXIS1}, {\em FXIS2}, {\em GOSIA}, {\em LAIAMP}, {\em LOAD} and
 {\em NEWCAT}.
 
 \begin{itemize}
-\item REAL*8 XI(500) - $\xi$ coupling coefficients.
+\item REAL*8 XI(LP2) - $\xi$ coupling coefficients.
 \end{itemize}
 
 \section{DFTB}
@@ -404,8 +406,8 @@ EXPON}, {\em FXIS1}, {\em FXIS2}, {\em GOSIA}, {\em LAIAMP}, {\em LOAD} and
 This common block is used in {\em GOSIA}, {\em KONTUR} and {\em MINI}.
 
 \begin{itemize}
-\item REAL*8 DEVD(500)
-\item REAL*8 DEVU(500)
+\item REAL*8 DEVD(LP2)
+\item REAL*8 DEVU(LP2)
 \end{itemize}
 
 \section{DIMX}
@@ -428,10 +430,10 @@ N.B. Sometimes A, R, XL, D are referred to as DIX(4).
 This common block is used in {\em GOSIA} and {\em MINI}.
 
 \begin{itemize}
-\item REAL*8 GRAD(500) - partial derivatives of $\xi^2$.
-\item REAL*8 HLMLM(500) - old value of matrix element or $\xi^2$ (it is used
+\item REAL*8 GRAD(LP2) - partial derivatives of $\xi^2$.
+\item REAL*8 HLMLM(LP2) - old value of matrix element or $\xi^2$ (it is used
 for both).
-\item REAL*8 ELMH(500)
+\item REAL*8 ELMH(LP2)
 \end{itemize}
 
 \section{EFCAL}
@@ -441,7 +443,7 @@ in {\em EFFIX} and {\em GOSIA}.
 
 \begin{itemize}
 \item REAL*8 ABC(8,10) - absorption coefficients.
-\item REAL*8 AKAVKA(8,200) - efficiency curve parameters.
+\item REAL*8 AKAVKA(9,200) - efficiency curve parameters.
 \item REAL*8 THICK(200,7) - thickness of each absorber type.
 \end{itemize}
 
@@ -540,7 +542,7 @@ N.B. It doesn't look as though {\em SUM} is used anywhere except {\em GKK}.
 This common block is used in {\em GOSIA}, {\em KONTUR} and {\em PRELM}.
 
 \begin{itemize}
-\item REAL*8 HLM(500) - the matrix elements. What is the difference between
+\item REAL*8 HLM(LP2) - the matrix elements. What is the difference between
 ELM, HLM and HLMLM?
 \end{itemize}
 
@@ -596,7 +598,7 @@ This common block is used in {\em GOSIA} and {\em POMNOZ}.
 This common block is used in {\em ANGULA} and {\em DECAY}.
 
 \begin{itemize}
-\item REAL*8 DELLA(500,3) - products of matrix elements $e_^2$, $e_2^2$ and
+\item REAL*8 DELLA(LP2,3) - products of matrix elements $e_^2$, $e_2^2$ and
 $e_1 \times e_2$.
 \end{itemize}
 
@@ -621,7 +623,7 @@ PTICC}, {\em READY} and {\em SEQ}.
 \begin{itemize}
 \item REAL*8 TAU(75) - lifetime in picoseconds, but also used for energies
 in {\em SEQ}.
-\item INTEGER*4 KSEQ(500,4) - For each decay: level1, level2, matrix element
+\item INTEGER*4 KSEQ(LP2,4) - For each decay: level1, level2, matrix element
 and multipolarity + 10 in {\em SEQ} but something else otherwise!
 \end{itemize}
 
@@ -699,7 +701,7 @@ to.
 element.
 \end{itemize}
 
-The matrix elements are in ELM(500). IAMX(i) holds the index into ELM of the
+The matrix elements are in ELM(LP2). IAMX(i) holds the index into ELM of the
 i$^{th}$ known matrix element. So ELM(IAMX(i)) is the value of that matrix
 element, which should correspond to EAMX(i,1) $\pm$ EAMX(i,2).
 
@@ -713,7 +715,7 @@ LAISUM}, {\em LOAD}, {\em LSLOOP}, {\em MINI}, {\em PODZIEL}, {\em READY},
 
 \begin{itemize}
 \item INTEGER*4 LP1 - maximum number of experiments = 50.
-\item INTEGER*4 LP2 - maximum number of matrix elements = 500.
+\item INTEGER*4 LP2 - maximum number of matrix elements = 1500.
 \item INTEGER*4 LP3 - maximum number of levels = 75.
 \item INTEGER*4 LP4 - maximum number of yields = 1500.
 \item INTEGER*4 LP6 - maximum number of $\gamma$ detectors = 32.
@@ -756,7 +758,7 @@ user. It is used in {\em ADHOC} and {\em MIXR}.
 This common block is used in {\em CEGRY} and {\em sixel}.
 
 \begin{itemize}
-\item REAL*8 DEV(500)
+\item REAL*8 DEV(LP2)
 \end{itemize}
 
 \section{PCOM}
@@ -765,7 +767,7 @@ This common block contains the $\psi$ values. It is used in {\em LOAD} and
 {\em LSLOOP}.
 
 \begin{itemize}
-\item REAL*8 PSI(500) - $\psi$.
+\item REAL*8 PSI(LP2) - $\psi$.
 \end{itemize}
 
 \section{PINT}
@@ -839,7 +841,7 @@ This common block is used in {\em CEGRY}, {\em GOSIA}, {\em KLOPOT}, {\em
 MINI} and {\em SIXEL}.
 
 \begin{itemize}
-\item INTEGER*4 KVAR(500)
+\item INTEGER*4 KVAR(LP2)
 \end{itemize}
 
 \section{SKP}
@@ -877,9 +879,9 @@ This common block is used in {\em ADHOC}, {\em ANGULA}, {\em BRANR}, {\em
 CEGRY}, {\em DECAY}, {\em GOSIA} and {\em SEQ}.
 
 \begin{itemize}
-\item REAL*8 DELTA(500,3) - $\delta^2_{\lambda_E}$, $\delta^2_{\lambda_M}$,
+\item REAL*8 DELTA(LP2,3) - $\delta^2_{\lambda_E}$, $\delta^2_{\lambda_M}$,
 $\delta_{\lambda_E}\times\delta_{\lambda_M}$.
-\item REAL*8 ENDEC(500) - energy difference between levels for each matrix
+\item REAL*8 ENDEC(LP2) - energy difference between levels for each matrix
 element.
 \item INTEGER*4 ITMA(50,200) - identity of each detector for each
 experiment. This is used as an index for the array ODL and as a parameter
@@ -985,9 +987,9 @@ This common block holds the calculated yields. It is used in {\em ADHOC},
 {\em CEGRY}, {\em GOSIA} and {\em TAPMA}.
 
 \begin{itemize}
-\item REAL*8 YGN(500) - $\gamma$ yield without correction to angular
+\item REAL*8 YGN(LP2) - $\gamma$ yield without correction to angular
 distribution for finite recoil distance.
-\item REAL*8 YGP(500) - $\gamma$ yield with correction to angular
+\item REAL*8 YGP(LP2) - $\gamma$ yield with correction to angular
 distribution for finite recoil distance. Only calculated if IFMO is 1.
 \item INTEGER*4 IFMO - include correction to angular distribution for finite
 recoil distance. This is {\em IFLAG} in the documentation to OP,YIEL.
