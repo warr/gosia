@@ -81,8 +81,8 @@ C        We get here if we don't have it, so add it to the list
          mycc(3) = CCLKUP(IZ, temp * 1E3, 3)
          mycc(4) = CCLKUP(IZ, temp * 1E3, 6)
          mycc(5) = CCLKUP(IZ, temp * 1E3, 7)
-         WRITE(22,'(F8.3,3X,1P,5E13.3)') temp, (mycc(j),j=1,5)
-         WRITE(29,'(F8.3,3X,1P,5E13.3)') temp, (mycc(j),j=1,5)
+         WRITE(22,'(F7.4,3X,1P,5E13.3)') temp, (mycc(j),j=1,5)
+         WRITE(29,'(F7.4,3X,1P,5E13.3)') temp, (mycc(j),j=1,5)
  100  ENDDO
 
 C     Close BrIcc database files
