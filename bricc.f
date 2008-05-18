@@ -70,7 +70,7 @@ C     Open the BrIcc database files
 
 C        Now look to see if we have it already
          DO j = 1, ngamma
-            IF ( ABS(temp - egamma(j)).LT.1E-3 ) GOTO 100
+            IF ( ABS(temp - egamma(j)).LT.1E-6 ) GOTO 100
          ENDDO
 
 C        We get here if we don't have it, so add it to the list
