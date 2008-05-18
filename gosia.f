@@ -875,6 +875,10 @@ C     Treat OP,SELE
       ELSEIF ( op2.EQ.'SELE' ) THEN
          GOTO 4800
 
+C     Treat OP,BRIC
+      ELSEIF ( op2.EQ.'BRIC' ) THEN
+         GOTO 4900
+
 C     Treat OP,SIXJ
       ELSEIF ( op2.EQ.'SIXJ' ) THEN
          GOTO 4400
@@ -2824,6 +2828,11 @@ C.............................................................................
 C     Handle OP,SELE
  4800 CALL SELECT
       GOTO 2000 ! End of execution
+
+C.............................................................................
+C     Handle OP,BRIC
+ 4900 CALL BRICC
+      GOTO 100 ! End of OP,BRICC - back to input loop
 
 C.............................................................................
  1500 WRITE (22,99043)
