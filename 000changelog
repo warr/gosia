@@ -1,3 +1,18 @@
+20080508
+° Increased size of arrays for matrix elements from 500 to 1500. N.B. we are
+  still limited to 999 matrix elements because 1000 is used as a flag.
+° Added OP,SELE
+
+20080507
+° Correct inaccurate constants in SEQ
+° Replaced constant 10 with NLIFT in loop (this was a bug)
+° Initialized some variables explicitly to remove compiler warnings
+° Increased AKAVKA dimensions from 8 to 9 to prepare for merge of Pawel
+  Napiorkowski's efficiency code
+° Added ISPL variable in CCC common to prepare for merge of Pawel
+  Napiorkowski's spline code and SPL, option in CONT
+° Restructured a repeated IF with the same condition to use IF/THEN
+
 20080418
 ° Increased dimensions of arrays fiex1, wpi in GOSIA
 ° Increased dimensions of XV, YV, ZV, DSG and DSE in GOSIA
