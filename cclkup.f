@@ -62,14 +62,28 @@ C     Interpolate for each subshell
 
         IF ( flag(ishell).EQ.-1 ) THEN ! If subshell is present in record
  
-C           Set up for interpolation
-            DO ienergy = 1 , nrec(ishell)
-               x(ienergy) = LOG(DBLE(energy(ishell,ienergy)))
-               y(ienergy) = DBLE(cc(ishell,ienergy,Myimult)) ! Log for this is done in FUNC
-            ENDDO
+C           If the energy is less than the first data point use its ICC, or
+C           if it is more than the last data point, otherwise we interpolate
+          IF ( Egamma.LE.energy(ishell,1) ) THEN
+               result = DBLE(CC(ishell,1,Myimult))
+               WRITE (22,'(A,F7.4,3A)') 'Warning Egamma=',Egamma/1.D3,
+     &           ' is in regime where solid state effects dominate',
+     &           ' conversion coefficients for shell ',name(ishell)
+            ELSEIF ( Egamma .GE. energy(ishell,nrec(ishell)) ) THEN
+               result = DBLE(cc(ishell,nrec(ishell),Myimult))
+               WRITE (22,'(A,F7.4,3A)') 'Warning Egamma=',Egamma/1.D3,
+     &           ' exceeds range of conversion coefficients table',
+     &           ' for shell ',name(ishell)
+            ELSE
+C             Set up for interpolation
+              DO ienergy = 1 , nrec(ishell)
+                 x(ienergy) = LOG(DBLE(energy(ishell,ienergy)))
+                 y(ienergy) = DBLE(cc(ishell,ienergy,Myimult)) ! Log for this is done in FUNC
+              ENDDO
  
-C           Perform spline over data
-            CALL SPLNER(x,y,nrec(ishell),1,LOG(Egamma),result,2,1)
+C             Perform spline over data
+              CALL SPLNER(x,y,nrec(ishell),1,LOG(Egamma),result,2,1)
+            ENDIF
 
 C           Add the conversion coefficients of each subshell
             CCLKUP = CCLKUP + result
