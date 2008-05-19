@@ -443,7 +443,7 @@ C      ZV     - energy meshpoints
      &          ihuj , ii , ij
       INTEGER*4 ija0 , ijaja , ijan , ijk , ijx , ILE , ile1 , ilevls , 
      &          ilx , im , IMIN , imode , in1 , in2 , inclus , ind , 
-     &          ind1 , ind2 , indx , INHB
+     &          ind1 , ind2 , indx
       INTEGER*4 inko , inm1 , inm2 , inn , INNR , inpo , intend , 
      &          INTERV , INTR , intvh , inva , inx1 , iobl , iocc , 
      &          iopri , iosr , IP , IPATH , ipd , iph
@@ -478,7 +478,7 @@ C      ZV     - energy meshpoints
      &          mfla , mlt , mm , mpin , ms , MULTI , n , na , na1 , 
      &          naa , nallow , NAMX , NANG
       INTEGER*4 naxfl , nb1 , nb2 , nbands , NBRA , nch , NCM , NDIM , 
-     &          ndima , NDST , ndum , ne , NEXPT , nf , nfd , nfdd , 
+     &          ndima , ndum , ne , NEXPT , nf , nfd , nfdd , 
      &          nfi , nflr , nft , nged
       INTEGER*4 ngpr , ni , NICC , nksi , nl , NLIFT , NLOCK , NMAX ,
      &          NMAX1 , nmaxh , nmemx , nnl , nogeli , npce , npce1 , 
@@ -497,8 +497,8 @@ C      ZV     - energy meshpoints
      &          levl(50) , xlevb(50,2) , bm(8,20,20,3) , mlt(1500) , 
      &          ivari(1500) , jpin(50)
       INCLUDE 'clust.inc'
-      COMMON /CCCDS / NDST(50)
-      COMMON /INHI  / INHB
+      INCLUDE 'cccds.inc'
+      INCLUDE 'inhi.inc'
       COMMON /IDENT / BEQ
       COMMON /EFCAL / ABC(8,10) , AKAVKA(9,200) , THICK(200,7)
       COMMON /TCM   / TETACM(50) , TREP(50) , DSIGS(50)
