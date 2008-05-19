@@ -75,16 +75,16 @@ C      Iredv  -
       SUBROUTINE CEGRY(Chisq,Itemp,Chilo,Idr,Nwyr,Icall,Issp,Iredv)
       IMPLICIT NONE
       REAL*8 ccc , ccd , Chilo , Chisq , cnr , cocos , d , decen
-      REAL*8 dl , effi , EMH , fi0 , fi1 , fic , figl , fm , g
+      REAL*8 dl , effi , fi0 , fi1 , fic , figl , fm , g
       REAL*8 gth , part , partl , rik , rl , rx , ry , 
      &       rys , rz , sf , sgm , sum3 , sumpr , TACOS
       REAL*8 tetrc , tfac , thc , wf
       INTEGER*4 iabc , Icall , id , idc , Idr , ifdu , 
-     &          ifxd , IGRD , ii , ile2 , inclus , INM
+     &          ifxd , IGRD , ii , ile2 , inclus
       INTEGER*4 ipd , Iredv , Issp , Itemp , iva , iw , ixl , 
      &          ixm , iyex , jj
       INTEGER*4 jj1 , jk , jpc , k , k9 , kc , kj , kk , l , l1 , 
-     &          LFL , LFL1 , LFL2 , lic , licz , ll1
+     &          lic , licz , ll1
       INTEGER*4 lth , lu , luu , na , nf , nf1 , ni , ni1 , Nwyr
       CHARACTER*4 wupl , war
       DIMENSION part(32,50,2) , lic(32) , lth(1500) , cnr(32,50) , 
@@ -103,7 +103,7 @@ C      Iredv  -
       COMMON /IGRAD / IGRD
       INCLUDE 'cx.inc'
       INCLUDE 'minni.inc'
-      COMMON /LCZP  / EMH , INM , LFL1 , LFL2 , LFL
+      INCLUDE 'lczp.inc'
       INCLUDE 'yteor.inc'
       INCLUDE 'sel.inc'
       INCLUDE 'mgn.inc'
