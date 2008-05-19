@@ -23,10 +23,7 @@ C
       INCLUDE 'coex.inc'
       INCLUDE 'coex2.inc'
       INCLUDE 'cx.inc'
-
-      INTEGER*4 MAGEXC, MEMAX, LMAXE, MEMX6, IVAR
-      COMMON /CEXC  / MAGEXC , MEMAX , LMAXE , MEMX6 , IVAR(1500)
-
+      INCLUDE 'cexc.inc'
       INCLUDE 'clcom.inc'
 
       INTEGER*4 n1, n2

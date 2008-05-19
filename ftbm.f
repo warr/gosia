@@ -76,17 +76,16 @@ C      Bten   -
      &          iflg , IGRD , ii , ile1 , ile2 , ile3 , 
      &          ilin , indx , inko , INM
       INTEGER*4 inp , inpo , inpx , INTR , inzz , inzzz , IPATH , IPRM , 
-     &          IPS1 , ISMAX , issp , ITAK2 , itemp , IVAR , ixx , 
+     &          IPS1 , ISMAX , issp , ITAK2 , itemp , ixx , 
      &          izzz
       INTEGER*4 j , jj , jjgg , jjj , jk , jkl , jm , jmf , jmt , jmte , 
      &          jpp , jpz , JSKIP , jy , k , karm , kk , kk6 , kkx , kmt
       INTEGER*4 knm , kx , larm , lcc , lcou , LFL , LFL1 , 
-     &          LFL2 , licz , lix , llx , lm , LMAX , LMAXE , lmh , 
+     &          LFL2 , licz , lix , llx , lm , LMAX , lmh , 
      &          LNY , loc , loch , loct
       INTEGER*4 lp , lpit , lput , lpx , lpxd , ls , lst
-      INTEGER*4 luu , lx , MAGA , MAGEXC , MEMAX , MEMX6 , 
-     &          Ncall , NLIFT , nlin , 
-     &          nowr , npoz , nrest , NSTART
+      INTEGER*4 luu , lx , MAGA , Ncall , NLIFT , nlin , nowr , npoz , 
+     &          nrest , NSTART
       INTEGER*4 NSTOP , NWR , nwyr
       DIMENSION jmte(6) , prop(6) , Bten(1200)
       INCLUDE 'cx.inc'
@@ -110,7 +109,7 @@ C      Bten   -
       INCLUDE 'coex2.inc'
       COMMON /PTH   / IPATH(75) , MAGA(75)
       COMMON /PRT   / IPRM(20)
-      COMMON /CEXC  / MAGEXC , MEMAX , LMAXE , MEMX6 , IVAR(1500)
+      INCLUDE 'cexc.inc'
       COMMON /SKP   / JSKIP(50)
       COMMON /LIFE  / NLIFT
       COMMON /LOGY  / LNY , INTR , IPS1

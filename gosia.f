@@ -444,9 +444,9 @@ C      ZV     - energy meshpoints
       INTEGER*4 IPI , ipine , ipinf , ipo1 , ipo2 , ipo3 , ipp , iprc , 
      &          ipri , IPRM , IPS1 , irea , irep , irfix , 
      &          ISEX , isip , iske , iskf
-      INTEGER*4 isko , iskok , ISMAX , isoh , ispa , ispb , 
-     &          itno , itp , ITS , ITTE , iuy , iva , iva1 , IVAR , 
-     &          ivarh , ivari , ivrh , IWF
+      INTEGER*4 isko , iskok , ISMAX , isoh , ispa , ispb , itno , 
+     &          itp , ITS , ITTE , iuy , iva , iva1 , ivarh , ivari , 
+     &          ivrh , IWF
       INTEGER*4 ixj , ixl , ixm , iyr , izcap , j , ja , 
      &          jan , jan1 , jb , jb1 , jb2 , jd , jde , jdy , je , 
      &          JENTR
@@ -461,11 +461,11 @@ C      ZV     - energy meshpoints
      &          lam , lamd
       INTEGER*4 lamh , lb , lck1 , lck2 , LERF , levl , lex , lexp , 
      &          lfagg , lfini , lh1 , lh2 , liscl , lkj
-      INTEGER*4 lkj1 , ll , lli , lll , LMAX , lmax1 , LMAXE , lmaxh , 
+      INTEGER*4 lkj1 , ll , lli , lll , LMAX , lmax1 , lmaxh , 
      &          LNY , locat , LOCKF , LOCKS , loct , lp0 , lpin
-      INTEGER*4 ltrn , ltrn1 , ltrn2 , lu , lx , lxd , MAGA , MAGEXC , 
+      INTEGER*4 ltrn , ltrn1 , ltrn2 , lu , lx , lxd , MAGA , 
      &          magh , MEM
-      INTEGER*4 MEMAX , memax1 , memh , memx4 , MEMX6 , mend , mexl , 
+      INTEGER*4 memax1 , memh , memx4 , mend , mexl , 
      &          mfla , mlt , mm , mpin , ms , n , na , na1 , naa , 
      &          nallow
       INTEGER*4 naxfl , nb1 , nb2 , nbands , nch , NCM , 
@@ -521,7 +521,7 @@ C      ZV     - energy meshpoints
       INCLUDE 'coex.inc'
       INCLUDE 'minni.inc'
       INCLUDE 'cx.inc'
-      COMMON /CEXC  / MAGEXC , MEMAX , LMAXE , MEMX6 , IVAR(1500)
+      INCLUDE 'cexc.inc'
       COMMON /PRT   / IPRM(20)
       INCLUDE 'ccoup.inc'
       COMMON /CB    / B(20)

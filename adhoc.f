@@ -59,10 +59,9 @@ C Here we parse the input of the OP,YIEL command and store the values.
       IMPLICIT NONE
       REAL*8 DMIX , DMIXE , wamx , wbra , wdl , wlf
       INTEGER*4 iax , Idr , iexp1 , ilft , IMIX , iosr , ipri , 
-     &          IPRM , isrt1 , ITS , iuf , IVAR
-      INTEGER*4 Iyr , jic , jicc , juf , lb , 
-     &          li , licc , llia , LMAXE , lxt , MAGEXC , MEM , 
-     &          MEMAX , MEMX6 , n1
+     &          IPRM , isrt1 , ITS , iuf
+      INTEGER*4 Iyr , jic , jicc , juf , lb , li , licc , llia , 
+     &          lxt , MEM , n1
       INTEGER*4 n2 , ndas , NDL , ndtp , 
      &          Nfd , nistr , NLIFT , ns1 , ns2 , ns3 , 
      &          ns4 , Ntap , nvare
@@ -81,7 +80,7 @@ C Here we parse the input of the OP,YIEL command and store the values.
       INCLUDE 'ccc.inc'
       INCLUDE 'coex.inc'
       INCLUDE 'cx.inc'
-      COMMON /CEXC  / MAGEXC , MEMAX , LMAXE , MEMX6 , IVAR(1500)
+      INCLUDE 'cexc.inc'
       COMMON /PRT   / IPRM(20)
       COMMON /TRB   / ITS
       

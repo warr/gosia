@@ -58,19 +58,16 @@ C      Joj    - index of substate (write only)
       REAL*8 ppp , PSI , QAPR , rlam , ssqrt , szet , 
      &       wrt , wrtm , z1 , z2 , zet , zsqa
       INTEGER*4 i , i1 , i2 , i3 , IAPR , Icg , Ient , Iexp , IPATH , 
-     &          ir , is , ISEX , ISHA , ISMAX , ispi , ispo , 
-     &          IVAR
-      INTEGER*4 jj , jjj , Joj , la , lam , lam1 , ld , 
-     &          LMAX , LMAXE , m , m1
-      INTEGER*4 m2 , MAGA , MAGEXC , MEMAX , MEMX6 , mstop , n , 
-     &          n2 , n3 , NCM
+     &          ir , is , ISEX , ISHA , ISMAX , ispi , ispo
+      INTEGER*4 jj , jjj , Joj , la , lam , lam1 , ld , LMAX , m , m1
+      INTEGER*4 m2 , MAGA , mstop , n , n2 , n3 , NCM
       INTEGER*4 nn , NSTART , NSTOP , nz
       LOGICAL ERR
       INCLUDE 'clcom.inc'
       INCLUDE 'mgn.inc'
       INCLUDE 'coex.inc'
       COMMON /PSPIN / ISHA
-      COMMON /CEXC  / MAGEXC , MEMAX , LMAXE , MEMX6 , IVAR(1500)
+      INCLUDE 'cexc.inc'
       COMMON /PCOM  / PSI(1500)
       INCLUDE 'ccoup.inc'
       COMMON /CLM   / LMAX
