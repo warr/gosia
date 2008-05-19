@@ -77,13 +77,13 @@ C      Iredv  -
       REAL*8 ACCA , ACCUR , AGELI , AKS , BETAR , CC , ccc , ccd , 
      &       Chilo , Chisq , CNOR , cnr , cocos , CORF , d , decen , 
      &       DELTA , DEV , DIPOL , DIX
-      REAL*8 dl , DQ , DSIGS , DYEX , effi , EG , EMH , EN , ENDEC , 
+      REAL*8 dl , DQ , DYEX , effi , EG , EMH , EN , ENDEC , 
      &       ENZ , EP , EPS , EROOT , fi0 , fi1 , fic , FIEX , figl , 
      &       fm , g
       REAL*8 gth , ODL , part , partl , Q , QCEN , rik , rl , rx , ry , 
      &       rys , rz , sf , sgm , SGW , SPIN , SUBCH1 , SUBCH2 , sum3
-      REAL*8 sumpr , TACOS , TAU , TETACM , tetrc , tfac , thc , TLBDG , 
-     &       TREP , UPL , VACDP , VINF , wf , XA , XA1 , XNOR , YEXP , 
+      REAL*8 sumpr , TACOS , TAU , tetrc , tfac , thc , TLBDG , 
+     &       UPL , VACDP , VINF , wf , XA , XA1 , XNOR , YEXP , 
      &       YGN , YGP , YNRM
       REAL*8 ZPOL
       INTEGER*4 iabc , IAXS , IBYP , Icall , id , idc , Idr , 
@@ -136,8 +136,8 @@ C      Iredv  -
      &                ISO
       COMMON /SKP   / JSKIP(50)
       COMMON /TRB   / ITS
-      COMMON /TCM   / TETACM(50) , TREP(50) , DSIGS(50)
       INCLUDE 'cccds.inc'
+      INCLUDE 'tcm.inc'
       DATA sum3/0./,sumpr/0./
 
       ifxd = 0
