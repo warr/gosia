@@ -25,12 +25,12 @@ C      Acca   - accuracy required
 
       SUBROUTINE APRAM(Iexp,Inc,Indx,Irld,Acca)
       IMPLICIT NONE
-      REAL*8 Acca , accah , QAPR , uwa
-      INTEGER*4 i1 , i56 , i7 , IAPR , IDIVE , Iexp , img , Inc , Indx , 
-     &          Irld , ISEX , itm , j , jidim , jj , k , ktoto , l
+      REAL*8 Acca , accah , uwa
+      INTEGER*4 i1 , i56 , i7 , IDIVE , Iexp , img , Inc , Indx , 
+     &          Irld , itm , j , jidim , jj , k , ktoto , l
       INTEGER*4 l1 , l2 , l3 , LERF , m
       INCLUDE 'az.inc'
-      COMMON /APRCAT/ QAPR(1500,2,7) , IAPR(1500,2) , ISEX(75)
+      INCLUDE 'aprcat.inc'
       INCLUDE 'pth.inc'
       INCLUDE 'cexc.inc'
       INCLUDE 'comme.inc'

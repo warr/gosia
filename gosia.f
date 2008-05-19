@@ -416,8 +416,8 @@ C      ZV     - energy meshpoints
       REAL*8 hen , het , p , pfi , 
      &       ph1 , ph2 , pi , PILOG , po1 , po2 , polm , pop1 , pr , 
      &       pv
-      REAL*8 q1 , q2 , QAPR , qc , qfac , qr , qui , r , r1 , 
-     &       r2 , r3 , r4 , rem , remax , rl , rlr , rm , rx , ry
+      REAL*8 q1 , q2 , qc , qfac , qr , qui , r , r1 , r2 , r3 , r4 , 
+     &       rem , remax , rl , rlr , rm , rx , ry
       REAL*8 rz , s , s11 , s12 , s21 , s22 , sbe , sf , SGW , 
      &       sh , sh1 , sh2 , SIMIN , slim , SUBCH1 , SUBCH2
       REAL*8 summm , sz1 , sz2 , TACOS , tau1 , tau2 , test , 
@@ -429,9 +429,8 @@ C      ZV     - energy meshpoints
      &       xlk , xm1 , xm2 , xm3 , xtest , xw , xx , xxi , 
      &       ycorr
       REAL*8 yy , yyd1 , yydd , yyy , zmir , zp , zz
-      INTEGER*4 i , i122 , IAPR , iapx , ib , 
-     &          ibaf , icg , icll , ICS , ict , 
-     &          ictl , id , idf , IDIVE
+      INTEGER*4 i , i122 , iapx , ib , ibaf , icg , icll , ICS , 
+     &          ict , ictl , id , idf , IDIVE
       INTEGER*4 idr , iecd , ient , IFBFL , ifbp , 
      &          ifc , ifm , ifwd , ig1 , ig2 , ih1 , ih2 , ihlm , 
      &          ihuj , ii , ij
@@ -442,8 +441,7 @@ C      ZV     - energy meshpoints
      &          INTR , intvh , inva , inx1 , iobl , iocc , 
      &          iopri , iosr , IP , ipd , iph
       INTEGER*4 IPI , ipine , ipinf , ipo1 , ipo2 , ipo3 , ipp , iprc , 
-     &          ipri , IPS1 , irea , irep , irfix , 
-     &          ISEX , isip , iske , iskf
+     &          ipri , IPS1 , irea , irep , irfix , isip , iske , iskf
       INTEGER*4 isko , iskok , isoh , ispa , ispb , itno , 
      &          itp , ITS , ITTE , iuy , iva , iva1 , ivarh , ivari , 
      &          ivrh , IWF
@@ -532,7 +530,7 @@ C      ZV     - energy meshpoints
       INCLUDE 'cexc9.inc'
       INCLUDE 'caux0.inc'
       INCLUDE 'pth.inc'
-      COMMON /APRCAT/ QAPR(1500,2,7) , IAPR(1500,2) , ISEX(75)
+      INCLUDE 'aprcat.inc'
       COMMON /WARN  / SGW , SUBCH1 , SUBCH2 , IWF
       COMMON /THTAR / ITTE(50)
       COMMON /FIT   / LOCKF , NLOCK , IFBFL , LOCKS , DLOCK
