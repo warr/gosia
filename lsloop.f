@@ -52,13 +52,12 @@ C half-integers.
      &          inqa , inr , ins , IPATH , Ir , is , is1 , is2 , ISEX , 
      &          ismin
       INTEGER*4 isplus , jg1 , jg2 , jrmir , La , Lam , lam2 , Ld , 
-     &          LEADF , m , MAGA , MEM , mrange , mt , N
-      INTEGER*4 NSTART , NSTOP , Nz
+     &          LEADF , m , MAGA , MEM , mrange , mt , N , Nz
       INCLUDE 'coex.inc'
       COMMON /PCOM  / PSI(1500)
       INCLUDE 'ccoup.inc'
       INCLUDE 'clcom8.inc'
-      COMMON /CEXC0 / NSTART(76) , NSTOP(75)
+      INCLUDE 'cexc0.inc'
       COMMON /APRCAT/ QAPR(1500,2,7) , IAPR(1500,2) , ISEX(75)
       COMMON /PTH   / IPATH(75) , MAGA(75)
       INCLUDE 'mgn.inc'

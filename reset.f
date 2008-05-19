@@ -20,8 +20,8 @@ C      Iso    - isotropic flag
  
       SUBROUTINE RESET(Iso)
       IMPLICIT NONE
-      INTEGER*4 ir , Iso , j , NSTART , NSTOP
-      COMMON /CEXC0 / NSTART(76) , NSTOP(75)
+      INTEGER*4 ir , Iso , j
+      INCLUDE 'cexc0.inc'
       INCLUDE 'az.inc'
       INCLUDE 'clcom8.inc'
       INCLUDE 'coex2.inc'

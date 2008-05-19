@@ -18,9 +18,9 @@ C      Iso    - isotropic flag
  
       SUBROUTINE HALF(Iso)
       IMPLICIT NONE
-      INTEGER*4 ir , Iso , j , NSTART , NSTOP
+      INTEGER*4 ir , Iso , j
       COMPLEX*16 fpom
-      COMMON /CEXC0 / NSTART(76) , NSTOP(75)
+      INCLUDE 'cexc0.inc'
       INCLUDE 'az.inc'
       INCLUDE 'clcom8.inc'
       INCLUDE 'coex2.inc'

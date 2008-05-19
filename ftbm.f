@@ -82,11 +82,10 @@ C      Bten   -
      &          LNY , loc , loch , loct
       INTEGER*4 lp , lpit , lput , lpx , lpxd , ls , lst
       INTEGER*4 luu , lx , MAGA , Ncall , NLIFT , nlin , nowr , npoz , 
-     &          nrest , NSTART
-      INTEGER*4 NSTOP , NWR , nwyr
+     &          nrest , NWR , nwyr
       DIMENSION jmte(6) , prop(6) , Bten(1200)
       INCLUDE 'cx.inc'
-      COMMON /CEXC0 / NSTART(76) , NSTOP(75)
+      INCLUDE 'cexc0.inc'
       INCLUDE 'ccc.inc'
       COMMON /ILEWY / NWR
       COMMON /CH1T  / CHIS11

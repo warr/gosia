@@ -37,8 +37,7 @@ C      W0     - omega limit
      &          is2 , ISG , ISG1 , ismin , isplus , KDIV , la , 
      &          lam
       INTEGER*4 LAMR , ld , LEADF , m , MEM , 
-     &          mrange , mua , NDIV , NPT , NSTART , NSTOP , 
-     &          NSW , nz
+     &          mrange , mua , NDIV , NPT , NSW , nz
       COMPLEX*16 STAMP , dis , uhuj
       INCLUDE 'clcom.inc'
       INCLUDE 'az.inc'
@@ -47,7 +46,7 @@ C      W0     - omega limit
       INCLUDE 'ccoup.inc'
       INCLUDE 'clcom8.inc'
       INCLUDE 'comme.inc'
-      COMMON /CEXC0 / NSTART(76) , NSTOP(75)
+      INCLUDE 'cexc0.inc'
       INCLUDE 'kin.inc'
       INCLUDE 'cxi.inc'
 
