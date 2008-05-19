@@ -69,14 +69,14 @@ C value of f(n).
  
       SUBROUTINE INTG(Ien)
       IMPLICIT NONE
-      REAL*8 ACC50 , f , rim , rl , srt
+      REAL*8 f , rim , rl , srt
       INTEGER*4 i , i57 , Ien , IFLG , ihold , intend , ir , ir1 , k , 
      &          kast , mir , n
       COMPLEX*16 hold
       INCLUDE 'coex.inc'
       INCLUDE 'az.inc'
       INCLUDE 'rng.inc'
-      COMMON /A50   / ACC50
+      INCLUDE 'a50.inc'
       INCLUDE 'clcom0.inc'
       INCLUDE 'clcom8.inc'
       INCLUDE 'coex2.inc'
