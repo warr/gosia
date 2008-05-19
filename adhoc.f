@@ -57,20 +57,17 @@ C Here we parse the input of the OP,YIEL command and store the values.
  
       SUBROUTINE ADHOC(Oph,Idr,Nfd,Ntap,Iyr)
       IMPLICIT NONE
-      REAL*8 DMIX , DMIXE , wamx , wbra , wdl , wlf
-      INTEGER*4 iax , Idr , iexp1 , ilft , IMIX , iosr , ipri , 
-     &          isrt1 , iuf
-      INTEGER*4 Iyr , jic , jicc , juf , lb , li , licc , llia , 
-     &          lxt , MEM , n1
-      INTEGER*4 n2 , ndas , NDL , ndtp , 
-     &          Nfd , nistr , NLIFT , ns1 , ns2 , ns3 , 
-     &          ns4 , Ntap , nvare
+      REAL*8 wamx , wbra , wdl , wlf
+      INTEGER*4 iax , Idr , iexp1 , ilft , iosr , ipri , isrt1 , iuf
+      INTEGER*4 Iyr , jic , jicc , juf , lb , li , licc , llia , lxt , 
+     &          MEM , n1 , n2 , ndas , ndtp , Nfd , nistr , NLIFT , 
+     &          ns1 , ns2 , ns3 , ns4 , Ntap , nvare
       CHARACTER*4 Oph
       INCLUDE 'cccds.inc'
       INCLUDE 'dimx.inc'
       INCLUDE 'tra.inc'
       COMMON /LIFE  / NLIFT
-      COMMON /MIXD  / DMIXE(20,2) , DMIX(20) , IMIX(20) , NDL
+      INCLUDE 'mixd.inc'
       INCLUDE 'me2d.inc'
       INCLUDE 'life1.inc'
       INCLUDE 'brnch.inc'
