@@ -28,14 +28,13 @@ C      Rlr    - print out if matrix element exceeds Rlr.
 
       SUBROUTINE KLOPOT(K,Rlr)
       IMPLICIT NONE
-      REAL*8 a , al , al1 , b , c , ch , d , dy , e , 
-     &       ELM , ELML , ELMU , g , g1 , g2 , rl , Rlr
-      REAL*8 SA , sgm , u , umm , ump , ux
-      INTEGER*4 i , iex , iexh , iexp , indx , inh , ipf , 
-     &          j , jm , jp , K , KVAR , l , lc
+      REAL*8 a , al , al1 , b , c , ch , d , dy , e , g , g1 , g2 , 
+     &       rl , Rlr , sgm , u , umm , ump , ux
+      INTEGER*4 i , iex , iexh , iexp , indx , inh , ipf , j , jm , 
+     &          jp , K , KVAR , l , lc
       INTEGER*4 ll , lngt , loc , lu
       INTEGER*4 nf , ni , nm , np
-      COMMON /COMME / ELM(1500) , ELMU(1500) , ELML(1500) , SA(1500)
+      INCLUDE 'comme.inc'
       INCLUDE 'yexpt.inc'
       INCLUDE 'cexc.inc'
       INCLUDE 'mgn.inc'

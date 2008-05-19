@@ -24,11 +24,11 @@ C      Iop    - print flag (controls what is written to output).
  
       SUBROUTINE PRELM(Iop)
       IMPLICIT NONE
-      REAL*8 b , ELM , ELML , ELMU , pv , SA , ste
+      REAL*8 b , pv , ste
       INTEGER*4 inx , Iop , isp , j , k , kk , l , m
       CHARACTER*3 wrn
       INCLUDE 'hhh.inc'
-      COMMON /COMME / ELM(1500) , ELMU(1500) , ELML(1500) , SA(1500)
+      INCLUDE 'comme.inc'
       INCLUDE 'cexc.inc'
       INCLUDE 'coex.inc'
       INCLUDE 'clcom.inc'

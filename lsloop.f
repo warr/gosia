@@ -47,8 +47,7 @@ C half-integers.
  
       SUBROUTINE LSLOOP(Ir,N,Nz,Ld,Lam,La,Ssqrt,Icg,Iexp)
       IMPLICIT NONE
-      REAL*8 CAT , ELM , ELML , ELMU , phz , PSI , QAPR , rmir , 
-     &       rmis , SA , Ssqrt , WTHREJ
+      REAL*8 CAT , phz , PSI , QAPR , rmir , rmis , Ssqrt , WTHREJ
       INTEGER*4 i2 , i3 , IAPR , Icg , Iexp , IFAC , iiex , indx , 
      &          inqa , inr , ins , IPATH , Ir , is , is1 , is2 , ISEX , 
      &          ISMAX , ismin
@@ -63,7 +62,7 @@ C half-integers.
       COMMON /APRCAT/ QAPR(1500,2,7) , IAPR(1500,2) , ISEX(75)
       COMMON /PTH   / IPATH(75) , MAGA(75)
       INCLUDE 'mgn.inc'
-      COMMON /COMME / ELM(1500) , ELMU(1500) , ELML(1500) , SA(1500)
+      INCLUDE 'comme.inc'
       COMMON /CLCOM0/ IFAC(75)
       
       lam2 = 2*Lam

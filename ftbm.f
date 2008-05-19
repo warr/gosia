@@ -69,9 +69,7 @@ C      Bten   -
       IMPLICIT NONE
       REAL*8 aval , Bten , CAT , Chilo , 
      &       chis1 , CHIS11 , chish , Chisq , chisx , chx , 
-     &       ELM , ELML
-      REAL*8 ELMU , EMH , fc , fx , polm , pr , prop , 
-     &       SA , val , wz
+     &       EMH , fc , fx , polm , pr , prop , val , wz
       INTEGER*4 i1 , i11 , iapx , Icll , idec , Idr , 
      &          iflg , IGRD , ii , ile1 , ile2 , ile3 , 
      &          ilin , indx , inko , INM
@@ -100,7 +98,7 @@ C      Bten   -
       INCLUDE 'ccoup.inc'
       INCLUDE 'kin.inc'
       INCLUDE 'yexpt.inc'
-      COMMON /COMME / ELM(1500) , ELMU(1500) , ELML(1500) , SA(1500)
+      INCLUDE 'comme.inc'
       COMMON /CLM   / LMAX
       INCLUDE 'coex.inc'
       COMMON /CLCOM8/ CAT(600,3) , ISMAX

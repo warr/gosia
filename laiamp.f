@@ -31,9 +31,8 @@ C      W0     - omega limit
       
       SUBROUTINE LAIAMP(Ir,W0)
       IMPLICIT NONE
-      REAL*8 CAT , D2W , ELM , ELML , ELMU , epsi , errt , 
-     &       pm , ppp , rmir , rmis , rmu , SA , TCABS , W0 , 
-     &       xiv , z
+      REAL*8 CAT , D2W , epsi , errt , pm , ppp , rmir , rmis , rmu ,
+     &       TCABS , W0 , xiv , z
       INTEGER*4 i1 , i2 , i3 , indx , Ir , is , is1 , 
      &          is2 , ISG , ISG1 , ISMAX , ismin , isplus , KDIV , la , 
      &          lam
@@ -47,7 +46,7 @@ C      W0     - omega limit
      &                ISG1
       INCLUDE 'ccoup.inc'
       COMMON /CLCOM8/ CAT(600,3) , ISMAX
-      COMMON /COMME / ELM(1500) , ELMU(1500) , ELML(1500) , SA(1500)
+      INCLUDE 'comme.inc'
       COMMON /CEXC0 / NSTART(76) , NSTOP(75)
       INCLUDE 'kin.inc'
       INCLUDE 'cxi.inc'
