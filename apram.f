@@ -26,15 +26,14 @@ C      Acca   - accuracy required
       SUBROUTINE APRAM(Iexp,Inc,Indx,Irld,Acca)
       IMPLICIT NONE
       REAL*8 Acca , accah , uwa
-      INTEGER*4 i1 , i56 , i7 , IDIVE , Iexp , img , Inc , Indx , 
-     &          Irld , itm , j , jidim , jj , k , ktoto , l
-      INTEGER*4 l1 , l2 , l3 , LERF , m
+      INTEGER*4 i1 , i56 , i7 , Iexp , img , Inc , Indx , Irld , itm , 
+     &          j , jidim , jj , k , ktoto , l , l1 , l2 , l3 , m
       INCLUDE 'az.inc'
       INCLUDE 'aprcat.inc'
       INCLUDE 'pth.inc'
       INCLUDE 'cexc.inc'
       INCLUDE 'comme.inc'
-      COMMON /APRX  / LERF , IDIVE(50,2)
+      INCLUDE 'aprx.inc'
 
       LERF = 0
       accah = Acca
