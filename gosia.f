@@ -411,7 +411,7 @@ C      ZV     - energy meshpoints
      &       dsig , dst
       REAL*8 dsx , dsxm , effi , eh1 , ELM , elmi , 
      &       ELML , ELMT , ELMU , emhl1 , EMMA , emn , emx , enb
-      REAL*8 eng , enh , EP , esd , esp , ess , 
+      REAL*8 eng , enh , esd , esp , ess , 
      &       fi0 , fi1 , fic , fiex1 , figl , fipo1 , fm , gth
       REAL*8 hen , het , p , pfi , 
      &       ph1 , ph2 , pi , PILOG , po1 , po2 , polm , pop1 , pr , 
@@ -421,11 +421,10 @@ C      ZV     - energy meshpoints
       REAL*8 rz , s , s11 , s12 , s21 , s22 , SA , sbe , sf , SGW , 
      &       sh , sh1 , sh2 , SIMIN , slim , SUBCH1 , SUBCH2
       REAL*8 summm , sz1 , sz2 , TACOS , tau1 , tau2 , test , 
-     &       tetrc , tfac , thc , title , 
-     &       TLBDG , tmn , tmx , todfi
+     &       tetrc , tfac , thc , title , tmn , tmx , todfi
       REAL*8 tta , tth , tting , ttttt , ttttx , txx , u , 
-     &       val , VINF , waga , wph , wpi , WSIXJ , wth , wthh , 
-     &       WTHREJ , XA , XA1
+     &       val , waga , wph , wpi , WSIXJ , wth , wthh , 
+     &       WTHREJ
       REAL*8 xep , xi1 , xi2 , xk1 , xk2 , xl1 , xlevb , 
      &       xlk , xm1 , xm2 , xm3 , xtest , xw , xx , xxi , 
      &       ycorr
@@ -448,7 +447,7 @@ C      ZV     - energy meshpoints
       INTEGER*4 isko , iskok , ISMAX , isoh , ispa , ispb , 
      &          itno , itp , ITS , ITTE , iuy , iva , iva1 , IVAR , 
      &          ivarh , ivari , ivrh , IWF
-      INTEGER*4 ixj , ixl , ixm , iyr , IZ , IZ1 , izcap , j , ja , 
+      INTEGER*4 ixj , ixl , ixm , iyr , izcap , j , ja , 
      &          jan , jan1 , jb , jb1 , jb2 , jd , jde , jdy , je , 
      &          JENTR
       INTEGER*4 jex , jexp , jfi , jfre , jgd , jgl , jgl1 , jgr , jgs , 
@@ -470,7 +469,7 @@ C      ZV     - energy meshpoints
      &          mfla , mlt , mm , mpin , ms , n , na , na1 , naa , 
      &          nallow
       INTEGER*4 naxfl , nb1 , nb2 , nbands , nch , NCM , 
-     &          ndima , ndum , ne , NEXPT , nf , nfd , nfdd , 
+     &          ndima , ndum , ne , nf , nfd , nfdd , 
      &          nfi , nflr , nft , nged
       INTEGER*4 ngpr , ni , nksi , nl , NLIFT , NLOCK , 
      &          nmaxh , nmemx , nnl , nogeli , npce , npce1 , 
@@ -521,8 +520,7 @@ C      ZV     - energy meshpoints
       INCLUDE 'clcom.inc'
       INCLUDE 'coex.inc'
       INCLUDE 'minni.inc'
-      COMMON /CX    / NEXPT , IZ , XA , IZ1(50) , XA1(50) , EP(50) , 
-     &                TLBDG(50) , VINF(50)
+      INCLUDE 'cx.inc'
       COMMON /CEXC  / MAGEXC , MEMAX , LMAXE , MEMX6 , IVAR(1500)
       COMMON /PRT   / IPRM(20)
       INCLUDE 'ccoup.inc'

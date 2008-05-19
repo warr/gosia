@@ -57,15 +57,14 @@ C Here we parse the input of the OP,YIEL command and store the values.
  
       SUBROUTINE ADHOC(Oph,Idr,Nfd,Ntap,Iyr)
       IMPLICIT NONE
-      REAL*8 DMIX , DMIXE , EP , TLBDG , VINF , wamx
-      REAL*8 wbra , wdl , wlf , XA , XA1
+      REAL*8 DMIX , DMIXE , wamx , wbra , wdl , wlf
       INTEGER*4 iax , Idr , iexp1 , ilft , IMIX , iosr , ipri , 
      &          IPRM , isrt1 , ITS , iuf , IVAR
-      INTEGER*4 Iyr , IZ , IZ1 , jic , jicc , juf , lb , 
+      INTEGER*4 Iyr , jic , jicc , juf , lb , 
      &          li , licc , llia , LMAXE , lxt , MAGEXC , MEM , 
      &          MEMAX , MEMX6 , n1
       INTEGER*4 n2 , ndas , NDL , ndtp , 
-     &          NEXPT , Nfd , nistr , NLIFT , ns1 , ns2 , ns3 , 
+     &          Nfd , nistr , NLIFT , ns1 , ns2 , ns3 , 
      &          ns4 , Ntap , nvare
       CHARACTER*4 Oph
       INCLUDE 'cccds.inc'
@@ -81,8 +80,7 @@ C Here we parse the input of the OP,YIEL command and store the values.
       INCLUDE 'lev.inc'
       INCLUDE 'ccc.inc'
       INCLUDE 'coex.inc'
-      COMMON /CX    / NEXPT , IZ , XA , IZ1(50) , XA1(50) , EP(50) , 
-     &                TLBDG(50) , VINF(50)
+      INCLUDE 'cx.inc'
       COMMON /CEXC  / MAGEXC , MEMAX , LMAXE , MEMX6 , IVAR(1500)
       COMMON /PRT   / IPRM(20)
       COMMON /TRB   / ITS

@@ -36,15 +36,11 @@ C      Tetrn  - theta of recoiling nucleus
 
       SUBROUTINE CMLAB(Ii,Dsig,Tetrn)
       IMPLICIT NONE
-      REAL*8 a1 , a2 , ared , d2a , 
-     &       dista , dists , Dsig , emax , EMMA , EP , 
-     &       epmin
-      INTEGER*4 iflaa , Ii , IPRM , IZ , 
-     &          IZ1 , lexp , lexp0 , lexp1 , n , NCM , NEXPT
-      REAL*8 r3 , TASIN , tau , taup , tcmdg , tcmrad , 
-     &       Tetrn , TLBDG , tlbrad , tmxdg , VINF , XA , XA1 , 
-     &       z1 , z2 , zcmdg , zcmrad
-      REAL*8 zlbrad
+      REAL*8 a1 , a2 , ared , d2a , dista , dists , Dsig , emax ,
+     &       EMMA , epmin
+      REAL*8 r3 , TASIN , tau , taup , tcmdg , tcmrad , Tetrn , 
+     &       tlbrad , tmxdg , z1 , z2 , zcmdg , zcmrad , zlbrad
+      INTEGER*4 iflaa , Ii , IPRM , lexp , lexp0 , lexp1 , n , NCM 
       LOGICAL ERR
       COMMON /CLCOM9/ ERR
       INCLUDE 'seck.inc'
@@ -53,8 +49,7 @@ C      Tetrn  - theta of recoiling nucleus
       INCLUDE 'brec.inc'
       COMMON /CAUX0 / EMMA(75) , NCM
       INCLUDE 'coex2.inc'
-      COMMON /CX    / NEXPT , IZ , XA , IZ1(50) , XA1(50) , EP(50) , 
-     &                TLBDG(50) , VINF(50)
+      INCLUDE 'cx.inc'
       INCLUDE 'kin.inc'
       INCLUDE 'coex.inc'
       DATA r3/0./

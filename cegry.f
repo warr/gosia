@@ -75,21 +75,19 @@ C      Iredv  -
       SUBROUTINE CEGRY(Chisq,Itemp,Chilo,Idr,Nwyr,Icall,Issp,Iredv)
       IMPLICIT NONE
       REAL*8 ccc , ccd , Chilo , Chisq , cnr , cocos , d , decen
-      REAL*8 dl , effi , EMH , EP , fi0 , fi1 , fic , figl , fm , g
+      REAL*8 dl , effi , EMH , fi0 , fi1 , fic , figl , fm , g
       REAL*8 gth , part , partl , rik , rl , rx , ry , 
      &       rys , rz , sf , sgm , SGW , SUBCH1 , SUBCH2 , sum3
-      REAL*8 sumpr , TACOS , tetrc , tfac , thc , TLBDG , 
-     &       VINF , wf , XA , XA1
+      REAL*8 sumpr , TACOS , tetrc , tfac , thc , wf
       INTEGER*4 iabc , Icall , id , idc , Idr , ifdu , 
      &          ifxd , IGRD , ii , ile2 , inclus , INM
-      INTEGER*4 ipd , IPRM , Iredv , Issp , 
-     &          Itemp , ITS , iva , iw , IWF , ixl , ixm , 
-     &          iyex , IZ , IZ1 , jj
+      INTEGER*4 ipd , IPRM , Iredv , Issp , Itemp , ITS , 
+     &          iva , iw , IWF , ixl , ixm , iyex , jj
       INTEGER*4 jj1 , jk , jpc , JSKIP , k , k9 , kc , kj , kk , 
      &          KVAR , l , l1 , LFL , LFL1 , LFL2 , lic , 
      &          licz , ll1
-      INTEGER*4 lth , lu , luu , na
-      INTEGER*4 NEXPT , nf , nf1 , ni , ni1 , NLIFT , Nwyr
+      INTEGER*4 lth , lu , luu , na , nf , nf1 , ni , ni1 , NLIFT ,
+     &          Nwyr
       CHARACTER*4 wupl , war
       DIMENSION part(32,50,2) , lic(32) , lth(1500) , cnr(32,50) , 
      &          partl(32,50,2)
@@ -105,8 +103,7 @@ C      Iredv  -
       COMMON /LIFE  / NLIFT
       INCLUDE 'lev.inc'
       COMMON /IGRAD / IGRD
-      COMMON /CX    / NEXPT , IZ , XA , IZ1(50) , XA1(50) , EP(50) , 
-     &                TLBDG(50) , VINF(50)
+      INCLUDE 'cx.inc'
       INCLUDE 'minni.inc'
       COMMON /LCZP  / EMH , INM , LFL1 , LFL2 , LFL
       INCLUDE 'yteor.inc'

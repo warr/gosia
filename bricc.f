@@ -18,14 +18,11 @@ C
       SUBROUTINE BRICC
       IMPLICIT NONE
       REAL*8 temp , egamma
-      REAL*8 XA, XA1, EP, TLBDG, VINF
-      INTEGER*4 NEXPT, IZ, IZ1
       INTEGER*4 i , j , ngamma
       DIMENSION egamma(1500)
       INCLUDE 'coex.inc'
       INCLUDE 'coex2.inc'
-      COMMON /CX    / NEXPT , IZ , XA , IZ1(50) , XA1(50) , EP(50) , 
-     &                TLBDG(50) , VINF(50)
+      INCLUDE 'cx.inc'
 
       INTEGER*4 MAGEXC, MEMAX, LMAXE, MEMX6, IVAR
       COMMON /CEXC  / MAGEXC , MEMAX , LMAXE , MEMX6 , IVAR(1500)

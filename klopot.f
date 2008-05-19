@@ -29,20 +29,18 @@ C      Rlr    - print out if matrix element exceeds Rlr.
       SUBROUTINE KLOPOT(K,Rlr)
       IMPLICIT NONE
       REAL*8 a , al , al1 , b , c , ch , d , dy , e , 
-     &       ELM , ELML , ELMU , EP , g , g1 , g2 , rl , Rlr
-      REAL*8 SA , sgm , TLBDG , u , umm , ump , ux , VINF , XA , 
-     &       XA1
+     &       ELM , ELML , ELMU , g , g1 , g2 , rl , Rlr
+      REAL*8 SA , sgm , u , umm , ump , ux
       INTEGER*4 i , iex , iexh , iexp , indx , inh , ipf , 
-     &          IVAR , IZ , IZ1 , j , jm , jp , K , KVAR , l , lc
+     &          IVAR , j , jm , jp , K , KVAR , l , lc
       INTEGER*4 ll , LMAXE , lngt , loc , lu , MAGEXC
-      INTEGER*4 MEMAX , MEMX6 , NEXPT , nf , ni , nm , np
+      INTEGER*4 MEMAX , MEMX6 , nf , ni , nm , np
       COMMON /COMME / ELM(1500) , ELMU(1500) , ELML(1500) , SA(1500)
       INCLUDE 'yexpt.inc'
       COMMON /CEXC  / MAGEXC , MEMAX , LMAXE , MEMX6 , IVAR(1500)
       INCLUDE 'mgn.inc'
       INCLUDE 'ccoup.inc'
-      COMMON /CX    / NEXPT , IZ , XA , IZ1(50) , XA1(50) , EP(50) , 
-     &                TLBDG(50) , VINF(50)
+      INCLUDE 'cx.inc'
       COMMON /SEL   / KVAR(1500)
       DATA jm/0/,jp/0/
 
