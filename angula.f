@@ -35,11 +35,10 @@ C      Ngl    - detector number
       SUBROUTINE ANGULA(Ygn,Idr,Iful,Fi0,Fi1,Trec,Gth,Figl,Ngl)
       IMPLICIT NONE
       REAL*8 AGELI , alab , arg , at , attl , bt , CC , DELLA , 
-     &       EG , EPS , EROOT , f , Fi0 , fi01 , 
-     &       Fi1 , fi11
-      REAL*8 FIEX , Figl , FP , GKP , Gth , Q , qv , sm , TAU , Trec , 
+     &       EG , f , Fi0 , fi01 , Fi1 , fi11
+      REAL*8 Figl , FP , GKP , Gth , Q , qv , sm , TAU , Trec , 
      &       Ygn , ylmr , ZETA
-      INTEGER*4 IAXS , Idr , IEXP , ifn , Iful , ig , il , inat , inx1 , 
+      INTEGER*4 Idr , ifn , Iful , ig , il , inat , inx1 , 
      &          ipd , is , ITTE , iu , ixs , j , ji , jj , jm , k
       INTEGER*4 KLEC , kq , KSEQ , l , lf , lf1 , LZETA , mind , NANG , 
      &          Ngl , NICC , nlv
@@ -51,7 +50,7 @@ C      Ngl    - detector number
       COMMON /LEV   / TAU(75) , KSEQ(1500,4)
       COMMON /CCC   / EG(50) , CC(50,5) , AGELI(50,200,2) , Q(3,200,8) , 
      &                NICC , NANG(200) , ISPL
-      COMMON /KIN   / EPS(50) , EROOT(50) , FIEX(50,2) , IEXP , IAXS(50)
+      INCLUDE 'kin.inc'
       COMMON /LCDL  / DELLA(1500,3)
       COMMON /CATLF / FP(4,1500,3) , GKP(4,1500,2) , KLEC(75)
       INCLUDE 'brec.inc'

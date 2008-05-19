@@ -414,15 +414,15 @@ C      ZV     - energy meshpoints
       REAL*8 dsx , dsxm , DYEX , EAMX , effi , EG , eh1 , ELM , ELMH , 
      &       elmi , ELML , ELMT , ELMU , emhl1 , EMMA , emn , emx , EN , 
      &       enb
-      REAL*8 eng , enh , EP , EPS , EROOT , esd , esp , ess , 
-     &       fi0 , fi1 , fic , FIEX , fiex1 , figl , fipo1 , fm , G , 
+      REAL*8 eng , enh , EP , esd , esp , ess , 
+     &       fi0 , fi1 , fic , fiex1 , figl , fipo1 , fm , G , 
      &       GRAD , gth
       REAL*8 hen , het , HLM , HLMLM , p , PARX , PARXM , pfi , 
      &       ph1 , ph2 , pi , PILOG , po1 , po2 , polm , pop1 , pr , 
      &       pv , Q
       REAL*8 q1 , q2 , QAPR , qc , QCEN , qfac , qr , qui , r , r1 , 
      &       r2 , r3 , r4 , rem , remax , rl , rlr , rm , rx , ry
-      REAL*8 rz , s , s11 , s12 , s21 , s22 , SA , sbe , SE , sf , SGW , 
+      REAL*8 rz , s , s11 , s12 , s21 , s22 , SA , sbe , sf , SGW , 
      &       sh , sh1 , sh2 , SIMIN , slim , SPIN , SUBCH1 , SUBCH2
       REAL*8 summm , sz1 , sz2 , TACOS , TAU , tau1 , tau2 , test , 
      &       tetrc , tfac , thc , TIMEL , title , 
@@ -435,10 +435,10 @@ C      ZV     - energy meshpoints
      &       ycorr
       REAL*8 YEXP , YGN , YGP , YNRM , YV , yy , yyd1 , yydd , yyy , 
      &       ZETA , zmir , zp , ZPOL , ZV , zz
-      INTEGER*4 i , i122 , IAMX , IAMY , IAPR , iapx , IAXS , ib , 
+      INTEGER*4 i , i122 , IAMX , IAMY , IAPR , iapx , ib , 
      &          ibaf , IBRC , IBYP , icg , icll , ICS , ict , 
      &          ictl , id , idf , IDIVE
-      INTEGER*4 idr , IDRN , iecd , ient , IEXP , IFAC , IFBFL , ifbp , 
+      INTEGER*4 idr , IDRN , iecd , ient , IFAC , IFBFL , ifbp , 
      &          ifc , ifm , IFMO , ifwd , ig1 , ig2 , ih1 , ih2 , ihlm , 
      &          ihuj , ii , ij
       INTEGER*4 ija0 , ijaja , ijan , ijk , ijx , ILE , ile1 , ilevls , 
@@ -507,7 +507,7 @@ C      ZV     - energy meshpoints
       INCLUDE 'dimx.inc'
       INCLUDE 'tra.inc'
       INCLUDE 'cinit.inc'
-      COMMON /XRA   / SE
+      INCLUDE 'xra.inc'
       COMMON /HHH   / HLM(1500)
       COMMON /VAC   / VACDP(3,75) , QCEN , DQ , XNOR , AKS(6,75) , IBYP
       COMMON /ME2D  / EAMX(100,2) , NAMX , IAMX(100) , IAMY(100,2)
@@ -531,7 +531,7 @@ C      ZV     - energy meshpoints
      &                NICC , NANG(200) , ISPL
       COMMON /GGG   / G(7)
       COMMON /AZ    / ARM(600,7)
-      COMMON /KIN   / EPS(50) , EROOT(50) , FIEX(50,2) , IEXP , IAXS(50)
+      INCLUDE 'kin.inc'
       COMMON /CXI   / XI(1500)
       COMMON /CLCOM / LAMDA(8) , LEAD(2,1500) , LDNUM(8,75) , LAMMAX , 
      &                MULTI(8)
