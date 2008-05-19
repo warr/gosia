@@ -59,10 +59,9 @@ C Here we parse the input of the OP,YIEL command and store the values.
       IMPLICIT NONE
       REAL*8 ACCA , ACCUR , AGELI , CC , DIPOL , DMIX , DMIXE , 
      &       EG , EN , EP , Q , SPIN , TAU , TLBDG , VINF , wamx
-      REAL*8 wbra , wdl , wlf , XA , XA1 , YGN , YGP , ZPOL
-      INTEGER*4 iax , Idr , iexp1 , IFMO , 
-     &          ilft , IMIX , iosr , ipri , IPRM , ISO , isrt1 , 
-     &          ITS , iuf , IVAR
+      REAL*8 wbra , wdl , wlf , XA , XA1 , ZPOL
+      INTEGER*4 iax , Idr , iexp1 , ilft , IMIX , iosr , ipri , 
+     &          IPRM , ISO , isrt1 , ITS , iuf , IVAR
       INTEGER*4 Iyr , IZ , IZ1 , jic , jicc , juf , KSEQ , lb , 
      &          li , licc , llia , LMAXE , lxt , MAGEXC , MEM , 
      &          MEMAX , MEMX6 , n1
@@ -80,7 +79,7 @@ C Here we parse the input of the OP,YIEL command and store the values.
       INCLUDE 'life1.inc'
       INCLUDE 'brnch.inc'
       INCLUDE 'yexpt.inc'
-      COMMON /YTEOR / YGN(1500) , YGP(1500) , IFMO
+      INCLUDE 'yteor.inc'
       COMMON /LEV   / TAU(75) , KSEQ(1500,4)
       COMMON /CCC   / EG(50) , CC(50,5) , AGELI(50,200,2) , Q(3,200,8) , 
      &                NICC , NANG(200) , ISPL
