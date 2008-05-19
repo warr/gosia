@@ -57,7 +57,7 @@ C      Joj    - index of substate (write only)
      &       cpsi , dep , DIPOL , EMMA , EN , EP , eta , etan , Polm , 
      &       pp1 , pp2
       REAL*8 ppp , PSI , QAPR , rlam , SPIN , ssqrt , szet , TLBDG , 
-     &       VINF , wrt , wrtm , XA , XA1 , XI , z1 , z2 , zet , ZETA , 
+     &       VINF , wrt , wrtm , XA , XA1 , z1 , z2 , zet , ZETA , 
      &       ZPOL , zsqa
       INTEGER*4 i , i1 , i2 , i3 , IAPR , Icg , Ient , Iexp , IPATH , 
      &          ir , is , ISEX , ISHA , ISMAX , ISO , ispi , ispo , 
@@ -84,7 +84,7 @@ C      Joj    - index of substate (write only)
       COMMON /CX    / NEXPT , IZ , XA , IZ1(50) , XA1(50) , EP(50) , 
      &                TLBDG(50) , VINF(50)
       COMMON /CEXC0 / NSTART(76) , NSTOP(75)
-      COMMON /CXI   / XI(1500)
+      INCLUDE 'cxi.inc'
       COMMON /CAUX0 / EMMA(75) , NCM
       COMMON /APRCAT/ QAPR(1500,2,7) , IAPR(1500,2) , ISEX(75)
       COMMON /PTH   / IPATH(75) , MAGA(75)
