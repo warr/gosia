@@ -74,11 +74,11 @@ C      Iredv  -
  
       SUBROUTINE CEGRY(Chisq,Itemp,Chilo,Idr,Nwyr,Icall,Issp,Iredv)
       IMPLICIT NONE
-      REAL*8 ACCA , ACCUR , AGELI , CC , ccc , ccd , 
+      REAL*8 ACCA , ACCUR , ccc , ccd , 
      &       Chilo , Chisq , cnr , cocos , d , decen , DIPOL
-      REAL*8 dl , effi , EG , EMH , EN , 
+      REAL*8 dl , effi , EMH , EN , 
      &       EP , fi0 , fi1 , fic , figl , fm , g
-      REAL*8 gth , part , partl , Q , rik , rl , rx , ry , 
+      REAL*8 gth , part , partl , rik , rl , rx , ry , 
      &       rys , rz , sf , sgm , SGW , SPIN , SUBCH1 , SUBCH2 , sum3
       REAL*8 sumpr , TACOS , tetrc , tfac , thc , TLBDG , 
      &       VINF , wf , XA , XA1 , ZPOL
@@ -90,10 +90,9 @@ C      Iredv  -
       INTEGER*4 jj1 , jk , jpc , JSKIP , k , k9 , kc , kj , kk , 
      &          KVAR , l , l1 , LFL , LFL1 , LFL2 , lic , 
      &          licz , ll1
-      INTEGER*4 LNORM , lth , lu , luu , na , NANG , NDIM
-      INTEGER*4 NEXPT , nf , nf1 , ni , ni1 , NICC , NLIFT , 
+      INTEGER*4 LNORM , lth , lu , luu , na , NDIM
+      INTEGER*4 NEXPT , nf , nf1 , ni , ni1 , NLIFT , 
      &          NMAX , NMAX1 , Nwyr
-      INTEGER*4 ISPL ! Added for spline
       CHARACTER*4 wupl , war
       DIMENSION part(32,50,2) , lic(32) , lth(1500) , cnr(32,50) , 
      &          partl(32,50,2)
@@ -116,8 +115,7 @@ C      Iredv  -
       INCLUDE 'yteor.inc'
       COMMON /SEL   / KVAR(1500)
       INCLUDE 'mgn.inc'
-      COMMON /CCC   / EG(50) , CC(50,5) , AGELI(50,200,2) , Q(3,200,8) , 
-     &                NICC , NANG(200) , ISPL
+      INCLUDE 'ccc.inc'
       INCLUDE 'yexpt.inc'
       INCLUDE 'kin.inc'
       COMMON /WARN  / SGW , SUBCH1 , SUBCH2 , IWF

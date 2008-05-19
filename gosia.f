@@ -402,22 +402,22 @@ C      ZV     - energy meshpoints
 
       PROGRAM GOSIA
       IMPLICIT NONE
-      REAL*8 ACCA , ACCUR , acof , AGELI , ap , 
+      REAL*8 ACCA , ACCUR , acof , ap , 
      &       ARCCOS , ARCTG , arg , ax , B , bcof , be2 , be2a , be2b , 
      &       be2c
-      REAL*8 bk , bl , bm , bmx , bten , bu , CAT , CC , ccc , 
+      REAL*8 bk , bl , bm , bmx , bten , bu , CAT , ccc , 
      &       ccd , cf , chilo , chiok , chis0 , chisl , chisq , chiss , 
      &       cnst
       REAL*8 cocos , conu , d , decen , dedx , DIPOL , DLOCK ,
      &       dsd , dsig , dst
-      REAL*8 dsx , dsxm , effi , EG , eh1 , ELM , elmi , 
+      REAL*8 dsx , dsxm , effi , eh1 , ELM , elmi , 
      &       ELML , ELMT , ELMU , emhl1 , EMMA , emn , emx , EN , 
      &       enb
       REAL*8 eng , enh , EP , esd , esp , ess , 
      &       fi0 , fi1 , fic , fiex1 , figl , fipo1 , fm , G , gth
       REAL*8 hen , het , p , pfi , 
      &       ph1 , ph2 , pi , PILOG , po1 , po2 , polm , pop1 , pr , 
-     &       pv , Q
+     &       pv
       REAL*8 q1 , q2 , QAPR , qc , qfac , qr , qui , r , r1 , 
      &       r2 , r3 , r4 , rem , remax , rl , rlr , rm , rx , ry
       REAL*8 rz , s , s11 , s12 , s21 , s22 , SA , sbe , sf , SGW , 
@@ -472,15 +472,14 @@ C      ZV     - energy meshpoints
      &          MAGEXC , magh , MEM
       INTEGER*4 MEMAX , memax1 , memh , memx4 , MEMX6 , mend , mexl , 
      &          mfla , mlt , mm , mpin , ms , MULTI , n , na , na1 , 
-     &          naa , nallow , NANG
+     &          naa , nallow
       INTEGER*4 naxfl , nb1 , nb2 , nbands , nch , NCM , NDIM , 
      &          ndima , ndum , ne , NEXPT , nf , nfd , nfdd , 
      &          nfi , nflr , nft , nged
-      INTEGER*4 ngpr , ni , NICC , nksi , nl , NLIFT , NLOCK , NMAX ,
+      INTEGER*4 ngpr , ni , nksi , nl , NLIFT , NLOCK , NMAX ,
      &          NMAX1 , nmaxh , nmemx , nnl , nogeli , npce , npce1 , 
      &          npct , npct1 , npt , nptl , nptx , ns1
       INTEGER*4 ns2 , ntap , ntt , numcl , nval , nz
-      INTEGER*4 ISPL ! Added for spline
       LOGICAL ERR
       COMPLEX*16 ARM
       CHARACTER*4 oph , op1 , opcja , op2
@@ -519,8 +518,7 @@ C      ZV     - energy meshpoints
       INCLUDE 'yteor.inc'
       INCLUDE 'lev.inc'
       INCLUDE 'map.inc'
-      COMMON /CCC   / EG(50) , CC(50,5) , AGELI(50,200,2) , Q(3,200,8) , 
-     &                NICC , NANG(200) , ISPL
+      INCLUDE 'ccc.inc'
       COMMON /GGG   / G(7)
       COMMON /AZ    / ARM(600,7)
       INCLUDE 'kin.inc'
