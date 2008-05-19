@@ -31,14 +31,13 @@ C can cope with half-integers.
      &          ite , jm , jmp , k , kk , kp , l , ll , Lmax , lp , m
       INTEGER*4 mm , mp , ms , msp , NDIM , NMAX , NMAX1 , NSTART , 
      &          NSTOP
-      COMPLEX*16 ARM
       DIMENSION Bten(1200)
       COMMON /COEX  / EN(75) , SPIN(75) , ACCUR , DIPOL , ZPOL , ACCA , 
      &                ISO
       COMMON /CLCOM8/ CAT(600,3) , ISMAX
       COMMON /COEX2 / NMAX , NDIM , NMAX1
       COMMON /CEXC0 / NSTART(76) , NSTOP(75)
-      COMMON /AZ    / ARM(600,7)
+      INCLUDE 'az.inc'
       
       iha = (-1)**INT(2.*SPIN(1)+.01)
       IF ( Icl.EQ.1 ) THEN

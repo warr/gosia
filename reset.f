@@ -23,9 +23,8 @@ C      Iso    - isotropic flag
       REAL*8 CAT
       INTEGER*4 ir , ISMAX , Iso , j , NDIM , NMAX , NMAX1 , NSTART , 
      &          NSTOP
-      COMPLEX*16 ARM
       COMMON /CEXC0 / NSTART(76) , NSTOP(75)
-      COMMON /AZ    / ARM(600,7)
+      INCLUDE 'az.inc'
       COMMON /CLCOM8/ CAT(600,3) , ISMAX
       COMMON /COEX2 / NMAX , NDIM , NMAX1
       

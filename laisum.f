@@ -59,9 +59,9 @@ C z is the coupling parameter zeta, calculated in the function LSLOOP.
       INTEGER*4 KDIV , la , Lam , LAMR , Ld , LOCQ , LZETA
       INTEGER*4 m , mrange , MSTORE , mua , N , NDIV , NPT , NSTART , 
      &          NSTOP , NSW , Nz
-      COMPLEX*16 ARM , FAZA , pamp , pamp1
+      COMPLEX*16 FAZA , pamp , pamp1
       COMMON /PSPIN / ISHA
-      COMMON /AZ    / ARM(600,7)
+      INCLUDE 'az.inc'
       COMMON /COEX  / EN(75) , SPIN(75) , ACCUR , DIPOL , ZPOL , ACCA , 
      &                ISO
       COMMON /CAUX  / NPT , NDIV , KDIV , LAMR(8) , ISG , D2W , NSW , 

@@ -481,7 +481,6 @@ C      ZV     - energy meshpoints
      &          npct , npct1 , npt , nptl , nptx , ns1
       INTEGER*4 ns2 , ntap , ntt , numcl , nval , nz
       LOGICAL ERR
-      COMPLEX*16 ARM
       CHARACTER*4 oph , op1 , opcja , op2
       CHARACTER*1 prp
       DIMENSION ihlm(32) , esp(20) , dedx(20) , bten(1200) , 
@@ -520,7 +519,7 @@ C      ZV     - energy meshpoints
       INCLUDE 'map.inc'
       INCLUDE 'ccc.inc'
       INCLUDE 'ggg.inc'
-      COMMON /AZ    / ARM(600,7)
+      INCLUDE 'az.inc'
       INCLUDE 'kin.inc'
       COMMON /CXI   / XI(1500)
       COMMON /CLCOM / LAMDA(8) , LEAD(2,1500) , LDNUM(8,75) , LAMMAX , 

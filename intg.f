@@ -76,10 +76,10 @@ C value of f(n).
      &          kast , KDIV , LAMR
       INTEGER*4 MAGA , MAXLA , mir , n , NDIM , NDIV , NMAX , NMAX1 , 
      &          NPT , NSTART , NSTOP , NSW
-      COMPLEX*16 ARM , hold
+      COMPLEX*16 hold
       COMMON /COEX  / EN(75) , SPIN(75) , ACCUR , DIPOL , ZPOL , ACCA , 
      &                ISO
-      COMMON /AZ    / ARM(600,7)
+      INCLUDE 'az.inc'
       COMMON /RNG   / IRA(8) , MAXLA
       COMMON /A50   / ACC50
       COMMON /CLCOM0/ IFAC(75)

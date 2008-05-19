@@ -41,10 +41,10 @@ C      W0     - omega limit
       INTEGER*4 LAMR , ld , LDNUM , LEAD , LEADF , LZETA , m , MEM , 
      &          mrange , mua , MULTI , NDIV , NPT , NSTART , NSTOP , 
      &          NSW , nz
-      COMPLEX*16 ARM , STAMP , dis , uhuj
+      COMPLEX*16 STAMP , dis , uhuj
       COMMON /CLCOM / LAMDA(8) , LEAD(2,1500) , LDNUM(8,75) , LAMMAX , 
      &                MULTI(8)
-      COMMON /AZ    / ARM(600,7)
+      INCLUDE 'az.inc'
       COMMON /CAUX  / NPT , NDIV , KDIV , LAMR(8) , ISG , D2W , NSW , 
      &                ISG1
       COMMON /CCOUP / ZETA(50000) , LZETA(8)
