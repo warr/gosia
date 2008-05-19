@@ -69,9 +69,8 @@ C      Bten   -
       IMPLICIT NONE
       REAL*8 aval , Bten , Chilo , chis1 , chish , Chisq , chisx , 
      &       chx , fc , fx , polm , pr , prop , val , wz
-      INTEGER*4 i1 , i11 , iapx , Icll , idec , Idr , 
-     &          iflg , IGRD , ii , ile1 , ile2 , ile3 , 
-     &          ilin , indx , inko
+      INTEGER*4 i1 , i11 , iapx , Icll , idec , Idr , iflg , 
+     &          ii , ile1 , ile2 , ile3 , ilin , indx , inko
       INTEGER*4 inp , inpo , inpx , inzz , inzzz , issp , itemp , ixx , 
      &          izzz
       INTEGER*4 j , jj , jjgg , jjj , jk , jkl , jm , jmf , jmt , jmte , 
@@ -87,7 +86,7 @@ C      Bten   -
       INCLUDE 'ccc.inc'
       INCLUDE 'ilewy.inc'
       INCLUDE 'ch1t.inc'
-      COMMON /IGRAD / IGRD
+      INCLUDE 'igrad.inc'
       INCLUDE 'lczp.inc'
       INCLUDE 'uwaga.inc'
       INCLUDE 'lev.inc'
