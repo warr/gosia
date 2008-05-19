@@ -36,11 +36,10 @@ C      Ngl    - detector number
       IMPLICIT NONE
       REAL*8 alab , arg , at , attl , bt , DELLA , 
      &       f , Fi0 , fi01 , Fi1 , fi11
-      REAL*8 Figl , FP , GKP , Gth , qv , sm , Trec , 
-     &       Ygn , ylmr
+      REAL*8 Figl , Gth , qv , sm , Trec , Ygn , ylmr
       INTEGER*4 Idr , ifn , Iful , ig , il , inat , inx1 , 
      &          ipd , is , iu , ixs , j , ji , jj , jm , k
-      INTEGER*4 KLEC , kq , l , lf , lf1 , mind , Ngl , nlv
+      INTEGER*4 kq , l , lf , lf1 , mind , Ngl , nlv
       DIMENSION f(4) , ylmr(9,9) , at(28) , alab(9,9) , attl(9,9) , 
      &          Ygn(*)
       INCLUDE 'ccoup.inc'
@@ -49,7 +48,7 @@ C      Ngl    - detector number
       INCLUDE 'ccc.inc'
       INCLUDE 'kin.inc'
       COMMON /LCDL  / DELLA(1500,3)
-      COMMON /CATLF / FP(4,1500,3) , GKP(4,1500,2) , KLEC(75)
+      INCLUDE 'catlf.inc'
       INCLUDE 'brec.inc'
       INCLUDE 'thtar.inc'
       

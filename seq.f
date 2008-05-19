@@ -37,11 +37,11 @@ C 8 = M2.
  
       SUBROUTINE SEQ(Idr)
       IMPLICIT NONE
-      REAL*8 CONV , ega , egs , emax , F , FP , GF , GKP , spinf , 
+      REAL*8 CONV , ega , egs , emax , F , GF , spinf , 
      &       spini , twoi
-      INTEGER*4 idecay , Idr , indx , inx , inx1 , ir , is , 
-     &          istr1 , istr2 , j , js , jsave , k , KLEC , kpa , 
-     &          l , la , la1 , ld , LEADF
+      INTEGER*4 idecay , Idr , indx , inx , inx1 , ir , is , istr1 , 
+     &          istr2 , j , js , jsave , k , kpa , l , la , la1 , 
+     &          ld , LEADF
       INTEGER*4 m , m1 , m6 , MEM , mk , mule , mulm , n , n1 , nob
       INCLUDE 'coex2.inc'
       INCLUDE 'tra.inc'
@@ -49,7 +49,7 @@ C 8 = M2.
       INCLUDE 'mgn.inc'
       INCLUDE 'coex.inc'
       INCLUDE 'lev.inc'
-      COMMON /CATLF / FP(4,1500,3) , GKP(4,1500,2) , KLEC(75)
+      INCLUDE 'catlf.inc'
       DATA jsave/0/
       
       m6 = 0
