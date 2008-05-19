@@ -47,13 +47,13 @@ C half-integers.
  
       SUBROUTINE LSLOOP(Ir,N,Nz,Ld,Lam,La,Ssqrt,Icg,Iexp)
       IMPLICIT NONE
-      REAL*8 phz , PSI , QAPR , rmir , rmis , Ssqrt , WTHREJ
+      REAL*8 phz , QAPR , rmir , rmis , Ssqrt , WTHREJ
       INTEGER*4 i2 , i3 , IAPR , Icg , Iexp , iiex , indx , 
      &          inqa , inr , ins , Ir , is , is1 , is2 , ISEX , ismin
       INTEGER*4 isplus , jg1 , jg2 , jrmir , La , Lam , lam2 , Ld , 
      &          LEADF , m , MEM , mrange , mt , N , Nz
       INCLUDE 'coex.inc'
-      COMMON /PCOM  / PSI(1500)
+      INCLUDE 'pcom.inc'
       INCLUDE 'ccoup.inc'
       INCLUDE 'clcom8.inc'
       INCLUDE 'cexc0.inc'
