@@ -25,13 +25,13 @@ C can cope with half-integers.
 
       SUBROUTINE TENB(Icl,Bten,Lmax)
       IMPLICIT NONE
-      REAL*8 Bten , CAT , ce , fc , si , WTHREJ , x
-      INTEGER*4 i , Icl , iha , ila , ilg , ind , isi , ISMAX , 
-     &          ite , jm , jmp , k , kk , kp , l , ll , Lmax , lp , m
+      REAL*8 Bten , ce , fc , si , WTHREJ , x
+      INTEGER*4 i , Icl , iha , ila , ilg , ind , isi , ite , jm , 
+     &          jmp , k , kk , kp , l , ll , Lmax , lp , m
       INTEGER*4 mm , mp , ms , msp , NSTART , NSTOP
       DIMENSION Bten(1200)
       INCLUDE 'coex.inc'
-      COMMON /CLCOM8/ CAT(600,3) , ISMAX
+      INCLUDE 'clcom8.inc'
       INCLUDE 'coex2.inc'
       COMMON /CEXC0 / NSTART(76) , NSTOP(75)
       INCLUDE 'az.inc'

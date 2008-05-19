@@ -404,7 +404,7 @@ C      ZV     - energy meshpoints
       IMPLICIT NONE
       REAL*8 acof , ap , ARCCOS , ARCTG , arg , ax , bcof , be2 , 
      &       be2a , be2b , be2c
-      REAL*8 bk , bl , bm , bmx , bten , bu , CAT , ccc , 
+      REAL*8 bk , bl , bm , bmx , bten , bu , ccc , 
      &       ccd , cf , chilo , chiok , chis0 , chisl , chisq , chiss , 
      &       cnst
       REAL*8 cocos , conu , d , decen , dedx , DLOCK , dsd , 
@@ -444,7 +444,7 @@ C      ZV     - energy meshpoints
       INTEGER*4 IPI , ipine , ipinf , ipo1 , ipo2 , ipo3 , ipp , iprc , 
      &          ipri , IPS1 , irea , irep , irfix , 
      &          ISEX , isip , iske , iskf
-      INTEGER*4 isko , iskok , ISMAX , isoh , ispa , ispb , itno , 
+      INTEGER*4 isko , iskok , isoh , ispa , ispb , itno , 
      &          itp , ITS , ITTE , iuy , iva , iva1 , ivarh , ivari , 
      &          ivrh , IWF
       INTEGER*4 ixj , ixl , ixm , iyr , izcap , j , ja , 
@@ -527,7 +527,7 @@ C      ZV     - energy meshpoints
       INCLUDE 'cb.inc'
       INCLUDE 'clm.inc'
       INCLUDE 'clcom0.inc'
-      COMMON /CLCOM8/ CAT(600,3) , ISMAX
+      INCLUDE 'clcom8.inc'
       COMMON /CLCOM9/ ERR
       INCLUDE 'comme.inc'
       INCLUDE 'coex2.inc'

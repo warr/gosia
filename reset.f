@@ -20,11 +20,10 @@ C      Iso    - isotropic flag
  
       SUBROUTINE RESET(Iso)
       IMPLICIT NONE
-      REAL*8 CAT
-      INTEGER*4 ir , ISMAX , Iso , j , NSTART , NSTOP
+      INTEGER*4 ir , Iso , j , NSTART , NSTOP
       COMMON /CEXC0 / NSTART(76) , NSTOP(75)
       INCLUDE 'az.inc'
-      COMMON /CLCOM8/ CAT(600,3) , ISMAX
+      INCLUDE 'clcom8.inc'
       INCLUDE 'coex2.inc'
       
       IF ( Iso.EQ.0 ) THEN

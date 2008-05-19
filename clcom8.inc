@@ -1,0 +1,3 @@
+      REAL*8 CAT
+      INTEGER*4 ISMAX
+      COMMON /CLCOM8/ CAT(600,3) , ISMAX
