@@ -436,11 +436,10 @@ C      ZV     - energy meshpoints
       INTEGER*4 ija0 , ijaja , ijan , ijk , ijx , ile1 , ilevls , 
      &          ilx , im , imode , in1 , in2 , inclus , ind , 
      &          ind1 , ind2 , indx
-      INTEGER*4 inko , inm1 , inm2 , inn , inpo , intend , 
-     &          INTR , intvh , inva , inx1 , iobl , iocc , 
-     &          iopri , iosr , ipd , iph
+      INTEGER*4 inko , inm1 , inm2 , inn , inpo , intend , intvh , 
+     &          inva , inx1 , iobl , iocc , iopri , iosr , ipd , iph
       INTEGER*4 ipine , ipinf , ipo1 , ipo2 , ipo3 , ipp , iprc , 
-     &          ipri , IPS1 , irea , irep , irfix , isip , iske , iskf
+     &          ipri , irea , irep , irfix , isip , iske , iskf
       INTEGER*4 isko , iskok , isoh , ispa , ispb , itno , 
      &          itp , iuy , iva , iva1 , ivarh , ivari , ivrh
       INTEGER*4 ixj , ixl , ixm , iyr , izcap , j , ja , 
@@ -455,8 +454,8 @@ C      ZV     - energy meshpoints
      &          kmat , kq , ktt , kuku , l , la , la1 , lam , lamd
       INTEGER*4 lamh , lb , lck1 , lck2 , levl , lex , lexp , 
      &          lfagg , lfini , lh1 , lh2 , liscl , lkj
-      INTEGER*4 lkj1 , ll , lli , lll , lmax1 , lmaxh , 
-     &          LNY , locat , LOCKF , LOCKS , loct , lp0 , lpin
+      INTEGER*4 lkj1 , ll , lli , lll , lmax1 , lmaxh , locat , LOCKF , 
+     &          LOCKS , loct , lp0 , lpin
       INTEGER*4 ltrn , ltrn1 , ltrn2 , lu , lx , lxd , magh , MEM
       INTEGER*4 memax1 , memh , memx4 , mend , mexl , 
      &          mfla , mlt , mm , mpin , ms , n , na , na1 , naa , 
@@ -535,7 +534,7 @@ C      ZV     - energy meshpoints
       INCLUDE 'trb.inc'
       INCLUDE 'sel.inc'
       COMMON /ERCAL / JENTR , ICS
-      COMMON /LOGY  / LNY , INTR , IPS1
+      INCLUDE 'logy.inc'
       INCLUDE 'fakul.inc'
       COMMON /LIFE  / NLIFT
       DATA (eng(k),k=1,10)/.05 , .06 , .08 , .1 , .15 , .2 , .3 , .5 , 

@@ -64,14 +64,12 @@ C don't go outside the limits specified by the user.
      &       f2 , flt
       REAL*8 gradp , ht , p , q , rfk , sel , shl , sumg1 , 
      &       sumg2 , sumht , uxa , xkat , Xtest
-      INTEGER*4 i , icl1 , icl2 , icount , ICS , Idr , IFBFL , 
-     &          iht , iin , Imode , indx1 , INM , inmx , ino , 
-     &          INTR , ipas , ipm
-      INTEGER*4 Ips , IPS1 , Is , istec , ITAK2 , itf , j , 
-     &          jcoup , jcp , JENTR , jin , Jjh , jjj , jlin , jnm , 
-     &          jpr , jsa , jst
-      INTEGER*4 kh2 , kkk , l , LFL , LFL1 , LFL2 , lnm , LNY , 
-     &          LOCKF , LOCKS , metf
+      INTEGER*4 i , icl1 , icl2 , icount , ICS , Idr , IFBFL , iht , 
+     &          iin , Imode , indx1 , INM , inmx , ino , ipas , ipm
+      INTEGER*4 Ips , Is , istec , ITAK2 , itf , j , jcoup , jcp , 
+     &          JENTR , jin , Jjh , jjj , jlin , jnm , jpr , jsa , jst
+      INTEGER*4 kh2 , kkk , l , LFL , LFL1 , LFL2 , lnm , LOCKF , 
+     &          LOCKS , metf
       INTEGER*4 mvfl , ncall , nlinn , NLOCK , noflg , Nptl , NWR
       DIMENSION ipm(10) , Bten(1200) , gradp(1500)
       INCLUDE 'dumm.inc'
@@ -88,7 +86,7 @@ C don't go outside the limits specified by the user.
       INCLUDE 'sel.inc'
       COMMON /FIT   / LOCKF , NLOCK , IFBFL , LOCKS , DLOCK
       INCLUDE 'erran.inc'
-      COMMON /LOGY  / LNY , INTR , IPS1
+      INCLUDE 'logy.inc'
       COMMON /ERCAL / JENTR , ICS
       DATA chirf/0./,dm/0./,sumg2/0./
 
