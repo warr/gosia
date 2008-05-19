@@ -24,10 +24,9 @@ C 365  in GOSIA, which is the dimension of the array.
  
       SUBROUTINE SETIN
       IMPLICIT NONE
-      REAL*8 CH , SH
       INTEGER*4 k
       INCLUDE 'mgn.inc'
-      COMMON /HIPER / SH(365) , CH(365)
+      INCLUDE 'hiper.inc'
       INCLUDE 'adx.inc'
       INCLUDE 'kin.inc'
       
