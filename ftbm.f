@@ -80,13 +80,12 @@ C      Bten   -
      &          LFL2 , licz , lix , llx , lm , lmh , 
      &          loc , loch , loct
       INTEGER*4 lp , lpit , lput , lpx , lpxd , ls , lst
-      INTEGER*4 luu , lx , Ncall , nlin , nowr , npoz , nrest , NWR , 
-     &          nwyr
+      INTEGER*4 luu , lx , Ncall , nlin , nowr , npoz , nrest , nwyr
       DIMENSION jmte(6) , prop(6) , Bten(1200)
       INCLUDE 'cx.inc'
       INCLUDE 'cexc0.inc'
       INCLUDE 'ccc.inc'
-      COMMON /ILEWY / NWR
+      INCLUDE 'ilewy.inc'
       COMMON /CH1T  / CHIS11
       COMMON /IGRAD / IGRD
       COMMON /LCZP  / EMH , INM , LFL1 , LFL2 , LFL
