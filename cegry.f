@@ -81,7 +81,7 @@ C      Iredv  -
       REAL*8 sumpr , TACOS , tetrc , tfac , thc , wf
       INTEGER*4 iabc , Icall , id , idc , Idr , ifdu , 
      &          ifxd , IGRD , ii , ile2 , inclus , INM
-      INTEGER*4 ipd , IPRM , Iredv , Issp , Itemp , ITS , 
+      INTEGER*4 ipd , Iredv , Issp , Itemp , ITS , 
      &          iva , iw , IWF , ixl , ixm , iyex , jj
       INTEGER*4 jj1 , jk , jpc , JSKIP , k , k9 , kc , kj , kk , 
      &          KVAR , l , l1 , LFL , LFL1 , LFL2 , lic , 
@@ -99,7 +99,7 @@ C      Iredv  -
       INCLUDE 'dimx.inc'
       INCLUDE 'vac.inc'
       INCLUDE 'cinit.inc'
-      COMMON /PRT   / IPRM(20)
+      INCLUDE 'prt.inc'
       COMMON /LIFE  / NLIFT
       INCLUDE 'lev.inc'
       COMMON /IGRAD / IGRD

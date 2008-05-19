@@ -40,11 +40,11 @@ C      Tetrn  - theta of recoiling nucleus
      &       EMMA , epmin
       REAL*8 r3 , TASIN , tau , taup , tcmdg , tcmrad , Tetrn , 
      &       tlbrad , tmxdg , z1 , z2 , zcmdg , zcmrad , zlbrad
-      INTEGER*4 iflaa , Ii , IPRM , lexp , lexp0 , lexp1 , n , NCM 
+      INTEGER*4 iflaa , Ii , lexp , lexp0 , lexp1 , n , NCM 
       LOGICAL ERR
       COMMON /CLCOM9/ ERR
       INCLUDE 'seck.inc'
-      COMMON /PRT   / IPRM(20)
+      INCLUDE 'prt.inc'
       INCLUDE 'tcm.inc'
       INCLUDE 'brec.inc'
       COMMON /CAUX0 / EMMA(75) , NCM

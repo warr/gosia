@@ -59,7 +59,7 @@ C Here we parse the input of the OP,YIEL command and store the values.
       IMPLICIT NONE
       REAL*8 DMIX , DMIXE , wamx , wbra , wdl , wlf
       INTEGER*4 iax , Idr , iexp1 , ilft , IMIX , iosr , ipri , 
-     &          IPRM , isrt1 , ITS , iuf
+     &          isrt1 , ITS , iuf
       INTEGER*4 Iyr , jic , jicc , juf , lb , li , licc , llia , 
      &          lxt , MEM , n1
       INTEGER*4 n2 , ndas , NDL , ndtp , 
@@ -81,7 +81,7 @@ C Here we parse the input of the OP,YIEL command and store the values.
       INCLUDE 'coex.inc'
       INCLUDE 'cx.inc'
       INCLUDE 'cexc.inc'
-      COMMON /PRT   / IPRM(20)
+      INCLUDE 'prt.inc'
       COMMON /TRB   / ITS
       
 C     Read OP,YIEL parameters

@@ -442,7 +442,7 @@ C      ZV     - energy meshpoints
      &          INTERV , INTR , intvh , inva , inx1 , iobl , iocc , 
      &          iopri , iosr , IP , IPATH , ipd , iph
       INTEGER*4 IPI , ipine , ipinf , ipo1 , ipo2 , ipo3 , ipp , iprc , 
-     &          ipri , IPRM , IPS1 , irea , irep , irfix , 
+     &          ipri , IPS1 , irea , irep , irfix , 
      &          ISEX , isip , iske , iskf
       INTEGER*4 isko , iskok , ISMAX , isoh , ispa , ispb , itno , 
      &          itp , ITS , ITTE , iuy , iva , iva1 , ivarh , ivari , 
@@ -522,7 +522,7 @@ C      ZV     - energy meshpoints
       INCLUDE 'minni.inc'
       INCLUDE 'cx.inc'
       INCLUDE 'cexc.inc'
-      COMMON /PRT   / IPRM(20)
+      INCLUDE 'prt.inc'
       INCLUDE 'ccoup.inc'
       COMMON /CB    / B(20)
       COMMON /CLM   / LMAX
