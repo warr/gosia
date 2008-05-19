@@ -48,7 +48,7 @@ C half-integers.
       SUBROUTINE LSLOOP(Ir,N,Nz,Ld,Lam,La,Ssqrt,Icg,Iexp)
       IMPLICIT NONE
       REAL*8 CAT , phz , PSI , QAPR , rmir , rmis , Ssqrt , WTHREJ
-      INTEGER*4 i2 , i3 , IAPR , Icg , Iexp , IFAC , iiex , indx , 
+      INTEGER*4 i2 , i3 , IAPR , Icg , Iexp , iiex , indx , 
      &          inqa , inr , ins , IPATH , Ir , is , is1 , is2 , ISEX , 
      &          ISMAX , ismin
       INTEGER*4 isplus , jg1 , jg2 , jrmir , La , Lam , lam2 , Ld , 
@@ -63,7 +63,7 @@ C half-integers.
       COMMON /PTH   / IPATH(75) , MAGA(75)
       INCLUDE 'mgn.inc'
       INCLUDE 'comme.inc'
-      COMMON /CLCOM0/ IFAC(75)
+      INCLUDE 'clcom0.inc'
       
       lam2 = 2*Lam
       inr = CAT(Ir,2)*2. ! 2 * Spin of substate Ir
