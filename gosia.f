@@ -414,8 +414,7 @@ C      ZV     - energy meshpoints
       REAL*8 eng , enh , esd , esp , ess , 
      &       fi0 , fi1 , fic , fiex1 , figl , fipo1 , fm , gth
       REAL*8 hen , het , p , pfi , 
-     &       ph1 , ph2 , pi , PILOG , po1 , po2 , polm , pop1 , pr , 
-     &       pv
+     &       ph1 , ph2 , pi , po1 , po2 , polm , pop1 , pr , pv
       REAL*8 q1 , q2 , qc , qfac , qr , qui , r , r1 , r2 , r3 , r4 , 
      &       rem , remax , rl , rlr , rm , rx , ry
       REAL*8 rz , s , s11 , s12 , s21 , s22 , sbe , sf , sh , sh1 , 
@@ -439,8 +438,8 @@ C      ZV     - energy meshpoints
      &          ind1 , ind2 , indx
       INTEGER*4 inko , inm1 , inm2 , inn , inpo , intend , 
      &          INTR , intvh , inva , inx1 , iobl , iocc , 
-     &          iopri , iosr , IP , ipd , iph
-      INTEGER*4 IPI , ipine , ipinf , ipo1 , ipo2 , ipo3 , ipp , iprc , 
+     &          iopri , iosr , ipd , iph
+      INTEGER*4 ipine , ipinf , ipo1 , ipo2 , ipo3 , ipp , iprc , 
      &          ipri , IPS1 , irea , irep , irfix , isip , iske , iskf
       INTEGER*4 isko , iskok , isoh , ispa , ispb , itno , 
      &          itp , ITS , ITTE , iuy , iva , iva1 , ivarh , ivari , 
@@ -452,8 +451,7 @@ C      ZV     - energy meshpoints
      &          jj , jj1 , jjjj , jjlx , jjx , jk , jkloo , jktt , jl , 
      &          jmm , jmpin
       INTEGER*4 jp , jphd , jpin , jrls , js , JSKIP , jt , jtp , jyi , 
-     &          jyi1 , jyi2 , jyv , jz , k , kb , kclust , kerf , kex , 
-     &          KF
+     &          jyi1 , jyi2 , jyv , jz , k , kb , kclust , kerf , kex
       INTEGER*4 kh , kh1 , kh2 , kk , kk1 , kk2 , kkk , kl , kloop , 
      &          kmat , kq , ktt , kuku , KVAR , l , la , la1 , 
      &          lam , lamd
@@ -540,7 +538,7 @@ C      ZV     - energy meshpoints
       COMMON /SEL   / KVAR(1500)
       COMMON /ERCAL / JENTR , ICS
       COMMON /LOGY  / LNY , INTR , IPS1
-      COMMON /FAKUL / IP(26) , IPI(26) , KF(101,26) , PILOG(26)
+      INCLUDE 'fakul.inc'
       COMMON /LIFE  / NLIFT
       DATA (eng(k),k=1,10)/.05 , .06 , .08 , .1 , .15 , .2 , .3 , .5 , 
      &      1. , 1.5/
