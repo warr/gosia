@@ -64,10 +64,10 @@ C don't go outside the limits specified by the user.
      &       f2 , flt
       REAL*8 gradp , ht , p , q , rfk , sel , shl , sumg1 , 
      &       sumg2 , sumht , uxa , xkat , Xtest
-      INTEGER*4 i , icl1 , icl2 , icount , ICS , Idr , IFBFL , iht , 
-     &          iin , Imode , indx1 , INM , inmx , ino , ipas , ipm
+      INTEGER*4 i , icl1 , icl2 , icount , Idr , IFBFL , iht , iin , 
+     &          Imode , indx1 , INM , inmx , ino , ipas , ipm
       INTEGER*4 Ips , Is , istec , ITAK2 , itf , j , jcoup , jcp , 
-     &          JENTR , jin , Jjh , jjj , jlin , jnm , jpr , jsa , jst
+     &          jin , Jjh , jjj , jlin , jnm , jpr , jsa , jst
       INTEGER*4 kh2 , kkk , l , LFL , LFL1 , LFL2 , lnm , LOCKF , 
      &          LOCKS , metf
       INTEGER*4 mvfl , ncall , nlinn , NLOCK , noflg , Nptl , NWR
@@ -87,7 +87,7 @@ C don't go outside the limits specified by the user.
       COMMON /FIT   / LOCKF , NLOCK , IFBFL , LOCKS , DLOCK
       INCLUDE 'erran.inc'
       INCLUDE 'logy.inc'
-      COMMON /ERCAL / JENTR , ICS
+      INCLUDE 'ercal.inc'
       DATA chirf/0./,dm/0./,sumg2/0./
 
 C     Initialise gradp to zero for each matrix element
