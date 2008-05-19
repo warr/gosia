@@ -34,12 +34,11 @@ C storage part.
       
       SUBROUTINE NEWLV(N,Ld,La)
       IMPLICIT NONE
-      INTEGER*4 i2 , indx , ISSTAR , ISSTO , La , Ld , LEADF , 
-     &          m , MEM , MSTORE , N
+      INTEGER*4 i2 , indx , La , Ld , LEADF , m , MEM , N
       COMPLEX*16 EXPON
       INCLUDE 'clcom.inc'
       INCLUDE 'caux.inc'
-      COMMON /PINT  / ISSTAR(76) , ISSTO(75) , MSTORE(2,75)
+      INCLUDE 'pint.inc'
       INCLUDE 'adbxi.inc'
       INCLUDE 'fla.inc'
       INCLUDE 'cexc0.inc'
