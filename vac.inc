@@ -1,0 +1,3 @@
+      REAL*8 VACDP, QCEN, DQ, XNOR, AKS
+      INTEGER*4 IBYP
+      COMMON /VAC   / VACDP(3,75) , QCEN , DQ , XNOR , AKS(6,75) , IBYP
