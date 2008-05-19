@@ -79,7 +79,7 @@ C      Bten   -
       INTEGER*4 j , jj , jjgg , jjj , jk , jkl , jm , jmf , jmt , jmte , 
      &          jpp , jpz , JSKIP , jy , k , karm , kk , kk6 , kkx , kmt
       INTEGER*4 knm , kx , larm , lcc , lcou , LFL , LFL1 , 
-     &          LFL2 , licz , lix , llx , lm , LMAX , lmh , 
+     &          LFL2 , licz , lix , llx , lm , lmh , 
      &          LNY , loc , loch , loct
       INTEGER*4 lp , lpit , lput , lpx , lpxd , ls , lst
       INTEGER*4 luu , lx , MAGA , Ncall , NLIFT , nlin , nowr , npoz , 
@@ -99,7 +99,7 @@ C      Bten   -
       INCLUDE 'kin.inc'
       INCLUDE 'yexpt.inc'
       INCLUDE 'comme.inc'
-      COMMON /CLM   / LMAX
+      INCLUDE 'clm.inc'
       INCLUDE 'coex.inc'
       COMMON /CLCOM8/ CAT(600,3) , ISMAX
       INCLUDE 'az.inc'

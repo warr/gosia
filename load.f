@@ -59,7 +59,7 @@ C      Joj    - index of substate (write only)
      &       wrt , wrtm , z1 , z2 , zet , zsqa
       INTEGER*4 i , i1 , i2 , i3 , IAPR , Icg , Ient , Iexp , IPATH , 
      &          ir , is , ISEX , ISHA , ISMAX , ispi , ispo
-      INTEGER*4 jj , jjj , Joj , la , lam , lam1 , ld , LMAX , m , m1
+      INTEGER*4 jj , jjj , Joj , la , lam , lam1 , ld , m , m1
       INTEGER*4 m2 , MAGA , mstop , n , n2 , n3 , NCM
       INTEGER*4 nn , NSTART , NSTOP , nz
       LOGICAL ERR
@@ -70,7 +70,7 @@ C      Joj    - index of substate (write only)
       INCLUDE 'cexc.inc'
       COMMON /PCOM  / PSI(1500)
       INCLUDE 'ccoup.inc'
-      COMMON /CLM   / LMAX
+      INCLUDE 'clm.inc'
       COMMON /CLCOM8/ CAT(600,3) , ISMAX
       COMMON /CLCOM9/ ERR
       INCLUDE 'coex2.inc'
