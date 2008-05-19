@@ -58,8 +58,8 @@ C don't go outside the limits specified by the user.
      &                Bten)
       IMPLICIT NONE
       REAL*8 a , a0 , a1 , b , Bten , c , ccd , chd , chil , chilo , 
-     &       Chiok , chirf , CHIS11 , chis12 , chis13 , chisf , chisp , 
-     &       Chisq , chiss , chl
+     &       Chiok , chirf , chis12 , chis13 , chisf , chisp , Chisq , 
+     &       chiss , chl
       REAL*8 chx , cmax , Conv , crit , dl , dm , EMH , f1 , f2 , flt
       REAL*8 gradp , ht , p , q , rfk , sel , shl , sumg1 , 
      &       sumg2 , sumht , uxa , xkat , Xtest
@@ -72,7 +72,7 @@ C don't go outside the limits specified by the user.
       DIMENSION ipm(10) , Bten(1200) , gradp(1500)
       INCLUDE 'dumm.inc'
       INCLUDE 'ilewy.inc'
-      COMMON /CH1T  / CHIS11
+      INCLUDE 'ch1t.inc'
       INCLUDE 'mgn.inc'
       COMMON /UWAGA / ITAK2
       INCLUDE 'yexpt.inc'
