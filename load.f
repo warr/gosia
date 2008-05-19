@@ -61,7 +61,6 @@ C      Joj    - index of substate (write only)
      &          is , ISEX , ISHA , ispi , ispo
       INTEGER*4 jj , jjj , Joj , la , lam , lam1 , ld , m , m1
       INTEGER*4 m2 , mstop , n , n2 , n3 , NCM , nn , nz
-      LOGICAL ERR
       INCLUDE 'clcom.inc'
       INCLUDE 'mgn.inc'
       INCLUDE 'coex.inc'
@@ -71,7 +70,7 @@ C      Joj    - index of substate (write only)
       INCLUDE 'ccoup.inc'
       INCLUDE 'clm.inc'
       INCLUDE 'clcom8.inc'
-      COMMON /CLCOM9/ ERR
+      INCLUDE 'clcom9.inc'
       INCLUDE 'coex2.inc'
       INCLUDE 'cx.inc'
       INCLUDE 'cexc0.inc'
