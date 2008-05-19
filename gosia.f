@@ -463,16 +463,15 @@ C      ZV     - energy meshpoints
       INTEGER*4 kh , kh1 , kh2 , kk , kk1 , kk2 , kkk , kl , kloop , 
      &          kmat , kq , ktt , kuku , KVAR , l , la , la1 , 
      &          lam , lamd
-      INTEGER*4 LAMDA , lamh , LAMMAX , lb , lck1 , lck2 , 
-     &          LDNUM , LEAD , LERF , levl , lex , lexp , lfagg , 
-     &          lfini , lh1 , lh2 , liscl , lkj
+      INTEGER*4 lamh , lb , lck1 , lck2 , LERF , levl , lex , lexp , 
+     &          lfagg , lfini , lh1 , lh2 , liscl , lkj
       INTEGER*4 lkj1 , ll , lli , lll , LMAX , lmax1 , LMAXE , lmaxh , 
      &          LNORM , LNY , locat , LOCKF , LOCKS , loct , lp0 , lpin
       INTEGER*4 ltrn , ltrn1 , ltrn2 , lu , lx , lxd , LZETA , MAGA , 
      &          MAGEXC , magh , MEM
       INTEGER*4 MEMAX , memax1 , memh , memx4 , MEMX6 , mend , mexl , 
-     &          mfla , mlt , mm , mpin , ms , MULTI , n , na , na1 , 
-     &          naa , nallow
+     &          mfla , mlt , mm , mpin , ms , n , na , na1 , naa , 
+     &          nallow
       INTEGER*4 naxfl , nb1 , nb2 , nbands , nch , NCM , NDIM , 
      &          ndima , ndum , ne , NEXPT , nf , nfd , nfdd , 
      &          nfi , nflr , nft , nged
@@ -522,8 +521,7 @@ C      ZV     - energy meshpoints
       INCLUDE 'az.inc'
       INCLUDE 'kin.inc'
       INCLUDE 'cxi.inc'
-      COMMON /CLCOM / LAMDA(8) , LEAD(2,1500) , LDNUM(8,75) , LAMMAX , 
-     &                MULTI(8)
+      INCLUDE 'clcom.inc'
       COMMON /COEX  / EN(75) , SPIN(75) , ACCUR , DIPOL , ZPOL , ACCA , 
      &                ISO
       COMMON /MINNI / IMIN , LNORM(50)

@@ -20,10 +20,8 @@ C      Idr    - number of decays
       IMPLICIT NONE
       REAL*8 ACCA , ACCUR , cone1 , cone2 , conm1 , CONV , DIPOL , EN , 
      &       enet , SPIN , ZPOL
-      INTEGER*4 Idr , iinx , ISO , l , LAMDA , LAMMAX , LDNUM , 
-     &          LEAD , MULTI , nf , ni
-      COMMON /CLCOM / LAMDA(8) , LEAD(2,1500) , LDNUM(8,75) , LAMMAX , 
-     &                MULTI(8)
+      INTEGER*4 Idr , iinx , ISO , l , nf , ni
+      INCLUDE 'clcom.inc'
       COMMON /COEX  / EN(75) , SPIN(75) , ACCUR , DIPOL , ZPOL , ACCA , 
      &                ISO
       INCLUDE 'lev.inc'

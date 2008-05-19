@@ -42,14 +42,12 @@ C 8 = M2.
      &       spini , twoi , ZPOL
       INTEGER*4 idecay , Idr , indx , inx , inx1 , ir , is , ISO , 
      &          istr1 , istr2 , j , js , jsave , k , KLEC , kpa , 
-     &          l , la
-      INTEGER*4 la1 , LAMDA , LAMMAX , ld , LDNUM , LEAD , LEADF
-      INTEGER*4 m , m1 , m6 , MEM , mk , mule , mulm , MULTI , n , n1 , 
+     &          l , la , la1 , ld , LEADF
+      INTEGER*4 m , m1 , m6 , MEM , mk , mule , mulm , n , n1 , 
      &          NDIM , NMAX , NMAX1 , nob
       COMMON /COEX2 / NMAX , NDIM , NMAX1
       INCLUDE 'tra.inc'
-      COMMON /CLCOM / LAMDA(8) , LEAD(2,1500) , LDNUM(8,75) , LAMMAX , 
-     &                MULTI(8)
+      INCLUDE 'clcom.inc'
       INCLUDE 'mgn.inc'
       COMMON /COEX  / EN(75) , SPIN(75) , ACCUR , DIPOL , ZPOL , ACCA , 
      &                ISO

@@ -31,10 +31,8 @@ C      Chilo  - chi squared of logs
      &       eng2 , SA , SPIN
       REAL*8 u , ZPOL
       INTEGER*4 i1 , i2 , iflg , iout , IPRM , ISO , itt , j1 , j2 , 
-     &          k , lab1 , lab2 , LAMDA , LAMMAX , LDNUM , LEAD , mul2
-      INTEGER*4 MULTI , n1 , n2 , Nwyr
-      COMMON /CLCOM / LAMDA(8) , LEAD(2,1500) , LDNUM(8,75) , LAMMAX , 
-     &                MULTI(8)
+     &          k , lab1 , lab2 , mul2 , n1 , n2 , Nwyr
+      INCLUDE 'clcom.inc'
       COMMON /COEX  / EN(75) , SPIN(75) , ACCUR , DIPOL , ZPOL , ACCA , 
      &                ISO
       INCLUDE 'brnch.inc'
