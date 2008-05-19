@@ -410,13 +410,12 @@ C      ZV     - energy meshpoints
      &       cnst
       REAL*8 cocos , conu , CORF , d , decen , dedx , DIPOL , DLOCK ,
      &       dsd , dsig , dst
-      REAL*8 dsx , dsxm , DYEX , effi , EG , eh1 , ELM , ELMH , 
-     &       elmi , ELML , ELMT , ELMU , emhl1 , EMMA , emn , emx , EN , 
+      REAL*8 dsx , dsxm , DYEX , effi , EG , eh1 , ELM , elmi , 
+     &       ELML , ELMT , ELMU , emhl1 , EMMA , emn , emx , EN , 
      &       enb
       REAL*8 eng , enh , EP , esd , esp , ess , 
-     &       fi0 , fi1 , fic , fiex1 , figl , fipo1 , fm , G , 
-     &       GRAD , gth
-      REAL*8 hen , het , HLMLM , p , PARX , PARXM , pfi , 
+     &       fi0 , fi1 , fic , fiex1 , figl , fipo1 , fm , G , gth
+      REAL*8 hen , het , p , PARX , PARXM , pfi , 
      &       ph1 , ph2 , pi , PILOG , po1 , po2 , polm , pop1 , pr , 
      &       pv , Q
       REAL*8 q1 , q2 , QAPR , qc , qfac , qr , qui , r , r1 , 
@@ -514,7 +513,7 @@ C      ZV     - energy meshpoints
       INCLUDE 'mgn.inc'
       INCLUDE 'seck.inc'
       INCLUDE 'vlin.inc'
-      COMMON /DUMM  / GRAD(1500) , HLMLM(1500) , ELMH(1500)
+      INCLUDE 'dumm.inc'
       COMMON /BRNCH / BRAT(50,2) , IBRC(2,50) , NBRA
       COMMON /YEXPT / YEXP(32,1500) , IY(1500,32) , CORF(1500,32) , 
      &                DYEX(32,1500) , NYLDE(50,32) , UPL(32,50) , 
