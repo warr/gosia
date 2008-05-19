@@ -33,22 +33,21 @@ C      I57    - switch which is either 5 or 7. This tells LAISUM to access eithe
 
       SUBROUTINE AMPDER(I57)
       IMPLICIT NONE
-      REAL*8 CAT , D2W , ELM , ELML , ELMU , rsg , SA , ZETA
+      REAL*8 CAT , D2W , ELM , ELML , ELMU , rsg , SA
       INTEGER*4 i1 , I57 , ibg , iend , iflg , indx , ir , is2 , ISG , 
      &          ISG1 , ISMAX , ISSTAR , ISSTO , k , KDIV , lam , 
      &          LAMR , lax
-      INTEGER*4 ld , LZETA , m , mm , MSTORE , 
-     &          n , NDIM , NDIV , nhold , NMAX , NMAX1 , NPT , NSTART , 
-     &          NSTOP , NSW , nz
+      INTEGER*4 ld , m , mm , MSTORE , n , NDIV , nhold , 
+     &          NPT , NSTART , NSTOP , NSW , nz
       INCLUDE 'az.inc'
       COMMON /COMME / ELM(1500) , ELMU(1500) , ELML(1500) , SA(1500)
       INCLUDE 'clcom.inc'
-      COMMON /COEX2 / NMAX , NDIM , NMAX1
+      INCLUDE 'coex2.inc'
       COMMON /CAUX  / NPT , NDIV , KDIV , LAMR(8) , ISG , D2W , NSW , 
      &                ISG1
       COMMON /PINT  / ISSTAR(76) , ISSTO(75) , MSTORE(2,75)
       INCLUDE 'adbxi.inc'
-      COMMON /CCOUP / ZETA(50000) , LZETA(8)
+      INCLUDE 'ccoup.inc'
       COMMON /CLCOM8/ CAT(600,3) , ISMAX
       COMMON /CEXC0 / NSTART(76) , NSTOP(75)
 

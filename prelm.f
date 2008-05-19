@@ -26,15 +26,14 @@ C      Iop    - print flag (controls what is written to output).
       IMPLICIT NONE
       REAL*8 b , ELM , ELML , ELMU , pv , SA , ste
       INTEGER*4 inx , Iop , isp , IVAR , j , k , kk , l , 
-     &          LMAXE , m , MAGEXC , MEMAX , MEMX6 , NDIM
-      INTEGER*4 NMAX , NMAX1
+     &          LMAXE , m , MAGEXC , MEMAX , MEMX6
       CHARACTER*3 wrn
       INCLUDE 'hhh.inc'
       COMMON /COMME / ELM(1500) , ELMU(1500) , ELML(1500) , SA(1500)
       COMMON /CEXC  / MAGEXC , MEMAX , LMAXE , MEMX6 , IVAR(1500)
       INCLUDE 'coex.inc'
       INCLUDE 'clcom.inc'
-      COMMON /COEX2 / NMAX , NDIM , NMAX1
+      INCLUDE 'coex2.inc'
 
       inx = 0
       WRITE (22,99001)

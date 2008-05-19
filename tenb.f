@@ -28,12 +28,11 @@ C can cope with half-integers.
       REAL*8 Bten , CAT , ce , fc , si , WTHREJ , x
       INTEGER*4 i , Icl , iha , ila , ilg , ind , isi , ISMAX , 
      &          ite , jm , jmp , k , kk , kp , l , ll , Lmax , lp , m
-      INTEGER*4 mm , mp , ms , msp , NDIM , NMAX , NMAX1 , NSTART , 
-     &          NSTOP
+      INTEGER*4 mm , mp , ms , msp , NSTART , NSTOP
       DIMENSION Bten(1200)
       INCLUDE 'coex.inc'
       COMMON /CLCOM8/ CAT(600,3) , ISMAX
-      COMMON /COEX2 / NMAX , NDIM , NMAX1
+      INCLUDE 'coex2.inc'
       COMMON /CEXC0 / NSTART(76) , NSTOP(75)
       INCLUDE 'az.inc'
       

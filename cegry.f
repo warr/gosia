@@ -88,15 +88,14 @@ C      Iredv  -
       INTEGER*4 jj1 , jk , jpc , JSKIP , k , k9 , kc , kj , kk , 
      &          KVAR , l , l1 , LFL , LFL1 , LFL2 , lic , 
      &          licz , ll1
-      INTEGER*4 lth , lu , luu , na , NDIM
-      INTEGER*4 NEXPT , nf , nf1 , ni , ni1 , NLIFT , 
-     &          NMAX , NMAX1 , Nwyr
+      INTEGER*4 lth , lu , luu , na
+      INTEGER*4 NEXPT , nf , nf1 , ni , ni1 , NLIFT , Nwyr
       CHARACTER*4 wupl , war
       DIMENSION part(32,50,2) , lic(32) , lth(1500) , cnr(32,50) , 
      &          partl(32,50,2)
       INCLUDE 'clust.inc'
       INCLUDE 'odch.inc'
-      COMMON /COEX2 / NMAX , NDIM , NMAX1
+      INCLUDE 'coex2.inc'
       INCLUDE 'tra.inc'
       INCLUDE 'brec.inc'
       INCLUDE 'dimx.inc'

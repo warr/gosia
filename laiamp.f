@@ -33,12 +33,11 @@ C      W0     - omega limit
       IMPLICIT NONE
       REAL*8 CAT , D2W , ELM , ELML , ELMU , epsi , errt , 
      &       pm , ppp , rmir , rmis , rmu , SA , TCABS , W0 , 
-     &       xiv
-      REAL*8 z , ZETA
+     &       xiv , z
       INTEGER*4 i1 , i2 , i3 , indx , Ir , is , is1 , 
      &          is2 , ISG , ISG1 , ISMAX , ismin , isplus , KDIV , la , 
      &          lam
-      INTEGER*4 LAMR , ld , LEADF , LZETA , m , MEM , 
+      INTEGER*4 LAMR , ld , LEADF , m , MEM , 
      &          mrange , mua , NDIV , NPT , NSTART , NSTOP , 
      &          NSW , nz
       COMPLEX*16 STAMP , dis , uhuj
@@ -46,7 +45,7 @@ C      W0     - omega limit
       INCLUDE 'az.inc'
       COMMON /CAUX  / NPT , NDIV , KDIV , LAMR(8) , ISG , D2W , NSW , 
      &                ISG1
-      COMMON /CCOUP / ZETA(50000) , LZETA(8)
+      INCLUDE 'ccoup.inc'
       COMMON /CLCOM8/ CAT(600,3) , ISMAX
       COMMON /COMME / ELM(1500) , ELMU(1500) , ELML(1500) , SA(1500)
       COMMON /CEXC0 / NSTART(76) , NSTOP(75)

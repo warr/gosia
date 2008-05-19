@@ -72,7 +72,7 @@ C      Bten   -
      &       ELM , ELML
       REAL*8 ELMU , EMH , EP , fc , fx , polm , pr , prop , 
      &       SA , TLBDG , val , VINF
-      REAL*8 wz , XA , XA1 , ZETA
+      REAL*8 wz , XA , XA1
       INTEGER*4 i1 , i11 , iapx , Icll , idec , Idr , 
      &          iflg , IGRD , ii , ile1 , ile2 , ile3 , 
      &          ilin , indx , inko , INM
@@ -85,9 +85,9 @@ C      Bten   -
      &          LFL2 , licz , lix , llx , lm , LMAX , LMAXE , lmh , 
      &          LNY , loc , loch , loct
       INTEGER*4 lp , lpit , lput , lpx , lpxd , ls , lst
-      INTEGER*4 luu , lx , LZETA , MAGA , MAGEXC , MEMAX , MEMX6 , 
-     &          Ncall , NDIM , NEXPT , NLIFT , nlin , 
-     &          NMAX , NMAX1 , nowr , npoz , nrest , NSTART
+      INTEGER*4 luu , lx , MAGA , MAGEXC , MEMAX , MEMX6 , 
+     &          Ncall , NEXPT , NLIFT , nlin , 
+     &          nowr , npoz , nrest , NSTART
       INTEGER*4 NSTOP , NWR , nwyr
       DIMENSION jmte(6) , prop(6) , Bten(1200)
       COMMON /CX    / NEXPT , IZ , XA , IZ1(50) , XA1(50) , EP(50) , 
@@ -100,7 +100,7 @@ C      Bten   -
       COMMON /LCZP  / EMH , INM , LFL1 , LFL2 , LFL
       COMMON /UWAGA / ITAK2
       INCLUDE 'lev.inc'
-      COMMON /CCOUP / ZETA(50000) , LZETA(8)
+      INCLUDE 'ccoup.inc'
       INCLUDE 'kin.inc'
       INCLUDE 'yexpt.inc'
       COMMON /COMME / ELM(1500) , ELMU(1500) , ELML(1500) , SA(1500)
@@ -109,7 +109,7 @@ C      Bten   -
       COMMON /CLCOM8/ CAT(600,3) , ISMAX
       INCLUDE 'az.inc'
       INCLUDE 'mgn.inc'
-      COMMON /COEX2 / NMAX , NDIM , NMAX1
+      INCLUDE 'coex2.inc'
       COMMON /PTH   / IPATH(75) , MAGA(75)
       COMMON /PRT   / IPRM(20)
       COMMON /CEXC  / MAGEXC , MEMAX , LMAXE , MEMX6 , IVAR(1500)

@@ -429,7 +429,7 @@ C      ZV     - energy meshpoints
       REAL*8 xep , xi1 , xi2 , xk1 , xk2 , xl1 , xlevb , 
      &       xlk , xm1 , xm2 , xm3 , xtest , xw , xx , xxi , 
      &       ycorr
-      REAL*8 yy , yyd1 , yydd , yyy , ZETA , zmir , zp , zz
+      REAL*8 yy , yyd1 , yydd , yyy , zmir , zp , zz
       INTEGER*4 i , i122 , IAPR , iapx , ib , 
      &          ibaf , icg , icll , ICS , ict , 
      &          ictl , id , idf , IDIVE
@@ -464,16 +464,16 @@ C      ZV     - energy meshpoints
      &          lfagg , lfini , lh1 , lh2 , liscl , lkj
       INTEGER*4 lkj1 , ll , lli , lll , LMAX , lmax1 , LMAXE , lmaxh , 
      &          LNY , locat , LOCKF , LOCKS , loct , lp0 , lpin
-      INTEGER*4 ltrn , ltrn1 , ltrn2 , lu , lx , lxd , LZETA , MAGA , 
-     &          MAGEXC , magh , MEM
+      INTEGER*4 ltrn , ltrn1 , ltrn2 , lu , lx , lxd , MAGA , MAGEXC , 
+     &          magh , MEM
       INTEGER*4 MEMAX , memax1 , memh , memx4 , MEMX6 , mend , mexl , 
      &          mfla , mlt , mm , mpin , ms , n , na , na1 , naa , 
      &          nallow
-      INTEGER*4 naxfl , nb1 , nb2 , nbands , nch , NCM , NDIM , 
+      INTEGER*4 naxfl , nb1 , nb2 , nbands , nch , NCM , 
      &          ndima , ndum , ne , NEXPT , nf , nfd , nfdd , 
      &          nfi , nflr , nft , nged
-      INTEGER*4 ngpr , ni , nksi , nl , NLIFT , NLOCK , NMAX ,
-     &          NMAX1 , nmaxh , nmemx , nnl , nogeli , npce , npce1 , 
+      INTEGER*4 ngpr , ni , nksi , nl , NLIFT , NLOCK , 
+     &          nmaxh , nmemx , nnl , nogeli , npce , npce1 , 
      &          npct , npct1 , npt , nptl , nptx , ns1
       INTEGER*4 ns2 , ntap , ntt , numcl , nval , nz
       LOGICAL ERR
@@ -525,14 +525,14 @@ C      ZV     - energy meshpoints
      &                TLBDG(50) , VINF(50)
       COMMON /CEXC  / MAGEXC , MEMAX , LMAXE , MEMX6 , IVAR(1500)
       COMMON /PRT   / IPRM(20)
-      COMMON /CCOUP / ZETA(50000) , LZETA(8)
+      INCLUDE 'ccoup.inc'
       COMMON /CB    / B(20)
       COMMON /CLM   / LMAX
       COMMON /CLCOM0/ IFAC(75)
       COMMON /CLCOM8/ CAT(600,3) , ISMAX
       COMMON /CLCOM9/ ERR
       COMMON /COMME / ELM(1500) , ELMU(1500) , ELML(1500) , SA(1500)
-      COMMON /COEX2 / NMAX , NDIM , NMAX1
+      INCLUDE 'coex2.inc'
       COMMON /CEXC9 / INTERV(50)
       COMMON /CAUX0 / EMMA(75) , NCM
       COMMON /PTH   / IPATH(75) , MAGA(75)

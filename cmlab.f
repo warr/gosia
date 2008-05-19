@@ -40,8 +40,7 @@ C      Tetrn  - theta of recoiling nucleus
      &       dista , dists , Dsig , emax , EMMA , EP , 
      &       epmin
       INTEGER*4 iflaa , Ii , IPRM , IZ , 
-     &          IZ1 , lexp , lexp0 , lexp1 , n , NCM , NDIM , NEXPT , 
-     &          NMAX , NMAX1
+     &          IZ1 , lexp , lexp0 , lexp1 , n , NCM , NEXPT
       REAL*8 r3 , TASIN , tau , taup , tcmdg , tcmrad , 
      &       Tetrn , TLBDG , tlbrad , tmxdg , VINF , XA , XA1 , 
      &       z1 , z2 , zcmdg , zcmrad
@@ -53,7 +52,7 @@ C      Tetrn  - theta of recoiling nucleus
       INCLUDE 'tcm.inc'
       INCLUDE 'brec.inc'
       COMMON /CAUX0 / EMMA(75) , NCM
-      COMMON /COEX2 / NMAX , NDIM , NMAX1
+      INCLUDE 'coex2.inc'
       COMMON /CX    / NEXPT , IZ , XA , IZ1(50) , XA1(50) , EP(50) , 
      &                TLBDG(50) , VINF(50)
       INCLUDE 'kin.inc'

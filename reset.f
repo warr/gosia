@@ -21,12 +21,11 @@ C      Iso    - isotropic flag
       SUBROUTINE RESET(Iso)
       IMPLICIT NONE
       REAL*8 CAT
-      INTEGER*4 ir , ISMAX , Iso , j , NDIM , NMAX , NMAX1 , NSTART , 
-     &          NSTOP
+      INTEGER*4 ir , ISMAX , Iso , j , NSTART , NSTOP
       COMMON /CEXC0 / NSTART(76) , NSTOP(75)
       INCLUDE 'az.inc'
       COMMON /CLCOM8/ CAT(600,3) , ISMAX
-      COMMON /COEX2 / NMAX , NDIM , NMAX1
+      INCLUDE 'coex2.inc'
       
       IF ( Iso.EQ.0 ) THEN
          DO j = 1 , NMAX ! Loop over levels

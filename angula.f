@@ -37,14 +37,13 @@ C      Ngl    - detector number
       REAL*8 alab , arg , at , attl , bt , DELLA , 
      &       f , Fi0 , fi01 , Fi1 , fi11
       REAL*8 Figl , FP , GKP , Gth , qv , sm , Trec , 
-     &       Ygn , ylmr , ZETA
+     &       Ygn , ylmr
       INTEGER*4 Idr , ifn , Iful , ig , il , inat , inx1 , 
      &          ipd , is , ITTE , iu , ixs , j , ji , jj , jm , k
-      INTEGER*4 KLEC , kq , l , lf , lf1 , LZETA , mind , 
-     &          Ngl , nlv
+      INTEGER*4 KLEC , kq , l , lf , lf1 , mind , Ngl , nlv
       DIMENSION f(4) , ylmr(9,9) , at(28) , alab(9,9) , attl(9,9) , 
      &          Ygn(*)
-      COMMON /CCOUP / ZETA(50000) , LZETA(8)
+      INCLUDE 'ccoup.inc'
       INCLUDE 'tra.inc'
       INCLUDE 'lev.inc'
       INCLUDE 'ccc.inc'
