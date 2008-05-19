@@ -1,0 +1,3 @@
+      REAL*8 TAU
+      INTEGER*4 KSEQ
+      COMMON /LEV   / TAU(75) , KSEQ(1500,4)
