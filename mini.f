@@ -70,8 +70,8 @@ C don't go outside the limits specified by the user.
       INTEGER*4 Ips , IPS1 , Is , istec , ITAK2 , itf , j , 
      &          jcoup , jcp , JENTR , jin , Jjh , jjj , jlin , jnm , 
      &          jpr , jsa , jst
-      INTEGER*4 kh2 , kkk , KVAR , l , LFL , LFL1 , LFL2 , 
-     &          lnm , LNY , LOCKF , LOCKS , metf
+      INTEGER*4 kh2 , kkk , l , LFL , LFL1 , LFL2 , lnm , LNY , 
+     &          LOCKF , LOCKS , metf
       INTEGER*4 mvfl , ncall , nlinn , NLOCK , noflg , Nptl , NWR
       DIMENSION ipm(10) , Bten(1200) , gradp(1500)
       INCLUDE 'dumm.inc'
@@ -85,7 +85,7 @@ C don't go outside the limits specified by the user.
       COMMON /LCZP  / EMH , INM , LFL1 , LFL2 , LFL
       INCLUDE 'cexc.inc'
       INCLUDE 'comme.inc'
-      COMMON /SEL   / KVAR(1500)
+      INCLUDE 'sel.inc'
       COMMON /FIT   / LOCKF , NLOCK , IFBFL , LOCKS , DLOCK
       INCLUDE 'erran.inc'
       COMMON /LOGY  / LNY , INTR , IPS1

@@ -31,16 +31,15 @@ C      Rlr    - print out if matrix element exceeds Rlr.
       REAL*8 a , al , al1 , b , c , ch , d , dy , e , g , g1 , g2 , 
      &       rl , Rlr , sgm , u , umm , ump , ux
       INTEGER*4 i , iex , iexh , iexp , indx , inh , ipf , j , jm , 
-     &          jp , K , KVAR , l , lc
-      INTEGER*4 ll , lngt , loc , lu
-      INTEGER*4 nf , ni , nm , np
+     &          jp , K , l , lc , ll , lngt , loc , lu , nf , ni , nm , 
+     &          np
       INCLUDE 'comme.inc'
       INCLUDE 'yexpt.inc'
       INCLUDE 'cexc.inc'
       INCLUDE 'mgn.inc'
       INCLUDE 'ccoup.inc'
       INCLUDE 'cx.inc'
-      COMMON /SEL   / KVAR(1500)
+      INCLUDE 'sel.inc'
       DATA jm/0/,jp/0/
 
       REWIND 14

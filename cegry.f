@@ -84,8 +84,7 @@ C      Iredv  -
       INTEGER*4 ipd , Iredv , Issp , Itemp , ITS , 
      &          iva , iw , ixl , ixm , iyex , jj
       INTEGER*4 jj1 , jk , jpc , JSKIP , k , k9 , kc , kj , kk , 
-     &          KVAR , l , l1 , LFL , LFL1 , LFL2 , lic , 
-     &          licz , ll1
+     &          l , l1 , LFL , LFL1 , LFL2 , lic , licz , ll1
       INTEGER*4 lth , lu , luu , na , nf , nf1 , ni , ni1 , NLIFT ,
      &          Nwyr
       CHARACTER*4 wupl , war
@@ -107,7 +106,7 @@ C      Iredv  -
       INCLUDE 'minni.inc'
       COMMON /LCZP  / EMH , INM , LFL1 , LFL2 , LFL
       INCLUDE 'yteor.inc'
-      COMMON /SEL   / KVAR(1500)
+      INCLUDE 'sel.inc'
       INCLUDE 'mgn.inc'
       INCLUDE 'ccc.inc'
       INCLUDE 'yexpt.inc'
