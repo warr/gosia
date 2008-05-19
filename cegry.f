@@ -81,14 +81,14 @@ C      Iredv  -
       REAL*8 sumpr , TACOS , tetrc , tfac , thc , TLBDG , 
      &       VINF , wf , XA , XA1
       INTEGER*4 iabc , Icall , id , idc , Idr , ifdu , 
-     &          ifxd , IGRD , ii , ile2 , IMIN , inclus , INM
+     &          ifxd , IGRD , ii , ile2 , inclus , INM
       INTEGER*4 ipd , IPRM , Iredv , Issp , 
      &          Itemp , ITS , iva , iw , IWF , ixl , ixm , 
      &          iyex , IZ , IZ1 , jj
       INTEGER*4 jj1 , jk , jpc , JSKIP , k , k9 , kc , kj , kk , 
      &          KVAR , l , l1 , LFL , LFL1 , LFL2 , lic , 
      &          licz , ll1
-      INTEGER*4 LNORM , lth , lu , luu , na , NDIM
+      INTEGER*4 lth , lu , luu , na , NDIM
       INTEGER*4 NEXPT , nf , nf1 , ni , ni1 , NLIFT , 
      &          NMAX , NMAX1 , Nwyr
       CHARACTER*4 wupl , war
@@ -108,7 +108,7 @@ C      Iredv  -
       COMMON /IGRAD / IGRD
       COMMON /CX    / NEXPT , IZ , XA , IZ1(50) , XA1(50) , EP(50) , 
      &                TLBDG(50) , VINF(50)
-      COMMON /MINNI / IMIN , LNORM(50)
+      INCLUDE 'minni.inc'
       COMMON /LCZP  / EMH , INM , LFL1 , LFL2 , LFL
       INCLUDE 'yteor.inc'
       COMMON /SEL   / KVAR(1500)
