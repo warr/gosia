@@ -1,0 +1,3 @@
+      REAL*8 EMMA
+      INTEGER*4 NCM
+      COMMON /CAUX0 / EMMA(75) , NCM

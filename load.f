@@ -53,14 +53,14 @@ C      Joj    - index of substate (write only)
  
       SUBROUTINE LOAD(Iexp,Ient,Icg,Polm,Joj)
       IMPLICIT NONE
-      REAL*8 a1 , a2 , aaz2 , aaz3 , aazz , ah , cpsi , dep , 
-     &       EMMA , eta , etan , Polm , pp1 , pp2
+      REAL*8 a1 , a2 , aaz2 , aaz3 , aazz , ah , cpsi , dep , eta , 
+     &       etan , Polm , pp1 , pp2
       REAL*8 ppp , QAPR , rlam , ssqrt , szet , wrt , wrtm , z1 , 
      &       z2 , zet , zsqa
       INTEGER*4 i , i1 , i2 , i3 , IAPR , Icg , Ient , Iexp , ir , 
      &          is , ISEX , ISHA , ispi , ispo
       INTEGER*4 jj , jjj , Joj , la , lam , lam1 , ld , m , m1
-      INTEGER*4 m2 , mstop , n , n2 , n3 , NCM , nn , nz
+      INTEGER*4 m2 , mstop , n , n2 , n3 , nn , nz
       INCLUDE 'clcom.inc'
       INCLUDE 'mgn.inc'
       INCLUDE 'coex.inc'
@@ -75,7 +75,7 @@ C      Joj    - index of substate (write only)
       INCLUDE 'cx.inc'
       INCLUDE 'cexc0.inc'
       INCLUDE 'cxi.inc'
-      COMMON /CAUX0 / EMMA(75) , NCM
+      INCLUDE 'caux0.inc'
       COMMON /APRCAT/ QAPR(1500,2,7) , IAPR(1500,2) , ISEX(75)
       INCLUDE 'pth.inc'
       DIMENSION etan(75) , cpsi(8)
