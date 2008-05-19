@@ -81,8 +81,8 @@ C      Iredv  -
       REAL*8 tetrc , tfac , thc , wf
       INTEGER*4 iabc , Icall , id , idc , Idr , ifdu , 
      &          ifxd , IGRD , ii , ile2 , inclus , INM
-      INTEGER*4 ipd , Iredv , Issp , Itemp , ITS , 
-     &          iva , iw , ixl , ixm , iyex , jj
+      INTEGER*4 ipd , Iredv , Issp , Itemp , iva , iw , ixl , 
+     &          ixm , iyex , jj
       INTEGER*4 jj1 , jk , jpc , JSKIP , k , k9 , kc , kj , kk , 
      &          l , l1 , LFL , LFL1 , LFL2 , lic , licz , ll1
       INTEGER*4 lth , lu , luu , na , nf , nf1 , ni , ni1 , NLIFT ,
@@ -114,7 +114,7 @@ C      Iredv  -
       INCLUDE 'warn.inc'
       INCLUDE 'coex.inc'
       COMMON /SKP   / JSKIP(50)
-      COMMON /TRB   / ITS
+      INCLUDE 'trb.inc'
       INCLUDE 'cccds.inc'
       INCLUDE 'tcm.inc'
       DATA sum3/0./,sumpr/0./
