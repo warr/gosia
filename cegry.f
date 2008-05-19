@@ -83,8 +83,8 @@ C      Iredv  -
      &          ifxd , IGRD , ii , ile2 , inclus , INM
       INTEGER*4 ipd , Iredv , Issp , Itemp , iva , iw , ixl , 
      &          ixm , iyex , jj
-      INTEGER*4 jj1 , jk , jpc , JSKIP , k , k9 , kc , kj , kk , 
-     &          l , l1 , LFL , LFL1 , LFL2 , lic , licz , ll1
+      INTEGER*4 jj1 , jk , jpc , k , k9 , kc , kj , kk , l , l1 , 
+     &          LFL , LFL1 , LFL2 , lic , licz , ll1
       INTEGER*4 lth , lu , luu , na , nf , nf1 , ni , ni1 , Nwyr
       CHARACTER*4 wupl , war
       DIMENSION part(32,50,2) , lic(32) , lth(1500) , cnr(32,50) , 
@@ -112,7 +112,7 @@ C      Iredv  -
       INCLUDE 'kin.inc'
       INCLUDE 'warn.inc'
       INCLUDE 'coex.inc'
-      COMMON /SKP   / JSKIP(50)
+      INCLUDE 'skp.inc'
       INCLUDE 'trb.inc'
       INCLUDE 'cccds.inc'
       INCLUDE 'tcm.inc'
