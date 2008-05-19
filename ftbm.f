@@ -80,8 +80,8 @@ C      Bten   -
      &          LFL2 , licz , lix , llx , lm , lmh , 
      &          loc , loch , loct
       INTEGER*4 lp , lpit , lput , lpx , lpxd , ls , lst
-      INTEGER*4 luu , lx , Ncall , NLIFT , nlin , nowr , npoz , 
-     &          nrest , NWR , nwyr
+      INTEGER*4 luu , lx , Ncall , nlin , nowr , npoz , nrest , NWR , 
+     &          nwyr
       DIMENSION jmte(6) , prop(6) , Bten(1200)
       INCLUDE 'cx.inc'
       INCLUDE 'cexc0.inc'
@@ -106,7 +106,7 @@ C      Bten   -
       INCLUDE 'prt.inc'
       INCLUDE 'cexc.inc'
       COMMON /SKP   / JSKIP(50)
-      COMMON /LIFE  / NLIFT
+      INCLUDE 'life.inc'
       INCLUDE 'logy.inc'
       DATA pr/0./,lmh/0/,loc/0/,loch/0/
 

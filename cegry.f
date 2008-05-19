@@ -85,8 +85,7 @@ C      Iredv  -
      &          ixm , iyex , jj
       INTEGER*4 jj1 , jk , jpc , JSKIP , k , k9 , kc , kj , kk , 
      &          l , l1 , LFL , LFL1 , LFL2 , lic , licz , ll1
-      INTEGER*4 lth , lu , luu , na , nf , nf1 , ni , ni1 , NLIFT ,
-     &          Nwyr
+      INTEGER*4 lth , lu , luu , na , nf , nf1 , ni , ni1 , Nwyr
       CHARACTER*4 wupl , war
       DIMENSION part(32,50,2) , lic(32) , lth(1500) , cnr(32,50) , 
      &          partl(32,50,2)
@@ -99,7 +98,7 @@ C      Iredv  -
       INCLUDE 'vac.inc'
       INCLUDE 'cinit.inc'
       INCLUDE 'prt.inc'
-      COMMON /LIFE  / NLIFT
+      INCLUDE 'life.inc'
       INCLUDE 'lev.inc'
       COMMON /IGRAD / IGRD
       INCLUDE 'cx.inc'

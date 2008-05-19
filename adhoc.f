@@ -60,13 +60,13 @@ C Here we parse the input of the OP,YIEL command and store the values.
       REAL*8 wamx , wbra , wdl , wlf
       INTEGER*4 iax , Idr , iexp1 , ilft , iosr , ipri , isrt1 , iuf
       INTEGER*4 Iyr , jic , jicc , juf , lb , li , licc , llia , lxt , 
-     &          MEM , n1 , n2 , ndas , ndtp , Nfd , nistr , NLIFT , 
-     &          ns1 , ns2 , ns3 , ns4 , Ntap , nvare
+     &          MEM , n1 , n2 , ndas , ndtp , Nfd , nistr , ns1 , ns2 , 
+     &          ns3 , ns4 , Ntap , nvare
       CHARACTER*4 Oph
       INCLUDE 'cccds.inc'
       INCLUDE 'dimx.inc'
       INCLUDE 'tra.inc'
-      COMMON /LIFE  / NLIFT
+      INCLUDE 'life.inc'
       INCLUDE 'mixd.inc'
       INCLUDE 'me2d.inc'
       INCLUDE 'life1.inc'
