@@ -25,7 +25,7 @@ C      Il     - level index
       IMPLICIT NONE
       REAL*8 AVJI , beta , FIEL , GAMMA , GFAC , GKI , POWER ,
      &       sp , SUM , time , TIMEC , XLAMB
-      INTEGER*4 i , Il , ITTE
+      INTEGER*4 i , Il
       INCLUDE 'lev.inc'
       INCLUDE 'brec.inc'
       COMMON /GGG   / AVJI , GAMMA , XLAMB , TIMEC , GFAC , FIEL , POWER
@@ -34,7 +34,7 @@ C      Il     - level index
       INCLUDE 'kin.inc'
       INCLUDE 'vac.inc'
       INCLUDE 'coex.inc'
-      COMMON /THTAR / ITTE(50)
+      INCLUDE 'thtar.inc'
 
       IF ( ABS(XLAMB).GE.1.E-9 ) THEN
          IF ( ITTE(IEXP).EQ.0 ) THEN

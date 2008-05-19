@@ -39,7 +39,7 @@ C      Ngl    - detector number
       REAL*8 Figl , FP , GKP , Gth , qv , sm , Trec , 
      &       Ygn , ylmr
       INTEGER*4 Idr , ifn , Iful , ig , il , inat , inx1 , 
-     &          ipd , is , ITTE , iu , ixs , j , ji , jj , jm , k
+     &          ipd , is , iu , ixs , j , ji , jj , jm , k
       INTEGER*4 KLEC , kq , l , lf , lf1 , mind , Ngl , nlv
       DIMENSION f(4) , ylmr(9,9) , at(28) , alab(9,9) , attl(9,9) , 
      &          Ygn(*)
@@ -51,7 +51,7 @@ C      Ngl    - detector number
       COMMON /LCDL  / DELLA(1500,3)
       COMMON /CATLF / FP(4,1500,3) , GKP(4,1500,2) , KLEC(75)
       INCLUDE 'brec.inc'
-      COMMON /THTAR / ITTE(50)
+      INCLUDE 'thtar.inc'
       
       DO l = 1 , Idr ! For each decay
 
