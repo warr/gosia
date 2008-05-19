@@ -34,9 +34,8 @@ C      Ngl    - detector number
       
       SUBROUTINE ANGULA(Ygn,Idr,Iful,Fi0,Fi1,Trec,Gth,Figl,Ngl)
       IMPLICIT NONE
-      REAL*8 alab , arg , at , attl , bt , DELLA , 
-     &       f , Fi0 , fi01 , Fi1 , fi11
-      REAL*8 Figl , Gth , qv , sm , Trec , Ygn , ylmr
+      REAL*8 alab , arg , at , attl , bt , f , Fi0 , fi01 , Fi1 ,
+     &       fi11 , Figl , Gth , qv , sm , Trec , Ygn , ylmr
       INTEGER*4 Idr , ifn , Iful , ig , il , inat , inx1 , 
      &          ipd , is , iu , ixs , j , ji , jj , jm , k
       INTEGER*4 kq , l , lf , lf1 , mind , Ngl , nlv
@@ -47,7 +46,7 @@ C      Ngl    - detector number
       INCLUDE 'lev.inc'
       INCLUDE 'ccc.inc'
       INCLUDE 'kin.inc'
-      COMMON /LCDL  / DELLA(1500,3)
+      INCLUDE 'lcdl.inc'
       INCLUDE 'catlf.inc'
       INCLUDE 'brec.inc'
       INCLUDE 'thtar.inc'
