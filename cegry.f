@@ -77,12 +77,12 @@ C      Iredv  -
       REAL*8 ccc , ccd , Chilo , Chisq , cnr , cocos , d , decen
       REAL*8 dl , effi , EMH , fi0 , fi1 , fic , figl , fm , g
       REAL*8 gth , part , partl , rik , rl , rx , ry , 
-     &       rys , rz , sf , sgm , SGW , SUBCH1 , SUBCH2 , sum3
-      REAL*8 sumpr , TACOS , tetrc , tfac , thc , wf
+     &       rys , rz , sf , sgm , sum3 , sumpr , TACOS
+      REAL*8 tetrc , tfac , thc , wf
       INTEGER*4 iabc , Icall , id , idc , Idr , ifdu , 
      &          ifxd , IGRD , ii , ile2 , inclus , INM
       INTEGER*4 ipd , Iredv , Issp , Itemp , ITS , 
-     &          iva , iw , IWF , ixl , ixm , iyex , jj
+     &          iva , iw , ixl , ixm , iyex , jj
       INTEGER*4 jj1 , jk , jpc , JSKIP , k , k9 , kc , kj , kk , 
      &          KVAR , l , l1 , LFL , LFL1 , LFL2 , lic , 
      &          licz , ll1
@@ -112,7 +112,7 @@ C      Iredv  -
       INCLUDE 'ccc.inc'
       INCLUDE 'yexpt.inc'
       INCLUDE 'kin.inc'
-      COMMON /WARN  / SGW , SUBCH1 , SUBCH2 , IWF
+      INCLUDE 'warn.inc'
       INCLUDE 'coex.inc'
       COMMON /SKP   / JSKIP(50)
       COMMON /TRB   / ITS
