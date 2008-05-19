@@ -18,12 +18,10 @@ C      Idr    - number of decays
 
       SUBROUTINE PTICC(Idr)
       IMPLICIT NONE
-      REAL*8 ACCA , ACCUR , cone1 , cone2 , conm1 , CONV , DIPOL , EN , 
-     &       enet , SPIN , ZPOL
-      INTEGER*4 Idr , iinx , ISO , l , nf , ni
+      REAL*8 cone1 , cone2 , conm1 , CONV , enet
+      INTEGER*4 Idr , iinx , l , nf , ni
       INCLUDE 'clcom.inc'
-      COMMON /COEX  / EN(75) , SPIN(75) , ACCUR , DIPOL , ZPOL , ACCA , 
-     &                ISO
+      INCLUDE 'coex.inc'
       INCLUDE 'lev.inc'
 
       WRITE (22,99001)
