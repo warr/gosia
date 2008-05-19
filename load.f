@@ -57,10 +57,10 @@ C      Joj    - index of substate (write only)
      &       EMMA , eta , etan , Polm , pp1 , pp2
       REAL*8 ppp , PSI , QAPR , rlam , ssqrt , szet , 
      &       wrt , wrtm , z1 , z2 , zet , zsqa
-      INTEGER*4 i , i1 , i2 , i3 , IAPR , Icg , Ient , Iexp , IPATH , 
-     &          ir , is , ISEX , ISHA , ispi , ispo
+      INTEGER*4 i , i1 , i2 , i3 , IAPR , Icg , Ient , Iexp , ir , 
+     &          is , ISEX , ISHA , ispi , ispo
       INTEGER*4 jj , jjj , Joj , la , lam , lam1 , ld , m , m1
-      INTEGER*4 m2 , MAGA , mstop , n , n2 , n3 , NCM , nn , nz
+      INTEGER*4 m2 , mstop , n , n2 , n3 , NCM , nn , nz
       LOGICAL ERR
       INCLUDE 'clcom.inc'
       INCLUDE 'mgn.inc'
@@ -78,7 +78,7 @@ C      Joj    - index of substate (write only)
       INCLUDE 'cxi.inc'
       COMMON /CAUX0 / EMMA(75) , NCM
       COMMON /APRCAT/ QAPR(1500,2,7) , IAPR(1500,2) , ISEX(75)
-      COMMON /PTH   / IPATH(75) , MAGA(75)
+      INCLUDE 'pth.inc'
       DIMENSION etan(75) , cpsi(8)
       
       LMAX = INT(SPIN(1)+1.1) ! ground-state spin + 1

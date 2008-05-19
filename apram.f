@@ -27,12 +27,11 @@ C      Acca   - accuracy required
       IMPLICIT NONE
       REAL*8 Acca , accah , QAPR , uwa
       INTEGER*4 i1 , i56 , i7 , IAPR , IDIVE , Iexp , img , Inc , Indx , 
-     &          IPATH , Irld , ISEX , itm , j , jidim , jj , k , 
-     &          ktoto , l
-      INTEGER*4 l1 , l2 , l3 , LERF , m , MAGA
+     &          Irld , ISEX , itm , j , jidim , jj , k , ktoto , l
+      INTEGER*4 l1 , l2 , l3 , LERF , m
       INCLUDE 'az.inc'
       COMMON /APRCAT/ QAPR(1500,2,7) , IAPR(1500,2) , ISEX(75)
-      COMMON /PTH   / IPATH(75) , MAGA(75)
+      INCLUDE 'pth.inc'
       INCLUDE 'cexc.inc'
       INCLUDE 'comme.inc'
       COMMON /APRX  / LERF , IDIVE(50,2)

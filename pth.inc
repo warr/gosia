@@ -1,0 +1,2 @@
+      INTEGER*4 IPATH , MAGA
+      COMMON /PTH   / IPATH(75) , MAGA(75)

@@ -72,8 +72,8 @@ C      Bten   -
       INTEGER*4 i1 , i11 , iapx , Icll , idec , Idr , 
      &          iflg , IGRD , ii , ile1 , ile2 , ile3 , 
      &          ilin , indx , inko , INM
-      INTEGER*4 inp , inpo , inpx , INTR , inzz , inzzz , IPATH , 
-     &          IPS1 , issp , ITAK2 , itemp , ixx , 
+      INTEGER*4 inp , inpo , inpx , INTR , inzz , inzzz , IPS1 , issp , 
+     &          ITAK2 , itemp , ixx , 
      &          izzz
       INTEGER*4 j , jj , jjgg , jjj , jk , jkl , jm , jmf , jmt , jmte , 
      &          jpp , jpz , JSKIP , jy , k , karm , kk , kk6 , kkx , kmt
@@ -81,7 +81,7 @@ C      Bten   -
      &          LFL2 , licz , lix , llx , lm , lmh , 
      &          LNY , loc , loch , loct
       INTEGER*4 lp , lpit , lput , lpx , lpxd , ls , lst
-      INTEGER*4 luu , lx , MAGA , Ncall , NLIFT , nlin , nowr , npoz , 
+      INTEGER*4 luu , lx , Ncall , NLIFT , nlin , nowr , npoz , 
      &          nrest , NWR , nwyr
       DIMENSION jmte(6) , prop(6) , Bten(1200)
       INCLUDE 'cx.inc'
@@ -103,7 +103,7 @@ C      Bten   -
       INCLUDE 'az.inc'
       INCLUDE 'mgn.inc'
       INCLUDE 'coex2.inc'
-      COMMON /PTH   / IPATH(75) , MAGA(75)
+      INCLUDE 'pth.inc'
       INCLUDE 'prt.inc'
       INCLUDE 'cexc.inc'
       COMMON /SKP   / JSKIP(50)
