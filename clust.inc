@@ -1,5 +1,4 @@
       INTEGER*4 ICLUST , LASTCL , IRAWEX
-      REAL*8 SUMCL
-      
+      REAL*8 SUMCL      
       COMMON /CLUST / ICLUST(50,200) , LASTCL(50,20) , SUMCL(20,1500) , 
      &                IRAWEX(50)
