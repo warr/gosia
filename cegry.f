@@ -39,8 +39,8 @@ C      LASTCL - index of last detector in cluster
 C      LFL    -
 C      LNORM  - normalization constant control
 C      LP2    - maximum number of matrix elements (1500)
-C      LP6    - 32
-C      LP10   - 600
+C      LP6    - maximum number of Ge detectors 32
+C      LP10   - maximum number of magnetic substates 1200
 C      NANG   - number of gamma-ray detectors for each experiment
 C      NDST   - number of data sets
 C      NEXPT  - number of experiments
@@ -312,7 +312,7 @@ C              Correct for finite recoil
                         IF ( LFL.EQ.1 ) THEN
                            IF ( k9.EQ.1 ) THEN
                               luu = 6*licz - 5
-                              jk = (luu-1)/LP10 + 1 ! LP10 is 600
+                              jk = (luu-1)/LP10 + 1 ! LP10 is 1200
                               kk = luu - LP10*(jk-1)
                               rik = DEV(licz) + YEXP(k9,lu)
                               sgm = -DEV(licz)/DYEX(k9,lu)

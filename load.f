@@ -27,7 +27,7 @@ C      LEAD   - pair of levels involved in each matrix element
 C      LMAX   - ground-state spin + 1
 C      LMAXE  - maximum multipolarity needed for calculation
 C      LP7    - maximum number of zeta coefficients (45100)
-C      LP10   - maximum number of reduced matrix elements (600)
+C      LP10   - maximum number of magnetic substates (1200)
 C      LZETA  - index into ZETA array for zeta for a given multipolarity
 C      MAGA   - number of magnetic substates in approximate calculation
 C      MAGEXC - flag: 0 means no magnetic excitations, 1 means with mag. exc.
@@ -78,7 +78,7 @@ C      Joj    - index of substate (write only)
       INCLUDE 'caux0.inc'
       INCLUDE 'aprcat.inc'
       INCLUDE 'pth.inc'
-      DIMENSION etan(75) , cpsi(8)
+      DIMENSION etan(100) , cpsi(8)
       
       LMAX = INT(SPIN(1)+1.1) ! ground-state spin + 1
       IF ( Ient.EQ.1 ) THEN
@@ -207,7 +207,7 @@ C     Initialise NSTART and NSTOP arrays
       ENDDO ! Loop on levels n
 
       ISMAX = is - 1 ! ISMAX is the number of substates used
-      IF ( ISMAX.LE.LP10 ) THEN ! LP10 is max. number of substates (600)
+      IF ( ISMAX.LE.LP10 ) THEN ! LP10 is max. number of substates (1200)
          IF ( Ient.EQ.3 ) RETURN
          nz = 0
          DO jj = 1 , 7

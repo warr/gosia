@@ -1,2 +1,2 @@
       INTEGER*4 IPATH , MAGA
-      COMMON /PTH   / IPATH(75) , MAGA(75)
+      COMMON /PTH   / IPATH(100) , MAGA(100)
