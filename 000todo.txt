@@ -1,0 +1,7 @@
+° Add COMMON /SWITCH/ with IUNIT3 and JZB to try and reduce differences
+between gosia and gosia2
+
+° Look into using PARAMETER
+° Check that arrays are passed with dimension '*'
+° Make a list of those variables which depend on the number of matrix
+  elements.
