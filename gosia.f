@@ -2393,7 +2393,7 @@ C---- this bit removed in gosia2 end
       ENDIF
 
 C     Handle map
-      IF ( IPRM(12).NE.0 ) THEN
+      IF ( IPRM(12).NE.0 ) THEN ! gosia2 has additional .OR. op2 .eq 'MAP '
          IPRM(12) = 0
          DO jex = 1 , NEXPT
             DO lex = 1 , 6
