@@ -1,4 +1,4 @@
-      INCLUDE 'header20080603.txt'
+      INCLUDE 'header.txt'
 C
 C PROGRAM GOSIA
 C
