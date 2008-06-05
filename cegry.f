@@ -87,6 +87,7 @@ C      Iredv  -
      &          lic , licz , ll1
       INTEGER*4 lth , lu , luu , na , nf , nf1 , ni , ni1 , Nwyr
       CHARACTER*4 wupl , war
+      CHARACTER*4 op2
       DIMENSION part(32,50,2) , lic(32) , lth(1500) , cnr(32,50) , 
      &          partl(32,50,2)
       INCLUDE 'clust.inc'
@@ -118,6 +119,7 @@ C      Iredv  -
       INCLUDE 'tcm.inc'
       DATA sum3/0./,sumpr/0./
 
+      op2 = '    '
       ifxd = 0
       tetrc = TREP(IEXP) ! Theta of recoiling nucleus
 
@@ -196,7 +198,7 @@ C     with CONT:PRT, and then does OP,EXIT
                ifxd = 0
                fm = (fi0+fi1)/2.
                IF ( Icall.EQ.4 ) ifxd = 1
-               CALL ANGULA(YGN,Idr,ifxd,fi0,fi1,tetrc,gth,figl,k)
+               CALL ANGULA(YGN,Idr,ifxd,fi0,fi1,tetrc,gth,figl,k,op2)
 
 C              Correct for finite recoil
                IF ( IFMO.NE.0 ) THEN
@@ -209,7 +211,7 @@ C              Correct for finite recoil
                   sf = d*d/rl/rl
                   thc = TACOS(rz/rl)
                   fic = ATAN2(ry,rx)
-                  CALL ANGULA(YGP,Idr,ifxd,fi0,fi1,tetrc,thc,fic,k)
+                  CALL ANGULA(YGP,Idr,ifxd,fi0,fi1,tetrc,thc,fic,k,op2)
                   DO ixl = 1 , Idr ! For each decay
                      ixm = KSEQ(ixl,3) ! Initial level of ixl'th decay
                      tfac = TAU(ixm) ! Get lifetime
@@ -416,7 +418,7 @@ C              Correct for finite recoil
                figl = AGELI(IEXP,k,2)
                fm = (fi0+fi1)/2.
 
-               CALL ANGULA(YGN,Idr,ifxd,fi0,fi1,tetrc,gth,figl,k)
+               CALL ANGULA(YGN,Idr,ifxd,fi0,fi1,tetrc,gth,figl,k,op2)
 
 C              Correct for finite recoil
                IF ( IFMO.NE.0 ) THEN
@@ -429,7 +431,7 @@ C              Correct for finite recoil
                   sf = d*d/rl/rl
                   thc = TACOS(rz/rl)
                   fic = ATAN2(ry,rx)
-                  CALL ANGULA(YGP,Idr,ifxd,fi0,fi1,tetrc,thc,fic,k)
+                  CALL ANGULA(YGP,Idr,ifxd,fi0,fi1,tetrc,thc,fic,k,op2)
                   DO ixl = 1 , Idr
                      ixm = KSEQ(ixl,3) ! Initial level of ixl'th decay
                      tfac = TAU(ixm)
