@@ -706,15 +706,15 @@ C           Treat OP,ERRO (calculate errors)
                   ENDDO
                   inko = inn
                   IF ( irep.NE.2 ) THEN
-                     WRITE (3,*) NMAX , MEMAX , inpo , inko
+                     WRITE (IUNIT3,*) NMAX , MEMAX , inpo , inko
                      DO inn = 1 , NMAX
-                        WRITE (3,*) inn , SPIN(inn) , EN(inn)
+                        WRITE (IUNIT3,*) inn , SPIN(inn) , EN(inn)
                      ENDDO
                      DO inn = 1 , MEMAX
-                        WRITE (3,*) inn , LEAD(1,inn) , LEAD(2,inn)
+                        WRITE (IUNIT3,*) inn , LEAD(1,inn) , LEAD(2,inn)
                      ENDDO
                      DO inn = 1 , MEMAX
-                        WRITE (3,*) inn , ELM(inn)
+                        WRITE (IUNIT3,*) inn , ELM(inn)
                      ENDDO
                   ENDIF ! IF ( irep.NE.2 )
                ENDIF ! IF ( iosr.NE.0 .AND. idf.NE.0 )
@@ -1647,24 +1647,24 @@ C     Handle OP,ERRO
          IFBFL = 1
          IF ( irep.NE.2 ) GOTO 700
          IF ( iosr.EQ.0 ) GOTO 700
-         REWIND 3
-         READ (3,*) ll , mm , kk , inn
+         REWIND IUNIT3
+         READ (IUNIT3,*) ll , mm , kk , inn
          DO inn = 1 , ll
-            READ (3,*) mm , yyy , zz
+            READ (IUNIT3,*) mm , yyy , zz
          ENDDO
          DO inn = 1 , MEMAX
-            READ (3,*) mm , ll , kk
+            READ (IUNIT3,*) mm , ll , kk
          ENDDO
          DO inn = 1 , MEMAX
-            READ (3,*) mm , yyy
+            READ (IUNIT3,*) mm , yyy
          ENDDO
- 450     READ (3,*) mm , ll
+ 450     READ (IUNIT3,*) mm , ll
          IF ( mm.EQ.0 ) THEN
-            BACKSPACE 3
+            BACKSPACE IUNIT3
             GOTO 700
          ELSE
-            READ (3,*) kk , ll , yyy
-            READ (3,*) (SA(mm),mm=1,MEMAX)
+            READ (IUNIT3,*) kk , ll , yyy
+            READ (IUNIT3,*) (SA(mm),mm=1,MEMAX)
             GOTO 450
          ENDIF
       ELSE
@@ -1783,8 +1783,8 @@ C     Handle OP,ERRO
 99033          FORMAT (10X,'ME=',1I3,5X,'NO FREE MATRIX ELEMENTS')
                IF ( mm.NE.0 ) THEN
                   KFERR = 1
-                  IF ( iosr.EQ.1 ) WRITE (3,*) kh , kh ! For sigma program
-                  IF ( iosr.EQ.1 ) WRITE (3,*) kh , ij , ELM(kh)
+                  IF ( iosr.EQ.1 ) WRITE (IUNIT3,*) kh , kh ! For sigma program
+                  IF ( iosr.EQ.1 ) WRITE (IUNIT3,*) kh , ij , ELM(kh)
                   LOCKS = 1
                   DLOCK = .05
                   CALL MINI(chiss,-1.D0,2,.0001D0,1000,idr,100000.D0,0,
@@ -1811,7 +1811,7 @@ C     Handle OP,ERRO
       ENDIF
       IF ( iosr.NE.0 ) THEN
          im = 0
-         WRITE (3,*) im , im
+         WRITE (IUNIT3,*) im , im
       ENDIF
       GOTO 600
 
