@@ -1992,12 +1992,14 @@ C     Handle OP,ERRO
      &                    WRITE (22,99048) IEXP , jgl1 , EP(IEXP) , 
      &                    TLBDG(IEXP)
                      jmm = 0
+C---- this bit removed in gosia2 start
                      ttttx = TLBDG(IEXP)/57.2957795
                      YGN(IDRN) = YGN(IDRN)*dsig*SIN(ttttx)
                      DO jyi = 1 , idr
                         IF ( jyi.NE.IDRN ) YGN(jyi) = YGN(jyi)
      &                       *dsig*SIN(ttttx)
                      ENDDO
+C---- this bit removed in gosia2 end
                      DO jyi = 1 , idr
                         ni = KSEQ(jyi,3)
                         nf = KSEQ(jyi,4)
@@ -2010,7 +2012,7 @@ C     Handle OP,ERRO
                               jmm = jmm + 1
                               CORF(jmm,1) = DBLE(ni)
                               CORF(jmm,2) = DBLE(nf)
-                              CORF(jmm,3) = YGN(jyi)/sh1
+                              CORF(jmm,3) = YGN(jyi)/sh1 ! Not divided by sh1 in gosia2
                               IF ( YGN(jyi).GE.YGN(IDRN) ) CORF(jmm,4)
      &                             = CORF(jmm,3)/20.
                               IF ( YGN(jyi).LT.YGN(IDRN) ) CORF(jmm,4)
@@ -2096,9 +2098,9 @@ C     Handle OP,ERRO
                               ns1 = ns1 + KSEQ(ltrn2,3)
                               ns2 = ns2 + KSEQ(ltrn2,4)
                            ENDIF
-                           ycorr = YEXP(jgl1,ile1+itp-1)*cnst
+                           ycorr = YEXP(jgl1,ile1+itp-1)*cnst ! Not multiplied by cnst in gosia2
                            WRITE (4,*) ns1 , ns2 , ycorr , 
-     &                                 DYEX(jgl1,ile1+itp-1)*cnst
+     &                                 DYEX(jgl1,ile1+itp-1)*cnst ! Not multiplied by cnst in gosia2
                            WRITE (22,99039) ns1 , ns2 , 
      &                            CORF(ile1+itp-1,jgl1) , ycorr , 
      &                            ycorr/CORF(ile1+itp-1,jgl1)
