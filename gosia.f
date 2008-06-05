@@ -301,7 +301,7 @@ C      ZV     - energy meshpoints
       INCLUDE 'logy.inc'
       INCLUDE 'fakul.inc'
       INCLUDE 'life.inc'
-      INCLUDE 'switch1.inc'
+      INCLUDE 'switch.inc'
       DATA (eng(k),k=1,10)/.05 , .06 , .08 , .1 , .15 , .2 , .3 , .5 , 
      &      1. , 1.5/
 C     Absorption coefficients in units of 1/cm for Ge
