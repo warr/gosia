@@ -21,7 +21,6 @@ C
       INTEGER*4 i , j , ngamma
       DIMENSION egamma(1500)
       INCLUDE 'coex.inc'
-      INCLUDE 'coex2.inc'
       INCLUDE 'cx.inc'
       INCLUDE 'cexc.inc'
       INCLUDE 'clcom.inc'
