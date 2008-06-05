@@ -85,6 +85,7 @@ C      IZ     - Z of investigated nucleus
 C      IZ1    - Z of non-investigated nucleus
 C      JENTR  - flag set to 0 normally, 1 in OP,ERRO
 C      JSKIP  - Experiments to skip during minimisation.
+C      JZB    - unit to read from
 C      KFERR  - error flag for minimization
 C      KSEQ   - index of level
 C      KVAR   -
@@ -299,6 +300,7 @@ C      ZV     - energy meshpoints
       INCLUDE 'logy.inc'
       INCLUDE 'fakul.inc'
       INCLUDE 'life.inc'
+      INCLUDE 'switch1.inc'
       DATA (eng(k),k=1,10)/.05 , .06 , .08 , .1 , .15 , .2 , .3 , .5 , 
      &      1. , 1.5/
 C     Absorption coefficients in units of 1/cm for Ge
@@ -366,6 +368,8 @@ C     Initialize pointers
       LP12 = 365 ! Maximum number of steps of omega (dimension of ADB, SH, CH)
       LP13 = LP9 + 1
       LP14 = 4900 ! Maximum number of collision coefficients
+
+      JZB = 5
 
 C     Initialize normalization to 1.
       DO i = 1 , LP3 ! LP3 = 100 (maximum number of levels)

@@ -80,6 +80,7 @@ C Here we parse the input of the OP,YIEL command and store the values.
       INCLUDE 'cexc.inc'
       INCLUDE 'prt.inc'
       INCLUDE 'trb.inc'
+      INCLUDE 'switch1.inc'
       
 C     Read OP,YIEL parameters
       iosr = 0
