@@ -186,13 +186,14 @@ C      ZV     - energy meshpoints
      &       sh2 , SIMIN , slim
       REAL*8 summm , sz1 , sz2 , TACOS , tau1 , tau2 , test , 
      &       tetrc , tfac , thc , title , tmn , tmx , todfi
-      REAL*8 tta , tth , tting , ttttt , ttttx , txx , u , 
+      REAL*8 tta , tth , tting , ttttt , txx , u , 
      &       val , waga , wph , wpi , WSIXJ , wth , wthh , 
      &       WTHREJ
       REAL*8 xep , xi1 , xi2 , xk1 , xk2 , xl1 , xlevb , 
      &       xlk , xm1 , xm2 , xm3 , xtest , xw , xx , xxi , 
      &       ycorr
       REAL*8 yy , yyd1 , yydd , yyy , zmir , zp , zz
+      REAL*8 ttttx ! Only gosia1
       INTEGER*4 i , i122 , iapx , ib , ibaf , icg , icll , ict , ictl , 
      &          id , idf
       INTEGER*4 idr , iecd , ient , ifbp , ifc , ifm , ifwd , 
@@ -323,7 +324,8 @@ C     MeV
      &      25.302 , 12.541 , 5.193 , 2.215 , 1.077 , .8176/
       DATA (tau2(k,7),k=1,10)/89.809 , 56.338 , 27.009 , 62.966 , 
      &      22.933 , 11.334 , 4.540 , 1.813 , .8020 , .5900/
-      DATA cnst/0./,q1/0./,q2/0./,sh1/0./,iph/0/,irfix/0/,jfre/0/
+      DATA q1/0./,q2/0./,iph/0/
+      DATA cnst/0./,sh1/0./,irfix/0/,jfre/0/ ! Only gosia1
 
 C     Initialize prime numbers
       IP(1) = 2
