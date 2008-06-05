@@ -35,7 +35,7 @@ C      LFL1   -
 C      LFL2   -
 C      LMAX   - ground-state spin + 1
 C      LP3    - maximum number of levels (100)
-C      LP6    - (32)
+C      LP6    - maximum number of Ge detectors (32)
 C      LP8    - (104)
 C      LP9    - last 2100 words of ZETA array (47900)
 C      LP10   - maximum number of magnetic substates (1200)
