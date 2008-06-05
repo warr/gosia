@@ -31,6 +31,7 @@ C      Trec   - Theta of recoiling nucleus
 C      Gth    - Theta of gamma
 C      Figl   - Phi of gamma
 C      Ngl    - detector number
+C      Op2    - The part after the OP, for the option we are processing
       
       SUBROUTINE ANGULA(Ygn,Idr,Iful,Fi0,Fi1,Trec,Gth,Figl,Ngl,Op2)
       IMPLICIT NONE
