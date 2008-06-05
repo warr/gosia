@@ -27,6 +27,7 @@ C      IPRM   - printing flags (see suboption PRT of OP,CONT)
 C      ITMA   - identify detectors according to OP,GDET
 C      ITS    - create tape 18 file (OP,CONT switch SEL,)
 C      IVAR   - indicates a limit or correlation is set
+C      JZB    - unit to read from
 C      KSEQ   - index into ELM for pair of levels, and into EN or SPIN
 C      LIFCT  - index for lifetimes
 C      MEMAX  - number of matrix elements
@@ -84,16 +85,16 @@ C Here we parse the input of the OP,YIEL command and store the values.
       
 C     Read OP,YIEL parameters
       iosr = 0
-      READ * , IFMO ! IFLAG
-      READ * , NICC , nistr ! N1, N2
-      READ * , (EG(jicc),jicc=1,ABS(NICC)) ! E1,E2...
+      READ (JZB,*) IFMO ! IFLAG
+      READ (JZB,*) NICC , nistr ! N1, N2
+      READ (JZB,*) (EG(jicc),jicc=1,ABS(NICC)) ! E1,E2...
       Iyr = 1
       DO jic = 1 , nistr
-        READ * , isrt1 ! I1
+        READ (JZB,*) isrt1 ! I1
          IF ( isrt1.GT.6 ) isrt1 = isrt1 - 3
-         READ * , (CC(jicc,isrt1),jicc=1,ABS(NICC)) ! CC(I1,1)...CC(I1,N1)
+         READ (JZB,*) (CC(jicc,isrt1),jicc=1,ABS(NICC)) ! CC(I1,1)...CC(I1,N1)
       ENDDO
-      READ * , (NANG(jicc),jicc=1,NEXPT) ! NANG(I)...NANG(NEXP)
+      READ (JZB,*) (NANG(jicc),jicc=1,NEXPT) ! NANG(I)...NANG(NEXPT)
 
 C     Read file for gamma-ray energy dependence of Ge solid-angle attenuation
 C     coefficients Q
@@ -119,9 +120,9 @@ C     Read detector identities, theta and phi
             ENDDO
             IF ( Oph.NE.'GOSI' ) NANG(jic) = ABS(NANG(jic))
          ELSE
-            READ * , (ITMA(jic,jicc),jicc=1,juf) ! IP(1)...IP(NANG(I))
-            READ * , (AGELI(jic,jicc,1),jicc=1,juf) ! Theta Ge det
-            READ * , (AGELI(jic,jicc,2),jicc=1,juf) ! Phi Ge det
+            READ (JZB,*) (ITMA(jic,jicc),jicc=1,juf) ! IP(1)...IP(NANG(I))
+            READ (JZB,*) (AGELI(jic,jicc,1),jicc=1,juf) ! Theta Ge det
+            READ (JZB,*) (AGELI(jic,jicc,2),jicc=1,juf) ! Phi Ge det
          ENDIF
       ENDDO ! Loop jic on experiments
 
@@ -142,7 +143,7 @@ C     Convert angles into radians
 
 C     Set normalising transition
       TAU(1) = 1.E+25 ! Initialise ground-state lifetime to 1E25 picoseconds
-      READ * , ns1 , ns2 ! NS1, NS2
+      READ (JZB,*) ns1 , ns2 ! NS1, NS2
       DO li = 1 , Idr ! Search through decays for right pair of levels
          IF ( KSEQ(li,3).EQ.ns1 .AND. KSEQ(li,4).EQ.ns2 ) GOTO 100
       ENDDO
@@ -161,15 +162,15 @@ C     Read upper limits and relative normalisation factors
                YNRM(jicc,li) = YNRM(jicc,li-1) ! Relative normalisation same as previous
             ENDDO
          ELSE
-            READ * , NDST(li) ! NDST
+            READ (JZB,*) NDST(li) ! NDST
             ndas = NDST(li)
-            READ * , (UPL(jicc,li),jicc=1,ndas) ! UPL1...N
-            READ * , (YNRM(jicc,li),jicc=1,ndas) ! YNRM1...N
+            READ (JZB,*) (UPL(jicc,li),jicc=1,ndas) ! UPL1...N
+            READ (JZB,*) (YNRM(jicc,li),jicc=1,ndas) ! YNRM1...N
          ENDIF
       ENDDO ! Loop li on experiments
 
 C     Read file for experimental yields       
-      READ * , Ntap ! NTAP
+      READ (JZB,*) Ntap ! NTAP
       IF ( Ntap.NE.0 ) THEN
          ipri = IPRM(2)
          CALL READY(Idr,Ntap,ipri) ! Read yields from unit Ntap
@@ -193,7 +194,7 @@ C        Count free variables
       ENDIF ! IF ( Ntap.NE.0 )
 
 C     Read branching ratios
-      READ * , NBRA , wbra ! NBRA, WBRA
+      READ (JZB,*) NBRA , wbra ! NBRA, WBRA
       IF ( ITS.EQ.2 ) THEN
          REWIND 18
          WRITE (18,*) MEMAX
@@ -203,7 +204,7 @@ C     Read branching ratios
 99002    FORMAT (40X,'BRANCHING RATIOS',//5X,'NS1',5X,'NF1',5X,'NS2',5X,
      &           'NF2',5X,'RATIO(1:2)',9X,'ERROR')
          DO lb = 1 , NBRA ! I1,I2,I3,I4,B,DB repeated NBRA times
-            READ * , ns1 , ns2 , ns3 , ns4 , BRAT(lb,1) , BRAT(lb,2)
+            READ (JZB,*) ns1 , ns2 , ns3 , ns4 , BRAT(lb,1) , BRAT(lb,2)
             BRAT(lb,2) = BRAT(lb,2)/(SQRT(wbra)+1.E-10) ! Relative error
             WRITE (22,99003) ns1 , ns2 , ns3 , ns4 , BRAT(lb,1) , 
      &                       BRAT(lb,2)
@@ -232,13 +233,13 @@ C     Read branching ratios
       ENDIF
 
 C     Read lifetimes
-      READ * , NLIFT , wlf ! NL, WL
+      READ (JZB,*) NLIFT , wlf ! NL, WL
       IF ( NLIFT.NE.0 ) THEN
          WRITE (22,99005)
 99005    FORMAT (1X///30X,'LIFETIMES(PSEC)'///5X,'LEVEL',9X,'LIFETIME',
      &           5X,'ERROR'/)
          DO ilft = 1 , NLIFT ! INDEX, T, DT repeated NL times
-            READ * , LIFCT(ilft) , TIMEL(1,ilft) , TIMEL(2,ilft)
+            READ (JZB,*) LIFCT(ilft) , TIMEL(1,ilft) , TIMEL(2,ilft)
             TIMEL(2,ilft) = TIMEL(2,ilft)/(SQRT(wlf)+1.E-10) ! Relative error
             WRITE (22,99006) LIFCT(ilft) , TIMEL(1,ilft) , TIMEL(2,ilft)
 99006       FORMAT (6X,1I3,6X,1F10.2,3X,1F10.2)
@@ -248,13 +249,13 @@ C     Read lifetimes
       ENDIF
 
 C     Read known mixing ratios
-      READ * , NDL , wdl ! NDL, WDL
+      READ (JZB,*) NDL , wdl ! NDL, WDL
       IF ( NDL.NE.0 ) THEN
          WRITE (22,99008)
 99008    FORMAT (1X//20X,'EXPERIMENTAL E2/M1 MIXING RATIOS'///10X,
      &           'TRANSITION',12X,'DELTA',10X,'ERROR'/)
          DO li = 1 , NDL ! IS, IF, DELTA, ERROR repeated NDL times
-            READ * , ns1 , ns2 , DMIXE(li,1) , DMIXE(li,2)
+            READ (JZB,*) ns1 , ns2 , DMIXE(li,1) , DMIXE(li,2)
             DMIXE(li,2) = DMIXE(li,2)/(SQRT(wdl)+1.E-10)
             WRITE (22,99012) ns1 , ns2 , DMIXE(li,1) , DMIXE(li,2)
             DO lb = 1 , Idr ! Search through decays for right pair of levels
@@ -272,14 +273,14 @@ C     Read known mixing ratios
       IF ( ITS.EQ.2 ) WRITE (18,*) iosr , iosr
 
 C     Read known matrix elements
-      READ * , NAMX , wamx ! NAMX, WAMX
+      READ (JZB,*) NAMX , wamx ! NAMX, WAMX
       IF ( NAMX.EQ.0 ) RETURN
       WRITE (22,99010)
 99010 FORMAT (1X//30X,'EXPERIMENTAL MATRIX ELEMENT(S)'///10X,
      &        'TRANSITION',10X,'MAT.EL.',10X,'ERROR'/)
 
       DO iax = 1 , NAMX ! LAMBDA, INDEX1, INDEX2, ME, DME repeated NAMX times
-         READ * , llia , ns1 , ns2 , EAMX(iax,1) , EAMX(iax,2)
+         READ (JZB,*) llia , ns1 , ns2 , EAMX(iax,1) , EAMX(iax,2)
          IAMY(iax,1) = ns1 ! Level index
          IAMY(iax,2) = ns2 ! Level index
          EAMX(iax,2) = EAMX(iax,2)/(SQRT(wamx)+1.E-10) ! Relative error of ME
