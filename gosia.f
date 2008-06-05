@@ -647,7 +647,7 @@ C      ELMU(KK)=ELMU(INX1)*ELM(KK)/ELM(INX1)
                   ENDIF
                ENDIF
             ENDDO
-            CALL PRELM(2)
+            CALL PRELM(2) ! Parameter is 4 in gosia2
             GOTO 100 ! End of OP,REST - back to input loop
 
 C     Treat OP,SELE
