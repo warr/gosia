@@ -35,7 +35,7 @@ C     AKAVKA(9) = control flag
       IMPLICIT NONE
       REAL*8 d , Effi , En , enl , pw , s , t , w , xx , yy
       INTEGER*4 i , Ipd , j , l , ll , n
-      DIMENSION xx(51) , yy(51)
+      DIMENSION xx(101) , yy(101)
       INCLUDE 'efcal.inc'
       INCLUDE 'ccc.inc'
       
