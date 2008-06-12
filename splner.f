@@ -30,7 +30,7 @@ C
  
       DO i = 1 , N
         y(i) = FUNC(Yr(i),Iscal)
-c      print*,iscal,x(i),yr(i),y(i)
+c      PRINT*,x(i),yr(i),y(i),iscal
       ENDDO
       
       yp1 = (y(2)-y(1))/(X(2)-X(1))
@@ -38,7 +38,7 @@ c      print*,iscal,x(i),yr(i),y(i)
       CALL SPLINE(X,y,N,yp1,ypn,w)
       CALL SPLINT(X,y,w,N,Xx,ys)
       Yy = FUNC1(ys,Iscal)
-c      PRINT * , 'Spline' , Xx , ys , Yy , Iscal
+c       PRINT * , 'Spline' , Xx , ys , Yy , Iscal
       RETURN
-99999 END
+      END
  
