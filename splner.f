@@ -22,7 +22,7 @@ C
       SUBROUTINE SPLNER(X,Yr,N,Xx,Yy,Iscal)
       IMPLICIT NONE
       REAL*8 FUNC , FUNC1
-      INTEGER N
+      INTEGER*4 N
       REAL*8 X(*) , Yr(*) , w(1500)
       REAL*8 yp1 , ypn , y(1500) , ys
       INTEGER*4 i , Iscal
@@ -38,7 +38,7 @@ c      PRINT*,x(i),yr(i),y(i),iscal
       CALL SPLINE(X,y,N,yp1,ypn,w)
       CALL SPLINT(X,y,w,N,Xx,ys)
       Yy = FUNC1(ys,Iscal)
-c       PRINT * , 'Spline' , Xx , ys , Yy , Iscal
+c      PRINT * , 'Spline' , Xx , ys , Yy , Iscal
       RETURN
       END
  
