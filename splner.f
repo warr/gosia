@@ -1,7 +1,7 @@
 C----------------------------------------------------------------------
 C SUBROUTINE SPLNER
 C
-C Called by: CCLKUP
+C Called by: CCLKUP, EFFIX , GOSIA
 C Calls:     FUNC, FUNC1, SPLINE, SPLINT
 C
 C Purpose: interpolates using a cubic spline
