@@ -235,7 +235,7 @@ C      ZV     - energy meshpoints
       INTEGER*4 ns2 , ntap , ntt , numcl , nval , nz
       CHARACTER*4 oph , op1 , opcja , op2
       CHARACTER*1 prp
-      DIMENSION ihlm(32) , esp(20) , dedx(20) , bten(1200) , 
+      DIMENSION ihlm(32) , esp(20) , dedx(20) , bten(1600) ,
      &          fiex1(100,100,2) , title(20) , pfi(101) , zmir(6,2,50) , 
      &          iecd(50) , wpi(100,2) , tau1(10) , eng(10) , 
      &          tau2(10,7) , xl1(7) , qui(8,10) , cf(8,2) , 
