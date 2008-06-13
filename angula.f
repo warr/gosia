@@ -144,4 +144,8 @@ C      Op2    - The part after the OP, for the option we are processing
             ENDDO
          ENDIF
       ENDDO ! Loop over decays
+
+      IF ( Op2.EQ.'INTG' ) RETURN
+
+C     In gosia2, we multiply by dsig*SIN(ttx) here, but not in gosia
       END
