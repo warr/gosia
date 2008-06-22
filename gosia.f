@@ -327,7 +327,7 @@ C     MeV
       DATA (tau2(k,7),k=1,10)/89.809 , 56.338 , 27.009 , 62.966 , 
      &      22.933 , 11.334 , 4.540 , 1.813 , .8020 , .5900/
       DATA q1/0./,q2/0./,iph/0/
-      DATA cnst/0./,sh1/0./,irfix/0/,jfre/0/ ! Only gosia1
+      DATA cnst/0./,sh1/0./,irfix/0/,jfre/0/ ! Only gosia1 and pawel
 
 C     Initialize prime numbers
       IP(1) = 2
