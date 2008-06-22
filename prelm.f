@@ -33,7 +33,6 @@ C      Iop    - print flag (controls what is written to output).
       INCLUDE 'coex.inc'
       INCLUDE 'clcom.inc'
       INCLUDE 'coex2.inc'
-      INCLUDE 'switch.inc'
 
       inx = 0
       WRITE (22,99001)
