@@ -195,7 +195,7 @@ C      ZV     - energy meshpoints
      &       xlk , xm1 , xm2 , xm3 , xtest , xw , xx , xxi , 
      &       ycorr
       REAL*8 yy , yyd1 , yydd , yyy , zmir , zp , zz
-      REAL*8 ttttx ! Only gosia1
+      REAL*8 ttttx ! Only gosia1 and pawel
       INTEGER*4 i , i122 , iapx , ib , ibaf , icg , icll , ict , ictl , 
      &          id , idf
       INTEGER*4 idr , iecd , ient , ifbp , ifc , ifm , ifwd , 
