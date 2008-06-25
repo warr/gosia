@@ -206,7 +206,7 @@ C      ZV     - energy meshpoints
       INTEGER*4 inko , inm1 , inm2 , inn , inpo , intend , intvh , 
      &          inva , inx1 , iobl , iocc , iopri , iosr , ipd , iph
       INTEGER*4 ipine , ipinf , ipo1 , ipo2 , ipo3 , ipp , iprc , 
-     &          ipri , irea , irep , irfix , isip , iske , iskf
+     &          ipri , irea , irep , irfix , irix , isip , iske , iskf
       INTEGER*4 isko , iskok , isoh , ispa , ispb , itno , 
      &          itp , iuy , iva , iva1 , ivarh , ivari , ivrh
       INTEGER*4 ixj , ixl , ixm , iyr , izcap , j , ja , 
@@ -618,10 +618,11 @@ C        Treat OP,TROU (troubleshooting)
 
 C        Treat OP,REST (restart)
          ELSEIF ( op2.EQ.'REST' ) THEN
-            REWIND 12
+            irix = 12
+            REWIND irix
             memax1 = MEMAX + 1
             DO lkj = 1 , MEMAX
-               READ (12,*) ELM(lkj)
+               READ (irix,*) ELM(lkj)
             ENDDO
             DO lkj = 1 , memax1
                READ (JZB,*) lkj1 , xlk
@@ -773,7 +774,8 @@ C              Treat OP,MINI
 
 C              Treat OP,THEO
                ELSEIF ( op2.EQ.'THEO' ) THEN
-                  REWIND (12)
+                  irix = 12
+                  REWIND (irix)
                   ibaf = 1
                   DO jb = 1 , LP1 ! LP1 = 50 (maximum number of experiments)
                      DO lb = 1 , 2
@@ -830,7 +832,8 @@ C              Treat OP,THEO
                         ELM(kb) = ELMT(xi1,xi2,lamd,nb1,nb2,xk1,xk2,xm1,
      &                            xm2,xm3)
                         IF ( ABS(ELM(kb)).LT.1E-6 ) ELM(kb) = 1.E-6
-                        WRITE (12,*) ELM(kb)
+                        irix = 12
+                        WRITE (irix,*) ELM(kb)
                      ENDIF
                   ENDDO
                   GOTO 100 ! End of OP,THEO - back to input loop
@@ -2389,19 +2392,20 @@ C---- this bit removed in gosia2 end
             INTERV(IEXP) = intvh
          ENDDO ! Loop over experiments jexp
 
-         REWIND 7
+         irix = 7
+         REWIND irix
          DO iuy = 1 , 6
-            WRITE (7,*) (XIR(iuy,jj),jj=1,NEXPT)
-            WRITE (7,*) (zmir(iuy,1,jj),zmir(iuy,2,jj),jj=1,NEXPT)
+            WRITE (irix,*) (XIR(iuy,jj),jj=1,NEXPT)
+            WRITE (irix,*) (zmir(iuy,1,jj),zmir(iuy,2,jj),jj=1,NEXPT)
          ENDDO
          DO jj = 1 , NEXPT ! For each experiment
             DO jk = 1 , 4
                DO kuku = 1 , 6
-                  WRITE (7,*) (PARXM(jj,jk,jl,kuku),jl=1,10)
+                  WRITE (irix,*) (PARXM(jj,jk,jl,kuku),jl=1,10)
                ENDDO
             ENDDO
             DO jk = 1 , 12
-               WRITE (7,*) (PARX(jj,jk,jl),jl=1,5)
+               WRITE (irix,*) (PARX(jj,jk,jl),jl=1,5)
             ENDDO
          ENDDO
          DO jj = 1 , 2
@@ -2410,19 +2414,20 @@ C---- this bit removed in gosia2 end
             ENDDO
          ENDDO
       ELSE ! iobl .lt. 1
-         REWIND 7
+         irix = 7
+         REWIND irix
          DO iuy = 1 , 6
-            READ (7,*) (XIR(iuy,jj),jj=1,NEXPT)
-            READ (7,*) (zmir(iuy,1,jj),zmir(iuy,2,jj),jj=1,NEXPT)
+            READ (irix,*) (XIR(iuy,jj),jj=1,NEXPT)
+            READ (irix,*) (zmir(iuy,1,jj),zmir(iuy,2,jj),jj=1,NEXPT)
          ENDDO
          DO jj = 1 , NEXPT ! For each experiment
             DO jk = 1 , 4
                DO kuku = 1 , 6
-                  READ (7,*) (PARXM(jj,jk,jl,kuku),jl=1,10)
+                  READ (irix,*) (PARXM(jj,jk,jl,kuku),jl=1,10)
                ENDDO
             ENDDO
             DO jk = 1 , 12
-               READ (7,*) (PARX(jj,jk,jl),jl=1,5)
+               READ (irix,*) (PARX(jj,jk,jl),jl=1,5)
             ENDDO
          ENDDO
          DO jgs = 1 , MEMAX ! For each matrix element
@@ -2482,9 +2487,10 @@ C     Handle map
       DO iva = 1 , LP1 ! LP1 = 50 (maximum number of experiments)
          JSKIP(iva) = 1
       ENDDO
-      REWIND 12
+      irix = 12
+      REWIND irix
       DO lkj = 1 , MEMAX
-         WRITE (12,*) ELM(lkj)
+         WRITE (irix,*) ELM(lkj)
       ENDDO
       IF ( ifm.EQ.1 ) CALL PRELM(3) ! ifm = fast minimisation switch
       IF ( ifm.NE.1 ) GOTO 100 ! Back to input loop
