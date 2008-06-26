@@ -77,7 +77,7 @@ C don't go outside the limits specified by the user.
       INTEGER*4 LP3 , LP4 , LP6 , LP7 , LP8 , LP9 , MAGEXC , MEMAX , 
      &          MEMX6 , metf , mvfl , ncall , nlinn , NLOCK , noflg , 
      &          Nptl , NWR , NYLDE
-      DIMENSION ipm(10) , Bten(1200) , gradp(1500)
+      DIMENSION ipm(10) , Bten(*) , gradp(1500)
       COMMON /DUMM  / GRAD(1500) , HLMLM(1500) , ELMH(1500)
       COMMON /ILEWY / NWR
       COMMON /CH1T  / CHIS11
