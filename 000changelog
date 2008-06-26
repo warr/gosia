@@ -1,3 +1,14 @@
+20080519.1
+° Use FILE= not NAME= in OPEN statement.
+° Fix sign in Woods-Saxon part of gremlin efficiency in EFFIX.
+° Gamma energy must be positive in BRICC.
+° Bugfix: only first 20 elements of CC were initialised.
+° Allow arbitrary arrays to be passed as Bten for TENB, TENS, KONTUR, FTBM
+  and MINI.
+° Allow larger dimensions for interpolation in EFFIX and CONV.
+° Remove the GOTO statements which go to the ENDDO of a loop by adding a
+  CONTINUE statement.
+
 20080519
 ° Add spline support (Pawel J. Napiorkowski)
 ° Add new version of CONV which can lookup internal conversion coefficients
