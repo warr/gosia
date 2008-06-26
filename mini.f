@@ -23,6 +23,7 @@ C      INTR   - flag to swap chisqr and log(chisqr)
 C      IPRM   - printing flags (see suboption PRT of OP,CONT)
 C      IPS1   - terminate after calculating and writing correction factors
 C      ITAK2  -
+C      IUNIT3 - unit for TAPE3
 C      IVAR   - fixed, correlated or free flag
 C      JENTR  - flag set to 0 normally, 1 in OP,ERRO
 C      KFERR  - error flag for minimization
@@ -65,11 +66,11 @@ C don't go outside the limits specified by the user.
      &       sumg2 , sumht , uxa , xkat , Xtest
       INTEGER*4 i , icl1 , icl2 , icount , Idr , iht , iin , Imode , 
      &          indx1 , inmx , ino , ipas , ipm
-      INTEGER*4 Ips , Is , istec , itf , j , jcoup , jcp , 
-     &          jin , Jjh , jjj , jlin , jnm , jpr , jsa , jst
-      INTEGER*4 kh2 , kkk , l , lnm , metf
-      INTEGER*4 mvfl , ncall , nlinn , noflg , Nptl
-      DIMENSION ipm(10) , Bten(1200) , gradp(1500)
+      INTEGER*4 Ips , Is , istec , itf , j , jcoup , jcp , jin , 
+     &          Jjh , jjj , jlin , jnm , jpr , jsa , jst
+      INTEGER*4 kh2 , kkk , l , lnm , metf , mvfl , ncall , nlinn , 
+     &          noflg , Nptl
+      DIMENSION ipm(10) , Bten(*) , gradp(1500)
       INCLUDE 'dumm.inc'
       INCLUDE 'ilewy.inc'
       INCLUDE 'ch1t.inc'
@@ -86,6 +87,7 @@ C don't go outside the limits specified by the user.
       INCLUDE 'erran.inc'
       INCLUDE 'logy.inc'
       INCLUDE 'ercal.inc'
+      INCLUDE 'switch.inc'
       DATA chirf/0./,dm/0./,sumg2/0./
 
 C     Initialise gradp to zero for each matrix element
@@ -220,7 +222,8 @@ C     Write correction factors
                      flt = 1.01
                      IF ( jjj.EQ.2 ) flt = .99
                      ELM(jcoup) = ELMH(jcoup)*flt
- 355              ENDDO
+ 355                 CONTINUE
+                  ENDDO
                   CALL FTBM(3,chis13,Idr,ncall,chx,Bten)
                   IF ( jjj.EQ.1 ) HLMLM(jnm) = chis13
                   IF ( IFBFL.NE.1 .OR. jjj.NE.1 ) THEN
@@ -238,7 +241,7 @@ C     Write correction factors
          ENDDO
          IF ( KFERR.EQ.1 ) THEN
             GRAD(Jjh) = 0.
-            IF ( Is.EQ.1 .AND. icount.EQ.1 ) WRITE (3,*) ! For sigma program
+            IF ( Is.EQ.1 .AND. icount.EQ.1 ) WRITE (IUNIT3,*) ! For sigma program
      &           (NWR*GRAD(jnm),jnm=1,MEMAX)
          ENDIF
          IF ( metf.EQ.1 .AND. ipas.EQ.2 ) THEN

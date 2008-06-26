@@ -21,7 +21,6 @@ C
       INTEGER*4 i , j , ngamma
       DIMENSION egamma(1500)
       INCLUDE 'coex.inc'
-      INCLUDE 'coex2.inc'
       INCLUDE 'cx.inc'
       INCLUDE 'cexc.inc'
       INCLUDE 'clcom.inc'
@@ -47,8 +46,8 @@ C     Make sure we are at start of file that we want to write
       rewind(29)
       
 C     Open the BrIcc database files
-      OPEN (UNIT=30,NAME=idx_name,ACCESS='direct',RECL=2048,ERR=999)
-      OPEN (UNIT=31,NAME=icc_name, ACCESS='direct',RECL=44,ERR=999,
+      OPEN (UNIT=30,FILE=idx_name,ACCESS='direct',RECL=2048,ERR=999)
+      OPEN (UNIT=31,FILE=icc_name, ACCESS='direct',RECL=44,ERR=999,
      &      FORM='UNFORMATTED')
 
       ngamma = 0
@@ -57,7 +56,7 @@ C     Open the BrIcc database files
          n2 = LEAD(1,i) ! Lower level
          IF ( n1.EQ.n2 ) GOTO 100 ! Ignore diagonal matrix elements
 
-         temp = EN(n1) - EN(n2) ! Energy of transition
+         temp = ABS(EN(n1) - EN(n2)) ! Energy of transition
 
 C        Now look to see if we have it already
          DO j = 1, ngamma
@@ -74,7 +73,8 @@ C        We get here if we don't have it, so add it to the list
          mycc(5) = CCLKUP(IZ, temp * 1E3, 7)
          WRITE(22,'(F7.4,3X,1P,5E13.3)') temp, (mycc(j),j=1,5)
          WRITE(29,'(F7.4,3X,1P,5E13.3)') temp, (mycc(j),j=1,5)
- 100  ENDDO
+ 100     CONTINUE
+      ENDDO
 
 C     Close BrIcc database files
       CLOSE (30)

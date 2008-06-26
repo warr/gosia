@@ -34,25 +34,25 @@ C      LFL    -
 C      LFL1   -
 C      LFL2   -
 C      LMAX   - ground-state spin + 1
-C      LP3    - maximum number of levels (75)
-C      LP6    - (32)
+C      LP3    - maximum number of levels (100)
+C      LP6    - maximum number of Ge detectors (32)
 C      LP8    - (104)
 C      LP9    - last 2100 words of ZETA array (47900)
-C      LP10   - (600)
+C      LP10   - maximum number of magnetic substates (1200)
 C      LP11   - LP8 - 1 (103)
 C      LP13   - LP9 + 1 (47901)
 C      LP14   - maximum space for collision functions (4900)
 C      MEMAX  - number of matrix elements
 C      MEMX6  - number of matrix elements with E1...6 multipolarity
 C      NANG   - number of gamma-ray detectors for each experiment
-C      NDIM   - maximum number of levels (75)
+C      NDIM   - maximum number of levels (100)
 C      NEXPT  - number of experiments
 C      NLIFT  - number of lifetimes
 C      NMAX   - number of levels
 C      NSTART - index in CAT of first substate associated with a level
 C      NSTOP  - index in CAT of last substate associated with a level
 C      NWR    - number of datapoints used in fit
-C      NYLDE  -
+C      NYLDE  - number of yields
 C      SPIN   - spin of level
 C      ZETA   - the coupling constants
 C      ZPOL   - dipole term
@@ -69,18 +69,17 @@ C      Bten   -
       IMPLICIT NONE
       REAL*8 aval , Bten , Chilo , chis1 , chish , Chisq , chisx , 
      &       chx , fc , fx , polm , pr , prop , val , wz
-      INTEGER*4 i1 , i11 , iapx , Icll , idec , Idr , iflg , 
-     &          ii , ile1 , ile2 , ile3 , ilin , indx , inko
+      INTEGER*4 i1 , i11 , iapx , Icll , idec , Idr , iflg , ii , ile1 , 
+     &          ile2 , ile3 , ilin , indx , inko
       INTEGER*4 inp , inpo , inpx , inzz , inzzz , issp , itemp , ixx , 
      &          izzz
       INTEGER*4 j , jj , jjgg , jjj , jk , jkl , jm , jmf , jmt , jmte , 
      &          jpp , jpz , jy , k , karm , kk , kk6 , kkx , kmt
-      INTEGER*4 knm , kx , larm , lcc , lcou , licz , lix , llx , 
-     &          lm , lmh , 
-     &          loc , loch , loct
+      INTEGER*4 knm , kx , larm , lcc , lcou , licz , lix , llx , lm , 
+     &          lmh , loc , loch , loct
       INTEGER*4 lp , lpit , lput , lpx , lpxd , ls , lst
       INTEGER*4 luu , lx , Ncall , nlin , nowr , npoz , nrest , nwyr
-      DIMENSION jmte(6) , prop(6) , Bten(1200)
+      DIMENSION jmte(6) , prop(6) , Bten(*)
       INCLUDE 'cx.inc'
       INCLUDE 'cexc0.inc'
       INCLUDE 'ccc.inc'
@@ -134,7 +133,7 @@ C      Bten   -
          LFL2 = 1
          IF ( ITAK2.EQ.-1 ) THEN
             DO larm = 1 , 4
-               DO karm = 1 , LP10 ! LP10 is 600
+               DO karm = 1 , LP10 ! LP10 is 1200
                   ARM(karm,larm) = (0.,0.)
                ENDDO
             ENDDO
@@ -151,7 +150,7 @@ C      Bten   -
          IF ( MAGA(IEXP).EQ.0 ) lp = 1
          IF ( Ncall.EQ.0 ) GOTO 150
          IF ( Icll.EQ.4 ) GOTO 100
- 50      loch = LP3*(MEMAX-1) + NMAX + LP11 ! LP3 is 75, LP11 is 103
+ 50      loch = LP3*(MEMAX-1) + NMAX + LP11 ! LP3 is 100, LP11 is 103
          DO k = 1 , loch
             ZETA(k) = 0.
          ENDDO
@@ -189,7 +188,7 @@ C      Bten   -
                      ENDDO ! Loop over levels
                   ENDDO ! Loop on E1...6 matrix elements
                ENDIF ! IF ( Icll.NE.3 )
-            ENDIF ! Loop on Ncall
+            ENDIF ! IF ( Ncall.NE.0 )
             CALL TENB(k,Bten,LMAX)
          ENDDO ! Loop on multipolarity k
 
@@ -376,7 +375,8 @@ C      Bten   -
                ENDIF ! IF ( ITAK2.EQ.-1 .AND. LFL1.NE.0 )
             ENDIF ! IF ( Icll.LE.2 .AND. JSKIP(jkl).NE.0 )
          ENDIF ! ELSE of IF ( Ncall.EQ.0 .AND. JSKIP(jkl).NE.0 )
- 300  ENDDO ! Loop on experiments
+ 300     CONTINUE
+      ENDDO ! Loop on experiments
 
       IF ( ITAK2.EQ.-1 .AND. Icll.LT.2 ) ITAK2 = 0
       IF ( Ncall.NE.0 ) THEN

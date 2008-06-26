@@ -35,7 +35,6 @@ C We are limited to a maximum of LP14 (=4900) values in total.
       REAL*8 Accur
       INTEGER*4 iflag , j , k , k1 , load
       INCLUDE 'allc.inc'
-      INCLUDE 'pint.inc'
       INCLUDE 'rng.inc'
       INCLUDE 'mgn.inc'
 

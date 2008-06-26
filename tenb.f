@@ -29,7 +29,7 @@ C can cope with half-integers.
       INTEGER*4 i , Icl , iha , ila , ilg , ind , isi , ite , jm , 
      &          jmp , k , kk , kp , l , ll , Lmax , lp , m
       INTEGER*4 mm , mp , ms , msp
-      DIMENSION Bten(1200)
+      DIMENSION Bten(*)
       INCLUDE 'coex.inc'
       INCLUDE 'clcom8.inc'
       INCLUDE 'coex2.inc'
@@ -89,7 +89,8 @@ C can cope with half-integers.
                               GOTO 2
                            ENDIF
                         ENDIF
- 6                   ENDDO
+ 6                      CONTINUE
+                     ENDDO
                      IF ( Icl.EQ.Lmax ) Bten(ind) = Bten(ind)
      &                    *ce/(2.*SPIN(1)+1.)
                   ENDDO ! Loop over lp
