@@ -43,7 +43,7 @@ C      Rem    - natural log of the largest value the computer can represent
       INTEGER*4 i , Idr , Ifbf , Inpo , INTR , IPS1 , itl , IVAR , ix , 
      &          j , Jj , l , LMAXE , LNY , m , MAGEXC , MEMAX , MEMX6 , 
      &          NWR
-      DIMENSION f(3) , Bten(1200)
+      DIMENSION f(3) , Bten(*)
       COMMON /VLIN  / XV(101) , YV(101) , ZV(100) , DSG(100) ,
      &                DSE(100) , DS
       COMMON /DFTB  / DEVD(1500) , DEVU(1500)
