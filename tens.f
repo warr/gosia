@@ -23,7 +23,7 @@ C      Bten   -
      &       TREP , ZETA
       INTEGER*4 i , IAXS , IEXP , ind , inz , iph , ix , k , k1 , kp , 
      &          l , lp , lpp , lx , lxx , LZETA , NDIM , NMAX , NMAX1
-      DIMENSION Bten(1200)
+      DIMENSION Bten(*)
       COMMON /KIN   / EPS(50) , EROOT(50) , FIEX(50,2) , IEXP , IAXS(50)
       COMMON /TCM   / TETACM(50) , TREP(50) , DSIGS(50)
       COMMON /CCOUP / ZETA(50000) , LZETA(8)
