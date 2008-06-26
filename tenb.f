@@ -32,7 +32,7 @@ C can cope with half-integers.
       INTEGER*4 mm , mp , ms , msp , NDIM , NMAX , NMAX1 , NSTART , 
      &          NSTOP
       COMPLEX*16 ARM
-      DIMENSION Bten(1200)
+      DIMENSION Bten(*)
       COMMON /COEX  / EN(75) , SPIN(75) , ACCUR , DIPOL , ZPOL , ACCA , 
      &                ISO
       COMMON /CLCOM8/ CAT(600,3) , ISMAX
