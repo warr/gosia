@@ -132,5 +132,5 @@ c GREMLIN
       pw = EXP(w)
       IF ( ABS(pw-1.).LT.1.E-6 ) WRITE (22,99001)
 99001 FORMAT (5x,'***** CRASH - EFFIX *****')
-      Effi = Effi/(1.-pw)
+      Effi = Effi/(1.+pw)
 99999 END
