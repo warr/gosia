@@ -94,7 +94,7 @@ C      Bten   -
       INTEGER*4 NSTOP , NWR , nwyr , NYLDE
       INTEGER*4 ISPL ! Added for spline
       COMPLEX*16 ARM
-      DIMENSION jmte(6) , prop(6) , Bten(1200)
+      DIMENSION jmte(6) , prop(6) , Bten(*)
       COMMON /CX    / NEXPT , IZ , XA , IZ1(50) , XA1(50) , EP(50) , 
      &                TLBDG(50) , VINF(50)
       COMMON /CEXC0 / NSTART(76) , NSTOP(75)
