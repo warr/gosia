@@ -1,4 +1,4 @@
-GOSIADIR=/home/warr/devel/gosia
+GOSIADIR=..
 
 INP += simple-test.inp
 INP += fort.9
@@ -12,13 +12,13 @@ OUT += fort.22
 all: compare
 
 compare: fort.22
-	diff fort.22 fort.22.good
+	diff -b -B fort.22 fort.22.good
 
 $(GOSIADIR)/gosia:
 	make -C $(GOSIADIR)
 
-fort.22: $(GOSIADIR)/gosia
-	$(GOSIADIR)/gosia < simple-test.inp
+fort.22: $(GOSIADIR)/gosia.exe
+	$(GOSIADIR)/gosia.exe < simple-test.inp
 
 clean:
 	rm -f *~ $(OUT)
