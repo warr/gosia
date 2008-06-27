@@ -38,7 +38,7 @@ C      Estimated amplitude
          exa = EXP(a)
          dwi = 3*Dw
          cic = exa*(EXP(dwi)-1.)
-         STAMP = DCMPLX(cic,0.)
+         STAMP = DCMPLX(cic,0.D0)
          IF ( la.EQ.2 ) THEN
             IF ( mi.EQ.0 ) fct = 3.*(3.-Epsi*Epsi)/Epsi/Epsi/Epsi/Epsi
             IF ( mi.EQ.1 ) fct = 1.837117307*Errt/Epsi/Epsi/Epsi/Epsi ! 1.837117307 = sqrt(27/8)
