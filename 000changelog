@@ -28,6 +28,9 @@
   in gosia2 (however, gosia always reads from unit 5, so this does nothing).
 ° Bugfix for dimension of bten, which should have been 1600 and was
   different in different places.
+° Use DCMPLX instead of CMPLX for portability.
+° Use DIMAG instead of IMAG for portability.
+° Reorder DATA statement in NEWCNV for portability.
 
 20080519
 ° Add spline support (Pawel J. Napiorkowski).
