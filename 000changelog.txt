@@ -31,6 +31,8 @@
 ° Use DCMPLX instead of CMPLX for portability.
 ° Use DIMAG instead of IMAG for portability.
 ° Reorder DATA statement in NEWCNV for portability.
+° Use LAGRAN for interpolation if there are less than three data points even
+  if ISPL = 1.
 
 20080519
 ° Add spline support (Pawel J. Napiorkowski).
