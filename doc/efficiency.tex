@@ -11,9 +11,62 @@ There are five methods which can be used for efficiency calibrations:\\
 \item 4. Radware
 \end{itemize}
 
+\section {Using CONT option EFF,}
+The option EFF, in CONT is used as follows:
+\begin{verbatim}
+EFF,3.
+1,4
+4,4
+8,4
+\end{verbatim}
+
+where the number ``3.'' on the EFF, line indicates that there are three
+subsequent lines, each of which has the format ``Experiment number,
+efficiency calibration number''. In this case, we set experiments 1, 4 and 8
+to use the Radware calibration.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Selecting a calibration}
+
+The OP,RAW input takes eight parameters A1{\ldots} A8. Note that where the
+parameters correspond to energies, they are in keV, but gosia uses MeV, so
+there are factors of 1000 in the code to convert.
+
+If A8 is less than -999, or we selected calibration 3 in CONT option EFF,
+then we use the Leuven calibration.
+
+If we selected calibration 4 in CONT option EFF, then we use the Radware
+calibration.
+
+If A5 is greater than zero but less than ten, or we selected calibration 2
+in CONT option EFF, then we use the Fiteff calibration.
+
+If A5 is less than ten and we didn't select calibration 1 in the CONT option
+EFF, then we use the Gremlin calibration.
+
+Otherwise, we use the Jaeri calibration.
+
+\begin{verbatim}
+      IF ( (AKAVKA(8,Ipd).LE.-999.) .OR. (AKAVKA(9,Ipd).EQ.3.) ) THEN
+         GOTO 1003 ! Leuven
+      ELSEIF ( AKAVKA(9,Ipd).EQ.4. ) THEN
+         GOTO 1004 ! Radware
+      ELSEIF ( (AKAVKA(5,Ipd).GT.0. .AND. AKAVKA(5,Ipd).LT.10.) .OR. 
+     &         (AKAVKA(9,Ipd).EQ.2.) ) THEN
+         GOTO 1002 ! Fiteff
+      ELSEIF ( (AKAVKA(5,Ipd).LT.10.) .AND. (AKAVKA(9,Ipd).NE.1.) ) THEN
+         GOTO 1000 ! Gremlin
+      ENDIF
+      GOTO 1001 ! Jaeri
+\end{verbatim}
+
+where AKAVKA(1{\ldots}8,Ipd) are the parameters A1{\ldots}8 and
+AKAVKA(9,Ipd) is the value set for the experiment in the EFF, option of CONT.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Gremlin efficiency calibration}
 
-Parameters are: $a_0$, $a_1$, $a_2$, $a_3$, $f$, $N$, $b$, $c$. Note that b
+Parameters are: $a_1$, $a_2$, $a_3$, $a_4$, $f$, $N$, $b$, $c$. Note that b
 and c have units of keV. The energy of the $\gamma$ ray is $E_n$ (in keV -
 note that Gosia works in MeV, so this has to be converted) and the resulting
 efficiency is $\epsilon$. The value of $f$ must be negative or zero.
@@ -25,16 +78,17 @@ w = \ln\big({E_n \over E_0}\big)
 where $E_0$ = 50 keV.
 
 \begin{equation}
-\ln(\epsilon_P) = \sum_{k=0,3} a_k \cdot w^k
+\ln(\epsilon_P) = \sum_{k=1,4} a_k \cdot w^k
 \end{equation}
 
-If f $<$ 0, we have an additional F-factor:
-
-where N is a positive integer.
+If f is non-zero (note that it should be either zero or negative), we have
+an additional F-factor:
 
 \begin{equation}
 \ln(\epsilon_F) = f w^{-N}
 \end{equation}
+
+where N is a positive integer.\\
 
 If c $>$ 0, we have an additional Woods-Saxon term:
 
@@ -52,9 +106,31 @@ The final resulting efficiency is the product of the three terms:
 \epsilon = \epsilon_P \cdot \epsilon_F \cdot \epsilon_{ws}
 \end{equation}
 
+\begin{verbatim}
+ 1000 w = LOG(20.*En) ! E0 = 50 keV, so w = LOG(En/E0) with En in MeV
+      pw = AKAVKA(1,Ipd) + AKAVKA(2,Ipd)*w + AKAVKA(3,Ipd)
+     &     *w*w + AKAVKA(4,Ipd)*w*w*w
+      Effi = Effi*EXP(pw)
+      IF ( ABS(AKAVKA(5,Ipd)).GE.1.E-9 ) THEN ! F-factor
+         n = INT(AKAVKA(6,Ipd)+.1)
+         pw = w**n
+         w = AKAVKA(5,Ipd)/pw
+         Effi = Effi*EXP(w)
+      ENDIF
+      IF ( ABS(AKAVKA(8,Ipd)).LT.1.E-9 ) RETURN
+      w = (AKAVKA(7,Ipd)-1000.*En)/AKAVKA(8,Ipd) ! Woods-saxon factor
+      pw = EXP(w)
+      IF ( ABS(pw-1.).LT.1.E-6 ) WRITE (22,99001)
+99001 FORMAT (5x,'***** CRASH - EFFIX *****')
+      Effi = Effi/(1.+pw) ! Older versions of gosia have a minus sign here, which is wrong
+                          ! because it is not what is done in gremlin (FITFUN) or the gosia manual
+      RETURN
+\end{verbatim}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Jaeri efficiency calibration}
 
-Parameters are $a_0$, $a_1$, $a_2$, $a_3$, $f$. The energy of the $\gamma$
+Parameters are $a_1$, $a_2$, $a_3$, $a_4$, $f$. The energy of the $\gamma$
 ray is $E_n$ (in keV - note that Gosia works in MeV, so this has to be
 converted) and the resulting efficiency is $\epsilon$. The value of $f$ is
 not used, but it must be $>$ 10 to be sure that this code is called.
@@ -64,12 +140,20 @@ w = \ln\big({E_n \over 511}\big)
 \end{equation}
 
 \begin{equation}
-\ln(\epsilon) = a_0 + a_1 \cdot w - e^{(a_2 + a_3 \cdot w)}
+\ln(\epsilon) = a_1 + a_2 \cdot w - e^{(a_3 + a_4 \cdot w)}
 \end{equation}
 
+\begin{verbatim}
+ 1001 w = LOG(En/.511)
+      Effi = EXP(AKAVKA(1,Ipd)+AKAVKA(2,Ipd)
+     &       *w-EXP(AKAVKA(3,Ipd)+AKAVKA(4,Ipd)*w))
+      RETURN
+\end{verbatim}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Fiteff efficieny calibration}
 
-Parameters are $a_0$, $a_1$, $a_2$, $a_3$, $f$. The energy of the $\gamma$
+Parameters are $a_1$, $a_2$, $a_3$, $a_3$, $f$. The energy of the $\gamma$
 ray is $E_n$ (in keV - note that Gosia works in MeV, so this has to be
 converted) and the resulting efficiency is $\epsilon$. The value of $f$ must
 be $>$ 0 and $<$ 10 to be sure that this code is called.
@@ -81,7 +165,7 @@ w = \ln\big({E_n \over 1000 f}\big)
 If $E_n$ $<$ 1000 f:
 
 \begin{equation}
-\ln(\epsilon) = a_0 + a_1 \cdot w + w^2 \cdot (a_2 + w \cdot a_3)
+\ln(\epsilon) = a_1 + a_2 \cdot w + w^2 \cdot (a_3 + w \cdot a_4)
 \end{equation}
 
 Otherwise:
@@ -90,20 +174,43 @@ Otherwise:
 \ln(\epsilon) = a_0 + a_1 \cdot w
 \end{equation}
 
+\begin{verbatim}
+ 1002 w = LOG(En/AKAVKA(5,Ipd))
+      pw = AKAVKA(2,Ipd)*w
+      IF ( En.LT.AKAVKA(5,Ipd) ) pw = pw +
+     &     w*w*(AKAVKA(3,Ipd)+w*AKAVKA(4,Ipd))
+      Effi = Effi*EXP(pw)*AKAVKA(1,Ipd)
+      RETURN
+\end{verbatim}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Leuven efficiency calibration}
 
+Parameters are $a_1$, $a_2$, $a_3$, $a_4$, $a_5$, $a_6$.
+
 \begin{equation}
-w_1 = \ln(E_n)
+w = \ln(E_n)
 \end{equation}
 
 \begin{equation}
-\epsilon = \sum_{k=0,5} a_k \cdot w^k
+\ln(\epsilon) = \sum_{k=1,6} a_k \cdot w^k
 \end{equation}
 
 
+\begin{verbatim}
+ 1003 Effi = AKAVKA(1,Ipd)
+      w = LOG(1000.*En)
+      DO i = 1 , 6
+         Effi = Effi + AKAVKA(i+1,Ipd)*w**i
+      ENDDO
+      Effi = EXP(Effi)
+      RETURN
+\end{verbatim}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Radware efficiency calibration}
 
-Parameters are $a_0$, $A$, $B$, $C$, $D$, $E$, $F$, $G$. The
+Parameters are $a_1$, $A$, $B$, $C$, $D$, $E$, $F$, $G$. The
 energy of the $\gamma$ ray is $E_n$ (in keV - note that Gosia works in MeV,
 so this has to be converted) and the resulting efficiency is $\epsilon$.
 This method can only be turned on by using the EFF, option of CONT.
@@ -113,22 +220,26 @@ x = \ln\big({E_n/100}\big)
 \end{equation}
 
 \begin{equation}
-\epsilon_1 = (A + B \cdot x + C \cdot x^2) ^{-G}
-\end{equation}
-
-\begin{equation}
 y = \ln(E_n/1000)
 \end{equation}
 
 \begin{equation}
-\epsilon_2 = (D + E \cdot y + F \cdot y^2)^{-G}
-\end{equation}
-
-\begin{equation}
-\ln(\epsilon) = a_0 + ((A + B \cdot x + C \cdot x^2) ^{-G} +
+\ln(\epsilon) = a_1 + ((A + B \cdot x + C \cdot x^2) ^{-G} +
 (D + E \cdot y + F \cdot y^2)^{-G})^{-{1 \over G}}
 \end{equation}
 
 Ref: Nuclear Instruments and Methods in physics Research A 361 (1995)
-297-305, but with the addition of the $a_0$ term, which is not in the NIM
+297-305, but with the addition of the $a_1$ term, which is not in the NIM
 article.
+
+\begin{verbatim}
+ 1004 w = LOG(En/.1)
+      Effi = (AKAVKA(2,Ipd)+(AKAVKA(3,Ipd)+AKAVKA(4,Ipd)*w)*w)
+     &       **(-AKAVKA(8,Ipd))
+      w = LOG(En)
+      Effi = (AKAVKA(5,Ipd)+(AKAVKA(6,Ipd)+AKAVKA(7,Ipd)*w)*w)
+     &       **(-AKAVKA(8,Ipd)) + Effi
+      Effi = AKAVKA(1,Ipd)*EXP(Effi**(-1/AKAVKA(8,Ipd)))
+      RETURN
+\end{verbatim}
+
