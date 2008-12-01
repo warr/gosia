@@ -1100,7 +1100,7 @@ C                    Read tape 17
                         IF ( iocc.GT.izcap ) GOTO 1800
                         hen = (emx-emn)/npce
                         npce1 = npce + 1
-                        het = (tmx-tmn)/npct
+                        het = (tmx-tmn)/npct ! Step in theta in degrees
                         npct1 = npct + 1
                         IF ( iecd(lx).EQ.1 ) ! Circular detector
      &                       CALL COORD(wth,wph,wthh,npct1,1,pfi,wpi,
@@ -1109,7 +1109,8 @@ C                    Read tape 17
                            IF ( mfla.EQ.1 ) READ (JZB,*)
      &                          (pfi(j),j=1,npct1)
                         ENDIF
-                        het = het/57.2957795
+                        het = het/57.2957795 ! Step in theta in radians
+                        
 C                       Interpolate stopping power for each of the energies
 C                       that we need. esp is an array of energies and dedx is
 C                       an array containing the stopping powers at those
@@ -1143,33 +1144,35 @@ C                       Now we calculate for all the mesh points.
                                     IF ( jd.EQ.1 .AND. ja.EQ.1 )
      &                                 DSG(jtp) = dsxm(lpin,je,jtp)
                                     jyv = (jtp-1)*idr + jd
-                                    YV(jtp) = ZETA(jyv)
+                                    YV(jtp) = ZETA(jyv) ! Point yield
                                  ENDDO ! Loop on theta meshpoints jtp
                                  DO jt = 1 , npct1 ! number of equal divisions in theta for interpolation
                                     xx = (jt-1)*het + tmn/57.2957795
                                     IF ( ISPL.EQ.0 )
      &                                 CALL LAGRAN(XV,YV,ntt,jt,xx,yy,2,
-     &                                 icll) ! interpolate at angle xx
+     &                                 icll) ! interpolate point yield at theta = xx
                                     IF ( ISPL.EQ.1 )
-     &                                 CALL SPLNER(XV,YV,ntt,xx,yy,2) ! interpolate at angle xx
+     &                                 CALL SPLNER(XV,YV,ntt,xx,yy,2) ! interpolate point yield at theta = xx
                                     IF ( ISPL.EQ.0 )
      &                                 CALL LAGRAN(XV,DSG,ntt,jt,xx,zz,
-     &                                 2,icll) ! interpolate gamma yield at xx
+     &                                 2,icll) ! interpolate gamma yield at theta = xx
                                     IF ( ISPL.EQ.1 )
      &                                 CALL SPLNER(XV,DSG,ntt,xx,zz,
-     &                                 2) ! interpolate gamma yield at xx
+     &                                 2) ! interpolate gamma yield at theta = xx
                                     IF ( mfla.EQ.1 ) yy = yy*pfi(jt)
      &                                 /57.2957795
                                     IF ( yy.LE.0. ) yy = 1.E-15
                                     IF ( mfla.EQ.1 ) zz = zz*pfi(jt)
      &                                 /57.2957795
-                                    XI(jt) = yy*SIN(xx)
+                                    XI(jt) = yy*SIN(xx) ! yy = integral of point yields over phi
                                     IF ( jd.EQ.1 .AND. ja.EQ.1 ) HLM(jt)
-     &                                 = zz*SIN(xx)
+     &                                 = zz*SIN(xx) ! zz = integral over phi of Rutherford cross section
                                  ENDDO ! Loop on equal theta divisions jt
                                  icll = 4
                                  locat = ntt*idr + (je-1)*idr + jd
+C                                Integrate point yields over theta using Simpson's rule
                                  ZETA(locat) = SIMIN(npct1,het,XI)
+C                                If it is first decay and angle, integrate Rutherford cross section over theta
                                  IF ( jd.EQ.1 .AND. ja.EQ.1 ) DSE(je)
      &                                = SIMIN(npct1,het,HLM)
                                  ZV(je) = enb
