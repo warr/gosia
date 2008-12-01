@@ -1176,7 +1176,16 @@ C                       Now we calculate for all the mesh points.
                               ENDDO ! Loop on decays jd
                            ENDDO ! Loop on energy meshpoints je
 
-C                          Now interpolate                            
+C    Interpolation over energy:
+C    The array ZV contains the energies of the meshpoints and the elements of the YV
+C    array are set to the angle-integrated yield for each decay at the corresponding
+C    energy, while DSE contains the Rutherford cross section for those energies. Since
+C    the energies of the meshpoints are not necessarily equally spaced, we need to
+C    interpolate to a set of equally spaced energies separated by "hen" starting from
+C    "emn". To get the contribution from each energy, dE = 1 / (stopping power). Note
+C    that we only evaluate the Rutherford cross section for the first decay and first
+C    angle, since it is the same for all.
+
                            icll = 3
                            DO jd = 1 , idr ! For each decay
                               DO jtp = 1 , ne ! For each energy meshpoint
@@ -1185,13 +1194,16 @@ C                          Now interpolate
                               ENDDO ! Loop on energy meshpoints jtp
                               DO jt = 1 , npce1 ! npce1 is number of equal energy steps
                                  xx = (jt-1)*hen + emn
+
+C                                Interpolate the angle-integrated yield for this energy
                                  IF ( ISPL.EQ.0 )
      &                                CALL LAGRAN(ZV,YV,ne,jt,xx,yy,2,
      &                                icll)
                                  IF ( ISPL.EQ.1 )
      &                                CALL SPLNER(ZV,YV,ne,xx,yy,2)
-C                                Interpolate cross-section at this energy
-                                 IF ( jd.EQ.1 .AND. ja.EQ.1 .AND.
+
+C                                Interpolate Rutherford cross-section for this energy
+                                 IF ( jd.EQ.1 .AND. ja.EQ.1 .AND. ! Only for first decay and angle
      &                                ISPL.EQ.0 )
      &                                CALL LAGRAN(ZV,DSE,ne,jt,xx,zz,2,
      &                                icll) ! Interpolate for this energy
@@ -1201,12 +1213,18 @@ C                                Interpolate cross-section at this energy
                                  IF ( jd.EQ.1 .AND. ja.EQ.1 ) HLM(jt)
      &                             = zz*HLMLM(jt) ! HLMLM = 1 / stopping power
                                  XI(jt) = yy*HLMLM(jt)
-                              ENDDO
+                              ENDDO ! Loop on equal energy steps
+
+C   So now after this loop, we have XI containing the angle-integrated yield times dE for 
+C   a set of equally spaced energies, so we use Simpson's rule to integrate them and store
+C   in GRAD(jd). The first time, we also have in HLM a set of Rutherford cross-sections for
+C   equally spaced energies, which we integrate in the same way.
                               icll = 4
                               IF ( jd.EQ.1 .AND. ja.EQ.1 )
      &                             DS = SIMIN(npce1,hen,HLM) ! integrate
                               GRAD(jd) = SIMIN(npce1,hen,XI)
                            ENDDO ! Loop over decays jd
+
                            IF ( ja.EQ.1 ) dst = dst + DS
                            IF ( ja.EQ.1 ) WRITE (22,99018) DS , lx
 99018                      FORMAT (1X/////5X,
@@ -1233,7 +1251,8 @@ C                                Interpolate cross-section at this energy
      &                               SPIN(nf) , GRAD(jd) , GRAD(jd)
      &                               /GRAD(IDRN) ! IDRN is the normalising transition
                            ENDDO
-                        ENDDO
+                        ENDDO ! Loop over detector angles ja
+
                         IF ( iecd(lx).EQ.1 ) THEN ! Circular detector
                            IF ( jpin(lx).EQ.0 ) THEN
                               CALL COORD(wth,wph,wthh,1,2,pfi,wpi,
