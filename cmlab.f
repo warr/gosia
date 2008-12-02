@@ -89,7 +89,7 @@ C        d2a is the distance of closest approach for head-on collisions in fm
 C        q^2/4/pi/epsilon_0 * (1+a1/a2) * Z1 * Z2 / Ep. For Ep in MeV and d2a
 C        in fm, q^2/4/pi/epsilon_0 = 1.44
          d2a = 20.0*dista ! = 1.44 * (1.0+a1/a2)*z1*z2/EP(lexp)
-C        VINF is the initial velocity of the incoming projectile
+C        VINF is the initial velocity of the incoming projectile (at infinity)
 C        VINF = sqrt(2 * EP / 931.494028 * A1) : 931.494028 = 1 AMU
          VINF(lexp) = 0.0463365*SQRT(EP(lexp)/a1)
 
