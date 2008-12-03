@@ -889,7 +889,7 @@ C              Treat OP,INTG
                            EP(lx) = enb
                            DO ktt = 1 , ntt
                               tta = SIGN(YV(ktt),tth)
-                              IF ( IAXS(lx).NE.0 ) THEN
+                              IF ( IAXS(lx).NE.0 ) THEN ! If not axial symmetry
                                  IF ( iecd(lx).NE.1 ) THEN
                                     IF ( kloop.EQ.1 ) THEN
                                        READ (JZB,*) nfi ! Number of phi ranges
@@ -906,7 +906,7 @@ C              Treat OP,INTG
                                        ENDIF
                                     ENDIF
                                  ENDIF
-                              ENDIF
+                              ENDIF ! If not axial symmetry
                               TLBDG(lx) = tta
                               IF ( kloop.EQ.1 ) THEN
                                  IF ( iecd(lx).NE.0 ) THEN
