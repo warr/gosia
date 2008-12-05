@@ -1,5 +1,5 @@
 C----------------------------------------------------------------------
-C SUBROUTINE CMLAB
+C SUBROUTINE INVKIN
 C
 C Called by: GOSIA
 C
