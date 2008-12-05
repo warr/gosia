@@ -16,7 +16,7 @@ C
 C Formal parameters:
 C      E_p     - Beam energy in MeV (readonly)
 C      E_x     - energy of excited state to use for kinematic in MeV (readonly)
-C      M_p     - mass of projectiel nuclei in AMU (readonly)
+C      M_p     - mass of projectile nuclei in AMU (readonly)
 C      M_t     - mass of target nuclei in AMU (readonly)
 C      Theta_t - theta of recoiling target nucleus in lab frame (readonly)
 C      Theta_p - theta of scattered projectile in lab frame (writeonly)
