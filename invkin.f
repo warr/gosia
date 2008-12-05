@@ -51,9 +51,9 @@ C     Calculate the two solutions
      &      (1 + y * y) * (taup * taup * y * y - 1)
       t = sqrt(t)
       x(1) = (taup * y * y + t) / (1 + y * y)
-      x(1) = atan2(sqrt(1 - x(1) * x(1)), x(1) + tau)
+      x(1) = atan2(sqrt(1 - x(1) * x(1)), tau + x(1))
       x(2) = (taup * y * y - t) / (1 + y * y)
-      x(2) = atan2(sqrt(1 - x(2) * x(2)), x(2) + tau)
+      x(2) = atan2(sqrt(1 - x(2) * x(2)), tau + x(2))
       
 C     Select the solution we want according to the flag. Note that the
 C     solution with the lower angle corresponds to target recoils which
