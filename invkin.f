@@ -65,10 +65,19 @@ C     are probably undetectable.
          theta_p = MIN(x(1),x(2))*57.2957795
       ENDIF
       
-C     Figure out which kinematic flag we need for this angle
+C     Calculate angle of scattered projectile in centre of mass frame, for
+C     which the maximum laboratory scattering angle is reached.
       
       t = acos(-1./tau)
+      
+C     Now calculate the arctangent of the corresponding angle for the
+C     recoiling target nuclei in the laboratory frame
+      
       thres = sin(t)/(taup-cos(t))
+      
+C     So now, if y = tan(theta_t_lab) > thres, we are above the maximum and
+C     need the larger value of theta_p_cm, so we set Ikin to 1. Otherwise we
+C     are below the maximum and need the smaller value so we choose Ikin = 0.
       
       IF ( y.GT.thres ) THEN
          Ikin = 1
