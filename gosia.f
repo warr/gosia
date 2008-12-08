@@ -1369,11 +1369,11 @@ C              Treat OP,INTI
                            enb = XV(kloop)
                            EP(lx) = enb
                            DO ktt = 1 , ntt
-                             IF ( tth.LT.0 )
-     &                         CALL INVKIN(EP(lx),EN(NCM),XA,XA1(lx),
-     &                         YV(ktt), tta, 1, ISKIN(lx))
-c                              tta = SIGN(YV(ktt),tth)
-                             tta = SIGN(tta, tth)
+                              tta = YV(ktt)
+                              IF ( tth.LT.0 )
+     &                           CALL INVKIN(EP(lx),EN(NCM),XA,XA1(lx),
+     &                                       YV(ktt), tta, 1, ISKIN(lx))
+                              tta = SIGN(tta, tth)
                               IF ( IAXS(lx).NE.0 ) THEN ! If not axial symmetry
                                  IF ( iecd(lx).NE.1 ) THEN
                                     IF ( kloop.EQ.1 ) THEN
