@@ -83,6 +83,13 @@ C          versions, which can be updated without difficulty in older
 C          input files.  The remainder of this header describes these
 C          and other major improvements.
 C
+C          Additional OP,INTI option for inverse kinematics
+C
+C            (December 2008, N. Warr) - OP,INTI is identical to OP,INTG
+C            except that the meshpoint theta values are given for the
+C            _detected_ particle in the laboratory frame, rather than for
+C           the scattered projectile.
+C
 C          Changes to the Input Format
 C
 C            (July 2007, N. Warr) - Tapes 1 and 2 in the pre-2007
