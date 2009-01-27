@@ -9,6 +9,7 @@ C Purpose: evaluate and store the dimensionless collision functions Qe and Qm.
 C
 C Uses global variables:
 C      CH     - table of cosh values
+CDEBUGC      DOMEGA - Initial step in omega (default = 0.03)
 C      EPS    - epsilon
 C      EROOT  - sqrt(epsilon^2 -1)
 C      LOCQ   - location of collision function in ZETA array
@@ -46,6 +47,7 @@ C M1, M2.
       INCLUDE 'mgn.inc'
       INCLUDE 'allc.inc'
       INCLUDE 'hiper.inc'
+CDEBUG      INCLUDE 'wvary.inc'
       
       icnt = 0
  100  icnt = icnt + 1
@@ -157,7 +159,7 @@ CDEBUGc     This routine is to read the electric collision functions from the ZE
 CDEBUGc     them to the standard output file (23)  
 CDEBUG
 CDEBUGC     Borrowed this line from subroutine below.
-CDEBUG      w0 = IRA(MAXLA)*.03 + .03 ! Maximum omega to calculate for (steps of 0.03)
+CDEBUG      w0 = IRA(MAXLA)*DOMEGA + DOMEGA ! Maximum omega to calculate for (steps of DOMEGA)
 CDEBUG
 CDEBUGc     Look at how LAIAMP uses the ZETA array.
 CDEBUGc     Are these the collision functions?
