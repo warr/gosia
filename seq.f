@@ -20,7 +20,7 @@ C      KLEC   - number of decays for each level
 C      KSEQ   - indices for each decay (level1, level2, matrix element, multipolarity + 10)
 C      LDNUM  - number of matrix elements with each multipolarity populating levels
 C      LP2    - maximum number of matrix elements (1500)
-C      LP3    - maximum number of levels (75)
+C      LP3    - maximum number of levels (100)
 C      MULTI  - number of matrix elements having a given multipolarity
 C      NMAX   - number of levels
 C      NMAX1  - number of levels with decays
@@ -59,7 +59,7 @@ C 8 = M2.
       idecay = 0
       Idr = 0
 
-      DO l = 1 , LP3 ! LP3 = 75 (number of levels)
+      DO l = 1 , LP3 ! LP3 = 100 (number of levels)
          KLEC(l) = 0 ! Initialise KLEC to zero
       ENDDO
 
@@ -138,7 +138,7 @@ C     multipolarity
          la1 = 0
          inx1 = 0
          DO j = js , idecay ! For each decay
-            IF ( KSEQ(j,4).GE.10 ) THEN ! KSEQ(1,4) is 10 + multipolarity
+            IF ( KSEQ(j,4).GE.10 ) THEN ! KSEQ(j,4) is 10 + multipolarity
                n1 = KSEQ(j,1) ! Initial level
                m1 = KSEQ(j,2) ! Final level
                IF ( n1.EQ.n .AND. m1.EQ.m ) THEN ! Decays involving the same pair of levels

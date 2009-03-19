@@ -34,25 +34,25 @@ C      LFL    -
 C      LFL1   -
 C      LFL2   -
 C      LMAX   - ground-state spin + 1
-C      LP3    - maximum number of levels (75)
-C      LP6    - (32)
+C      LP3    - maximum number of levels (100)
+C      LP6    - maximum number of Ge detectors (32)
 C      LP8    - (104)
 C      LP9    - last 2100 words of ZETA array (47900)
-C      LP10   - (600)
+C      LP10   - maximum number of magnetic substates (1200)
 C      LP11   - LP8 - 1 (103)
 C      LP13   - LP9 + 1 (47901)
 C      LP14   - maximum space for collision functions (4900)
 C      MEMAX  - number of matrix elements
 C      MEMX6  - number of matrix elements with E1...6 multipolarity
 C      NANG   - number of gamma-ray detectors for each experiment
-C      NDIM   - maximum number of levels (75)
+C      NDIM   - maximum number of levels (100)
 C      NEXPT  - number of experiments
 C      NLIFT  - number of lifetimes
 C      NMAX   - number of levels
 C      NSTART - index in CAT of first substate associated with a level
 C      NSTOP  - index in CAT of last substate associated with a level
 C      NWR    - number of datapoints used in fit
-C      NYLDE  -
+C      NYLDE  - number of yields
 C      SPIN   - spin of level
 C      ZETA   - the coupling constants
 C      ZPOL   - dipole term
@@ -133,7 +133,7 @@ C      Bten   -
          LFL2 = 1
          IF ( ITAK2.EQ.-1 ) THEN
             DO larm = 1 , 4
-               DO karm = 1 , LP10 ! LP10 is 600
+               DO karm = 1 , LP10 ! LP10 is 1200
                   ARM(karm,larm) = (0.,0.)
                ENDDO
             ENDDO
@@ -150,7 +150,7 @@ C      Bten   -
          IF ( MAGA(IEXP).EQ.0 ) lp = 1
          IF ( Ncall.EQ.0 ) GOTO 150
          IF ( Icll.EQ.4 ) GOTO 100
- 50      loch = LP3*(MEMAX-1) + NMAX + LP11 ! LP3 is 75, LP11 is 103
+ 50      loch = LP3*(MEMAX-1) + NMAX + LP11 ! LP3 is 100, LP11 is 103
          DO k = 1 , loch
             ZETA(k) = 0.
          ENDDO
@@ -181,14 +181,14 @@ C      Bten   -
                               kx = kx + 1
                               ZETA(loc) = ZETA(loc) + fc*DBLE(ARM(kx,5))
      &                           *DBLE(ARM(kx,6))
-     &                           /fx + fc*IMAG(ARM(kx,5))
-     &                           *IMAG(ARM(kx,6))/fx
+     &                           /fx + fc*DIMAG(ARM(kx,5))
+     &                           *DIMAG(ARM(kx,6))/fx
                            ENDDO ! Loop on lpxd
                         ENDIF ! IF ( NSTART(i11).NE.0 )
                      ENDDO ! Loop over levels
                   ENDDO ! Loop on E1...6 matrix elements
                ENDIF ! IF ( Icll.NE.3 )
-            ENDIF ! Loop on Ncall
+            ENDIF ! IF ( Ncall.NE.0 )
             CALL TENB(k,Bten,LMAX)
          ENDDO ! Loop on multipolarity k
 
@@ -224,7 +224,7 @@ C      Bten   -
             IF ( IPRM(7).EQ.-1 ) THEN
                DO j = 1 , ISMAX
                   WRITE (22,99002) INT(CAT(j,1)) , CAT(j,2) , CAT(j,3) , 
-     &                             DBLE(ARM(j,5)) , IMAG(ARM(j,5))
+     &                             DBLE(ARM(j,5)) , DIMAG(ARM(j,5))
 99002             FORMAT (7X,1I2,3X,1F4.1,2X,1F4.1,2X,1E14.6,2X,1E14.6)
                ENDDO
             ENDIF ! IF ( IPRM(7).EQ.-1 )
@@ -368,7 +368,7 @@ C      Bten   -
                      kk6 = kk + 5
                      WRITE (22,99009) KSEQ(idec,3) , KSEQ(idec,4) , ! Level numbers
      &                                (INT(DBLE(ARM(kkx,jk))),
-     &                                IMAG(ARM(kkx,jk)),kkx=kk,kk6)
+     &                                DIMAG(ARM(kkx,jk)),kkx=kk,kk6)
 99009                FORMAT (2X,1I2,'--',1I2,5X,
      &                       6('(',1I3,2X,1E8.2,')',3X))
                   ENDDO ! Loop on ile2

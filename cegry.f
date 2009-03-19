@@ -39,8 +39,8 @@ C      LASTCL - index of last detector in cluster
 C      LFL    -
 C      LNORM  - normalization constant control
 C      LP2    - maximum number of matrix elements (1500)
-C      LP6    - 32
-C      LP10   - 600
+C      LP6    - maximum number of Ge detectors 32
+C      LP10   - maximum number of magnetic substates 1200
 C      NANG   - number of gamma-ray detectors for each experiment
 C      NDST   - number of data sets
 C      NEXPT  - number of experiments
@@ -119,6 +119,7 @@ C      Iredv  -
       INCLUDE 'tcm.inc'
       DATA sum3/0./,sumpr/0./
 
+      op2 = '    '
       ifxd = 0
       tetrc = TREP(IEXP) ! Theta of recoiling nucleus
 
@@ -197,7 +198,7 @@ C     with CONT:PRT, and then does OP,EXIT
                ifxd = 0
                fm = (fi0+fi1)/2.
                IF ( Icall.EQ.4 ) ifxd = 1
-               CALL ANGULA(YGN,Idr,ifxd,fi0,fi1,tetrc,gth,figl,k)
+               CALL ANGULA(YGN,Idr,ifxd,fi0,fi1,tetrc,gth,figl,k,op2)
 
 C              Correct for finite recoil
                IF ( IFMO.NE.0 ) THEN
@@ -210,7 +211,7 @@ C              Correct for finite recoil
                   sf = d*d/rl/rl
                   thc = TACOS(rz/rl)
                   fic = ATAN2(ry,rx)
-                  CALL ANGULA(YGP,Idr,ifxd,fi0,fi1,tetrc,thc,fic,k)
+                  CALL ANGULA(YGP,Idr,ifxd,fi0,fi1,tetrc,thc,fic,k,op2)
                   DO ixl = 1 , Idr ! For each decay
                      ixm = KSEQ(ixl,3) ! Initial level of ixl'th decay
                      tfac = TAU(ixm) ! Get lifetime
@@ -313,7 +314,7 @@ C              Correct for finite recoil
                         IF ( LFL.EQ.1 ) THEN
                            IF ( k9.EQ.1 ) THEN
                               luu = 6*licz - 5
-                              jk = (luu-1)/LP10 + 1 ! LP10 is 600
+                              jk = (luu-1)/LP10 + 1 ! LP10 is 1200
                               kk = luu - LP10*(jk-1)
                               rik = DEV(licz) + YEXP(k9,lu)
                               sgm = -DEV(licz)/DYEX(k9,lu)
@@ -418,7 +419,7 @@ C              Correct for finite recoil
                figl = AGELI(IEXP,k,2)
                fm = (fi0+fi1)/2.
 
-               CALL ANGULA(YGN,Idr,ifxd,fi0,fi1,tetrc,gth,figl,k)
+               CALL ANGULA(YGN,Idr,ifxd,fi0,fi1,tetrc,gth,figl,k,op2)
 
 C              Correct for finite recoil
                IF ( IFMO.NE.0 ) THEN
@@ -431,7 +432,7 @@ C              Correct for finite recoil
                   sf = d*d/rl/rl
                   thc = TACOS(rz/rl)
                   fic = ATAN2(ry,rx)
-                  CALL ANGULA(YGP,Idr,ifxd,fi0,fi1,tetrc,thc,fic,k)
+                  CALL ANGULA(YGP,Idr,ifxd,fi0,fi1,tetrc,thc,fic,k,op2)
                   DO ixl = 1 , Idr
                      ixm = KSEQ(ixl,3) ! Initial level of ixl'th decay
                      tfac = TAU(ixm)
