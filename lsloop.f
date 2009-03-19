@@ -47,29 +47,21 @@ C half-integers.
  
       SUBROUTINE LSLOOP(Ir,N,Nz,Ld,Lam,La,Ssqrt,Icg,Iexp)
       IMPLICIT NONE
-      REAL*8 ACCA , ACCUR , CAT , DIPOL , ELM , ELML , ELMU , EN , phz , 
-     &       PSI , QAPR , rmir , rmis , SA , SPIN , Ssqrt , WTHREJ , 
-     &       ZETA , ZPOL
-      INTEGER*4 i2 , i3 , IAPR , Icg , Iexp , IFAC , iiex , indx , 
-     &          inqa , inr , ins , IPATH , Ir , is , is1 , is2 , ISEX , 
-     &          ISMAX , ismin , ISO
+      REAL*8 phz , rmir , rmis , Ssqrt , WTHREJ
+      INTEGER*4 i2 , i3 , Icg , Iexp , iiex , indx , inqa , inr , 
+     &          ins , Ir , is , is1 , is2 , ismin
       INTEGER*4 isplus , jg1 , jg2 , jrmir , La , Lam , lam2 , Ld , 
-     &          LEADF , LP1 , LP10 , LP11 , LP12 , LP13 , LP14 , LP2 , 
-     &          LP3 , LP4 , LP6 , LP7
-      INTEGER*4 LP8 , LP9 , LZETA , m , MAGA , MEM , mrange , mt , N , 
-     &          NSTART , NSTOP , Nz
-      COMMON /COEX  / EN(75) , SPIN(75) , ACCUR , DIPOL , ZPOL , ACCA , 
-     &                ISO
-      COMMON /PCOM  / PSI(1500)
-      COMMON /CCOUP / ZETA(50000) , LZETA(8)
-      COMMON /CLCOM8/ CAT(600,3) , ISMAX
-      COMMON /CEXC0 / NSTART(76) , NSTOP(75)
-      COMMON /APRCAT/ QAPR(1500,2,7) , IAPR(1500,2) , ISEX(75)
-      COMMON /PTH   / IPATH(75) , MAGA(75)
-      COMMON /MGN   / LP1 , LP2 , LP3 , LP4 , LP6 , LP7 , LP8 , LP9 , 
-     &                LP10 , LP11 , LP12 , LP13 , LP14
-      COMMON /COMME / ELM(1500) , ELMU(1500) , ELML(1500) , SA(1500)
-      COMMON /CLCOM0/ IFAC(75)
+     &          LEADF , m , MEM , mrange , mt , N , Nz
+      INCLUDE 'coex.inc'
+      INCLUDE 'pcom.inc'
+      INCLUDE 'ccoup.inc'
+      INCLUDE 'clcom8.inc'
+      INCLUDE 'cexc0.inc'
+      INCLUDE 'aprcat.inc'
+      INCLUDE 'pth.inc'
+      INCLUDE 'mgn.inc'
+      INCLUDE 'comme.inc'
+      INCLUDE 'clcom0.inc'
       
       lam2 = 2*Lam
       inr = CAT(Ir,2)*2. ! 2 * Spin of substate Ir

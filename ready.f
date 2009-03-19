@@ -27,25 +27,17 @@ C experimental yields
  
       SUBROUTINE READY(Idr,Ntap,Ipri)
       IMPLICIT NONE
-      REAL*8 ap , CORF , DYEX , EP , TAU , TLBDG , u , UPL , VINF , w , 
-     &       waga , XA , XA1 , xep , YEXP , YNRM , zp
-      INTEGER*4 idc , idc1 , idcx , Idr , IDRN , ii , ILE , Ipri , IY , 
-     &          iytot , iytt , IZ , IZ1 , j , k , kk , kkl , KSEQ , 
-     &          lbg , LP1
-      INTEGER*4 LP10 , LP11 , LP12 , LP13 , LP14 , LP2 , LP3 , LP4 , 
-     &          LP6 , LP7 , LP8 , LP9 , lxp , nanx , nde , nde1 , NDST , 
-     &          ne , NEXPT , ns1
-      INTEGER*4 ns2 , ns3 , ns4 , nsxh , nsyh , Ntap , nval , NYLDE
+      REAL*8 ap , u , w , waga , xep , zp
+      INTEGER*4 idc , idc1 , idcx , Idr , ii , Ipri , 
+     &          iytot , iytt , j , k , kk , kkl , lbg
+      INTEGER*4 lxp , nanx , nde , nde1 , ne , ns1
+      INTEGER*4 ns2 , ns3 , ns4 , nsxh , nsyh , Ntap , nval
       DIMENSION iytot(32)
-      COMMON /YEXPT / YEXP(32,1500) , IY(1500,32) , CORF(1500,32) , 
-     &                DYEX(32,1500) , NYLDE(50,32) , UPL(32,50) , 
-     &                YNRM(32,50) , IDRN , ILE(32)
-      COMMON /CX    / NEXPT , IZ , XA , IZ1(50) , XA1(50) , EP(50) , 
-     &                TLBDG(50) , VINF(50)
-      COMMON /LEV   / TAU(75) , KSEQ(1500,4)
-      COMMON /MGN   / LP1 , LP2 , LP3 , LP4 , LP6 , LP7 , LP8 , LP9 , 
-     &                LP10 , LP11 , LP12 , LP13 , LP14
-      COMMON /CCCDS / NDST(50)
+      INCLUDE 'yexpt.inc'
+      INCLUDE 'cx.inc'
+      INCLUDE 'lev.inc'
+      INCLUDE 'mgn.inc'
+      INCLUDE 'cccds.inc'
       
 C     Rewind yield file
       REWIND Ntap

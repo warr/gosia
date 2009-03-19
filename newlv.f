@@ -34,20 +34,14 @@ C storage part.
       
       SUBROUTINE NEWLV(N,Ld,La)
       IMPLICIT NONE
-      REAL*8 D2W
-      INTEGER*4 i2 , IFLG , indx , ISG , ISG1 , ISSTAR , ISSTO , KDIV , 
-     &          La , LAMDA , LAMMAX , LAMR , Ld , LDNUM , LEAD , LEADF , 
-     &          m , MEM , MSTORE , MULTI
-      INTEGER*4 N , NDIV , NPT , NSTART , NSTOP , NSW
-      COMPLEX*16 EXPO , EXPON
-      COMMON /CLCOM / LAMDA(8) , LEAD(2,1500) , LDNUM(8,75) , LAMMAX , 
-     &                MULTI(8)
-      COMMON /CAUX  / NPT , NDIV , KDIV , LAMR(8) , ISG , D2W , NSW , 
-     &                ISG1
-      COMMON /PINT  / ISSTAR(76) , ISSTO(75) , MSTORE(2,75)
-      COMMON /ADBXI / EXPO(1500)
-      COMMON /FLA   / IFLG
-      COMMON /CEXC0 / NSTART(76) , NSTOP(75)
+      INTEGER*4 i2 , indx , La , Ld , LEADF , m , MEM , N
+      COMPLEX*16 EXPON
+      INCLUDE 'clcom.inc'
+      INCLUDE 'caux.inc'
+      INCLUDE 'pint.inc'
+      INCLUDE 'adbxi.inc'
+      INCLUDE 'fla.inc'
+      INCLUDE 'cexc0.inc'
 
       Ld = LDNUM(La,N) ! Get number of levels connected to level N by multipolarity La
       IF ( Ld.EQ.0 ) RETURN ! Return if there aren't any

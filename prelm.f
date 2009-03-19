@@ -24,21 +24,15 @@ C      Iop    - print flag (controls what is written to output).
  
       SUBROUTINE PRELM(Iop)
       IMPLICIT NONE
-      REAL*8 ACCA , ACCUR , b , DIPOL , ELM , ELML , ELMU , EN , HLM , 
-     &       pv , SA , SPIN , ste , ZPOL
-      INTEGER*4 inx , Iop , ISO , isp , IVAR , j , k , kk , l , LAMDA , 
-     &          LAMMAX , LDNUM , LEAD , LMAXE , m , MAGEXC , MEMAX , 
-     &          MEMX6 , MULTI , NDIM
-      INTEGER*4 NMAX , NMAX1
+      REAL*8 b , pv , ste
+      INTEGER*4 inx , Iop , isp , j , k , kk , l , m
       CHARACTER*3 wrn
-      COMMON /HHH   / HLM(1500)
-      COMMON /COMME / ELM(1500) , ELMU(1500) , ELML(1500) , SA(1500)
-      COMMON /CEXC  / MAGEXC , MEMAX , LMAXE , MEMX6 , IVAR(1500)
-      COMMON /COEX  / EN(75) , SPIN(75) , ACCUR , DIPOL , ZPOL , ACCA , 
-     &                ISO
-      COMMON /CLCOM / LAMDA(8) , LEAD(2,1500) , LDNUM(8,75) , LAMMAX , 
-     &                MULTI(8)
-      COMMON /COEX2 / NMAX , NDIM , NMAX1
+      INCLUDE 'hhh.inc'
+      INCLUDE 'comme.inc'
+      INCLUDE 'cexc.inc'
+      INCLUDE 'coex.inc'
+      INCLUDE 'clcom.inc'
+      INCLUDE 'coex2.inc'
 
       inx = 0
       WRITE (22,99001)

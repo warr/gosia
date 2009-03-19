@@ -1,239 +1,4 @@
-C                               GOSIA 2007 (64-bit)
-C
-C                                March 2008 Update
-C
-C        http://www.pas.rochester.edu/~cline/Research/GOSIA.htm
-C
-C        Gosia was developed by T. Czosnyka, D. Cline and C.Y. Wu at
-C        the University of Rochester, Rochester, NY, USA.  It is being
-C        maintained by the U. of Rochester group led by Prof. D. Cline.
-C
-C        Valuable contributions were made by:
-C
-C          L. Hasselgren (Uppsala)
-C          A.B. Hayes (Rochester)
-C          R. Ibbotson (Rochester)
-C          A.E. Kavka (Uppsala and Rochester)
-C          B. Kotlinski (Warsaw and Rochester)
-C          J. Srebrny  (Warsaw)
-C          Eh. Vogt (Munchen and Rochester)
-C          N. Warr (Cologne)
-C
-C         Nigel Warr of the University of Cologne has contributed many
-C         important improvements to the coding of the 2007 version of
-C         GOSIA, as well as the March 2008 update.  These include the
-C         repair of several bugs, significant improvements in structure,
-C         standards and compatibility, and the addition of many detailed
-C         comments to the code.  Descriptions of these improvements can
-C         be found in the "Version History" below.
-C
-C        References and Credits
-C
-C          T. Czosnyka, D. Cline and C. Y. Wu,
-C          Bull. Am. Phys. Soc. 28, 745 (1983)
-C
-C          Internal laboratory report UR/NSRL 308/1986
-C
-C          Some concepts used come from the 1978 Winther, de Boer code
-C          COULEX and from the deexcitation code CEGRY developed by Cline
-C          and coworkers at Rochester.  However, the parts taken from
-C          both codes are in most cases completely rewritten, so the
-C          similarity of variable and routine names may be misleading.
-C
-C        Resources
-C
-C          It is recommended that users check the GOSIA website at
-C          Rochester periodically for important updates to the code and
-C          the manual, as well as sample input and output files and other
-C          information. Chapter 11 of this manual provides novice users
-C          with instructions, tutorials, etc.
-C
-C          http://www.pas.rochester.edu/~cline/Research/GOSIA.htm
-C
-C          If you need additional information, please contact:
-C
-C          Prof. Douglas Cline
-C          Department of Physics and Astronomy
-C          University of Rochester
-C          Rochester, NY 14627, U.S.A.           Phone (585)275-4934
-C          Cline@pas.rochester.edu
-C          http://www.pas.rochester.edu/~cline/
-C
-C        Compiling Gosia 2007
-C
-C          Gosia 2007 compiles on most 64-bit systems with GNU g77,
-C          using the default compiler settings.  Previous versions of
-C          the Gosia code did not explicitly specify 64-bit precision
-C          and were intended to be compiled by the user at the highest
-C          machine precision available.  The current availability of
-C          64-bit machines and the accuracy problems which may arise
-C          when relying on 32-bit precision led to the decision to make
-C          this code explicitly 64-bit.  Modifying the code to run
-C          with 32-bit precision is discouraged.
-C
-C        Version History
-C
-C          There are considerable improvements in the 2007 version of
-C          the code including the 64-bit upgrade (below, "Explicit
-C          64-bit Precision") and the repair of two bugs which affected
-C          some newer platforms (below, "Bugs Fixed").  There are two
-C          minor changes to the input format from the pre-2007
-C          versions, which can be updated without difficulty in older
-C          input files.  The remainder of this header describes these
-C          and other major improvements.
-C
-C          Changes to the Input Format
-C
-C            (July 2007, N. Warr) - Tapes 1 and 2 in the pre-2007
-C            versions have been reassigned to tapes 11 and 12,
-C            respectively, in order to make switching between Gosia and
-C            Gosia2 (the mutual excitation code) easier.  This change
-C            affects only OP,FILE (optional--see below) and the default
-C            naming of files.  For example, on a typical Unix-like
-C            system, the file formerly called "fort.2" will now be
-C            called "fort.12" and will contain the best set of matrix
-C            elements written at the end of the minimization.
-C
-C            (July 1997, T. Czosnyka) - Known matrix elements of all
-C            multipolarities may now be entered as data in OP,YIEL.
-C            Note that this necessitates adding the multipole order
-C            LAMBDA as the first field in the new input format:
-C              LAMBDA, NS1, NS2, ME, DME
-C            where LAMBDA=7 and 8 represent M1 and M2, respectively.
-C
-C          Bugs Fixed  (2007 and 2008, N. Warr)
-C
-C            The routine DJMM relies on the values of DJM being
-C            preserved between repeated calls to DJMM, which occurred
-C            automatically on many older systems (e.g. DEC Alpha, VAX).
-C            On some newer machines, DJM was effectively randomized
-C            between calls, causing unpredictable errors including
-C            negative values of chi-squared.  This was fixed by adding
-C            the command "SAVE DJM" to the routine DJMM.
-C
-C            The routine ALLOC now handles error conditions gracefully,
-C            and execution is halted in the event of a fatal error.
-C
-C            The WRN,X. switch in the CONT section of OP,GOSI and
-C            OP,COUL was unintentionally disabled in the 2007 version.
-C            It is restored in the present update.
-C
-C          Explicit 64-bit Precision Upgrade (2007, N. Warr)
-C
-C            All routines and functions including the main routine now
-C            have "IMPLICIT NONE" declared, and all variables are
-C            explicitly defined as either REAL*8, COMPLEX*16, or
-C            INTEGER*4.  Numerical constants have been changed as
-C            necessary to double precision.  Archaic functions have
-C            been updated (below, "Archaic Functions"), in part to
-C            preserve 64-bit precision during type-conversions.
-C            (Precision in type conversion may be limited in some cases
-C            by the compiler.)
-C
-C          Structure and Standards  (2007, N. Warr)
-C
-C            The 2007 code has been updated to remove many archaic
-C            functions and made to compile using GNU g77 on most or all
-C            modern 64-bit machines.
-C
-C            Sections of the code have been restructured using Spag
-C            (Polyhedron Software) under the academic license.  This
-C            included unraveling of loops and goto statements, and
-C            indenting the source code to make loops and if statements
-C            more obvious.  The initialization in the main routine has
-C            been slightly restructured, mainly to make it similar to
-C            the 2007 version of Gosia2.  Other sections have been
-C            restructured for clarity, without altering their function
-C            (e.g. WTHREJ).
-C
-C            Common Blocks
-C
-C              The common blocks ME2D, CCC, KIN, COEX, CAUX0, and LCZP
-C              were re-ordered so that the 64-bit real variables come
-C              before the 32-bit integer variables in order to
-C              eliminate alignment problems.  Several unused common
-C              blocks were removed from routines.
-C
-C            Archaic Functions
-C
-C              All instances of the following archaic functions have
-C              been replaced by their modern counterparts.
-C
-C                Archaic    Replacement        Archaic    Replacement
-C
-C                IFIX       INT                MIN0       MIN
-C                FLOAT      REAL               AMIN1      MIN
-C                IABS       ABS                ALOG10     LOG10
-C                MAX0       MAX                ALOG       LOG
-C                AMAX1      MAX
-C
-C          Chronology of Major Changes
-C
-C            (June 2006, T. Czosnyka) - The size of the array of
-C            internal conversion coefficients (CC) has been increased
-C            to 50.
-C
-C            (Nov 2000, T. Czosnyka) - A Jaeri efficiency calibration
-C            has been added.
-C
-C            (2000) - A FITEFF efficiency calibration has been added
-C            with credit to P. Olbratowski, P. Napiorkowski.
-C
-C            (July 1997, T. Czosnyka) - Known matrix elements of all
-C            multipolarities may now be entered as data in OP,YIEL.
-C            See above, "Changes to the Input Format."
-C
-C            (September 1996, T. Czosnyka) - The PIN diode particle
-C            detector option has been added.  See the entry for
-C            "PIN,X."  under the sub-option CONT in the Gosia manual.
-C
-C            (May 1995, T. Czosnyka) - Added a matrix element generator
-C            "OP,THEO" following the "general structure of matrix
-C            elements" as given in Bohr & Mottelson vol. II.  Refer to
-C            the Gosia manual.
-C
-C            (April 1991, T. Czosnyka) - The OP,RAW function has been
-C            added.  OP,RAW handles non-efficiency-corrected spectra
-C            and allows the definition of Ge detector "clusters."  Up
-C            to 20 clusters can be defined.  This effectively increases
-C            the number of physical Ge detectors to 200, while the
-C            number of data sets (i.e. single detectors + cluster
-C            detectors) is still limited to 32.
-C
-C            (April 1991, T. Czosnyka) - Output is now written on unit
-C            22 to avoid mixing it with system messages on some
-C            systems.
-C
-C            (November 1990, T. Czosnyka) - The level scheme data
-C            arrays have been increased to the following sizes:
-C               number of levels   = 75
-C               gamma-ray yields   = 32 x 1500
-C               magnetic substates = 600
-C               matrix elements    = 500
-C
-C
-C            (April 1990, T. Czosnyka) - The dominant multipolarity
-C            switch is now ignored by the code and does not need to be
-C            set.  Full Q-maps are now calculated for electric
-C            multipole orders E1 through E4.  The electric matrix
-C            elements up to multipole order E6 may be entered and fit.
-C            The Xi and Zeta function ranges are now calculated for
-C            each multipolarity individually.
-C
-C            (1990, Eh. Vogt, T. Czosnyka) - OP,FILE has been added,
-C            giving the user the option of specifying descriptive names
-C            of the input and output files in the Gosia input, rather
-C            than using the Fortran default names fort.1, fort.2, etc.
-C            Refer to the Gosia website for sample input files that use
-C            OP,FILE.
-C
-C            (March 1989, T. Czosnyka) - The code has been updated to
-C            allow input of data from 32 Ge detectors.  [As of the 2007
-C            version, this means a total of 32 X 1500 data points.]
-C
-C            (1980, T. Czosnyka, D. Cline, C.Y. Wu) - Original version.
-C
-C---------------------------------------------------------------------------
+      INCLUDE 'header.txt'
 C
 C PROGRAM GOSIA
 C
@@ -402,172 +167,140 @@ C      ZV     - energy meshpoints
 
       PROGRAM GOSIA
       IMPLICIT NONE
-      REAL*8 ABC , ACCA , ACCUR , acof , AGELI , AKAVKA , AKS , ap , 
-     &       ARCCOS , ARCTG , arg , ax , B , bcof , be2 , be2a , be2b , 
-     &       be2c , BEQ , BETAR
-      REAL*8 bk , bl , bm , bmx , BRAT , bten , bu , CAT , CC , ccc , 
+      REAL*8 acof , ap , ARCCOS , ARCTG , arg , ax , bcof , be2 , 
+     &       be2a , be2b , be2c
+      REAL*8 bk , bl , bm , bmx , bten , bu , ccc , 
      &       ccd , cf , chilo , chiok , chis0 , chisl , chisq , chiss , 
-     &       CNOR , cnst
-      REAL*8 cocos , conu , CORF , d , decen , dedx , DELTA , DEVD , 
-     &       DEVU , DIPOL , DIX , DLOCK , DQ , DS , dsd , DSE , DSG , 
-     &       dsig , DSIGS , dst
-      REAL*8 dsx , dsxm , DYEX , EAMX , effi , EG , eh1 , ELM , ELMH , 
-     &       elmi , ELML , ELMT , ELMU , emhl1 , EMMA , emn , emx , EN , 
-     &       enb , ENDEC
-      REAL*8 eng , enh , ENZ , EP , EPS , EROOT , esd , esp , ess , 
-     &       fi0 , fi1 , fic , FIEX , fiex1 , figl , fipo1 , fm , G , 
-     &       GRAD , gth
-      REAL*8 hen , het , HLM , HLMLM , ODL , p , PARX , PARXM , pfi , 
-     &       ph1 , ph2 , pi , PILOG , po1 , po2 , polm , pop1 , pr , 
-     &       pv , Q
-      REAL*8 q1 , q2 , QAPR , qc , QCEN , qfac , qr , qui , r , r1 , 
-     &       r2 , r3 , r4 , rem , remax , rl , rlr , rm , rx , ry
-      REAL*8 rz , s , s11 , s12 , s21 , s22 , SA , sbe , SE , sf , SGW , 
-     &       sh , sh1 , sh2 , SIMIN , slim , SPIN , SUBCH1 , SUBCH2 , 
-     &       SUMCL
-      REAL*8 summm , sz1 , sz2 , TACOS , TAU , tau1 , tau2 , test , 
-     &       TETACM , tetrc , tfac , thc , THICK , TIMEL , title , 
-     &       TLBDG , tmn , tmx , todfi , TREP
-      REAL*8 tta , tth , tting , ttttt , ttttx , txx , u , UPL , VACDP , 
-     &       val , VINF , waga , wph , wpi , WSIXJ , wth , wthh , 
-     &       WTHREJ , XA , XA1
-      REAL*8 xep , XI , xi1 , xi2 , XIR , xk1 , xk2 , xl1 , xlevb , 
-     &       xlk , xm1 , xm2 , xm3 , XNOR , xtest , XV , xw , xx , xxi , 
+     &       cnst
+      REAL*8 cocos , conu , d , decen , dedx , dsd , dsig , dst
+      REAL*8 dsx , dsxm , effi , eh1 , elmi , ELMT , emhl1 , emn , emx , 
+     &       enb
+      REAL*8 eng , enh , esd , esp , ess , 
+     &       fi0 , fi1 , fic , fiex1 , figl , fipo1 , fm , gth
+      REAL*8 hen , het , p , pfi , 
+     &       ph1 , ph2 , pi , po1 , po2 , polm , pop1 , pr , pv
+      REAL*8 q1 , q2 , qc , qfac , qr , qui , r , r1 , r2 , r3 , r4 , 
+     &       rem , remax , rl , rlr , rm , rx , ry
+      REAL*8 rz , s , s11 , s12 , s21 , s22 , sbe , sf , sh , sh1 , 
+     &       sh2 , SIMIN , slim
+      REAL*8 summm , sz1 , sz2 , TACOS , tau1 , tau2 , test , 
+     &       tetrc , tfac , thc , title , tmn , tmx , todfi
+      REAL*8 tta , tth , tting , ttttt , txx , u , 
+     &       val , waga , wph , wpi , WSIXJ , wth , wthh , 
+     &       WTHREJ
+      REAL*8 xep , xi1 , xi2 , xk1 , xk2 , xl1 , xlevb , 
+     &       xlk , xm1 , xm2 , xm3 , xtest , xw , xx , xxi , 
      &       ycorr
-      REAL*8 YEXP , YGN , YGP , YNRM , YV , yy , yyd1 , yydd , yyy , 
-     &       ZETA , zmir , zp , ZPOL , ZV , zz
-      INTEGER*4 i , i122 , IAMX , IAMY , IAPR , iapx , IAXS , ib , 
-     &          ibaf , IBRC , IBYP , icg , icll , ICLUST , ICS , ict , 
-     &          ictl , id , idf , IDIVE
-      INTEGER*4 idr , IDRN , iecd , ient , IEXP , IFAC , IFBFL , ifbp , 
-     &          ifc , ifm , IFMO , ifwd , ig1 , ig2 , ih1 , ih2 , ihlm , 
-     &          ihuj , ii , ij
-      INTEGER*4 ija0 , ijaja , ijan , ijk , ijx , ILE , ile1 , ilevls , 
-     &          ilx , im , IMIN , imode , in1 , in2 , inclus , ind , 
-     &          ind1 , ind2 , indx , INHB
-      INTEGER*4 inko , inm1 , inm2 , inn , INNR , inpo , intend , 
-     &          INTERV , INTR , intvh , inva , inx1 , iobl , iocc , 
-     &          iopri , iosr , IP , IPATH , ipd , iph
-      INTEGER*4 IPI , ipine , ipinf , ipo1 , ipo2 , ipo3 , ipp , iprc , 
-     &          ipri , IPRM , IPS1 , IRAWEX , irea , irep , irfix , 
-     &          ISEX , isip , iske , iskf , ISKIN
-      INTEGER*4 isko , iskok , ISMAX , ISO , isoh , ispa , ispb , ITMA , 
-     &          itno , itp , ITS , ITTE , iuy , iva , iva1 , IVAR , 
-     &          ivarh , ivari , ivrh , IWF
-      INTEGER*4 ixj , ixl , ixm , IY , iyr , IZ , IZ1 , izcap , j , ja , 
-     &          jan , jan1 , jb , jb1 , jb2 , jd , jde , jdy , je , 
-     &          JENTR
+      REAL*8 yy , yyd1 , yydd , yyy , zmir , zp , zz
+      REAL*8 ttttx ! Only gosia1 and pawel
+      INTEGER*4 i , i122 , iapx , ib , ibaf , icg , icll , ict , ictl , 
+     &          id , ideff , idf
+      INTEGER*4 idr , iecd , ient , ifbp , ifc , ifm , ifwd , 
+     &          ig1 , ig2 , ih1 , ih2 , ihlm , ihuj , ii , ij
+      INTEGER*4 ija0 , ijaja , ijan , ijk , ijx , ile1 , ilevls , 
+     &          ilx , im , imode , in1 , in2 , inclus , ind , 
+     &          ind1 , ind2 , indx
+      INTEGER*4 inko , inm1 , inm2 , inn , inpo , intend , intvh , 
+     &          inva , inx1 , iobl , iocc , iopri , iosr , ipd , iph
+      INTEGER*4 ipine , ipinf , ipo1 , ipo2 , ipo3 , ipp , iprc , 
+     &          ipri , irea , irep , irfix , irix , isip , iske , iskf
+      INTEGER*4 isko , iskok , isoh , ispa , ispb , itno , 
+     &          itp , iuy , iva , iva1 , ivarh , ivari , ivrh
+      INTEGER*4 ixj , ixl , ixm , iyr , izcap , j , ja , 
+     &          jan , jan1 , jb , jb1 , jb2 , jd , jde , jdy , je
       INTEGER*4 jex , jexp , jfi , jfre , jgd , jgl , jgl1 , jgr , jgs , 
      &          jj , jj1 , jjjj , jjlx , jjx , jk , jkloo , jktt , jl , 
      &          jmm , jmpin
-      INTEGER*4 jp , jphd , jpin , jrls , js , JSKIP , jt , jtp , jyi , 
-     &          jyi1 , jyi2 , jyv , jz , k , kb , kclust , kerf , kex , 
-     &          KF , KFERR
+      INTEGER*4 jp , jphd , jpin , jrls , js , jt , jtp , jyi , jyi1 , 
+     &          jyi2 , jyv , jz , k , kb , kclust , kerf , kex
       INTEGER*4 kh , kh1 , kh2 , kk , kk1 , kk2 , kkk , kl , kloop , 
-     &          kmat , kq , KSEQ , ktt , kuku , KVAR , l , la , la1 , 
-     &          lam , lamd
-      INTEGER*4 LAMDA , lamh , LAMMAX , LASTCL , lb , lck1 , lck2 , 
-     &          LDNUM , LEAD , LERF , levl , lex , lexp , lfagg , 
-     &          lfini , lh1 , lh2 , LIFCT , liscl , lkj
-      INTEGER*4 lkj1 , ll , lli , lll , LMAX , lmax1 , LMAXE , lmaxh , 
-     &          LNORM , LNY , locat , LOCKF , LOCKS , loct , lp0 , LP1 , 
-     &          LP10 , LP11 , LP12 , LP13
-      INTEGER*4 LP14 , LP2 , LP3 , LP4 , LP6 , LP7 , LP8 , LP9 , lpin , 
-     &          ltrn , ltrn1 , ltrn2 , lu , lx , lxd , LZETA , MAGA , 
-     &          MAGEXC , magh , MEM
-      INTEGER*4 MEMAX , memax1 , memh , memx4 , MEMX6 , mend , mexl , 
-     &          mfla , mlt , mm , mpin , ms , MULTI , n , na , na1 , 
-     &          naa , nallow , NAMX , NANG
-      INTEGER*4 naxfl , nb1 , nb2 , nbands , NBRA , nch , NCM , NDIM , 
-     &          ndima , NDST , ndum , ne , NEXPT , nf , nfd , nfdd , 
+     &          kmat , kq , ktt , kuku , l , la , la1 , lam , lamd
+      INTEGER*4 lamh , lb , lck1 , lck2 , levl , lex , lexp , 
+     &          lfagg , lfini , lh1 , lh2 , liscl , lkj
+      INTEGER*4 lkj1 , ll , lli , lll , lmax1 , lmaxh , locat , 
+     &          loct , lp0 , lpin
+      INTEGER*4 ltrn , ltrn1 , ltrn2 , lu , lx , lxd , magh , MEM
+      INTEGER*4 memax1 , memh , memx4 , mend , mexl , 
+     &          mfla , mlt , mm , mpin , ms , n , na , na1 , naa , 
+     &          nallow
+      INTEGER*4 naxfl , nb1 , nb2 , nbands , nch , ndima , ndum , 
+     &          ne , nf , nfd , nfdd , 
      &          nfi , nflr , nft , nged
-      INTEGER*4 ngpr , ni , NICC , nksi , nl , NLIFT , NLOCK , NMAX ,
-     &          NMAX1 , nmaxh , nmemx , nnl , nogeli , npce , npce1 , 
-     &          npct , npct1 , npt , nptl , nptx , ns1
-      INTEGER*4 ns2 , ntap , ntt , numcl , nval , NYLDE , nz
-      INTEGER*4 ISPL ! Added for spline
-      LOGICAL ERR
-      COMPLEX*16 ARM , EXPO
+      INTEGER*4 ngpr , ni , nksi , nl , nmaxh , nmemx , nnl , 
+     &          nogeli , npce , npce1 , npct , npct1 , 
+     &          npt , nptl , nptx , ns1
+      INTEGER*4 ns2 , ntap , ntt , numcl , nval , nz
       CHARACTER*4 oph , op1 , opcja , op2
       CHARACTER*1 prp
-      DIMENSION ihlm(32) , esp(20) , dedx(20) , bten(1200) , 
+      DIMENSION ihlm(32) , esp(20) , dedx(20) , bten(1600) , ! bten dimension = 16 * maxlevels
      &          fiex1(100,100,2) , title(20) , pfi(101) , zmir(6,2,50) , 
      &          iecd(50) , wpi(100,2) , tau1(10) , eng(10) , 
      &          tau2(10,7) , xl1(7) , qui(8,10) , cf(8,2) , 
      &          ivarh(1500) , liscl(200) , dsxm(100,100,100) , 
      &          levl(50) , xlevb(50,2) , bm(8,20,20,3) , mlt(1500) , 
-     &          ivari(1500) , jpin(50)
-      COMMON /CLUST / ICLUST(50,200) , LASTCL(50,20) , SUMCL(20,1500) , 
-     &                IRAWEX(50)
-      COMMON /CCCDS / NDST(50)
-      COMMON /INHI  / INHB
-      COMMON /IDENT / BEQ
-      COMMON /EFCAL / ABC(8,10) , AKAVKA(9,200) , THICK(200,7)
-      COMMON /TCM   / TETACM(50) , TREP(50) , DSIGS(50)
-      COMMON /BREC  / BETAR(50)
-      COMMON /ADBXI / EXPO(1500)
-      COMMON /DIMX  / DIX(4) , ODL(200)
-      COMMON /TRA   / DELTA(1500,3) , ENDEC(1500) , ITMA(50,200) , 
-     &                ENZ(200)
-      COMMON /CINIT / CNOR(32,75) , INNR
-      COMMON /XRA   / SE
-      COMMON /HHH   / HLM(1500)
-      COMMON /VAC   / VACDP(3,75) , QCEN , DQ , XNOR , AKS(6,75) , IBYP
-      COMMON /ME2D  / EAMX(100,2) , NAMX , IAMX(100) , IAMY(100,2)
-      COMMON /LIFE1 / LIFCT(50) , TIMEL(2,50)
-      COMMON /DFTB  / DEVD(1500) , DEVU(1500)
-      COMMON /ERRAN / KFERR
-      COMMON /MGN   / LP1 , LP2 , LP3 , LP4 , LP6 , LP7 , LP8 , LP9 , 
-     &                LP10 , LP11 , LP12 , LP13 , LP14
-      COMMON /SECK  / ISKIN(50)
-      COMMON /VLIN  / XV(101) , YV(101) , ZV(100) , DSG(100) ,
-     &                DSE(100) , DS
-      COMMON /DUMM  / GRAD(1500) , HLMLM(1500) , ELMH(1500)
-      COMMON /BRNCH / BRAT(50,2) , IBRC(2,50) , NBRA
-      COMMON /YEXPT / YEXP(32,1500) , IY(1500,32) , CORF(1500,32) , 
-     &                DYEX(32,1500) , NYLDE(50,32) , UPL(32,50) , 
-     &                YNRM(32,50) , IDRN , ILE(32)
-      COMMON /YTEOR / YGN(1500) , YGP(1500) , IFMO
-      COMMON /LEV   / TAU(75) , KSEQ(1500,4)
-      COMMON /MAP   / PARX(50,12,5) , PARXM(50,4,10,6) , XIR(6,50)
-      COMMON /CCC   / EG(50) , CC(50,5) , AGELI(50,200,2) , Q(3,200,8) , 
-     &                NICC , NANG(200) , ISPL
-      COMMON /GGG   / G(7)
-      COMMON /AZ    / ARM(600,7)
-      COMMON /KIN   / EPS(50) , EROOT(50) , FIEX(50,2) , IEXP , IAXS(50)
-      COMMON /CXI   / XI(1500)
-      COMMON /CLCOM / LAMDA(8) , LEAD(2,1500) , LDNUM(8,75) , LAMMAX , 
-     &                MULTI(8)
-      COMMON /COEX  / EN(75) , SPIN(75) , ACCUR , DIPOL , ZPOL , ACCA , 
-     &                ISO
-      COMMON /MINNI / IMIN , LNORM(50)
-      COMMON /CX    / NEXPT , IZ , XA , IZ1(50) , XA1(50) , EP(50) , 
-     &                TLBDG(50) , VINF(50)
-      COMMON /CEXC  / MAGEXC , MEMAX , LMAXE , MEMX6 , IVAR(1500)
-      COMMON /PRT   / IPRM(20)
-      COMMON /CCOUP / ZETA(50000) , LZETA(8)
-      COMMON /CB    / B(20)
-      COMMON /CLM   / LMAX
-      COMMON /CLCOM0/ IFAC(75)
-      COMMON /CLCOM8/ CAT(600,3) , ISMAX
-      COMMON /CLCOM9/ ERR
-      COMMON /COMME / ELM(1500) , ELMU(1500) , ELML(1500) , SA(1500)
-      COMMON /COEX2 / NMAX , NDIM , NMAX1
-      COMMON /CEXC9 / INTERV(50)
-      COMMON /CAUX0 / EMMA(75) , NCM
-      COMMON /PTH   / IPATH(75) , MAGA(75)
-      COMMON /APRCAT/ QAPR(1500,2,7) , IAPR(1500,2) , ISEX(75)
-      COMMON /WARN  / SGW , SUBCH1 , SUBCH2 , IWF
-      COMMON /THTAR / ITTE(50)
-      COMMON /FIT   / LOCKF , NLOCK , IFBFL , LOCKS , DLOCK
-      COMMON /APRX  / LERF , IDIVE(50,2)
-      COMMON /SKP   / JSKIP(50)
-      COMMON /TRB   / ITS
-      COMMON /SEL   / KVAR(1500)
-      COMMON /ERCAL / JENTR , ICS
-      COMMON /LOGY  / LNY , INTR , IPS1
-      COMMON /FAKUL / IP(26) , IPI(26) , KF(101,26) , PILOG(26)
-      COMMON /LIFE  / NLIFT
+     &          ivari(1500) , jpin(50) , ideff(50)
+      INCLUDE 'clust.inc'
+      INCLUDE 'cccds.inc'
+      INCLUDE 'inhi.inc'
+      INCLUDE 'ident.inc'
+      INCLUDE 'efcal.inc'
+      INCLUDE 'tcm.inc'
+      INCLUDE 'brec.inc'
+      INCLUDE 'adbxi.inc'
+      INCLUDE 'dimx.inc'
+      INCLUDE 'tra.inc'
+      INCLUDE 'cinit.inc'
+      INCLUDE 'xra.inc'
+      INCLUDE 'hhh.inc'
+      INCLUDE 'vac.inc'
+      INCLUDE 'me2d.inc'
+      INCLUDE 'life1.inc'
+      INCLUDE 'dftb.inc'
+      INCLUDE 'erran.inc'
+      INCLUDE 'mgn.inc'
+      INCLUDE 'seck.inc'
+      INCLUDE 'vlin.inc'
+      INCLUDE 'dumm.inc'
+      INCLUDE 'brnch.inc'
+      INCLUDE 'yexpt.inc'
+      INCLUDE 'yteor.inc'
+      INCLUDE 'lev.inc'
+      INCLUDE 'map.inc'
+      INCLUDE 'ccc.inc'
+      INCLUDE 'ggg.inc'
+      INCLUDE 'az.inc'
+      INCLUDE 'kin.inc'
+      INCLUDE 'cxi.inc'
+      INCLUDE 'clcom.inc'
+      INCLUDE 'coex.inc'
+      INCLUDE 'minni.inc'
+      INCLUDE 'cx.inc'
+      INCLUDE 'cexc.inc'
+      INCLUDE 'prt.inc'
+      INCLUDE 'ccoup.inc'
+      INCLUDE 'cb.inc'
+      INCLUDE 'clm.inc'
+      INCLUDE 'clcom0.inc'
+      INCLUDE 'clcom8.inc'
+      INCLUDE 'clcom9.inc'
+      INCLUDE 'comme.inc'
+      INCLUDE 'coex2.inc'
+      INCLUDE 'cexc9.inc'
+      INCLUDE 'caux0.inc'
+      INCLUDE 'pth.inc'
+      INCLUDE 'aprcat.inc'
+      INCLUDE 'warn.inc'
+      INCLUDE 'thtar.inc'
+      INCLUDE 'fit.inc'
+      INCLUDE 'aprx.inc'
+      INCLUDE 'skp.inc'
+      INCLUDE 'trb.inc'
+      INCLUDE 'sel.inc'
+      INCLUDE 'ercal.inc'
+      INCLUDE 'logy.inc'
+      INCLUDE 'fakul.inc'
+      INCLUDE 'life.inc'
+      INCLUDE 'switch.inc'
       DATA (eng(k),k=1,10)/.05 , .06 , .08 , .1 , .15 , .2 , .3 , .5 , 
      &      1. , 1.5/
 C     Absorption coefficients in units of 1/cm for Ge

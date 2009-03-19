@@ -74,72 +74,49 @@ C      Iredv  -
  
       SUBROUTINE CEGRY(Chisq,Itemp,Chilo,Idr,Nwyr,Icall,Issp,Iredv)
       IMPLICIT NONE
-      REAL*8 ACCA , ACCUR , AGELI , AKS , BETAR , CC , ccc , ccd , 
-     &       Chilo , Chisq , CNOR , cnr , cocos , CORF , d , decen , 
-     &       DELTA , DEV , DIPOL , DIX
-      REAL*8 dl , DQ , DSIGS , DYEX , effi , EG , EMH , EN , ENDEC , 
-     &       ENZ , EP , EPS , EROOT , fi0 , fi1 , fic , FIEX , figl , 
-     &       fm , g
-      REAL*8 gth , ODL , part , partl , Q , QCEN , rik , rl , rx , ry , 
-     &       rys , rz , sf , sgm , SGW , SPIN , SUBCH1 , SUBCH2 , sum3 , 
-     &       SUMCL
-      REAL*8 sumpr , TACOS , TAU , TETACM , tetrc , tfac , thc , TLBDG , 
-     &       TREP , UPL , VACDP , VINF , wf , XA , XA1 , XNOR , YEXP , 
-     &       YGN , YGP , YNRM
-      REAL*8 ZPOL
-      INTEGER*4 iabc , IAXS , IBYP , Icall , ICLUST , id , idc , Idr , 
-     &          IDRN , IEXP , ifdu , IFMO , ifxd , IGRD , ii , ILE , 
-     &          ile2 , IMIN , inclus , INM
-      INTEGER*4 INNR , ipd , IPRM , IRAWEX , Iredv , ISO , Issp , 
-     &          Itemp , ITMA , ITS , iva , iw , IWF , ixl , ixm , IY , 
-     &          iyex , IZ , IZ1 , jj
-      INTEGER*4 jj1 , jk , jpc , JSKIP , k , k9 , kc , kj , kk , KSEQ , 
-     &          KVAR , l , l1 , LASTCL , LFL , LFL1 , LFL2 , lic , 
-     &          licz , ll1
-      INTEGER*4 LNORM , LP1 , LP10 , LP11 , LP12 , LP13 , LP14 , LP2 , 
-     &          LP3 , LP4 , LP6 , LP7 , LP8 , LP9 , lth , lu , luu , 
-     &          na , NANG , NDIM
-      INTEGER*4 NDST , NEXPT , nf , nf1 , ni , ni1 , NICC , NLIFT , 
-     &          NMAX , NMAX1 , Nwyr , NYLDE
-      INTEGER*4 ISPL ! Added for spline
+      REAL*8 ccc , ccd , Chilo , Chisq , cnr , cocos , d , decen
+      REAL*8 dl , effi , fi0 , fi1 , fic , figl , fm , g
+      REAL*8 gth , part , partl , rik , rl , rx , ry , 
+     &       rys , rz , sf , sgm , sum3 , sumpr , TACOS
+      REAL*8 tetrc , tfac , thc , wf
+      INTEGER*4 iabc , Icall , id , idc , Idr , ifdu , ifxd , ii , 
+     &          ile2 , inclus
+      INTEGER*4 ipd , Iredv , Issp , Itemp , iva , iw , ixl , 
+     &          ixm , iyex , jj
+      INTEGER*4 jj1 , jk , jpc , k , k9 , kc , kj , kk , l , l1 , 
+     &          lic , licz , ll1
+      INTEGER*4 lth , lu , luu , na , nf , nf1 , ni , ni1 , Nwyr
       CHARACTER*4 wupl , war
+      CHARACTER*4 op2
       DIMENSION part(32,50,2) , lic(32) , lth(1500) , cnr(32,50) , 
      &          partl(32,50,2)
-      COMMON /CLUST / ICLUST(50,200) , LASTCL(50,20) , SUMCL(20,1500) , 
-     &                IRAWEX(50)
-      COMMON /ODCH  / DEV(1500)
-      COMMON /COEX2 / NMAX , NDIM , NMAX1
-      COMMON /TRA   / DELTA(1500,3) , ENDEC(1500) , ITMA(50,200) , 
-     &                ENZ(200)
-      COMMON /BREC  / BETAR(50)
-      COMMON /DIMX  / DIX(4) , ODL(200)
-      COMMON /VAC   / VACDP(3,75) , QCEN , DQ , XNOR , AKS(6,75) , IBYP
-      COMMON /CINIT / CNOR(32,75) , INNR
-      COMMON /PRT   / IPRM(20)
-      COMMON /LIFE  / NLIFT
-      COMMON /LEV   / TAU(75) , KSEQ(1500,4)
-      COMMON /IGRAD / IGRD
-      COMMON /CX    / NEXPT , IZ , XA , IZ1(50) , XA1(50) , EP(50) , 
-     &                TLBDG(50) , VINF(50)
-      COMMON /MINNI / IMIN , LNORM(50)
-      COMMON /LCZP  / EMH , INM , LFL1 , LFL2 , LFL
-      COMMON /YTEOR / YGN(1500) , YGP(1500) , IFMO
-      COMMON /SEL   / KVAR(1500)
-      COMMON /MGN   / LP1 , LP2 , LP3 , LP4 , LP6 , LP7 , LP8 , LP9 , 
-     &                LP10 , LP11 , LP12 , LP13 , LP14
-      COMMON /CCC   / EG(50) , CC(50,5) , AGELI(50,200,2) , Q(3,200,8) , 
-     &                NICC , NANG(200) , ISPL
-      COMMON /YEXPT / YEXP(32,1500) , IY(1500,32) , CORF(1500,32) , 
-     &                DYEX(32,1500) , NYLDE(50,32) , UPL(32,50) , 
-     &                YNRM(32,50) , IDRN , ILE(32)
-      COMMON /KIN   / EPS(50) , EROOT(50) , FIEX(50,2) , IEXP , IAXS(50)
-      COMMON /WARN  / SGW , SUBCH1 , SUBCH2 , IWF
-      COMMON /COEX  / EN(75) , SPIN(75) , ACCUR , DIPOL , ZPOL , ACCA , 
-     &                ISO
-      COMMON /SKP   / JSKIP(50)
-      COMMON /TRB   / ITS
-      COMMON /TCM   / TETACM(50) , TREP(50) , DSIGS(50)
-      COMMON /CCCDS / NDST(50)
+      INCLUDE 'clust.inc'
+      INCLUDE 'odch.inc'
+      INCLUDE 'coex2.inc'
+      INCLUDE 'tra.inc'
+      INCLUDE 'brec.inc'
+      INCLUDE 'dimx.inc'
+      INCLUDE 'vac.inc'
+      INCLUDE 'cinit.inc'
+      INCLUDE 'prt.inc'
+      INCLUDE 'life.inc'
+      INCLUDE 'lev.inc'
+      INCLUDE 'igrad.inc'
+      INCLUDE 'cx.inc'
+      INCLUDE 'minni.inc'
+      INCLUDE 'lczp.inc'
+      INCLUDE 'yteor.inc'
+      INCLUDE 'sel.inc'
+      INCLUDE 'mgn.inc'
+      INCLUDE 'ccc.inc'
+      INCLUDE 'yexpt.inc'
+      INCLUDE 'kin.inc'
+      INCLUDE 'warn.inc'
+      INCLUDE 'coex.inc'
+      INCLUDE 'skp.inc'
+      INCLUDE 'trb.inc'
+      INCLUDE 'cccds.inc'
+      INCLUDE 'tcm.inc'
       DATA sum3/0./,sumpr/0./
 
       ifxd = 0

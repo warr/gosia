@@ -20,11 +20,9 @@ C      Indx   - Index of matrix element
  
       SUBROUTINE CODE7(Ir,Is,N,Mt,Inqa,Indx)
       IMPLICIT NONE
-      INTEGER*4 IAPR , idm , idn , Indx , Inqa , IPATH , Ir , Is , 
-     &          ISEX , ism , MAGA , Mt , N
-      REAL*8 QAPR
-      COMMON /PTH   / IPATH(75) , MAGA(75)
-      COMMON /APRCAT/ QAPR(1500,2,7) , IAPR(1500,2) , ISEX(75)
+      INTEGER*4 idm , idn , Indx , Inqa , Ir , Is , ism , Mt , N
+      INCLUDE 'pth.inc'
+      INCLUDE 'aprcat.inc'
       
       IAPR(Indx,1) = N  ! Index of initial level
       IAPR(Indx,2) = Mt ! Index of final level

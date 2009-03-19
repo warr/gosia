@@ -27,12 +27,11 @@ C index, knowing that we are always using steps of 0.03.
  
       SUBROUTINE RANGEL(Acc1)
       IMPLICIT NONE
-      REAL*8 Acc1 , ACC50 , acl , w
-      INTEGER*4 i , IRA , LAMDA , LAMMAX , LDNUM , LEAD , MAXLA , MULTI
-      COMMON /A50   / ACC50
-      COMMON /RNG   / IRA(8) , MAXLA
-      COMMON /CLCOM / LAMDA(8) , LEAD(2,1500) , LDNUM(8,75) , LAMMAX , 
-     &                MULTI(8)
+      REAL*8 Acc1 , acl , w
+      INTEGER*4 i
+      INCLUDE 'a50.inc'
+      INCLUDE 'rng.inc'
+      INCLUDE 'clcom.inc'
 
       acl = -LOG(Acc1)
       ACC50 = Acc1/50.

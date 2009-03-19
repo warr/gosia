@@ -26,24 +26,17 @@ C      Chilo  - chi squared of logs
 
       SUBROUTINE BRANR(Chisq,Nwyr,Chilo)
       IMPLICIT NONE
-      REAL*8 ACCA , ACCUR , BRAT , ch1 , ch2 , Chilo , Chisq , CONV , 
-     &       DELTA , DIPOL , ELM , ELML , ELMU , EN , ENDEC , eng1 , 
-     &       eng2 , ENZ , SA , SPIN
-      REAL*8 TAU , u , ZPOL
-      INTEGER*4 i1 , i2 , IBRC , iflg , iout , IPRM , ISO , ITMA , itt , 
-     &          j1 , j2 , k , KSEQ , lab1 , lab2 , LAMDA , LAMMAX , 
-     &          LDNUM , LEAD , mul2
-      INTEGER*4 MULTI , n1 , n2 , NBRA , Nwyr
-      COMMON /CLCOM / LAMDA(8) , LEAD(2,1500) , LDNUM(8,75) , LAMMAX , 
-     &                MULTI(8)
-      COMMON /COEX  / EN(75) , SPIN(75) , ACCUR , DIPOL , ZPOL , ACCA , 
-     &                ISO
-      COMMON /BRNCH / BRAT(50,2) , IBRC(2,50) , NBRA
-      COMMON /TRA   / DELTA(1500,3) , ENDEC(1500) , ITMA(50,200) , 
-     &                ENZ(200)
-      COMMON /PRT   / IPRM(20)
-      COMMON /COMME / ELM(1500) , ELMU(1500) , ELML(1500) , SA(1500)
-      COMMON /LEV   / TAU(75) , KSEQ(1500,4)
+      REAL*8 ch1 , ch2 , Chilo , Chisq , CONV , eng1 , eng2 , u
+      INTEGER*4 i1 , i2 , iflg , iout , itt , j1 , j2 , 
+     &          k , lab1 , lab2 , mul2
+      INTEGER*4 n1 , n2 , Nwyr
+      INCLUDE 'coex.inc'
+      INCLUDE 'clcom.inc'
+      INCLUDE 'brnch.inc'
+      INCLUDE 'tra.inc'
+      INCLUDE 'prt.inc'
+      INCLUDE 'comme.inc'
+      INCLUDE 'lev.inc'
 
 C     If no branching ratios were defined, return doing nothing
       IF ( NBRA.EQ.0 ) RETURN

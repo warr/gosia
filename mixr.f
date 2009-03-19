@@ -22,14 +22,12 @@ C      Chilo  - chi squared using logs
  
       SUBROUTINE MIXR(Nw,Ipsw,Chi,Chilo)
       IMPLICIT NONE
-      REAL*8 Chi , Chilo , dl , DMIX , DMIXE , ELM , ELML , ELMU , SA , 
-     &       TAU
-      INTEGER*4 i , IMIX , INTR , inx , inx1 , IPS1 , Ipsw , it , KSEQ , 
-     &          LNY , NDL , Nw
-      COMMON /LEV   / TAU(75) , KSEQ(1500,4)
-      COMMON /COMME / ELM(1500) , ELMU(1500) , ELML(1500) , SA(1500)
-      COMMON /MIXD  / DMIXE(20,2) , DMIX(20) , IMIX(20) , NDL
-      COMMON /LOGY  / LNY , INTR , IPS1
+      REAL*8 Chi , Chilo , dl
+      INTEGER*4 i , inx , inx1 , Ipsw , it , Nw
+      INCLUDE 'lev.inc'
+      INCLUDE 'comme.inc'
+      INCLUDE 'mixd.inc'
+      INCLUDE 'logy.inc'
 
       IF ( NDL.EQ.0 ) RETURN
       Nw = Nw + NDL
@@ -58,7 +56,7 @@ C      Chilo  - chi squared using logs
          it = IMIX(i) ! Matrix element for this mixing ratio
          WRITE (22,99002) KSEQ(it,3) , KSEQ(it,4) , DMIXE(i,1) , DMIX(i)
      &                    , dl ! KSEQs are level numbers
-99002    FORMAT (10X,1I2,'---',1I2,14X,1F7.2,12X,1F7.2,13X,1F5.2)
+99002    FORMAT (9X,1I3,'---',1I3,13X,1F7.2,12X,1F7.2,13X,1F5.2)
       ENDDO ! Loop on mixing ratios i
 
       END

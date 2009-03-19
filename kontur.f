@@ -36,22 +36,17 @@ C      Rem    - natural log of the largest value the computer can represent
       SUBROUTINE KONTUR(Idr,Chis0,Chil,Ifbf,Inpo,Jj,Sh,Bten,Rem)
       IMPLICIT NONE
       REAL*8 ac , Bten , c , Chil , chilo , Chis0 , chis1 , chis2 , d1 , 
-     &       d2 , DEVD , DEVU , DS , DSE , DSG , ELM , ELML , ELMU , f , 
-     &       h
-      REAL*8 HLM , Rem , RK4 , SA , sajj , Sh , t , v , ww , x , XV , 
-     &       y , YV , ZV
-      INTEGER*4 i , Idr , Ifbf , Inpo , INTR , IPS1 , itl , IVAR , ix , 
-     &          j , Jj , l , LMAXE , LNY , m , MAGEXC , MEMAX , MEMX6 , 
-     &          NWR
+     &       d2 , f , h
+      REAL*8 Rem , RK4 , sajj , Sh , t , v , ww , x , y
+      INTEGER*4 i , Idr , Ifbf , Inpo , itl , ix , j , Jj , l , m
       DIMENSION f(3) , Bten(*)
-      COMMON /VLIN  / XV(101) , YV(101) , ZV(100) , DSG(100) ,
-     &                DSE(100) , DS
-      COMMON /DFTB  / DEVD(1500) , DEVU(1500)
-      COMMON /COMME / ELM(1500) , ELMU(1500) , ELML(1500) , SA(1500)
-      COMMON /CEXC  / MAGEXC , MEMAX , LMAXE , MEMX6 , IVAR(1500)
-      COMMON /HHH   / HLM(1500)
-      COMMON /ILEWY / NWR
-      COMMON /LOGY  / LNY , INTR , IPS1
+      INCLUDE 'vlin.inc'
+      INCLUDE 'dftb.inc'
+      INCLUDE 'comme.inc'
+      INCLUDE 'cexc.inc'
+      INCLUDE 'hhh.inc'
+      INCLUDE 'ilewy.inc'
+      INCLUDE 'logy.inc'
 
       LNY = 0
       h = .05*ABS(HLM(Jj))

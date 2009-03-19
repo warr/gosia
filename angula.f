@@ -34,29 +34,23 @@ C      Ngl    - detector number
       
       SUBROUTINE ANGULA(Ygn,Idr,Iful,Fi0,Fi1,Trec,Gth,Figl,Ngl)
       IMPLICIT NONE
-      REAL*8 AGELI , alab , arg , at , attl , BETAR , bt , CC , DELLA , 
-     &       DELTA , EG , ENDEC , ENZ , EPS , EROOT , f , Fi0 , fi01 , 
-     &       Fi1 , fi11
-      REAL*8 FIEX , Figl , FP , GKP , Gth , Q , qv , sm , TAU , Trec , 
-     &       Ygn , ylmr , ZETA
-      INTEGER*4 IAXS , Idr , IEXP , ifn , Iful , ig , il , inat , inx1 , 
-     &          ipd , is , ITMA , ITTE , iu , ixs , j , ji , jj , jm , k
-      INTEGER*4 KLEC , kq , KSEQ , l , lf , lf1 , LZETA , mind , NANG , 
-     &          Ngl , NICC , nlv
-      INTEGER*4 ISPL ! Added for spline
+      REAL*8 alab , arg , at , attl , bt , f , Fi0 , fi01 , Fi1 ,
+     &       fi11 , Figl , Gth , qv , sm , Trec , Ygn , ylmr
+      INTEGER*4 Idr , ifn , Iful , ig , il , inat , inx1 , 
+     &          ipd , is , iu , ixs , j , ji , jj , jm , k
+      INTEGER*4 kq , l , lf , lf1 , mind , Ngl , nlv
+      CHARACTER*4 Op2
       DIMENSION f(4) , ylmr(9,9) , at(28) , alab(9,9) , attl(9,9) , 
      &          Ygn(*)
-      COMMON /CCOUP / ZETA(50000) , LZETA(8)
-      COMMON /TRA   / DELTA(1500,3) , ENDEC(1500) , ITMA(50,200) , 
-     &                ENZ(200)
-      COMMON /LEV   / TAU(75) , KSEQ(1500,4)
-      COMMON /CCC   / EG(50) , CC(50,5) , AGELI(50,200,2) , Q(3,200,8) , 
-     &                NICC , NANG(200) , ISPL
-      COMMON /KIN   / EPS(50) , EROOT(50) , FIEX(50,2) , IEXP , IAXS(50)
-      COMMON /LCDL  / DELLA(1500,3)
-      COMMON /CATLF / FP(4,1500,3) , GKP(4,1500,2) , KLEC(75)
-      COMMON /BREC  / BETAR(50)
-      COMMON /THTAR / ITTE(50)
+      INCLUDE 'ccoup.inc'
+      INCLUDE 'tra.inc'
+      INCLUDE 'lev.inc'
+      INCLUDE 'ccc.inc'
+      INCLUDE 'kin.inc'
+      INCLUDE 'lcdl.inc'
+      INCLUDE 'catlf.inc'
+      INCLUDE 'brec.inc'
+      INCLUDE 'thtar.inc'
       
       DO l = 1 , Idr ! For each decay
 

@@ -33,26 +33,19 @@ C      I57    - switch which is either 5 or 7. This tells LAISUM to access eithe
 
       SUBROUTINE AMPDER(I57)
       IMPLICIT NONE
-      REAL*8 CAT , D2W , ELM , ELML , ELMU , rsg , SA , ZETA
-      INTEGER*4 i1 , I57 , ibg , iend , iflg , indx , ir , is2 , ISG , 
-     &          ISG1 , ISMAX , ISSTAR , ISSTO , k , KDIV , lam , LAMDA , 
-     &          LAMMAX , LAMR , lax
-      INTEGER*4 ld , LDNUM , LEAD , LZETA , m , mm , MSTORE , MULTI , 
-     &          n , NDIM , NDIV , nhold , NMAX , NMAX1 , NPT , NSTART , 
-     &          NSTOP , NSW , nz
-      COMPLEX*16 ARM , EXPO
-      COMMON /AZ    / ARM(600,7)
-      COMMON /COMME / ELM(1500) , ELMU(1500) , ELML(1500) , SA(1500)
-      COMMON /CLCOM / LAMDA(8) , LEAD(2,1500) , LDNUM(8,75) , LAMMAX , 
-     &                MULTI(8)
-      COMMON /COEX2 / NMAX , NDIM , NMAX1
-      COMMON /CAUX  / NPT , NDIV , KDIV , LAMR(8) , ISG , D2W , NSW , 
-     &                ISG1
-      COMMON /PINT  / ISSTAR(76) , ISSTO(75) , MSTORE(2,75)
-      COMMON /ADBXI / EXPO(1500)
-      COMMON /CCOUP / ZETA(50000) , LZETA(8)
-      COMMON /CLCOM8/ CAT(600,3) , ISMAX
-      COMMON /CEXC0 / NSTART(76) , NSTOP(75)
+      REAL*8 rsg
+      INTEGER*4 i1 , I57 , ibg , iend , iflg , indx , ir , is2 , k , 
+     &          lam , lax , ld , m , mm , n , nhold , nz
+      INCLUDE 'az.inc'
+      INCLUDE 'comme.inc'
+      INCLUDE 'clcom.inc'
+      INCLUDE 'coex2.inc'
+      INCLUDE 'caux.inc'
+      INCLUDE 'pint.inc'
+      INCLUDE 'adbxi.inc'
+      INCLUDE 'ccoup.inc'
+      INCLUDE 'clcom8.inc'
+      INCLUDE 'cexc0.inc'
 
 C     Zero ARM(k,4) and ARM(k,6) for each substate used
       DO k = 1 , ISMAX ! ISMAX is number of substates used

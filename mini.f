@@ -58,45 +58,35 @@ C don't go outside the limits specified by the user.
      &                Bten)
       IMPLICIT NONE
       REAL*8 a , a0 , a1 , b , Bten , c , ccd , chd , chil , chilo , 
-     &       Chiok , chirf , CHIS11 , chis12 , chis13 , chisf , chisp , 
-     &       Chisq , chiss , chl
-      REAL*8 chx , cmax , Conv , CORF , crit , DEVD , DEVU , dl , 
-     &       DLOCK , dm , DYEX , ELM , ELMH , ELML , ELMU , EMH , f1 , 
-     &       f2 , flt , GRAD
-      REAL*8 gradp , HLMLM , ht , p , q , rfk , SA , sel , shl , sumg1 , 
-     &       sumg2 , sumht , UPL , uxa , xkat , Xtest , YEXP , YNRM
-      INTEGER*4 i , icl1 , icl2 , icount , ICS , Idr , IDRN , IFBFL , 
-     &          iht , iin , ILE , Imode , indx1 , INM , inmx , ino , 
-     &          INTR , ipas , ipm , IPRM
-      INTEGER*4 Ips , IPS1 , Is , istec , ITAK2 , itf , IVAR , IY , j , 
-     &          jcoup , jcp , JENTR , jin , Jjh , jjj , jlin , jnm , 
-     &          jpr , jsa , jst
-      INTEGER*4 KFERR , kh2 , kkk , KVAR , l , LFL , LFL1 , LFL2 , 
-     &          LMAXE , lnm , LNY , LOCKF , LOCKS , LP1 , LP10 , LP11 , 
-     &          LP12 , LP13 , LP14 , LP2
-      INTEGER*4 LP3 , LP4 , LP6 , LP7 , LP8 , LP9 , MAGEXC , MEMAX , 
-     &          MEMX6 , metf , mvfl , ncall , nlinn , NLOCK , noflg , 
-     &          Nptl , NWR , NYLDE
+     &       Chiok , chirf , chis12 , chis13 , chisf , chisp , Chisq , 
+     &       chiss , chl
+      REAL*8 chx , cmax , Conv , crit , dl , dm , f1 , f2 , flt
+      REAL*8 gradp , ht , p , q , rfk , sel , shl , sumg1 , 
+     &       sumg2 , sumht , uxa , xkat , Xtest
+      INTEGER*4 i , icl1 , icl2 , icount , Idr , iht , iin , Imode , 
+     &          indx1 , inmx , ino , ipas , ipm
+      INTEGER*4 Ips , Is , istec , itf , j , jcoup , jcp , jin , 
+     &          Jjh , jjj , jlin , jnm , jpr , jsa , jst
+      INTEGER*4 kh2 , kkk , l , lnm , metf , mvfl , ncall , nlinn , 
+     &          noflg , Nptl
       DIMENSION ipm(10) , Bten(*) , gradp(1500)
-      COMMON /DUMM  / GRAD(1500) , HLMLM(1500) , ELMH(1500)
-      COMMON /ILEWY / NWR
-      COMMON /CH1T  / CHIS11
-      COMMON /MGN   / LP1 , LP2 , LP3 , LP4 , LP6 , LP7 , LP8 , LP9 , 
-     &                LP10 , LP11 , LP12 , LP13 , LP14
-      COMMON /UWAGA / ITAK2
-      COMMON /YEXPT / YEXP(32,1500) , IY(1500,32) , CORF(1500,32) , 
-     &                DYEX(32,1500) , NYLDE(50,32) , UPL(32,50) , 
-     &                YNRM(32,50) , IDRN , ILE(32)
-      COMMON /DFTB  / DEVD(1500) , DEVU(1500)
-      COMMON /PRT   / IPRM(20)
-      COMMON /LCZP  / EMH , INM , LFL1 , LFL2 , LFL
-      COMMON /CEXC  / MAGEXC , MEMAX , LMAXE , MEMX6 , IVAR(1500)
-      COMMON /COMME / ELM(1500) , ELMU(1500) , ELML(1500) , SA(1500)
-      COMMON /SEL   / KVAR(1500)
-      COMMON /FIT   / LOCKF , NLOCK , IFBFL , LOCKS , DLOCK
-      COMMON /ERRAN / KFERR
-      COMMON /LOGY  / LNY , INTR , IPS1
-      COMMON /ERCAL / JENTR , ICS
+      INCLUDE 'dumm.inc'
+      INCLUDE 'ilewy.inc'
+      INCLUDE 'ch1t.inc'
+      INCLUDE 'mgn.inc'
+      INCLUDE 'uwaga.inc'
+      INCLUDE 'yexpt.inc'
+      INCLUDE 'dftb.inc'
+      INCLUDE 'prt.inc'
+      INCLUDE 'lczp.inc'
+      INCLUDE 'cexc.inc'
+      INCLUDE 'comme.inc'
+      INCLUDE 'sel.inc'
+      INCLUDE 'fit.inc'
+      INCLUDE 'erran.inc'
+      INCLUDE 'logy.inc'
+      INCLUDE 'ercal.inc'
+      INCLUDE 'switch.inc'
       DATA chirf/0./,dm/0./,sumg2/0./
 
 C     Initialise gradp to zero for each matrix element

@@ -57,45 +57,30 @@ C Here we parse the input of the OP,YIEL command and store the values.
  
       SUBROUTINE ADHOC(Oph,Idr,Nfd,Ntap,Iyr)
       IMPLICIT NONE
-      REAL*8 ACCA , ACCUR , AGELI , BRAT , CC , CORF , DELTA , DIPOL , 
-     &       DIX , DMIX , DMIXE , DYEX , EAMX , EG , EN , ENDEC , ENZ , 
-     &       EP , ODL , Q
-      REAL*8 SPIN , TAU , TIMEL , TLBDG , UPL , VINF , wamx , wbra , 
-     &       wdl , wlf , XA , XA1 , YEXP , YGN , YGP , YNRM , ZPOL
-      INTEGER*4 IAMX , IAMY , iax , IBRC , Idr , IDRN , iexp1 , IFMO , 
-     &          ILE , ilft , IMIX , iosr , ipri , IPRM , ISO , isrt1 , 
-     &          ITMA , ITS , iuf , IVAR
-      INTEGER*4 IY , Iyr , IZ , IZ1 , jic , jicc , juf , KSEQ , lb , 
-     &          li , licc , LIFCT , llia , LMAXE , lxt , MAGEXC , MEM , 
-     &          MEMAX , MEMX6 , n1
-      INTEGER*4 n2 , NAMX , NANG , NBRA , ndas , NDL , NDST , ndtp , 
-     &          NEXPT , Nfd , NICC , nistr , NLIFT , ns1 , ns2 , ns3 , 
-     &          ns4 , Ntap , nvare , NYLDE
-      INTEGER*4 ISPL ! Added for spline
+      REAL*8 wamx , wbra , wdl , wlf
+      INTEGER*4 iax , Idr , iexp1 , ilft , iosr , ipri , isrt1 , iuf
+      INTEGER*4 Iyr , jic , jicc , juf , lb , li , licc , llia , lxt , 
+     &          MEM , n1 , n2 , ndas , ndtp , Nfd , nistr , ns1 , ns2 , 
+     &          ns3 , ns4 , Ntap , nvare
       CHARACTER*4 Oph
-      COMMON /CCCDS / NDST(50)
-      COMMON /DIMX  / DIX(4) , ODL(200)
-      COMMON /TRA   / DELTA(1500,3) , ENDEC(1500) , ITMA(50,200) , 
-     &                ENZ(200)
-      COMMON /LIFE  / NLIFT
-      COMMON /MIXD  / DMIXE(20,2) , DMIX(20) , IMIX(20) , NDL
-      COMMON /ME2D  / EAMX(100,2) , NAMX , IAMX(100) , IAMY(100,2)
-      COMMON /LIFE1 / LIFCT(50) , TIMEL(2,50)
-      COMMON /BRNCH / BRAT(50,2) , IBRC(2,50) , NBRA
-      COMMON /YEXPT / YEXP(32,1500) , IY(1500,32) , CORF(1500,32) , 
-     &                DYEX(32,1500) , NYLDE(50,32) , UPL(32,50) , 
-     &                YNRM(32,50) , IDRN , ILE(32)
-      COMMON /YTEOR / YGN(1500) , YGP(1500) , IFMO
-      COMMON /LEV   / TAU(75) , KSEQ(1500,4)
-      COMMON /CCC   / EG(50) , CC(50,5) , AGELI(50,200,2) , Q(3,200,8) , 
-     &                NICC , NANG(200) , ISPL
-      COMMON /COEX  / EN(75) , SPIN(75) , ACCUR , DIPOL , ZPOL , ACCA , 
-     &                ISO
-      COMMON /CX    / NEXPT , IZ , XA , IZ1(50) , XA1(50) , EP(50) , 
-     &                TLBDG(50) , VINF(50)
-      COMMON /CEXC  / MAGEXC , MEMAX , LMAXE , MEMX6 , IVAR(1500)
-      COMMON /PRT   / IPRM(20)
-      COMMON /TRB   / ITS
+      INCLUDE 'cccds.inc'
+      INCLUDE 'dimx.inc'
+      INCLUDE 'tra.inc'
+      INCLUDE 'life.inc'
+      INCLUDE 'mixd.inc'
+      INCLUDE 'me2d.inc'
+      INCLUDE 'life1.inc'
+      INCLUDE 'brnch.inc'
+      INCLUDE 'yexpt.inc'
+      INCLUDE 'yteor.inc'
+      INCLUDE 'lev.inc'
+      INCLUDE 'ccc.inc'
+      INCLUDE 'coex.inc'
+      INCLUDE 'cx.inc'
+      INCLUDE 'cexc.inc'
+      INCLUDE 'prt.inc'
+      INCLUDE 'trb.inc'
+      INCLUDE 'switch.inc'
       
 C     Read OP,YIEL parameters
       iosr = 0

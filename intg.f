@@ -69,28 +69,22 @@ C value of f(n).
  
       SUBROUTINE INTG(Ien)
       IMPLICIT NONE
-      REAL*8 ACC50 , ACCA , ACCUR , CAT , D2W , DIPOL , EN , f , rim , 
-     &       rl , SPIN , srt , ZPOL
-      INTEGER*4 i , i57 , Ien , IFAC , IFLG , ihold , intend , INTERV , 
-     &          IPATH , ir , ir1 , IRA , ISG , ISG1 , ISMAX , ISO , k , 
-     &          kast , KDIV , LAMR
-      INTEGER*4 MAGA , MAXLA , mir , n , NDIM , NDIV , NMAX , NMAX1 , 
-     &          NPT , NSTART , NSTOP , NSW
-      COMPLEX*16 ARM , hold
-      COMMON /COEX  / EN(75) , SPIN(75) , ACCUR , DIPOL , ZPOL , ACCA , 
-     &                ISO
-      COMMON /AZ    / ARM(600,7)
-      COMMON /RNG   / IRA(8) , MAXLA
-      COMMON /A50   / ACC50
-      COMMON /CLCOM0/ IFAC(75)
-      COMMON /CLCOM8/ CAT(600,3) , ISMAX
-      COMMON /COEX2 / NMAX , NDIM , NMAX1
-      COMMON /CAUX  / NPT , NDIV , KDIV , LAMR(8) , ISG , D2W , NSW , 
-     &                ISG1
-      COMMON /FLA   / IFLG
-      COMMON /CEXC0 / NSTART(76) , NSTOP(75)
-      COMMON /PTH   / IPATH(75) , MAGA(75)
-      COMMON /CEXC9 / INTERV(50)
+      REAL*8 f , rim , rl , srt
+      INTEGER*4 i , i57 , Ien , ihold , intend , ir , ir1 , k , kast , 
+     &          mir , n
+      COMPLEX*16 hold
+      INCLUDE 'coex.inc'
+      INCLUDE 'az.inc'
+      INCLUDE 'rng.inc'
+      INCLUDE 'a50.inc'
+      INCLUDE 'clcom0.inc'
+      INCLUDE 'clcom8.inc'
+      INCLUDE 'coex2.inc'
+      INCLUDE 'caux.inc'
+      INCLUDE 'fla.inc'
+      INCLUDE 'cexc0.inc'
+      INCLUDE 'pth.inc'
+      INCLUDE 'cexc9.inc'
       
       intend = INTERV(Ien) ! Default accuracy set by INT option of OP,CONT
       D2W = .03 ! We use steps of 0.03 in omega

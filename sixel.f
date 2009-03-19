@@ -24,16 +24,13 @@ C      Lu     -
  
       SUBROUTINE SIXEL(Rik,Rv,Em,Jk,Kk,Indx,Lu)
       IMPLICIT NONE
-      REAL*8 a1 , al , al1 , c1 , c2 , DEV , Em , EPS , EROOT , FIEX , 
-     &       Rik , rn , Rv , rx
-      INTEGER*4 IAXS , IEXP , Indx , ITS , j , j1 , Jk , Kk , kk6 , 
-     &          KVAR , l , l1 , Lu
-      COMPLEX*16 ARM
-      COMMON /AZ    / ARM(600,7)
-      COMMON /ODCH  / DEV(1500)
-      COMMON /KIN   / EPS(50) , EROOT(50) , FIEX(50,2) , IEXP , IAXS(50)
-      COMMON /TRB   / ITS
-      COMMON /SEL   / KVAR(1500)
+      REAL*8 a1 , al , al1 , c1 , c2 , Em , Rik , rn , Rv , rx
+      INTEGER*4 Indx , j , j1 , Jk , Kk , kk6 , l , l1 , Lu
+      INCLUDE 'az.inc'
+      INCLUDE 'odch.inc'
+      INCLUDE 'kin.inc'
+      INCLUDE 'trb.inc'
+      INCLUDE 'sel.inc'
 
       kk6 = Kk + 5
       rn = DEV(Lu)

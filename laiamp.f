@@ -31,28 +31,21 @@ C      W0     - omega limit
       
       SUBROUTINE LAIAMP(Ir,W0)
       IMPLICIT NONE
-      REAL*8 CAT , D2W , ELM , ELML , ELMU , EPS , epsi , EROOT , errt , 
-     &       FIEX , pm , ppp , rmir , rmis , rmu , SA , TCABS , W0 , 
-     &       XI , xiv
-      REAL*8 z , ZETA
-      INTEGER*4 i1 , i2 , i3 , IAXS , IEXP , indx , Ir , is , is1 , 
-     &          is2 , ISG , ISG1 , ISMAX , ismin , isplus , KDIV , la , 
-     &          lam , LAMDA , LAMMAX
-      INTEGER*4 LAMR , ld , LDNUM , LEAD , LEADF , LZETA , m , MEM , 
-     &          mrange , mua , MULTI , NDIV , NPT , NSTART , NSTOP , 
-     &          NSW , nz
-      COMPLEX*16 ARM , STAMP , dis , uhuj
-      COMMON /CLCOM / LAMDA(8) , LEAD(2,1500) , LDNUM(8,75) , LAMMAX , 
-     &                MULTI(8)
-      COMMON /AZ    / ARM(600,7)
-      COMMON /CAUX  / NPT , NDIV , KDIV , LAMR(8) , ISG , D2W , NSW , 
-     &                ISG1
-      COMMON /CCOUP / ZETA(50000) , LZETA(8)
-      COMMON /CLCOM8/ CAT(600,3) , ISMAX
-      COMMON /COMME / ELM(1500) , ELMU(1500) , ELML(1500) , SA(1500)
-      COMMON /CEXC0 / NSTART(76) , NSTOP(75)
-      COMMON /KIN   / EPS(50) , EROOT(50) , FIEX(50,2) , IEXP , IAXS(50)
-      COMMON /CXI   / XI(1500)
+      REAL*8 epsi , errt , pm , ppp , rmir , rmis , rmu , TCABS , W0 , 
+     &       xiv , z
+      INTEGER*4 i1 , i2 , i3 , indx , Ir , is , is1 , is2 , ismin , 
+     &          isplus , la , lam
+      INTEGER*4 ld , LEADF , m , MEM , mrange , mua , nz
+      COMPLEX*16 STAMP , dis , uhuj
+      INCLUDE 'clcom.inc'
+      INCLUDE 'az.inc'
+      INCLUDE 'caux.inc'
+      INCLUDE 'ccoup.inc'
+      INCLUDE 'clcom8.inc'
+      INCLUDE 'comme.inc'
+      INCLUDE 'cexc0.inc'
+      INCLUDE 'kin.inc'
+      INCLUDE 'cxi.inc'
 
       ppp = 0.
       epsi = EPS(IEXP) ! epsilon

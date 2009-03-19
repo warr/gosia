@@ -67,65 +67,44 @@ C      Bten   -
 
       SUBROUTINE FTBM(Icll,Chisq,Idr,Ncall,Chilo,Bten)
       IMPLICIT NONE
-      REAL*8 ACCA , ACCUR , AGELI , aval , Bten , CAT , CC , Chilo , 
-     &       chis1 , CHIS11 , chish , Chisq , chisx , chx , CORF , 
-     &       DIPOL , DYEX , EG , ELM , ELML
-      REAL*8 ELMU , EMH , EN , EP , EPS , EROOT , fc , FIEX , fx , 
-     &       polm , pr , prop , Q , SA , SPIN , TAU , TLBDG , UPL , 
-     &       val , VINF
-      REAL*8 wz , XA , XA1 , YEXP , YNRM , ZETA , ZPOL
-      INTEGER*4 i1 , i11 , iapx , IAXS , Icll , idec , Idr , IDRN , 
-     &          IEXP , iflg , IGRD , ii , ILE , ile1 , ile2 , ile3 , 
-     &          ilin , indx , inko , INM
-      INTEGER*4 inp , inpo , inpx , INTR , inzz , inzzz , IPATH , IPRM , 
-     &          IPS1 , ISMAX , ISO , issp , ITAK2 , itemp , IVAR , ixx , 
-     &          IY , IZ , IZ1 , izzz
+      REAL*8 aval , Bten , Chilo , chis1 , chish , Chisq , chisx , 
+     &       chx , fc , fx , polm , pr , prop , val , wz
+      INTEGER*4 i1 , i11 , iapx , Icll , idec , Idr , iflg , ii , ile1 , 
+     &          ile2 , ile3 , ilin , indx , inko
+      INTEGER*4 inp , inpo , inpx , inzz , inzzz , issp , itemp , ixx , 
+     &          izzz
       INTEGER*4 j , jj , jjgg , jjj , jk , jkl , jm , jmf , jmt , jmte , 
-     &          jpp , jpz , JSKIP , jy , k , karm , kk , kk6 , kkx , kmt
-      INTEGER*4 knm , KSEQ , kx , larm , lcc , lcou , LFL , LFL1 , 
-     &          LFL2 , licz , lix , llx , lm , LMAX , LMAXE , lmh , 
-     &          LNY , loc , loch , loct
-      INTEGER*4 lp , LP1 , LP10 , LP11 , LP12 , LP13 , LP14 , LP2 , 
-     &          LP3 , LP4 , LP6 , LP7 , LP8 , LP9 , lpit , lput , lpx , 
-     &          lpxd , ls , lst
-      INTEGER*4 luu , lx , LZETA , MAGA , MAGEXC , MEMAX , MEMX6 , 
-     &          NANG , Ncall , NDIM , NEXPT , NICC , NLIFT , nlin , 
-     &          NMAX , NMAX1 , nowr , npoz , nrest , NSTART
-      INTEGER*4 NSTOP , NWR , nwyr , NYLDE
-      INTEGER*4 ISPL ! Added for spline
-      COMPLEX*16 ARM
+     &          jpp , jpz , jy , k , karm , kk , kk6 , kkx , kmt
+      INTEGER*4 knm , kx , larm , lcc , lcou , licz , lix , llx , lm , 
+     &          lmh , loc , loch , loct
+      INTEGER*4 lp , lpit , lput , lpx , lpxd , ls , lst
+      INTEGER*4 luu , lx , Ncall , nlin , nowr , npoz , nrest , nwyr
       DIMENSION jmte(6) , prop(6) , Bten(*)
-      COMMON /CX    / NEXPT , IZ , XA , IZ1(50) , XA1(50) , EP(50) , 
-     &                TLBDG(50) , VINF(50)
-      COMMON /CEXC0 / NSTART(76) , NSTOP(75)
-      COMMON /CCC   / EG(50) , CC(50,5) , AGELI(50,200,2) , Q(3,200,8) ,
-     &                NICC , NANG(200) , ISPL
-      COMMON /ILEWY / NWR
-      COMMON /CH1T  / CHIS11
-      COMMON /IGRAD / IGRD
-      COMMON /LCZP  / EMH , INM , LFL1 , LFL2 , LFL
-      COMMON /UWAGA / ITAK2
-      COMMON /LEV   / TAU(75) , KSEQ(1500,4)
-      COMMON /CCOUP / ZETA(50000) , LZETA(8)
-      COMMON /KIN   / EPS(50) , EROOT(50) , FIEX(50,2) , IEXP , IAXS(50)
-      COMMON /YEXPT / YEXP(32,1500) , IY(1500,32) , CORF(1500,32) , 
-     &                DYEX(32,1500) , NYLDE(50,32) , UPL(32,50) , 
-     &                YNRM(32,50) , IDRN , ILE(32)
-      COMMON /COMME / ELM(1500) , ELMU(1500) , ELML(1500) , SA(1500)
-      COMMON /CLM   / LMAX
-      COMMON /COEX  / EN(75) , SPIN(75) , ACCUR , DIPOL , ZPOL , ACCA , 
-     &                ISO
-      COMMON /CLCOM8/ CAT(600,3) , ISMAX
-      COMMON /AZ    / ARM(600,7)
-      COMMON /MGN   / LP1 , LP2 , LP3 , LP4 , LP6 , LP7 , LP8 , LP9 , 
-     &                LP10 , LP11 , LP12 , LP13 , LP14
-      COMMON /COEX2 / NMAX , NDIM , NMAX1
-      COMMON /PTH   / IPATH(75) , MAGA(75)
-      COMMON /PRT   / IPRM(20)
-      COMMON /CEXC  / MAGEXC , MEMAX , LMAXE , MEMX6 , IVAR(1500)
-      COMMON /SKP   / JSKIP(50)
-      COMMON /LIFE  / NLIFT
-      COMMON /LOGY  / LNY , INTR , IPS1
+      INCLUDE 'cx.inc'
+      INCLUDE 'cexc0.inc'
+      INCLUDE 'ccc.inc'
+      INCLUDE 'ilewy.inc'
+      INCLUDE 'ch1t.inc'
+      INCLUDE 'igrad.inc'
+      INCLUDE 'lczp.inc'
+      INCLUDE 'uwaga.inc'
+      INCLUDE 'lev.inc'
+      INCLUDE 'ccoup.inc'
+      INCLUDE 'kin.inc'
+      INCLUDE 'yexpt.inc'
+      INCLUDE 'comme.inc'
+      INCLUDE 'clm.inc'
+      INCLUDE 'coex.inc'
+      INCLUDE 'clcom8.inc'
+      INCLUDE 'az.inc'
+      INCLUDE 'mgn.inc'
+      INCLUDE 'coex2.inc'
+      INCLUDE 'pth.inc'
+      INCLUDE 'prt.inc'
+      INCLUDE 'cexc.inc'
+      INCLUDE 'skp.inc'
+      INCLUDE 'life.inc'
+      INCLUDE 'logy.inc'
       DATA pr/0./,lmh/0/,loc/0/,loch/0/
 
       issp = 0

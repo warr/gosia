@@ -36,29 +36,20 @@ C      Tetrn  - theta of recoiling nucleus
 
       SUBROUTINE CMLAB(Ii,Dsig,Tetrn)
       IMPLICIT NONE
-      REAL*8 a1 , a2 , ACCA , ACCUR , ared , BETAR , d2a , DIPOL , 
-     &       dista , dists , Dsig , DSIGS , emax , EMMA , EN , EP , 
-     &       epmin , EPS , EROOT , FIEX
-      INTEGER*4 IAXS , IEXP , iflaa , Ii , IPRM , ISKIN , ISO , IZ , 
-     &          IZ1 , lexp , lexp0 , lexp1 , n , NCM , NDIM , NEXPT , 
-     &          NMAX , NMAX1
-      REAL*8 r3 , SPIN , TASIN , tau , taup , tcmdg , tcmrad , TETACM , 
-     &       Tetrn , TLBDG , tlbrad , tmxdg , TREP , VINF , XA , XA1 , 
-     &       z1 , z2 , zcmdg , zcmrad
-      REAL*8 zlbrad , ZPOL
-      LOGICAL ERR
-      COMMON /CLCOM9/ ERR
-      COMMON /SECK  / ISKIN(50)
-      COMMON /PRT   / IPRM(20)
-      COMMON /TCM   / TETACM(50) , TREP(50) , DSIGS(50)
-      COMMON /BREC  / BETAR(50)
-      COMMON /CAUX0 / EMMA(75) , NCM
-      COMMON /COEX2 / NMAX , NDIM , NMAX1
-      COMMON /CX    / NEXPT , IZ , XA , IZ1(50) , XA1(50) , EP(50) , 
-     &                TLBDG(50) , VINF(50)
-      COMMON /KIN   / EPS(50) , EROOT(50) , FIEX(50,2) , IEXP , IAXS(50)
-      COMMON /COEX  / EN(75) , SPIN(75) , ACCUR , DIPOL , ZPOL , ACCA , 
-     &                ISO
+      REAL*8 a1 , a2 , ared , d2a , dista , dists , Dsig , emax , epmin
+      REAL*8 r3 , TASIN , tau , taup , tcmdg , tcmrad , Tetrn , tlbrad , 
+     &       tmxdg , z1 , z2 , zcmdg , zcmrad , zlbrad
+      INTEGER*4 iflaa , Ii , lexp , lexp0 , lexp1 , n
+      INCLUDE 'clcom9.inc'
+      INCLUDE 'seck.inc'
+      INCLUDE 'prt.inc'
+      INCLUDE 'tcm.inc'
+      INCLUDE 'brec.inc'
+      INCLUDE 'caux0.inc'
+      INCLUDE 'coex2.inc'
+      INCLUDE 'cx.inc'
+      INCLUDE 'kin.inc'
+      INCLUDE 'coex.inc'
       DATA r3/0./
 
       lexp0 = 1

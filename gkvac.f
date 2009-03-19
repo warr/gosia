@@ -23,24 +23,17 @@ C      Il     - level index
  
       SUBROUTINE GKVAC(Il)
       IMPLICIT NONE
-      REAL*8 ACCA , ACCUR , AKS , AVJI , beta , BETAR , DIPOL , DQ , 
-     &       EN , EP , EPS , EROOT , FIEL , FIEX , GAMMA , GFAC , GKI , 
-     &       POWER , QCEN , sp
-      REAL*8 SPIN , SUM , TAU , time , TIMEC , TLBDG , VACDP , VINF , 
-     &       XA , XA1 , XLAMB , XNOR , ZPOL
-      INTEGER*4 i , IAXS , IBYP , IEXP , Il , ISO , ITTE , IZ , IZ1 , 
-     &          KSEQ , NEXPT
-      COMMON /LEV   / TAU(75) , KSEQ(1500,4)
-      COMMON /BREC  / BETAR(50)
-      COMMON /GGG   / AVJI , GAMMA , XLAMB , TIMEC , GFAC , FIEL , POWER
-      COMMON /CX    / NEXPT , IZ , XA , IZ1(50) , XA1(50) , EP(50) , 
-     &                TLBDG(50) , VINF(50)
-      COMMON /GVAC  / GKI(3) , SUM(3)
-      COMMON /KIN   / EPS(50) , EROOT(50) , FIEX(50,2) , IEXP , IAXS(50)
-      COMMON /VAC   / VACDP(3,75) , QCEN , DQ , XNOR , AKS(6,75) , IBYP
-      COMMON /COEX  / EN(75) , SPIN(75) , ACCUR , DIPOL , ZPOL , ACCA , 
-     &                ISO
-      COMMON /THTAR / ITTE(50)
+      REAL*8 beta , sp , time
+      INTEGER*4 i , Il
+      INCLUDE 'lev.inc'
+      INCLUDE 'brec.inc'
+      INCLUDE 'ggg.inc'
+      INCLUDE 'cx.inc'
+      INCLUDE 'gvac.inc'
+      INCLUDE 'kin.inc'
+      INCLUDE 'vac.inc'
+      INCLUDE 'coex.inc'
+      INCLUDE 'thtar.inc'
 
       IF ( ABS(XLAMB).GE.1.E-9 ) THEN
          IF ( ITTE(IEXP).EQ.0 ) THEN

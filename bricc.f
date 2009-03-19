@@ -17,23 +17,13 @@ C      MEMAX  - number of matrix elements
 C
       SUBROUTINE BRICC
       IMPLICIT NONE
-      REAL*8 EN , SPIN , ACCUR , DIPOL , ZPOL , ACCA , temp , egamma
-      REAL*8 XA, XA1, EP, TLBDG, VINF
-      INTEGER*4 NEXPT, IZ, IZ1
-      INTEGER*4 ISO , NMAX , NDIM , NMAX1 , i , j , ngamma
+      REAL*8 temp , egamma
+      INTEGER*4 i , j , ngamma
       DIMENSION egamma(1500)
-      COMMON /COEX  / EN(75) , SPIN(75) , ACCUR , DIPOL , ZPOL , ACCA , 
-     &                ISO
-      COMMON /COEX2 / NMAX , NDIM , NMAX1
-      COMMON /CX    / NEXPT , IZ , XA , IZ1(50) , XA1(50) , EP(50) , 
-     &                TLBDG(50) , VINF(50)
-
-      INTEGER*4 MAGEXC, MEMAX, LMAXE, MEMX6, IVAR
-      COMMON /CEXC  / MAGEXC , MEMAX , LMAXE , MEMX6 , IVAR(1500)
-
-      INTEGER*4 LAMDA, LEAD, LDNUM, LAMMAX, MULTI
-      COMMON /CLCOM / LAMDA(8) , LEAD(2,1500) , LDNUM(8,75) , LAMMAX , 
-     &                MULTI(8)
+      INCLUDE 'coex.inc'
+      INCLUDE 'cx.inc'
+      INCLUDE 'cexc.inc'
+      INCLUDE 'clcom.inc'
 
       INTEGER*4 n1, n2
       CHARACTER*1024 idx_name, icc_name

@@ -30,20 +30,16 @@ C      Tzz    - upper limit of theta (degrees)
  
       SUBROUTINE COORD(Wth,Wph,Wthh,Naa,Ifw,Pfi,Wpi,Wtlb,Lz,Tyy,Tzz)
       IMPLICIT NONE
-      REAL*8 DS , DSE , DSG , EP , EPS , EROOT , FIEX , ga , gi , Pfi , 
-     &       rade , rmass , TACOS , TASIN , thetb , TLBDG , ttcm , Tyy , 
-     &       Tzz , VINF
-      REAL*8 wpa , Wph , Wpi , ws , Wth , Wthh , Wtlb , XA , XA1 , xaa , 
-     &       xph , xth , xthh , XV , YV , za , za1 , zb , zl , ZV
-      INTEGER*4 i , IAXS , IEXP , Ifw , ISKIN , IZ , IZ1 , Lz , Naa , 
-     &          NEXPT
+      REAL*8 ga , gi , Pfi , rade , rmass , TACOS , TASIN , thetb , 
+     &       ttcm , Tyy , Tzz
+      REAL*8 wpa , Wph , Wpi , ws , Wth , Wthh , Wtlb , xaa , xph , 
+     &       xth , xthh , za , za1 , zb , zl
+      INTEGER*4 i , Ifw , Lz , Naa
       DIMENSION Pfi(101) , Wpi(100,2)
-      COMMON /VLIN  / XV(101) , YV(101) , ZV(100) , DSG(100) ,
-     &                DSE(100) , DS
-      COMMON /KIN   / EPS(50) , EROOT(50) , FIEX(50,2) , IEXP , IAXS(50)
-      COMMON /CX    / NEXPT , IZ , XA , IZ1(50) , XA1(50) , EP(50) , 
-     &                TLBDG(50) , VINF(50)
-      COMMON /SECK  / ISKIN(50)
+      INCLUDE 'vlin.inc'
+      INCLUDE 'kin.inc'
+      INCLUDE 'cx.inc'
+      INCLUDE 'seck.inc'
       DATA rade/57.2957795/ ! 180 / pi
       DATA ws/0./
 
