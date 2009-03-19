@@ -1,4 +1,4 @@
-20080626
+20080630
 ° Reordering of all variable declarations so variables in common blocks are
   together.
 ° Increased size of arrays for levels from 75 to 100.
@@ -28,6 +28,11 @@
   in gosia2 (however, gosia always reads from unit 5, so this does nothing).
 ° Bugfix for dimension of bten, which should have been 1600 and was
   different in different places.
+° Use DCMPLX instead of CMPLX for portability.
+° Use DIMAG instead of IMAG for portability.
+° Reorder DATA statement in NEWCNV for portability.
+° Use LAGRAN for interpolation if there are less than three data points even
+  if ISPL = 1.
 
 20080519
 ° Add spline support (Pawel J. Napiorkowski).
