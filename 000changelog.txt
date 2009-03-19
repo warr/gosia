@@ -1,3 +1,11 @@
+20090319
+° Allow variation of the step size in omega.
+
+20081208
+° New option OP,INTI which works like OP,INTG but the theta values for the
+  meshpoints are given as angles for the recoiling target nuclei in the
+  laboratory frame. This should help in inverse kinematics cases.
+    
 20080630
 ° Reordering of all variable declarations so variables in common blocks are
   together.

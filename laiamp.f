@@ -10,6 +10,7 @@ C
 C Uses global variables:
 C      ARM    - excitation amplitudes of substates.
 C      CAT    - substates of levels (n_level, J, m)
+C      DOMEGA - Initial step in omega (default = 0.03)
 C      ELM    - matrix elements
 C      EPS    - epsilon
 C      EROOT  - sqrt(epsilon^2 - 1)
@@ -46,6 +47,7 @@ C      W0     - omega limit
       INCLUDE 'cexc0.inc'
       INCLUDE 'kin.inc'
       INCLUDE 'cxi.inc'
+      INCLUDE 'wvary.inc'
 
       ppp = 0.
       epsi = EPS(IEXP) ! epsilon
@@ -92,7 +94,7 @@ C                             calculate complex phase (dis)
                               CALL FAZA1(la,mua,rmir,rmis,dis,rmu)
                               pm = ELM(indx)*z ! Matrix element * zeta
 C                             estimate amplitude
-                              uhuj = STAMP(epsi,errt,xiv,.03D0,W0,lam,
+                              uhuj = STAMP(epsi,errt,xiv,DOMEGA,W0,lam,
      &                               mua)
                               ARM(is,5) = dis*pm*uhuj
                               ppp = ppp + TCABS(ARM(is,5))

@@ -1,3 +1,10 @@
+CDEBUGc   My added print options:  
+CDEBUGc      9,I
+CDEBUGc     I = 11  print excitation amplitudes & probabilities during the integration over omega
+CDEBUGc     1<=I<=6 print the adiabatic exponential.  I is the multipolarity used to look up the adiab. exp.
+CDEBUGc     I < 0   print the electric collision functions for lambda = abs(I)
+CDEBUGc       ~~Adam
+CDEBUGc     
 C                               GOSIA 2007 (64-bit)
 C
 C                                __________ Update
@@ -82,6 +89,13 @@ C          minor changes to the input format from the pre-2007
 C          versions, which can be updated without difficulty in older
 C          input files.  The remainder of this header describes these
 C          and other major improvements.
+C
+C          Additional OP,INTI option for inverse kinematics
+C
+C            (December 2008, N. Warr) - OP,INTI is identical to OP,INTG
+C            except that the meshpoint theta values are given for the
+C            _detected_ particle in the laboratory frame, rather than for
+C           the scattered projectile.
 C
 C          Changes to the Input Format
 C

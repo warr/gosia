@@ -24,14 +24,15 @@ C
       INCLUDE 'cx.inc'
       INCLUDE 'cexc.inc'
       INCLUDE 'clcom.inc'
+      INCLUDE 'switch.inc'
 
       INTEGER*4 n1, n2
       CHARACTER*1024 idx_name, icc_name
       REAL*8 mycc(5), CCLKUP
 
 C     Read the names of the files
-      read (*,'(A)') idx_name
-      read (*,'(A)') icc_name
+      read (JZB,'(A)') idx_name
+      read (JZB,'(A)') icc_name
 
 C     Write to output
       write(22,'(/,3A)') 'OP,BRIC interpolation of conversion ',
@@ -46,9 +47,10 @@ C     Make sure we are at start of file that we want to write
       rewind(29)
       
 C     Open the BrIcc database files
-      OPEN (UNIT=30,FILE=idx_name,ACCESS='direct',RECL=2048,ERR=999)
+      OPEN (UNIT=30,FILE=idx_name,ACCESS='direct',RECL=2048,ERR=999,
+     &      STATUS='OLD')
       OPEN (UNIT=31,FILE=icc_name, ACCESS='direct',RECL=44,ERR=999,
-     &      FORM='UNFORMATTED')
+     &      FORM='UNFORMATTED',STATUS='OLD')
 
       ngamma = 0
       DO i = 1 , MEMAX ! For each matrix element
