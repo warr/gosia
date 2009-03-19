@@ -1,0 +1,134 @@
+\chapter{Efficiency calibrations in gosia}
+\label{chapt:efficiency}
+
+There are five methods which can be used for efficiency calibrations:\\
+
+\begin{itemize}
+\item 0. Gremlin
+\item 1. Jaeri
+\item 2. Fiteff
+\item 3. Leuven
+\item 4. Radware
+\end{itemize}
+
+\section{Gremlin efficiency calibration}
+
+Parameters are: $a_0$, $a_1$, $a_2$, $a_3$, $f$, $N$, $b$, $c$. Note that b
+and c have units of keV. The energy of the $\gamma$ ray is $E_n$ (in keV -
+note that Gosia works in MeV, so this has to be converted) and the resulting
+efficiency is $\epsilon$. The value of $f$ must be negative or zero.
+
+\begin{equation}
+w = \ln\big({E_n \over E_0}\big)
+\end{equation}
+
+where $E_0$ = 50 keV.
+
+\begin{equation}
+\ln(\epsilon_P) = \sum_{k=0,3} a_k \cdot w^k
+\end{equation}
+
+If f $<$ 0, we have an additional F-factor:
+
+where N is a positive integer.
+
+\begin{equation}
+\ln(\epsilon_F) = f w^{-N}
+\end{equation}
+
+If c $>$ 0, we have an additional Woods-Saxon term:
+
+\begin{equation}
+r = {b - E_n \over c}
+\end{equation}
+
+\begin{equation}
+\epsilon_{ws} = {1 \over (1 + e^r)}
+\end{equation}
+
+The final resulting efficiency is the product of the three terms:
+
+\begin{equation}
+\epsilon = \epsilon_P \cdot \epsilon_F \cdot \epsilon_{ws}
+\end{equation}
+
+\section{Jaeri efficiency calibration}
+
+Parameters are $a_0$, $a_1$, $a_2$, $a_3$, $f$. The energy of the $\gamma$
+ray is $E_n$ (in keV - note that Gosia works in MeV, so this has to be
+converted) and the resulting efficiency is $\epsilon$. The value of $f$ is
+not used, but it must be $>$ 10 to be sure that this code is called.
+
+\begin{equation}
+w = \ln\big({E_n \over 511}\big)
+\end{equation}
+
+\begin{equation}
+\ln(\epsilon) = a_0 + a_1 \cdot w - e^{(a_2 + a_3 \cdot w)}
+\end{equation}
+
+\section{Fiteff efficieny calibration}
+
+Parameters are $a_0$, $a_1$, $a_2$, $a_3$, $f$. The energy of the $\gamma$
+ray is $E_n$ (in keV - note that Gosia works in MeV, so this has to be
+converted) and the resulting efficiency is $\epsilon$. The value of $f$ must
+be $>$ 0 and $<$ 10 to be sure that this code is called.
+
+\begin{equation}
+w = \ln\big({E_n \over 1000 f}\big)
+\end{equation}
+
+If $E_n$ $<$ 1000 f:
+
+\begin{equation}
+\ln(\epsilon) = a_0 + a_1 \cdot w + w^2 \cdot (a_2 + w \cdot a_3)
+\end{equation}
+
+Otherwise:
+
+\begin{equation}
+\ln(\epsilon) = a_0 + a_1 \cdot w
+\end{equation}
+
+\section{Leuven efficiency calibration}
+
+\begin{equation}
+w_1 = \ln(E_n)
+\end{equation}
+
+\begin{equation}
+\epsilon = \sum_{k=0,5} a_k \cdot w^k
+\end{equation}
+
+
+\section{Radware efficiency calibration}
+
+Parameters are $a_0$, $A$, $B$, $C$, $D$, $E$, $F$, $G$. The
+energy of the $\gamma$ ray is $E_n$ (in keV - note that Gosia works in MeV,
+so this has to be converted) and the resulting efficiency is $\epsilon$.
+This method can only be turned on by using the EFF, option of CONT.
+
+\begin{equation}
+x = \ln\big({E_n/100}\big)
+\end{equation}
+
+\begin{equation}
+\epsilon_1 = (A + B \cdot x + C \cdot x^2) ^{-G}
+\end{equation}
+
+\begin{equation}
+y = \ln(E_n/1000)
+\end{equation}
+
+\begin{equation}
+\epsilon_2 = (D + E \cdot y + F \cdot y^2)^{-G}
+\end{equation}
+
+\begin{equation}
+\ln(\epsilon) = a_0 + ((A + B \cdot x + C \cdot x^2) ^{-G} +
+(D + E \cdot y + F \cdot y^2)^{-G})^{-{1 \over G}}
+\end{equation}
+
+Ref: Nuclear Instruments and Methods in physics Research A 361 (1995)
+297-305, but with the addition of the $a_0$ term, which is not in the NIM
+article.
