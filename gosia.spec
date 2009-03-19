@@ -1,5 +1,5 @@
 Summary: Gosia coulex cross-section code
-%define version 20081208.3
+%define version 20090319
 %define release 1
 Name: gosia
 Version: %{version}
