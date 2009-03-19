@@ -2,127 +2,131 @@ BINDIR=$(ROOT)/usr/bin
 MANDIR=$(ROOT)/usr/share/man/man1
 
 BASE=gosia
-EXE=$(BASE).exe
+EXE=$(BASE)
 MAN=$(BASE).1
 SRCS=$(BASE).f
 
-FC=wine ftn77.exe
-LINK=wine slink.exe
+FC=gfortran
 
 # Turn on debugging - note that -Wall and -O2 together gives warnings
 # about variables being possibly used without being initialised. These
 # cases seem to be harmless. i.e. if (condition) then a=1 else a=2 endif
 # and then using a gives this warning, but in fact a is always set to
 # something
-FFLAGS = 
+FFLAGS = -g -Wall
+FFLAGS += -fbounds-check
+
+# Turn on optimisation
+FFLAGS += -O2 -funroll-loops
 
 DEPS=Makefile
 
 ALL: $(EXE)
 
-OBJS += $(BASE).obj
-OBJS += adhoc.obj
-OBJS += alloc.obj
-OBJS += ampder.obj
-OBJS += angula.obj
-OBJS += apram.obj
-OBJS += arccos.obj
-OBJS += arctg.obj
-OBJS += ats.obj
-OBJS += branr.obj
-OBJS += bricc.obj
-OBJS += cclkup.obj
-OBJS += cegry.obj
-OBJS += chmem.obj
-OBJS += cmlab.obj
-OBJS += code7.obj
-OBJS += conv.obj
-OBJS += coord.obj
-OBJS += decay.obj
-OBJS += djmm.obj
-OBJS += double.obj
-OBJS += effix.obj
-OBJS += elmt.obj
-OBJS += expon.obj
-OBJS += f.obj
-OBJS += fakp.obj
-OBJS += faza.obj
-OBJS += faza1.obj
-OBJS += fhip.obj
-OBJS += fiint.obj
-OBJS += fiint1.obj
-OBJS += ftbm.obj
-OBJS += func.obj
-OBJS += func1.obj
-OBJS += fxis1.obj
-OBJS += fxis2.obj
-OBJS += gamatt.obj
-OBJS += gcf.obj
-OBJS += gf.obj
-OBJS += gkk.obj
-OBJS += gkvac.obj
-OBJS += half.obj
-OBJS += intg.obj
-OBJS += klopot.obj
-OBJS += kontur.obj
-OBJS += lagran.obj
-OBJS += laiamp.obj
-OBJS += laisum.obj
-OBJS += leadf.obj
-OBJS += limits.obj
-OBJS += load.obj
-OBJS += lsloop.obj
-OBJS += mem.obj
-OBJS += mini.obj
-OBJS += mixr.obj
-OBJS += mixup.obj
-OBJS += newcat.obj
-OBJS += newcnv.obj
-OBJS += newlv.obj
-OBJS += openf.obj
-OBJS += path.obj
-OBJS += podziel.obj
-OBJS += pol4.obj
-OBJS += pomnoz.obj
-OBJS += prelm.obj
-OBJS += prim.obj
-OBJS += pticc.obj
-OBJS += qe.obj
-OBJS += qfit.obj
-OBJS += qm.obj
-OBJS += qrange.obj
-OBJS += rangel.obj
-OBJS += ready.obj
-OBJS += recoil.obj
-OBJS += reset.obj
-OBJS += rk4.obj
-OBJS += rndm.obj
-OBJS += rotate.obj
-OBJS += select.obj
-OBJS += seq.obj
-OBJS += setin.obj
-OBJS += simin.obj
-OBJS += sixel.obj
-OBJS += snake.obj
-OBJS += spline.obj
-OBJS += splint.obj
-OBJS += splner.obj
-OBJS += stamp.obj
-OBJS += sting.obj
-OBJS += szereg.obj
-OBJS += tacos.obj
-OBJS += tapma.obj
-OBJS += tasin.obj
-OBJS += tcabs.obj
-OBJS += tcexp.obj
-OBJS += tenb.obj
-OBJS += tens.obj
-OBJS += trint.obj
-OBJS += wsixj.obj
-OBJS += wthrej.obj
-OBJS += xstatic.obj
-OBJS += ylm.obj
-OBJS += ylm1.obj
+OBJS += $(BASE).o
+OBJS += adhoc.o
+OBJS += alloc.o
+OBJS += ampder.o
+OBJS += angula.o
+OBJS += apram.o
+OBJS += arccos.o
+OBJS += arctg.o
+OBJS += ats.o
+OBJS += branr.o
+OBJS += bricc.o
+OBJS += cclkup.o
+OBJS += cegry.o
+OBJS += chmem.o
+OBJS += cmlab.o
+OBJS += code7.o
+OBJS += conv.o
+OBJS += coord.o
+OBJS += decay.o
+OBJS += djmm.o
+OBJS += double.o
+OBJS += effix.o
+OBJS += elmt.o
+OBJS += expon.o
+OBJS += f.o
+OBJS += fakp.o
+OBJS += faza.o
+OBJS += faza1.o
+OBJS += fhip.o
+OBJS += fiint.o
+OBJS += fiint1.o
+OBJS += ftbm.o
+OBJS += func.o
+OBJS += func1.o
+OBJS += fxis1.o
+OBJS += fxis2.o
+OBJS += gamatt.o
+OBJS += gcf.o
+OBJS += gf.o
+OBJS += gkk.o
+OBJS += gkvac.o
+OBJS += half.o
+OBJS += intg.o
+OBJS += invkin.o
+OBJS += klopot.o
+OBJS += kontur.o
+OBJS += lagran.o
+OBJS += laiamp.o
+OBJS += laisum.o
+OBJS += leadf.o
+OBJS += limits.o
+OBJS += load.o
+OBJS += lsloop.o
+OBJS += mem.o
+OBJS += mini.o
+OBJS += mixr.o
+OBJS += mixup.o
+OBJS += newcat.o
+OBJS += newcnv.o
+OBJS += newlv.o
+OBJS += openf.o
+OBJS += path.o
+OBJS += podziel.o
+OBJS += pol4.o
+OBJS += pomnoz.o
+OBJS += prelm.o
+OBJS += prim.o
+OBJS += pticc.o
+OBJS += qe.o
+OBJS += qfit.o
+OBJS += qm.o
+OBJS += qrange.o
+OBJS += rangel.o
+OBJS += ready.o
+OBJS += recoil.o
+OBJS += reset.o
+OBJS += rk4.o
+OBJS += rndm.o
+OBJS += rotate.o
+OBJS += select.o
+OBJS += seq.o
+OBJS += setin.o
+OBJS += simin.o
+OBJS += sixel.o
+OBJS += snake.o
+OBJS += spline.o
+OBJS += splint.o
+OBJS += splner.o
+OBJS += stamp.o
+OBJS += sting.o
+OBJS += szereg.o
+OBJS += tacos.o
+OBJS += tapma.o
+OBJS += tasin.o
+OBJS += tcabs.o
+OBJS += tcexp.o
+OBJS += tenb.o
+OBJS += tens.o
+OBJS += trint.o
+OBJS += wsixj.o
+OBJS += wthrej.o
+OBJS += xstatic.o
+OBJS += ylm.o
+OBJS += ylm1.o
 
 SRCS += arccos.f arctg.f load.f lsloop.f leadf.f mem.f cmlab.f qe.f qm.f \
 snake.f fhip.f alloc.f rangel.f qrange.f ampder.f laisum.f expon.f faza.f \
@@ -134,22 +138,21 @@ decay.f angula.f ready.f branr.f limits.f szereg.f sixel.f prelm.f recoil.f \
 rotate.f ylm1.f fiint.f fiint1.f tapma.f simin.f mixup.f fxis1.f fxis2.f \
 podziel.f klopot.f mixr.f coord.f chmem.f pticc.f rndm.f kontur.f rk4.f \
 qfit.f gamatt.f gcf.f tcexp.f tcabs.f tasin.f tacos.f openf.f effix.f \
-adhoc.f elmt.f select.f bricc.f newcnv.f splner.f spline.f splint.f cclkup.f
+adhoc.f elmt.f select.f bricc.f newcnv.f splner.f spline.f splint.f cclkup.f \
+invkin.f
 	
 include: include.c
 	gcc -o $@ $<
 
 DATE=$(shell date +%04Y%02m%02d)
 SINGLE_FILE = $(BASE)_$(DATE).f
-
-%.obj: %.f
-	$(FC) $(FFLAGS) $*.f
+ADAM_FILE   = $(BASE)_$(DATE)-watchint-q.f
 
 $(EXE): $(OBJS) $(DEPS)
-	$(LINK) $(LDFLAGS) -file:$@ $(OBJS)
+	$(FC) $(LDFLAGS) -o $@ $(OBJS)
 
 clean:
-	rm -f *~ *.obj $(EXE) $(BASE)_20*.f include
+	rm -f *~ *.o $(EXE) $(BASE)_20*.f include
 
 install: $(EXE) $(MAN)
 	install -m 755 -d $(BINDIR)
@@ -159,5 +162,8 @@ install: $(EXE) $(MAN)
 	gzip -f $(MANDIR)/$(MAN)
 
 single_file: include
-	./include $(SRCS) > $(SINGLE_FILE)
+	./include $(SRCS) |grep -v CDEBUG > $(SINGLE_FILE)
+
+adam_file: include
+	./include $(SRCS) | sed -e 's/CDEBUG//' > $(ADAM_FILE)
 
