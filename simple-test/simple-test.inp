@@ -1,17 +1,3 @@
-OP,FILE
-22,3,1
-fort.22
-9,1,1
-fort.9
-14,3,1
-fort.14
-15,3,1
-fort.15
-17,3,1
-fort.17
-18,3,1
-fort.18
-0,0,0
 OP,TITL
     Neon 21 on Ti-48 with an invented level scheme and matrix elements
 OP,TITL
@@ -93,4 +79,4 @@ OP,INTG
 31.2,32.03,32.83,33.63,34.43,35.70
 8.157,8.092,8.030,7.970,7.909,7.817
 10,4
-OP,EXIT 
+OP,EXIT
