@@ -28,6 +28,7 @@ C      DEVU   -
 C      DIPOL  - E1 polarization parameter
 C      DIX    - Ge parameters (inner & outer radius, length, distance)
 C      DLOCK  - limit derivative below which matrix element is fixed if LOCKS=1
+C      DOMEGA - Initial step in omega (default = 0.03)
 C      DS     - integrated rutherford cross-section
 C      DSE    - rutherford cross section at given energy integrated over angles
 C      DSG    - differential gamma-ray yield at meshpoints
@@ -305,6 +306,7 @@ C      ZV     - energy meshpoints
       INCLUDE 'fakul.inc'
       INCLUDE 'life.inc'
       INCLUDE 'switch.inc'
+      INCLUDE 'wvary.inc'
       DATA (eng(k),k=1,10)/.05 , .06 , .08 , .1 , .15 , .2 , .3 , .5 , 
      &      1. , 1.5/
 C     Absorption coefficients in units of 1/cm for Ge
@@ -384,6 +386,7 @@ C     Initialize normalization to 1.
       ENDDO
 
       IUNIT3 = 3 ! Is 33 in gosia2
+      DOMEGA = 0.03D0 ! Step in omega
       IBYP = 0
       INHB = 0
       BEQ = -983872.
@@ -2024,6 +2027,11 @@ C     Treat suboption CONT (control)
          IF ( op1.EQ.'SEL,' ) ITS = 2
          IF ( op1.EQ.'SMR,' ) iosr = 1
          IF ( op1.EQ.'SPL,' ) ISPL = ipo1
+         IF ( op1.EQ.'STP,' ) THEN
+            DOMEGA = fipo1
+            CALL FHIP
+            CALL SETIN
+         ENDIF
          IF ( op1.EQ.'EFF,' ) THEN
             DO jjx = 1 , ipo1
                READ (JZB,*) ipo2 , ijx
