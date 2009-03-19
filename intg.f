@@ -87,7 +87,17 @@ C value of f(n).
       INCLUDE 'pth.inc'
       INCLUDE 'cexc9.inc'
       INCLUDE 'wvary.inc'
-      
+CDEBUG      real*8 adamtemp,TCABS                  ! Adam
+CDEBUG      logical diderrcheck                     ! Adam
+CDEBUG      integer*4 MEM                           ! Adam
+CDEBUG      integer*4 indx                         ! Adam
+CDEBUG      COMPLEX*16 EXPO                        ! Adam
+CDEBUG      COMMON /ADBXI / EXPO(1500)             ! Adam
+CDEBUG      INTEGER*4 IPRM                         ! Adam
+CDEBUG      COMMON /PRT   / IPRM(20)               ! Adam
+CDEBUG
+CDEBUG      if(IPRM(9).LT.0) call spitq(Ien,ABS(IPRM(9)))      ! Adam  -  print the collision functions to unit 22
+
       intend = INTERV(Ien) ! Default accuracy set by INT option of OP,CONT
       D2W = DOMEGA ! We use steps of DOMEGA in omega initially
       NSW = 1
@@ -161,12 +171,14 @@ C     Corrector
       IFLG = 0
       i57 = 5 ! Tell LAISUM to use ARM(I,5) for excitation amplitudes
 
+CDEBUG      diderrcheck=.false.
 C     Calculate derivatives of amplitudes
       CALL AMPDER(i57)
       IF ( (LAMR(2)+LAMR(3)).NE.0 ) THEN
          IF ( kast.GE.intend ) THEN
             kast = 0
             f = 0.
+CDEBUG            diderrcheck = .true.
             DO k = 1 , NMAX ! For each level
                ihold = IPATH(k)
                IF ( ihold.NE.0 ) THEN
@@ -210,5 +222,43 @@ C
              
          ENDIF                                         ! if kast>=intend
       ENDIF
+CDEBUG
+CDEBUG
+CDEBUGc--------------------------------------------------------------------------
+CDEBUGc     I am trying to output the probabilities and amplitudes at each step
+CDEBUG
+CDEBUG      if(IPRM(9).eq.11) then                ! If option was to print exc. amp. of substates
+CDEBUG        write(22,14619) NPT,D2W
+CDEBUG14619   format(2X,I4,2x,f5.3,$)
+CDEBUG        if(diderrcheck) then 
+CDEBUG          write(22,14621) sqrt(f)/14.              ! print out the error term 
+CDEBUG14621     format(2x,E11.4,$)
+CDEBUG        else
+CDEBUG          write(22,14622)                                                          !  if no error (f) term calc'd
+CDEBUG14622     format(' none',$)                        ! error wasn't checked
+CDEBUG        end if
+CDEBUG      end if
+CDEBUG      if((IPRM(9).GT.0).and.(IPRM(9).le.6)) then                        ! if option was to print adiab exp
+CDEBUGc       Note that it looks up the the terms by multipolarity
+CDEBUGc       so I select it by lambda = IPRM(9)
+CDEBUG        indx = MEM(1,2,IPRM(9))                  ! Index for matrix element from level N to level m with multipolarity La
+CDEBUG        write(22,14699)DBLE(EXPO(indx)),DIMAG(EXPO(indx))
+CDEBUG14699   format(2x,'2',2x,D11.4,2x,D11.4,$)
+CDEBUG        write(22,14623)    ! close the line
+CDEBUG      else if(IPRM(9).eq.11) then                 ! if option was to print excitation amplitudes of substates  
+CDEBUG        do ir = 1, ismax
+CDEBUG          adamtemp = TCABS(ARM(ir,i57))**2                                    ! probability(step)
+CDEBUG          write(22,14618)ir,DBLE(ARM(ir,i57)),DIMAG(ARM(ir,i57)),
+CDEBUG     &                   adamtemp
+CDEBUG        enddo
+CDEBUG14618   format(2x,I2,2x,D11.4,2x,D11.4,2x,D11.4,2x,$)
+CDEBUG        write(22,14623)    ! close the line
+CDEBUG      endif
+CDEBUG
+CDEBUG
+CDEBUG14623 format('')
+CDEBUGc--------------------------------------------------------------------------
+CDEBUG
+CDEBUG
       GOTO 100
       END

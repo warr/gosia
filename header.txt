@@ -1,3 +1,10 @@
+CDEBUGc   My added print options:  
+CDEBUGc      9,I
+CDEBUGc     I = 11  print excitation amplitudes & probabilities during the integration over omega
+CDEBUGc     1<=I<=6 print the adiabatic exponential.  I is the multipolarity used to look up the adiab. exp.
+CDEBUGc     I < 0   print the electric collision functions for lambda = abs(I)
+CDEBUGc       ~~Adam
+CDEBUGc     
 C                               GOSIA 2007 (64-bit)
 C
 C                                __________ Update
