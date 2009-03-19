@@ -31,7 +31,7 @@ C      Lu     -
       INCLUDE 'kin.inc'
       INCLUDE 'trb.inc'
       INCLUDE 'sel.inc'
-
+      
       kk6 = Kk + 5
       rn = DEV(Lu)
       al = (Rv-rn)*20./Rik
@@ -39,20 +39,20 @@ C      Lu     -
      &     IEXP , al/Em
       al1 = ABS(al)
       IF ( ITS.EQ.2 ) WRITE (18,*) Lu , Indx , IEXP , al1
-      IF ( al1.LE.ABS(IMAG(ARM(kk6,Jk))) ) RETURN
+      IF ( al1.LE.ABS(DIMAG(ARM(kk6,Jk))) ) RETURN
 
       DO j = Kk , kk6
-         a1 = ABS(IMAG(ARM(j,Jk)))
+         a1 = ABS(DIMAG(ARM(j,Jk)))
          IF ( al1.GT.a1 ) THEN
             j1 = j + 1
             DO l = j1 , kk6
                l1 = kk6 + j1 - l
                c1 = DBLE(ARM(l1-1,Jk))
-               c2 = IMAG(ARM(l1-1,Jk))
-               ARM(l1,Jk) = CMPLX(c1,c2)
+               c2 = DIMAG(ARM(l1-1,Jk))
+               ARM(l1,Jk) = DCMPLX(c1,c2)
             ENDDO
             rx = DBLE(Indx)
-            ARM(j,Jk) = CMPLX(rx,al)
+            ARM(j,Jk) = DCMPLX(rx,al)
             GOTO 99999
          ENDIF
       ENDDO
