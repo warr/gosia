@@ -1,9 +1,10 @@
 BINDIR=$(ROOT)/usr/bin
 MANDIR=$(ROOT)/usr/share/man/man1
 
-EXE=gosia
-MAN=$(EXE).1
-SRCS=$(EXE).f
+BASE=gosia
+EXE=$(BASE)
+MAN=$(BASE).1
+SRCS=$(BASE).f
 
 FC=gfortran
 
@@ -22,7 +23,7 @@ DEPS=Makefile
 
 ALL: $(EXE)
 
-OBJS += $(EXE).o
+OBJS += $(BASE).o
 OBJS += adhoc.o
 OBJS += alloc.o
 OBJS += ampder.o
@@ -142,13 +143,13 @@ include: include.c
 	gcc -o $@ $<
 
 DATE=$(shell date +%04Y%02m%02d)
-SINGLE_FILE = $(EXE)_$(DATE).f
+SINGLE_FILE = $(BASE)_$(DATE).f
 
 $(EXE): $(OBJS) $(DEPS)
 	$(FC) $(LDFLAGS) -o $@ $(OBJS)
 
 clean:
-	rm -f *~ *.o $(EXE) $(SINGLE_FILE) include
+	rm -f *~ *.o $(EXE) $(BASE)_20*.f include
 
 install: $(EXE) $(MAN)
 	install -m 755 -d $(BINDIR)
