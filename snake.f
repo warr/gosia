@@ -19,7 +19,7 @@ C      ZETA   - various coefficients (here the collision functions)
 C
 C Formal parameters:
 C      Nexp   - experiment number
-C      Zpol   - dipole term
+C      Zpol   - dipole term (GDR excitation)
 C
 C The function QE is used to calculate Qe and QM to calculate Qm, but first
 C we call QRANGE to determine the range over which we need to calculate them.
@@ -60,7 +60,7 @@ C     Calculate some parameters, which we will pass to QE or QM
       chi = CH(icnt) ! \cosh(\omega)
       shi = SH(icnt) ! \sinh(\omega)
       b2 = EPS(Nexp)*chi + 1.
-      pol = 1. - Zpol/b2
+      pol = 1. - Zpol/b2 ! E1 polarisation term
       b2 = b2*b2 ! b^2 = (\epsilon \cosh(\omega) + 1)^2
       IF ( ibm.NE.2 ) THEN
          b4 = b2*b2
