@@ -76,7 +76,7 @@ C     Calculate some parameters, which we will pass to QE or QM
          ENDIF
       ENDIF
       IF ( icm.NE.0 ) THEN
-         c = chi + EPS(Nexp) ! c = \cosh(\omega + \epsilon)
+         c = chi + EPS(Nexp) ! c = \cosh(\omega) + \epsilon
          IF ( icm.NE.1 ) THEN
             c2 = c*c
             IF ( icm.NE.2 ) THEN

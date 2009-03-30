@@ -8,8 +8,8 @@ C Purpose: calculate Qe values
 C
 C Formal parameters:
 C      C     - cosh(omega) + epsilon
-C      D     - sqrt(epsilon^2 - a) * epsilon / C
-C      B2    - B^2
+C      D     - sqrt(epsilon^2 - 1) * sinh(omega)
+C      B2    - B^2 = (epsilon * cosh(omega) + 1)^2
 C      C2    - C^2
 C      D2    - D^2
 C      B4    - B^4
