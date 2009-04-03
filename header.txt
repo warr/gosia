@@ -59,11 +59,11 @@ C          Rochester, NY 14627, U.S.A.           Phone (585)275-4934
 C          Cline@pas.rochester.edu
 C          http://www.pas.rochester.edu/~cline/
 C
-C       Compiling Gosia 20080630
-C          Gosia 2007 compiles on most 64-bit systems with GNU g77,
-C          using the default compiler settings.  Previous versions of
-C          the Gosia code did not explicitly specify 64-bit precision
-C          and were intended to be compiled by the user at the highest
+C       Compiling Gosia
+C          Gosia compiles on most 64-bit systems with GNU g77, using
+C          the default compiler settings.  Previous versions of the
+C          Gosia code did not explicitly specify 64-bit precision and
+C          were intended to be compiled by the user at the highest
 C          machine precision available.  The current availability of
 C          64-bit machines and the accuracy problems which may arise
 C          when relying on 32-bit precision led to the decision to make
