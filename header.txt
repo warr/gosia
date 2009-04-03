@@ -59,7 +59,7 @@ C          Rochester, NY 14627, U.S.A.           Phone (585)275-4934
 C          Cline@pas.rochester.edu
 C          http://www.pas.rochester.edu/~cline/
 C
-C       Compiling Gosia 2007
+C       Compiling Gosia 20080630
 C          Gosia 2007 compiles on most 64-bit systems with GNU g77,
 C          using the default compiler settings.  Previous versions of
 C          the Gosia code did not explicitly specify 64-bit precision
