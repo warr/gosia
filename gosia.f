@@ -1,6 +1,6 @@
-C                            GOSIA 2007 (64-bit)
+C                            GOSIA 20080519 (64-bit)
 C
-C                            26 June 2008 Update
+C                            3 April 2009 Update
 C
 C       http://www.pas.rochester.edu/~cline/Gosia/index.html
 C
@@ -72,22 +72,28 @@ C          with 32-bit precision is discouraged.
 C
 C       CHRONOLOGY OF MAJOR CHANGES:
 C
+C          (2 April 2009, N. Warr) gosia-20080519.3
+C          Bug fixes
+C            - E1 polarization was previously wrong for projectile excitation
+C          (16 January 2009, N. Warr) gosia-20080519.2
+C          Bug fixes
+C            - Give an error if limit of omega steps is exceeded
 C          (26 June 2008, N. Warr) gosia-20080519.1
 C          Bug fixes        
-C            ° CC array is initialised properly (all 50 elements, not just first 20).
-C            ° Various GOTOs which go to the ENDDO statement of a loop are changed to use
+C            - CC array is initialised properly (all 50 elements, not just first 20).
+C            - Various GOTOs which go to the ENDDO statement of a loop are changed to use
 C               a CONTINUE statement just before the ENDDO. This is apparently no longer
 C               permitted in Fortran 2003, so some compilers are already forbidding it.
-C            ° Arrays are passed with dimension '*' now, so they correctly inherit the
+C            - Arrays are passed with dimension '*' now, so they correctly inherit the
 C               dimension from the calling function.
-C            ° cpo and cpo1 arrays in CONV have been extended from 51 to 101.
-C            ° xx and yy arrays in EFFIX have been extended from 51 to 101.
-C            ° SAVE arh added in LAGRAN.
-C            ° The sign of the Woods-Saxon part of the gremlin efficiency calibration has
+C            - cpo and cpo1 arrays in CONV have been extended from 51 to 101.
+C            - xx and yy arrays in EFFIX have been extended from 51 to 101.
+C            - SAVE arh added in LAGRAN.
+C            - The sign of the Woods-Saxon part of the gremlin efficiency calibration has
 C               been corrected.
-C            ° NAME= has been replaced with FILE= in open statements in BRIC as this is
+C            - NAME= has been replaced with FILE= in open statements in BRIC as this is
 C               an extension, not part of the Fortran standard.
-C            ° The energy of the gamma is now the absolute value of the difference in
+C            - The energy of the gamma is now the absolute value of the difference in
 C               energy of the levels, so we don't have negative energies!
 C
 C          (19 May 2008, N. Warr) gosia-20080519
