@@ -74,6 +74,7 @@ C       CHRONOLOGY OF MAJOR CHANGES:
 C
 C          (2 April 2009, N. Warr) gosia-20090403
 C            ° E1 polarization was incorrect for projectile excitation
+C            ° Allow variable step size in omega
 C            ° Preserve IKIN flag in OP,INTI
 C            ° Fix OP,INTI for target excitations
 C            ° Give an error if limit in omega steps is exceeded
