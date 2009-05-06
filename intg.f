@@ -18,7 +18,7 @@ C      IFLG   - flag to determine whether to calculate exponential (so we don't 
 C      INTERV - default accuracy check parameter (see OP,CONT:INT)
 C      IPATH  - index of substate in level with same m as substate Irld
 C      IRA    - limit of omega for integration for each multipolarity
-C      ISG    - index for sigma
+C      ISG    - sign of omega
 C      ISMAX  - number of substates used
 C      ISO    - Isotropic flag
 C      KDIV   - index for division
@@ -28,7 +28,7 @@ C      NDIV   - number of divisions
 C      NMAX   - number of levels
 C      NPT    - index in ADB array (this is omega / DOMEGA)
 C      NSTART - index in CAT of first substate associated with a level
-C      NSW    -
+C      NSW    - step in omega
 C
 C Formal parameters:
 C      Ien    - experiment number
