@@ -72,6 +72,9 @@ C          with 32-bit precision is discouraged.
 C
 C       CHRONOLOGY OF MAJOR CHANGES:
 C
+C          (20 July 2009, P. Napiorkowski) gosia-20080630.3
+C          Bug fix
+C            - Integration over PIN diodes was incorrect
 C          (2 April 2009, N. Warr) gosia-20080630.2
 C          Bug fix
 C            - E1 polarization was incorrect for projectile excitation
