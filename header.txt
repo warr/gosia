@@ -73,76 +73,76 @@ C
 C       CHRONOLOGY OF MAJOR CHANGES:
 C
 C          (2 April 2009, N. Warr) gosia-20090403
-C            ° E1 polarization was incorrect for projectile excitation
-C            ° Allow variable step size in omega
-C            ° Preserve IKIN flag in OP,INTI
-C            ° Fix OP,INTI for target excitations
-C            ° Give an error if limit in omega steps is exceeded
+C            - E1 polarization was incorrect for projectile excitation
+C            - Allow variable step size in omega
+C            - Preserve IKIN flag in OP,INTI
+C            - Fix OP,INTI for target excitations
+C            - Give an error if limit in omega steps is exceeded
 C          (8 December 2008, N. Warr) gosia-20081208
 C            <B0> New option OP,INTI which works like OP,INTG but the theta
 C              values for the meshpoints are given as angles for the recoiling
 C              target nuclei in the laboratory frame. This should help in
 C              inverse kinematics cases.
 C          (30 June 2008, N. Warr) gosia-20080630
-C            ° Reordering of all variable declarations so variables in 
+C            - Reordering of all variable declarations so variables in 
 C              common blocks are together.
-C            ° Increased size of arrays for levels from 75 to 100.
-C            ° Change in many format statements to accomodate 100 levels
+C            - Increased size of arrays for levels from 75 to 100.
+C            - Change in many format statements to accomodate 100 levels
 C               (I2 -> I3).
-C            ° Increased size of arrays for substates from 600 to 1200.
-C            ° Restructure function EFFIX to allow more flexible selection
+C            - Increased size of arrays for substates from 600 to 1200.
+C            - Restructure function EFFIX to allow more flexible selection
 C              of efficiency calbration type.
-C            ° Added Radware efficiency calibration (Pawel J. Napiorkowski).
-C            ° Added EFF, option to CONT to make it easier to select
+C            - Added Radware efficiency calibration (Pawel J. Napiorkowski).
+C            - Added EFF, option to CONT to make it easier to select
 C              efficiency method.
-C            ° Bugfix in gremlin efficiency method: a sign was wrong in
+C            - Bugfix in gremlin efficiency method: a sign was wrong in
 C              Woods-Saxon term.
-C            ° Bugfix in initialisation of conversion coefficients for
+C            - Bugfix in initialisation of conversion coefficients for
 C              interpolation method (only part of array was initialized).
-C            ° Add CONTINUE statements to prevent GOTO the ENDDO of a loop.
+C            - Add CONTINUE statements to prevent GOTO the ENDDO of a loop.
 C              This is deprecated and will be removed in future.
-C            ° Call either LAGRAN or SPLNER to do interpolation according
+C            - Call either LAGRAN or SPLNER to do interpolation according
 C              to ISPL variable.
-C            ° Approximation in TRINT  if Arg is very large (then ratio is
+C            - Approximation in TRINT  if Arg is very large (then ratio is
 C              one) as in pawel.
-C            ° Replaced OPEN(NAME=xxx) with OPEN(FILE=xxx) as the former is
+C            - Replaced OPEN(NAME=xxx) with OPEN(FILE=xxx) as the former is
 C              an extension to the language, while the latter is standard.
-C            ° Bugfix in BRICC: we need the absolute value of the
+C            - Bugfix in BRICC: we need the absolute value of the
 C              difference in energy levels not the signed difference.
-C            ° Use JZB to indicate which unit to read from as in gosia2.
-C            ° Use IUNIT3 to indicate which unit is TAPE3 as in gosia2.
-C            ° Use irix variable to select units 7 and 12 as in gosia2.
-C            ° Add dummy variable Op2 to ANGULA as in gosia2.
-C            ° In OPENF we refuse to open units 25 and 26 unless reading
+C            - Use JZB to indicate which unit to read from as in gosia2.
+C            - Use IUNIT3 to indicate which unit is TAPE3 as in gosia2.
+C            - Use irix variable to select units 7 and 12 as in gosia2.
+C            - Add dummy variable Op2 to ANGULA as in gosia2.
+C            - In OPENF we refuse to open units 25 and 26 unless reading
 C              from unit 5 as in gosia2 (however, gosia always reads from unit
 C              5, so this does nothing).
-C            ° Bugfix for dimension of bten, which should have been 1600
+C            - Bugfix for dimension of bten, which should have been 1600
 C              and was different in different places.
-C            ° Use DCMPLX instead of CMPLX for portability.
-C            ° Use DIMAG instead of IMAG for portability.
-C            ° Reorder DATA statement in NEWCNV for portability.
-C            ° Use LAGRAN for interpolation if there are less than three
+C            - Use DCMPLX instead of CMPLX for portability.
+C            - Use DIMAG instead of IMAG for portability.
+C            - Reorder DATA statement in NEWCNV for portability.
+C            - Use LAGRAN for interpolation if there are less than three
 C              data points even if ISPL = 1.
 C          (26 June 2008, N. Warr) gosia-20080519.1
 C          Bug fixes        
-C            ° CC array is initialised properly (all 50 elements, not just
+C            - CC array is initialised properly (all 50 elements, not just
 C               first 20).
-C            ° Various GOTOs which go to the ENDDO statement of a loop are
+C            - Various GOTOs which go to the ENDDO statement of a loop are
 C               changed to use a CONTINUE statement just before the ENDDO.
 C               This is apparently no longer permitted in Fortran 2003, so
 C               some compilers are already forbidding it.
-C            ° Arrays are passed with dimension '*' now, so they correctly
+C            - Arrays are passed with dimension '*' now, so they correctly
 C               inherit the
 C               dimension from the calling function.
-C            ° cpo and cpo1 arrays in CONV have been extended from 51 to
+C            - cpo and cpo1 arrays in CONV have been extended from 51 to
 C               101.
-C            ° xx and yy arrays in EFFIX have been extended from 51 to 101.
-C            ° SAVE arh added in LAGRAN.
-C            ° The sign of the Woods-Saxon part of the gremlin efficiency
+C            - xx and yy arrays in EFFIX have been extended from 51 to 101.
+C            - SAVE arh added in LAGRAN.
+C            - The sign of the Woods-Saxon part of the gremlin efficiency
 C               calibration has been corrected.
-C            ° NAME= has been replaced with FILE= in open statements in
+C            - NAME= has been replaced with FILE= in open statements in
 C               BRIC as this is an extension, not part of the Fortran standard.
-C            ° The energy of the gamma is now the absolute value of the
+C            - The energy of the gamma is now the absolute value of the
 C               difference in energy of the levels, so we don't have negative
 C               energies!
 C
