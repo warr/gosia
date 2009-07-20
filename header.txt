@@ -1,6 +1,6 @@
-C                            GOSIA 20090403 (64-bit)
+C                            GOSIA 20090720 (64-bit)
 C
-C                            3 April 2009 Update
+C                            20 July 2009 Update
 C
 C       http://www.pas.rochester.edu/~cline/Gosia/index.html
 C
@@ -72,14 +72,15 @@ C          with 32-bit precision is discouraged.
 C
 C       CHRONOLOGY OF MAJOR CHANGES:
 C
-C          (2 April 2009, N. Warr) gosia-20090403
+C          (20 July 2009, N. Warr, P. Napiorkowski) gosia-20090720
+C            - Integration over PIN diodes was incorrect
 C            - E1 polarization was incorrect for projectile excitation
 C            - Allow variable step size in omega
 C            - Preserve IKIN flag in OP,INTI
 C            - Fix OP,INTI for target excitations
 C            - Give an error if limit in omega steps is exceeded
 C          (8 December 2008, N. Warr) gosia-20081208
-C            <B0> New option OP,INTI which works like OP,INTG but the theta
+C            - New option OP,INTI which works like OP,INTG but the theta
 C              values for the meshpoints are given as angles for the recoiling
 C              target nuclei in the laboratory frame. This should help in
 C              inverse kinematics cases.
