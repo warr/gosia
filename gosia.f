@@ -529,6 +529,7 @@ CDEBUG      IPRM(9) = 0     ! Adam's output of coulex vs. omega
          ENDDO
       ENDDO
       ERR = .FALSE.
+      opcja = '    '
       intend = 0 ! End of initialization
 
 C.............................................................................
