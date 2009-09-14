@@ -112,6 +112,7 @@ C      LP14   - maximum space for collision functions (4900)
 C      LP2    - maximum number of matrix elements (1500)
 C      LP3    - maximum number of levels (100)
 C      LP4    - maximum number of yields (1500)
+C      LP5    - maximum number of matrix elements (999) - N.B. matrix element + 1000 is used as a flag, so don't increase!
 C      LP6    - maximum number of gamma detectors (32)
 C      LP7    - start of collision functions (45100)
 C      LP8    - (104)
@@ -221,7 +222,7 @@ C      ZV     - energy meshpoints
       INTEGER*4 lamh , lb , lck1 , lck2 , levl , lex , lexp , 
      &          lfagg , lfini , lh1 , lh2 , liscl , lkj
       INTEGER*4 lkj1 , ll , lli , lll , lmax1 , lmaxh , locat , 
-     &          loct , lp0 , lpin
+     &          loct , lpin
       INTEGER*4 ltrn , ltrn1 , ltrn2 , lu , lx , lxd , magh , MEM
       INTEGER*4 memax1 , memh , memx4 , mend , mexl , 
      &          mfla , mlt , mm , mpin , ms , n , na , na1 , naa , 
@@ -359,15 +360,15 @@ C     Initialize prime numbers
       IP(26) = 101
 
 C     Initialize pointers
-      lp0 = 102700 ! Size of ZETA array
       LP1 = 50 ! Maximum number of experiments
       LP2 = 1500 ! Maximum number of matrix elements
       LP3 = 100 ! Maximum number of levels
       LP4 = 1500
+      LP5 = 999 ! Maximum number of matrix elements (do not increase as the number + 1000 has a special meaning)
       LP6 = 32 ! Maximum number of gamma detectors
-      LP7 = lp0 ! Maximum number of zeta coefficients
+      LP7 = LP3*LP5 ! Size of ZETA array
       LP8 = LP3*28 + 1
-      LP9 = lp0 - LP3*28
+      LP9 = LP7 - LP3*28
       LP10 = 1200 ! Maximum number of substates
       LP11 = LP8 - 1
       LP12 = 365 ! Maximum number of steps of omega (dimension of ADB, SH, CH)
