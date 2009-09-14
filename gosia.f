@@ -359,13 +359,13 @@ C     Initialize prime numbers
       IP(26) = 101
 
 C     Initialize pointers
-      lp0 = 107600 ! Size of ZETA array
+      lp0 = 102700 ! Size of ZETA array
       LP1 = 50 ! Maximum number of experiments
       LP2 = 1500 ! Maximum number of matrix elements
       LP3 = 100 ! Maximum number of levels
       LP4 = 1500
       LP6 = 32 ! Maximum number of gamma detectors
-      LP7 = lp0 - 4900 ! Start of collision coefficients in ZETA
+      LP7 = lp0 ! Maximum number of zeta coefficients
       LP8 = LP3*28 + 1
       LP9 = lp0 - LP3*28
       LP10 = 1200 ! Maximum number of substates
