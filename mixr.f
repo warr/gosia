@@ -31,6 +31,8 @@ C      Chilo  - chi squared using logs
       COMMON /MIXD  / DMIXE(20,2) , DMIX(20) , IMIX(20) , NDL
       COMMON /LOGY  / LNY , INTR , IPS1
 
+      dl = 0.
+      
       IF ( NDL.EQ.0 ) RETURN
       Nw = Nw + NDL
 
