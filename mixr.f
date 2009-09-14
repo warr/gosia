@@ -30,7 +30,7 @@ C      Chilo  - chi squared using logs
       INCLUDE 'logy.inc'
 
       dl = 0.
-
+      
       IF ( NDL.EQ.0 ) RETURN
       Nw = Nw + NDL
 
