@@ -39,7 +39,7 @@ C      LP6    - (32)
 C      LP8    - (104)
 C      LP9    - last 2100 words of ZETA array (47900)
 C      LP10   - (600)
-C      LP11   - LP8 - 1 (103)
+C      LP11   - LP8 - 1 (2800)
 C      LP13   - LP9 + 1 (47901)
 C      LP14   - maximum space for collision functions (4900)
 C      MEMAX  - number of matrix elements
@@ -106,7 +106,7 @@ C      Bten   -
       COMMON /LCZP  / EMH , INM , LFL1 , LFL2 , LFL
       COMMON /UWAGA / ITAK2
       COMMON /LEV   / TAU(75) , KSEQ(1500,4)
-      COMMON /CCOUP / ZETA(50000) , LZETA(8)
+      COMMON /CCOUP / ZETA(107600) , LZETA(8)
       COMMON /KIN   / EPS(50) , EROOT(50) , FIEX(50,2) , IEXP , IAXS(50)
       COMMON /YEXPT / YEXP(32,1500) , IY(1500,32) , CORF(1500,32) , 
      &                DYEX(32,1500) , NYLDE(50,32) , UPL(32,50) , 
@@ -134,7 +134,10 @@ C      Bten   -
       Chisq = 0.
       LFL = 0
       chis1 = 0.
-      ixx = NDIM*MEMAX + LP11 ! LP11 is 103
+      ixx = NDIM*MEMAX + LP11 ! LP11 is 2800
+      IF ( ixx.GT.LP7 ) THEN
+         STOP 'Too many matrix elements for the ZETA array'
+      ENDIF
 
       DO i1 = 1 , ixx
          ZETA(i1) = 0.
@@ -171,7 +174,7 @@ C      Bten   -
          IF ( MAGA(IEXP).EQ.0 ) lp = 1
          IF ( Ncall.EQ.0 ) GOTO 150
          IF ( Icll.EQ.4 ) GOTO 100
- 50      loch = LP3*(MEMAX-1) + NMAX + LP11 ! LP3 is 75, LP11 is 103
+ 50      loch = LP3*(MEMAX-1) + NMAX + LP11 ! LP3 is 75, LP11 is 2800
          DO k = 1 , loch
             ZETA(k) = 0.
          ENDDO

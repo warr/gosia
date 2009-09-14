@@ -359,7 +359,7 @@ C      LOCKF  - flag to fix matrix elements with most significant derivative
 C      LOCKS  - lock flag. If LOCKS=1, fix at first stage of minimization
 C      LP1    - maximum number of experiments (50)
 C      LP10   - maximum number of substates (600)
-C      LP11   - LP8 - 1 (103)
+C      LP11   - LP8 - 1 (2800)
 C      LP12   - number of steps of omega (365)
 C      LP13   - LP9 + 1 (47901)
 C      LP14   - maximum space for collision functions (4900)
@@ -567,7 +567,7 @@ C      ZV     - energy meshpoints
      &                TLBDG(50) , VINF(50)
       COMMON /CEXC  / MAGEXC , MEMAX , LMAXE , MEMX6 , IVAR(1500)
       COMMON /PRT   / IPRM(20)
-      COMMON /CCOUP / ZETA(50000) , LZETA(8)
+      COMMON /CCOUP / ZETA(107600) , LZETA(8)
       COMMON /CB    / B(20)
       COMMON /CLM   / LMAX
       COMMON /CLCOM0/ IFAC(75)
@@ -643,7 +643,7 @@ C     Initialize prime numbers
       IP(26) = 101
 
 C     Initialize pointers
-      lp0 = 50000 ! Size of ZETA array
+      lp0 = 107600 ! Size of ZETA array
       LP1 = 50 ! Maximum number of experiments
       LP2 = 1500 ! Maximum number of matrix elements
       LP3 = 75 ! Maximum number of levels

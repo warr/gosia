@@ -36,7 +36,7 @@ C maps.
       INTEGER*4 ng , ng1 , ntt
       COMMON /VLIN  / XV(101) , YV(101) , ZV(101) , DSG(101) ,
      &                DSE(101) , DS
-      COMMON /CCOUP / ZETA(50000) , LZETA(8)
+      COMMON /CCOUP / ZETA(107600) , LZETA(8)
       COMMON /YTEOR / YGN(1500) , YGP(1500) , IFMO
 
       Nft = 0

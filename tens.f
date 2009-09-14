@@ -26,7 +26,7 @@ C      Bten   -
       DIMENSION Bten(*)
       COMMON /KIN   / EPS(50) , EROOT(50) , FIEX(50,2) , IEXP , IAXS(50)
       COMMON /TCM   / TETACM(50) , TREP(50) , DSIGS(50)
-      COMMON /CCOUP / ZETA(50000) , LZETA(8)
+      COMMON /CCOUP / ZETA(107600) , LZETA(8)
       COMMON /COEX2 / NMAX , NDIM , NMAX1
 
       ix = NMAX*28

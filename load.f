@@ -79,7 +79,7 @@ C      Joj    - index of substate (write only)
       COMMON /PSPIN / ISHA
       COMMON /CEXC  / MAGEXC , MEMAX , LMAXE , MEMX6 , IVAR(1500)
       COMMON /PCOM  / PSI(1500)
-      COMMON /CCOUP / ZETA(50000) , LZETA(8)
+      COMMON /CCOUP / ZETA(107600) , LZETA(8)
       COMMON /CLM   / LMAX
       COMMON /CLCOM8/ CAT(600,3) , ISMAX
       COMMON /CLCOM9/ ERR
