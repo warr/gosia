@@ -1,6 +1,6 @@
 C                            GOSIA 20080519 (64-bit)
 C
-C                            16 August 2009 Update
+C                            14 September 2009 Update
 C
 C       http://www.pas.rochester.edu/~cline/Gosia/index.html
 C
@@ -72,6 +72,11 @@ C          with 32-bit precision is discouraged.
 C
 C       CHRONOLOGY OF MAJOR CHANGES:
 C
+C          (14 September 2009, N. Warr) gosia-20080519.6
+C            - Increased dimensions of ZETA array to allow up to 999 matrix
+C              elements
+C            - Explicit initialisation of variables that were generating
+C              warnings on latest gfortran compiler
 C          (16 August 2009, N. Warr) gosia-20080519.5
 C          Bug fixes
 C            - Increased dimension of variables in common VLIN to 101
