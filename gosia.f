@@ -525,6 +525,7 @@ C     Initialize normalization to 1.
          ENDDO
       ENDDO
       ERR = .FALSE.
+      opcja = '    '
       intend = 0 ! End of initialization
 
 C.............................................................................
