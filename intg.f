@@ -27,7 +27,7 @@ C      NDIV   - number of divisions
 C      NMAX   - number of levels
 C      NPT    - index in ADB array (this is omega / 0.03)
 C      NSTART - index in CAT of first substate associated with a level
-C      NSW    -
+C      NSW    - step in omega
 C
 C Formal parameters:
 C      Ien    - experiment number
@@ -117,7 +117,7 @@ C     Predictor
      &                  +37.0*ARM(ir,2)-9.0*ARM(ir,1))
          ENDDO
       ENDIF
-      NPT = NPT + NSW*ISG
+      NPT = NPT + NSW*ISG ! NPT loops over omega values, ISG is -1 at first then +1
       IF ( NPT.GT.0 ) THEN
          IF ( NDIV.EQ.0 ) GOTO 200
          KDIV = KDIV + 1
@@ -126,7 +126,7 @@ C     Predictor
          NPT = NPT + ISG
          IF ( NPT.GT.0 ) GOTO 200
       ENDIF
-      NPT = -NPT + 2
+      NPT = -NPT + 2 ! We decreased omega to zero, so now start increasing
       ISG = 1
  200  CALL RESET(ISO)
       IFLG = 1
@@ -206,7 +206,7 @@ C
                ENDIF
             ENDIF
              
-         ENDIF
+         ENDIF ! if kast>=intend
       ENDIF
       GOTO 100
       END
