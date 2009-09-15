@@ -1424,7 +1424,7 @@ C              Treat OP,INTI
                                  CALL INTG(IEXP)
                                  CALL TENB(j,bten,LMAX)
                               ENDDO
-                              CALL TENS(bten)
+                              CALL TENS(bten,ZETA)
                               CALL DECAY(ccd,0,ccc)
                               DO j = 1 , LP2 ! LP2 = 1500 (maximum number of matrix elements)
                                  DO ijan = 1 , 20
@@ -2426,7 +2426,7 @@ C     Handle OP,ERRO
      &                 WRITE (22,99036) pr
 99036             FORMAT (1X/5X,'SUM OF PROBABILITIES=',1E14.6)
                ENDDO ! Loop over spins j
-               CALL TENS(bten)
+               CALL TENS(bten,ZETA)
                IF ( itno.NE.0 ) THEN ! write statistical tensors on tape 17
                   DO k = 2 , NMAX
                      WRITE (17,*) k
