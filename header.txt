@@ -1,6 +1,6 @@
-C                            GOSIA 20081208 (64-bit)
+C                            GOSIA 20090915 (64-bit)
 C
-C                            14 September 2009 Update
+C                            15 September 2009 Update
 C
 C       http://www.pas.rochester.edu/~cline/Gosia/index.html
 C
@@ -72,6 +72,8 @@ C          with 32-bit precision is discouraged.
 C
 C       CHRONOLOGY OF MAJOR CHANGES:
 C
+C          (15 September 2009, N. Warr) gosia-20090915
+C            - Separated collision functions from zeta coefficients
 C          (14 September 2009, N. Warr) gosia-20081208.7
 C            - Increased dimensions of ZETA array to allow up to 999 matrix
 C              elements
