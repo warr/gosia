@@ -24,7 +24,7 @@ C      LZETA  - index in ZETA to coupling coefficients for given multipolarity
 C      NSTART - index in CAT of first substate associated with a level
 C      NSTOP  - index in CAT of last substate associated with a level
 C      XI     - xi coupling coefficients
-C      ZETA   - various coefficients
+C      ZETA   - zeta coupling coefficients
 C
 C Formal parameters:
 C      Ir     - index of substate
