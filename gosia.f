@@ -110,7 +110,6 @@ C      LP12   - number of steps of omega (365)
 C      LP2    - maximum number of matrix elements (1500)
 C      LP3    - maximum number of levels (100)
 C      LP4    - maximum number of yields (1500)
-C      LP5    - maximum number of matrix elements (999) - N.B. matrix element + 1000 is used as a flag, so don't increase!
 C      LP6    - maximum number of gamma detectors (32)
 C      LP7    - end of zeta coefficients
 C      LP8    - maximum space for collision functions (4900)
@@ -362,9 +361,8 @@ C     Initialize pointers
       LP2 = 1500 ! Maximum number of matrix elements
       LP3 = 100 ! Maximum number of levels
       LP4 = 1500
-      LP5 = 999 ! Maximum number of matrix elements (do not increase as the number + 1000 has a special meaning)
       LP6 = 32 ! Maximum number of gamma detectors
-      LP7 = LP3*LP5 + LP3*28*2 ! Size of ZETA array
+      LP7 = LP3*LP2 + LP3*28*2 ! Size of ZETA array
       LP8 = 4900 ! Maximum number of collision coefficients
       LP9 = LP7 - LP3*28
       LP10 = 1200 ! Maximum number of substates
