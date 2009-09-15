@@ -1,6 +1,6 @@
-C                            GOSIA 20090720 (64-bit)
+C                            GOSIA 20090915 (64-bit)
 C
-C                            20 July 2009 Update
+C                            15 September 2009 Update
 C
 C       http://www.pas.rochester.edu/~cline/Gosia/index.html
 C
@@ -72,12 +72,30 @@ C          with 32-bit precision is discouraged.
 C
 C       CHRONOLOGY OF MAJOR CHANGES:
 C
-C          (20 July 2009, N. Warr, P. Napiorkowski) gosia-20090720
+C          (15 September 2009, N. Warr) gosia-20090915
+C            - Separated collision functions from zeta coefficients
+C          (14 September 2009, N. Warr) gosia-20081208.7
+C            - Increased dimensions of ZETA array to allow up to 999 matrix
+C              elements
+C            - Explicit initialisation of variables that were generating
+C              warnings on latest gfortran compiler
+C          (16 August 2009, N. Warr) gosia-20081208.6
+C          Bug fix
+C            - Increased dimensions of variables in common VLIN to 101
+C          (20 July 2009, P. Napiorkowski) gosia-20081208.5
+C          Bug fix
 C            - Integration over PIN diodes was incorrect
+C          (2 April 2009, N. Warr) gosia-20081208.4
+C          Bug fix
 C            - E1 polarization was incorrect for projectile excitation
-C            - Allow variable step size in omega
+C          (1 February 2009, N. Warr) gosia-20081208.3
+C          Bug fix
 C            - Preserve IKIN flag in OP,INTI
+C          (27 January 2009, N. Warr) gosia-20081208.2
+C          Bug fix
 C            - Fix OP,INTI for target excitations
+C          (16 January 2009, N. Warr) gosia-20081208.1
+C          Bug fix
 C            - Give an error if limit in omega steps is exceeded
 C          (8 December 2008, N. Warr) gosia-20081208
 C            - New option OP,INTI which works like OP,INTG but the theta
