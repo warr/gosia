@@ -366,7 +366,7 @@ C     Initialize pointers
       LP4 = 1500
       LP5 = 999 ! Maximum number of matrix elements (do not increase as the number + 1000 has a special meaning)
       LP6 = 32 ! Maximum number of gamma detectors
-      LP7 = LP3*LP5 + LP3*28 ! Size of ZETA array
+      LP7 = LP3*LP5 + LP3*28*2 ! Size of ZETA array
       LP8 = LP3*28 + 1 ! Space for statistical tensors
       LP9 = LP7 - LP3*28
       LP10 = 1200 ! Maximum number of substates
