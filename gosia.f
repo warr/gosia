@@ -108,7 +108,6 @@ C      LP1    - maximum number of experiments (50)
 C      LP10   - maximum number of substates (1200)
 C      LP11   - LP8 - 1 (2800)
 C      LP12   - number of steps of omega (365)
-C      LP13   - LP9 + 1 (47901)
 C      LP14   - maximum space for collision functions (4900)
 C      LP2    - maximum number of matrix elements (1500)
 C      LP3    - maximum number of levels (100)
@@ -373,7 +372,6 @@ C     Initialize pointers
       LP10 = 1200 ! Maximum number of substates
       LP11 = LP8 - 1
       LP12 = 365 ! Maximum number of steps of omega (dimension of ADB, SH, CH)
-      LP13 = LP9 + 1
       LP14 = 4900 ! Maximum number of collision coefficients
 
       JZB = 5

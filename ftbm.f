@@ -40,7 +40,6 @@ C      LP8    - (104)
 C      LP9    - last 2100 words of ZETA array (47900)
 C      LP10   - maximum number of magnetic substates (1200)
 C      LP11   - LP8 - 1 (2800)
-C      LP13   - LP9 + 1 (47901)
 C      MEMAX  - number of matrix elements
 C      MEMX6  - number of matrix elements with E1...6 multipolarity
 C      NANG   - number of gamma-ray detectors for each experiment
@@ -288,7 +287,7 @@ C      Bten   -
                      inpx = (lst-1)*28
                      DO jy = 1 , 4
                         inp = inpx + (jy-1)*7
-                        IF ( jy.EQ.1 ) pr = ZETA(LP13+inp) + 1.E-12
+                        IF ( jy.EQ.1 ) pr = ZETA(LP9+1+inp) + 1.E-12
                         jmf = 2*jy - 1
                         IF ( IAXS(IEXP).EQ.0 ) jmf = 1
                         DO jm = 1 , jmf
@@ -321,7 +320,7 @@ C      Bten   -
                         WRITE (22,99005) (jmte(lm),lm=1,lpit)
 99005                   FORMAT (5X,'LEVEL',6(8X,1I2,9X))
                         WRITE (22,99006)
-     &                         (ZETA(LP13+(jpz-1)*28),jpz=inpo,inko)
+     &                         (ZETA(LP9+1+(jpz-1)*28),jpz=inpo,inko)
 99006                   FORMAT (1X,'EXC.PROB.',6(5X,1E10.4,4X))
                         DO jmt = 1 , kmt
                            lput = 0
@@ -330,7 +329,7 @@ C      Bten   -
                               prop(lput) = 0.
                               DO lm = 1 , MEMX6
                                  inzz = ls + LP3*(lm-1) + LP11
-                                 inzzz = LP13 + (ls-1)*28
+                                 inzzz = LP9 + 1 + (ls-1)*28
                                  IF ( ABS(ZETA(inzzz)).LT.1.E-20 )
      &                                ZETA(inzzz) = 1.E-20
                                  val = 2.*ELM(lm)*ZETA(inzz)/ZETA(inzzz)
