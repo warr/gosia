@@ -110,7 +110,7 @@ C      Bten   -
       Chisq = 0.
       LFL = 0
       chis1 = 0.
-      ixx = LP3*MEMAX + LP11 ! LP11 is 2800
+      ixx = LP3*MEMAX + LP11+1 ! LP11 is 2800
       IF ( ixx.GT.LP7 ) THEN
          STOP 'Too many matrix elements for the ZETA array'
       ENDIF
