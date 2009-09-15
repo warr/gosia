@@ -226,7 +226,7 @@ C      ZV     - energy meshpoints
      &          nallow
       INTEGER*4 naxfl , nb1 , nb2 , nbands , nch , ndima , ndum , 
      &          ne , nf , nfd , nfdd , 
-     &          nfi , nflr , nft , nged
+     &          nfi , nft , nged
       INTEGER*4 ngpr , ni , nksi , nl , nmaxh , nmemx , nnl , 
      &          nogeli , npce , npce1 , npct , npct1 , 
      &          npt , nptl , nptx , ns1
@@ -1089,7 +1089,7 @@ C                    Read tape 17
                      DO lpin = 1 , mpin ! Loop over pin diodes
                         ilx = ilx + 1
                         IF ( ilx.NE.1 )
-     &                       CALL TAPMA(lx,iske,isko,iskf,nflr,idr,0,
+     &                       CALL TAPMA(lx,iske,isko,iskf,0,idr,0,
      &                       nft,enb)
                         READ (14,*) ne , ntt , emn , emx , tmn , tmx , 
      &                              jan , wth , wph , wthh
@@ -1576,7 +1576,7 @@ C                    Read tape 17
                      DO lpin = 1 , mpin ! Loop over pin diodes
                         ilx = ilx + 1
                         IF ( ilx.NE.1 )
-     &                       CALL TAPMA(lx,iske,isko,iskf,nflr,idr,0,
+     &                       CALL TAPMA(lx,iske,isko,iskf,0,idr,0,
      &                       nft,enb)
                         READ (14,*) ne , ntt , emn , emx , tmn , tmx , 
      &                              jan , wth , wph , wthh
