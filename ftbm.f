@@ -201,7 +201,7 @@ C      Bten   -
          IF ( Icll.GE.2 ) GOTO 200
          llx = 28*NMAX
          DO lx = 1 , llx
-            ZETA(LP9+lx) = ZETA(lx) ! LP9 is 97100
+            ZETA(LP9+lx) = ZETA(lx) ! LP9 points to last 2800 elements of ZETA
          ENDDO
          IF ( Icll.NE.1 ) GOTO 200
  100     iapx = 0
