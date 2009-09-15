@@ -146,6 +146,7 @@ include: include.c
 
 DATE=$(shell date +%04Y%02m%02d)
 SINGLE_FILE = $(BASE)_$(DATE).f
+ADAM_FILE   = $(BASE)_$(DATE)-watchint-q.f
 
 $(EXE): $(OBJS) $(DEPS)
 	$(FC) $(LDFLAGS) -o $@ $(OBJS)
@@ -161,5 +162,8 @@ install: $(EXE) $(MAN)
 	gzip -f $(MANDIR)/$(MAN)
 
 single_file: include
-	./include $(SRCS) > $(SINGLE_FILE)
+	grep -hv CDEBUG $(SRCS) | ./include > $(SINGLE_FILE)
+
+adam_file: include
+	cat $(SRCS) | sed -e 's/CDEBUG//' | ./include > $(ADAM_FILE)
 
