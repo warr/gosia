@@ -27,12 +27,14 @@ int treat_file(char *filename) {
    FILE *fp;
    
    /* Open file */
-   
-   fp = fopen(filename, "r");
-   if (!fp) {
-      fprintf(stderr, "Unable to read file %s - %m\n", filename);
-      return(-1);
-   }
+
+   if (filename) {
+      fp = fopen(filename, "r");
+      if (!fp) {
+	 fprintf(stderr, "Unable to read file %s - %m\n", filename);
+	 return(-1);
+      }
+   } else fp = stdin;
    
    /* Read file */
    
@@ -53,6 +55,7 @@ int treat_file(char *filename) {
 int main(int argc, char **argv) {
 
    int i;
+   if (argc <= 1) treat_file(NULL);
    for (i = 1; i < argc; i++) treat_file(argv[i]);
    return(0);
 }
