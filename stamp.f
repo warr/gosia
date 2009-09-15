@@ -53,7 +53,7 @@ C      Estimated amplitude
             IF ( mi.EQ.0 ) fct = 1./Epsi/Epsi
             IF ( mi.EQ.1 ) fct = 1.414213562*Errt/Epsi/Epsi ! 1.414213562 = sqrt(2)
          ENDIF
-      ELSE ! Larger absolute values of xi
+      ELSE                     ! Larger absolute values of xi
          ex = EXP(W0)/2.
          b = axi*(Epsi*ex+W0)
          CALL TRINT(b,sib,cib)
