@@ -18,7 +18,7 @@ C      IAXS   - axial symmetry flag (readonly)
 C      IEXP   - experiment number (readonly)
 C      NMAX   - number of levels (readonly)
 C      TETACM - theta of particle detector in center of mass frame (readonly)
-C      ZETA   - various coefficients (read/write)
+C      ZETA   - statistical tensors (write only)
 C
 C Formal parameter:
 C      Bten   - 16 values for each level (read)
