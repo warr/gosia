@@ -10,7 +10,6 @@ C
 C Uses global variables:
 C      CH     - table of cosh values
 C      COLLIS - collision functions
-CDEBUGC      DOMEGA - Initial step in omega (default = 0.03)
 C      EPS    - epsilon
 C      EROOT  - sqrt(epsilon^2 -1)
 C      LOCQ   - location of collision function in COLLIS array
@@ -45,7 +44,6 @@ C M1, M2.
       INCLUDE 'mgn.inc'
       INCLUDE 'allc.inc'
       INCLUDE 'hiper.inc'
-CDEBUG      INCLUDE 'wvary.inc'
       
       icnt = 0
  100  icnt = icnt + 1
