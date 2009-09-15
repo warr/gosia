@@ -127,19 +127,13 @@ C     Calculate some parameters, which we will pass to QE or QM
 CDEBUG
 CDEBUGC----------------------------------------------------------------------
 CDEBUG
-CDEBUG      subroutine spitq(ixpt,mult)
-CDEBUG      integer*4 ixpt,mult
-CDEBUG      REAL*8 COLLIS , ZETA
-CDEBUG      INTEGER*4 LZETA
-CDEBUG      COMMON /CCOUP / ZETA(155600) , LZETA(8) , COLLIS(4900)
-CDEBUG      REAL*8 EPS, EROOT, FIEX
-CDEBUG      INTEGER*4 IEXP, IAXS
-CDEBUG      COMMON /KIN   / EPS(50) , EROOT(50) , FIEX(50,2) , IEXP , IAXS(50)
-CDEBUG      INTEGER*4 LOCQ
-CDEBUG      COMMON /ALLC  / LOCQ(8,7)
-CDEBUG      INTEGER*4 IRA , MAXLA
-CDEBUG      COMMON /RNG   / IRA(8) , MAXLA
-CDEBUG      integer*4 mimmex
+CDEBUG      SUBROUTINE SPITQ(Ixpt,Mult)
+CDEBUG      INTEGER*4 ixpt,mult
+CDEBUG      INCLUDE 'ccoup.inc'
+CDEBUG      INCLUDE 'kin.inc'
+CDEBUG      INCLUDE 'allc.inc'
+CDEBUG      INCLUDE 'rng.inc'
+CDEBUG      INTEGER*4 mimmex
 CDEBUG      INTEGER*4 ibm , icm , icnt , idm , irl  , k , lloc , 
 CDEBUG     &           nind , nlm
 CDEBUG      DIMENSION lloc(8) , irl(8)
@@ -147,7 +141,7 @@ CDEBUG      INTEGER*4 LP1 , LP2 , LP3 , LP4 , LP6 , LP7 , LP8 , LP9 ,
 CDEBUG     &          LP10 , LP11 , LP12
 CDEBUG      COMMON /MGN   / LP1 , LP2 , LP3 , LP4 , LP6 , LP7 , LP8 , LP9 , 
 CDEBUG     &                LP10 , LP11 , LP12
-CDEBUG      real*8 collfunc,w0
+CDEBUG      REAL*8 collfunc,w0
 CDEBUG
 CDEBUGc     Passed in the experiment number (ixpt) and the multipolarity (mult).
 CDEBUGc     I am doing only for electric for now.
