@@ -220,7 +220,7 @@ C      ZV     - energy meshpoints
       INTEGER*4 lamh , lb , lck1 , lck2 , levl , lex , lexp , 
      &          lfagg , lfini , lh1 , lh2 , liscl , lkj
       INTEGER*4 lkj1 , ll , lli , lll , lmax1 , lmaxh , locat , 
-     &          loct , lp0 , lpin
+     &          loct , lpin
       INTEGER*4 ltrn , ltrn1 , ltrn2 , lu , lx , lxd , magh , MEM
       INTEGER*4 memax1 , memh , memx4 , mend , mexl , 
      &          mfla , mlt , mm , mpin , ms , n , na , na1 , naa , 
@@ -359,15 +359,14 @@ C     Initialize prime numbers
       IP(26) = 101
 
 C     Initialize pointers
-      lp0 = 107600 ! Size of ZETA array
       LP1 = 50 ! Maximum number of experiments
       LP2 = 1500 ! Maximum number of matrix elements
       LP3 = 100 ! Maximum number of levels
       LP4 = 1500
       LP6 = 32 ! Maximum number of gamma detectors
-      LP7 = lp0 ! Maximum number of zeta coefficients
+      LP7 = LP3*LP2 + LP3*28*2 ! Size of ZETA array
       LP8 = 4900 ! Maximum number of collision coefficients
-      LP9 = lp0 - LP3*28
+      LP9 = LP7 - LP3*28
       LP10 = 1200 ! Maximum number of substates
       LP11 = LP3*28
       LP12 = 365 ! Maximum number of steps of omega (dimension of ADB, SH, CH)

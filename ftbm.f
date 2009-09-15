@@ -36,9 +36,9 @@ C      LFL2   -
 C      LMAX   - ground-state spin + 1
 C      LP3    - maximum number of levels (100)
 C      LP6    - maximum number of Ge detectors (32)
-C      LP9    - last 2100 words of ZETA array (47900)
+C      LP9    - last 2800 words of ZETA array (97100)
 C      LP10   - maximum number of magnetic substates (1200)
-C      LP11   - LP3 * 28 (2800)
+C      LP11   - space for statistical tensors (LP3 * 28 = 2800)
 C      MEMAX  - number of matrix elements
 C      MEMX6  - number of matrix elements with E1...6 multipolarity
 C      NANG   - number of gamma-ray detectors for each experiment
@@ -201,7 +201,7 @@ C      Bten   -
          IF ( Icll.GE.2 ) GOTO 200
          llx = 28*NMAX
          DO lx = 1 , llx
-            ZETA(LP9+lx) = ZETA(lx) ! LP9 is 47900
+            ZETA(LP9+lx) = ZETA(lx) ! LP9 points to last 2800 elements of ZETA
          ENDDO
          IF ( Icll.NE.1 ) GOTO 200
  100     iapx = 0
@@ -272,7 +272,7 @@ C      Bten   -
                chisx = 0.
                llx = 28*NMAX
                DO lix = 1 , llx
-                  ZETA(LP9+lix) = ZETA(lix) ! LP9 is 47900
+                  ZETA(LP9+lix) = ZETA(lix) ! LP9 points to last 2800 elements of ZETA
                ENDDO
                CALL CEGRY(chisx,itemp,Chilo,Idr,nwyr,0,0,1)
                DO knm = 1 , MEMAX ! Loop over matrix elements
@@ -286,7 +286,7 @@ C      Bten   -
                      inpx = (lst-1)*28
                      DO jy = 1 , 4
                         inp = inpx + (jy-1)*7
-                        IF ( jy.EQ.1 ) pr = ZETA(LP9+1+inp) + 1.E-12
+                        IF ( jy.EQ.1 ) pr = ZETA(inp+LP9+1) + 1.E-12
                         jmf = 2*jy - 1
                         IF ( IAXS(IEXP).EQ.0 ) jmf = 1
                         DO jm = 1 , jmf
@@ -328,7 +328,7 @@ C      Bten   -
                               prop(lput) = 0.
                               DO lm = 1 , MEMX6
                                  inzz = ls + LP3*(lm-1) + LP11
-                                 inzzz = LP9 + 1 + (ls-1)*28
+                                 inzzz = LP9 + (ls-1)*28 + 1
                                  IF ( ABS(ZETA(inzzz)).LT.1.E-20 )
      &                                ZETA(inzzz) = 1.E-20
                                  val = 2.*ELM(lm)*ZETA(inzz)/ZETA(inzzz)
