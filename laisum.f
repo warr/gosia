@@ -26,7 +26,7 @@ C      NDIV   - number of divisions
 C      NPT    - index in ADB array (this is omega / DOMEGA)
 C      NSTART - index in CAT of first substate associated with a level
 C      NSTOP  - index in CAT of last substate associated with a level
-C      ZETA   - various coefficients
+C      ZETA   - zeta coupling coefficients
 C
 C Formal parameters:
 C      Ir     - index of substate
