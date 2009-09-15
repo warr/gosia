@@ -41,7 +41,6 @@ C      LP9    - last 2100 words of ZETA array (47900)
 C      LP10   - maximum number of magnetic substates (1200)
 C      LP11   - LP8 - 1 (2800)
 C      LP13   - LP9 + 1 (47901)
-C      LP14   - maximum space for collision functions (4900)
 C      MEMAX  - number of matrix elements
 C      MEMX6  - number of matrix elements with E1...6 multipolarity
 C      NANG   - number of gamma-ray detectors for each experiment
