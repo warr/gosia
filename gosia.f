@@ -433,6 +433,7 @@ C     Initialize normalization to 1.
       IPRM(5) = 11111
       IPRM(6) = 11111
       IPRM(7) = 0
+CDEBUG      IPRM(9) = 0     ! Adam's output of coulex vs. omega
       IPRM(16) = 0
       IPRM(17) = 0
       IPRM(18) = 0
