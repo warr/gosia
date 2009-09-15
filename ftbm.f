@@ -196,7 +196,7 @@ C      Bten   -
             REWIND 14
             WRITE (14,*) (ZETA(i11),i11=LP11+1,loch)
          ENDIF
-         CALL TENS(Bten,ZETA)
+         CALL TENS(Bten)
          IF ( Ncall.EQ.0 ) GOTO 200
          IF ( Icll.GE.2 ) GOTO 200
          llx = 28*NMAX
@@ -229,7 +229,7 @@ C      Bten   -
                ENDDO
             ENDIF ! IF ( IPRM(7).EQ.-1 )
          ENDDO ! Loop on k
-         CALL TENS(Bten,ZETA)
+         CALL TENS(Bten)
          IF ( IPRM(7).EQ.-1 ) THEN
             DO jjgg = 2 , NMAX
                loct = (jjgg-1)*28 + 1

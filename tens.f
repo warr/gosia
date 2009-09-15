@@ -11,32 +11,33 @@ C          coordinate system with the z-axis along the beam direction
 C          and the x-axis in the plane of the orbit in such a way, that
 C          the x-component of the impact parameter is positive. The y-
 C          axis is defined to form a right-handed system. The results
-C          are written to Result.
+C          are written to ZETA.
 C
 C Uses global variables:
 C      IAXS   - axial symmetry flag (readonly)
 C      IEXP   - experiment number (readonly)
 C      NMAX   - number of levels (readonly)
 C      TETACM - theta of particle detector in center of mass frame (readonly)
+C      ZETA   - statistical tensors (write only)
 C
 C Formal parameter:
 C      Bten   - 16 values for each level (read)
-C      Result - 28 values for each level (write)
  
-      SUBROUTINE TENS(Bten, Result)
+      SUBROUTINE TENS(Bten)
       IMPLICIT NONE
-      REAL*8 arg , Bten , DJMM , Result
+      REAL*8 arg , Bten , DJMM
       INTEGER*4 i , ind , inz , iph , ix , k , k1 , kp , l , lp , 
      &          lpp , lx , lxx
-      DIMENSION Bten(*) , Result(*)
+      DIMENSION Bten(*)
       INCLUDE 'kin.inc'
       INCLUDE 'tcm.inc'
+      INCLUDE 'ccoup.inc'
       INCLUDE 'coex2.inc'
 
       ix = NMAX*28
       arg = 1.570796327 + TETACM(IEXP)/2.
       DO i = 1 , ix
-         Result(i) = 0.
+         ZETA(i) = 0.
       ENDDO
 
       DO i = 2 , NMAX ! For each level except ground state
@@ -46,7 +47,7 @@ C      Result - 28 values for each level (write)
             IF ( k.EQ.0 ) THEN
                ind = (i-2)*16 + 1
                inz = (i-1)*28 + 1
-               Result(inz) = Bten(ind)
+               ZETA(inz) = Bten(ind)
             ELSE
                DO lp = 1 , kp
                   IF ( IAXS(IEXP).NE.0 .OR. lp.EQ.1 ) THEN
@@ -57,7 +58,7 @@ C      Result - 28 values for each level (write)
                         lx = lpp - 1
                         lxx = lx
  2                      iph = (-1)**(l+INT(DBLE(lxx)/2.))
-                        Result(inz) = Result(inz) + Bten(ind)
+                        ZETA(inz) = ZETA(inz) + Bten(ind)
      &                                *iph*DJMM(arg,k,lx,l)
                         IF ( lpp.NE.1 ) THEN
                            IF ( lx.GE.0 ) THEN
