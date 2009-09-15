@@ -37,7 +37,7 @@ C      LMAX   - ground-state spin + 1
 C      LP3    - maximum number of levels (100)
 C      LP6    - maximum number of Ge detectors (32)
 C      LP8    - (104)
-C      LP9    - last 2100 words of ZETA array (47900)
+C      LP9    - last 2800 words of ZETA array (97100)
 C      LP10   - maximum number of magnetic substates (1200)
 C      LP11   - LP8 - 1 (2800)
 C      LP13   - LP9 + 1 (47901)
@@ -203,7 +203,7 @@ C      Bten   -
          IF ( Icll.GE.2 ) GOTO 200
          llx = 28*NMAX
          DO lx = 1 , llx
-            ZETA(LP9+lx) = ZETA(lx) ! LP9 is 47900
+           ZETA(LP9+lx) = ZETA(lx) ! LP9 is 97100
          ENDDO
          IF ( Icll.NE.1 ) GOTO 200
  100     iapx = 0
@@ -274,7 +274,7 @@ C      Bten   -
                chisx = 0.
                llx = 28*NMAX
                DO lix = 1 , llx
-                  ZETA(LP9+lix) = ZETA(lix) ! LP9 is 47900
+                 ZETA(LP9+lix) = ZETA(lix) ! LP9 is 97100
                ENDDO
                CALL CEGRY(chisx,itemp,Chilo,Idr,nwyr,0,0,1)
                DO knm = 1 , MEMAX ! Loop over matrix elements

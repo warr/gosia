@@ -5,7 +5,8 @@ C
 C Called by: FTBM, GOSIA
 C Calls:     DJMM
 C
-C Purpose:
+C Purpose: For each level, we fill out 28 values into the first part of ZETA
+C          rotated into the new coordinate frame
 C
 C Uses global variables:
 C      IAXS   - axial symmetry flag (readonly)
@@ -15,7 +16,7 @@ C      TETACM - theta of particle detector in center of mass frame (readonly)
 C      ZETA   - various coefficients (read/write)
 C
 C Formal parameter:
-C      Bten   - 
+C      Bten   - 16 values for each level
  
       SUBROUTINE TENS(Bten)
       IMPLICIT NONE
