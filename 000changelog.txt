@@ -1,123 +1,123 @@
 2009XXXX
-° Separate collision coefficients out of ZETA array
+Â° Separate collision coefficients out of ZETA array
 
 20081208
-° New option OP,INTI which works like OP,INTG but the theta values for the
+Â° New option OP,INTI which works like OP,INTG but the theta values for the
   meshpoints are given as angles for the recoiling target nuclei in the
   laboratory frame. This should help in inverse kinematics cases.
     
 20080630
-° Reordering of all variable declarations so variables in common blocks are
+Â° Reordering of all variable declarations so variables in common blocks are
   together.
-° Increased size of arrays for levels from 75 to 100.
-° Change in many format statements to accomodate 100 levels (I2 -> I3).
-° Increased size of arrays for substates from 600 to 1200.
-° Restructure function EFFIX to allow more flexible selection of efficiency
+Â° Increased size of arrays for levels from 75 to 100.
+Â° Change in many format statements to accomodate 100 levels (I2 -> I3).
+Â° Increased size of arrays for substates from 600 to 1200.
+Â° Restructure function EFFIX to allow more flexible selection of efficiency
   calbration type.
-° Added Radware efficiency calibration (Pawel J. Napiorkowski).
-° Added EFF, option to CONT to make it easier to select efficiency method.
-° Bugfix in gremlin efficiency method: a sign was wrong in Woods-Saxon term.
-° Bugfix in initialisation of conversion coefficients for interpolation
+Â° Added Radware efficiency calibration (Pawel J. Napiorkowski).
+Â° Added EFF, option to CONT to make it easier to select efficiency method.
+Â° Bugfix in gremlin efficiency method: a sign was wrong in Woods-Saxon term.
+Â° Bugfix in initialisation of conversion coefficients for interpolation
   method (only part of array was initialized).
-° Add CONTINUE statements to prevent GOTO the ENDDO of a loop. This is
+Â° Add CONTINUE statements to prevent GOTO the ENDDO of a loop. This is
   deprecated and will be removed in future.
-° Call either LAGRAN or SPLNER to do interpolation according to ISPL variable.
-° Approximation in TRINT  if Arg is very large (then ratio is one) as in
+Â° Call either LAGRAN or SPLNER to do interpolation according to ISPL variable.
+Â° Approximation in TRINT  if Arg is very large (then ratio is one) as in
   pawel.
-° Replaced OPEN(NAME=xxx) with OPEN(FILE=xxx) as the former is an extension
+Â° Replaced OPEN(NAME=xxx) with OPEN(FILE=xxx) as the former is an extension
   to the language, while the latter is standard.
-° Bugfix in BRICC: we need the absolute value of the difference in energy
+Â° Bugfix in BRICC: we need the absolute value of the difference in energy
   levels not the signed difference.
-° Use JZB to indicate which unit to read from as in gosia2.
-° Use IUNIT3 to indicate which unit is TAPE3 as in gosia2.
-° Use irix variable to select units 7 and 12 as in gosia2.
-° Add dummy variable Op2 to ANGULA as in gosia2.
-° In OPENF we refuse to open units 25 and 26 unless reading from unit 5 as
+Â° Use JZB to indicate which unit to read from as in gosia2.
+Â° Use IUNIT3 to indicate which unit is TAPE3 as in gosia2.
+Â° Use irix variable to select units 7 and 12 as in gosia2.
+Â° Add dummy variable Op2 to ANGULA as in gosia2.
+Â° In OPENF we refuse to open units 25 and 26 unless reading from unit 5 as
   in gosia2 (however, gosia always reads from unit 5, so this does nothing).
-° Bugfix for dimension of bten, which should have been 1600 and was
+Â° Bugfix for dimension of bten, which should have been 1600 and was
   different in different places.
-° Use DCMPLX instead of CMPLX for portability.
-° Use DIMAG instead of IMAG for portability.
-° Reorder DATA statement in NEWCNV for portability.
-° Use LAGRAN for interpolation if there are less than three data points even
+Â° Use DCMPLX instead of CMPLX for portability.
+Â° Use DIMAG instead of IMAG for portability.
+Â° Reorder DATA statement in NEWCNV for portability.
+Â° Use LAGRAN for interpolation if there are less than three data points even
   if ISPL = 1.
 
 20080519
-° Add spline support (Pawel J. Napiorkowski).
-° Add new version of CONV which can lookup internal conversion coefficients
+Â° Add spline support (Pawel J. Napiorkowski).
+Â° Add new version of CONV which can lookup internal conversion coefficients
   from a table, which must have all the necessary energies (no interpolation).
-° Add OP,BRIC to use BrIcc database to generate conversion coefficient table
+Â° Add OP,BRIC to use BrIcc database to generate conversion coefficient table
   for new version of CONV.
 
 20080508
-° Increased size of arrays for matrix elements from 500 to 1500. N.B. we are
+Â° Increased size of arrays for matrix elements from 500 to 1500. N.B. we are
   still limited to 999 matrix elements because 1000 is used as a flag.
-° Added OP,SELE.
+Â° Added OP,SELE.
 
 20080507
-° Correct inaccurate constants in SEQ.
-° Replaced constant 10 with NLIFT in loop (this was a bug).
-° Initialized some variables explicitly to remove compiler warnings.
-° Increased AKAVKA dimensions from 8 to 9 to prepare for merge of Pawel
+Â° Correct inaccurate constants in SEQ.
+Â° Replaced constant 10 with NLIFT in loop (this was a bug).
+Â° Initialized some variables explicitly to remove compiler warnings.
+Â° Increased AKAVKA dimensions from 8 to 9 to prepare for merge of Pawel
   Napiorkowski's efficiency code.
-° Added ISPL variable in CCC common to prepare for merge of Pawel
+Â° Added ISPL variable in CCC common to prepare for merge of Pawel
   Napiorkowski's spline code and SPL, option in CONT.
-° Restructured a repeated IF with the same condition to use IF/THEN.
+Â° Restructured a repeated IF with the same condition to use IF/THEN.
 
 20080418
-° Increased dimensions of arrays fiex1, wpi in GOSIA.
-° Increased dimensions of XV, YV, ZV, DSG and DSE in GOSIA.
-° Moved OP,EXIT code to end of GOSIA (as in gosia2).
-° Limited ABS(NI2) rather than NI2 to 50 in GOSIA.
-° Fixed call to MIN so both parameters have same precision in GOSIA.
-° Remove unused variables u and v in ALLOC.
-° Changed format of normalisation coefficients write in CEGRY.
-° Changed dimensions of X, Y, w and arh in LAGRAN.
-° Changed dimensions of XV, YV, ZV, DSG and DSE in TAPMA.
-° Changed dimensions of Wpi in COORD.
-° Changed dimensions of XV, YV, ZV, DSG and DSE in COORD.
-° Changed dimensions of XV, YV, ZV, DSG and DSE in KONTUR.
-° Added Leuven efficiency calibration in EFFIX (as in gosia2).
+Â° Increased dimensions of arrays fiex1, wpi in GOSIA.
+Â° Increased dimensions of XV, YV, ZV, DSG and DSE in GOSIA.
+Â° Moved OP,EXIT code to end of GOSIA (as in gosia2).
+Â° Limited ABS(NI2) rather than NI2 to 50 in GOSIA.
+Â° Fixed call to MIN so both parameters have same precision in GOSIA.
+Â° Remove unused variables u and v in ALLOC.
+Â° Changed format of normalisation coefficients write in CEGRY.
+Â° Changed dimensions of X, Y, w and arh in LAGRAN.
+Â° Changed dimensions of XV, YV, ZV, DSG and DSE in TAPMA.
+Â° Changed dimensions of Wpi in COORD.
+Â° Changed dimensions of XV, YV, ZV, DSG and DSE in COORD.
+Â° Changed dimensions of XV, YV, ZV, DSG and DSE in KONTUR.
+Â° Added Leuven efficiency calibration in EFFIX (as in gosia2).
 
 20080328
-° Put back warnings in CEGRY which was removed by mistake.
-° Fix typo misspelling "WARNING" in CEGRY.
+Â° Put back warnings in CEGRY which was removed by mistake.
+Â° Fix typo misspelling "WARNING" in CEGRY.
 
 20080229
-° Limit NI2 to 50 in GOSIA.
+Â° Limit NI2 to 50 in GOSIA.
 
 20070726
-° Reorder initialisation so it is similar to gosia2 in GOSIA.
-° Remove spurious attempt to provoke floating point exception in ALLOC.
-° Remove superfluous ELSE in WTHREJ.
-° Move some format statements in PRELM.
+Â° Reorder initialisation so it is similar to gosia2 in GOSIA.
+Â° Remove spurious attempt to provoke floating point exception in ALLOC.
+Â° Remove superfluous ELSE in WTHREJ.
+Â° Move some format statements in PRELM.
 
 20070721
-° Fix initialisation of CNOR from 1 to 75 not 1 to 50 in GOSIA.
-° Make both parameters of SIGN have same precision in FXIS1.
+Â° Fix initialisation of CNOR from 1 to 75 not 1 to 50 in GOSIA.
+Â° Make both parameters of SIGN have same precision in FXIS1.
 
 20070709
-° Restucture IF statement in GOSIA.
-° Add explicit STOP statement to ALLOC.
-° Move duplicated lines out of IF/ELSE in MINI.
-° Make both parameters of SIGN have same precision in FXIS2.
-° Run spag.
-° Convert to double precision.
-° Reorder common LCZP.
-° Reorder common CAUX0.
-° Reorder common COEX.
-° Reorder common KIN.
-° Reorder common CCC.
-° Reorder common ME2D.
-° Declare all variables explicitly.
-° Add PROGRAM statement to GOSIA.
-° Replace ALOG with LOG.
-° Replace ALOG10 with LOG10.
-° Replace AMIN1 with MIN.
-° Replace MIN0 with MIN.
-° Replace AMAX1 with MAX.
-° Replace MAX0 with MAX.
-° Replace IABS with ABS.
-° Replace FLOAT with REAL.
-° Replace IFIX with INT.
-° Add SAVE statement in DJMM.
+Â° Restucture IF statement in GOSIA.
+Â° Add explicit STOP statement to ALLOC.
+Â° Move duplicated lines out of IF/ELSE in MINI.
+Â° Make both parameters of SIGN have same precision in FXIS2.
+Â° Run spag.
+Â° Convert to double precision.
+Â° Reorder common LCZP.
+Â° Reorder common CAUX0.
+Â° Reorder common COEX.
+Â° Reorder common KIN.
+Â° Reorder common CCC.
+Â° Reorder common ME2D.
+Â° Declare all variables explicitly.
+Â° Add PROGRAM statement to GOSIA.
+Â° Replace ALOG with LOG.
+Â° Replace ALOG10 with LOG10.
+Â° Replace AMIN1 with MIN.
+Â° Replace MIN0 with MIN.
+Â° Replace AMAX1 with MAX.
+Â° Replace MAX0 with MAX.
+Â° Replace IABS with ABS.
+Â° Replace FLOAT with REAL.
+Â° Replace IFIX with INT.
+Â° Add SAVE statement in DJMM.
