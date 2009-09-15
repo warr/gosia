@@ -1,7 +1,8 @@
-20090403
+2009XXXX
 ° Allow variation of the step size in omega.
 ° Bugfix: E1 polarization was incorrect for projectile excitations
 ° Preserve IKIN in OP,INTI
+° Separate collision coefficients out of ZETA array
 
 20081208
 ° New option OP,INTI which works like OP,INTG but the theta values for the
