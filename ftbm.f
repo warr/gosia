@@ -51,7 +51,7 @@ C      NSTOP  - index in CAT of last substate associated with a level
 C      NWR    - number of datapoints used in fit
 C      NYLDE  - number of yields
 C      SPIN   - spin of level
-C      ZETA   - the coupling constants
+C      ZETA   - statistical tensors, not really zeta
 C      ZPOL   - dipole term (GDR excitation)
 C
 C Formal parameters:
@@ -110,7 +110,7 @@ C      Bten   -
       Chisq = 0.
       LFL = 0
       chis1 = 0.
-      ixx = NDIM*MEMAX + LP11 ! LP11 is 2800
+      ixx = LP3*MEMAX + LP11+1 ! LP11 is 2800
       IF ( ixx.GT.LP7 ) THEN
          STOP 'Too many matrix elements for the ZETA array'
       ENDIF
@@ -153,7 +153,7 @@ C      Bten   -
  50      loch = LP3*(MEMAX-1) + NMAX + LP11 ! LP3 is 100, LP11 is 2800
          DO k = 1 , loch
             ZETA(k) = 0.
-         ENDDO
+          ENDDO
          CALL LOAD(IEXP,1,2,0.D0,jj)
          DO k = 1 , LMAX ! For each multipolarity up to ground-state spin + 1
             fc = 2.
@@ -272,7 +272,7 @@ C      Bten   -
                chisx = 0.
                llx = 28*NMAX
                DO lix = 1 , llx
-                 ZETA(LP9+lix) = ZETA(lix) ! LP9 is 97100
+                 ZETA(LP9+lix) = ZETA(lix) ! LP9 points to last 2800 elements of ZETA
                ENDDO
                CALL CEGRY(chisx,itemp,Chilo,Idr,nwyr,0,0,1)
                DO knm = 1 , MEMAX ! Loop over matrix elements
