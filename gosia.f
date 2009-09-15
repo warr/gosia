@@ -368,7 +368,7 @@ C     Initialize pointers
       LP8 = 4900 ! Maximum number of collision coefficients
       LP9 = LP7 - LP3*28
       LP10 = 1200 ! Maximum number of substates
-      LP11 = LP3*28
+      LP11 = LP3*28 ! Space for statistical tensors
       LP12 = 365 ! Maximum number of steps of omega (dimension of ADB, SH, CH)
 
       JZB = 5
