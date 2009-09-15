@@ -36,10 +36,9 @@ C      LFL2   -
 C      LMAX   - ground-state spin + 1
 C      LP3    - maximum number of levels (100)
 C      LP6    - maximum number of Ge detectors (32)
-C      LP8    - (104)
 C      LP9    - last 2800 words of ZETA array (97100)
 C      LP10   - maximum number of magnetic substates (1200)
-C      LP11   - LP8 - 1 (2800)
+C      LP11   - space for statistical tensors (LP3*28 = 2800)
 C      MEMAX  - number of matrix elements
 C      MEMX6  - number of matrix elements with E1...6 multipolarity
 C      NANG   - number of gamma-ray detectors for each experiment
@@ -195,7 +194,7 @@ C      Bten   -
 
          IF ( loc.NE.0 ) THEN
             REWIND 14
-            WRITE (14,*) (ZETA(i11),i11=LP8,loch)
+            WRITE (14,*) (ZETA(i11),i11=LP11+1,loch)
          ENDIF
          CALL TENS(Bten,ZETA)
          IF ( Ncall.EQ.0 ) GOTO 200
@@ -264,7 +263,7 @@ C      Bten   -
                IGRD = 1
                IF ( ITAK2.EQ.-1 ) LFL = 1
                REWIND 14
-               READ (14,*) (ZETA(i11),i11=LP8,loch)
+               READ (14,*) (ZETA(i11),i11=LP11+1,loch)
                DO larm = 1 , 4
                   DO karm = 1 , LP10
                      ARM(karm,larm) = (0.,0.)
@@ -349,7 +348,7 @@ C      Bten   -
                         ENDDO
                      ENDDO
                      REWIND 14
-                     READ (14,*) (ZETA(i11),i11=LP8,loch)
+                     READ (14,*) (ZETA(i11),i11=LP11+1,loch)
                      IF ( IPRM(17).LT.0 ) GOTO 300
                   ENDIF
                   LFL = 0
