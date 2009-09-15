@@ -153,7 +153,7 @@ C      Bten   -
  50      loch = LP3*(MEMAX-1) + NMAX + LP11 ! LP3 is 100, LP11 is 2800
          DO k = 1 , loch
             ZETA(k) = 0.
-          ENDDO
+         ENDDO
          CALL LOAD(IEXP,1,2,0.D0,jj)
          DO k = 1 , LMAX ! For each multipolarity up to ground-state spin + 1
             fc = 2.
@@ -201,7 +201,7 @@ C      Bten   -
          IF ( Icll.GE.2 ) GOTO 200
          llx = 28*NMAX
          DO lx = 1 , llx
-           ZETA(LP9+lx) = ZETA(lx) ! LP9 is 97100
+            ZETA(LP9+lx) = ZETA(lx) ! LP9 is 97100
          ENDDO
          IF ( Icll.NE.1 ) GOTO 200
  100     iapx = 0
