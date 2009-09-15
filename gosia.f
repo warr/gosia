@@ -106,15 +106,15 @@ C      LOCKF  - flag to fix matrix elements with most significant derivative
 C      LOCKS  - lock flag. If LOCKS=1, fix at first stage of minimization
 C      LP1    - maximum number of experiments (50)
 C      LP10   - maximum number of substates (1200)
-C      LP11   - LP3*28 (2800)
+C      LP11   - space for statistical tensors (LP3*28 = 2800)
 C      LP12   - number of steps of omega (365)
 C      LP2    - maximum number of matrix elements (1500)
 C      LP3    - maximum number of levels (100)
 C      LP4    - maximum number of yields (1500)
 C      LP6    - maximum number of gamma detectors (32)
-C      LP7    - start of collision functions (45100)
+C      LP7    - end of zeta coefficients
 C      LP8    - maximum space for collision functions (4900)
-C      LP9    - length of ZETA - 2100 (47900)
+C      LP9    - length of ZETA - 2800 (97100)
 C      MAGA   - number of magnetic substates in approximate calculation
 C      MAGEXC - flag: 0 means no magnetic excitations, 1 means with mag. exc.
 C      MEMAX  - number of matrix elements
