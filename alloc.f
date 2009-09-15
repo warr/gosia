@@ -10,7 +10,7 @@ C for each multipolarity.
 C
 C Uses global variables:
 C      IRA    - range of omega for each multipolarity needed for accuracy
-C      LOCQ   - location of collision function in ZETA array
+C      LOCQ   - location of collision function in COLLIS array
 C      LP14   - maximum length of space for collision functions (4900)
 C
 C Formal parameters:
@@ -69,7 +69,7 @@ C     And for M1, M2
          ENDDO
       ENDDO
 
-      IF ( load.LE.LP14 ) RETURN ! The Q-functions must fit in the last LP14 words of ZETA
+      IF ( load.LE.LP14 ) RETURN ! The Q-functions must fit in COLLIS
 
       WRITE (22,99001)
 99001 FORMAT (5X,'NO SPACE FOR Q FUNCTIONS TABULATION'//5X,

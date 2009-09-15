@@ -10,6 +10,7 @@ C
 C Uses global variables:
 C      ARM    - excitation amplitudes of substates.
 C      CAT    - substates of levels (n_level, J, m)
+C      COLLIS - collision functions
 C      ELM    - matrix elements
 C      EXPO   - adiabatic exponential
 C      ISG    - sign of omega
@@ -19,8 +20,7 @@ C      ISO    - isotropic flag
 C      ISSTAR - first substate for given matrix element index
 C      ISSTO  - last substate for given matrix element index
 C      KDIV   - index for division
-C      LOCQ   - location of collision functions in ZETA array
-C      LP7    - start of collision functions in ZETA (45100)
+C      LOCQ   - location of collision functions in COLLIS array
 C      MSTORE - index of final level number and index of matrix element
 C      NDIV   - number of divisions
 C      NPT    - index in ADB array (this is omega / DOMEGA)
@@ -46,7 +46,7 @@ C
 C EXPO is exp(i * xi * sinh(w) + w) calculated in function EXPON.
 C ARM are the excitation amplitudes of the substates.
 C q is the Qe or Qm calculated by the functions QE and QM, respectively and
-C stored in ZETA array in the function SNAKE.
+C stored in COLLIS array in the function SNAKE.
 C z is the coupling parameter zeta, calculated in the function LSLOOP.
       
       SUBROUTINE LAISUM(Ir,N,Rsg,Lam,Ld,Nz,I57)
@@ -102,9 +102,9 @@ C                    contribution
                         indq = LOCQ(Lam,mua) + NPT ! Index to Q function
                         Nz = Nz + 1                ! Index to Zeta
                         z = ZETA(Nz)               ! Zeta
-                        q = ZETA(indq+LP7)         ! Q-function
-                        IF ( NDIV.NE.0 ) q = ZETA(indq+LP7) + DBLE(KDIV)
-     &                       *(ZETA(indq+LP7+ISG1)-ZETA(indq+LP7))
+                        q = COLLIS(indq)           ! Q-function
+                        IF ( NDIV.NE.0 ) q = COLLIS(indq) + DBLE(KDIV)
+     &                       *(COLLIS(indq+ISG1)-COLLIS(indq))
      &                       /DBLE(NDIV)
                         pamp1 = FAZA(la,mua,rmu,Rsg)*q*z
                         IF ( ISO.NE.0 .OR. rmir.LE..1 ) THEN

@@ -9,13 +9,12 @@ C Purpose: evaluate and store the dimensionless collision functions Qe and Qm.
 C
 C Uses global variables:
 C      CH     - table of cosh values
+C      COLLIS - collision functions
 CDEBUGC      DOMEGA - Initial step in omega (default = 0.03)
 C      EPS    - epsilon
 C      EROOT  - sqrt(epsilon^2 -1)
-C      LOCQ   - location of collision function in ZETA array
-C      LP7    - start of collision functions in ZETA (45100)
+C      LOCQ   - location of collision function in COLLIS array
 C      SH     - table of sinh values
-C      ZETA   - various coefficients (here the collision functions)
 C
 C Formal parameters:
 C      Nexp   - experiment number
@@ -24,8 +23,7 @@ C
 C The function QE is used to calculate Qe and QM to calculate Qm, but first
 C we call QRANGE to determine the range over which we need to calculate them.
 C
-C The results are stored in the ZETA array, but not starting from the
-C beginning, which is where zeta itself is written, but from ZETA(LP7).
+C The results are stored in the COLLIS array.
 C
 C LOCQ (in ALLC) is used as an index to these values.
 C
@@ -111,7 +109,7 @@ C     Calculate some parameters, which we will pass to QE or QM
             mimx = lmda
             DO k = 1 , mimx
                nind = LOCQ(lmd,k) + icnt
-               ZETA(nind+LP7) = cq(k) ! These are the collision functions
+               COLLIS(nind) = cq(k) ! These are the collision functions
             ENDDO
          ELSE
             CALL QE(c,d,b2,c2,d2,b4,b6,d3,b8,c4,d4,b10,d5,b12,d6,lmda,
@@ -119,7 +117,7 @@ C     Calculate some parameters, which we will pass to QE or QM
             mimx = lmda + 1
             DO k = 1 , mimx
                nind = LOCQ(lmda,k) + icnt
-               ZETA(nind+LP7) = cq(k) ! These are the collision functions
+               COLLIS(nind) = cq(k) ! These are the collision functions
             ENDDO
          ENDIF
       ENDDO
@@ -133,9 +131,9 @@ CDEBUGC----------------------------------------------------------------------
 CDEBUG
 CDEBUG      subroutine spitq(ixpt,mult)
 CDEBUG      integer*4 ixpt,mult
-CDEBUG      REAL*8 ZETA
+CDEBUG      REAL*8 COLLIS , ZETA
 CDEBUG      INTEGER*4 LZETA
-CDEBUG      COMMON /CCOUP / ZETA(50000) , LZETA(8)
+CDEBUG      COMMON /CCOUP / ZETA(155600) , LZETA(8) , COLLIS(4900)
 CDEBUG      REAL*8 EPS, EROOT, FIEX
 CDEBUG      INTEGER*4 IEXP, IAXS
 CDEBUG      COMMON /KIN   / EPS(50) , EROOT(50) , FIEX(50,2) , IEXP , IAXS(50)
