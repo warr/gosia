@@ -11,7 +11,7 @@ C
 C Uses global variables:
 C      IRA    - range of omega for each multipolarity needed for accuracy
 C      LOCQ   - location of collision function in COLLIS array
-C      LP14   - maximum length of space for collision functions (4900)
+C      LP8    - maximum length of space for collision functions (4900)
 C
 C Formal parameters:
 C      Accur  - accuracy required
@@ -28,7 +28,7 @@ C Later (in SNAKE) we will store the values of the collision functions for
 C 2 * IRA(1) values for E1, 3 * IRA(2) values for E2, 4 * IRA(3) values for
 C E3... 3 * IRA(8) values for M2 in that order.
 C
-C We are limited to a maximum of LP14 (=4900) values in total.
+C We are limited to a maximum of LP8 (=4900) values in total.
  
       SUBROUTINE ALLOC(Accur)
       IMPLICIT NONE
@@ -69,7 +69,7 @@ C     And for M1, M2
          ENDDO
       ENDDO
 
-      IF ( load.LE.LP14 ) RETURN ! The Q-functions must fit in COLLIS
+      IF ( load.LE.LP8 ) RETURN ! The Q-functions must fit in COLLIS
 
       WRITE (22,99001)
 99001 FORMAT (5X,'NO SPACE FOR Q FUNCTIONS TABULATION'//5X,
