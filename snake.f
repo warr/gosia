@@ -145,10 +145,10 @@ CDEBUG      integer*4 mimmex
 CDEBUG      INTEGER*4 ibm , icm , icnt , idm , irl  , k , lloc , 
 CDEBUG     &           nind , nlm
 CDEBUG      DIMENSION lloc(8) , irl(8)
-CDEBUG      INTEGER*4 LP1 , LP2 , LP3 , LP4 , LP6 , LP7 , LP9 , 
-CDEBUG     &          LP10 , LP11 , LP12 , LP14
-CDEBUG      COMMON /MGN   / LP1 , LP2 , LP3 , LP4 , LP6 , LP7 , LP9 , 
-CDEBUG     &                LP10 , LP11 , LP12 , LP14
+CDEBUG      INTEGER*4 LP1 , LP2 , LP3 , LP4 , LP6 , LP7 , LP8 , LP9 , 
+CDEBUG     &          LP10 , LP11 , LP12
+CDEBUG      COMMON /MGN   / LP1 , LP2 , LP3 , LP4 , LP6 , LP7 , LP8 , LP9 , 
+CDEBUG     &                LP10 , LP11 , LP12
 CDEBUG      real*8 collfunc,w0
 CDEBUG
 CDEBUGc     Passed in the experiment number (ixpt) and the multipolarity (mult).

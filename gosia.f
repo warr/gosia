@@ -108,12 +108,12 @@ C      LP1    - maximum number of experiments (50)
 C      LP10   - maximum number of substates (1200)
 C      LP11   - LP3*28 (2800)
 C      LP12   - number of steps of omega (365)
-C      LP14   - maximum space for collision functions (4900)
 C      LP2    - maximum number of matrix elements (1500)
 C      LP3    - maximum number of levels (100)
 C      LP4    - maximum number of yields (1500)
 C      LP6    - maximum number of gamma detectors (32)
 C      LP7    - start of collision functions (45100)
+C      LP8    - maximum space for collision functions (4900)
 C      LP9    - length of ZETA - 2100 (47900)
 C      MAGA   - number of magnetic substates in approximate calculation
 C      MAGEXC - flag: 0 means no magnetic excitations, 1 means with mag. exc.
@@ -366,11 +366,11 @@ C     Initialize pointers
       LP4 = 1500
       LP6 = 32 ! Maximum number of gamma detectors
       LP7 = lp0 ! Maximum number of zeta coefficients
+      LP8 = 4900 ! Maximum number of collision coefficients
       LP9 = lp0 - LP3*28
       LP10 = 1200 ! Maximum number of substates
       LP11 = LP3*28
       LP12 = 365 ! Maximum number of steps of omega (dimension of ADB, SH, CH)
-      LP14 = 4900 ! Maximum number of collision coefficients
 
       JZB = 5
 
