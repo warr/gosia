@@ -162,8 +162,8 @@ install: $(EXE) $(MAN)
 	gzip -f $(MANDIR)/$(MAN)
 
 single_file: include
-	./include $(SRCS) |grep -v CDEBUG > $(SINGLE_FILE)
+	grep -hv CDEBUG $(SRCS) | ./include > $(SINGLE_FILE)
 
 adam_file: include
-	./include $(SRCS) | sed -e 's/CDEBUG//' > $(ADAM_FILE)
+	cat $(SRCS) | sed -e 's/CDEBUG//' | ./include > $(ADAM_FILE)
 
