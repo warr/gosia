@@ -716,17 +716,15 @@ LAISUM}, {\em LOAD}, {\em LSLOOP}, {\em MINI}, {\em PODZIEL}, {\em READY},
 \begin{itemize}
 \item INTEGER*4 LP1 - maximum number of experiments = 50.
 \item INTEGER*4 LP2 - maximum number of matrix elements = 1500.
-\item INTEGER*4 LP3 - maximum number of levels = 75.
+\item INTEGER*4 LP3 - maximum number of levels = 100.
 \item INTEGER*4 LP4 - maximum number of yields = 1500.
 \item INTEGER*4 LP6 - maximum number of $\gamma$ detectors = 32.
-\item INTEGER*4 LP7 - offset of collision functions in ZETA array (45100).
-\item INTEGER*4 LP8 - ? = 104.
-\item INTEGER*4 LP9 - length of ZETA array - 2100 = 47900.
-\item INTEGER*4 LP10 - maximum number of reduced matrix elements = 600.
-\item INTEGER*4 LP11 - LP8 - 1 = 103.
+\item INTEGER*4 LP7 - end of zeta coupling coefficients
+\item INTEGER*4 LP8 - maximum space for collision functions (4900)
+\item INTEGER*4 LP9 - length of ZETA array - 2800.
+\item INTEGER*4 LP10 - maximum number of substates = 1200.
+\item INTEGER*4 LP11 - space for statistical tensors (LP3*28=2800)
 \item INTEGER*4 LP12 - Maximum number of steps of $\omega$ = 365.
-\item INTEGER*4 LP13 = LP9 + 1 = 47901.
-\item INTEGER*4 LP14 = Maximum space for collision functions = 4900.
 \end{itemize}
 
 \section{MINNI}
