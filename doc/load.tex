@@ -1,0 +1,111 @@
+\section{LOAD}
+\label{sect:load}
+
+The function load is used to load the coupling parameters $\xi$ and $\psi$
+into arrays. It also calls {\em LSLOOP} (see section \ref{sect:lsloop}) to
+caclulate the $\zeta$ coupling parameters.\\
+
+\noindent It is also in this function that we deal with the E1 polarisation from the
+GDR. For target excitation we calculate the value zpol as:
+
+\begin{equation}
+\mathrm{zpol} = \mathrm{dipol} \times E_p {A_2 \over(Z_2^2 (1 + {A_1 \over
+A_2}))}
+\end{equation}
+
+\noindent where dipol is a parameter, which can be changed by the user but is 0.005 by
+default.\\
+
+\noindent For projectile excitation we use the following formula instead:\\
+
+\begin{equation}
+\mathrm{zpol} = \mathrm{dipol} \times E_p {A_2 \over(Z_2^2 (1 + {A_2 \over
+A_1}))}
+\end{equation}
+
+\noindent The calculation of $\xi$ uses:\\
+
+\begin{equation}
+\eta = {Z_1 Z_2 \sqrt{A_1 \over E_p} \over 6.349770}
+\end{equation}
+
+\noindent where the value 6.349770 comes from:\\
+
+\begin{equation}
+6.349770 = {197.33 \over 1.44} \sqrt{2 \over 931.49}
+\end{equation}
+
+\noindent then we have for each level:\\
+
+\begin{equation}
+\mathrm{dep} = \large( 1 + {A_1 \over A_2} \large) E_n
+\end{equation}
+
+\noindent where $E_n$ is the excitation energy of the level.\\
+
+\begin{equation}
+\mathrm{zet} = {\mathrm{dep} \over E_p}
+\end{equation}
+
+\noindent where $E_p$ is the projectile energy.\\
+
+\begin{equation}
+\mathrm{szet} = \sqrt{1 - \mathrm{zet}}
+\end{equation}
+
+\begin{equation}
+\mathrm{etan} = {\eta \over \mathrm{szet}}
+\end{equation}
+
+\noindent The value etan is calculated for each level and $\xi$ for each
+matrix element is simply the difference between the values of etan for the
+two levels connected by that matrix element.\\
+
+\noindent We also calculate ${C_\lambda \over (s Z_1 Z_2)^\lambda}$:\\
+
+\noindent where s is $1 + {A_1 \over A_2}$\\
+
+\begin{equation}
+\mathrm{aazz} = {1 \over {(1 + {A_1 \over A_2)}} Z_1 Z_2}
+\end{equation}
+
+\begin{equation}
+\mathrm{cspi}_1 = {(C_1 \over s Z_1 Z_2)} = 5.169286 ~\mathrm{aazz}
+\end{equation}
+
+\begin{equation}
+\mathrm{cspi}_2 = {(C_2 \over s Z_1 Z_2)^2} = 14.359366 ~\mathrm{aazz}^2
+\end{equation}
+
+\begin{equation}
+\mathrm{cspi}_3 = {(C_3 \over s Z_1 Z_2)^3} = 56.982577 ~\mathrm{aazz}^3
+\end{equation}
+
+\begin{equation}
+\mathrm{cspi}_4 = {(C_2 \over s Z_1 Z_2)^4} = 263.812653 ~\mathrm{aazz}^4
+\end{equation}
+
+\begin{equation}
+\mathrm{cspi}_5 = {(C_2 \over s Z_1 Z_2)^5} = 1332.409500 ~\mathrm{aazz}^5
+\end{equation}
+
+\begin{equation}
+\mathrm{cspi}_6 = {(C_2 \over s Z_1 Z_2)^6} = 7117.691577 ~\mathrm{aazz}^6
+\end{equation}
+
+\noindent and for the magnetic excitations:\\
+
+\begin{equation}
+\mathrm{aazz} = {v_\infty \over 95.0981942}
+\end{equation}
+
+\begin{equation}
+\mathrm{cspi}_7 = \mathrm{cspi}_1 ~\mathrm{aazz}
+\end{equation}
+
+\begin{equation}
+\mathrm{cspi}_8 = \mathrm{cspi}_2 ~\mathrm{aazz}^2
+\end{equation}
+
+
+

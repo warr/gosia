@@ -14,6 +14,8 @@ DEP += ideas.tex
 DEP += kepler.tex
 DEP += overview.tex
 DEP += spherical.tex
+DEP += functions.tex
+DEP += load.tex
 
 all: $(PDF)
 
