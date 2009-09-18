@@ -1,6 +1,6 @@
 C                            GOSIA 20080630 (64-bit)
 C
-C                            14 September 2009 Update
+C                            18 September 2009 Update
 C
 C       http://www.pas.rochester.edu/~cline/Gosia/index.html
 C
@@ -72,6 +72,9 @@ C          with 32-bit precision is discouraged.
 C
 C       CHRONOLOGY OF MAJOR CHANGES:
 C
+C          (18 September 2009, N. Warr) gosia-20080630.6
+C            - Increased dimensions of ZETA array to allow up to 999 matrix
+C              elements (correctly this time, I hope!)
 C          (14 September 2009, N. Warr) gosia-20080630.5
 C            - Increased dimensions of ZETA array to allow up to 999 matrix
 C              elements
