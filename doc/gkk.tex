@@ -1,0 +1,33 @@
+\section{GKK}
+\label{sect:gkk}
+
+\noindent This function calculates the time-dependent deorientation
+coefficients.\\
+
+\noindent First we call {\em XSTATIC} (see section
+\ref{sect:xstatic}) to calculate the static part. This calculates
+QCEN (the centre of the gaussian charge state distribution), DQ (the
+gaussian width of this distribution and XNOR (the normalisation
+parameter needed to ensure that the sum over probabilities is unity.\\
+
+\begin{equation}
+<a_k> = \sum_l p(J_1) \sum_F {(2 F + 1)^2 \over 2 J_1 + 1} \times
+\begin{Bmatrix}
+F & F & k\\
+I & I & J_1
+\end{Bmatrix}
+^2
+\end{equation}
+
+\noindent The function {\em WSIXJ} (see section \ref{sect:wsixj}) is
+used to evaluate the Wigner 6-j symbol. Note that the numbers passed
+to this function are integers which are twice the value of the
+spins, so we are usually dealing with spin values that have been
+doubled.\\
+
+
+\noindent Note that originally, the function {\em ATS} was used to determine
+the ground-state atomic spin for an atom with $N$ electrons. This was
+implemented as a complicated set of nested if statements. This has been
+replaced with a simple table which is included in this function.\\
+

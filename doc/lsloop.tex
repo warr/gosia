@@ -1,0 +1,17 @@
+\section{LSLOOP}
+\label{sect:lsloop}
+
+\noindent This function is called from {\em load} (see section
+\ref{sect:load}) for each substate and each multipolarity, to calculate the
+value of the coupling parameter $\zeta$.\\
+
+\begin{equation}
+\zeta_{kn}^{(\lambda n)} =
+\sqrt{2 \lambda + 1}
+(-1)^{I_n - M_n}
+\begin{pmatrix}
+I_n & \lambda & I_k\\
+-M_n & \mu & M_k
+\end{pmatrix}
+\psi_{kn}
+\end{equation}

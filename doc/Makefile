@@ -16,6 +16,11 @@ DEP += overview.tex
 DEP += spherical.tex
 DEP += functions.tex
 DEP += load.tex
+DEP += lsloop.tex
+DEP += gkk.tex
+DEP += wthrej.tex
+DEP += wsixj.tex
+DEP += xstatic.tex
 
 all: $(PDF)
 
