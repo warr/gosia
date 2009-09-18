@@ -47,7 +47,7 @@ C      W0     - omega limit
       COMMON /AZ    / ARM(600,7)
       COMMON /CAUX  / NPT , NDIV , KDIV , LAMR(8) , ISG , D2W , NSW , 
      &                ISG1
-      COMMON /CCOUP / ZETA(107600) , LZETA(8)
+      COMMON /CCOUP / ZETA(155600) , LZETA(8)
       COMMON /CLCOM8/ CAT(600,3) , ISMAX
       COMMON /COMME / ELM(1500) , ELMU(1500) , ELML(1500) , SA(1500)
       COMMON /CEXC0 / NSTART(76) , NSTOP(75)

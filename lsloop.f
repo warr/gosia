@@ -61,7 +61,7 @@ C half-integers.
       COMMON /COEX  / EN(75) , SPIN(75) , ACCUR , DIPOL , ZPOL , ACCA , 
      &                ISO
       COMMON /PCOM  / PSI(1500)
-      COMMON /CCOUP / ZETA(107600) , LZETA(8)
+      COMMON /CCOUP / ZETA(155600) , LZETA(8)
       COMMON /CLCOM8/ CAT(600,3) , ISMAX
       COMMON /CEXC0 / NSTART(76) , NSTOP(75)
       COMMON /APRCAT/ QAPR(1500,2,7) , IAPR(1500,2) , ISEX(75)

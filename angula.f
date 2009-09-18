@@ -46,7 +46,7 @@ C      Ngl    - detector number
       INTEGER*4 ISPL ! Added for spline
       DIMENSION f(4) , ylmr(9,9) , at(28) , alab(9,9) , attl(9,9) , 
      &          Ygn(*)
-      COMMON /CCOUP / ZETA(107600) , LZETA(8)
+      COMMON /CCOUP / ZETA(155600) , LZETA(8)
       COMMON /TRA   / DELTA(1500,3) , ENDEC(1500) , ITMA(50,200) , 
      &                ENZ(200)
       COMMON /LEV   / TAU(75) , KSEQ(1500,4)

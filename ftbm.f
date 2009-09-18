@@ -106,7 +106,7 @@ C      Bten   -
       COMMON /LCZP  / EMH , INM , LFL1 , LFL2 , LFL
       COMMON /UWAGA / ITAK2
       COMMON /LEV   / TAU(75) , KSEQ(1500,4)
-      COMMON /CCOUP / ZETA(107600) , LZETA(8)
+      COMMON /CCOUP / ZETA(155600) , LZETA(8)
       COMMON /KIN   / EPS(50) , EROOT(50) , FIEX(50,2) , IEXP , IAXS(50)
       COMMON /YEXPT / YEXP(32,1500) , IY(1500,32) , CORF(1500,32) , 
      &                DYEX(32,1500) , NYLDE(50,32) , UPL(32,50) , 

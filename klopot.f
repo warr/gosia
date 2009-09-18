@@ -45,7 +45,7 @@ C      Rlr    - print out if matrix element exceeds Rlr.
       COMMON /CEXC  / MAGEXC , MEMAX , LMAXE , MEMX6 , IVAR(1500)
       COMMON /MGN   / LP1 , LP2 , LP3 , LP4 , LP6 , LP7 , LP8 , LP9 , 
      &                LP10 , LP11 , LP12 , LP13 , LP14
-      COMMON /CCOUP / ZETA(107600) , LZETA(8)
+      COMMON /CCOUP / ZETA(155600) , LZETA(8)
       COMMON /CX    / NEXPT , IZ , XA , IZ1(50) , XA1(50) , EP(50) , 
      &                TLBDG(50) , VINF(50)
       COMMON /SEL   / KVAR(1500)

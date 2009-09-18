@@ -47,7 +47,7 @@ C      Irld   - index into ARM array
       COMMON /ADBXI / EXPO(1500)
       COMMON /FLA   / IFLG
       COMMON /PINT  / ISSTAR(76) , ISSTO(75) , MSTORE(2,75)
-      COMMON /CCOUP / ZETA(107600) , LZETA(8)
+      COMMON /CCOUP / ZETA(155600) , LZETA(8)
       COMMON /CAUX  / NPT , NDIV , KDIV , LAMR(8) , ISG , D2W , NSW , 
      &                ISG1
       COMMON /CLCOM8/ CAT(600,3) , ISMAX

@@ -45,7 +45,7 @@ C      Chilo  - chi squared of logs
      &                ENZ(200)
       COMMON /LIFE1 / LIFCT(50) , TIMEL(2,50)
       COMMON /VAC   / VACDP(3,75) , QCEN , DQ , XNOR , AKS(6,75) , IBYP
-      COMMON /CCOUP / ZETA(107600) , LZETA(8)
+      COMMON /CCOUP / ZETA(155600) , LZETA(8)
       COMMON /LEV   / TAU(75) , KSEQ(1500,4)
       COMMON /COEX2 / NMAX , NDIM , NMAX1
       COMMON /COMME / ELM(1500) , ELMU(1500) , ELML(1500) , SA(1500)

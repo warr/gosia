@@ -72,6 +72,9 @@ C          with 32-bit precision is discouraged.
 C
 C       CHRONOLOGY OF MAJOR CHANGES:
 C
+C          (18 September 2009, N. Warr) gosia-20080519.7
+C            - Increased dimensions of ZETA array to allow up to 999 matrix
+C              elements (correctly this time, I hope!)
 C          (14 September 2009, N. Warr) gosia-20080519.6
 C            - Increased dimensions of ZETA array to allow up to 999 matrix
 C              elements
@@ -572,7 +575,7 @@ C      ZV     - energy meshpoints
      &                TLBDG(50) , VINF(50)
       COMMON /CEXC  / MAGEXC , MEMAX , LMAXE , MEMX6 , IVAR(1500)
       COMMON /PRT   / IPRM(20)
-      COMMON /CCOUP / ZETA(107600) , LZETA(8)
+      COMMON /CCOUP / ZETA(155600) , LZETA(8)
       COMMON /CB    / B(20)
       COMMON /CLM   / LMAX
       COMMON /CLCOM0/ IFAC(75)
@@ -648,7 +651,7 @@ C     Initialize prime numbers
       IP(26) = 101
 
 C     Initialize pointers
-      lp0 = 107600 ! Size of ZETA array
+      lp0 = 155600 ! Size of ZETA array
       LP1 = 50 ! Maximum number of experiments
       LP2 = 1500 ! Maximum number of matrix elements
       LP3 = 75 ! Maximum number of levels
