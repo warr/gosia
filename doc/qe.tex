@@ -1,0 +1,65 @@
+\section{QE}
+\label{sect:qe}
+
+\noindent This function calculates the dimensionless electrical
+collision functions. It is called from {\em SNAKE} (see section
+\ref{sect:snake}) which calculates various parameters that are passed
+to {\em QE}:\\
+
+\begin{tabular}{ll}
+C & $\cosh\omega + \epsilon$\\
+D & $\sqrt{\epsilon^2-1} \sinh\omega$\\
+B2 & $(\epsilon \cosh\omega + 1)^2$\\
+C2 & C$^2$\\
+D2 & D$^2$\\
+B4 & B$^4$\\
+B6 & B$^6$\\
+D3 & D$^3$\\
+B8 & B$^8$\\
+C4 & C$^4$\\
+D4 & D$^4$\\
+B10 & B$^{10}$\\
+D5 & D$^5$\\
+B12 & B$^{12}$\\
+D6 & D$^6$\\
+\end{tabular}
+
+\noindent It then calculates the collision functions:\\
+
+\begin{tabular}{|l|l|l|}
+\hline
+E1 & C$_1$ & $0.5 \times \mathrm{C} / \mathrm{B2}$\\
+   & C$_2$ & $-0.35355339 \times \mathrm{D} / \mathrm{B2}$\\
+\hline
+E2 & C$_1$ & $0.75 \times (2.0 \times \mathrm{C2}-\mathrm{D2})/\mathrm{B4} \times \mathrm{Pol}$\\
+   & C$_2$ & $-1.83711730 \times \mathrm{C} \times \mathrm{D}/\mathrm{B4}
+   \times \mathrm{Pol}$\\
+   & C$_2$ & $-0.91855865 \times \mathrm{D2} / \mathrm{B4} \times \mathrm{Pol}$\\
+\hline
+E3 & C$_1$ & $1.875 \times \mathrm{C} \times (2.0 \times \mathrm{C2}-3.0 \times \mathrm{D2})/\mathrm{B6}$\\
+   & C$_2$ & $-1.62379763 \times (4.0 \times \mathrm{C2}-\mathrm{D2}) \times \mathrm{D}/\mathrm{B6}$\\
+   & C$_3$ & $-5.13489890 \times \mathrm{C} \times \mathrm{D2}/\mathrm{B6}$\\
+   & C$_4$ & $2.09631373 \times \mathrm{D3}/\mathrm{B6}$\\
+\hline
+E4 & C$_1$ & $1.09375000 \times (8.0 \times \mathrm{C4}-24.0 \times \mathrm{C2} \times \mathrm{D2}+3.0 \times \mathrm{D4})/\mathrm{B8}$\\
+   & C$_2$ & $-4.89139867 \times \mathrm{C} \times (4.0 \times \mathrm{C2}-3.0 \times \mathrm{D2}) \times \mathrm{D}/\mathrm{B8}$\\
+   & C$_3$ & $-3.45874113 \times (6.0 \times \mathrm{C2}-D2) \times D2/B8$\\
+   & C$_4$ & $12.9414244 \times \mathrm{C} \times \mathrm{D3}/\mathrm{B8}$\\
+   & C$_5$ & $4.57548440 \times \mathrm{D4}/\mathrm{B8}$\\
+\hline
+E5 & C$_1$ & $1.230468 \times \mathrm{C} \times (-14. \times \mathrm{C2} \times (9. \times \mathrm{D2}+\mathrm{B2})+30. \times \mathrm{B4})/\mathrm{B10}$\\
+   & C$_2$ & $-1.347911 \times \mathrm{D} \times (35. \times \mathrm{C2} \times (-3. \times \mathrm{D2}+\mathrm{B2})+5. \times \mathrm{B4})/\mathrm{B10}$\\
+   & C$_3$ & $-35.662372 \times \mathrm{D2} \times \mathrm{C} \times (-3. \times \mathrm{D2}+2. \times \mathrm{B2})/\mathrm{B10}$\\
+   & C$_4$ & $7.279552 \times \mathrm{D3} \times (9. \times \mathrm{C2}-\mathrm{B2})/\mathrm{B10}$\\
+   & C$_5$ & $30.884521 \times \mathrm{D4} \times \mathrm{C}/\mathrm{B10}$\\
+   & C$_6$ & $-9.766543 \times \mathrm{D5}/\mathrm{B10}$\\
+\hline
+E6 & C$_1$ & $2.707031 \times (21. \times \mathrm{C2} \times (-\mathrm{C2} \times (11. \times \mathrm{D2}+4. \times \mathrm{B2})+5. \times \mathrm{B4})-5. \times \mathrm{B6})/\mathrm{B12}$\\
+   & C$_2$ & $-17.543567 \times \mathrm{D} \times \mathrm{C} \times (3. \times \mathrm{C2} \times (-11. \times \mathrm{D2}+\mathrm{B2})+5. \times \mathrm{B4})/\mathrm{B12}$\\
+   & C$_3$ & $-13.869408 \times \mathrm{D2} \times (3. \times \mathrm{C2} \times (-11. \times \mathrm{D2}+5. \times \mathrm{B2})+\mathrm{B4})/\mathrm{B12}$\\
+   & C$_4$ & $-27.738815 \times \mathrm{D3} \times \mathrm{C} \times (-11. \times \mathrm{D2}+8. \times \mathrm{B2})/\mathrm{B12}$\\
+   & C$_5$ & $15.193177 \times \mathrm{D4} \times (11. \times \mathrm{C2}-\mathrm{B2})/\mathrm{B12}$\\
+   & C$_6$ & $-71.262308 \times \mathrm{D5} \times \mathrm{C}/\mathrm{B12}$\\
+   & C$_7$ & $-20.571656 \times \mathrm{D6}/\mathrm{B12}$\\
+\hline
+\end{tabular}

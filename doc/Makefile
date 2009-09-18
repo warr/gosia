@@ -21,6 +21,10 @@ DEP += gkk.tex
 DEP += wthrej.tex
 DEP += wsixj.tex
 DEP += xstatic.tex
+DEP += djmm.tex
+DEP += snake.tex
+DEP += qe.tex
+DEP += qm.tex
 
 all: $(PDF)
 
