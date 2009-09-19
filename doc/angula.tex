@@ -1,0 +1,18 @@
+\section{ANGULA}
+\label{sect:angula}
+
+\noindent This function calculates the angular distribution of the emitted
+$\gamma$ rays. We loop over the decays in {\em KSEQ} which are ordered
+starting from the top of the level scheme working down. Then we calculate
+the decay between each pair of levels, using the F coefficients and $\delta$
+values together with the statistical tensors, which are stored at the
+beginning of the ZETA block.\\
+
+\noindent The function {\em RECOIL} is used to perform a relativistic
+correction (see section \ref{sect:recoil}). The function {\em FIINT1} (see
+section \ref{sect:fiint1}) is used to integrate over $\phi$ in the lab
+frame, while {\em FIINT} (see section \ref{sect:fiint}) is used to do that
+in the frame of the recoiling nucleus. The functions {\em YLM} and {\em
+YLM1} (see sections \ref{sect:ylm} and \ref{sect:ylm}) are used to calculate
+the spherical harmonics.\\
+

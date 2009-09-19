@@ -1,0 +1,19 @@
+\section{CCLKUP}
+\label{sect:cclkup}
+
+\noindent This function looks up the conversion coefficient for a
+given Z, energy and multipolarity in the BrIcc database, interpolating
+for the right energy using a cubic spline on a log-log scale.\\
+
+\noindent It is based on the BrIcc code and uses {\em SPLNER} (see
+section \ref{sect:splner}) to evaluate the cubic spline.\\
+
+\noindent Note that the BrIcc method avoids the problem of edges by
+treating each subshell separately. Rather than have a database of
+conversion coefficients for each multipolarity and atomic number, it
+has the contribution of each subshell for each multipolarity and
+atomic number. At the edges, one subshell suddenly kicks in causing a
+jump in the conversion coefficient, but this is easy to handle for
+BrIcc, because below that energy, that subshell does not contribute at
+all to the sum and above it, it is well behaved.\\
+
