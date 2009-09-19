@@ -145,13 +145,13 @@ CDEBUG      REAL*8 collfunc,w0
 CDEBUG
 CDEBUGc     Passed in the experiment number (ixpt) and the multipolarity (mult).
 CDEBUGc     I am doing only for electric for now.
-CDEBUGc     This routine is to read the electric collision functions from the ZETA array and print
+CDEBUGc     This routine is to read the electric collision functions from the COLLIS array and print
 CDEBUGc     them to the standard output file (23)  
 CDEBUG
 CDEBUGC     Borrowed this line from subroutine below.
 CDEBUG      w0 = IRA(MAXLA)*DOMEGA + DOMEGA ! Maximum omega to calculate for (steps of DOMEGA)
 CDEBUG
-CDEBUGc     Look at how LAIAMP uses the ZETA array.
+CDEBUGc     Look at how LAIAMP uses the COLLIS array.
 CDEBUGc     Are these the collision functions?
 CDEBUG
 CDEBUG      write(22,72072)ixpt,mult
@@ -182,7 +182,7 @@ CDEBUG      IF ( nlm.EQ.0 ) RETURN
 CDEBUG
 CDEBUG      DO k = 1 , mimmex
 CDEBUG         nind = LOCQ(mult,k) + icnt
-CDEBUG         collfunc = ZETA(nind+LP7)  ! These are the collision functions
+CDEBUG         collfunc = COLLIS(nind)  ! These are the collision functions
 CDEBUG         write(22,71572)icnt,nind,collfunc
 CDEBUG71572    format(1x,i3,1x,i5,1x,d11.4,$)
 CDEBUG      ENDDO
