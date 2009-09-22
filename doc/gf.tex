@@ -1,0 +1,34 @@
+\section{GF}
+\label{sect:gf}
+
+\noindent This function calculates the $H_k$ coefficients to modify the
+statistical tensors to take feeding due to multiple excitation into
+account.\\
+
+\begin{equation}
+H_k(I, I_n) =
+{\sqrt{(2 I + 1) (2 I_n + 1)} \over \gamma(I)}
+\sum_\lambda (-1)^{I + I_n + \lambda + k}
+|\delta_\lambda|^2
+(1 + c(\lambda))
+\begin{Bmatrix}
+I & I & k\\
+I_n & I_n & \lambda
+\end{Bmatrix}
+\end{equation}
+
+\noindent where $I_n$ is a level directly feeding level $I$ and where
+$c(\lambda)$ are the internal conversion coefficients. Note that the
+$\delta$ and $(1 + c(\lambda)$ terms are not included in this function, but
+in {\em SEQ} (see section \ref{sect:seq}) which calls this function.\\
+
+\noindent The term $\gamma(I)$ is the emission probability:\\
+
+\begin{equation}
+\gamma(I) =
+\sum_{\lambda n} | \delta_\lambda(I_1 \rightarrow I_n)|^2
+\end{equation}
+
+
+\noindent It uses {\em WSIXJ} (see section \ref{sect:wsixj}) to evaluate
+the Wigner 6-j coefficient.\\

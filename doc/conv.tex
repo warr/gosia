@@ -1,0 +1,13 @@
+\section{CONV}
+\label{sect:conv}
+
+\noindent This function calculates the internal conversion coefficients.
+Either it uses the data provided by the user and interpolates, which is not
+very good in the vicinity of edges, where the derivative is not continuous.
+Or if the user provided a negative or zero number of conversion
+coefficients, it uses the Bricc method, by simply calling {\em NEWCNV} (see
+section \ref{sect:newcnv}.\\
+
+\noindent If the user has selected the spline option then {\em SPLNER} (see
+section \ref{sect:splner}) is used for the interpolation, otherwise {\em
+LAGRAN} (see section \ref{sect:lagran}) is used.\\

@@ -1,0 +1,13 @@
+\section{SPLNER}
+\label{sect:splner}
+
+\noindent This function interpolates using a cubic spline. It is equivalent
+in function to the {\em LAGRAN} function (see section \ref{sect:lagran}) but
+using a different interpolation method.\\
+
+\noindent This function uses {\em FUNC} for the function to select linear,
+logarithmic or square root interpolation and {\em FUNC1} to perform the
+inverse (see sections \ref{sect:func} and \ref{sect:func1}). It uses {\em
+SPLINE} (see section \ref{sect:spline}) to fit the cubic spline to the data
+and {\em SPLINT} (see section \ref{sect:splint}) to evaluate the spline at a
+given point.\\
