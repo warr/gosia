@@ -1,0 +1,14 @@
+\section{NEWLV}
+\label{sect:newlv}
+
+\noindent This function sets up a new level which can be excited from the
+ground state. We store ISSTAR, ISSTO and MSTORE for the level and store the
+exponential:\\
+
+\begin{equation}
+e^{i \xi_{kn} (\epsilon \sinh(\omega) + \omega)}
+\end{equation}
+
+\noindent in the EXPO array. This exponential is evaluated using the
+function {\em EXPON} (see section \ref{sect:expon}). This function merely
+stores it.\\

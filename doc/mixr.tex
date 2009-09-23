@@ -1,0 +1,17 @@
+\section{MIXR}
+\label{sect:mixr}
+
+\noindent This function calculates the theoretical mixing ratio and compares
+it to the experimental one, adding the appropriate amount to $\chi^2$ and
+the log of $\chi^2$.\\
+
+\begin{equation}
+\delta = \sqrt{\ln 2} E_\gamma {m.e. 1 \over m.e. 2}
+\end{equation}
+
+\noindent In the code $\sqrt{ln 2}$ is given in {\em ADHOC} (see section
+\ref{sect:adhoc} as 0.8326 and the $\sqrt{\ln 2} E_\gamma$ part is stored in
+the variable {\em DMIX} there. In {\em MIXR}, this is multiplied by the
+ratio of the matrix elements.\\
+
+

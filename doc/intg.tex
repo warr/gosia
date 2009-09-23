@@ -1,0 +1,31 @@
+\section{INTG}
+\label{sect:intg}
+
+\noindent This function performs the main integration.\\
+
+
+\noindent We use the 4$^{th}$ order Adams-Moulton predictor-corrector method
+for solving an ordinary differential equation. We use an adaptive version,
+which can change the step size in order to get the desired accuracy. If the
+step size for the integral is too small, it calls {\em DOUBLE} (see section
+\ref{sect:double}) to double the step size and it it is too large, it calls
+{\em HALF} (see section \ref{sect:half}) to halve it.\\
+
+\noindent The predictor is given as:\\
+
+\begin{equation}
+y_p(n+1) = y(n) + {h \over 24} (55 f(n) - 59 f(n-1) + 37 f(n-2) - 9 f(n-3))
+\end{equation}
+
+\noindent and the corrector is:\\
+
+\begin{equation}
+y_c(n+1) = y(n) + {h \over 24} (9 f_p(n+1) + 19 f(n) - 5 f(n-1) + f(n-2))
+\end{equation}
+
+\noindent and the error is:\\
+
+\begin{equation}
+|E(n+1)| \approx {19 \over 270} (y_p(n+1) - y_c(n+1)))
+\end{equation}
+

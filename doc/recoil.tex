@@ -1,0 +1,49 @@
+\section{RECOIL}
+\label{sect:recoil}
+
+\noindent This function corrects for relativistic effects of recoiling
+nucleus. It uses the function {\em ROTATE} (see section \ref{sect:rotate}) to
+rotate into the frame of reference of the recoiling nucleus and back.\\
+
+\noindent The angular distribution in the laboratory frame can be represented
+in terms of the angular distribution in the frame of the recoiling nucleus
+mulitplied by a second order correction in $\beta$:\\
+
+\begin{equation}
+{dW^{lab}(\theta, \phi) \over d\Omega_\gamma} = 
+\{ (1 - \beta^2) + \beta U + {1 \over 2} \beta^2 V \}
+{dW^{RN}(\theta, \phi) \over d\Omega_\gamma}
+\end{equation}
+
+\noindent where:\\
+
+\begin{equation}
+U = T + 2 \cos(\theta)
+\end{equation}
+
+\noindent and\\
+
+\begin{equation}
+V = T^3 + 4 \cos(\theta) \cdot T + 6 \cos^2(\theta)
+\end{equation}
+
+\noindent and\\
+
+\begin{equation}
+T = {1 \over 2} [ \sin(\theta) e^{-i\phi} L_+ - \sin(\theta) e^{i\phi} L_- ]
+\end{equation}
+
+\noindent and the raising and lowering operators for spherical harmonics are:\\
+
+\begin{equation}
+L_+ Y_{k\chi} = \sqrt{ (k - \chi)(k + \chi + 1)} Y_{k+1 \chi}
+\end{equation}
+
+\noindent and\\
+
+\begin{equation}
+L_- Y_{k\chi} = \sqrt{ (k + \chi)(k - \chi + 1)} Y_{k-1 \chi}
+\end{equation}
+
+\noindent The formalism is that of Lesser {\em et al.} Nucl. Phys. 190 (1972)
+597.\\

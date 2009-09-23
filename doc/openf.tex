@@ -1,0 +1,11 @@
+\section{OPENF}
+\label{sect:openf}
+
+\noindent This function handles the OP,FILE option, opening files associated
+with the fortran units specified by the user. It reads three integers from
+the input unit, the first of which is the unit to use for the open
+statement. The second is 1 if the file is required to exist already, 2 if it
+is required not to exist and 3 if it does not matter. The third is 1 if the
+file is formatted and 2 if it is unformatted. A second line is read, which
+gives the name of the file to associate with that unit. If the unit is zero,
+the function returns. It keeps looping until a unit zero is reached.\\

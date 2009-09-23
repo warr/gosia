@@ -1,0 +1,16 @@
+\section{SETIN}
+\label{sect:setin}
+
+\noindent This function evaluates the adiabatic parameter:\\
+
+\begin{equation}
+\epsilon \sinh(\omega) + \omega
+\end{equation}
+
+\noindent It uses the tables of $\sinh$ which were calculated by {\em FHIP}
+(see section \ref{sect:fhip})and stored in the {\em SH} array of common block
+HIPER. The results are stored in the {\em ADB} array of common block ADX. Note
+that both {\em SH} and {\em ADB} are in steps of $\Delta\omega$ which is
+0.03.\\
+
+\noindent A maximum of 365 values can fit in this array.\\

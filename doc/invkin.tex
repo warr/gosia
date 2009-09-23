@@ -1,0 +1,26 @@
+\section{INVKIN}
+\label{sect:invkin}
+
+\noindent This function calculates the angle of the scattered projectile in
+the laboratory frame, when the user gives the angle of the recoiling target
+nucleus in the laboratory frame. There are two solutions to this problem, so
+if Iflag = 1, it selects the larger angle one and if Iflag = 2, the smaller
+one. Note that the small angle solution (Iflag = 2) corresponds to very low
+energies of the recoiling target nucleus, for which probably either the
+particles don't make it out of the target, or they are not detected. So
+Iflag = 2 is probably not very useful. Also this routine calculates the
+correct value for the kinematic flag IKIN.\\
+
+\noindent This function was written for the OP,INTI option. In this, the
+user gives the angles of the meshpoints in terms of the laboratory system of
+the detected particle, unlike OP,INTG, where they are given in terms of the
+scattered projectile in its laboratory system, which is ill-defined if
+recoiling target nuclei are detected and we integrate over a finite energy
+loss in the target. In this case, the IKIN flag needs to flip at some angle,
+which is quite probably in the middle of the particle detector, so we would
+have to divide the particle detector up into two calculations. However, the
+exact angle at which IKIN flips depends on the energy, but we are
+integrating over energy loss. The OP,INTI option solves this by getting the
+user to provide the meshpoints in the laboratory system of the particle
+detector and calculating IKIN for each angle and energy in the integration
+over energy loss.\\

@@ -6,6 +6,7 @@ collision functions. It is called from {\em SNAKE} (see section
 \ref{sect:snake}) which calculates various parameters that are passed
 to {\em QM}:\\
 
+\begin{center}
 \begin{tabular}{ll}
 C & $\cosh\omega + \epsilon$\\
 D & $\sqrt{\epsilon^2 - 1} \sinh\omega$\\
@@ -13,14 +14,17 @@ B2 & B$^2$ = $(\epsilon \cosh\omega + 1)^2$\\
 B4 & B$^4$ = $(\epsilon \cosh\omega + 1)^4$\\
 Ert & $\sqrt{\epsilon^2 - 1}$\\
 \end{tabular}
+\end{center}
 
 \noindent The functions are:\\
 
+\begin{center}
 \begin{tabular}{|l|l|l|}
 \hline
-E1 & C$_1$ & $-0.3535533905 \times \mathrm{Ert} / \mathrm{B2}$\\
+M1 & C$_1$ & $-0.3535533905 \times \mathrm{Ert} / \mathrm{B2}$\\
 \hline
-E2 & C$_1$ & $-.9185586536 \times \mathrm{C} \times \mathrm{Ert}/\mathrm{B4}$\\
+M2 & C$_1$ & $-.9185586536 \times \mathrm{C} \times \mathrm{Ert}/\mathrm{B4}$\\
    & C$_2$ & $-C_1 \times \mathrm{D} / \mathrm{C}$\\
 \hline
 \end{tabular}
+\end{center}

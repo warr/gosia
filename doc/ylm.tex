@@ -1,0 +1,71 @@
+\section{YLM}
+\label{sect:ylm}
+
+\noindent This function evaluates the even spherical harmonics.\\
+The function {\em YLM} uses the axial symmetry flag for the experiment,
+which it gets from the common block {\em KIN}. If this flag is set, it
+only calculates three of the values and then returns. Otherwise, it
+calculates all 15 values. Although the code to calculate the three values is
+the same in both cases, it is duplicated in the Fortran.\\
+
+\section{YLM}
+\begin{eqnarray}
+YLM(1,1)&=&{1 \over \sqrt{4 \pi}} Y_2^0\nonumber\\
+YLM(1,2)&=&{1 \over \sqrt{4 \pi}} Y_2^1\nonumber\\
+YLM(1,3)&=&{1 \over \sqrt{4 \pi}} Y_2^2\nonumber\\
+YLM(2,1)&=&{1 \over \sqrt{4 \pi}} Y_4^0\nonumber\\
+YLM(2,2)&=&{1 \over \sqrt{4 \pi}} Y_4^1\nonumber\\
+YLM(2,3)&=&{1 \over \sqrt{4 \pi}} Y_4^2\nonumber\\
+YLM(2,4)&=&{1 \over \sqrt{4 \pi}} Y_4^3\nonumber\\
+YLM(2,5)&=&{1 \over \sqrt{4 \pi}} Y_4^4\nonumber\\
+YLM(3,1)&=&{1 \over \sqrt{4 \pi}} Y_6^0\nonumber\\
+YLM(3,2)&=&{1 \over \sqrt{4 \pi}} Y_6^1\nonumber\\
+YLM(3,3)&=&{1 \over \sqrt{4 \pi}} Y_6^2\nonumber\\
+YLM(3,4)&=&{1 \over \sqrt{4 \pi}} Y_6^3\nonumber\\
+YLM(3,5)&=&{1 \over \sqrt{4 \pi}} Y_6^4\nonumber\\
+YLM(3,6)&=&{1 \over \sqrt{4 \pi}} Y_6^5\nonumber\\
+YLM(3,7)&=&{1 \over \sqrt{4 \pi}} Y_6^6\nonumber\\
+\end{eqnarray}
+etc. etc.\\
+
+where Y$_l^m$ are the usual orthognal spherical harmonics:\\
+
+\begin{equation}
+Y_l^m(\theta, \phi) = \sqrt{ {2 l + 1 \over 4 \pi} {(l - m)! \over (l + m)!}}
+P_l^m(\cos(\theta)) e^{i m \phi}
+\end{equation}
+
+and P$_l^m$ are the associated Legendre polynomials.\\
+\begin{eqnarray}
+P_0^0(\cos \theta)      &=&     1\nonumber\\
+P_1^0(\cos \theta)      &=&     \cos \theta\nonumber\\
+P_1^1(\cos \theta)      &=&     -\sin \theta\nonumber\\
+P_2^0(\cos \theta)      &=&     {1 \over 2} (3 \cos^2 \theta - 1)\nonumber\\
+P_2^1(\cos \theta)      &=&     -3\sin \theta\cos \theta\nonumber\\
+P_2^2(\cos \theta)      &=&     3 \sin^2 \theta\nonumber\\
+P_3^0(\cos \theta)      &=&     {1 \over 2}\cos \theta(5 \cos^2 \theta - 3)\nonumber\\
+P_3^1(\cos \theta)      &=&     -{3 \over2} (5 \cos^2 \theta - 1)\sin \theta\nonumber\\
+P_3^2(\cos \theta)      &=&     15\cos \theta \sin^2 \theta\nonumber\\
+P_3^3(\cos \theta)      &=&     -15 \sin^3 \theta\nonumber\\
+P_4^0(\cos\theta)       &=&     {1 \over 8}(35\cos\theta^4-30\cos\theta^2+3)\nonumber\\
+P_4^1(\cos\theta)       &=&     {5 \over 2} \cos\theta(3-7\cos\theta^2)\sin\theta\nonumber\\
+P_4^2(\cos\theta)       &=&     {15 \over 2} (7\cos\theta^2-1)\sin\theta^2\nonumber\\
+P_4^3(\cos\theta)       &=&     -105 \cos\theta \sin\theta^3)\nonumber\\
+P_4^4(\cos\theta)       &=&     105 \sin\theta^4\nonumber\\
+P_5^0(\cos\theta)       &=&     {1 \over 8} \cos\theta(63\cos\theta^4-70\cos\theta^2+15)\nonumber\\
+\end{eqnarray}
+
+From this, we can calculate the values, as they are used in the code, which
+does not include the comples exponential in the $\phi$ term. For example:\\
+
+\begin{eqnarray}
+YLM(2,3)&=&{1 \over \sqrt{4 \pi}} Y_4^2\nonumber\\
+        &=&{1 \over \sqrt{4 \pi}}
+          \sqrt{{9 \over 4 \pi} {2! \over 6!}}
+          P_4^2(\cos\theta)\nonumber\\
+        &=&{1 \over 8 \pi} \sqrt{1 \over 10}
+           ({15 \over 2} (7\cos\theta^2-1) \sin\theta^2)\nonumber\\
+        &=&{3 \sqrt{10} \over 32 \pi} (7 \cos\theta^2 - 1) \sin\theta\nonumber\\
+        &=&0.0943672 \times (7 * \cos\theta^2 -1) \sin\theta\nonumber\\
+\end{eqnarray}
+

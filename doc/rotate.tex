@@ -1,0 +1,14 @@
+\section{ROTATE}
+\label{sect:rotate}
+
+\noindent This function is used by {\em RECOIL} (see section
+\ref{sect:recoil}) to rotate the statistical tensors into the frame of
+reference of the recoiling nucleus. To do this it needs the
+$D^k_{\chi\chi^\prime}$ matrices which are calculated by {\em DJMM} (see
+section \ref{sect:djmm}).\\
+
+\begin{equation}
+ \rho_{k \chi} = (-1)^\chi
+  \sum_{\chi^\prime}{i^{\chi^\prime} D^k_{\chi^\prime \chi}
+     ({\pi + \theta \over 2}) \rho_{k \chi^\prime}}
+\end{equation}

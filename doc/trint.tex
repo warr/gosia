@@ -1,0 +1,50 @@
+\section{TRINT}
+\label{sect:trint}
+
+\noindent This function calculates the sine and cosine integrals (Si and
+Ci).\\
+
+\noindent For small $x$, we use the expansion:\\
+
+\begin{equation}
+\mathrm{Si} = x - {x^3 \over 3! \times 3} + {x^5 \over 5! \times 5)} -
+{x^7 \over 7! \times 7} + {\ldots}
+\end{equation}
+
+\noindent In the code, we use:
+
+\begin{eqnarray*}
+{1 \over 3! \times 3} =& {1 \over 18}    =& 0.05555555\\
+{1 \over 5! \times 5} =& {1 \over 600}   =& 1.666667E-3\\
+{1 \over 7! \times 7} =& {1 \over 35280} =& 2.83446E-5
+\end{eqnarray*}
+
+\noindent and:
+
+\begin{equation}
+\mathrm{Ci} = -\gamma - \ln(x) + {x^2 \over 2! \times 2} -
+{x^4 \over 4! \times 4} + {x^6 \over 6! \times 6} - \ldots
+\end{equation}
+
+\noindent where $\gamma$ is the Euler gamma = 0.5772156649 and:\\
+
+\begin{eqnarray*}
+{1 \over 2! \times 2} =& {1 \over 4}      =& 0.25\\
+{1 \over 4! \times 4} =& {1 \over 96}     =& 0.0104166\\
+{1 \over 6! \times 6} =& {1 \over 4320}   =& 2.31481E-4\\
+{1 \over 8! \times 8} =& {1 \over 322560} =& 3.10019E-6
+\end{eqnarray*}
+
+\noindent Whereas for large $x$ we use:
+
+\begin{equation}
+\mathrm{Si} = {\pi \over 2} - 
+{\cos(x) \over {x \times (1 - {2! \over x^2} + {4! \over x^4} - \ldots)}}
+- {\sin(x) \over {x \times ({1 \over x} - {3! \over x^3} + {5! \over x^5} -
+\ldots)}}
+\end{equation}
+
+\begin{equation}
+\mathrm{Ci} = {\cos(x) \over x \times ({1 \over x} - {3! \over x^3} + {5! \over x^5} - \ldots)}
+- {\sin(x) \over x \times (1 - {2! \over x^2} + {4! \over x^4} - \ldots)}
+\end{equation}

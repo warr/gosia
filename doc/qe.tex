@@ -6,6 +6,7 @@ collision functions. It is called from {\em SNAKE} (see section
 \ref{sect:snake}) which calculates various parameters that are passed
 to {\em QE}:\\
 
+\begin{center}
 \begin{tabular}{ll}
 C & $\cosh\omega + \epsilon$\\
 D & $\sqrt{\epsilon^2-1} \sinh\omega$\\
@@ -23,9 +24,11 @@ D5 & D$^5$\\
 B12 & B$^{12}$\\
 D6 & D$^6$\\
 \end{tabular}
+\end{center}
 
 \noindent It then calculates the collision functions:\\
 
+\begin{center}
 \begin{tabular}{|l|l|l|}
 \hline
 E1 & C$_1$ & $0.5 \times \mathrm{C} / \mathrm{B2}$\\
@@ -63,3 +66,4 @@ E6 & C$_1$ & $2.707031 \times (21. \times \mathrm{C2} \times (-\mathrm{C2} \time
    & C$_7$ & $-20.571656 \times \mathrm{D6}/\mathrm{B12}$\\
 \hline
 \end{tabular}
+\end{center}
