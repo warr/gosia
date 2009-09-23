@@ -1,8 +1,7 @@
 \section{XSTATIC}
 \label{sect:xstatic}
 
-\noindent This function calculates the static part of the
-deorientation.\\
+\noindent This function calculates the static part of the deorientation.\\
 
 \noindent Here we use:\\
 
@@ -13,14 +12,32 @@ h = {1 \over {1 + (0.012008 \beta Z^{0.45})^{5/3}}}
 \noindent and\\
 
 \begin{equation}
-\mathrm{QCEN} = Z h^6
+Q_0 = Z h^{3 \over 5}
 \end{equation}
 
 \noindent and\\
 
 \begin{equation}
-\mathrm{DQ} = \sqrt{(\mathrm{QCEN} (1 - h))}
+\sigma_Q = \sqrt{(Q_0 (1 - h))}
 \end{equation}
 
+\noindent In the code $Q_0$ is called {\em QCEN} and $\sigma_Q$ is {\em
+DQ}.\\
+
 \noindent Then we integrate over the range QCEN $\pm$ 3 DQ to
-calculate XNOR.\\
+calculate XNOR, which is the normalisation factor needed to ensure that the
+sum is unity.\\
+
+\begin{equation}
+\mathrm{XNOR} = \sum_{q_i=-3\sigma_Q}^{+3\sigma_Q} e^{-{1\over 2} ({Q_0 - q_i \over
+\sigma_Q})^2}
+\end{equation}
+
+\noindent which is, of course, an approximation to an integration between
+$\pm\infty$.\\
+
+
+\noindent The value 0.012008 is $v^\prime$/c, where $v^\prime$ is taken from
+Nikolaev and Dmitriev, {\em Phys. Lett.} 82A, {\bf 277}, to be 3.6 $\times$
+10$^6$ m/s. The 0.45 is the coefficient alpha from the same paper. The power
+of 5/3 is 1/k = 1/0.6 from that paper.

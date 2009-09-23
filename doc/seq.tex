@@ -8,3 +8,40 @@ of feeding.\\
 \noindent It fills out the {\em KSEQ} array in the {\em LEV} common block
 for each decay with four values: The initial level, the final level, the
 matrix element and the multipolarity.\\
+
+\begin{equation}
+\delta_\lambda =
+i^{n(\lambda)}
+{1 \over (2 \lambda + 1)!! h^{\lambda + 2}}
+\sqrt{8 \pi (\lambda + 1) \over \lambda}
+\large({E_\gamma \over c}\large)^{\lambda + 1/2}
+{<I_2 \parallel E(M)\lambda \parallel I_1> \over \sqrt{2 I_1 + 1}}
+\end{equation}
+
+\noindent where $n(\lambda)$ = $\lambda$ for E$\lambda$ transitions and
+$\lambda + 1$ for M$\lambda$ transitions.\\
+
+\noindent In gosia, the constants are hard-coded for each multipolarity:\\
+
+\begin{center}
+\begin{tabular}{|ll|}
+\hline
+Multipolarity & $\delta_\lambda$\\
+\hline
+E1 & 398.77393 $E_\gamma^{3/2}$ / $\sqrt{2 I_1 + 1}$\\
+E2 & 3.5002636 $E_\gamma^{5/2}$ / $\sqrt{2 I_1 + 1}$\\
+E3 & 0.023891302 $E_\gamma^{7/2}$ / $\sqrt{2 I_1 + 1}$\\
+M1 & 4.1932861 $E_\gamma^{3/2}$ / $\sqrt{2 I_1 + 1}$\\
+M2 & 0.036806836 $E_\gamma^{5/2}$ / $\sqrt{2 I_1 + 1}$\\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent Here, the ratio between E$\lambda$ and M$\lambda$ is 95.0981942.
+This seems to be approximately 137.05999679 / 1.4399645 (inverse fine
+structure constant and $e^2$).\\
+
+
+\noindent Also, the ratio between E$\lambda$ and E$\lambda+1$ or between
+M$\lambda$ and M$\lambda+1$ is 113.92676 = $\sqrt{1/3}$ $\hbar$c, where
+$\hbar$c = 197.326931 MeV fm.\\

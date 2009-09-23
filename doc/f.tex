@@ -1,11 +1,13 @@
 \section{F}
 \label{sect:f}
 
-\noindent This function calculates the F coefficents.\\
+\noindent This function calculates the F coefficents in terms of Wigner 3-j
+and 6-j symbols, which are evaluated using {\em WTHREJ} (see section
+\ref{sect:wthrej}) and {\em WSIXJ} (see section \ref{sect:wsixj}).\\
 
 \begin{eqnarray}
-F_k(\lambda \lambda^\prime I_2 I_1) =& (-1)^{I_1 + I_2 - l} \times \nonumber\\
-&\sqrt{(2 k + 1) (2 I_1 + 1) (2 \lambda + 1) (2 \lambda^\prime + 1)} \times \nonumber\\
+F_k(\lambda \lambda^\prime I_2 I_1) =& (-1)^{I_1 + I_2 - l} \sqrt{(2 k + 1)
+(2 I_1 + 1) (2 \lambda + 1) (2 \lambda^\prime + 1)} \cdot \nonumber\\
 %
 &\begin{pmatrix}
 \lambda & \lambda^\prime & k\\
@@ -18,3 +20,6 @@ I_1 & I_1 & I_2
 \end{Bmatrix}
 \end{eqnarray}
 
+\noindent Note that the values passed to {\em WTHREJ} and {\em WSIXJ} have
+to be doubled (i.e. we don't pass a spin which might be a half-integer, but
+we pass twice the spin, which is definitely an integer).\\

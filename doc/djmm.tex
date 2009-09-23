@@ -1,11 +1,34 @@
 \section{DJMM}
 \label{sect:djmm}
 
-\noindent This function calculates the rotation matrices $D^k_{\xi
-\xi^\prime}$ needed to switch between the lab frame and the frame of the
-moving particle.\\
+\noindent This function calculates the rotation matrices $d^k_{\xi
+\xi^\prime}$ needed to switch between the laboratory frame and the frame of
+the recoiling nucleus.\\
 
 \noindent In order to optimize things, we save the values already
 calculated, so they can be returned straight away without having to
 recalculate them.\\
 
+\noindent These values are used in two places. Firstly, they are needed to
+rotate the statistical tensors $\rho_{k \chi}$ into the coordinate frame
+defined by the recoiling nucleus in {\em TENS} (see section
+\ref{sect:tens}). Secondly, they are used when performing the relativistic
+correction in {\em RECOIL} (see section \ref{sect:recoil}).\\
+
+\begin{eqnarray}
+d^k_{\chi \chi^\prime}(\beta) = &
+\sqrt{{(k + \chi^\prime)! (k - \chi^\prime)! \over (k + \chi)! (k - \chi)!}}
+\sum_m
+\begin{pmatrix}
+k + \chi\\
+k - \chi^\prime - m
+\end{pmatrix}
+\begin{pmatrix}
+k - \chi\\
+m
+\end{pmatrix}
+\cdot\\
+&
+(-1)^{k - \chi^\prime - m}[\cos{\beta \over 2}]^{2m + \chi + \chi^\prime}
+[\sin{\beta \over 2}]^{2k-2m - \chi - \chi^\prime}
+\end{eqnarray}

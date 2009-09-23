@@ -8,7 +8,22 @@ appropriate for the desired accuracy. The formula is:
 \omega_{max} \ge \alpha_\lambda - {1 \over \lambda} \ln{(a_c)}
 \end{equation}
 
-\noindent The values o f$\alpha_\lambda$ are:\\
+\noindent where $a_c$ is the maximum relative error of the absolute values
+of the excitation values:\\
+
+\begin{equation}
+{1 \over 4} {
+\int_{-\infty}^{+\infty} Q_{\lambda 0}(\epsilon =1,\omega) d\omega
+-
+\int_{-\omega_{max}}^{+\omega_{max}} Q_{\lambda 0}(\epsilon =1,\omega) d\omega
+\over
+\int_{-\infty}^{+\infty} Q_{\lambda 0}(\epsilon =1,\omega) d\omega
+}
+\le
+a_c
+\end{equation}
+
+\noindent The values of $\alpha_\lambda$ are:\\
 
 \begin{center}
 \begin{tabular}{|ll|}
@@ -27,7 +42,7 @@ M2 & 0.536\\
 \end{tabular}
 \end{center}
 
-\noindent It also stores in {\em ACC50} the value of $-{\ln\mathrm{accuracy}
+\noindent It also stores in {\em ACC50} the value of $-{\ln\mathrm{(accuracy)}
 \over 50}$.\\
 
 \noindent The result is stored in the variable {\em IRA} for each

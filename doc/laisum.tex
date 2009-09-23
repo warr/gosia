@@ -4,6 +4,7 @@
 \noindent This function evaluates the sum over matrix elements.\\
 
 \begin{equation}
+{da_k \over d\omega} = 
 \sum_{lmn} \zeta^{lm}_{kn}  M^{(1)}_{kn} f_{lm}(\omega) a_n(\omega)
 \end{equation}
 
@@ -19,4 +20,6 @@ f_{lm} = -i Q_{lm} e^{i \xi_{kn} (\epsilon \sinh(\omega) + \omega)}
 M^{(1)}_{kn} = <k \parallel E^{(M)}_\lambda \parallel n>
 \end{equation}
 
-
+In this function, we take the value of either y(n) = ARM(k,5) or y$_p$(n) = 
+ARM(k,7) depending on the i57 flag and calculate f(n) = ARM(k,4). We also
+use ARM(k,6).\\

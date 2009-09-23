@@ -29,3 +29,25 @@ y_c(n+1) = y(n) + {h \over 24} (9 f_p(n+1) + 19 f(n) - 5 f(n-1) + f(n-2))
 |E(n+1)| \approx {19 \over 270} (y_p(n+1) - y_c(n+1)))
 \end{equation}
 
+\noindent Note that in the code, we use 1/14 = 0.07143 instead of 19/270 =
+0.07037.\\
+
+\noindent The values in ARM are part of the Adams-Moulton code. The first
+index is the substate, while the second index has a value from 1 to 7 with
+the following meanings:\\
+
+\begin{center}
+\begin{tabular}{|ll|}
+\hline
+Index & Meaning\\
+\hline
+1 & f(n-3)\\
+2 & f(n-2)\\
+3 & f(n-1)\\
+4 & f(n)\\
+5 & y(n) initially\\
+6 & is not used\\
+7 & y$_p$(n+1)\\
+\hline
+\end{tabular}
+\end{center}

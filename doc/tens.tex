@@ -6,5 +6,25 @@ polarization of the level (Bten) and rotate it into the new coordinate system
 with the z-axis along the beam direction and the x-axis in the plane of the
 orbit in such a way, that the x-component of the impact parameter is positive.
 The y- axis is defined to form a right-handed system. The results are written
-to ZETA.\\
+to {\em ZETA}. Note, however, that this has nothing whatsoever to do with
+the $\zeta$ that is used in the excitation part of gosia. It just occupies
+the same memory at a different time.\\
 
+\noindent The resulting rotated statistical tensors have 28 values for each
+level.\\
+
+\begin{equation}
+\rho_{k \chi} \rightarrow \sum_{\chi^\prime} \rho_{k \chi^\prime}
+D^k_{\chi^\prime \chi} \large( {\pi \over 2} , {\pi + \theta \over 2}, \pi
+\large)
+\end{equation}
+
+\noindent and:\\
+
+\begin{equation}
+D^k_{\chi^\prime \chi}(\alpha, \beta, \gamma) = 
+e^{i \chi \alpha} d^k_{\chi \chi^\prime}(\beta) e^{i \chi^\prime \gamma}
+\end{equation}
+
+\noindent and the values of $d^k_{\chi \chi^\prime}$ are evaluated by the
+function {\em DJMM} (see setion \ref{sect:djmm}).\\

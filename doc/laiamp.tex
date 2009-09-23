@@ -4,3 +4,20 @@
 \noindent This function calculates the excitation amplitudes.\\
 
 \noindent It uses {\em STAMP} to estimate each amplitude.\\
+
+\begin{equation}
+A_{1ik} = M^{(\lambda)}_{ik} \zeta^{(\lambda m)}_{ik} \cdot
+q^{(\lambda m)}_a
+\end{equation}
+
+\begin{equation}
+A_{2ik} = M^{(\lambda)}_{ik} \zeta^{(\lambda m)}_{ik} \cdot
+q^{(\lambda m)}_s
+\end{equation}
+
+\noindent We use the function {\em STAMP} to evaluate $q^{\lambda m}_s$ and
+$q^{\lambda m}_a$ which is assumed to depend on $\xi$ but not on $\epsilon$
+for a given experiment. This is stored in the variable {\em uhuj} and
+multiplied by the matrix element and $\zeta$ as well as a complex phase
+which is calculated using {\em FAZA1} (see section \ref{sect:faza1}). The
+result is stored in {\em ARM}.\\

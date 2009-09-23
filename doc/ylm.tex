@@ -1,10 +1,12 @@
 \section{YLM}
 \label{sect:ylm}
 
-\noindent This function evaluates the even spherical harmonics.\\
-The function {\em YLM} uses the axial symmetry flag for the experiment,
-which it gets from the common block {\em KIN}. If this flag is set, it
-only calculates three of the values and then returns. Otherwise, it
+\noindent This function evaluates the even spherical harmonics. See {\em
+YLM1} (section \ref{sect:ylm1}) for the odd spherical harmonics.\\
+
+\noindent The function {\em YLM} uses the axial symmetry flag for the
+experiment, which it gets from the common block {\em KIN}. If this flag is
+set, it only calculates three of the values and then returns. Otherwise, it
 calculates all 15 values. Although the code to calculate the three values is
 the same in both cases, it is duplicated in the Fortran.\\
 

@@ -1,4 +1,26 @@
 \section{WTHREJ}
 \label{sect:wthrej}
 
-\noindent This function evaluates a Wigner 3-j symbol.\\
+\noindent This function evaluates a Wigner 3-j symbol. Note that the six
+values passed to it are integers containing twice the spin, in order to
+allow for half-integer spins. i.e. you have to double the spins before
+calling this function.\\
+
+\noindent This function makes use of the table of prime numbers in {\em IP},
+the table of sums of factors of primes in {\em KF} and the table of natural
+logs of primes in {\em PILOG}, all of which are stored in the common block
+{\em FAKUL}. The values in {\em IP} are set up by the function {\em PRIM}
+(see section \ref{sect:prim}) and the others are set up in {\em FAKP} (see
+section \ref{sect:fakp}). So both of these functions must have been called
+prior to calling {\em WTHREJ}.\\
+
+\begin{equation}
+\mathrm{WTHREJ} =
+\begin{pmatrix}
+J1 / 2 & J2 / 2 & J3 / 2\\
+M1 / 2 & M2 / 2 & M3 / 2
+\end{pmatrix}
+\end{equation}
+
+\noindent where J1, J2, J3, M1, M2 and M3 are the values passed to the
+function.\\
