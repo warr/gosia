@@ -18,8 +18,9 @@ C 1 / (3! * 3) = 1 / 18    = 0.05555555
 C 1 / (5! * 5) = 1 / 600   = 1.666667E-3
 C 1 / (7! * 7) = 1 / 35280 = 2.83446E-5
 C
-C Ci = -gamma - ln(x) + x^2 / (2! * 2) - x^4 / (4! * 4) + x^6 / (6! * 6) - ...
-C where gamma is the Euler gamma = 0.5772156649
+C Ci = - ln(x) + x^2 / (2! * 2) - x^4 / (4! * 4) + x^6 / (6! * 6) - ...
+C note that the normal definition of Ci has an extra -gamma term, where gamma
+C is the Euler gamma.
 C 1 / (2! * 2) = 1 / 4      = 0.25
 C 1 / (4! * 4) = 1 / 96     = 0.0104166
 C 1 / (6! * 6) = 1 / 4320   = 2.31481E-4
@@ -64,7 +65,7 @@ C     f = 1./Arg and g=1./a is a good approximation.
       f = 1.
       g = 1.
 
-C See Abramowitz and Segun - Handbook of Mathematical Functions with Formulas, Graphs
+C See Abramowitz and Stegun - Handbook of Mathematical Functions with Formulas, Graphs
 C and Mathematical Tables, National Bureau of Standards, 8th Ed. P 233 for the following
 C coefficients.
       IF ( a.LE.1.D+8 ) THEN
