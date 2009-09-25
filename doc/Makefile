@@ -6,6 +6,8 @@ LOG = internals.log
 PS  = internals.ps
 PDF = internals.pdf
 
+DEP += coupling.tex
+
 DEP += adhoc.tex
 DEP += alloc.tex
 DEP += ampder.tex

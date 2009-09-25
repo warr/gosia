@@ -77,7 +77,8 @@ E4 & 2/315 & 263.812652 & 41550.492 & 179465.66\\
 E5 & 24/10394 & 1332.40950 & 577099.86 & 32628766\\
 \end{tabular}
 
-The Gosia factor / $f_\lambda$ changes each time by a factor of 0.07199. i.e.
+The Gosia factor / $f_\lambda$ increases each time by a factor 13.8892 each
+time (13.8892 is the recpirocal of 0.07199). i.e.
 
 \begin{equation}
 f_{\mathrm{gosia}} = 1.116547
@@ -85,18 +86,25 @@ f_{\mathrm{gosia}} = 1.116547
 (13.889122)^{\lambda}
 \end{equation}
 
-where 13.889112 is the reciprocal of 0.07199.
+where 
 
 \begin{equation}
-{2 \pi^2 \sqrt{2} \over 25} = 0.1166183
+13.889231 = {20 \over 1.4399645}
 \end{equation}
+
+and
 
 \begin{equation}
-{125 \over 9} = 13.88888889
+{e^2 \over 4 \pi \epsilon_0} = 1.4399645
 \end{equation}
 
-The Winther de Boer factor changes by (0.07199)$^2$, as can be seen from the
+
+The Winther de Boer factor increases by (13.8908)$^2$, as can be seen from the
 equation above.
+
+\begin{equation}
+f_{\mathrm{WdB}} = {1 \over 40.03} (13.889122)^{2\lambda-2}
+\end{equation}
 
 For the magnetic case, we have
 
@@ -105,7 +113,7 @@ C_\lambda^M = (v/c) C_\lambda^E / 95.0981942.
 \end{equation}
 
 \begin{equation}
-{\hbar c \over e^4} = {197.327 \over 1.439976^2} = 95.1647
+{\hbar c \over e^4} = {197.326931 \over (1.4399645)^2} = 95.1662
 \end{equation}
 
 In fact, the Gosia $cpsi$ is actually C$_\lambda$ / $(Z_1 Z_2 (1 +
