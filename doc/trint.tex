@@ -2,7 +2,27 @@
 \label{sect:trint}
 
 \noindent This function calculates the sine and cosine integrals (Si and
-Ci).\\
+Ci). Note that it returns -1 times these values. The sine and cosine
+integrals are defined as:\\
+
+\begin{equation}
+Si(x) = \int_0^x {\sin(t) \over t} dt
+\end{equation}
+
+\noindent and:\\
+
+\begin{equation}
+Ci(x) = \gamma + \log_e(x) + \int_0^x {\cos(t-1) \over t} dt
+\end{equation}
+
+\noindent where $\gamma$ is the Euler gamma = 0.5772156649.\\
+
+\noindent We calculate using three different methods depending on the
+magnitude of the argument $x$. If it is less than 1, we use a series
+expansion. Above 1, we use a rational approximation and above $10^8$ we
+further approximate the rational approximation.\\
+
+\subsection{Small arguments ($x < 1$)}
 
 \noindent For small $x$, we use the expansion:\\
 
@@ -11,7 +31,7 @@ Ci).\\
 {x^7 \over 7! \times 7} + {\ldots}
 \end{equation}
 
-\noindent In the code, we use:
+\noindent In the code, we use (for small arguments):
 
 \begin{eqnarray*}
 {1 \over 3! \times 3} =& {1 \over 18}    =& 0.05555555\\
@@ -22,11 +42,12 @@ Ci).\\
 \noindent and:
 
 \begin{equation}
-\mathrm{Ci} = -\gamma - \ln(x) + {x^2 \over 2! \times 2} -
-{x^4 \over 4! \times 4} + {x^6 \over 6! \times 6} - \ldots
+\mathrm{Ci} = \gamma + \log_e(x) - {x^2 \over 2! \times 2} +
+{x^4 \over 4! \times 4} - {x^6 \over 6! \times 6} - \ldots
 \end{equation}
 
-\noindent where $\gamma$ is the Euler gamma = 0.5772156649 and:\\
+\noindent Note, however, that in the code we have -Si and $\gamma$ - Ci
+rather than Si and Ci.\\
 
 \begin{eqnarray*}
 {1 \over 2! \times 2} =& {1 \over 4}      =& 0.25\\
@@ -35,16 +56,84 @@ Ci).\\
 {1 \over 8! \times 8} =& {1 \over 322560} =& 3.10019E-6
 \end{eqnarray*}
 
-\noindent Whereas for large $x$ we use:
+\noindent The function {\em POL4} (see section \ref{sect:pol4}) is used to
+evaluate these polynomials.\\
+
+\subsection{Larger arguments}
+
+\noindent For larger arguments, the code uses the method given by Abramowitz
+and Stegun - Handbook of Mathematical Functions with Formulas, Graphs and
+Mathematical Tables, National Bureau of Standards, 9$^{th}$ Ed. page 233.\\
 
 \begin{equation}
-\mathrm{Si} = {\pi \over 2} - 
-{\cos(x) \over {x \times (1 - {2! \over x^2} + {4! \over x^4} - \ldots)}}
-- {\sin(x) \over {x \times ({1 \over x} - {3! \over x^3} + {5! \over x^5} -
-\ldots)}}
+f(x) = {1 \over x}
+\bigg({x^8 + a_1 x^6 + a_2 x^4 + a_3 x^2 + a_4 \over x^8 + b_1 x^6 + b_2 x^4 + b_3 x^2 + b_4}\bigg)
++ \epsilon(x)
+\end{equation}
+
+\noindent where:\\
+
+\begin{center}
+\begin{tabular}{|ll|}
+\hline
+$a_1$ = 38.027264 & $b_1$ = 40.021433\\
+$a_2$ = 265.187033 & $b_2$ = 322.624911\\
+$a_3$ = 335.677320 & $b_3$ = 570.236280\\
+$a_4$ = 38.102495 & $b_4$ = 157.105423\\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent which gives the error $|\epsilon| < 5 \times 10^{-7}$.\\
+
+\begin{equation}
+g(x) = {1 \over x^2}
+\bigg({x^8 + a_1 x^6 + a_2 x^4 + a_3 x^2 + a_4 \over x^8 + b_1 x^6 + b_2 x^4 + b_3 x^2 + b_4}\bigg)
++ \epsilon(x)
+\end{equation}
+
+\noindent where:\\
+
+\begin{center}
+\begin{tabular}{|ll|}
+\hline
+$a_1$ = 42.242855 & $b_1$ = 48.196927\\
+$a_2$ = 302.757865 & $b_2$ = 482.485984\\
+$a_3$ = 353.018498 & $b_3$ = 1114.978885\\
+$a_4$ = 21.821899 & $b_4$ = 449.690326\\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent which gives the error $|\epsilon| < 3 \times 10^{-7}$.\\
+
+Then we use the relations on P. 232 of Abramowitz and Stegun:
+
+\begin{equation}
+Si(x) = {\pi \over 2} - f(x) \cos(x) - g(x) \sin(x)
+\end{equation}
+
+\noindent and:\\
+
+\begin{equation}
+Ci(x) = f(x) \sin(x) - g(x) \cos(x)
+\end{equation}
+
+\noindent Note, however, that in the code, we ${\pi \over 2}$ - Si and -Ci
+rather than Si and Ci.\\
+
+\noindent {\bf \large Possible bug: this means that the two methods are not
+calculating the same thing!!!}\\
+
+\subsection{Very large arguments}
+
+\noindent For very large arguments ($> 10^8$), the $x^8$ term dominates, so
+the term inside the brackets for both f(x) and g(x) is unity leaving only:
+
+\begin{equation}
+f(x) = {1 \over x}
 \end{equation}
 
 \begin{equation}
-\mathrm{Ci} = {\cos(x) \over x \times ({1 \over x} - {3! \over x^3} + {5! \over x^5} - \ldots)}
-- {\sin(x) \over x \times (1 - {2! \over x^2} + {4! \over x^4} - \ldots)}
+g(x) = {1 \over x^2}
 \end{equation}

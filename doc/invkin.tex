@@ -24,3 +24,167 @@ integrating over energy loss. The OP,INTI option solves this by getting the
 user to provide the meshpoints in the laboratory system of the particle
 detector and calculating IKIN for each angle and energy in the integration
 over energy loss.\\
+
+Let $\theta_{p_{CM}}$ be the angle of the scattered projectile in the centre
+of mass frame and $\theta_{p_{Lab}}$ be the equivalent in the laboratory
+frame, while $\theta_{t_{CM}}$ and $\theta_{t_{Lab}}$ are the equivalents
+for the target recoils.\\
+
+We can write:
+\begin{equation}
+\tan \theta_{p_{Lab}} = {\sin \theta_{p_{CM}} \over
+\tau + \cos \theta_{p_{CM}}}
+\label{eq:theta_p_lab}
+\end{equation}
+
+and 
+
+\begin{equation}
+\tan \theta_{t_{Lab}} =  {\sin \theta_{t_{CM}} \over
+\tau_p + \cos \theta_{t_{CM}}}
+\label{eq:theta_t_lab}
+\end{equation}
+
+where
+\begin{equation}
+\tau = \tau_p {M_p \over M_t}
+\end{equation}
+
+and
+\begin{equation}
+\tau_p = \sqrt{E_p \over E_{p_{min}}}
+\end{equation}
+
+where
+\begin{equation}
+E_{p_{min}} = E_p - E_x \times a_{red}
+\end{equation}
+
+and the reduced mass $a_{red}$ is given by
+\begin{equation}
+a_{red} = 1 + {M_p \over M_t}
+\end{equation}
+
+and $E_p$ is the beam energy, $E_x$ is the energy of the excited state
+indicated by the parameter NCM (by default the first excited state), and
+$M_p$ and $M_t$ are the projectile and target nuclei masses in AMU,
+respectively.\\
+
+Since
+\begin{equation}
+\theta_{p_{CM}} = \pi - \theta_{t_{CM}}
+\end{equation}
+
+we can substitute in Eq. \ref{eq:theta_t_lab} and get
+
+\begin{equation}
+\tan \theta_{t_{Lab}} =  {\sin \theta_{p_{CM}} \over
+\tau_p - \cos \theta_{p_{CM}}}
+\label{eq:theta_t_lab2}
+\end{equation}
+
+
+So the problem is one of inverting Eq. \ref{eq:theta_t_lab2} to calculate
+$\theta_{p_{CM}}$ for a given $\theta_{t_{Lab}}$ and then substituting this
+value of $\theta_{p_{CM}}$ in Eq. \ref{eq:theta_p_lab} to obtain
+$\theta_{p_{Lab}}$, as required.\\
+
+Let $x$ = $\cos \theta_{p_{CM}}$ and $y$ = $\tan \theta_{t_{Lab}}$. Then we
+have:
+
+\begin{equation}
+y =  {\sqrt{1 - x^2} \over \tau_p - x}
+\label{eq:theta_t_lab3}
+\end{equation}
+
+or
+
+\begin{equation}
+y \tau_p - xy = \sqrt{1 - x^2}
+\label{eq:theta_t_lab5}
+\end{equation}
+
+Squaring both sides we get a quadratic equation in x:
+\begin{equation}
+x^2 (1 + y^2) - 2 \tau_p y^2 x + \tau_p^2 y^2 - 1 = 0
+\label{eq:theta_t_lab6}
+\end{equation}
+
+Solving for $x$ we get:
+\begin{equation}
+x = {\tau_p y^2 \pm \sqrt{\tau_p^2 y^4 - (1 + y^2) (\tau_p^2 y^2 - 1)}
+\over (1 + y^2)}
+\label{eq:theta_t_lab7}
+\end{equation}
+
+Once we have $x$ = $\cos \theta_{p_{CM}}$, we can substitute into Eq.
+\ref{eq:theta_p_lab}.
+
+\begin{equation}
+\theta_{p_{Lab}} = \arctan {\sqrt{1 - x^2} \over \tau + x}
+\label{eq:theta_p_lab2}
+\end{equation}
+
+This still leaves the problem of IKIN. However, we can sort that out too. We
+can find the value of $\theta_{p_{CM}}$ for which $\theta_{p_{Lab}}$ has its
+maximum by differentiating Eq. \ref{eq:theta_p_lab} and setting it to zero.
+Once we have this value, we can substitute in Eq. \ref{eq:theta_t_lab} to
+get the corresponding value of $\theta_{t_{Lab}}$, which we can compare with
+the value for which we are calculating and from that we can figure out IKIN.\\
+
+So the problem is to evaluate:
+
+\begin{equation}
+{d \over d\theta_{p_{CM}}} \left( \arctan \left({\sin \theta_{p_{CM}} \over
+\tau + \cos \theta_{p_{CM}}} \right) \right) = 0
+\label{eq:dtheta_p_lab}
+\end{equation}
+
+In fact, it turns out that we only need to evaluate:
+
+\begin{equation}
+{d \over d\theta_{p_{CM}}} \left( {\sin \theta_{p_{CM}} \over
+\tau + \cos \theta_{p_{CM}}} \right) = 0
+\label{eq:dtheta_p_lab2}
+\end{equation}
+
+since the arc tangent only introduces a $1 / (1 + x^2)$ term, which cannot be
+zero for real values of $\theta_{p_{CM}}$.\\
+
+let $u$ = $\sin \theta_{p_{CM}}$ and $v$ = $\tau + \cos \theta_{p_{CM}}$.
+
+\begin{equation}
+{(\tau + \cos \theta_{p_{CM}})
+({d \over \theta_{p_{CM}}}(\sin \theta_{p_{CM}})) -
+(\sin \theta_{p_{CM}})
+({d \over \theta_{p_{CM}}}(\tau + \cos \theta_{p_{CM}})) 
+\over
+(\tau + \cos \theta_{p_{CM}})^2} = 0
+\label{eq:dtheta_p_lab3}
+\end{equation}
+
+or
+
+\begin{equation}
+(\tau + \cos \theta_{p_{CM}}) (\cos \theta_{p_{CM}}) -
+(\sin \theta_{p_{CM}}) ( - \sin \theta_{p_{CM}})
+ = 0
+\label{eq:dtheta_p_lab4}
+\end{equation}
+
+\begin{equation}
+\tau \cos \theta_{p_{CM}} + \cos^2 \theta_{p_{CM}} +
+\sin^2 \theta_{p_{CM}} = 0
+\label{eq:dtheta_p_lab5}
+\end{equation}
+
+\begin{equation}
+\cos \theta_{p_{CM}} = -{1 \over \tau}
+\label{eq:dtheta_p_lab6}
+\end{equation}
+
+Then we just substitute this value of $\theta_{p_{CM}}$ into Eq.
+\ref{eq:theta_t_lab} and if the value of $\theta_{t_{Lab}}$ that we have to
+evaluate is greater than this value, we set IKIN = 1, otherwise we set IKIN
+= 0.
+

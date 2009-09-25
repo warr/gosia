@@ -9,3 +9,22 @@ equivalent in function to the {\em SPLNER} function (see section
 logarithmic or square root interpolation and {\em FUNC1} to perform the
 inverse (see sections \ref{sect:func} and \ref{sect:func1}).\\
 
+\noindent Let $P(x)$ be a function which approximates a set of points
+($x_i$, $y_i$). We can write:\\
+
+\begin{equation}
+P(x) = \sum_{j = 1}^n P_j(x)
+\end{equation}
+
+\noindent where the coefficients $P_j$ are given by:\\
+
+\begin{equation}
+P_j(x) = y_i \prod_{k = 1 , k \ne j}^n {x - x_k \over x_j - x_k}
+\end{equation}
+
+\noindent This gives a curve which goes through all the points smoothly,
+which can be used for interpolation. Note, however, that it is very poor at
+extrapolation and tends to diverge rapidly before the first point or after
+the last. In particular, the more data points used to determine the
+Lagrangian (i.e. the higher the order of the Lagrangian) the better it is
+for interpolation but the worse it is for extrapolation.\\

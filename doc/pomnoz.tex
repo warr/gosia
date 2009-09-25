@@ -1,6 +1,17 @@
 \section{POMNOZ}
 \label{sect:pomnoz}
 
-\noindent The word ``pomnoz'' is Polish for ``multiply'' and this function is used to perform
-the expansion to calculate the approximate Coulomb amplitudes.\\
+\noindent The word ``pomnoz'' is Polish for ``multiply'' and this function
+is used to perform the expansion of the exponential of the $A$-matrices to
+calculate the approximate Coulomb amplitudes.\\
+
+\begin{eqnarray}
+\bar{a_p}^{(0)} =& \bar{a}^{(0)}\\
+\bar{a_p}^{(n+1)} =& {1 \over n + 1} A \bar{a_p}^{(n)}\nonumber\\
+\bar{a}^{(n+1)} =& \bar{a}^{(n)} + \bar{a_p}^{(n+1)}\nonumber\\
+\end{eqnarray}
+
+\noindent If the summation doesn't converge, e.g. when the matrix elements
+of the $A$-matrix are large, we subdivide the matrix using {\em PODZIEL}
+(see section \ref{sect:podziel}).\\
 

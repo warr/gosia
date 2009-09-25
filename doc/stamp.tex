@@ -9,3 +9,85 @@ interaction strengths using sine and cosine integrals. These are evaluated by
 of $\epsilon$ and $\xi$, so for a given experiment, assuming the
 eccentricity $\epsilon$ to be constant, we only need to evaluate them as a
 function of $\xi$.\\
+
+\noindent For E1, the real and imaginary parts (apart from a factor) are:
+
+\begin{equation}
+\mathrm{cic} = \int_a^b {\cos(t) \over t^2} dt
+\end{equation}
+
+\begin{equation}
+\mathrm{cis} = \int_a^b {\sin(t) \over t^2} dt
+\end{equation}
+
+\noindent respectively, where:\\
+
+\begin{equation}
+a = |\xi| ({\epsilon \over 2} e^{(\omega_0 - 3 d\omega)} + \omega_0 - 3
+d\omega)
+\end{equation}
+
+\noindent and:\\
+
+\begin{equation}
+b = |\xi| ({\epsilon \over 2} e^{\omega_0} + \omega_0)
+\end{equation}
+
+\noindent Integration by parts gives us:\\
+
+\begin{equation}
+\mathrm{cic} = \int_a^b {\cos(t) \over t^2} dt = -\big[{\cos(t) \over t} \big]_a^b
+- \int_a^b {\sin(t) \over t} dt
+\end{equation}
+
+\noindent and:\\
+
+\begin{equation}
+\mathrm{cis} = \int_a^b {\sin(t) \over t^2} dt = -\big[{\sin(t) \over t} \big]_a^b
++ \int_a^b {\cos(t) \over t} dt
+\end{equation}
+
+\noindent so we can express this integral in terms of ${\sin(a) \over a}$,
+${\cos(a) \over a}$, ${\sin(b) \over b}$, ${\cos(b) \over b}$, and the sine
+and cosine integrals from 0 to a and 0 to b, which are calculated using {\em
+TRINT} (see section \ref{sect:trint}).\\
+
+\noindent For E2 and M1 the real and imaginary parts are:
+
+\begin{equation}
+\mathrm{dwi} = {1 \over 6} \int_a^b {\cos(t) \over t^3} dt =
+- {1 \over 2} \big[{\cos(t) \over t^2} \big]_a^b
+-  {1 \over 2} \int_a^b {\sin(t) \over t^2} dt
+\end{equation}
+
+\noindent and:\\
+
+\begin{equation}
+\mathrm{exa} = {1 \over 6} \int_a^b {\sin(t) \over t^3} dt =
+-{1 \over 2} \big[{\sin(t) \over t^2} \big]_a^b
++ {1 \over 2} \int_a^b {\cos(t) \over t^2} dt
+\end{equation}
+
+\noindent respectively.\\
+
+\noindent These values are multiplied by factors and the complex conjugate
+is returned.\\
+
+\begin{center}
+\begin{tabular}{|llll|}
+\hline
+E/M & $\lambda$ & $\mu$ & Factor\\
+\hline
+E & 1 & 0 & ${|\xi| \over 2 \epsilon}$\\
+E & 1 & $\pm$1 & ${1\over 2}\sqrt{1 \over 2} |\xi| {\sqrt{\epsilon^2 - 1} 
+\over \epsilon}$\\
+E & 2 & 0 & ${3 \over 4} \xi^2 {(3 - \epsilon^2) \over \epsilon^2}$\\
+E & 2 & $\pm$1 & ${3 \over 2} \sqrt{3 \over 2} \xi^2 {\sqrt{\epsilon^2 - 1} \over
+\epsilon^2}$\\
+E & 2 & $\pm$2 & ${3 \over 4} \sqrt{3 \over 2} \xi^2 {(\epsilon^2 - 1) \over
+\epsilon^2}$\\
+M & 1 & 0 & 0\\
+M & 1 & $\pm$ 1 & ${\sqrt{2} \over 4} \xi^2 \sqrt{\epsilon^2 - 1}$\\
+\hline
+\end{tabular}
+\end{center}
