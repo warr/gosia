@@ -45,3 +45,14 @@ structure constant and $e^2$).\\
 \noindent Also, the ratio between E$\lambda$ and E$\lambda+1$ or between
 M$\lambda$ and M$\lambda+1$ is 113.92676 = $\sqrt{1/3}$ $\hbar$c, where
 $\hbar$c = 197.326931 MeV fm.\\
+
+\noindent In this function, we also evaluate the correction factor for
+multiple excitation by calling {\em GF} (see section \ref{sect:gf}), which
+we store in {\em GKP} so that it can be used in {\em DECAY} (see section
+\ref{sect:decay}). Note that the factor
+$|\delta_\lambda|^2 (1 + c(\lambda))$ which is missing from {\em GF} is
+included here.\\
+
+\noindent We also calculate the F coefficients by calling {\em F}
+(see section \ref{sect:f}) and store that in {\em FP}, so we can use it in
+{\em ANGULA} (see section \ref{sect:angula}).\\

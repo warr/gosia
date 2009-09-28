@@ -1,8 +1,23 @@
 \section{GKVAC}
 \label{sect:gkvac}
 
-\noindent This function calculates the nuclear deorientation and stores the
-results in the {\em GKI} array of the common block GKVAC.\\
+\noindent This function calculates the nuclear deorientation for a single
+level and stores the results of $G_k$ in the {\em VACDP} array of the common
+block GKVAC. The only parameter is the level for which we want to
+calculate.\\
 
 \noindent It uses {\em GKK} (see section \ref{sect:gkk}) to calculate the
-individual time-dependent deorientation coefficients.\\
+individual time-dependent deorientation coefficients. This in turn calls
+{\em XSTATIC} (see section \ref{sect:xstatic}) to evaluate the Gaussian
+charge state distribution, and calculates the time-dependent deorientation
+coefficients $G_k(t)$, which it stores in {\em GKI}.\\
+
+\noindent If the absolute value of $\Lambda^*$ is less than $10^{-9}$ or if
+it is a thin target experiment, we just set all three $G_k$ values for the
+level to unity. Otherwise, we call {\em GKK} which stores the values in {\em
+GKI} and then we copy them to {\em VACDP}.\\
+
+\noindent Note, that I don't see any reason why {\em GKK} can't store the
+results directly in {\em VACDP} as {\em GKI} is not used anywhere else and
+the necessary index to the level is already passed to that function.\\
+

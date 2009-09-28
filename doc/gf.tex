@@ -29,6 +29,9 @@ in {\em SEQ} (see section \ref{sect:seq}) which calls this function.\\
 \sum_{\lambda n} | \delta_\lambda(I_1 \rightarrow I_n)|^2
 \end{equation}
 
-
 \noindent It uses {\em WSIXJ} (see section \ref{sect:wsixj}) to evaluate
 the Wigner 6-j coefficient.\\
+
+\noindent The result is returned to the calling function, which is {\em SEQ}
+(see section \ref{sect:seq}), where where they are stored as {\em GKP} for
+later use in {\em DECAY} (see section \ref{sect:decay}).\\

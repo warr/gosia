@@ -2,11 +2,33 @@
 \label{sect:angula}
 
 \noindent This function calculates the angular distribution of the emitted
-$\gamma$ rays. We loop over the decays in {\em KSEQ} which are ordered
+$\gamma$ rays.\\
+
+\begin{equation}
+{d^2\omega \over d\Omega_p d\Omega_\gamma} =
+\sigma_R(\theta_p)
+{1 \over 2\gamma(I_1) \sqrt{\pi}}
+\sum_{k even, \chi}
+\rho_{k\chi}^*(I_1)
+\sum\_{\lambda\lambda^\prime}
+\delta_\lambda
+\delta_{\lambda^\prime}^*
+F_k(\lambda \lambda^\prime I_2 I_1)
+Y_{k\chi}(\theta_\gamma, \phi_\gamma)
+\end{equation}
+
+\noindent with:\\
+
+\begin{equation}
+\gamma(I_1) = \sum_{\lambda n} |\delta_\lambda(I_1 \rightarrow I_n)|^2
+\end{equation}
+
+\noindent We loop over the decays in {\em KSEQ} which are ordered
 starting from the top of the level scheme working down. Then we calculate
 the decay between each pair of levels, using the F coefficients and $\delta$
 values together with the statistical tensors, which are stored at the
 beginning of the ZETA block.\\
+
 
 \noindent The function {\em RECOIL} is used to perform a relativistic
 correction (see section \ref{sect:recoil}). The function {\em FIINT1} (see

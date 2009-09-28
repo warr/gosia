@@ -5,6 +5,9 @@
 nucleus. It uses the function {\em ROTATE} (see section \ref{sect:rotate}) to
 rotate into the frame of reference of the recoiling nucleus and back.\\
 
+\noindent The formalism is that of Lesser {\em et al.} Nucl. Phys. 190 (1972)
+597.\\
+
 \noindent The angular distribution in the laboratory frame can be represented
 in terms of the angular distribution in the frame of the recoiling nucleus
 mulitplied by a second order correction in $\beta$:\\
@@ -45,5 +48,18 @@ L_+ Y_{k\chi} = \sqrt{ (k - \chi)(k + \chi + 1)} Y_{k+1 \chi}
 L_- Y_{k\chi} = \sqrt{ (k + \chi)(k - \chi + 1)} Y_{k-1 \chi}
 \end{equation}
 
-\noindent The formalism is that of Lesser {\em et al.} Nucl. Phys. 190 (1972)
-597.\\
+\noindent This transformation turns even-order spherical harmonics into
+linear combinations of spherical harmonics. Ordering by the powers of
+$\beta$ gives:\\
+
+\begin{equation}
+{dW^{LAB}(\theta, \phi) \over d\Omega_\gamma} =
+{dW^{RN}(\theta, \phi) \over d\Omega_\gamma} +
+\beta \sum_{k odd} b_{k\chi} Y_{k\chi}(\theta, \phi) +
+\beta^2 \sum_{k even} b_{k\chi} Y_{k\chi}(\theta, \phi)
+\end{equation}
+
+\noindent The $b_{k\chi}$ tensor can be written in terms of the $a_{k\chi}$
+tensor. This is stated in the paper of Lesser {\em et al.}, but they don't
+give the explicit relationship, which is quite complicated.\\
+

@@ -4,3 +4,64 @@
 \noindent This function calculates the detection probability, which is the
 probability that the $\gamma$ ray is absorbed in the Ge but not in one of
 the absorbers.\\
+
+\noindent Following the method of Krane {\em Nucl. Instr. Meth} 98 (1972)
+205-210, we introduce $\gamma$ energy-dependent attenuation factors
+$Q_k(E_\gamma$) multiplying the final decay statistical tensors, defined as:
+
+\begin{equation}
+Q_k(E_\gamma) = {J_k(E_\gamma) \over J_0(E_\gamma)}
+\end{equation}
+
+\noindent where:\\
+
+\begin{equation}
+J_k = \int_0^{\alpha_{max}}
+P_k(\cos\alpha)
+K(\alpha)
+(1 - e^{-\tau(E_\gamma)x(\alpha)})
+\sin(\alpha)
+d\alpha
+\end{equation}
+
+\noindent and $\alpha$ is the angle between the detector symmetry axis and
+the $\gamma$-ray direction.\\
+
+\noindent Note that this method is highly dependent on the detector geometry
+which is assumed to be coaxial. Note that this method does not take the
+closed front end of the Ge detector into account. The code uses the radius
+of the core $a$, the outer radius of the Ge detector $r$, the length of the
+detector $l$ (XL in the code) and the distance $d$. These are taken from the
+array {\em DIX} in the common block {\em DIMX}.\\
+
+\noindent We calculate the angle for the front edge of the detector, the
+front edge of the core electrode (assuming it to protrude right to the front
+face of the detector) and the back edges of the detector and the core
+electrode. We then integrate across the angular range and along the path at
+that angle, calculating the absorption probability in the absorbers and in
+the Ge. We have to multiply with the Legendre polynomials summing from first
+to ninth order. These polynomials are hardcoded into this function.\\
+
+\begin{center}
+\begin{tabular}{|ll|}
+\hline
+k & P$_k(\cos\theta)$\\
+\hline
+1 & 1\\
+2 & $\cos\theta$\\
+3 & 1.5$\cos^2\theta$ -0.5\\
+4 & 2.5$\cos^3\theta$-1.5$\cos\theta$\\
+5 & 4.375$\cos^4\theta$-3.75$\cos^2\theta$+0.375\\
+6 & (63$\cos^5\theta$-70$\cos^3\theta$+15)/8\\
+7 & (21$\cos^2\theta$(11$\cos^4\theta$-15$\cos^2\theta$+5)-5)/16\\
+8 & (429$\cos^7\theta$-693$\cos^5\theta$+315$\cos^3\theta$-35$\cos\theta$)/16\\
+9 & (6435$\cos^8\theta$-12012$\cos^6\theta$+6930$\cos^4\theta$-1260$\cos^2\theta$+35)/128\\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent The integration is performed numerically using Simpson's rule over
+100 intervals in each region of integration.\\
+
+\noindent The fortran code in Gosia's {\em GCF} function is essentially the
+same as the code with the same name in Krane's paper.\\

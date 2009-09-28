@@ -4,11 +4,11 @@
 \noindent This function calculates the time-dependent deorientation
 coefficients.\\
 
-\noindent First we call {\em XSTATIC} (see section
-\ref{sect:xstatic}) to calculate the static part. This calculates
-QCEN (the centre of the gaussian charge state distribution), DQ (the
-gaussian width of this distribution and XNOR (the normalisation
-parameter needed to ensure that the sum over probabilities is unity.\\
+\noindent First we call {\em XSTATIC} (see section \ref{sect:xstatic}) to
+calculate the static part. This calculates QCEN (the centre of the gaussian
+charge state distribution), DQ (the gaussian width of this distribution and
+XNOR (the normalisation parameter needed to ensure that the sum over
+probabilities is unity.\\
 
 \begin{equation}
 <a_k> = \sum_l p(J_1) \sum_F {(2 F + 1)^2 \over 2 J_1 + 1} \times
@@ -19,15 +19,89 @@ I & I & J_1
 ^2
 \end{equation}
 
+\noindent where $F$ is the vector sum of the nuclear spin $I$ and the
+electronic spin $J_1$, which is the ground-state spin of the dexcited atom. 
+Note that originally, the function {\em ATS} was used to determine the
+ground-state atomic spin for an atom with $N$ electrons. This was
+implemented as a complicated set of nested if statements. This has been
+replaced with a simple table which is included in this function.\\
+
 \noindent The function {\em WSIXJ} (see section \ref{sect:wsixj}) is
 used to evaluate the Wigner 6-j symbol. Note that the numbers passed
 to this function are integers which are twice the value of the
 spins, so we are usually dealing with spin values that have been
 doubled.\\
 
+\begin{equation}
+\bar{H} = K Z \bigg({v \over c}\bigg)^x
+\end{equation}
 
-\noindent Note that originally, the function {\em ATS} was used to determine
-the ground-state atomic spin for an atom with $N$ electrons. This was
-implemented as a complicated set of nested if statements. This has been
-replaced with a simple table which is included in this function.\\
+\noindent where $\bar{H}$ is {\em hmean} in the code. The parameters $x$ is
+{\em POWER} and $K$ is {\em FIEL}, which have the default values of 0.7 and
+6 $\times$ $10^{-6}$, respectively, but these values may be adjusted by the
+user using the CONT option ``VAC,''.\\
 
+\begin{equation}
+a(J_i) = \mu_n g {\bar{H} \over J_i}
+\end{equation}
+
+\noindent where $a(J_i$) is called {\em wsp} (but only temporarily), $g$ is
+{\em GFAC} and $J_i$ is {\em AVIJ}. The value of $\mu_n$ is hardcoded as
+4789. {\em GFAC} is another parameter that can be set by the user via
+``VAC,''. Its default value is $Z \over A$.\\
+
+\begin{equation}
+<\omega^2> = {1 \over 3} k (k + 1) \sum_{J_i} p(J_i) {a^2(J_i) \over
+\hbar^2} J_i (J_i + 1)
+\end{equation}
+
+\noindent For k = 1, 2, 3 we calculate:\\
+
+\begin{equation}
+\lambda_k = { 1 - <\alpha_k> \over \tau_C}
+\bigg(1 - e^{- <\omega^2> \tau_C^2\over 1 - <\alpha_k>}\bigg)
+\end{equation}
+
+and store it as {\em xlam}.\\
+
+\noindent Next we calculate:\\
+
+\begin{equation}
+G^{fluct}(t) = (1 - \lambda_k \tau_C) e^{-\lambda_k t}
+\end{equation}
+
+\noindent which we store as {\em GKI}.\\
+
+\noindent In order to allow for lifetimes of comparable order to $\tau_C$,
+we calculate:\\
+
+\begin{equation}
+r = (\Lambda^* + \lambda_k) \tau_I + 1
+\end{equation}
+
+\noindent which is stored in {\em down}. $\tau_I$ is {\em Time}, the
+lifetime of the state. $\Lambda^*$ is {\em XLAMB}.\\
+
+\noindent Then we calculate:\\
+
+\begin{equation}
+p = {\sqrt{9 \lambda_k^2 + 8\lambda_k\tau_C (<\omega^2> - \lambda_k^2)} \over
+4 \lambda_k \tau_C}
+\end{equation}
+
+\noindent where $p$ is called {\em alp} and $\lambda_k$ is {\em xlam} and
+$tau_C$ is {\em TIMEC} which is another parameter set via ``VAC,'' and which
+has a default value of 3.5.\\
+
+\noindent Then we can calculate:\\
+
+\begin{equation}
+G_k = \lambda_I \int_0^\infty G_k(t) e^{-\lambda_I t} dt =
+G_k^{BS} \bigg[ 1 + 
+{\lambda_k \tau_I (r - 2 p^2 \tau_I \tau_C \over
+(r + p \tau_I)(r + 2 p \tau_I)}\bigg]
+\end{equation}
+
+\noindent where we first calculate the numerator in {\em upc} and then the
+denominator in {\em dwc}. This gives us a correction factor which we
+multiply with {\em GKI} and store back in {\em GKI}.\\

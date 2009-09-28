@@ -1,4 +1,55 @@
 \section{DECAY}
 \label{sect:decay}
 
-\noindent This function calculates the $\gamma$ decay following excitation.\\
+\noindent This function calculates the decay statistical tensor describing
+the mixed electric and magnetic transition from a state $I$ to a state
+$I_f$:\\
+
+\begin{equation}
+R_{k\chi}(I, I_f) = {1 \over 2 \gamma(I) \sqrt{\pi}}
+G_k \rho_{k\chi}
+\sum_{\lambda \lambda^\prime}
+\delta_\lambda \delta_{\lambda^\prime}^* F_k(\lambda \lambda^\prime I_f I)
+\end{equation}
+
+\noindent The Coulomb excitation statistical tensors $\rho$ are purely real
+and the selection rules for electromagnetic transitions imply that the
+product $\delta_\lambda \delta_{\lambda^\prime}^*$ is also real.
+Consequently, the decay statistical tensors are also real.\\
+
+\noindent In this function {\em ZETA} does not contain $\zeta$ but instead
+has the $\rho$ statistical tensors, rotated into the new frame of reference.\\
+
+\noindent It uses the function {\em GKVAC} to calculate the nuclear
+deorientation due to vacuum polarization. This sets the {\em VACDP}
+coefficients which are time-dependent nuclear deorientation coefficients
+$G_k(t)$ for the given level.\\
+
+\noindent We also modify the statistical tensors to account for multiple
+excitation.\\
+
+\begin{equation}
+R_{k\chi}(I, I_f) \rightarrow R_{k\chi}(I, I_f) +
+\sum_n R_{k\chi}(I_n, I) H_k(I, I_n)
+\end{equation}
+
+\noindent where the $H_k$ values were calculated from {\em SEQ} (see section
+\ref{sect:gf}) by calling {\em GF} (see section \ref{sect:gf}), where they
+are stored as {\em GKP}.\\
+
+\begin{equation}
+H_k(I, I_n) =
+{\sqrt{(2 I + 1) (2 I_n + 1)} \over \gamma(I)}
+\sum_\lambda (-1)^{I + I_n + \lambda + k}
+|\delta_\lambda|^2
+(1 + c(\lambda))
+\begin{Bmatrix}
+I & I & k\\
+I_n & I_n & \lambda
+\end{Bmatrix}
+\end{equation}
+
+\noindent For each experimental lifetime provided by the user, we compare
+here the calculated one and add the appropriate amount to $\chi^2$ and the
+log of $\chi^2$.\\
+
