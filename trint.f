@@ -47,6 +47,7 @@ C     If Arg is small, use the polynomial expansion
          Si = POL4(0.D0,2.83446712D-5,-1.66666667D-3,.055555555D0,-1.D0,
      &        a)
          Si = Si*Arg
+         Si = Si + 1.57079632679
          Ci = POL4(-3.100198413D-6,2.314814815D-4,-.0104166667D0,.25D0,
      &        0.D0,a)
          Ci = Ci - LOG(Arg)
@@ -84,4 +85,5 @@ C coefficients.
       
       Si = f*c + g*s
       Ci = g*c - f*s
+      Ci = Ci + 0.577215664902D0
 99999 END
