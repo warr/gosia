@@ -1,0 +1,22 @@
+Name    sine integral                 cosine integral
+        x < 1        x >= 1           x < 1        x >= 1
+A       -Si          pi/2 - Si        gamma - Ci   -Ci
+B       pi/2 - Si    pi/2 - Si        gamma - Ci   -Ci
+C       -Si          -Si              gamma - Ci   -Ci
+D       pi/2 - Si    -Si              gamma - Ci   -Ci
+
+E       -Si          pi/2 - Si        -Ci          -Ci
+F       pi/2 - Si    pi/2 - Si        -Ci          -Ci
+G       -Si          -Si              -Ci          -Ci
+H       pi/2 - Si    -Si              -Ci          -Ci
+
+I       -Si          pi/2 - Si        gamma - Ci   gamma - Ci
+J       pi/2 - Si    pi/2 - Si        gamma - Ci   gamma - Ci
+K       -Si          -Si              gamma - Ci   gamma - Ci
+L       pi/2 - Si    -Si              gamma - Ci   gamma - Ci
+
+M       -Si          pi/2 - Si        -Ci          gamma - Ci
+N       pi/2 - Si    pi/2 - Si        -Ci          gamma - Ci
+O       -Si          -Si              -Ci          gamma - Ci
+P       pi/2 - Si    -Si              -Ci          gamma - Ci
+
