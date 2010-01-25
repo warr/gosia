@@ -83,5 +83,7 @@ C coefficients.
       g = g/a
       
       Si = f*c + g*s
+      Si = Si - 1.57079632679D0
       Ci = g*c - f*s
+      Ci = Ci + 0.577215664902D0
 99999 END
