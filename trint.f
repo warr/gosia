@@ -82,6 +82,6 @@ C coefficients.
       f = f/Arg
       g = g/a
       
-      Si = f*c + g*s
+      Si = f*c + g*s - 1.57079632679D0
       Ci = g*c - f*s
 99999 END
