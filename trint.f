@@ -50,7 +50,7 @@ C     If Arg is small, use the polynomial expansion
          Si = Si + 1.57079632679D0
          Ci = POL4(-3.100198413D-6,2.314814815D-4,-.0104166667D0,.25D0,
      &        0.D0,a)
-         Ci = Ci - LOG(Arg)
+         Ci = Ci - LOG(Arg) - 0.577215664902D0
          GOTO 99999
       ENDIF
 
