@@ -5,36 +5,37 @@ C
 C Called by: STAMP
 C Calls:     POL4
 C
-C Purpose: calculate sine and cosine integrals (Si and Ci)
+C Purpose: calculate sine and cosine integrals (Si and Ci). Note, that we actually
+C calculate pi/2-Si and -Ci. Note also that a constant added to these values doesn't
+C make any difference, because STAMP always subtracts them pairwise from each other.
 C
 C Formal parameters:
 C      Arg    - value of x for which to evaluate sine and cosine integrals
-C      Si     - returned sine integral at that value
-C      Ci     - returned cosine integral at that value
+C      Si     - returned sine integral at that value (actually pi/2 - Si)
+C      Ci     - returned cosine integral at that value (actually -Ci)
 C
-C For small x:
-C Si = x - x^3 / (3! * 3) + x^5 / (5! * 5) - x^7 / (7! * 7) + ...
-C 1 / (3! * 3) = 1 / 18    = 0.05555555
-C 1 / (5! * 5) = 1 / 600   = 1.666667E-3
-C 1 / (7! * 7) = 1 / 35280 = 2.83446E-5
+C For small x we use the series expansion. See Abramowitz and Stegun Handbook of
+C Mathematical Functions with Formulas, Graphs and Mathematical Tables, National Bureau
+C of Standards, 8th Ed. P232 Eqs. 5.2.14 and 5.2.16, except we calculate pi/2 - Si and -Ci:
 C
-C Ci = - ln(x) + x^2 / (2! * 2) - x^4 / (4! * 4) + x^6 / (6! * 6) - ...
-C note that the normal definition of Ci has an extra -gamma term, where gamma
-C is the Euler gamma.
-C 1 / (2! * 2) = 1 / 4      = 0.25
-C 1 / (4! * 4) = 1 / 96     = 0.0104166
-C 1 / (6! * 6) = 1 / 4320   = 2.31481E-4
-C 1 / (8! * 8) = 1 / 322560 = 3.10019E-6
+C pi/2 - Si = pi/2 - x + x^3 / (3! * 3) - x^5 / (5! * 5) + x^7 / (7! * 7) + ...
+C pi/2                       = 1.57079632679
+C 1 / (3! * 3) = 1 / 18      = 0.05555555
+C 1 / (5! * 5) = 1 / 600     = 1.666667E-3
+C 1 / (7! * 7) = 1 / 35280   = 2.83446E-5
 C
-C For large x:
-C Si = pi / 2 - cos(x) / x * (1 - 2! / x^2 + 4! / x^4 - ...)
-C             - sin(x) / x * (1 / x - 3! / x^3 + 5! / x^5 - ...)
+C -Ci = -Gamma - ln(x) + x^2 / (2! * 2) - x^4 / (4! * 4) + x^6 / (6! * 6) - ...
+C Gamma        = Euler Gamma = 0.577215664902
+C 1 / (2! * 2) = 1 / 4       = 0.25
+C 1 / (4! * 4) = 1 / 96      = 0.0104166
+C 1 / (6! * 6) = 1 / 4320    = 2.31481E-4
+C 1 / (8! * 8) = 1 / 322560  = 3.10019E-6
 C
-C Ci = cos(x) / x * (1 / x - 3! / x^3 + 5! / x^5 - ...)
-C      - sin(x) / x * (1 - 2! / x^2 + 4! / x^4 - ...)
-C
-C Note that this function seems to differ a little from the standard version
-C described above.
+C For large x we use the rational approximations. See See Abramowitz and Stegun Handbook
+C of Mathematical Functions with Formulas, Graphs and Mathematical Tables, National Bureau
+C of Standards, 8th Ed. P233 Eqs. 5.2.38 and 5.2.39 to calculate the auxillary functions
+C f and g and then use 5.2.8 and 5.2.9 to obtain the values of pi/2 - Si and -Ci from f
+C and g.
       
       SUBROUTINE TRINT(Arg,Si,Ci)
       IMPLICIT NONE
@@ -42,14 +43,16 @@ C described above.
 
       a = Arg*Arg
 
-C     If Arg is small, use the polynomial expansion
+C     If Arg is small, use the polynomial expansion. The coefficients are evaluated from
+C     Abramowitz and Stegun 5.2.14 and 5.2.16 as shown above:
       IF ( Arg.LT.1. ) THEN
          Si = POL4(0.D0,2.83446712D-5,-1.66666667D-3,.055555555D0,-1.D0,
      &        a)
          Si = Si*Arg
+         Si = Si + 1.57079632679D0 ! This is actually pi/2 - Si
          Ci = POL4(-3.100198413D-6,2.314814815D-4,-.0104166667D0,.25D0,
      &        0.D0,a)
-         Ci = Ci - LOG(Arg)
+         Ci = Ci - LOG(Arg) - 0.577215664902D0 ! This is actually -Ci
          GOTO 99999
       ENDIF
 
@@ -65,9 +68,8 @@ C     f = 1./Arg and g=1./a is a good approximation.
       f = 1.
       g = 1.
 
-C See Abramowitz and Stegun - Handbook of Mathematical Functions with Formulas, Graphs
-C and Mathematical Tables, National Bureau of Standards, 8th Ed. P 233 for the following
-C coefficients.
+C     From Abramowitz and Stegun 5.2.38 and 5.2.39 we have the following relations for the
+C     auxillary functions f and g, using the coefficients from that reference:
       IF ( a.LE.1.D+8 ) THEN
          f = POL4(1.D0,38.027246D0,265.187033D0,335.67732D0,38.102495D0,
      &       a)
@@ -81,7 +83,8 @@ C coefficients.
       
       f = f/Arg
       g = g/a
-      
-      Si = f*c + g*s
-      Ci = g*c - f*s
+
+C     From Abramowitz and Stegun 5.2.8 and 5.2.9:      
+      Si = f*c + g*s ! This is actually pi/2 - Si compared to Abramowitz and Stegun
+      Ci = g*c - f*s ! This is actually -Ci compared to Abramowitz and Stegun
 99999 END
