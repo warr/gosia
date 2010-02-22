@@ -72,6 +72,8 @@ C          with 32-bit precision is discouraged.
 C
 C       CHRONOLOGY OF MAJOR CHANGES:
 C
+C          (22 February 2009, N. Warr) gosia-20100222
+C            - Fix bug in TRINT which caused discontinuities
 C          (15 September 2009, N. Warr) gosia-20090915
 C            - Separated collision functions from zeta coefficients
 C          (14 September 2009, N. Warr) gosia-20081208.7
