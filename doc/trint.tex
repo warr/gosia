@@ -1,9 +1,9 @@
 \section{TRINT}
 \label{sect:trint}
 
-\noindent This function calculates the sine and cosine integrals (Si and
-Ci). Note that it returns -1 times these values. The sine and cosine
-integrals are defined as:\\
+\noindent This function calculates the sine and cosine integrals (Si
+and Ci). Actually, it calculates $\pi \over 2$ - Si and -Ci. The sine
+and cosine integrals are defined as:\\
 
 \begin{equation}
 Si(x) = \int_0^x {\sin(t) \over t} dt
@@ -22,9 +22,15 @@ magnitude of the argument $x$. If it is less than 1, we use a series
 expansion. Above 1, we use a rational approximation and above $10^8$ we
 further approximate the rational approximation.\\
 
+\noindent See Abramowitz and Stegun - Handbook of Mathematical
+Functions with Formulas, Graphs and Mathematical Tables, National
+Bureau of Standards, 9$^{th}$ Ed. pages 232-233 for more details. In
+particular, 
+
 \subsection{Small arguments ($x < 1$)}
 
-\noindent For small $x$, we use the expansion:\\
+\noindent For small $x$, we use the expansion following Abramowitz and
+Stegun Eqs. 5.2.14 and 5.2.16:\\
 
 \begin{equation}
 \mathrm{Si} = x - {x^3 \over 3! \times 3} + {x^5 \over 5! \times 5} -
@@ -46,7 +52,7 @@ further approximate the rational approximation.\\
 {x^4 \over 4! \times 4} - {x^6 \over 6! \times 6} - \ldots
 \end{equation}
 
-\noindent Note, however, that in the code we have -Si and $\gamma$ - Ci
+\noindent Note, however, that in the code we have $\pi/2$-Si and $\gamma$ - Ci
 rather than Si and Ci.\\
 
 \begin{eqnarray*}
@@ -61,9 +67,11 @@ evaluate these polynomials.\\
 
 \subsection{Larger arguments}
 
-\noindent For larger arguments, the code uses the method given by Abramowitz
-and Stegun - Handbook of Mathematical Functions with Formulas, Graphs and
-Mathematical Tables, National Bureau of Standards, 9$^{th}$ Ed. page 233.\\
+\noindent For larger arguments, the code uses the rational
+approximations given by Abramowitz and Stegun page 233 Eqs. 5.2.38 and
+5.2.39. First we calculate the auxillary functions $f$ and $g$ and
+then we use the relations 5.2.8 and 5.2.9 of Abramowitz and Stegun to
+calculate Si and Ci from these:\\
 
 \begin{equation}
 f(x) = {1 \over x}
@@ -107,7 +115,8 @@ $a_4$ = 21.821899 & $b_4$ = 449.690326\\
 
 \noindent which gives the error $|\epsilon| < 3 \times 10^{-7}$.\\
 
-Then we use the relations on P. 232 of Abramowitz and Stegun:
+Then we use the relations on P. 232 of Abramowitz and Stegun (Eqs.
+5.2.8 and 5.2.9):
 
 \begin{equation}
 Si(x) = {\pi \over 2} - f(x) \cos(x) - g(x) \sin(x)
@@ -122,8 +131,11 @@ Ci(x) = f(x) \sin(x) - g(x) \cos(x)
 \noindent Note, however, that in the code, we ${\pi \over 2}$ - Si and -Ci
 rather than Si and Ci.\\
 
-\noindent {\bf \large Possible bug: this means that the two methods are not
-calculating the same thing!!!}\\
+\noindent Note that in older versions of Gosia, the two
+methods were not consistent leading to a discontinuity at x = 1. This
+was a bug. It doesn't actually matter if we have a constant offset in
+gosia for these functions, because we always subtract pairs of values,
+so any constant cancels out.\\
 
 \subsection{Very large arguments}
 
