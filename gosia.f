@@ -551,7 +551,7 @@ C      ZV     - energy meshpoints
      &                LP10 , LP11 , LP12 , LP13 , LP14
       COMMON /SECK  / ISKIN(50)
       COMMON /VLIN  / XV(101) , YV(101) , ZV(101) , DSG(101) ,
-     &                DSE(100) , DS
+     &                DSE(101) , DS
       COMMON /DUMM  / GRAD(1500) , HLMLM(1500) , ELMH(1500)
       COMMON /BRNCH / BRAT(50,2) , IBRC(2,50) , NBRA
       COMMON /YEXPT / YEXP(32,1500) , IY(1500,32) , CORF(1500,32) , 
