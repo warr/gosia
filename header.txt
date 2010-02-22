@@ -72,6 +72,8 @@ C          with 32-bit precision is discouraged.
 C
 C       CHRONOLOGY OF MAJOR CHANGES:
 C
+C          (22 February 2009, N. Warr) gosia-20081208.9
+C            - Fix a bug in the function TRINT which caused a discontinuity
 C          (18 September 2009, N. Warr) gosia-20081208.8
 C            - Increased dimensions of ZETA array to allow up to 999 matrix
 C              elements (correctly this time, I hope!)
