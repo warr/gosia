@@ -1,6 +1,7 @@
-2009XXXX
+2010XXXX
 ° Separate collision coefficients out of ZETA array.
 ° Use a table of atomic ground-state spins rather than a strange function.
+° Fix discontinuity bug in TRINT.
 
 20081208
 ° New option OP,INTI which works like OP,INTG but the theta values for the
