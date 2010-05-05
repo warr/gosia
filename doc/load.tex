@@ -5,6 +5,12 @@ The function load is used to load the coupling parameters $\xi$ and $\psi$
 into arrays. It also calls {\em LSLOOP} (see section \ref{sect:lsloop}) to
 caclulate the $\zeta$ coupling parameters.\\
 
+\noindent There are two flags {\em Ient} and {\em Icg} which determine
+what this subroutine does. The {\em Icg} flag can be either 1 meaning
+that the full coulomb excitation calculation will be performed or 2
+meaning that only the approximate calculation will be performed. The
+flag {\em Ient} can be either 1, 2 or 3.
+
 \noindent It is also in this function that we deal with the E1 polarisation from the
 GDR. For target excitation we calculate the value zpol as:
 
@@ -69,7 +75,7 @@ two levels connected by that matrix element.\\
 \noindent where s is $1 + {A_1 \over A_2}$\\
 
 \begin{equation}
-\mathrm{aazz} = {1 \over {(1 + {A_1 \over A_2)}} Z_1 Z_2}
+\mathrm{aazz} = {1 \over {(1 + {A_1 \over A_2})} Z_1 Z_2}
 \end{equation}
 
 \begin{equation}
