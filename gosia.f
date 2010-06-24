@@ -1,6 +1,6 @@
 C                            GOSIA 20080519 (64-bit)
 C
-C                            18 September 2009 Update
+C                            24 June 2010 Update
 C
 C       http://www.pas.rochester.edu/~cline/Gosia/index.html
 C
@@ -72,7 +72,10 @@ C          with 32-bit precision is discouraged.
 C
 C       CHRONOLOGY OF MAJOR CHANGES:
 C
-C          (22 February 2009, N. Warr) gosia-20080519.9
+C          (24 June 2010, N. Warr) gosia-20081208.10
+C            - Fix a bug which uses the wrong sign for the relativistic
+C              correction in inverse kinematics
+C          (22 February 2010, N. Warr) gosia-20080519.9
 C            - Fix bug introduced in gosia-20080519.5 in VLIN
 C           (22 February 2009, N. Warr) gosia-20080519.8
 C            - Fix a bug in the function TRINT which caused a discontinuity
