@@ -77,7 +77,7 @@ C            - Fix a bug which uses the wrong sign for the relativistic
 C              correction in inverse kinematics
 C          (22 February 2010, N. Warr) gosia-20080519.9
 C            - Fix bug introduced in gosia-20080519.5 in VLIN
-C           (22 February 2009, N. Warr) gosia-20080519.8
+C           (22 February 2010, N. Warr) gosia-20080519.8
 C            - Fix a bug in the function TRINT which caused a discontinuity
 C          (18 September 2009, N. Warr) gosia-20080519.7
 C            - Increased dimensions of ZETA array to allow up to 999 matrix
