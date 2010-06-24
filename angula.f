@@ -38,7 +38,7 @@ C      Ngl    - detector number
      &       DELTA , EG , ENDEC , ENZ , EPS , EROOT , f , Fi0 , fi01 , 
      &       Fi1 , fi11
       REAL*8 FIEX , Figl , FP , GKP , Gth , Q , qv , sm , TAU , Trec , 
-     &       Ygn , ylmr , ZETA
+     &       trec2 , Ygn , ylmr , ZETA
       INTEGER*4 IAXS , Idr , IEXP , ifn , Iful , ig , il , inat , inx1 , 
      &          ipd , is , ITMA , ITTE , iu , ixs , j , ji , jj , jm , k
       INTEGER*4 KLEC , kq , KSEQ , l , lf , lf1 , LZETA , mind , NANG , 
@@ -57,6 +57,10 @@ C      Ngl    - detector number
       COMMON /CATLF / FP(4,1500,3) , GKP(4,1500,2) , KLEC(75)
       COMMON /BREC  / BETAR(50)
       COMMON /THTAR / ITTE(50)
+      REAL*8 XA , XA1 , EP , TLBDG , VINF
+      INTEGER*4 NEXPT , IZ , IZ1
+      COMMON /CX    / NEXPT , IZ , XA , IZ1(50) , XA1(50) , EP(50) ,
+     &                TLBDG(50) , VINF(50)
       
       DO l = 1 , Idr ! For each decay
 
@@ -104,7 +108,8 @@ C      Ngl    - detector number
                ENDDO
             ENDDO
             bt = BETAR(IEXP) ! Get beta
-            IF ( ITTE(IEXP).NE.1 ) CALL RECOIL(alab,attl,bt,Trec)
+            trec2 = SIGN(Trec, DBLE(IZ1(IEXP)))
+            IF ( ITTE(IEXP).NE.1 ) CALL RECOIL(alab,attl,bt,trec2)
             IF ( l.EQ.1 ) CALL YLM1(Gth,ylmr)
             ixs = IAXS(IEXP) ! Get axial symmetry flag
             fi01 = Fi0 - Figl ! Get lower phi limit
