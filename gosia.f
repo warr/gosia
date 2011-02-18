@@ -1227,11 +1227,17 @@ C   equally spaced energies, which we integrate in the same way.
                            ENDDO ! Loop over decays jd
 
                            IF ( ja.EQ.1 ) dst = dst + DS
-                           IF ( ja.EQ.1 ) WRITE (22,99018) DS , lx
+                           IF ( ja.EQ.1.AND.NCM.EQ.1 )
+     &                        WRITE (22,99018) DS, lx
+                           IF ( ja.EQ.1.AND.NCM.NE.1 )
+     &                        WRITE (22,99056) DS, NCM , lx
 99018                      FORMAT (1X/////5X,
      &                            'INTEGRATED RUTHERFORD CROSS SECTION='
-     &                            ,1E9.4,2X,'FOR EXP.',1I2///)
-
+     &                            ,1E9.4,' mb.(mg/cm^2) FOR EXP.',I2///)
+99056                      FORMAT (1X/////5X,
+     &                            'INTEGRATED INELASTIC CROSS SECTION='
+     &                            ,1E9.4,' mb.(mg/cm^2) TO STATE ',I2,
+     &                            ' FOR EXP.',I2///)
                            WRITE (22,99019) lx , ja , emn , emx , tmn , 
      &                            tmx
 99019                      FORMAT (1X,//50X,'INTEGRATED YIELDS'//5X,
@@ -1714,7 +1720,10 @@ C   equally spaced energies, which we integrate in the same way.
                            ENDDO ! Loop over decays jd
 
                            IF ( ja.EQ.1 ) dst = dst + DS
-                           IF ( ja.EQ.1 ) WRITE (22,99018) DS , lx
+                           IF ( ja.EQ.1.AND.NCM.EQ.1 )
+     &                        WRITE (22,99018) DS, lx
+                           IF ( ja.EQ.1.AND.NCM.NE.1 )
+     &                        WRITE (22,99056) DS, NCM , lx
 
                            WRITE (22,99019) lx , ja , emn , emx , tmn , 
      &                            tmx
