@@ -233,6 +233,7 @@ C      ZV     - energy meshpoints
       INTEGER*4 ns2 , ntap , ntt , numcl , nval , nz
       INTEGER*4 iskin_protect
       CHARACTER*4 oph , op1 , opcja , op2
+      CHARACTER*20 op3
       CHARACTER*1 prp
       DIMENSION ihlm(32) , esp(20) , dedx(20) , bten(1600) , ! bten dimension = 16 * maxlevels
      &          fiex1(100,100,2) , title(20) , pfi(101) , zmir(6,2,50) ,
@@ -2025,9 +2026,12 @@ C     Treat suboption ME (matrix elements)
 
 C     Treat suboption CONT (control)
       ELSEIF ( op1.EQ.'CONT' ) THEN
- 350     READ (JZB,99026) op1 , fipo1
-99026    FORMAT (1A4,1F7.1)
-         ipo1 = INT(fipo1)
+ 350     READ (JZB,99026) op1 , op3
+99026    FORMAT (1A4,A20)
+         READ (op3,'(F7.1)') fipo1
+         READ (op3,'(I7)',ERR=351) ipo1
+         fipo1=FLOAT(ipo1)
+ 351     ipo1 = INT(fipo1)
          IF ( op1.EQ.'ACP,' ) ACCA = 10.**(-fipo1)
          IF ( op1.EQ.'SEL,' ) ITS = 2
          IF ( op1.EQ.'SMR,' ) iosr = 1
