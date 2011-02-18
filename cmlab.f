@@ -242,7 +242,7 @@ C        r3 is the Jacobian dOmega/domega
          ENDIF
 
 C        Now calculate dsigma
-         Dsig = 250.*r3*SQRT(EP(lexp)/(EP(lexp)-ared*EN(NCM)))
+         Dsig = 250.*r3*(EP(lexp)/(EP(lexp)-ared*EN(NCM)))
      &          *dista*dista*(EPS(lexp))**4
          EROOT(lexp) = SQRT(EPS(lexp)*EPS(lexp)-1.)
          DSIGS(lexp) = Dsig
