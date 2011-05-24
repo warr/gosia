@@ -86,6 +86,25 @@ C value of f(n).
       INCLUDE 'pth.inc'
       INCLUDE 'cexc9.inc'
       
+      real*8 adamtemp,TCABS                  ! Rachel modification
+      logical diderrcheck                    ! Rachel modification
+      integer*4 MEM                          ! Rachel modification
+      integer*4 indx                         ! Rachel modification
+      COMPLEX*16 EXPO                        ! Rachel modification
+      COMMON /ADBXI / EXPO(1500)             ! Rachel modification
+      INTEGER*4 IPRM                         ! Rachel modification
+      COMMON /PRT   / IPRM(20)               ! Rachel modification
+
+c-------ADDITIONAL OUTPUT TO BE USED BY RACHEL.PY. MAR. 16 2011------------
+      ! Rachel modification: print the collision functions to unit 99
+      if(IPRM(9).LT.0) call spitq(Ien,ABS(IPRM(9)))
+      if(IPRM(9).eq.11) then                ! If option was to print exc. amp. of substates
+c     Write a blank line to mark the start of the experiment.
+        write(99,14617) 
+14617   format("   ")
+      end if
+c-------END OF ADDITIONAL RACHEL OUTPUT.-----------------------------------
+      
       intend = INTERV(Ien) ! Default accuracy set by INT option of OP,CONT
       D2W = .03 ! We use steps of 0.03 in omega
       NSW = 1
@@ -208,5 +227,42 @@ C
              
          ENDIF ! if kast>=intend
       ENDIF
+
+c-------ADDITIONAL OUTPUT TO BE USED BY RACHEL.PY. MAR. 16 2011------------
+c     I am trying to output the probabilities and amplitudes at each step
+
+      if(IPRM(9).eq.11) then                ! If option was to print exc. amp. of substates
+        write(99,14619) NPT,D2W
+14619   format(2X,I4,2x,f5.3,$)
+c       if(diderrcheck) then 
+c         write(99,14621) sqrt(f)/14.              ! print out the error term 
+14621     format(2x,E11.4,$)
+c       else
+c         write(99,14622)                    !  if no error (f) term calc'd
+14622     format(' none',$)                  ! error wasn't checked
+c       end if
+      end if
+      if((IPRM(9).GT.0).and.(IPRM(9).le.6)) then                        ! if option was to print adiab exp
+c       Note that it looks up the the terms by multipolarity
+c       so I select it by lambda = IPRM(9)
+        indx = MEM(1,2,IPRM(9))                  ! Index for matrix element from level N to level m with multipolarity La
+        write(99,14699)DBLE(EXPO(indx)),DIMAG(EXPO(indx))
+14699   format(2x,'2',2x,D11.4,2x,D11.4,$)
+        write(99,14623)    ! close the line
+      else if(IPRM(9).eq.11) then                 ! if option was to print excitation amplitudes of substates  
+        do ir = 1, ismax
+          adamtemp = TCABS(ARM(ir,i57))**2    ! probability(step)
+          write(99,14618)ir,DBLE(ARM(ir,i57)),DIMAG(ARM(ir,i57)),
+     &                   adamtemp
+        enddo
+14618   format(2x,I4,2x,D11.4,2x,D11.4,2x,D11.4,2x,$)
+        write(99,14623)    ! close the line
+      endif
+
+
+14623 format('')
+c-------END OF ADDITIONAL RACHEL OUTPUT.-----------------------------------
+
+
       GOTO 100
       END
