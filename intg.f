@@ -87,7 +87,7 @@ C value of f(n).
       INCLUDE 'cexc9.inc'
       
       real*8 adamtemp,TCABS                  ! Rachel modification
-      logical diderrcheck                    ! Rachel modification
+c      logical diderrcheck                    ! Rachel modification
       integer*4 MEM                          ! Rachel modification
       integer*4 indx                         ! Rachel modification
       INCLUDE 'adbxi.inc'                    ! Rachel modification
@@ -234,10 +234,10 @@ c     I am trying to output the probabilities and amplitudes at each step
 14619   format(2X,I4,2x,f5.3,$)
 c       if(diderrcheck) then 
 c         write(99,14621) sqrt(f)/14.              ! print out the error term 
-14621     format(2x,E11.4,$)
+c14621     format(2x,E11.4,$)
 c       else
 c         write(99,14622)                    !  if no error (f) term calc'd
-14622     format(' none',$)                  ! error wasn't checked
+c14622     format(' none',$)                  ! error wasn't checked
 c       end if
       end if
       if((IPRM(9).GT.0).and.(IPRM(9).le.6)) then ! if option was to print adiab exp

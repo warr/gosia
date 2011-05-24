@@ -46,7 +46,7 @@ c     for this multipolarity and experiment.  There must be only one epsilon
 c     value per experiment.
       CALL QRANGE(icnt,nlm,lloc,ibm,icm,idm,irl)
 c     write(99,71772)mimmex
-71772 format(i4)
+c71772 format(i4)
 c     test to here
 
       IF ( nlm.EQ.0 ) RETURN
