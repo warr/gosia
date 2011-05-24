@@ -240,7 +240,7 @@ c         write(99,14622)                    !  if no error (f) term calc'd
 14622     format(' none',$)                  ! error wasn't checked
 c       end if
       end if
-      if((IPRM(9).GT.0).and.(IPRM(9).le.6)) then                        ! if option was to print adiab exp
+      if((IPRM(9).GT.0).and.(IPRM(9).le.6)) then ! if option was to print adiab exp
 c       Note that it looks up the the terms by multipolarity
 c       so I select it by lambda = IPRM(9)
         indx = MEM(1,2,IPRM(9))                  ! Index for matrix element from level N to level m with multipolarity La
