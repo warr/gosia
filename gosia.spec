@@ -1,6 +1,6 @@
 Summary: Gosia coulex cross-section code
 %define version 20081208.10
-%define release 1
+%define release 2
 Name: gosia
 Version: %{version}
 Release: %{release}%{dist}
@@ -40,4 +40,4 @@ Hayes.
 
 %files -n gosia_doc
 %defattr(-,root,root)
-%doc doc/2008manual.pdf
+%doc doc/Gosia_Manual_20110609.pdf
