@@ -143,7 +143,7 @@ invkin.f
 include: include.c
 	gcc -o $@ $<
 
-DATE=$(shell git describe --tags)
+DATE=$(shell git describe --tags --abbrev=0)
 SINGLE_FILE = $(BASE)_$(DATE).f
 ADAM_FILE   = $(BASE)_$(DATE)-watchint-q.f
 
