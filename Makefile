@@ -125,7 +125,7 @@ OBJS += xstatic.o
 OBJS += ylm.o
 OBJS += ylm1.o
 
-SINGLE_FILE = gosia_single_file.f
+SINGLE_FILE = gosia_$(shell git describe --tags).f
 
 gosia: $(OBJS) $(DEPS)
 	$(FC) $(LDFLAGS) -o gosia $(OBJS)
