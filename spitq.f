@@ -2,16 +2,17 @@
 C----------------------------------------------------------------------
 
       subroutine spitq(ixpt,mult)
-      integer*4 ixpt,mult
+      IMPLICIT NONE
       INCLUDE 'ccoup.inc'
       INCLUDE 'kin.inc'
       INCLUDE 'allc.inc'
       INCLUDE 'rng.inc'
+      INCLUDE 'mgn.inc'
       integer*4 mimmex
+      integer*4 ixpt,mult
       INTEGER*4 ibm , icm , icnt , idm , irl  , k , lloc , 
      &           nind , nlm
       DIMENSION lloc(8) , irl(8)
-      INCLUDE 'mgn.inc'
       real*8 collfunc,w0
 
 c     Passed in the experiment number (ixpt) and the multipolarity (mult).
