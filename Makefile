@@ -145,7 +145,7 @@ invkin.f
 include: include.c
 	gcc -o $@ $<
 
-DATE=$(shell date +%04Y%02m%02d)
+DATE=$(shell git describe --tags)
 SINGLE_FILE = $(BASE)_$(DATE).f
 
 $(EXE): $(OBJS) $(DEPS)
