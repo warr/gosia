@@ -21,7 +21,7 @@ C      Mult   - multipolarity
       INCLUDE 'rng.inc'
       INCLUDE 'mgn.inc'
       INTEGER*4 mimmex
-      INTEGER*4 Ixpt,Mult
+      INTEGER*4 Ixpt , Mult
       INTEGER*4 ibm , icm , icnt , idm , irl  , k , lloc , 
      &           nind , nlm
       DIMENSION lloc(8) , irl(8)
