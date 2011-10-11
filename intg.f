@@ -95,12 +95,12 @@ c      logical diderrcheck                    ! Rachel modification
 
 c-------ADDITIONAL OUTPUT TO BE USED BY RACHEL.PY. MAR. 16 2011------------
       ! Rachel modification: print the collision functions to unit 99
-      if(IPRM(9).LT.0) call spitq(Ien,ABS(IPRM(9)))
-      if(IPRM(9).eq.11) then                ! If option was to print exc. amp. of substates
+      IF (IPRM(9).LT.0) CALL SPITQ(Ien,ABS(IPRM(9)))
+      IF (IPRM(9).eq.11) THEN                ! If option was to print exc. amp. of substates
 c     Write a blank line to mark the start of the experiment.
-        write(99,14617) 
-14617   format("   ")
-      end if
+        WRITE(99,14617) 
+14617   FORMAT("   ")
+      END IF
 c-------END OF ADDITIONAL RACHEL OUTPUT.-----------------------------------
       
       intend = INTERV(Ien) ! Default accuracy set by INT option of OP,CONT
