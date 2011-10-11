@@ -19,7 +19,7 @@ C      ITMA   - identify detectors according to OP,GDET
 C      ITTE   - thick target experiment flag
 C      KSEQ   - index into ELM for pair of levels, and into EN or SPIN
 C      TAU    - lifetime in picoseconds
-C      ZETA   - statistical tensors (not really zeta)
+C      ZETA   - various coefficients
 C
 C Formal parameters:
 C      Ygn    - Gamma-ray yield
@@ -36,7 +36,7 @@ C      Op2    - The part after the OP, for the option we are processing
       SUBROUTINE ANGULA(Ygn,Idr,Iful,Fi0,Fi1,Trec,Gth,Figl,Ngl,Op2)
       IMPLICIT NONE
       REAL*8 alab , arg , at , attl , bt , f , Fi0 , fi01 , Fi1 ,
-     &       fi11 , Figl , Gth , qv , sm , Trec , trec2, Ygn , ylmr
+     &       fi11 , Figl , Gth , qv , sm , Trec , trec2 , Ygn , ylmr
       INTEGER*4 Idr , ifn , Iful , ig , il , inat , inx1 , 
      &          ipd , is , iu , ixs , j , ji , jj , jm , k
       INTEGER*4 kq , l , lf , lf1 , mind , Ngl , nlv
@@ -79,7 +79,7 @@ C      Op2    - The part after the OP, for the option we are processing
             DO kq = 1 , ifn
                is = iu + kq
                ig = is + il
-               at(is) = ZETA(ig)*f(j) ! Here ZETA are statistical tensors
+               at(is) = ZETA(ig)*f(j)
             ENDDO
          ENDDO
 
