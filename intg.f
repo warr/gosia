@@ -85,15 +85,23 @@ C value of f(n).
       INCLUDE 'cexc0.inc'
       INCLUDE 'pth.inc'
       INCLUDE 'cexc9.inc'
+      
+      real*8 adamtemp,TCABS                  ! Rachel modification
+c      logical diderrcheck                    ! Rachel modification
+      integer*4 MEM                          ! Rachel modification
+      integer*4 indx                         ! Rachel modification
+      INCLUDE 'adbxi.inc'                    ! Rachel modification
+      INCLUDE 'prt.inc'                      ! Rachel modification
 
-CDEBUG      real*8 adamtemp,TCABS                  ! Rachel modification
-CDEBUGc      logical diderrcheck                     ! Rachel modification
-CDEBUG      integer*4 MEM                           ! Rachel modification
-CDEBUG      integer*4 indx                         ! Rachel modification
-CDEBUG      INCLUDE 'adbxi.inc'                    ! Rachel modification
-CDEBUG      INCLUDE 'prt.inc'                      ! Rachel modification
-CDEBUG
-CDEBUG      if(IPRM(9).LT.0) call spitq(Ien,ABS(IPRM(9)))      ! Adam  -  print the collision functions to unit 22
+c-------ADDITIONAL OUTPUT TO BE USED BY RACHEL.PY. MAR. 16 2011------------
+      ! Rachel modification: print the collision functions to unit 99
+      if(IPRM(9).LT.0) call spitq(Ien,ABS(IPRM(9)))
+      if(IPRM(9).eq.11) then                ! If option was to print exc. amp. of substates
+c     Write a blank line to mark the start of the experiment.
+        write(99,14617) 
+14617   format("   ")
+      end if
+c-------END OF ADDITIONAL RACHEL OUTPUT.-----------------------------------
       
       intend = INTERV(Ien) ! Default accuracy set by INT option of OP,CONT
       D2W = .03 ! We use steps of 0.03 in omega
@@ -168,14 +176,12 @@ C     Corrector
       IFLG = 0
       i57 = 5 ! Tell LAISUM to use ARM(I,5) for excitation amplitudes
 
-CDEBUG      diderrcheck=.false.
 C     Calculate derivatives of amplitudes
       CALL AMPDER(i57)
       IF ( (LAMR(2)+LAMR(3)).NE.0 ) THEN
          IF ( kast.GE.intend ) THEN
             kast = 0
             f = 0.
-CDEBUG            diderrcheck = .true.
             DO k = 1 , NMAX ! For each level
                ihold = IPATH(k)
                IF ( ihold.NE.0 ) THEN
@@ -219,43 +225,42 @@ C
              
          ENDIF ! if kast>=intend
       ENDIF
-CDEBUG
-CDEBUG
-CDEBUGc--------------------------------------------------------------------------
-CDEBUGc     I am trying to output the probabilities and amplitudes at each step
-CDEBUG
-CDEBUG      if(IPRM(9).eq.11) then                ! If option was to print exc. amp. of substates
-CDEBUG        write(22,14619) NPT,D2W
-CDEBUG14619   format(2X,I4,2x,f5.3,$)
-CDEBUG        if(diderrcheck) then 
-CDEBUG          write(22,14621) sqrt(f)/14.              ! print out the error term 
-CDEBUG14621     format(2x,E11.4,$)
-CDEBUG        else
-CDEBUG          write(22,14622)                                                          !  if no error (f) term calc'd
-CDEBUG14622     format(' none',$)                        ! error wasn't checked
-CDEBUG        end if
-CDEBUG      end if
-CDEBUG      if((IPRM(9).GT.0).and.(IPRM(9).le.6)) then                        ! if option was to print adiab exp
-CDEBUGc       Note that it looks up the the terms by multipolarity
-CDEBUGc       so I select it by lambda = IPRM(9)
-CDEBUG        indx = MEM(1,2,IPRM(9))                  ! Index for matrix element from level N to level m with multipolarity La
-CDEBUG        write(22,14699)DBLE(EXPO(indx)),DIMAG(EXPO(indx))
-CDEBUG14699   format(2x,'2',2x,D11.4,2x,D11.4,$)
-CDEBUG        write(22,14623)    ! close the line
-CDEBUG      else if(IPRM(9).eq.11) then                 ! if option was to print excitation amplitudes of substates  
-CDEBUG        do ir = 1, ismax
-CDEBUG          adamtemp = TCABS(ARM(ir,i57))**2                                    ! probability(step)
-CDEBUG          write(22,14618)ir,DBLE(ARM(ir,i57)),DIMAG(ARM(ir,i57)),
-CDEBUG     &                   adamtemp
-CDEBUG        enddo
-CDEBUG14618   format(2x,I2,2x,D11.4,2x,D11.4,2x,D11.4,2x,$)
-CDEBUG        write(22,14623)    ! close the line
-CDEBUG      endif
-CDEBUG
-CDEBUG
-CDEBUG14623 format('')
-CDEBUGc--------------------------------------------------------------------------
-CDEBUG
-CDEBUG
+
+c-------ADDITIONAL OUTPUT TO BE USED BY RACHEL.PY. MAR. 16 2011------------
+c     I am trying to output the probabilities and amplitudes at each step
+
+      if(IPRM(9).eq.11) then                ! If option was to print exc. amp. of substates
+        write(99,14619) NPT,D2W
+14619   format(2X,I4,2x,f5.3,$)
+c       if(diderrcheck) then 
+c         write(99,14621) sqrt(f)/14.              ! print out the error term 
+c14621     format(2x,E11.4,$)
+c       else
+c         write(99,14622)                    !  if no error (f) term calc'd
+c14622     format(' none',$)                  ! error wasn't checked
+c       end if
+      end if
+      if((IPRM(9).GT.0).and.(IPRM(9).le.6)) then ! if option was to print adiab exp
+c       Note that it looks up the the terms by multipolarity
+c       so I select it by lambda = IPRM(9)
+        indx = MEM(1,2,IPRM(9))                  ! Index for matrix element from level N to level m with multipolarity La
+        write(99,14699)DBLE(EXPO(indx)),DIMAG(EXPO(indx))
+14699   format(2x,'2',2x,D11.4,2x,D11.4,$)
+        write(99,14623)    ! close the line
+      else if(IPRM(9).eq.11) then                 ! if option was to print excitation amplitudes of substates  
+        do ir = 1, ismax
+          adamtemp = TCABS(ARM(ir,i57))**2    ! probability(step)
+          write(99,14618)ir,DBLE(ARM(ir,i57)),DIMAG(ARM(ir,i57)),
+     &                   adamtemp
+        enddo
+14618   format(2x,I4,2x,D11.4,2x,D11.4,2x,D11.4,2x,$)
+        write(99,14623)    ! close the line
+      endif
+
+
+14623 format('')
+c-------END OF ADDITIONAL RACHEL OUTPUT.-----------------------------------
+
+
       GOTO 100
       END
