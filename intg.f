@@ -85,14 +85,13 @@ C value of f(n).
       INCLUDE 'cexc0.inc'
       INCLUDE 'pth.inc'
       INCLUDE 'cexc9.inc'
-CDEBUG      real*8 adamtemp,TCABS                  ! Adam
-CDEBUG      logical diderrcheck                     ! Adam
-CDEBUG      integer*4 MEM                           ! Adam
-CDEBUG      integer*4 indx                         ! Adam
-CDEBUG      COMPLEX*16 EXPO                        ! Adam
-CDEBUG      COMMON /ADBXI / EXPO(1500)             ! Adam
-CDEBUG      INTEGER*4 IPRM                         ! Adam
-CDEBUG      COMMON /PRT   / IPRM(20)               ! Adam
+
+CDEBUG      real*8 adamtemp,TCABS                  ! Rachel modification
+CDEBUGc      logical diderrcheck                     ! Rachel modification
+CDEBUG      integer*4 MEM                           ! Rachel modification
+CDEBUG      integer*4 indx                         ! Rachel modification
+CDEBUG      INCLUDE 'adbxi.inc'                    ! Rachel modification
+CDEBUG      INCLUDE 'prt.inc'                      ! Rachel modification
 CDEBUG
 CDEBUG      if(IPRM(9).LT.0) call spitq(Ien,ABS(IPRM(9)))      ! Adam  -  print the collision functions to unit 22
       
