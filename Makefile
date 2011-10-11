@@ -109,6 +109,7 @@ OBJS += sixel.o
 OBJS += snake.o
 OBJS += spline.o
 OBJS += splint.o
+OBJS += spitq.o
 OBJS += splner.o
 OBJS += stamp.o
 OBJS += sting.o
@@ -128,7 +129,7 @@ OBJS += ylm.o
 OBJS += ylm1.o
 
 SRCS += arccos.f arctg.f load.f lsloop.f leadf.f mem.f cmlab.f qe.f qm.f \
-snake.f fhip.f alloc.f rangel.f qrange.f ampder.f laisum.f expon.f faza.f \
+snake.f spitq.f fhip.f alloc.f rangel.f qrange.f ampder.f laisum.f expon.f faza.f \
 setin.f sting.f laiamp.f faza1.f trint.f pol4.f stamp.f reset.f half.f \
 double.f path.f intg.f newlv.f code7.f apram.f newcat.f pomnoz.f tenb.f \
 tens.f djmm.f ftbm.f mini.f cegry.f fakp.f prim.f seq.f gf.f f.f conv.f \
@@ -145,7 +146,6 @@ include: include.c
 
 DATE=$(shell git describe --tags --abbrev=0)
 SINGLE_FILE = $(BASE)_$(DATE).f
-ADAM_FILE   = $(BASE)_$(DATE)-watchint-q.f
 
 $(EXE): $(OBJS) $(DEPS)
 	$(FC) $(LDFLAGS) -o $@ $(OBJS)
@@ -161,8 +161,5 @@ install: $(EXE) $(MAN)
 	gzip -f $(MANDIR)/$(MAN)
 
 single_file: include
-	grep -hv CDEBUG $(SRCS) | ./include > $(SINGLE_FILE)
-
-adam_file: include
-	cat $(SRCS) | sed -e 's/CDEBUG//' | ./include > $(ADAM_FILE)
+	./include $(SRCS) > $(SINGLE_FILE)
 
