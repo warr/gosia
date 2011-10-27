@@ -31,7 +31,7 @@ C
 C Formal parameters:
 C      Ir     - index of substate
 C      N      - index of level
-C      Rsg    -
+C      Rsg    - sign of omega
 C      Lam    - multipolarity
 C      Ld     - number of matrix elements for level with given multipolarity
 C      Nz     - index into ZETA array for this multipolarity
@@ -96,7 +96,7 @@ C z is the coupling parameter zeta, calculated in the function LSLOOP.
                   IF ( ISO.NE.0 .OR. rmir.LE..1 .OR. rmis.LE..1 ) THEN
                      rmu = rmis - rmir
                      mua = ABS(rmu) + 1.1 ! delta-m + 1
-C                    Only consider electromagnetic and delta-mu = 0 magnetic
+C                    Only consider electromagnetic and delta-m = 0 magnetic
 C                    contribution
                      IF ( la.LE.6 .OR. mua.NE.1 ) THEN
                         indq = LOCQ(Lam,mua) + NPT ! Index to Q function
@@ -121,7 +121,7 @@ C                    contribution
                   ENDIF
  10               CONTINUE
                ENDDO
-               IF ( N.EQ.m ) THEN
+               IF ( N.EQ.m ) THEN ! N and m are level numbers, so if it is the same level, EXPO = 1
                   ARM(Ir,4) = ARM(Ir,4) + pamp*ELM(indx)
                ELSE
                   ARM(Ir,4) = ARM(Ir,4) + pamp*ELM(indx)*EXPO(indx)
