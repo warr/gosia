@@ -12,8 +12,8 @@ C      ARM    - excitation amplitudes of substates.
 C      CAT    - substates of levels (n_level, J, m)
 C      ELM    - matrix elements
 C      EXPO   - adiabatic exponential
-C      ISG    - sign of sigma
-C      ISG1   - index of sigma
+C      ISG    - sign of omega
+C      ISG1   - index of omega
 C      ISHA   - is half-integer spin
 C      ISO    - isotropic flag
 C      ISSTAR - first substate for given matrix element index
@@ -96,7 +96,7 @@ C z is the coupling parameter zeta, calculated in the function LSLOOP.
                   IF ( ISO.NE.0 .OR. rmir.LE..1 .OR. rmis.LE..1 ) THEN
                      rmu = rmis - rmir
                      mua = ABS(rmu) + 1.1 ! delta-m + 1
-C                    Only consider electromagnetic and delta-m = 0 magnetic
+C                    Only consider electromagnetic and delta-m .NE. 0 magnetic
 C                    contribution
                      IF ( la.LE.6 .OR. mua.NE.1 ) THEN
                         indq = LOCQ(Lam,mua) + NPT ! Index to Q function
@@ -118,9 +118,9 @@ C                    contribution
                            ISSTO(i2) = MAX(is,ISSTO(i2))
                         ENDIF
                      ENDIF
-                  ENDIF
+                  ENDIF ! If ISO.NE. 0 or either substate is spin 1
  10               CONTINUE
-               ENDDO
+               ENDDO ! Loop on mrange
                IF ( N.EQ.m ) THEN ! N and m are level numbers, so if it is the same level, EXPO = 1
                   ARM(Ir,4) = ARM(Ir,4) + pamp*ELM(indx)
                ELSE
@@ -128,6 +128,6 @@ C                    contribution
                ENDIF
             ENDIF
          ENDIF
-      ENDDO
+      ENDDO ! Loop on levels
       Lam = la
       END
