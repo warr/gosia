@@ -13,7 +13,7 @@ C      CAT    - substates of levels (n_level, J, m)
 C      ELM    - matrix elements
 C      EXPO   - adiabatic exponential
 C      ISG    - sign of omega
-C      ISG1   -
+C      ISG1   - index of omega
 C      ISHA   - is half-integer spin
 C      ISO    - isotropic flag
 C      ISSTAR - first substate for given matrix element index
