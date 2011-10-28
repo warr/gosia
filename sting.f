@@ -84,9 +84,9 @@ C      Irld   - index into ARM array
             IF ( LAMR(lam).NE.0 ) THEN ! If this multipolarity should be calculated
 
 C              Calculate and store exponentials in EXPO
-               CALL NEWLV(n,ld,lam)
+               CALL NEWLV(n,ld,lam) ! n = 1, so for ground-state
 
-               IF ( ld.NE.0 ) THEN ! If there are levels connected to this one by the right multipolarity
+               IF ( ld.NE.0 ) THEN ! If there are levels connected to g.s. by the right multipolarity
                   nz = LZETA(lam) ! Index into zeta array for this multipolarity
                   ld = LDNUM(lam,1) ! Number of levels connected to ground state for this multipolarity
                   i57 = 5 ! Use ARM(I,5) in LAISUM for excitation amplitudes
