@@ -33,7 +33,7 @@ C      Ir     - index of substate
 C      N      - index of level
 C      Rsg    - sign of omega
 C      Lam    - multipolarity
-C      Ld     - number of matrix elements for level with given multipolarity
+C      Ld     - number of levels connected to level N by this multipolarity Lam
 C      Nz     - index into ZETA array for this multipolarity
 C      I57    - switch which is either 5 or 7 so we access ARM(I,5) or ARM(I,7)
 C
