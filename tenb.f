@@ -90,7 +90,7 @@ C can cope with half-integers.
                            ENDIF
                         ENDIF
  6                      CONTINUE
-                     ENDDO
+                     ENDDO ! Loop over m
                      IF ( Icl.EQ.Lmax ) Bten(ind) = Bten(ind)
      &                    *ce/(2.*SPIN(1)+1.)
                   ENDDO ! Loop over lp
