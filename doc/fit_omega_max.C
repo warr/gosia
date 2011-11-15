@@ -124,8 +124,8 @@ void fit_omega_max() {
       g2->Draw("same");
       TLine *l = new TLine(wm[lambda-1]-.5, 1e-5, wm[lambda-1]+.5,1e-5);
       l->Draw("same");
-      TText *t1 = new TText(wm[lambda-1]+.1, 1.5e-5, "Gosia");
-      TText *t2 = new TText(wm[lambda-1]+.1, 1.4e-5, "Analytic");
+      TText *t2 = new TText(wm[lambda-1]+.1, 1.5e-5, "Gosia");
+      TText *t1 = new TText(wm[lambda-1]+.1, 1.4e-5, "Analytic");
       t2->SetTextColor(2);
       t1->Draw("same");
       t2->Draw("same");
