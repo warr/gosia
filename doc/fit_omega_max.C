@@ -96,39 +96,65 @@ void fit_omega_max() {
    double w;
    double wm[] = {10.82, 5.96, 4.37, 3.59, 3.13, 2.88};
    double a[] = {-.693, .203, .536, .716, .829, .962};
+   double a2[] = {-.69317, .19915, .51685, .67030, .75467, .79585};
    char line[1024];
+   double dw = 0.0005, first, y;
    
    TCanvas *c1 = new TCanvas("c1", "Gosia omega limits", 1024, 768);
    c1->Divide(3,2);
-   
+
+   // Loop on multipolarities
    for (int lambda = 1; lambda <= 6; lambda++) {
+
+      // Create a graph
       TGraph *g = new TGraph(1001);
       TGraph *g2 = new TGraph(1001);
-      for (int i = 0; i <= 1000; i++) {
-	 w = wm[lambda - 1] + (double)(i - 500) * 0.001;
-	 g->SetPoint(i, w, real_func(lambda, w));
-	 g2->SetPoint(i, w, fit_func(lambda, a[lambda-1], w));
-      }
-
-      c1->cd(lambda);
-      c1->GetPad(lambda)->SetLogy(true);
-      g->GetYaxis()->SetRangeUser(5e-6,2e-5);
-      g2->GetYaxis()->SetRangeUser(5e-6,2e-5);
-      g->GetXaxis()->SetTitle("omega");
-      g->GetYaxis()->SetTitle("a_c");
-      g->GetXaxis()->SetRangeUser(wm[lambda-1]-.5, wm[lambda-1]+.5);
       sprintf(line, "E%d", lambda);
       g->SetTitle(line);
+      first = 0;
+      for (int i = 0; i <= 1000; i++) {
+	 w = wm[lambda - 1] + (double)(i - 500) * dw;
+	 y = log(real_func(lambda, w));
+	 if (first == 0) first = w;
+	 g->SetPoint(i, y, w);
+	 g2->SetPoint(i, log(fit_func(lambda, a[lambda-1], w)), w);
+
+      }
+
+      // Perform a fit
+      w = a2[lambda-1] - log(1e-5) / (double)lambda;
+      TF1 *fit = new TF1("fit", "pol1(0)", w - 500 * dw, w + 500 * dw);
+      fit->SetLineColor(2);
+      fit->SetLineWidth(0.008);
+      fit->SetParameter(1, -1./(double)lambda);
+      g->Fit(fit);
+      w= (fit->GetParameter(0) - log(1e-5)) / (double)lambda;
+      sprintf(line,"%.5lf -1/%.5lf * ln(a_c)\n", fit->GetParameter(0), -1. / fit->GetParameter(1));
+      delete fit;
+
+      // Select pad
+      c1->cd(lambda);
+
+      // Setup graph
+      g->GetXaxis()->SetTitle("ln(a_c)");
+      g->GetYaxis()->SetTitle("omega");
+      g->GetYaxis()->SetRangeUser(wm[lambda-1]-500*dw, wm[lambda-1]+500*dw);
+
+      // Draw graph
       g->Draw("AL");
-      g2->SetLineColor(2);
+      g2->SetLineColor(3);
       g2->Draw("same");
-      TLine *l = new TLine(wm[lambda-1]-.5, 1e-5, wm[lambda-1]+.5,1e-5);
-      l->Draw("same");
-      TText *t2 = new TText(wm[lambda-1]+.1, 1.5e-5, "Gosia");
-      TText *t1 = new TText(wm[lambda-1]+.1, 1.4e-5, "Analytic");
-      t2->SetTextColor(2);
+
+      // Add text to label
+      TText *t1 = new TText(y, first + 0.08, "Gosia");
+      TText *t2 = new TText(y, first + 0.05, "Analytic");
+      TText *t3 = new TText(y, first + 0.02, line);
+      t1->SetTextColor(3);
+      t2->SetTextColor(1);
+      t3->SetTextColor(2);
       t1->Draw("same");
       t2->Draw("same");
+      t3->Draw("same");
    }
    c1->SaveAs("integration_range.eps");
    
