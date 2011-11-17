@@ -111,7 +111,7 @@ C                    contribution
                            pamp = pamp1*ARM(is,I57) + pamp
                            IF ( ISO.EQ.0 .AND. rmis.GT..1 ) GOTO 10
                         ENDIF
-                        IF ( N.NE.m ) THEN ! Same level
+                        IF ( N.NE.m ) THEN ! Not same level
                            irs = (-1)**(INT(rmir+rmis)-ISHA+iii) ! ISHA = 1 if half-integer spins, iii=0 for E, 1 for M
                            ARM(is,6) = ARM(is,6) + irs*pamp1*ARM(Ir,I57)
                            ISSTAR(i2) = MIN(is,ISSTAR(i2))
