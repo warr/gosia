@@ -2291,7 +2291,7 @@ C     Handle OP,ERRO
       IF ( irea.EQ.1 ) READ (JZB,*) ms , mend
       IF ( ms.NE.0 ) THEN
          DO kh = ms , mend ! For matrix elements
-            IF ( ifc.NE.1 ) THEN
+            IF ( ifc.NE.1 ) THEN ! Use correlation matrix if IFC = 0
                REWIND 18
                DO kh1 = 1 , kh
                   READ (18,*) (KVAR(jyi),jyi=1,MEMAX)
@@ -2302,7 +2302,7 @@ C     Handle OP,ERRO
                   KVAR(kh1) = ivrh
                ENDDO
             ENDIF
-            DO ij = 1 , 2
+            DO ij = 1 , 2 ! Lower and upper
                sh = DEVU(kh)
                IF ( ij.EQ.1 ) sh = DEVD(kh)
                IF ( ABS(sh).LT.1.E-6 ) sh = (-1)**ij*ABS(HLM(kh))/10.
@@ -2331,7 +2331,7 @@ C     Handle OP,ERRO
                   IF ( ifc.EQ.1 ) IVAR(kh1) = KVAR(kh1)
                   ELM(kh1) = HLM(kh1)
                ENDDO
-            ENDDO
+            ENDDO ! Loop on lower and upper
             IF ( ifc.NE.1 ) THEN
                DO kh1 = 1 , MEMAX ! For each matrix element
                   IVAR(kh1) = KVAR(kh1)
