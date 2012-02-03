@@ -15,6 +15,8 @@ FC=gfortran
 # something
 FFLAGS = -g -Wall
 FFLAGS += -fbounds-check
+FFLAGS += -ffpe-trap=overflow,invalid
+FFLAGS += -fbacktrace
 
 # Turn on optimisation
 FFLAGS += -O2 -funroll-loops
