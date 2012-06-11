@@ -243,6 +243,7 @@ C              Correct for finite recoil
                ENDIF
                k9 = k9 + 1 ! Increment detector number
                IF ( Icall.EQ.4 .AND. IPRM(8).EQ.-2 ) THEN
+                  CALL PRELM(2)
                   WRITE (22,99006) IEXP , k9
 99006             FORMAT (1X//5X,
      &                 'CALCULATED AND EXPERIMENTAL YIELDS   EXPERIMENT'
