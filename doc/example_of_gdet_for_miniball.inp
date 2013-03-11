@@ -1,0 +1,63 @@
+OP,FILE
+22,3,1
+gdet.out
+25,3,1
+gdet.inp
+9,3,1
+gdet.gdt
+8,3,1
+gdet.abs
+0,0,0
+OP,TITL
+    Generate gdet.gdt
+OP,GDET
+-24
+0.1,3.5,7.8,12.877 ! inner r,outer r,length,dist targ-det
+0.1,0.,0.,0.,0.,0.,0.
+0.1,3.5,7.8,12.877 ! inner r,outer r,length,dist targ-det
+0.1,0.,0.,0.,0.,0.,0.
+0.1,3.5,7.8,12.877 ! inner r,outer r,length,dist targ-det
+0.1,0.,0.,0.,0.,0.,0.
+0.1,3.5,7.8,12.0304 ! inner r,outer r,length,dist targ-det
+0.1,0.,0.,0.,0.,0.,0.
+0.1,3.5,7.8,12.0304 ! inner r,outer r,length,dist targ-det
+0.1,0.,0.,0.,0.,0.,0.
+0.1,3.5,7.8,12.0304 ! inner r,outer r,length,dist targ-det
+0.1,0.,0.,0.,0.,0.,0.
+0.1,3.5,7.8,12.5301 ! inner r,outer r,length,dist targ-det
+0.1,0.,0.,0.,0.,0.,0.
+0.1,3.5,7.8,12.5301 ! inner r,outer r,length,dist targ-det
+0.1,0.,0.,0.,0.,0.,0.
+0.1,3.5,7.8,12.5301 ! inner r,outer r,length,dist targ-det
+0.1,0.,0.,0.,0.,0.,0.
+0.1,3.5,7.8,13.2439 ! inner r,outer r,length,dist targ-det
+0.1,0.,0.,0.,0.,0.,0.
+0.1,3.5,7.8,13.2439 ! inner r,outer r,length,dist targ-det
+0.1,0.,0.,0.,0.,0.,0.
+0.1,3.5,7.8,13.2439 ! inner r,outer r,length,dist targ-det
+0.1,0.,0.,0.,0.,0.,0.
+0.1,3.5,7.8,12.7034 ! inner r,outer r,length,dist targ-det
+0.1,0.,0.,0.,0.,0.,0.
+0.1,3.5,7.8,12.7034 ! inner r,outer r,length,dist targ-det
+0.1,0.,0.,0.,0.,0.,0.
+0.1,3.5,7.8,12.7034 ! inner r,outer r,length,dist targ-det
+0.1,0.,0.,0.,0.,0.,0.
+0.1,3.5,7.8,12.7709 ! inner r,outer r,length,dist targ-det
+0.1,0.,0.,0.,0.,0.,0.
+0.1,3.5,7.8,12.7709 ! inner r,outer r,length,dist targ-det
+0.1,0.,0.,0.,0.,0.,0.
+0.1,3.5,7.8,12.7709 ! inner r,outer r,length,dist targ-det
+0.1,0.,0.,0.,0.,0.,0.
+0.1,3.5,7.8,13.0217 ! inner r,outer r,length,dist targ-det
+0.1,0.,0.,0.,0.,0.,0.
+0.1,3.5,7.8,13.0217 ! inner r,outer r,length,dist targ-det
+0.1,0.,0.,0.,0.,0.,0.
+0.1,3.5,7.8,13.0217 ! inner r,outer r,length,dist targ-det
+0.1,0.,0.,0.,0.,0.,0.
+0.1,3.5,7.8,12.2224 ! inner r,outer r,length,dist targ-det
+0.1,0.,0.,0.,0.,0.,0.
+0.1,3.5,7.8,12.2224 ! inner r,outer r,length,dist targ-det
+0.1,0.,0.,0.,0.,0.,0.
+0.1,3.5,7.8,12.2224 ! inner r,outer r,length,dist targ-det
+0.1,0.,0.,0.,0.,0.,0.
+OP,EXIT
