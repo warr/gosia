@@ -58,6 +58,7 @@ C Here we parse the input of the OP,YIEL command and store the values.
  
       SUBROUTINE ADHOC(Oph,Idr,Nfd,Ntap,Iyr)
       IMPLICIT NONE
+      CHARACTER*72 temp
       REAL*8 wamx , wbra , wdl , wlf
       INTEGER*4 iax , Idr , iexp1 , ilft , iosr , ipri , isrt1 , iuf
       INTEGER*4 Iyr , jic , jicc , juf , lb , li , licc , llia , lxt , 
@@ -202,13 +203,22 @@ C     Read branching ratios
       IF ( NBRA.NE.0 ) THEN
          WRITE (22,99002)
 99002    FORMAT (40X,'BRANCHING RATIOS',//5X,'NS1',5X,'NF1',5X,'NS2',5X,
-     &           'NF2',5X,'RATIO(1:2)',9X,'ERROR')
+     &      'NF2',5X,'RATIO(1:2)',15X,'ERROR')
          DO lb = 1 , NBRA ! I1,I2,I3,I4,B,DB repeated NBRA times
-            READ (JZB,*) ns1 , ns2 , ns3 , ns4 , BRAT(lb,1) , BRAT(lb,2)
-            BRAT(lb,2) = BRAT(lb,2)/(SQRT(wbra)+1.E-10) ! Relative error
+            READ (JZB,'(A72)') temp
+            BRAT(lb,3) = 0
+            READ (temp,*,END=99013) ns1 , ns2 , ns3 , ns4 , BRAT(lb,1) ,
+     &        BRAT(lb,2), BRAT(lb,3)
+            GOTO 99014
+99013       READ (temp,*) ns1 , ns2 , ns3 , ns4 , BRAT(lb,1) ,
+     &        BRAT(lb,2)
+            BRAT(lb,3) = BRAT(lb,2)
+99014       BRAT(lb,2) = BRAT(lb,2)/(SQRT(wbra)+1.E-10) ! Relative error
+            BRAT(lb,3) = BRAT(lb,3)/(SQRT(wbra)+1.E-10) ! Relative error
             WRITE (22,99003) ns1 , ns2 , ns3 , ns4 , BRAT(lb,1) , 
-     &                       BRAT(lb,2)
-99003       FORMAT (4X,1I3,5X,1I3,5X,1I3,5X,1I3,5X,1F10.5,5X,1F10.5)
+     &        BRAT(lb,2), -BRAT(lb,3)
+99003       FORMAT (4X,1I3,5X,1I3,5X,1I3,5X,1I3,5X,1F10.5,5X,SP,1F10.5,
+     &        5X,1F10.5)
             DO li = 1 , Idr ! Search decays for these pairs of levels
                IF ( KSEQ(li,3).EQ.ns3 .AND. KSEQ(li,4).EQ.ns4 ) THEN
                   IBRC(2,lb) = li ! Decay index for first pair
@@ -237,12 +247,19 @@ C     Read lifetimes
       IF ( NLIFT.NE.0 ) THEN
          WRITE (22,99005)
 99005    FORMAT (1X///30X,'LIFETIMES(PSEC)'///5X,'LEVEL',9X,'LIFETIME',
-     &           5X,'ERROR'/)
+     &      13X,'ERROR'/)
          DO ilft = 1 , NLIFT ! INDEX, T, DT repeated NL times
-            READ (JZB,*) LIFCT(ilft) , TIMEL(1,ilft) , TIMEL(2,ilft)
-            TIMEL(2,ilft) = TIMEL(2,ilft)/(SQRT(wlf)+1.E-10) ! Relative error
-            WRITE (22,99006) LIFCT(ilft) , TIMEL(1,ilft) , TIMEL(2,ilft)
-99006       FORMAT (6X,1I3,6X,1F10.2,3X,1F10.2)
+            READ (JZB,'(A72)') temp
+            READ (temp,*,END=90015) LIFCT(ilft) , TIMEL(1,ilft) ,
+     &        TIMEL(2,ilft), TIMEL(3,ilft)
+            GOTO 90016
+90015       READ (temp,*) LIFCT(ilft) , TIMEL(1,ilft) , TIMEL(2,ilft)
+            TIMEL(3,ilft) = TIMEL(2,ilft)
+90016       TIMEL(2,ilft) = TIMEL(2,ilft)/(SQRT(wlf)+1.E-10) ! Relative error
+            TIMEL(3,ilft) = TIMEL(3,ilft)/(SQRT(wlf)+1.E-10) ! Relative error
+            WRITE (22,99006) LIFCT(ilft) , TIMEL(1,ilft) ,
+     &        TIMEL(2,ilft), -TIMEL(3, ilft)
+99006       FORMAT (6X,1I3,6X,1F10.2,3X,SP,1F10.2,3X,1F10.2)
          ENDDO
          WRITE (22,99007) wlf
 99007    FORMAT (1X/10X,'LIFETIMES ARE TAKEN WITH WEIGHT',2X,1E14.6)
@@ -253,11 +270,18 @@ C     Read known mixing ratios
       IF ( NDL.NE.0 ) THEN
          WRITE (22,99008)
 99008    FORMAT (1X//20X,'EXPERIMENTAL E2/M1 MIXING RATIOS'///10X,
-     &           'TRANSITION',12X,'DELTA',10X,'ERROR'/)
+     &      'TRANSITION',12X,'DELTA',19X,'ERROR'/)
          DO li = 1 , NDL ! IS, IF, DELTA, ERROR repeated NDL times
-            READ (JZB,*) ns1 , ns2 , DMIXE(li,1) , DMIXE(li,2)
-            DMIXE(li,2) = DMIXE(li,2)/(SQRT(wdl)+1.E-10)
-            WRITE (22,99012) ns1 , ns2 , DMIXE(li,1) , DMIXE(li,2)
+            READ (JZB,'(A72)') temp
+            READ (temp,*,END=90017) ns1 , ns2 , DMIXE(li,1) ,
+     &        DMIXE(li,2), DMIXE(li,3)
+            GOTO 90018
+90017       READ (temp,*) ns1 , ns2 , DMIXE(li,1) , DMIXE(li,2)
+            DMIXE(li,3) = DMIXE(li,2)
+90018       DMIXE(li,2) = DMIXE(li,2)/(SQRT(wdl)+1.E-10)
+            DMIXE(li,3) = DMIXE(li,3)/(SQRT(wdl)+1.E-10)
+            WRITE (22,99012) ns1 , ns2 , DMIXE(li,1) , DMIXE(li,2) ,
+     &        -DMIXE(li,3)
             DO lb = 1 , Idr ! Search through decays for right pair of levels
                IF ( KSEQ(lb,3).EQ.ns1 .AND. KSEQ(lb,4).EQ.ns2 ) THEN
                   IMIX(li) = lb ! Decay index
@@ -277,18 +301,25 @@ C     Read known matrix elements
       IF ( NAMX.EQ.0 ) RETURN
       WRITE (22,99010)
 99010 FORMAT (1X//30X,'EXPERIMENTAL MATRIX ELEMENT(S)'///10X,
-     &        'TRANSITION',10X,'MAT.EL.',10X,'ERROR'/)
+     &  'TRANSITION',10X,'MAT.EL.',19X,'ERROR'/)
 
       DO iax = 1 , NAMX ! LAMBDA, INDEX1, INDEX2, ME, DME repeated NAMX times
-         READ (JZB,*) llia , ns1 , ns2 , EAMX(iax,1) , EAMX(iax,2)
-         IAMY(iax,1) = ns1 ! Level index
+         READ (JZB,'(A72)') temp
+         READ (temp,*,END=99019) llia , ns1 , ns2 , EAMX(iax,1) ,
+     &     EAMX(iax,2) , EAMX(iax,3)
+         GOTO 99020
+99019    READ (temp,*) llia , ns1 , ns2 , EAMX(iax,1) , EAMX(iax,2)
+         EAMX(iax,3) = EAMX(iax,2)
+99020    IAMY(iax,1) = ns1 ! Level index
          IAMY(iax,2) = ns2 ! Level index
          EAMX(iax,2) = EAMX(iax,2)/(SQRT(wamx)+1.E-10) ! Relative error of ME
-         WRITE (22,99012) ns1 , ns2 , EAMX(iax,1) , EAMX(iax,2)
+         EAMX(iax,3) = EAMX(iax,3)/(SQRT(wamx)+1.E-10) ! Relative error of ME
+         WRITE (22,99012) ns1 , ns2 , EAMX(iax,1) , EAMX(iax,2) ,
+     &     -EAMX(iax,3)
          IAMX(iax) = MEM(ns1,ns2,llia) ! Index to matrix element
       ENDDO
       WRITE (22,99011) wamx
 99011 FORMAT (/10X,' MATRIX ELEMENT(S) ARE TAKEN WITH WEIGHT',2X,1E14.6)
 
-99012 FORMAT (9X,1I3,'---',1I3,13X,1F9.4,8X,1F9.4)
+99012 FORMAT (9X,1I3,'---',1I3,13X,1F9.4,8X,SP,1F9.4,8X,1F9.4)
       END
