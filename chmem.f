@@ -16,7 +16,7 @@ C      IAMY   - level indices of pair of levels for which matrix element is know
  
       SUBROUTINE CHMEM(Nw,Chi,Chilo)
       IMPLICIT NONE
-      REAL*8 Chi , Chilo , di
+      REAL*8 Chi , Chilo
       INTEGER*4 ia , ib , Nw
       INCLUDE 'me2d.inc'
       INCLUDE 'comme.inc'
@@ -25,18 +25,7 @@ C      IAMY   - level indices of pair of levels for which matrix element is know
       Nw = Nw + NAMX
       DO ia = 1 , NAMX
          ib = IAMX(ia)
-         IF ( IAMY(ia,1).NE.IAMY(ia,2) ) THEN
-            di = (ELM(ib)-EAMX(ia,1))/EAMX(ia,2)
-            Chilo = Chilo + 
-     &              (LOG(ABS(ELM(ib)/EAMX(ia,1)))*ABS(EAMX(ia,1))
-     &              /EAMX(ia,2))**2
-            Chi = Chi + di*di
-         ELSE
-            di = (ELM(ib)-EAMX(ia,1))/EAMX(ia,2)
-            Chilo = Chilo + 
-     &              (LOG(ABS(ELM(ib)/EAMX(ia,1)))*ABS(EAMX(ia,1))
-     &              /EAMX(ia,2))**2
-            Chi = Chi + di*di
-         ENDIF
+         CALL ASYMERR(ELM(ib),EAMX(ia,1),EAMX(ia,2),EAMX(ia,3),
+     &     Chi, Chilo)
       ENDDO
       END
