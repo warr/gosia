@@ -87,9 +87,8 @@ C     If printing option is on, print something
             lab2 = lab2 + 2
             ch2 = ch2 + ELM(j2)*ELM(j2)*DELTA(n2,2)/(1.+CONV(eng2,lab2))
          ENDIF
-         u = (ch1/ch2-BRAT(k,1))/BRAT(k,2)
-         Chisq = Chisq + u*u
-         Chilo = Chilo + (BRAT(k,1)*LOG(ch1/ch2/BRAT(k,1))/BRAT(k,2))**2
+         CALL ASYMERR(ch1/ch2,BRAT(k,1),BRAT(k,2),BRAT(k,3),
+     &     Chisq, Chilo)
          IF ( IPRM(3).EQ.-1 ) WRITE (22,99002) KSEQ(n1,3) , KSEQ(n1,4) ,
      &                               KSEQ(n2,3) , KSEQ(n2,4) , BRAT(k,1)
      &                               , BRAT(k,2) , ch1/ch2 , -u
