@@ -33,7 +33,7 @@ OBJS += angula.o
 OBJS += apram.o
 OBJS += arccos.o
 OBJS += arctg.o
-OBJS += asymmerr.o
+OBJS += asymerr.o
 OBJS += ats.o
 OBJS += branr.o
 OBJS += bricc.o
@@ -143,7 +143,7 @@ rotate.f ylm1.f fiint.f fiint1.f tapma.f simin.f mixup.f fxis1.f fxis2.f \
 podziel.f klopot.f mixr.f coord.f chmem.f pticc.f rndm.f kontur.f rk4.f \
 qfit.f gamatt.f gcf.f tcexp.f tcabs.f tasin.f tacos.f openf.f effix.f \
 adhoc.f elmt.f select.f bricc.f newcnv.f splner.f spline.f splint.f cclkup.f \
-invkin.f asymmerr.f
+invkin.f asymerr.f
 	
 include: include.c
 	gcc -o $@ $<
