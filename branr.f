@@ -87,6 +87,12 @@ C     If printing option is on, print something
             lab2 = lab2 + 2
             ch2 = ch2 + ELM(j2)*ELM(j2)*DELTA(n2,2)/(1.+CONV(eng2,lab2))
          ENDIF
+C The following line left over from method which supposes symmetric errors
+C is needed for the write statement if IPRM(3) is set to -1. It is not clear
+C what we should do here. It will still be sensible for symmetric errors,
+C but the output is meaningless for asymmetric ones!
+         u = (ch1/ch2-BRAT(k,1))/BRAT(k,2)
+         
          CALL ASYMERR(ch1/ch2,BRAT(k,1),BRAT(k,2),BRAT(k,3),
      &     Chisq, Chilo)
          IF ( IPRM(3).EQ.-1 ) WRITE (22,99002) KSEQ(n1,3) , KSEQ(n1,4) ,
