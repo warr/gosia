@@ -109,10 +109,8 @@ C      Chilo  - chi squared of logs
       IF ( Nlift.NE.0 .AND. IEXP.EQ.1 ) THEN
          DO jlt = 1 , Nlift ! For each lifetime
             kl = LIFCT(jlt) ! Get level for this lifetime
-            df = (TAU(kl)-TIMEL(1,jlt))/TIMEL(2,jlt) ! TIMEL(1,X) is lifetime and TIMEL(2,X) is the error
-            Chilo = Chilo + (LOG(TAU(kl)/TIMEL(1,jlt))*TIMEL(1,jlt)
-     &              /TIMEL(2,jlt))**2 ! Log chisqr
-            Chisq = Chisq + df*df ! Chisqr
+            CALL ASYMERR(TAU(kl),TIMEL(1,jlt),TIMEL(2,jlt),
+     &        TIMEL(3,jlt),Chisq, Chilo) ! TIMEL(1,X) is the lifetime
          ENDDO
       ENDIF
 
