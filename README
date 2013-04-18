@@ -2,3 +2,5 @@ This is the git repository for the Coulomb-excitation code gosia. It
 is based on the original code of Tomasz Czosnyka. The home page is:
 
 http://www.pas.rochester.edu/~cline/Gosia/
+
+Note that in the git tree, the code is split into separate files for each function. These are combined using make single_file
