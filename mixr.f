@@ -41,10 +41,8 @@ C      Chilo  - chi squared using logs
          IF ( ABS(ELM(inx1)).LT.1.E-5 ) ELM(inx1) = 1.E-5
          dl = DMIX(i)*ELM(inx)/ELM(inx1)
          IF ( Ipsw.EQ.1 ) DMIX(i) = dl
-         Chi = Chi + (dl-DMIXE(i,1))**2/DMIXE(i,2)/DMIXE(i,2)
-         IF ( LNY.EQ.1 ) Chilo = Chilo + 
-     &                           (DMIXE(i,1)*LOG(ABS(dl/DMIXE(i,1)))
-     &                           /DMIXE(i,2))**2
+         CALL ASYMERR(dl,DMIXE(i,1),DMIXE(i,2),DMIXE(i,3),
+     &     Chi, Chilo)
       ENDDO ! Loop on mixing ratios i
 
       IF ( Ipsw.EQ.0 ) RETURN
