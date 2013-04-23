@@ -14,6 +14,9 @@ DEP += ideas.tex
 DEP += kepler.tex
 DEP += overview.tex
 DEP += spherical.tex
+DEP += gamma_ray_attenuation.tex
+
+IMG += geometry_for_attenuation.ps
 
 all: $(PDF)
 
@@ -23,7 +26,7 @@ $(PDF) : $(PS)
 $(PS) : $(DVI)
 	dvips $(DVI)
 	
-$(DVI) : $(TEX) $(DEP)
+$(DVI) : $(TEX) $(DEP) $(IMG)
 	latex $(TEX)
 	latex $(TEX)
 	latex $(TEX)
