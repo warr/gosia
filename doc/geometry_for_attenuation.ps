@@ -1,0 +1,54 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 600 800
+%%EndComments
+
+
+save gsave
+
+/mm {2.834 mul} def
+/Times-Bold 20 selectfont
+
+% Ge
+45 mm 100 mm moveto 120 mm 0 rlineto 0 170 mm rlineto -120 mm 0 rlineto
+closepath gsave 1 0.9 0.9 setrgbcolor fill grestore stroke
+
+% Core
+90 mm 100 mm moveto 30 mm 0 rlineto 0 170 mm rlineto -30 mm 0 rlineto
+closepath gsave 0.9 0.9 1 setrgbcolor fill grestore stroke
+
+% Axis
+gsave [2 5] 2 setdash
+105 mm 20 mm moveto 0 250 mm rlineto stroke grestore
+
+% Limits
+gsave 0 0 1 setrgbcolor
+105 mm 20 mm moveto 151.875 mm 270 mm lineto stroke
+105 mm 20 mm moveto 120 mm 270 mm lineto stroke
+105 mm 20 mm moveto 165 mm 100 mm lineto stroke
+105 mm 20 mm moveto 165 mm 270 mm lineto stroke
+grestore
+
+% Lengths
+35 mm 100 mm moveto -5 5 rmoveto 5 -5 rlineto 5 5 rlineto -5 -5 rmoveto
+35 mm 270 mm lineto -5 -5 rmoveto 5 5 rlineto 5 -5 rlineto stroke
+30 mm 185 mm moveto (l) show
+
+90 mm 95 mm moveto 5 -5 rmoveto -5 5 rlineto 5 5 rlineto -5 -5 rmoveto
+105 mm 95 mm lineto -5 -5 rmoveto 5 5 rlineto -5 5 rlineto stroke
+95 mm 88 mm moveto (a) show
+
+45 mm 275 mm moveto 5 -5 rmoveto -5 5 rlineto 5 5 rlineto -5 -5 rmoveto
+105 mm 275 mm lineto -5 -5 rmoveto 5 5 rlineto -5 5 rlineto stroke
+75 mm 278 mm moveto (r) show
+
+70 mm 20 mm moveto -5 5 rmoveto 5 -5 rlineto 5 5 rlineto -5 -5 rmoveto
+70 mm 100 mm lineto -5 -5 rmoveto 5 5 rlineto 5 -5 rlineto stroke
+65 mm 60 mm moveto (d) show
+
+1 0 0 setrgbcolor
+305 642 moveto (\0500\051) show
+354 642 moveto (\0501\051) show
+412 642 moveto (\0502\051) show
+442 642 moveto (\0503\051) show
+showpage
+grestore restore
