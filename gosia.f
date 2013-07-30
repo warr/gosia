@@ -1,4 +1,7 @@
+      PROGRAM GOSIA
+      IMPLICIT NONE
       INCLUDE 'header.txt'
+      INCLUDE 'mpif.h'
 C
 C PROGRAM GOSIA
 C
@@ -168,8 +171,6 @@ C      ZETA   - various coefficients
 C      ZPOL   - dipole term (GDR excitation)
 C      ZV     - energy meshpoints
 
-      PROGRAM GOSIA
-      IMPLICIT NONE
       REAL*8 acof , ap , ARCCOS , ARCTG , arg , ax , bcof , be2 , 
      &       be2a , be2b , be2c
       REAL*8 bk , bl , bm , bmx , bten , bu , ccc , 

@@ -6,7 +6,8 @@ EXE=$(BASE)
 MAN=$(BASE).1
 SRCS=$(BASE).f
 
-FC=gfortran
+#FC=gfortran
+FC=mpifort
 
 # Turn on debugging - note that -Wall and -O2 together gives warnings
 # about variables being possibly used without being initialised. These
