@@ -2,7 +2,7 @@
       IMPLICIT NONE
       INCLUDE 'header.txt'
       INCLUDE 'mpif.h'
-C
+
 C PROGRAM GOSIA
 C
 C Calls: ADHOC, ALLOC, ANGULA, ARCCOS, ARCTG, CMLAB, COORD, DECAY, DJMM,
@@ -22,6 +22,12 @@ C      AVJI   - average J (N.B. here it is G(1))
 C      B      - table of factorials
 C      BEQ    - identifier for angle for rotations
 C      BETAR  - recoil beta
+C      BLOCKHIGH  - high index of an array divided over mpi processes
+C                   (for a given process)
+C      BLOCKLOW   - low index of an array divided over mpi processes
+C                   (for a given process)
+C      BLOCKOWNER - id of the process who owns a given index of an array
+C      BLOCKSIZE  - size of an array block owned by the given process
 C      CAT    - substates of levels (n_level, J, m)
 C      CC     - conversion coefficients
 C      CNOR   - normalization factors
@@ -123,6 +129,9 @@ C      MAGA   - number of magnetic substates in approximate calculation
 C      MAGEXC - flag: 0 means no magnetic excitations, 1 means with mag. exc.
 C      MEMAX  - number of matrix elements
 C      MEMX6  - number of matrix elements with E1...6 multipolarity
+C      mpi_err - error code from MPI calls
+C      my_pid - mpi process id
+C      mpi_procs - Number of mpi processes
 C      MULTI  - number of matrix elements having given multipolarity
 C      NAMX   - number of known matrix elements
 C      NANG   - number of gamma-ray detectors for each experiment
@@ -170,7 +179,12 @@ C      YV     - scattering angle meshpoints where we calculate exact Coulex
 C      ZETA   - various coefficients
 C      ZPOL   - dipole term (GDR excitation)
 C      ZV     - energy meshpoints
-
+      integer mpi_err ! error code from MPI_INIT
+      integer blocklow, blockhigh, blocksize, blockowner
+      integer my_pid, mpi_procs
+      integer process_number ! for loops--not the current process id
+      integer*8 mpi_elapsed_time ! Multi-purpose for now.
+      real*8 elapsed_time ! for timing the parallel parts of the code
       REAL*8 acof , ap , ARCCOS , ARCTG , arg , ax , bcof , be2 , 
      &       be2a , be2b , be2c
       REAL*8 bk , bl , bm , bmx , bten , bu , ccc , 
@@ -375,7 +389,9 @@ C     Initialize pointers
       LP13 = LP9 + 1
       LP14 = 4900 ! Maximum number of collision coefficients
 
-      JZB = 5
+      write(*,*) "NOTE: READING FILE 'fort.25' HARD-CODED."
+      JZB = 25 ! Updating default to the actual file.  MPI does not
+C                handle the redirect from the command line.
 
 C     Initialize normalization to 1.
       DO i = 1 , LP3 ! LP3 = 100 (maximum number of levels)
@@ -529,6 +545,14 @@ C     Initialize normalization to 1.
       opcja = '    '
       intend = 0 ! End of initialization
 
+C.............................................................................
+C     Initialize MPI and get the comm size.
+C     For this speed test, the input file will be read by every process.
+C     We will just set up a barrier and then test the wall time for the
+C     parallelized loop.
+      CALL MPI_INIT( mpi_err )
+      write (*,*) 'MPI initialized with mpi_err = ', mpi_err
+      !CALL MPI_BARRIER( mpi_err ) ! BlueHive does not like this here.
 C.............................................................................
 C     Start reading input file.
  100  READ (JZB,99001) op1 , op2
@@ -1372,10 +1396,62 @@ C              Treat OP,INTI
      &                       (YV(i),i=1,ntt)
                         IF ( tth.LT.0. ) ELMH(2*lx-1) = YV(1)
                         IF ( tth.LT.0. ) ELMH(2*lx) = YV(ntt)
-                        DO kloop = 1 , ne ! For each energy meshpoint
+       WRITE (22,*) 'probe: ne = ', ne, ' (number of energy meshpoints)'
+
+                        ! Parallelize this loop over energy meshpoints,
+                        ! giving one to each process.
+                        CALL MPI_COMM_RANK (MPI_COMM_WORLD,
+     &                       my_pid, mpi_err)
+                        write(*,*) 'My process id is ', my_pid
+                        CALL MPI_COMM_SIZE (MPI_COMM_WORLD, mpi_procs,
+     &                       mpi_err)
+                        if (my_pid.eq.0) then
+                          write(*,*) mpi_procs, ' processes.'
+                          do process_number = 0, mpi_procs - 1
+                              write(*,*) 'block ', process_number,
+     &                      ' is size ', blocksize(process_number,
+     &                      mpi_procs,ne)
+                          enddo
+                        endif
+
+                        !Static decomposition.
+
+                        !Each process gets its meshpoints and
+                        !integrates.  When process 0 is finished, it
+                        !collects the vectors of yields.  (At the
+                        !moment, I have not re-indexed the arrays to
+                        !collect the vector.)
+
+                        !First problem: 
+                        !
+                        !  TAPMA is not finding what it needs in file
+                        !  14, because it is being written in the loop.
+                        !  Can it be done first?
+                        !
+                        !  What about file 17?
+                        !
+                        !  Maybe the IF (kloop.eq.1) below should be
+                        !  handled first, then when proc 0 is finished,
+                        !  let the rest proceed.  If this is writing
+                        !  file 14 as it goes, there will be a mess!
+
+                        !DO kloop = 1 , ne ! For each energy meshpoint
+
+                        ! MPI barrier to make sure all processes have started.
+                        ! At present they all have to read the input file.
+                        CALL MPI_BARRIER (MPI_COMM_WORLD, mpi_err)
+                        ! Start the wall clock.
+                        if (my_pid.eq.0) elapsed_time =
+     &                    -MPI_WTIME(mpi_err)
+
+                        DO kloop = blocklow(my_pid,mpi_procs,ne) + 1,
+     &                            blockhigh(my_pid,mpi_procs,ne) + 1
+           !WRITE (22,*) ' probe: kloop = ', kloop, ' (energy meshpt)'
                            enb = XV(kloop)
                            EP(lx) = enb
+      !WRITE (22,*) ' probe: ntt = ',ntt,' (number of theta meshpoints)'
                            DO ktt = 1 , ntt
+                  !WRITE (22,*) '  probe: ktt = ', ktt, ' (theta meshpt)'
                               tta = YV(ktt)
                               IF ( tth.LT.0 )
      &                           CALL INVKIN(EP(lx),EN(NCM),IZ1(lx),
@@ -1432,7 +1508,8 @@ C              Treat OP,INTI
                                  ENDDO
                               ENDDO
                               ija0 = 0
-                              DO ijan = 1 , jan ! For each detector angle
+                              DO ijan = 1 , jan ! For each Ge detector angle
+C                   WRITE (22,*) '   probe: ijan = ', ijan, ' (Ge)'
                                  IF ( IAXS(lx).EQ.0 ) nfi = 1
                                  DO jyi = 1 , idr
                                     GRAD(jyi) = 0.
@@ -1508,12 +1585,21 @@ C              Treat OP,INTI
                                  dsx = dsig
                                  IF ( mfla.NE.1 ) dsx = dsig*todfi
                                  dsxm(mpin,kloop,ktt) = dsx
+                                 ! Need to change the writes to files 14
+                                 ! and 17 into storage in arrays with a
+                                 ! gather operation.  (At this point, we
+                                 ! could abandon the temporary files.)
                                  WRITE (17,*) lx , mpin , kloop , ktt , 
      &                                  dsx
                                  WRITE (14,*) lx , enb , tting , ija0 , 
      &                                  dsx , 
      &                                  (GRAD(jyi)*dsig*ax,jyi=1,idr)
-                                 IF ( IPRM(11).EQ.1 ) THEN
+                                 ! For now, I am just letting root write
+                                 ! to the output file.  This should be
+                                 ! done in separate files or through a
+                                 ! gather in the future.
+                                 IF (my_pid.eq.0 .and. 
+     &                           IPRM(11).EQ.1 ) THEN
                                     WRITE (22,99048) lx , ija0 , enb , 
      &                                 tta
                                     IF ( tta.LT.0. ) WRITE (22,99017)
@@ -1531,11 +1617,29 @@ C              Treat OP,INTI
                               ENDDO ! Loop on detector angles ijan
                            ENDDO ! Loop on theta angles ktt
                         ENDDO ! Loop on energy meshpoints kloop
+                        CALL MPI_BARRIER (MPI_COMM_WORLD, mpi_err)
+                        ! Start the wall clock.
+                        if (my_pid.eq.0) then
+                          elapsed_time = elapsed_time
+     &                     + MPI_WTIME(mpi_err)
+                          write(*,*) 'Elapsed time: ', elapsed_time
+                        endif
                      ENDDO ! Loop on pin diodes mpin
-                      
+
                      EP(lx) = enh
                      TLBDG(lx) = tth
                   ENDDO ! Loop on experiments lx
+                  !...........................................................
+                  !For now, I am terminating here to test the speedup
+                  !without gathering a lot of information.
+                  CALL MPI_FINALIZE( mpi_err )
+                  write (*,*) 'MPI pid ', my_pid,
+     &                        ' finalized with mpi_err = ',mpi_err
+C                 End of execution
+                  WRITE (22,99047)
+                  STOP
+                  !...........................................................
+
                   REWIND 14
                   REWIND 15
                   iske = 0
@@ -3027,6 +3131,9 @@ C     Troubleshooting
          ENDIF
       ENDIF
 
+      CALL MPI_FINALIZE( mpi_err )
+      write (*,*) 'MPI pid ', my_pid,
+     &            ' finalized with mpi_err = ',mpi_err
 C     End of execution
  2000 WRITE (22,99047)
 99047 FORMAT (15X,'********* END OF EXECUTION **********')
