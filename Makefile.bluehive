@@ -7,7 +7,8 @@ MAN=$(BASE).1
 SRCS=$(BASE).f
 
 #FC=gfortran
-FC=mpifort
+# mpif77 requires "module load openmpi-gnu".
+FC=mpif77
 
 # Turn on debugging - note that -Wall and -O2 together gives warnings
 # about variables being possibly used without being initialised. These
@@ -15,9 +16,9 @@ FC=mpifort
 # and then using a gives this warning, but in fact a is always set to
 # something
 FFLAGS = -g -Wall
-FFLAGS += -fbounds-check
-FFLAGS += -ffpe-trap=overflow,invalid
-FFLAGS += -fbacktrace
+# FFLAGS += -fbounds-check
+# FFLAGS += -ffpe-trap=overflow,invalid
+# FFLAGS += -fbacktrace
 
 # Turn on optimisation
 FFLAGS += -O2 -funroll-loops
