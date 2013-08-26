@@ -1,5 +1,5 @@
-BINDIR=$(ROOT)/usr/bin
-MANDIR=$(ROOT)/usr/share/man/man1
+BINDIR=$(DESTDIR)/usr/bin
+MANDIR=$(DESTDIR)/usr/share/man/man1
 
 BASE=gosia
 EXE=$(BASE)
