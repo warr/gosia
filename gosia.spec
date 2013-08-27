@@ -25,6 +25,6 @@ make %{?_smp_mflags}
 make DESTDIR="$RPM_BUILD_ROOT" install
 
 %files
-%defattr(-,root,root)
+%defattr(-,root,root,-)
 /usr/bin/gosia
 /usr/share/man/man1/gosia.1.gz
