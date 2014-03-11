@@ -72,6 +72,8 @@ C          with 32-bit precision is discouraged.
 C
 C       CHRONOLOGY OF MAJOR CHANGES:
 C
+C          (07 March 2014, J.M. Allmond) gosia-20081208.13
+C            - Fix a bug which could use wrong sign for Ikin flag 
 C          (7 November 2011, N. Warr) gosia-20081208.12
 C            - Fix bug in lambda=6 mu=3 collision functions
 C          (10 October 2011, N. Warr) gosia-20081208.11
