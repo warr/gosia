@@ -7,7 +7,7 @@ c     All other output and calculations are identical to 20081208.10
 c
 C                            GOSIA 20110524 (64-bit)
 C
-C                            24 May 2011 Update
+C                            10 March 2014 Update
 C
 C       http://www.pas.rochester.edu/~cline/Gosia/index.html
 C
@@ -79,6 +79,9 @@ C          with 32-bit precision is discouraged.
 C
 C       CHRONOLOGY OF MAJOR CHANGES:
 C
+C          (07 March 2014, J.M. Allmond) gosia-20110524.3
+C            - Fix a bug which could use wrong sign for Ikin flag 
+C              determination in INVKIN routine.
 C          (7 November 2011, N. Warr) gosia-20110524.2
 C            - Fix bug in lambda=6 mu=3 collision functions
 C          (10 October 2011, N. Warr) gosia-20110524.1
