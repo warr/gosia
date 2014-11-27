@@ -10,6 +10,7 @@ Group: Applications/Analysis
 Source: /usr/src/redhat/SOURCES/gosia.tar.gz
 Prefix:/usr
 BuildRoot: /tmp/package_%{name}-%{version}.%{release}
+BuildRequires: gcc-gfortran
 
 %description
 Gosia is a code for calculating cross-sections for Coulomb excitation
