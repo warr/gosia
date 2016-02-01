@@ -52,12 +52,12 @@ detector until it reaches the back face. Region 3 also only passes
 through active parts, but it reaches the side of the detector.\\
 
 \begin{figure}[ht!]
-\includegraphics[width=0.8\textwidth]{geometry_for_attenuation.ps}
+\includegraphics[width=0.8\textwidth]{geometry_for_attenuation.eps}
 \caption{Geometry for attenuation}
 \label{fig:atten}
 \end{figure}
 
-\noindent The code is in the function {\em GCF}. Here we define four
+\noindent The code is in the function \emph{GCF}. Here we define four
 angles corresponding to the four blue lines on figure \ref{fig:atten}.
 Together with zero degrees, these bound the four regions. These angles
 are stored in the array $b$.
@@ -79,12 +79,12 @@ b(4) & $\alpha_4$ & $\arctan({r \over d})$ & Boundary between regions 3 and 4\\
 polynomials going up to 8$^\textrm{th}$ order. Note that the index $k$
 is the order plus one. i.e. $k$ in the code is one more than $k$ in
 the formulae! This is because it is also used to index Fortran arrays.
-These polynomials are hardcoded in {\em GCF}.\\
+These polynomials are hardcoded in \emph{GCF}.\\
 
 \noindent So we loop over the order of the Legendre polynomial and
 then over the regions, leaving out region 0, because nothing is
 detected there. Then we subdivide each region into 100 slices and for
-each calculate the angle $\alpha$ which we store as {\em xm}.\\
+each calculate the angle $\alpha$ which we store as \emph{xm}.\\
 
 \noindent We need to calculate the absorption factor for the length of
 crystal seen by the $\gamma$ ray, assuming an attenuation coefficient

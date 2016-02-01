@@ -2,12 +2,12 @@
 \chapter{Spherical harmonics}
 \label{chapt:spherical}
 
-The spherical harmonics are calculated using the functions {\em YLM} and
-{\em YLM1}. The former calculate the even spherical harmonics, the latter
+The spherical harmonics are calculated using the functions \emph{YLM} and
+\emph{YLM1}. The former calculate the even spherical harmonics, the latter
 the odd ones.\\
 
-The function {\em YLM} uses the axial symmetry flag for the experiment,
-which it gets from the common block {\em KIN}. If this flag is set, it
+The function \emph{YLM} uses the axial symmetry flag for the experiment,
+which it gets from the common block \emph{KIN}. If this flag is set, it
 only calculates three of the values and then returns. Otherwise, it
 calculates all 15 values. Although the code to calculate the three values is
 the same in both cases, it is duplicated in the Fortran.\\
@@ -103,5 +103,5 @@ YLM1(5,3)&=&{1 \over \sqrt{4 \pi}} Y_4^2\nonumber\\
 
 Note that in the code, the ${1 \over 4 \pi}$ term is written as
 0.0795774715, but the square root part is evaluated within the Fortran,
-unlike the {\em YLM} function, where the whole thing is hard coded.\\
+unlike the \emph{YLM} function, where the whole thing is hard coded.\\
 

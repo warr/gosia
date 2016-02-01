@@ -2,7 +2,7 @@
 
 More comments and documentation!\\
 
-Separate the different things in the {\em ZETA} array.\\
+Separate the different things in the \emph{ZETA} array.\\
 
 Unravel some of the IF THEN statements in gosia.f, so that the logic is
 easier to understand. At the moment we have several layers of IFs testing
@@ -10,15 +10,15 @@ the same variable, which could become IF {\ldots} ELSEIF {\ldots}
 ELSIF{\ldots} ENDIF.\\
 
 Try to decouple some of the variables in common blocks from the functions.
-For example, {\em YLM} need common block {\em KIN} only for the axial
+For example, \emph{YLM} need common block \emph{KIN} only for the axial
 symmetry flag for the current experiment, which could be passed to it as a
 formal parameter of the function.\\
 
-Why do we need {\em YLM} and {\em YLM1}? Why don't we have a single function
+Why do we need \emph{YLM} and \emph{YLM1}? Why don't we have a single function
 to generate all these values and pass flags to it, to turn off the
 calculation of those which we are not going to used.\\
 
-In {\em GKK}, the variable {\em SUM} is in a common block, but it doesn't
+In \emph{GKK}, the variable \emph{SUM} is in a common block, but it doesn't
 seem to be used anywhere else, so why don't we just make it STATIC?\\
 
 In lines 1909-1910 of gosia.f we have to successive tests on iosr, which

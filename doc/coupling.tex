@@ -2,8 +2,8 @@
 \label{chapt:coupling}
 
 The coupling parameter $\zeta_{kn}^{(\lambda n)}$ is calculated in the
-function {\em LSLOOP} and stored as {\em ZETA} in the common block {\em
-CCOUP}. Note that other parameters are also stored in {\em ZETA} but the
+function \emph{LSLOOP} and stored as \emph{ZETA} in the common block \emph{
+CCOUP}. Note that other parameters are also stored in \emph{ZETA} but the
 real $\zeta_{kn}^{(\lambda n)}$ is at the start of this array.\\
 
 \begin{equation}
@@ -16,18 +16,18 @@ real $\zeta_{kn}^{(\lambda n)}$ is at the start of this array.\\
 
 Note that in the code, ins = $2I_n$, lam2 = $2\lambda$, inr = $2I_k$, jg1 =
 $-2M_n$, jg2 = $2\mu$ and jrmir = $2M_k$. The factors of two are needed
-because these values are passed two the function {\em WTHREJ}, which
+because these values are passed two the function \emph{WTHREJ}, which
 evaluates a Wigner 3-j symbol, as integers, so we need to double them to
-allow for half integers. The function {\em WTHREJ} expects the values to be
+allow for half integers. The function \emph{WTHREJ} expects the values to be
 doubled in this way.\\
 
 Note also, that the $\sqrt{2 \lambda + 1}$ part is evaluated in the function
-{\em LOAD} shortly before it calls {\em LSLOOP} and passed as a parameter.
-This is because {\em LSLOOP} is called several times for the same value of
+\emph{LOAD} shortly before it calls \emph{LSLOOP} and passed as a parameter.
+This is because \emph{LSLOOP} is called several times for the same value of
 $\lambda$, so we only need to evaluate the square root once.\\
 
-The coupling parameter $\psi_{kn}$ is calculated by the function {\em LOAD}
-and stored in the variable {\em PSI} in the common block {\em PCOM}.\\
+The coupling parameter $\psi_{kn}$ is calculated by the function \emph{LOAD}
+and stored in the variable \emph{PSI} in the common block \emph{PCOM}.\\
 
 \begin{equation}
 \psi_{kn} = 
@@ -51,11 +51,11 @@ C_\lambda^M = {v \over c} \cdot {C_\lambda^E \over 95.0981942}
 
 \section{The code}
 
-The function {\em LOAD} is the entry point. Here we calculate both $\xi$ and
-$\psi$ and from here we call {\em LSLOOP} which calculates $\zeta$.\\
+The function \emph{LOAD} is the entry point. Here we calculate both $\xi$ and
+$\psi$ and from here we call \emph{LSLOOP} which calculates $\zeta$.\\
 
-The function {\em LSLOOP}, in turn, calls {\em CODE7}, {\em LEADF} and {\em
-WTHREJ}. Only {\em WTHREJ} is concerned with the physics (evaluating a
+The function \emph{LSLOOP}, in turn, calls \emph{CODE7}, \emph{LEADF} and \emph{
+WTHREJ}. Only \emph{WTHREJ} is concerned with the physics (evaluating a
 Wigner 3-j symbol) as the other two functions are used for indexing and
 optimising purposes.\\
 

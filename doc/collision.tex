@@ -33,29 +33,29 @@ r(\omega)
 S^M_{\lambda\mu}(t(\omega))
 \end{equation}
 
-The $Q^E_{\lambda\mu}$ function is evaluated in the function {\em QE} and
-the $Q^M_{\lambda\mu}$ function in {\em QM}. The values calculated by these
-functions are stored in the array {\em ZETA} by the function {\em SNAKE}.
-Note that {\em ZETA} is also used for other purposes and the Q functions
+The $Q^E_{\lambda\mu}$ function is evaluated in the function \emph{QE} and
+the $Q^M_{\lambda\mu}$ function in \emph{QM}. The values calculated by these
+functions are stored in the array \emph{ZETA} by the function \emph{SNAKE}.
+Note that \emph{ZETA} is also used for other purposes and the Q functions
 start in the position LP7.\\
 
 As we do not need to integrate over the full range of $\omega$ in order to
 get a reasonable approximation, we only calculate the collision functions
-that we need. The function {\em QRANGE} calculates over what range we need
-to evaluate the collision functions. It is called from {\em SNAKE} and then
-{\em SNAKE} calculates only those collision functions.\\
+that we need. The function \emph{QRANGE} calculates over what range we need
+to evaluate the collision functions. It is called from \emph{SNAKE} and then
+\emph{SNAKE} calculates only those collision functions.\\
 
 Table 2.1 of the gosia documentation gives expressions for the collision
 functions for different values of $\lambda$ and $\mu$.
 
 \section{The code}
 
-The main entry point is {\em SNAKE} which calls {\em QRANGE}, {\em QE} and
-{\em QM}. However, prior to calling these functions, {\em FHIP} has to be
+The main entry point is \emph{SNAKE} which calls \emph{QRANGE}, \emph{QE} and
+\emph{QM}. However, prior to calling these functions, \emph{FHIP} has to be
 called to evaluate the hyperbolic functions $\sinh$ and $\cosh$ for the
 values of $\omega$ we want, and the value of $\sqrt{\epsilon^2 - 1}$ which
-is needed by both {\em QE} and {\em QM} is calculated in {\em CMLAB}, where
-it is stored as the variable {\em EROOT} in common block {\em KIN}.
+is needed by both \emph{QE} and \emph{QM} is calculated in \emph{CMLAB}, where
+it is stored as the variable \emph{EROOT} in common block \emph{KIN}.
 
 
 \begin{verbatim}

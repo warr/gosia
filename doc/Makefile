@@ -16,23 +16,15 @@ DEP += overview.tex
 DEP += spherical.tex
 DEP += gamma_ray_attenuation.tex
 
-IMG += geometry_for_attenuation.ps
+IMG += geometry_for_attenuation.eps
 
 all: $(PDF)
-
-$(PDF) : $(PS)
-	ps2pdf -sPAPERSIZE=a4 $(PS)
-
-$(PS) : $(DVI)
-	dvips $(DVI)
 	
-$(DVI) : $(TEX) $(DEP) $(IMG)
-	latex $(TEX)
-	latex $(TEX)
-	latex $(TEX)
+$(PDF) : $(TEX) $(DEP) $(IMG)
+	pdflatex $(TEX) && pdflatex $(TEX) && pdflatex $(TEX)
 
 clean:
-	rm -f *~ $(DVI) $(AUX) $(TOC) $(LOG) $(PS)
-	
-proper:
-	rm -f *~ $(DVI) $(AUX) $(TOC) $(LOG) $(PS) $(PDF)
+	rm -f *~ $(DVI) $(AUX) $(TOC) $(LOG) $(PS) $(PDF) *-eps-converted-to.pdf
+
+tidy:
+	rm -f *~ $(DVI) $(AUX) $(TOC) $(LOG) $(PS) *-eps-converted-to.pdf

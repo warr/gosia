@@ -6,7 +6,7 @@ ion is the same as the Kepler problem of hyperbolic orbits. This is a common
 problem in rocket science and consequently much of the literature is in
 terms of the gravitational force, which Kepler originally considered.\\
 
-We define $\epsilon$, the {\em orbital excentricity} and $\omega$, the {\em
+We define $\epsilon$, the \emph{orbital excentricity} and $\omega$, the \emph{
 eccentric anomaly}. These are defined as:\\
 
 \begin{equation}
@@ -37,7 +37,7 @@ integrate over a very wide range of omega in order to get a good
 approximation, so in the code we truncate.\\
 
 In the Fortran, we make tables of values of $\sinh\omega$ and $\cosh\omega$
-in the function {\em FHIP} in steps of $d\omega$ = 0.03 starting from zero.
+in the function \emph{FHIP} in steps of $d\omega$ = 0.03 starting from zero.
 Note that we don't need to calculate for negative values of $\omega$ because
 we can use the symmetry rules:\\
 
@@ -46,21 +46,21 @@ we can use the symmetry rules:\\
 \cosh(-\omega) &=& +\cosh\omega\nonumber\\
 \end{eqnarray}
 
-These tables are stored in the common block {\em HIPER} as {\em SH} for
-$\sinh\omega$ and {\em CH} for $\cosh\omega$. Normally, gosia calculates 365
+These tables are stored in the common block \emph{HIPER} as \emph{SH} for
+$\sinh\omega$ and \emph{CH} for $\cosh\omega$. Normally, gosia calculates 365
 values, which is the dimension of these arrays, though this can be changed
 by changing the parameter LP12. N.B. LP12 must never exceed 365!\\
 
 Since the collision functions are defined in terms of $r(\omega)$, the
-function {\em SNAKE}, which calculates them use the values of $\sinh\omega$
-and $\cosh\omega$ calculated in {\em FHIP}.\\
+function \emph{SNAKE}, which calculates them use the values of $\sinh\omega$
+and $\cosh\omega$ calculated in \emph{FHIP}.\\
 
 The adiabatic parameter $\epsilon \sinh \omega + \omega$ is also calculated
-in advance and stored in an array. This is done in the function {\em SETIN}
-and the values are stored in the variable {\em ADB} which is stored in the
-common block {\em ADX}. Again 365 values are normally calculated, though
+in advance and stored in an array. This is done in the function \emph{SETIN}
+and the values are stored in the variable \emph{ADB} which is stored in the
+common block \emph{ADX}. Again 365 values are normally calculated, though
 this can also be changed by changing LP12.\\
 
 The adiabatic parameter appears in the exponent of the expression for the
 rate of change of the excitation amplitudes $a_k$ wrt. $\omega$, so this
-complex exponent is evaluated in the function {\em EXPON}.
+complex exponent is evaluated in the function \emph{EXPON}.
