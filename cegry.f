@@ -227,7 +227,7 @@ C              Correct for finite recoil
                      cocos = SIN(tetrc)*SIN(gth)*COS(fm-figl)
      &                       + COS(tetrc)*COS(gth)
                      decen = decen*(1.+BETAR(IEXP)*cocos)
-                     CALL EFFIX(ipd,decen,effi)
+                     CALL EFFIX(IEXP,ipd,decen,effi)
                      YGN(l) = YGN(l)*effi
                   ENDDO
                   inclus = ICLUST(IEXP,k) ! Cluster number for detector k
@@ -455,7 +455,7 @@ C              Correct for finite recoil
                      cocos = SIN(tetrc)*SIN(gth)*COS(fm-figl)
      &                       + COS(tetrc)*COS(gth)
                      decen = decen*(1.+BETAR(IEXP)*cocos)
-                     CALL EFFIX(ipd,decen,effi)
+                     CALL EFFIX(IEXP,ipd,decen,effi)
                      YGN(l) = YGN(l)*effi
                   ENDDO
                   inclus = ICLUST(IEXP,k) ! Cluster number for detector k
