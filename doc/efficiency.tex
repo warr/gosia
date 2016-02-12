@@ -61,7 +61,11 @@ Otherwise, we use the Jaeri calibration.
 \end{verbatim}
 
 where AKAVKA(1{\ldots}8,Ipd) are the parameters A1{\ldots}8 and
-AKAVKA(9,Ipd) is the value set for the experiment in the EFF, option of CONT.
+AKAVKA(9,Ipd) is the value set for the experiment in the EFF, option
+of CONT.\\
+
+Note, that we now have an additional index to AKAVKA, which runs over
+the experiment number. So AKAVKA(1,Ipd) becomes AKAVKA(Iexp,1,Ipd). 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Gremlin efficiency calibration}
