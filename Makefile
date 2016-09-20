@@ -164,5 +164,5 @@ install: $(EXE) $(MAN)
 	gzip -f $(MANDIR)/$(MAN)
 
 single_file: include
-	./include $(SRCS) |sed -e "s/LATEST REVISION- JUNE  2006/VERSION: $$(grep %define\ version gosia.spec |cut -d\  -f3)/" > $(SINGLE_FILE)
+	./include $(SRCS) |sed -e "s/LATEST REVISION- JUNE  2006/VERSION: $$(grep %global\ version gosia.spec |cut -d\  -f3)/" > $(SINGLE_FILE)
 
