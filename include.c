@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+int treat_file(char *filename);
+
 /*****************************************************************************/
 int treat_line(char *line) {
 
