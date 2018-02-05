@@ -60,7 +60,7 @@ C          Cline@pas.rochester.edu
 C          http://www.pas.rochester.edu/~cline/
 C
 C       Compiling Gosia
-C          Gosia compiles on most 64-bit systems with GNU g77, using
+C          Gosia compiles on most 64-bit systems with GNU gfortran, using
 C          the default compiler settings.  Previous versions of the
 C          Gosia code did not explicitly specify 64-bit precision and
 C          were intended to be compiled by the user at the highest
@@ -72,6 +72,10 @@ C          with 32-bit precision is discouraged.
 C
 C       CHRONOLOGY OF MAJOR CHANGES:
 C
+C          (5 February 2018, N. Warr) gosia-20081208.15
+C            - Catch errors in input.
+C          (28 November 2016, N.Warr) gosia-20081208.14
+C            - Explicitly convert to avoid warnings.
 C          (07 March 2014, J.M. Allmond) gosia-20081208.13
 C            - Fix a bug which could use wrong sign for Ikin flag 
 C          (7 November 2011, N. Warr) gosia-20081208.12
