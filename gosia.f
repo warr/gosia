@@ -522,6 +522,7 @@ C     Initialize normalization to 1.
                QAPR(j,k,l) = 0.
             ENDDO
          ENDDO
+         ivari(j) = 0
       ENDDO
       ERR = .FALSE.
       opcja = '    '
