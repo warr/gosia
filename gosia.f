@@ -248,7 +248,7 @@ C      ZV     - energy meshpoints
      &          nfi , nflr , nft , nged
       INTEGER*4 ngpr , ni , NICC , nksi , nl , NLIFT , NLOCK , NMAX ,
      &          NMAX1 , nmaxh , nmemx , nnl , nogeli , npce , npce1 , 
-     &          npct , npct1 , npt , nptl , nptx , ns1
+     &          npct , npct1 , npt , nptl , nptx , ns1 , levmax
       INTEGER*4 ns2 , ntap , ntt , numcl , nval , NYLDE , nz
       INTEGER*4 ISPL ! Added for spline
       LOGICAL ERR
@@ -550,6 +550,7 @@ C     Initialize normalization to 1.
       ENDDO
       ERR = .FALSE.
       opcja = '    '
+      levmax = 0
       intend = 0 ! End of initialization
 
 C.............................................................................
@@ -1405,7 +1406,14 @@ C                 Treat OP,MAP
 C     Treat suboptions of OP,COUL and OP,GOSI
  200  READ 99023 , op1 ! Read the suboption
 99023 FORMAT (1A4)
-      IF ( op1.EQ.'    ' ) GOTO 100 ! Back to input loop
+      IF ( op1.EQ.'    ' ) THEN
+        IF (levmax .ne. NMAX) THEN
+          WRITE(*,*) 'ERROR: Max. level index (',levmax,
+     &      ') .NE. number of levels (',NMAX,')'
+          STOP 'INPUT ERROR'
+        ENDIF
+        GOTO 100 ! Back to input loop
+      ENDIF
 
 C     Treat suboption LEVE (levels)
       IF ( op1.EQ.'LEVE' ) THEN
@@ -1427,6 +1435,7 @@ C     Treat suboption LEVE (levels)
             EN(ipo1) = po1
             prp = '+'
             IF ( ipo2.EQ.-1 ) prp = '-'
+            if (ipo1 .GT. levmax) levmax = ipo1
             IF ( ABS(IPRM(1)).EQ.1 ) WRITE (22,99025) ipo1 , prp , 
      &           SPIN(ipo1) , EN(ipo1)
 99025       FORMAT (6X,1I2,11X,1A1,10X,1F4.1,8X,1F10.4)
