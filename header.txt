@@ -1,6 +1,6 @@
 C                            GOSIA 20081208 (64-bit)
 C
-C                            7 November 2011 Update
+C                            5 February 2018 Update
 C
 C       http://www.pas.rochester.edu/~cline/Gosia/index.html
 C
