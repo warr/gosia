@@ -1,3 +1,7 @@
+20180201
+* Clean up main input loop
+* Clean up CONT options
+
 20110524
 * Adam Hayes's modifications for Rachel
 * Allow different efficiency parameters for different experiments

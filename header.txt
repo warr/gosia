@@ -1,11 +1,10 @@
-c     Modified rachel version based on 20081208.10.  
 c     This version uses PRT, option 9,I to select additional output:
 c     I = 11  print excitation amplitudes & probabilities during the integration over omega
 c     1<=I<=6 print the adiabatic exponential.  I is the multipolarity used to look up the adiab. exp.
 c     I < 0   print the electric collision functions for lambda = abs(I)
 c     All other output and calculations are identical to 20081208.10
 c
-C                            GOSIA 20110524 (64-bit)
+C                            GOSIA 20180201 (64-bit)
 C
 C                            5 February 2018 Update
 C
@@ -79,6 +78,9 @@ C          with 32-bit precision is discouraged.
 C
 C       CHRONOLOGY OF MAJOR CHANGES:
 C
+C          (5 February 2018, N. Warr) gosia-20180201.1
+C            - Clean up main input loop.
+C            - Clean up CONT options.
 C          (5 February 2018, N. Warr) gosia-20110524.6
 C            - Catch errors in input.
 C          (28 November 2017, N. Warr) gosia-20110524.5
