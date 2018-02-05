@@ -2143,6 +2143,8 @@ C     Treat suboption EXPT
                FIEX(k,2) = FIEX(k,2) + 3.14159265
             ENDIF
          ENDDO
+         WRITE(*,*) 'Too many levels! - limit is ',NDIM
+         STOP 'ERROR'
 
 C     Else we don't recognize the suboption
       ELSE
