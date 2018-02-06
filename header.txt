@@ -84,6 +84,7 @@ C            - Clean up CONT options.
 C            - Remove requirement of reals in CONT.
 C            - Trap for invalid branching ratios
 C            - Trap for invalid mixing ratios
+C            - Trap for invalid experimental yields
 C          (5 February 2018, N. Warr) gosia-20110524.6
 C            - Catch errors in input.
 C          (28 November 2017, N. Warr) gosia-20110524.5
