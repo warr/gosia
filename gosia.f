@@ -1163,11 +1163,11 @@ C     Treat suboption CONT (control)
              G(ijx) = val
            ENDDO
          ELSE IF ( op1.EQ.'WRN,' ) THEN
-           SGW = fipo1           
+           SGW = fipo1
          ELSE
            WRITE(*,*) 'Did not understand CONT option ',op1
          ENDIF
-         GOTO 350
+         GOTO 350 ! Back to beginning of CONT loop
 
 C     Treat suboption EXPT
       ELSEIF ( op1.EQ.'EXPT' ) THEN
@@ -1298,11 +1298,11 @@ C OP,EXIT
      &                   TIMEL(2,iva1)
 99013             FORMAT (6X,1I3,7X,1E10.4,5X,1E10.4,4X,1E10.4)
  124              IF ( iva.EQ.NMAX ) THEN
-                     IF ( NAMX.GE.1 ) THEN
-                        WRITE (22,99014)
-99014                   FORMAT (5x,//,
+                    IF ( NAMX.GE.1 ) THEN
+                      WRITE (22,99014)
+99014                 FORMAT (5x,//,
      &         'CALCULATED AND EXPERIMENTAL MATRIX ELEMENTS'
-     &         ,//)
+     &                    ,//)
                         WRITE (22,99015)
 99015                   FORMAT (5x,'NI ','NF ',' EXP. ME   ',
      &                     'CURRENT ME','   SIGMA')
