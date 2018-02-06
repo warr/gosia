@@ -3,6 +3,7 @@
 * Clean up CONT options
 * Remove requirement of REAL parameters to CONT
 * Trap invalid branching ratios
+* Trap invalid lifetimes
 * Trap invalid mixing ratios
 * Trap invalid experimental yields
 
