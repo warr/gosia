@@ -3,6 +3,7 @@
 * Clean up CONT options
 * Remove requirement of REAL parameters to CONT
 * Trap invalid branching ratios
+* Trap invalid mixing ratios
 
 20110524
 * Adam Hayes's modifications for Rachel
