@@ -6,6 +6,7 @@
 * Trap invalid lifetimes
 * Trap invalid mixing ratios
 * Trap invalid experimental yields
+* Trap invalid known matrix elements
 
 20110524
 * Adam Hayes's modifications for Rachel
