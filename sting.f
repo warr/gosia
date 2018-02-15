@@ -2,7 +2,7 @@
 C----------------------------------------------------------------------
 C SUBROUTINE STING
 C
-C Called by: FTBM, GOSIA
+C Called by: FTBM, GOSIA, OP_INTGI
 C Calls:     LAIAMP, LAISUM, NEWLV
 C
 C Purpose: calculate and store excitation amplitudes,

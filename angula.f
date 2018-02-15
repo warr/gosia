@@ -2,7 +2,7 @@
 C----------------------------------------------------------------------
 C SUBROUTINE ANGULA
 C
-C Called by: GOSIA, CEGRY
+C Called by: GOSIA, CEGRY, OP_INTGI
 C Calls:     FIINT, FIINT1, RECOIL, YLM, YLM1
 C
 C Purpose: calculate angular distribution of emitted gamma rays

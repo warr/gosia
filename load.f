@@ -2,7 +2,7 @@
 C----------------------------------------------------------------------
 C SUBROUTINE LOAD
 C
-C Called by: FTBM, GOSIA
+C Called by: FTBM, GOSIA, OP_INTGI
 C Calls:     LSLOOP
 C
 C Purpose: calculates various parameters, xi, psi which are stored in

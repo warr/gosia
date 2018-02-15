@@ -3,6 +3,9 @@ C----------------------------------------------------------------------
 C SUBROUTINE OP_INTGI
 C
 C Called by: GOSIA
+C Calls: ALLOC, ANGULA, CMLAB, COORD, DECAY, EFFIX, INTG, INVKIN, LAGRAN,
+C        LOAD, PATH, SETIN, SIMIN, SNAKE, SPLNER, STING, TACOS, TAPMA,
+C        TENB, TENS
 C
 C Purpose: perform the integration over the meshpoints for both OP,INTG
 C          and OP,INTI
