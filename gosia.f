@@ -184,32 +184,27 @@ C      ZV     - energy meshpoints
      &       WTHREJ , xep , xl1 , xlk , xtest , xw , xxi , ycorr ,
      &       yyd1 , yydd , yyy , zmir , zp , zz
       REAL*8 ttttx ! Only gosia1 and pawel
-      INTEGER*4 i , i122 , iapx , icg , ict , ictl , id , ideff , idf
-      INTEGER*4 idr , iecd , ient , ifbp , ifc , ifm , ifwd , ig1 ,
-     &          ig2 , ih1 , ih2 , ihlm , ihuj , ii , ij
-      INTEGER*4 ijk , ijx , ile1 , ilx , im , imode , in1 , in2 ,
-     &          inclus , ind , indx , iretval
-      INTEGER*4 inko , inm1 , inm2 , inn , inpo , intend , intvh , 
-     &          inx1 , iobl , iopri , iosr , ipd , iph
-      INTEGER*4 ipine , ipinf , ipo1 , ipo2 , ipo3 , ipp , iprc , 
-     &          ipri , irea , irep , irfix , irix , isip
-      INTEGER*4 iskok , isoh , ispa , ispb , itno , 
-     &          itp , iuy , iva , iva1 , ivarh , ivari , ivrh
-      INTEGER*4 ixj , ixl , ixm , iyr , izcap , j , jd , jde
-      INTEGER*4 jex , jexp , jfre , jgl , jgl1 , jgr , jgs ,
-     &          jj , jj1 , jjjj , jjx , jk , jl , jmm
-      INTEGER*4 jp , jphd , jpin , jrls , js , jyi , jyi1 , 
-     &          jyi2 , jz , k , kclust , kerf , kex
-      INTEGER*4 kh , kh1 , kh2 , kk , kk1 , kk2 , kkk , 
-     &          kmat , kq , kuku , l , la , la1 , lam
-      INTEGER*4 lamh , lck1 , lck2 , levmax , lex , lexp , 
-     &          lfagg , lfini , lh1 , lh2 , liscl , lkj
-      INTEGER*4 lkj1 , ll , lli , lll , lmax1 , lmaxh ,  loct , lp0
-      INTEGER*4 ltrn , ltrn1 , ltrn2 , lu , lxd , magh , MEM
-      INTEGER*4 memax1 , memh , memx4 , mend , mexl , 
-     &          mm , ms , n , na , nallow
-      INTEGER*4 naxfl , nch , ndima , ne , nf , nfd , nfdd
-      INTEGER*4 ni , nksi , nl , nmaxh , nmemx ,  nogeli ,  nptl ,
+      INTEGER*4 i , i122 , iapx , icg , ict , ictl , id , ideff , idf ,
+     &          idr , iecd , ient , ifbp , ifc , ifm , ifwd , ig1 ,
+     &          ig2 , ih1 , ih2 , ihlm , ihuj , ii , ij , ijk , ijx ,
+     &          ile1 , ilx , im , imode , in1 , in2 , inclus , ind ,
+     &          indx , inko , inm1 , inm2 , inn , inpo , intend ,
+     &          intvh , inx1 , iobl , iopri , iosr , ipd , iph , ipine ,
+     &          ipinf , ipo1 , ipo2 , ipo3 , ipp , iprc , ipri , irea ,
+     &          irep , iretval , irfix , irix , isip , iskok , isoh ,
+     &          ispa , ispb , itno , itp , iuy , iva , iva1 , ivarh ,
+     &          ivari , ivrh , ixj , ixl , ixm , iyr , izcap , j , jd ,
+     &          jde , jex , jexp , jfre , jgl , jgl1 , jgr , jgs , jj ,
+     &          jj1 , jjjj , jjx , jk , jl , jmm , jp , jphd , jpin ,
+     &          jrls , js , jyi , jyi1 , jyi2 , jz , k , kclust , kerf ,
+     &          kex , kh , kh1 , kh2 , kk , kk1 , kk2 , kkk , kmat ,
+     &          kq , kuku , l , la , la1 , lam , lamh , lck1 , lck2 ,
+     &          levmax , lex , lexp , lfagg , lfini , lh1 , lh2 ,
+     &          liscl , lkj , lkj1 , ll , lli , lll , lmax1 , lmaxh ,
+     &          loct , lp0 , ltrn , ltrn1 , ltrn2 , lu , lxd , magh ,
+     &          MEM , memax1 , memh , memx4 , mend , mexl , mm , ms ,
+     &          n , na , nallow , naxfl , nch , ndima , ne , nf , nfd ,
+     &          nfdd , ni , nksi , nl , nmaxh , nmemx , nogeli , nptl ,
      &          ns1 , ns2 , ntap , numcl , nval , nz
       CHARACTER*4 oph , op1 , opcja , op2
       CHARACTER*80 line
