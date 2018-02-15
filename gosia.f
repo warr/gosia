@@ -170,19 +170,19 @@ C      ZV     - energy meshpoints
 
       PROGRAM GOSIA
       IMPLICIT NONE
-      REAL*8 acof , ap , ARCCOS , ARCTG , arg , bcof , be2 , be2a , 
+      REAL*8 acof , ap , ARCCOS , ARCTG , arg , bcof , be2 , be2a ,
      &       be2b , be2c , bl , bmx , bten , bu , ccc , ccd ,
      &       cf , chilo , chiok , chis0 , chisl , chisq , chiss , cnst ,
      &       cocos , conu , d , decen , dsd , dsig , effi , eh1 , elmi ,
      &       emhl1 , eng , esd , ess , fi0 , fi1 , fic , fiex1 , figl ,
      &       fipo1 , fm , gth , p , ph1 , ph2 , pi , po1 , po2 , polm ,
-     &       pop1 , pr , pv , q1 , q2 , qc , qfac , qr , qui , r , r1
-      REAL*8 r2 , r3 , r4 , rem , remax , rl , rlr , rm , rx , ry , rz ,
+     &       pop1 , pr , pv , q1 , q2 , qc , qfac , qr , qui , r , r1 ,
+     &       r2 , r3 , r4 , rem , remax , rl , rlr , rm , rx , ry , rz ,
      &       s , s11 , s12 , s21 , s22 , sbe , sf , sh , sh1 , sh2 ,
      &       slim , summm , sz1 , sz2 , TACOS , tau1 , tau2 , test ,
      &       tfac , thc , title , ttttt , txx , u , val , waga , WSIXJ ,
-     &       WTHREJ, xep , xl1 , xlk , xtest , xw , xxi , ycorr
-      REAL*8 yyd1 , yydd , yyy , zmir , zp , zz
+     &       WTHREJ , xep , xl1 , xlk , xtest , xw , xxi , ycorr ,
+     &       yyd1 , yydd , yyy , zmir , zp , zz
       REAL*8 ttttx ! Only gosia1 and pawel
       INTEGER*4 i , i122 , iapx , icg , ict , ictl , id , ideff , idf
       INTEGER*4 idr , iecd , ient , ifbp , ifc , ifm , ifwd , ig1 ,
