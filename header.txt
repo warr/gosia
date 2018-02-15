@@ -87,6 +87,7 @@ C            - Trap for invalid lifetimes
 C            - Trap for invalid mixing ratios
 C            - Trap for invalid experimental yields
 C            - Trap for invalid known matrix elements
+C            - Move OP,THEO code into a separate function
 C          (5 February 2018, N. Warr) gosia-20110524.6
 C            - Catch errors in input.
 C          (28 November 2017, N. Warr) gosia-20110524.5
