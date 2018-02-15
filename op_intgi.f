@@ -61,7 +61,10 @@ C      YV     - scattering angle meshpoints where we calculate exact Coulex
 C      ZETA   - various coefficients
 C      ZPOL   - dipole term (GDR excitation)
 C
-C The Inti flag is 0 for OP,INTG and 1 for OP,INTI
+C The Inti flag is 0 for OP,INTG and 1 for OP,INTI. The only difference
+C between the two is that OP,INTI calls INVKIN and OP,INTG doesn't. In both
+C we perform the calculation for each meshpoint and then integrate by
+C interpolating over the meshpoints
 
       SUBROUTINE OP_INTGI(Iretval, Op2, Ipinf, Jpin, Iecd, Izcap,
      &  Lfagg, Idr, Bten, Fiex1, Inti)
