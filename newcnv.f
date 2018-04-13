@@ -3,8 +3,8 @@ C FUNCTION NEWCNV
 C
 C Called by: CONV
 C
-C Purpose: calculate the conversion coefficient at a particular energy by
-C interpolating over the values provided by the user.
+C Purpose: find the conversion coefficient calculated by OP,BRIC and stored
+C          in a file
 C
 C Formal parameters:
 C      Ega    - gamma energy
