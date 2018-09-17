@@ -1,3 +1,5 @@
-° Look into using PARAMETER
-° Make a list of those variables which depend on the number of matrix
+- Look into using PARAMETER
+- Make a list of those variables which depend on the number of matrix
   elements.
+- Make sure all constants are correctly given in double precision and
+use the latest values
