@@ -5,7 +5,7 @@ C
 C Called by: INTG
 C Calls:
 C
-C Purpose: write out collision functiosn to a file
+C Purpose: write out collision functions to a file
 C
 C Uses global variables:
 C
