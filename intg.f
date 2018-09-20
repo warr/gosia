@@ -104,7 +104,7 @@ c     Write a blank line to mark the start of the experiment.
 c-------END OF ADDITIONAL RACHEL OUTPUT.-----------------------------------
       
       intend = INTERV(Ien) ! Default accuracy set by INT option of OP,CONT
-      D2W = .03 ! We use steps of 0.03 in omega
+      D2W = .03D0 ! We use steps of 0.03 in omega
       NSW = 1
       kast = 0
       NDIV = 0
@@ -120,8 +120,8 @@ C     Predictor
             ir = NSTART(n) - 1 ! First substate - 1
  120        ir = ir + 1
             ARM(ir,7) = ARM(ir,5)
-     &                  + D2W/24.*(55.0*ARM(ir,4)-59.0*ARM(ir,3)
-     &                  +37.0*ARM(ir,2)-9.0*ARM(ir,1))
+     &                  + D2W/24.D0*(55.D0*ARM(ir,4)-59.D0*ARM(ir,3)
+     &                  +37.D0*ARM(ir,2)-9.D0*ARM(ir,1))
             mir = INT(CAT(ir,3)) ! m quantum number of substate ir
             ir1 = ir - 2*mir
             ARM(ir1,7) = IFAC(n)*ARM(ir,7)
@@ -130,8 +130,8 @@ C     Predictor
       ELSE
          DO ir = 1 , ISMAX
             ARM(ir,7) = ARM(ir,5)
-     &                  + D2W/24.*(55.0*ARM(ir,4)-59.0*ARM(ir,3)
-     &                  +37.0*ARM(ir,2)-9.0*ARM(ir,1))
+     &                  + D2W/24.D0*(55.D0*ARM(ir,4)-59.D0*ARM(ir,3)
+     &                  +37.D0*ARM(ir,2)-9.D0*ARM(ir,1))
          ENDDO
       ENDIF
       NPT = NPT + NSW*ISG ! NPT loops over omega values, ISG is -1 at first then +1
@@ -158,18 +158,18 @@ C     Corrector
             ir = NSTART(n) - 1 ! First substate - 1
  220        ir = ir + 1
             ARM(ir,5) = ARM(ir,5)
-     &                  + D2W/24.*(9.0*ARM(ir,4)+19.0*ARM(ir,3)
-     &                  -5.0*ARM(ir,2)+ARM(ir,1))
+     &                  + D2W/24.D0*(9.D0*ARM(ir,4)+19.D0*ARM(ir,3)
+     &                  -5.D0*ARM(ir,2)+ARM(ir,1))
             mir = INT(CAT(ir,3)) ! m quantum number of substate ir
             ir1 = ir - 2*mir
             ARM(ir1,5) = IFAC(n)*ARM(ir,5)
-            IF ( DBLE(mir).LT.-0.1 ) GOTO 220
+            IF ( DBLE(mir).LT.-0.1D0 ) GOTO 220
          ENDDO
       ELSE
          DO ir = 1 , ISMAX ! For each substate
             ARM(ir,5) = ARM(ir,5)
-     &                  + D2W/24.*(9.0*ARM(ir,4)+19.0*ARM(ir,3)
-     &                  -5.0*ARM(ir,2)+ARM(ir,1))
+     &                  + D2W/24.D0*(9.D0*ARM(ir,4)+19.D0*ARM(ir,3)
+     &                  -5.D0*ARM(ir,2)+ARM(ir,1))
          ENDDO
       ENDIF
       kast = kast + 1
@@ -196,16 +196,16 @@ C     Calculate derivatives of amplitudes
 C           Decide if we have appropriate accuracy (strictly it should be
 C           f = SQRT(f)*19./270. but the difference is not all that large).
 C
-            f = SQRT(f)/14.
+            f = SQRT(f)/14.D0
             IF ( f.GT.ACCUR .OR. f.LT.ACC50 ) THEN
                IF ( f.LT.ACC50 ) THEN
                   CALL DOUBLE(ISO) ! Double step size
-                  D2W = 2.*D2W
+                  D2W = 2.D0*D2W
                   NSW = 2*NSW
-                  intend = INT((DBLE(intend)+.01)/2.)
+                  intend = INT((DBLE(intend)+.01D0)/2.D0)
                   IF ( intend.EQ.0 ) intend = 1
                   IF ( NSW.LT.1 ) THEN
-                     NDIV = INT((DBLE(NDIV)+.01)/2.)
+                     NDIV = INT((DBLE(NDIV)+.01D0)/2.D0)
                      IF ( NDIV.LT.2 ) THEN
                         NDIV = 0
                         NSW = 1
@@ -214,7 +214,7 @@ C
                ELSE
                   CALL HALF(ISO) ! Halve step size
                   D2W = D2W/2.
-                  NSW = INT((DBLE(NSW)+.01)/2.)
+                  NSW = INT((DBLE(NSW)+.01D0)/2.D0)
                   intend = 2*intend
                   IF ( NSW.LT.1 ) THEN
                      NDIV = 2*NDIV

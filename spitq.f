@@ -33,7 +33,7 @@ c     This routine is to read the electric collision functions from the ZETA arr
 c     them to the standard output file (23)  
 
 C     Borrowed this line from subroutine below.
-      w0 = IRA(MAXLA) * .03 + .03 ! Maximum omega to calculate for (steps of 0.03)
+      w0 = IRA(MAXLA) * .03D0 + .03D0 ! Maximum omega to calculate for (steps of 0.03)
 
 c     Look at how LAIAMP uses the ZETA array.
 c     Are these the collision functions?

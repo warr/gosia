@@ -40,7 +40,7 @@ C     Check multipolarity is valid
 C     Search for the energy in the list
 
       DO i = 1, nenergies
-        IF (ABS(Ega - energies(i)) .LT. 1E-3) THEN
+        IF (ABS(Ega - energies(i)) .LT. 1D-3) THEN
            NEWCNV = bricc(i,N)
            return
         ENDIF

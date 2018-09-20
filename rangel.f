@@ -34,24 +34,24 @@ C index, knowing that we are always using steps of 0.03.
       INCLUDE 'clcom.inc'
 
       acl = -LOG(Acc1)
-      ACC50 = Acc1/50.
+      ACC50 = Acc1/50.D0
       DO i = 1 , 8 ! Loop over multipolarity 1..6 = E1..6, 7,8 = M1,M2
          IF ( MULTI(i).NE.0 ) THEN
             IF ( i.EQ.2 .OR. i.EQ.7 ) THEN ! E2 or M1
-               w = acl/2. + .203
+               w = acl/2.D0 + .203D0
             ELSEIF ( i.EQ.3 .OR. i.EQ.8 ) THEN ! E3 or M2
-               w = acl/3. + .536
+               w = acl/3.D0 + .536D0
             ELSEIF ( i.EQ.4 ) THEN ! E4
-               w = acl/4. + .716
+               w = acl/4.D0 + .716D0
             ELSEIF ( i.EQ.5 ) THEN ! E5
-               w = acl/5. + .829
+               w = acl/5.D0 + .829D0
             ELSEIF ( i.EQ.6 ) THEN ! E6
-               w = acl/6. + .962
+               w = acl/6.D0 + .962D0
             ELSE
                w = acl - .693 ! E1
             ENDIF
-            w = w/.03        ! We step in steps of \Delta\omega = 0.03
-            IRA(i) = INT(w+1.5)
+            w = w/.03D0        ! We step in steps of \Delta\omega = 0.03
+            IRA(i) = INT(w+1.5D0)
          ELSE
             IRA(i) = 0
          ENDIF

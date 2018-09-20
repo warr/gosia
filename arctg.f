@@ -14,10 +14,11 @@ C
 C Return value:
 C      arctangent(A) within range of F
  
-      REAL*8 FUNCTION ARCTG(A,F,Pi)
+      REAL*8 FUNCTION ARCTG(A,F)
       IMPLICIT NONE
-      REAL*8 A , an , F , Pi , q , qa , qap
+      REAL*8 A , an , F , q , qa , qap
       INTEGER*4 ie , j , k
+      INCLUDE 'fconst.inc'
 
       q = ATAN(A)
       qa = q
@@ -34,5 +35,5 @@ C      arctangent(A) within range of F
          ENDDO
       ENDIF
  100  ARCTG = qa
-      IF ( (qa-F).GT.Pi/4. ) ARCTG = qap
+      IF ( (qa-F).GT.pi/4.D0 ) ARCTG = qap
       END
