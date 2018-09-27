@@ -54,7 +54,7 @@ C     evaluated from Abramowitz and Stegun 5.2.14 and 5.2.16 as shown above:
          Si = Si + 1.57079632679D0 ! This is actually pi/2 - Si
          Ci = POL4(-1.D0/322560.D0,1.D0/4320.D0,-1.D0/96.D0,.25D0,
      &        0.D0,a)
-         Ci = Ci - LOG(Arg) - 0.577215664902D0 ! This is actually -Ci
+         Ci = Ci - LOG(Arg) - 0.5772156649015329D0 ! This is actually -Ci
          GOTO 99999
       ENDIF
 
