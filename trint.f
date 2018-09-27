@@ -42,6 +42,7 @@ C obtain the values of pi/2 - Si and -Ci from f and g.
       SUBROUTINE TRINT(Arg,Si,Ci)
       IMPLICIT NONE
       REAL*8 a , Arg , c , Ci , f , g , POL4 , s , Si
+      INCLUDE 'fconst.inc'
 
       a = Arg*Arg
 
@@ -51,7 +52,7 @@ C     evaluated from Abramowitz and Stegun 5.2.14 and 5.2.16 as shown above:
         Si = POL4(0.D0,1.D0/35280.D0,-1.D0/600.D0,1.D0/18.D0,-1.D0,
      &        a)
          Si = Si*Arg
-         Si = Si + 1.57079632679D0 ! This is actually pi/2 - Si
+         Si = Si + pi/2.D0 ! This is actually pi/2 - Si
          Ci = POL4(-1.D0/322560.D0,1.D0/4320.D0,-1.D0/96.D0,.25D0,
      &        0.D0,a)
          Ci = Ci - LOG(Arg) - 0.5772156649015329D0 ! This is actually -Ci
