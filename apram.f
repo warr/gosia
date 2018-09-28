@@ -128,7 +128,7 @@ C     Initialise (Inc = 0)
       ENDDO
 
       ARM(Irld+1,i56) = (1.,0.)
-      uwa = -itm*.0298019802D0 + 1.01D0
+      uwa = -itm*(1.01D0-0.99D0/1.01D0) + 1.01D0
       DO l = 1 , 2
          DO j = i1 , i7
             QAPR(Indx,l,j) = QAPR(Indx,l,j)*uwa
