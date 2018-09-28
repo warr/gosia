@@ -358,7 +358,8 @@ C     Initialize normalization to 1.
       IUNIT3 = 3 ! Is 33 in gosia2
       IBYP = 0
       INHB = 0
-      BEQ = -983872.D0
+      BEQ = -983872.D0 ! This is just a magic value to indicate it was not
+                       ! yet initialised
       ipinf = 0
       iyr = 0
       INNR = 0
