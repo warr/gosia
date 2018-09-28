@@ -105,7 +105,7 @@ C      Acca   - accuracy required
             ENDDO
             DO l = 1 , 2
                DO j = i1 , i7
-                  QAPR(Indx,l,j) = QAPR(Indx,l,j)/.99
+                  QAPR(Indx,l,j) = QAPR(Indx,l,j)/.99D0
                ENDDO
             ENDDO
             DO jj = 2 , jidim
