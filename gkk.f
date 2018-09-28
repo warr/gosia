@@ -68,6 +68,7 @@ C element.
       INCLUDE 'gvac.inc'
       INCLUDE 'vac.inc'
       INCLUDE 'ggg.inc'
+      INCLUDE 'fconst.inc'
 
       IF ( IBYP.NE.1 ) THEN
          imean = 0
@@ -126,7 +127,7 @@ C element.
 C FIEL is the field in Gauss multiplied by 1E-12. The nuclear magneton is
 C 4789.418/s/gauss, but with the factor 1E-12, we get wsp in ps^-1
       hmean = FIEL*Iz*(Beta**POWER) ! Mean magnetic field in fluctuating state
-      wsp = 4789.418D0*GFAC*hmean/AVJI
+      wsp = mu_n*GFAC*hmean/AVJI
       wsp = wsp*TIMEC
       wsp = wsp*wsp*AVJI*(AVJI+1.D0)/3.D0
       DO k = 1 , 3
