@@ -6,4 +6,4 @@
       PARAMETER(hbar=6.582119514D-10) ! hbar in MeV.ps
       PARAMETER(mprot=938.2720813D0) ! Proton mass in MeV/c^2
       PARAMETER(euler=0.5772156649015329D0) ! Euler Gamma
-      PARAMETER(mu_n=4789.418D0) ! Nuclear magneton s^-1 gauss^-1
+      PARAMETER(mu_n=4789.418D0) ! Nuclear magneton / hbar in s^-1 gauss^-1
