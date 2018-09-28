@@ -58,7 +58,7 @@ C Lmda = lambda (1 = E1, 2 = E2... 6 = E6)
       ELSEIF ( Lmda.EQ.4 ) THEN ! E4
          Cq(1) = 35.D0/32.D0*(8.0D0*C4-24.0D0*C2*D2+3.0D0*D4)/B8
          Cq(2) = -35.D0/16.D0*SQRT(5.D0)*C*(4.0D0*C2-3.0D0*D2)*D/B8
-         Cq(3) = -35.D0/15.D0*SQRT(5.D0/2.D0)*(6.0D0*C2-D2)*D2/B8
+         Cq(3) = -35.D0/16.D0*SQRT(5.D0/2.D0)*(6.0D0*C2-D2)*D2/B8
          Cq(4) = 35.D0/16.D0*SQRT(35.D0)*C*D3/B8
          Cq(5) = 35.D0/32.D0*SQRT(35.D0/2.D0)*D4/B8
          RETURN
