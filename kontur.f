@@ -32,6 +32,9 @@ C      Jj     - matrix element
 C      Sh     -
 C      Bten   -
 C      Rem    - natural log of the largest value the computer can represent
+C
+C Note that 0.3173015 is the fraction of a gaussian outside +/- sigma =
+C 1 - erf(1/sqrt(2)) = 0.3173105
  
       SUBROUTINE KONTUR(Idr,Chis0,Chil,Ifbf,Inpo,Jj,Sh,Bten,Rem)
       IMPLICIT NONE
@@ -169,9 +172,9 @@ C      Rem    - natural log of the largest value the computer can represent
       m = 0
       DO l = 1 , i
          YV(l) = 1.00001D0 - YV(l)/c
-         IF ( m.EQ.0 .AND. YV(l).LT..317D0 ) m = l
+         IF ( m.EQ.0 .AND. YV(l).LT..3173105D0 ) m = l
       ENDDO
-      x = (XV(m)-XV(m-1))*(.317D0-YV(m))/(YV(m-1)-YV(m))
+      x = (XV(m)-XV(m-1))*(.3173105D0-YV(m))/(YV(m-1)-YV(m))
       t = XV(m) - x - HLM(Jj)
       IF ( t.GE.0. ) DEVU(Jj) = t
       IF ( t.LT.0. ) DEVD(Jj) = t
