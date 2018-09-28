@@ -61,7 +61,7 @@ C     We have to calculate it
       cb = COS(be)
       sb = SIN(be)
       ifla = 0
-      IF ( BEQ.GT..01 .AND. ABS(BEQ-2.D0*pi).GT..01D0 ) ifla = 1
+      IF ( BEQ.GT..01D0 .AND. ABS(BEQ-2.D0*pi).GT..01D0 ) ifla = 1
       IF ( ifla.NE.1 ) THEN
          IF ( Kp.EQ.Kpp ) THEN
             sb = 1.D0
