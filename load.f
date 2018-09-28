@@ -122,6 +122,7 @@ C        Calculate C_\lambda \over (s Z_1 Z_2)^\lambda
 
 C        Electric excitations up to LMAXE
 C 1.116547 * 13.889122**lambda * (lambda-1)! / (2lambda+1)!!
+C 13.889122 is 20 / (e^2/4 pi epsilon_0)
          IF ( LMAXE.NE.1 ) THEN
             aaz2 = aazz*aazz
             cpsi(2) = 14.359366D0*aaz2
