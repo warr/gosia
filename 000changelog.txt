@@ -1,6 +1,7 @@
 20110524
 * Adam Hayes's modifications for Rachel
 * Allow different efficiency parameters for different experiments
+* Increase default INT parameter in CONT option from 1 to 1000
 
 20081208
 * New option OP,INTI which works like OP,INTG but the theta values for the
