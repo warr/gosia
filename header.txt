@@ -1,6 +1,6 @@
 C                            GOSIA 20080519 (64-bit)
 C
-C                            5 February 2018 Update
+C                            5 October 2018 Update
 C
 C       http://www.pas.rochester.edu/~cline/Gosia/index.html
 C
@@ -72,6 +72,8 @@ C          with 32-bit precision is discouraged.
 C
 C       CHRONOLOGY OF MAJOR CHANGES:
 C
+C          (5 October 2018, N. Warr) gosia-20080519.13
+C            - Increase default INT parameter in CONT option to 1000.
 C          (5 February 2018, N. Warr) gosia-20080519.12
 C            - Catch errors in input.
 C          (7 November 2011, N. Warr) gosia-20081208.11
