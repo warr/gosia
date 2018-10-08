@@ -52,13 +52,13 @@ C etc.
          j = i - 1
          st(i) = st(j)*st(1)
       ENDDO
-      Ylmr(1,3) = SQRT(30.)/16.D0/pi
-      Ylmr(1,2) = -SQRT(30.)/8.D0/pi*ct
+      Ylmr(1,3) = SQRT(30.D0)/16.D0/pi
+      Ylmr(1,2) = -SQRT(30.D0)/8.D0/pi*ct
       Ylmr(1,1) = SQRT(5.D0)/8.D0/pi*(3.D0*ctsq-1.D0)
       Ylmr(2,5) = 3.D0*SQRT(70.D0)/64.D0/pi
       Ylmr(2,4) = -3.D0*SQRT(140.D0)/32.D0/pi*ct
       Ylmr(2,3) = 3.D0*SQRT(10.D0)/32.D0/pi*(7.D0*ctsq-1.D0)
-      Ylmr(2,2) = -3.D0*SQRT(20.)/32.D0/pi*ct*(7.D0*ctsq-3.D0)
+      Ylmr(2,2) = -3.D0*SQRT(20.D0)/32.D0/pi*ct*(7.D0*ctsq-3.D0)
       Ylmr(2,1) = 3.0D0/32.D0/pi*((35.D0*ctsq-30.D0)*ctsq+3.D0)
       Ylmr(3,7) = SQRT(3003.D0)/128.D0/pi
       Ylmr(3,6) = -SQRT(9009.D0)/64.D0/pi*ct
