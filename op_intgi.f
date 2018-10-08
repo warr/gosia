@@ -517,7 +517,7 @@ C   equally spaced energies, which we integrate in the same way.
             IF ( Jpin(lx).EQ.0 ) THEN
               CALL COORD(wth,wph,wthh,1,2,pfi,wpi,TLBDG(lx),lx,txx,txx)
               WRITE (22,99020) FIEX(lx,1)*180.D0/pi ,
-     &          FIEX(lx,2)*57.2957795 , lx
+     &          FIEX(lx,2)*180.D0/pi , lx
 99020         FORMAT (//5X,'WARNING: THE PHI ANGLE WAS REPLACED BY'
      &          ,1X,F8.3,1X,'TO',F8.3,3X,'FOR EXPERIMENT',2X,I3)
               IF ( TLBDG(lx).LT.0 ) THEN
