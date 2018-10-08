@@ -31,7 +31,7 @@ C      Iso    - isotropic flag
  20         ir = ir + 1
             fpom = ARM(ir,2)
             ARM(ir,2) = -8.D0*ARM(ir,3) + 6.D0*ARM(ir,2) +
-     &        3.D0*ARM(ir,4)
+     &                  3.D0*ARM(ir,4)
             ARM(ir,1) = -16.D0*ARM(ir,1) + 9.D0*ARM(ir,2) + 9.D0*fpom -
      &                  ARM(ir,4)
             ARM(ir,3) = fpom
@@ -44,7 +44,7 @@ C      Iso    - isotropic flag
          fpom = ARM(j,2)
          ARM(j,2) = -8.D0*ARM(j,3) + 6.D0*ARM(j,2) + 3.D0*ARM(j,4)
          ARM(j,1) = -16.D0*ARM(j,1) + 9.D0*ARM(j,2) + 9.D0*fpom -
-     &     ARM(j,4)
+     &              ARM(j,4)
          ARM(j,3) = fpom
       ENDDO
 99999 END
