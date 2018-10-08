@@ -125,7 +125,7 @@ C     Predictor
             mir = INT(CAT(ir,3)) ! m quantum number of substate ir
             ir1 = ir - 2*mir
             ARM(ir1,7) = IFAC(n)*ARM(ir,7)
-            IF ( DBLE(mir).LT.-0.1 ) GOTO 120
+            IF ( DBLE(mir).LT.-0.1D0 ) GOTO 120
          ENDDO
       ELSE
          DO ir = 1 , ISMAX
@@ -213,7 +213,7 @@ C
                   ENDIF
                ELSE
                   CALL HALF(ISO) ! Halve step size
-                  D2W = D2W/2.
+                  D2W = D2W/2.D0
                   NSW = INT((DBLE(NSW)+.01D0)/2.D0)
                   intend = 2*intend
                   IF ( NSW.LT.1 ) THEN
