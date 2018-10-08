@@ -29,8 +29,8 @@ C can handle half-integers.
       IF ( L.EQ.0 ) RETURN
       ix = INT(Sji+Sjf+.0001D0)
       i = ix + L + K
-      phase = 1.
-      IF ( i/2*2.NE.i ) phase = -1.
+      phase = 1.D0
+      IF ( i/2*2.NE.i ) phase = -1.D0
       kz = K*2
       jiz = INT(Sji*2)
       jfz = INT(Sjf*2)
