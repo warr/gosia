@@ -10,7 +10,6 @@ C
 C Formal parameters:
 C      A      - argument
 C      F      - range
-C      Pi     - Pi must be set to 3.14159... before calling ARCCOS
 C
 C Return value:
 C      arccosine(A) within range of F
@@ -26,7 +25,7 @@ C      arccosine(A) within range of F
       qap = q
       IF ( q.LE.F ) THEN
          DO j = 1 , 20
-            an = 2*j*Pi
+            an = 2*j*pi
             DO k = 1 , 2
                qap = qa
                ie = (-1)**k
