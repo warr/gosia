@@ -84,7 +84,7 @@ C      Tetrn  - theta of recoiling nucleus in lab frame (in radians)
 C
 C        dists is Cline's estimate of the maximum safe bombarding energy
          dists = e2*(a1+a2)*z1*z2/((a1**(1.D0/3.D0)+
-     &     a2**(1.D0/3.D0))*1.25D0+5.D0)/a2
+     &           a2**(1.D0/3.D0))*1.25D0+5.D0)/a2
 C        dista is 0.05 * distance of closest approach for head-on collisions
          dista = e2/20.0D0*(1.0D0+a1/a2)*z1*z2/EP(lexp)
 C        d2a is the distance of closest approach for head-on collisions in fm
@@ -138,8 +138,8 @@ C        by SIN(tmxdg) = 1 / tau.
          epmin = EP(lexp) - EN(NCM)*ared
          taup = SQRT(EP(lexp)/epmin)
          tau = taup*a1/a2
-         IF ( tau.LE.1.0 ) GOTO 100 ! No limit on scattering angle
-         tmxdg = TASIN(1.0/tau)*180.0D0/pi ! Maximum lab angle in degrees
+         IF ( tau.LE.1.0D0 ) GOTO 100 ! No limit on scattering angle
+         tmxdg = TASIN(1.0D0/tau)*180.D0/pi ! Maximum lab angle in degrees
          IF ( tmxdg.GE.TLBDG(lexp) ) GOTO 100 ! Within limit of scattering angle
 
          WRITE (22,99007) tmxdg , lexp
@@ -158,7 +158,7 @@ C        Calculate centre of mass angle
 
 C        In inverse kinematics, for a given lab angle, there are two solutions
 C        for the centre of mass angle.
-         IF ( tau.GT.1.0 ) THEN ! Inverse kinematics
+         IF ( tau.GT.1.0D0 ) THEN ! Inverse kinematics
             IF ( IPRM(1).EQ.1 ) THEN
                IF ( Ii.EQ.0 .AND. IPRM(10).EQ.1 ) WRITE (22,99009)
      &              tcmdg , lexp
@@ -205,7 +205,7 @@ C        depending on sign of Z1, which is used as a flag)
      &           BETAR(lexp)
 99012       FORMAT (5X,'RECOIL BETA',2X,1E14.6)
             IF ( Ii.EQ.0 .AND. IPRM(10).EQ.1 ) WRITE (22,99013) EP(lexp)
-     &           /(dists*.5*(1.+EPS(lexp)))
+     &           /(dists*.5D0*(1.D0+EPS(lexp)))
 99013       FORMAT (5X,'BOMBARDING ENERGY=',1F10.3,1X,
      &              'OF SAFE BOMBARDING ENERGY AT THIS ANGLE')
          ENDIF
@@ -214,11 +214,11 @@ C        iflaa = 0 when projectile detected, = 1 when target detected
 C        r3 is the Jacobian dOmega/domega
          IF ( iflaa.NE.1 ) THEN ! Projectile detected
             IF ( ABS(tcmdg-180.D0).LT.1.D-5 ) THEN
-               r3 = (1.-tau)**2
+               r3 = (1.D0-tau)**2
             ELSE
                r3 = SIN(tlbrad)/SIN(tcmrad)
                r3 = r3*r3*ABS(COS(tcmrad-tlbrad))
-               r3 = 1./r3
+               r3 = 1.D0/r3
             ENDIF
          ENDIF
 
@@ -231,14 +231,14 @@ C        target and projectile angles differ by 180 degrees
 C        iflaa = 0 when projectile detected, = 1 when target detected
 C        r3 is the Jacobian dOmega/domega
          IF ( iflaa.NE.0 ) THEN ! Target detected, but theta is for projectile!
-           IF ( ABS(tcmdg-180.D0).LT.1.D-5 ) THEN
-               r3 = (1.+taup)**2
+            IF ( ABS(tcmdg-180.D0).LT.1.D-5 ) THEN
+               r3 = (1.D0+taup)**2
                TLBDG(lexp) = 0.
             ELSE
                r3 = SIN(zlbrad)/SIN(zcmrad)
                r3 = r3*r3
                r3 = r3*ABS(COS(zcmrad-zlbrad))
-               r3 = 1./r3
+               r3 = 1.D0/r3
                TLBDG(lexp) = zlbrad*180.D0/pi
             ENDIF
          ENDIF
