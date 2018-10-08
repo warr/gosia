@@ -142,7 +142,7 @@ C     with CONT:PRT, and then does OP,EXIT
 99002    FORMAT (1X//20X,'RECOMMENDED RELATIVE GE(LI) EFFICIENCIES'//2X,
      &           'EXPERIMENT')
          DO jpc = 1 , NEXPT
-            IF ( ABS(cnr(1,jpc)).LT.1.D-9 ) cnr(1,jpc) = 1.
+            IF ( ABS(cnr(1,jpc)).LT.1.D-9 ) cnr(1,jpc) = 1.D0
             k = NDST(jpc)
             WRITE (22,99012) jpc , (cnr(l,jpc)/cnr(1,jpc),l=1,k)
          ENDDO ! Loop on experiments
@@ -205,9 +205,9 @@ C              Correct for finite recoil
                   id = ITMA(IEXP,k) ! Get identity for detector
                   d = ODL(id) ! Results of OP,GDET for this detector
                   rx = d*SIN(gth)*COS(figl-fm) -
-     &              .25D0*SIN(tetrc)*COS(fm)
+     &                 .25D0*SIN(tetrc)*COS(fm)
                   ry = d*SIN(gth)*SIN(figl-fm) -
-     &              .25D0*SIN(tetrc)*SIN(fm)
+     &                 .25D0*SIN(tetrc)*SIN(fm)
                   rz = d*COS(gth) - .25D0*COS(tetrc)
                   rl = SQRT(rx*rx+ry*ry+rz*rz)
                   sf = d*d/rl/rl
@@ -429,9 +429,9 @@ C              Correct for finite recoil
                   id = ITMA(IEXP,k) ! Get identity for detector
                   d = ODL(id) ! Get results of OP,GDET for detector
                   rx = d*SIN(gth)*COS(figl-fm) -
-     &              .25D0*SIN(tetrc)*COS(fm)
+     &                 .25D0*SIN(tetrc)*COS(fm)
                   ry = d*SIN(gth)*SIN(figl-fm) -
-     &              .25D0*SIN(tetrc)*SIN(fm)
+     &                 .25D0*SIN(tetrc)*SIN(fm)
                   rz = d*COS(gth) - .25D0*COS(tetrc)
                   rl = SQRT(rx*rx+ry*ry+rz*rz)
                   sf = d*d/rl/rl
@@ -504,7 +504,7 @@ C     Sort out normalisation coefficients
          IF ( JSKIP(jj).NE.0 ) THEN
             kc = NDST(jj) ! Number of datasets
             DO jk = 1 , kc ! For each dataset
-              cnr(jk,jj) = -.5D0*part(jk,jj,2)/part(jk,jj,1)
+               cnr(jk,jj) = -.5D0*part(jk,jj,2)/part(jk,jj,1)
                IF ( INNR.NE.0 ) CNOR(jk,jj) = cnr(jk,jj)
             ENDDO ! Loop on datasets
 
