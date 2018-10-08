@@ -94,13 +94,13 @@ C element.
             valmi = Spin - xji
             IF ( valmi.LT.0. ) valmi = -valmi
             DO m = 1 , ncoup
-               f = valmi + DBLE(m) - 1.
+               f = valmi + DBLE(m) - 1.D0
                DO k = 1 , 3
                   rk = 2.*DBLE(k)
-                  if2 = INT(f*2. + 0.0001D0)
-                  irk2 = INT(rk*2. + 0.0001D0)
-                  ispin2 = INT(Spin*2. + 0.0001D0)
-                  ixji2 = INT(xji*2. + 0.0001D0)
+                  if2 = INT(f*2.D0 + 0.0001D0)
+                  irk2 = INT(rk*2.D0 + 0.0001D0)
+                  ispin2 = INT(Spin*2.D0 + 0.0001D0)
+                  ixji2 = INT(xji*2.D0 + 0.0001D0)
                   SUM(k) = SUM(k)
      &                     + ((2.D0*f+1.D0)*WSIXJ(if2,if2,irk2,ispin2,
      &                     ispin2,ixji2))**2/(2.D0*xji+1.D0)
