@@ -139,7 +139,7 @@ C     Convert angles into radians
          juf = ABS(juf) ! Number of detector angles
          DO jicc = 1 , juf ! For each detector angle
             DO lxt = 1 , 2 ! 1 is theta, 2 is phi
-              AGELI(jic,jicc,lxt) = AGELI(jic,jicc,lxt)*pi/180.D0! 0.017452925 = pi / 180
+               AGELI(jic,jicc,lxt) = AGELI(jic,jicc,lxt)*pi/180.D0 ! 0.017452925 = pi / 180
             ENDDO
          ENDDO
       ENDDO ! Loop jic on experiments
