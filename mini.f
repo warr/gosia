@@ -219,7 +219,7 @@ C     Write correction factors
                         IF ( jcp.NE.jnm ) GOTO 355
                         IF ( IVAR(jnm).EQ.0 ) GOTO 355
                      ENDIF
-                     flt = 1.01
+                     flt = 1.01D0
                      IF ( jjj.EQ.2 ) flt = .99D0
                      ELM(jcoup) = ELMH(jcoup)*flt
  355                 CONTINUE
@@ -275,7 +275,7 @@ C     Write correction factors
             q = (chis12+chis13-2.*Chisq)/shl/shl
             a0 = q*sumg2/sumg1 - p
             a1 = p*p - 1.D0
-            sumg1 = SQRT(a0*a0+a1*a1+2.*a0*a1*p)
+            sumg1 = SQRT(a0*a0+a1*a1+2.D0*a0*a1*p)
             DO jnm = 1 , MEMAX
                ELM(jnm) = DEVU(jnm)
                GRAD(jnm) = (GRAD(jnm)*a1+DEVD(jnm)*a0)/sumg1
@@ -422,12 +422,12 @@ C     Find steepest gradient
       IF ( mvfl.EQ.0 ) THEN
          CALL FTBM(icl2,chisp,Idr,ncall,chilo,Bten)
          DO j = 1 , MEMAX
-            ELM(j) = 2.*ELMH(j) - ELM(j)
+            ELM(j) = 2.D0*ELMH(j) - ELM(j)
          ENDDO
          CALL FTBM(icl2,chisf,Idr,ncall,chilo,Bten)
          c = (chisp+chisf-2.D0*chil)/ht/ht
          b = (chisp-chisf)/ht/2.D0
-         dl = b*b - 2.*c*chil
+         dl = b*b - 2.D0*c*chil
          IF ( dl.GT.0. ) THEN
             f1 = chil
             f2 = b
