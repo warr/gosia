@@ -9,7 +9,6 @@ C
 C Formal parameters:
 C      A      - argument
 C      F      - range
-C      Pi     - Pi must be set to 3.14159... before calling ARCTG
 C
 C Return value:
 C      arctangent(A) within range of F
@@ -25,7 +24,7 @@ C      arctangent(A) within range of F
       qap = q
       IF ( q.LE.F ) THEN
          DO j = 1 , 40
-            an = j*Pi
+            an = j*pi
             DO k = 1 , 2
                qap = qa
                ie = (-1)**k
