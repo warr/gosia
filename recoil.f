@@ -36,7 +36,8 @@ C     Correct for relativistic effects
      &            SQRT(5.D0)*Attl(5,1))
       Attl(4,2) = (8.D0*SQRT(2.D0)*Attl(3,2)-5.D0*SQRT(3.D0)*Attl(5,2))
      &            /SQRT(35.D0)
-      Attl(4,3) = (2.D0/SQRT(7.))*(2.D0*Attl(3,3)-SQRT(3.D0)*Attl(5,3))
+      Attl(4,3) = (2.D0/SQRT(7.D0))*(2.D0*Attl(3,3)-
+     &            SQRT(3.D0)*Attl(5,3))
       Attl(4,4) = -Attl(5,4)
       Attl(6,1) = (10.D0/SQRT(11.D0))*(Attl(5,1)-(3.D0/SQRT(13.D0))*
      &            Attl(7,1))
@@ -97,7 +98,7 @@ C     Correct for relativistic effects
      &         (574.D0/55.D0)*atemp(10)
          Attl(7,1) = atemp(10) + betasq*dum
          dum = (14.D0/11.D0)*SQRT(210.D0/13.D0)*atemp(6) -
-     &     (1121.D0/110.D0)*atemp(11)
+     &         (1121.D0/110.D0)*atemp(11)
          Attl(7,2) = atemp(11) + betasq*dum
          dum = (28.D0/11.D0)*SQRT(42.D0/13.D0)*atemp(7) -
      &         (104.D0/11.D0)*atemp(12)
