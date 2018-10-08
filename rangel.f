@@ -42,12 +42,12 @@ C index, knowing that we are always using steps of 0.03.
             ELSEIF ( i.EQ.3 .OR. i.EQ.8 ) THEN ! E3 or M2
                w = acl/3.D0 + LOG(5.D0)/3.D0 ! = 0.536
             ELSEIF ( i.EQ.4 ) THEN ! E4
-               w = acl/4.D0 + LOG(17.5D0)/4.D0! = 0.716
+               w = acl/4.D0 + LOG(17.5D0)/4.D0 ! = 0.716
             ELSEIF ( i.EQ.5 ) THEN ! E5
                w = acl/5.D0 + LOG(63.D0)/5.D0 ! = 0.829
             ELSEIF ( i.EQ.6 ) THEN ! E6
                w = acl/6.D0 + LOG(231.D0)/6.D0 ! = 0.907
-            ELSE
+            ELSE ! E1
                w = acl + LOG(0.5) ! = -0.693
             ENDIF
             w = w/.03D0        ! We step in steps of \Delta\omega = 0.03
