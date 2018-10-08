@@ -80,7 +80,7 @@ C e.g. YLM1(5,3) = YLM(2,3)
      &            *(((429.D0*ctsq-693.D0)*ctsq+315.D0)*ctsq-35.D0)*ct
       Ylmr(9,9) = 3.D0*SQRT(24310.D0)/256.D0
       Ylmr(9,8) = -(3.D0*SQRT(24310.D0)/64.D0)*ct
-      Ylmr(9,7) = (SQRT(7293.D0)/64.D0)*(15.*ctsq-1.D0)
+      Ylmr(9,7) = (SQRT(7293.D0)/64.D0)*(15.D0*ctsq-1.D0)
       Ylmr(9,6) = -(3.D0*SQRT(34034.D0)/64.D0)*(5.D0*ctsq-1.D0)*ct
       Ylmr(9,5) = (3.D0*SQRT(2618.D0)/128.D0)*((65.D0*ctsq-26.D0)*
      &            ctsq+1.D0)
