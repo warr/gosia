@@ -22,8 +22,8 @@ C arctan(x / sqrt(1 - x^2).
       
       test = ABS(X) - 1.
       IF ( ABS(test).LT.1.D-9 ) THEN
-        TASIN = pi/2.D0
-        IF ( X.LT.0. ) TASIN = -pi/2.D0
+         TASIN = pi/2.D0
+         IF ( X.LT.0. ) TASIN = -pi/2.D0
          GOTO 99999
       ENDIF
       dol = SQRT(1.D0-X*X)
