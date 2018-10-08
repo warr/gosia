@@ -25,8 +25,8 @@ C when OP,RAND is called. The parameter to OP,RAND is the seed here.
       i = INT(u) + 1
       t = Se/(10.D0**i)
       r = SQRT(SQRT(SQRT(t)))
-      p = SQRT(SQRT(SQRT(.1)))
-      rxdm = (r-p)/(1.-p)
+      p = SQRT(SQRT(SQRT(.1D0)))
+      rxdm = (r-p)/(1.D0-p)
       rxdm = 10.D0*rxdm
       ai = DBLE(INT(rxdm))
       RNDM = rxdm - ai
