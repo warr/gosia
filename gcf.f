@@ -92,5 +92,5 @@ C evaluate Q_k = J_k0/J_00
       DO i = 1 , 8
          Q(i+1) = Q(i+1)/Q(1)
       ENDDO
-      Q(1) = Q(1)/2.
+      Q(1) = Q(1)/2.D0
       END
