@@ -290,15 +290,15 @@ C     MeV
       DATA (tau2(k,2),k=1,10)/1.014D0, .7443D0, .5195D0, .4261D0,
      &      .3362D0, .2967D0, .2518D0, .2038D0, .1479D0, .1204D0/
       DATA (tau2(k,3),k=1,10)/15.167D0, 9.405D0, 4.652D0, 2.889D0,
-     &        1.525D0,1.135D0, .8643D0, .6592D0, .4703D0, .3830D0/
+     &      1.525D0, 1.135D0, .8643D0, .6592D0, .4703D0, .3830D0/
       DATA (tau2(k,4),k=1,10)/23.184D0, 14.182D0, 6.777D0, 4.059D0,
-     &        1.970D0, 1.384D0, .9936D0, .7473D0, .5274D0, .4297D0/
+     &      1.970D0, 1.384D0, .9936D0, .7473D0, .5274D0, .4297D0/
       DATA (tau2(k,5),k=1,10)/84.351D0, 51.445D0, 23.822D0, 13.070D0,
-     &          4.774D0, 2.605D0, 1.339D0, .7925D0, .5005D0, .4032D0/
+     &      4.774D0, 2.605D0, 1.339D0, .7925D0, .5005D0, .4032D0/
       DATA (tau2(k,6),k=1,10)/93.364D0, 58.559D0, 125.96D0, 70.713D0,
-     &        25.302D0, 12.541D0, 5.193D0, 2.215D0, 1.077D0, .8176D0/
+     &      25.302D0, 12.541D0, 5.193D0, 2.215D0, 1.077D0, .8176D0/
       DATA (tau2(k,7),k=1,10)/89.809D0, 56.338D0, 27.009D0, 62.966D0,
-     &        22.933D0, 11.334D0, 4.540D0, 1.813D0, .8020D0, .5900D0/
+     &      22.933D0, 11.334D0, 4.540D0, 1.813D0, .8020D0, .5900D0/
       DATA q1/0./,q2/0./,iph/0/
       DATA cnst/0./,sh1/0./,irfix/0/,jfre/0/ ! Only gosia1 and pawel
 
@@ -772,7 +772,7 @@ C     Handle OP,ERRO
      &                          be2a - be2 , be2b - be2
             ELSE
                ispb = INT(SPIN(ispa))*2
-C was 3.170662D0 = sqrt(16 pi / 5)
+C 3.170662D0 = sqrt(16 pi / 5)
                qfac = SQRT(16.D0*pi/5.D0)*
      &                WTHREJ(ispb,4,ispb,-ispb,0,ispb)
                WRITE (22,99052) kh2 , LEAD(2,kh2) , LEAD(1,kh2) , 
@@ -805,7 +805,7 @@ C was 3.170662D0 = sqrt(16 pi / 5)
             DO ij = 1 , 2 ! Lower and upper
                sh = DEVU(kh)
                IF ( ij.EQ.1 ) sh = DEVD(kh)
-               IF ( ABS(sh).LT.1.D-6 ) sh = (-1)**ij*ABS(HLM(kh))/10.
+               IF ( ABS(sh).LT.1.D-6 ) sh = (-1)**ij*ABS(HLM(kh))/10.D0
                ELM(kh) = HLM(kh) + 1.5D0*sh
                mm = 0
                DO kh1 = 1 , MEMAX ! For each matrix element
@@ -1479,10 +1479,10 @@ C OP,POIN
                      IF ( IFMO.NE.0 ) THEN
                         id = ITMA(IEXP,jgl) ! Get identity of detector
                         d = ODL(id) ! Get results of OP,GDET for that detector
-                        rx = d*SIN(gth)*COS(figl-fm) - .25D0*SIN(ttttt)
-     &                       *COS(fm)
-                        ry = d*SIN(gth)*SIN(figl-fm) - .25D0*SIN(ttttt)
-     &                       *SIN(fm)
+                        rx = d*SIN(gth)*COS(figl-fm) -
+     &                       .25D0*SIN(ttttt)*COS(fm)
+                        ry = d*SIN(gth)*SIN(figl-fm) -
+     &                       .25D0*SIN(ttttt)*SIN(fm)
                         rz = d*COS(gth) - .25D0*COS(ttttt)
                         rl = SQRT(rx*rx+ry*ry+rz*rz)
                         thc = TACOS(rz/rl)
@@ -1556,7 +1556,8 @@ C---- this bit removed in gosia2 end
      &                             = CORF(jmm,3)/20.D0
                               IF ( YGN(jyi).LT.YGN(IDRN) ) CORF(jmm,4)
      &                             = CORF(jmm,3)
-     &                             *(.05D0+.2D0*(1.-YGN(jyi)/YGN(IDRN)))
+     &                               *(.05D0+.2D0*(1.D0-YGN(jyi)/
+     &                               YGN(IDRN)))
                            ENDIF
                         ENDIF
                         IF ( op2.EQ.'CORR' ) THEN
@@ -1811,7 +1812,7 @@ C 8.163265D-4 = 1 / 1225
                            CALL SETIN
                            CALL STING(1)
                            IF ( kk.GT.2 ) THEN
-                             ARM(1,5) = (.9999999D0,0.)
+                              ARM(1,5) = (.9999999D0,0.)
                               ARM(2,5) = (1.2D-6,0.)
                               ARM(1,6) = (.9999998D0,0.)
                               ARM(2,6) = (.9D-6,0.)
