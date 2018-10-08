@@ -9,6 +9,7 @@
 * Trap invalid known matrix elements
 * Move OP,THEO code into a separate function
 * Move OP,INTG and OP,INTI into a separate function
+* Replace REAL*4 constants with REAL*8 ones
 
 20110524
 * Adam Hayes's modifications for Rachel
