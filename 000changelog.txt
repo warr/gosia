@@ -10,6 +10,7 @@
 * Move OP,THEO code into a separate function
 * Move OP,INTG and OP,INTI into a separate function
 * Replace REAL*4 constants with REAL*8 ones
+* Add E0 parameter to Leuven efficiency
 
 20110524
 * Adam Hayes's modifications for Rachel
