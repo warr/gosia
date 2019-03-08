@@ -8,6 +8,7 @@
 ° Allow larger dimensions for interpolation in EFFIX and CONV.
 ° Remove the GOTO statements which go to the ENDDO of a loop by adding a
   CONTINUE statement.
+° Add E0 parameter to Leuven efficiency
 
 20080519
 ° Add spline support (Pawel J. Napiorkowski)
