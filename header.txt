@@ -6,7 +6,7 @@ c     All other output and calculations are identical to 20081208.10
 c
 C                            GOSIA 20180201 (64-bit)
 C
-C                            8 October 2018 Update
+C                            9 March 2019 Update
 C
 C       http://www.pas.rochester.edu/~cline/Gosia/index.html
 C
