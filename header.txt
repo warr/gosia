@@ -1,6 +1,6 @@
 C                            GOSIA 20080630 (64-bit)
 C
-C                            5 October 2018 Update
+C                            7 March 2019 Update
 C
 C       http://www.pas.rochester.edu/~cline/Gosia/index.html
 C
@@ -72,6 +72,8 @@ C          with 32-bit precision is discouraged.
 C
 C       CHRONOLOGY OF MAJOR CHANGES:
 C
+C          (7 March 2019, N. Warr) gosia-20080630.12
+C            - Add E0 parameter to Leuven efficiency
 C          (5 October 2018, N. Warr) gosia-20080630.11
 C            - Increase default INT parameter in CONT option to 1000.
 C          (5 February 2018, N. Warr) gosia-20080630.10
