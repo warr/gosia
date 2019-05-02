@@ -104,6 +104,7 @@ C     Initialise some parameters
       LFL1 = 0
       ncall = 0
       ITAK2 = 0
+      chil = 1.D38
 
 C     Handle the different modes
 C     Imode = IJKL, where
