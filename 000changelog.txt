@@ -3,6 +3,7 @@
 * Allow different efficiency parameters for different experiments
 * Increase default INT parameter in CONT option from 1 to 1000
 * Add E0 parameter to Leuven efficiency
+* Allow asymmetric errors in OP,YIEL (Pawel J. Napiorkowski)
 
 20081208
 * New option OP,INTI which works like OP,INTG but the theta values for the
