@@ -9,8 +9,13 @@
 * Trap invalid known matrix elements
 * Move OP,THEO code into a separate function
 * Move OP,INTG and OP,INTI into a separate function
-* Replace REAL*4 constants with REAL*8 ones
 * Add E0 parameter to Leuven efficiency
+* Replace REAL*4 constants with REAL*8 ones
+* Replace many constants with more accurate ones
+* Replaced Si absorption coefficients with C ones in order to agree
+  with manual, which has always said C.
+* Correct prefactor for E2/M1 mixing ratio (was 0.8326, now 0.8347)
+* Correct order of magnitude for finite-recoil correction
 
 20110524
 * Adam Hayes's modifications for Rachel
