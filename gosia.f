@@ -976,7 +976,7 @@ C              Treat OP,INTG
                                          ixm = KSEQ(ixl,3)
                                          tfac = TAU(ixm)
                                          YGN(ixl) = YGN(ixl)
-     &                                      + .01199182*tfac*BETAR(IEXP)
+     &                                     + .11991698*tfac*BETAR(IEXP)
      &                                      *(sf*YGP(ixl)-YGN(ixl))
                                        ENDDO ! Loop on decays
                                     ENDIF ! If correction due to recoil
@@ -1466,7 +1466,7 @@ C              Treat OP,INTI
                                          ixm = KSEQ(ixl,3)
                                          tfac = TAU(ixm)
                                          YGN(ixl) = YGN(ixl)
-     &                                      + .01199182*tfac*BETAR(IEXP)
+     &                                     + .11991698*tfac*BETAR(IEXP)
      &                                      *(sf*YGP(ixl)-YGN(ixl))
                                        ENDDO ! Loop on decays
                                     ENDIF ! If correction due to recoil
@@ -2514,7 +2514,7 @@ C     Handle OP,ERRO
                            ixm = KSEQ(ixl,3)
                            tfac = TAU(ixm)
                            YGN(ixl) = YGN(ixl)
-     &                                + .01199182*tfac*BETAR(IEXP)
+     &                       + .11991698*tfac*BETAR(IEXP)
      &                                *(sf*YGP(ixl)-YGN(ixl))
                         ENDDO
                      ENDIF
