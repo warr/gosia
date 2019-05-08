@@ -7,6 +7,8 @@
 * Fix order of magnitude of finite-recoil correction
 * Use correct coefficient (0.8347 not 0.8326) for calculating mixing
   ratio
+* Use NIST absorption coefficients and really use C (as documented in
+  manual) not Si
 
 20081208
 * New option OP,INTI which works like OP,INTG but the theta values for the
