@@ -17,6 +17,7 @@
 * Correct prefactor for E2/M1 mixing ratio (was 0.8326, now 0.8347)
 * Correct order of magnitude for finite-recoil correction
 * Use Lehmer random-number generator for OP,RAND
+* Turn off finite-recoil correction if tau*beta>25 (about .75 cm)
 
 20110524
 * Adam Hayes's modifications for Rachel

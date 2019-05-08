@@ -79,6 +79,7 @@ C            - Use latest NIST absorption coefficients (really C not Si)
 C            - Use correct coefficient for calculating mixing ratios
 C            - Correct order of magnitude of finite-recoil distance correction
 C            - Use Lehmer random-number generator for OP,RAND
+C            - Turn off finite-recoil correction if tau*beta>25 (about .75 cm)
 C          (7 March 2019, N. Warr) gosia-20180201.3
 C            - Add E0 parameter to Leuven efficiency
 C          (8 October 2018, N. Warr) gosia-20180201.2
