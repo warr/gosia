@@ -1,6 +1,6 @@
 C                            GOSIA 20180201 (64-bit)
 C
-C                            7 May 2019 Update
+C                            8 May 2019 Update
 C
 C       http://www.pas.rochester.edu/~cline/Gosia/index.html
 C
@@ -72,12 +72,13 @@ C          with 32-bit precision is discouraged.
 C
 C       CHRONOLOGY OF MAJOR CHANGES:
 C
-C          (7 May 2019 N. Warr) gosia-20180201.4
+C          (8 May 2019 N. Warr) gosia-20180201.4
 C            - Fix error in M2 introduced in gosia-20180201.2
 C            - Fix bug in LCK in OP,MINI
 C            - Use latest NIST absorption coefficients (really C not Si)
 C            - Use correct coefficient for calculating mixing ratios
 C            - Correct order of magnitude of finite-recoil distance correction
+C            - Use Lehmer random-number generator for OP,RAND
 C          (7 March 2019, N. Warr) gosia-20180201.3
 C            - Add E0 parameter to Leuven efficiency
 C          (8 October 2018, N. Warr) gosia-20180201.2
