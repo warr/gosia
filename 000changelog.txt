@@ -10,6 +10,7 @@
 * Use NIST absorption coefficients and really use C (as documented in
   manual) not Si
 * Use Lehmer random-number generator for OP,RAND
+* Turn off finite-recoil correction if tau*beta>25 (about .75 cm)
 
 20081208
 * New option OP,INTI which works like OP,INTG but the theta values for the
