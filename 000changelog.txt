@@ -4,6 +4,9 @@
 * Increase default INT parameter in CONT option from 1 to 1000
 * Add E0 parameter to Leuven efficiency
 * Allow asymmetric errors in OP,YIEL (Pawel J. Napiorkowski)
+* Fix order of magnitude of finite-recoil correction
+* Use correct coefficient (0.8347 not 0.8326) for calculating mixing
+  ratio
 
 20081208
 * New option OP,INTI which works like OP,INTG but the theta values for the
