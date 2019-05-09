@@ -1,4 +1,4 @@
- 
+
 C----------------------------------------------------------------------
 C SUBROUTINE SPITQ
 C
@@ -22,7 +22,7 @@ C      Mult   - multipolarity
       INCLUDE 'mgn.inc'
       INTEGER*4 mimmex
       INTEGER*4 Ixpt , Mult
-      INTEGER*4 ibm , icm , icnt , idm , irl  , k , lloc , 
+      INTEGER*4 ibm , icm , icnt , idm , irl  , k , lloc ,
      &           nind , nlm
       DIMENSION lloc(8) , irl(8)
       REAL*8 collfunc , w0
@@ -30,7 +30,7 @@ C      Mult   - multipolarity
 c     Passed in the experiment number (Ixpt) and the multipolarity (Mult).
 c     I am doing only for electric for now.
 c     This routine is to read the electric collision functions from the ZETA array and print
-c     them to the standard output file (23)  
+c     them to the standard output file (23)
 
 C     Borrowed this line from subroutine below.
       w0 = IRA(MAXLA) * .03D0 + .03D0 ! Maximum omega to calculate for (steps of 0.03)
@@ -55,7 +55,7 @@ c     Are these the collision functions?
 c     WRITE(99,71772) mimmex
 
 C     With QRANGE I think I am checking that icnt is still in range to index the QE values
-c     for this multipolarity and experiment.  There must be only one epsilon 
+c     for this multipolarity and experiment.  There must be only one epsilon
 c     value per experiment.
       CALL QRANGE(icnt , nlm , lloc , ibm , icm , idm , irl)
 c     WRITE(99,71772) mimmex
@@ -72,6 +72,6 @@ c     test to here
       ENDDO
       WRITE(99,71872)
 71872 FORMAT('')
-      GOTO 100 
+      GOTO 100
 
       END
