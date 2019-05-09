@@ -465,7 +465,7 @@ C c/s = 0.11991698 /ps, where s = 0.25 cm, c = speed of light in cm/ps
                      decen = ENDEC(l)
                      cocos = SIN(tetrc)*SIN(gth)*COS(fm-figl)
      &                       + COS(tetrc)*COS(gth)
-                     decen = decen*(1.+BETAR(IEXP)*cocos)
+                     decen = decen*(1.D0+BETAR(IEXP)*cocos)
                      CALL EFFIX(IEXP,ipd,decen,effi)
                      YGN(l) = YGN(l)*effi
                   ENDDO
