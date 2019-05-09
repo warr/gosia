@@ -1,4 +1,4 @@
- 
+
 C----------------------------------------------------------------------
 C SUBROUTINE INTG
 C
@@ -66,11 +66,11 @@ C The function RESET is called to advance n by one. i.e. f(n-3) is set to the
 C old value of f(n-2), f(n-2) to the old value of f(n-1) and f(n-1) to the old
 C value of f(n).
 
- 
+
       SUBROUTINE INTG(Ien)
       IMPLICIT NONE
       REAL*8 f , rim , rl , srt
-      INTEGER*4 i , i57 , Ien , ihold , intend , ir , ir1 , k , kast , 
+      INTEGER*4 i , i57 , Ien , ihold , intend , ir , ir1 , k , kast ,
      &          mir , n
       COMPLEX*16 hold
       INCLUDE 'coex.inc'
@@ -85,7 +85,7 @@ C value of f(n).
       INCLUDE 'cexc0.inc'
       INCLUDE 'pth.inc'
       INCLUDE 'cexc9.inc'
-      
+
       real*8 adamtemp,TCABS                  ! Rachel modification
 c      logical diderrcheck                    ! Rachel modification
       integer*4 MEM                          ! Rachel modification
@@ -98,11 +98,11 @@ c-------ADDITIONAL OUTPUT TO BE USED BY RACHEL.PY. MAR. 16 2011------------
       IF (IPRM(9).LT.0) CALL SPITQ(Ien,ABS(IPRM(9)))
       IF (IPRM(9).eq.11) THEN                ! If option was to print exc. amp. of substates
 c     Write a blank line to mark the start of the experiment.
-        WRITE(99,14617) 
+        WRITE(99,14617)
 14617   FORMAT("   ")
       END IF
 c-------END OF ADDITIONAL RACHEL OUTPUT.-----------------------------------
-      
+
       intend = INTERV(Ien) ! Default accuracy set by INT option of OP,CONT
       D2W = .03D0 ! We use steps of 0.03 in omega
       NSW = 1
@@ -114,7 +114,7 @@ c-------END OF ADDITIONAL RACHEL OUTPUT.-----------------------------------
          LAMR(i) = 0
          IF ( (NPT+NSW).LT.IRA(i) ) LAMR(i) = 1
       ENDDO
-C     Predictor 
+C     Predictor
       IF ( ISO.EQ.0 ) THEN
          DO n = 1 , NMAX ! For each level
             ir = NSTART(n) - 1 ! First substate - 1
@@ -151,7 +151,7 @@ C     Predictor
 
 C     Calculate derivatives of amplitudes
       CALL AMPDER(i57)
-      
+
 C     Corrector
       IF ( ISO.EQ.0 ) THEN
          DO n = 1 , NMAX ! For each level
@@ -222,7 +222,7 @@ C
                   ENDIF
                ENDIF
             ENDIF
-             
+
          ENDIF ! if kast>=intend
       ENDIF
 
@@ -232,8 +232,8 @@ c     I am trying to output the probabilities and amplitudes at each step
       if(IPRM(9).eq.11) then                ! If option was to print exc. amp. of substates
         write(99,14619) NPT,D2W
 14619   format(2X,I4,2x,f5.3,$)
-c       if(diderrcheck) then 
-c         write(99,14621) sqrt(f)/14.              ! print out the error term 
+c       if(diderrcheck) then
+c         write(99,14621) sqrt(f)/14.              ! print out the error term
 c14621     format(2x,E11.4,$)
 c       else
 c         write(99,14622)                    !  if no error (f) term calc'd
@@ -247,7 +247,7 @@ c       so I select it by lambda = IPRM(9)
         write(99,14699)DBLE(EXPO(indx)),DIMAG(EXPO(indx))
 14699   format(2x,'2',2x,D11.4,2x,D11.4,$)
         write(99,14623)    ! close the line
-      else if(IPRM(9).eq.11) then                 ! if option was to print excitation amplitudes of substates  
+      else if(IPRM(9).eq.11) then                 ! if option was to print excitation amplitudes of substates
         do ir = 1, ismax
           adamtemp = TCABS(ARM(ir,i57))**2    ! probability(step)
           write(99,14618)ir,DBLE(ARM(ir,i57)),DIMAG(ARM(ir,i57)),
