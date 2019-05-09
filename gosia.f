@@ -2511,7 +2511,7 @@ C     Handle OP,ERRO
                              WRITE(22,99056) IEXP,KSEQ(ixl,3),tfac
                              IFMO = 0
                            ELSE
-                             YGN(ixl) = YGN(ixl)+ .11991698*tfac*
+                             YGN(ixl) = YGN(ixl) + .11991698*tfac*
      &                         BETAR(IEXP)*(sf*YGP(ixl)-YGN(ixl))
                            ENDIF
                         ENDDO
