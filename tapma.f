@@ -1,4 +1,4 @@
- 
+
 C----------------------------------------------------------------------
 C SUBROUTINE TAPMA
 C
@@ -25,11 +25,11 @@ C      Enb    -
 C
 C Note that unit 14 is used internally for the purpose of sensitivity
 C maps.
- 
+
       SUBROUTINE TAPMA(Lx,Iske,Isko,Iskf,Nflr,Idr,Nco,Nft,Enb)
       IMPLICIT NONE
       REAL*8 emn , emx , en0 , Enb , tmn , tmx , tta
-      INTEGER*4 Idr , Iske , Iskf , Isko , j , jf , jj , js , k , 
+      INTEGER*4 Idr , Iske , Iskf , Isko , j , jf , jj , js , k ,
      &          Lx , lx1 , na , Nco , ne , nfil , nfilt , Nflr , Nft
       INTEGER*4 ng , ng1 , ntt
       INCLUDE 'vlin.inc'
@@ -53,7 +53,7 @@ C maps.
 
       IF ( Nco.EQ.0 ) RETURN
 
-      READ (14,*) ne , ntt , emn , emx , tmn , tmx , na , tmx , tmx , 
+      READ (14,*) ne , ntt , emn , emx , tmn , tmx , na , tmx , tmx ,
      &            tmx
       IF ( Isko.NE.0 ) THEN
          DO j = 1 , Isko
