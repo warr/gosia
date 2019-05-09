@@ -441,7 +441,6 @@ C              Correct for finite recoil
                   DO ixl = 1 , Idr
                      ixm = KSEQ(ixl,3) ! Initial level of ixl'th decay
                      tfac = TAU(ixm)
-                     IF ( tfac.GT.1.E+4 ) GOTO 25
                      IF ( tfac*BETAR(IEXP).GT.25.D0 ) THEN
                        WRITE(22,99011) IEXP,KSEQ(ixl,3),tfac
                        IFMO = 0
@@ -450,8 +449,6 @@ C              Correct for finite recoil
      &                   BETAR(IEXP)*(sf*YGP(ixl)-YGN(ixl))
                      ENDIF
                   ENDDO
- 25               IFMO = 0
-                  WRITE (22,99011)
                ENDIF ! if correction for finite recoil
 
                IF ( IRAWEX(IEXP).NE.0 ) THEN
