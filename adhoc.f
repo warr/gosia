@@ -206,7 +206,7 @@ C     Read branching ratios
 99002    FORMAT (40X,'BRANCHING RATIOS',//5X,'NS1',5X,'NF1',5X,'NS2',5X,
      &           'NF2',5X,'RATIO(1:2)',9X,'ERROR')
          DO lb = 1 , NBRA ! I1,I2,I3,I4,B,DB repeated NBRA times
-            READ(JZB,'(A)') line
+            READ (JZB,'(A)') line
             READ (line,*,END=203,ERR=203) ns1 , ns2 , ns3 , ns4 ,
      &        BRAT(lb,1) , BRAT(lb,2) , BRAT(lb,3)
             GOTO 303
