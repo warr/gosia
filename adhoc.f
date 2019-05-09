@@ -295,8 +295,7 @@ C     Read known mixing ratios
             READ (line,*,END=202,ERR=202) ns1 , ns2 , DMIXE(li,1) ,
      &        DMIXE(li,2) , DMIXE(li,3)
             GOTO 302
-  202       READ (line,*) ns1 , ns2 , DMIXE(li,1) ,
-     &        DMIXE(li,2)
+  202       READ (line,*) ns1 , ns2 , DMIXE(li,1) , DMIXE(li,2)
             DMIXE(li,3) = DMIXE(li,2)
   302       DMIXE(li,2) = DMIXE(li,2)/(SQRT(wdl)+1.D-10)
             DMIXE(li,3) = DMIXE(li,3)/(SQRT(wdl)+1.D-10)
