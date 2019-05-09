@@ -61,7 +61,7 @@ C      Chilo  - chi squared using logs
      &        'EXP.DELTA',10X,'CALC.DELTA',10X,'SIGMA'/)
 
       DO i = 1 , NDL ! For each mixing ratio
-         dl = (DMIX(i)-DMIXE(i,1))
+         dl = DMIX(i)-DMIXE(i,1)
          IF ( dl.LT.0 ) THEN
            dl=dl/DMIXE(i,2) ! Relative error
          ELSE
