@@ -40,7 +40,7 @@ C      Tzz    - upper limit of theta (degrees) - read/write
       INCLUDE 'kin.inc'
       INCLUDE 'cx.inc'
       INCLUDE 'seck.inc'
-      DATA rade/57.2957795/ ! 180 / pi
+      DATA rade/57.2957795D0/ ! 180 / pi
       DATA ws/0./
 
       IF ( Ifw.EQ.0 ) THEN ! For meshpoints
@@ -60,7 +60,7 @@ C     pre-calculate trigonometric functions
       zb = COS(xthh)
 
       rmass = XA1(Lz)/XA ! Mass ratio for this experiment
-      IF ( IZ1(Lz).LT.0 ) rmass = 1./rmass
+      IF ( IZ1(Lz).LT.0 ) rmass = 1.D0/rmass
 
 C     Calculate size of each division (ws)
       IF ( Ifw.NE.2 ) THEN ! Unless we are using the pin diode option
@@ -88,11 +88,11 @@ C     Calculate size of each division (ws)
             ENDIF
             IF ( ISKIN(Lz).EQ.0 ) THEN ! ISKIN = 0 means take lower CM angle
                ttcm = xaa - TASIN(rmass*SIN(xaa))
-               xaa = ABS(ttcm)/2.
+               xaa = ABS(ttcm)/2.D0
                GOTO 50
             ENDIF
  20         ttcm = xaa + TASIN(rmass*SIN(xaa)) ! Take higher CM angle
-            xaa = (3.14159265-ttcm)/2.
+            xaa = (3.14159265D0-ttcm)/2.D0
          ENDIF ! End of pin diode option
 
  50      gi = (za-COS(xaa)/zb)/(zl*za1)
@@ -117,10 +117,10 @@ C     we use the target angle
          DO i = 1 , Naa ! For each theta division
             xaa = YV(i)/rade ! theta in radians
             thetb = ATAN(SIN(2.*xaa)/(rmass-COS(2.*xaa)))*rade
-            IF ( thetb.LT.0. ) thetb = 180. + thetb
+            IF ( thetb.LT.0. ) thetb = 180.D0 + thetb
             YV(i) = -1.*thetb
-            Wpi(i,1) = Wpi(i,1) + 180.
-            Wpi(i,2) = Wpi(i,2) + 180.
+            Wpi(i,1) = Wpi(i,1) + 180.D0
+            Wpi(i,2) = Wpi(i,2) + 180.D0
          ENDDO
       ENDIF
       END

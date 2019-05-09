@@ -35,5 +35,5 @@ C      arccosine(A) within range of F
          ENDDO
       ENDIF
  100  ARCCOS = qa
-      IF ( (qa-F).GT.Pi/2. ) ARCCOS = qap
+      IF ( (qa-F).GT.Pi/2.D0 ) ARCCOS = qap
       END

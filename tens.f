@@ -29,7 +29,7 @@ C      Bten   -
       INCLUDE 'coex2.inc'
 
       ix = NMAX*28
-      arg = 1.570796327 + TETACM(IEXP)/2.
+      arg = 1.570796327D0 + TETACM(IEXP)/2.D0
       DO i = 1 , ix
          ZETA(i) = 0.
       ENDDO
@@ -37,7 +37,7 @@ C      Bten   -
       DO i = 2 , NMAX ! For each level except ground state
          DO kp = 1 , 7 , 2
             k = kp - 1
-            k1 = INT(DBLE(k)/2.+.01)
+            k1 = INT(DBLE(k)/2.D0+.01D0)
             IF ( k.EQ.0 ) THEN
                ind = (i-2)*16 + 1
                inz = (i-1)*28 + 1
@@ -51,7 +51,7 @@ C      Bten   -
                         ind = k*k/4 + lpp + (i-2)*16
                         lx = lpp - 1
                         lxx = lx
- 2                      iph = (-1)**(l+INT(DBLE(lxx)/2.))
+ 2                      iph = (-1)**(l+INT(DBLE(lxx)/2.D0))
                         ZETA(inz) = ZETA(inz) + Bten(ind)
      &                              *iph*DJMM(arg,k,lx,l)
                         IF ( lpp.NE.1 ) THEN

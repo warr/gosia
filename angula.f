@@ -108,7 +108,7 @@ C      Op2    - The part after the OP, for the option we are processing
             fi01 = Fi0 - Figl ! Get lower phi limit
             fi11 = Fi1 - Figl ! Get upper phi limit
             CALL FIINT1(fi01,fi11,alab,ixs) ! Integrate over phi in lab frame
-            Ygn(l) = alab(1,1)*.0795774715 ! 0.0795774715 = 1 / (4 pi)
+            Ygn(l) = alab(1,1)*.0795774715D0 ! 0.0795774715 = 1 / (4 pi)
             DO j = 2 , 9
                sm = ylmr(j,1)*alab(j,1)
                IF ( IAXS(IEXP).NE.0 ) THEN
@@ -128,7 +128,7 @@ C      Op2    - The part after the OP, for the option we are processing
             fi11 = Fi1 - Figl ! Get upper phi limit
             CALL FIINT(fi01,fi11,at,ixs) ! Integrate over phi in recoiling nucleus frame, result in at
             IF ( l.EQ.1 ) CALL YLM(Gth,ylmr)
-            Ygn(l) = at(1)*.0795774715 ! 0.0795774715 = 1 / (4 pi)
+            Ygn(l) = at(1)*.0795774715D0 ! 0.0795774715 = 1 / (4 pi)
             DO jj = 1 , 3
                ji = jj*7 + 1
                sm = ylmr(jj,1)*at(ji)

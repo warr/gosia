@@ -31,7 +31,7 @@ C      Ixs    - axial symmetry flag
          ENDDO
          wsp = Fi1 - Fi0
       ENDIF
-      IF ( Ixs.EQ.0 ) wsp = 6.283185308 ! 6.283185308 = 2 * pi
+      IF ( Ixs.EQ.0 ) wsp = 6.283185308D0 ! 6.283185308 = 2 * pi
       DO j = 1 , 4
          js = (j-1)*7 + 1
          At(js) = At(js)*wsp

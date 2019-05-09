@@ -364,10 +364,10 @@ C     Initialize normalization to 1.
       IUNIT3 = 3 ! Is 33 in gosia2
       IBYP = 0
       INHB = 0
-      BEQ = -983872.
+      BEQ = -983872.D0
       ipinf = 0
       iyr = 0
-      pi = 3.141592654
+      pi = 3.141592654D0
       INNR = 0
       itno = 0
       chisq = 0.
@@ -388,20 +388,20 @@ C     Initialize normalization to 1.
          iecd(i) = 0
       ENDDO
       txx = 0.
-      SGW = 3.
+      SGW = 3.D0
       SUBCH1 = 0.
       SUBCH2 = 0.
       ITS = 0 ! Create tape 18 flag
       iosr = 0
       LOCKS = 0
-      DLOCK = 1.1
+      DLOCK = 1.1D0
       kerf = 0
       IFBFL = 0
       NLOCK = 0
       LOCKF = 0
       DO i = 1 , LP4 ! LP4 = 1500
          DO j = 1 , LP6 ! LP6 = 32 (maximum number of gamma detectors)
-            CORF(i,j) = 1.
+            CORF(i,j) = 1.D0
          ENDDO
       ENDDO
       DO i = 1 , 20
@@ -449,7 +449,7 @@ C     Initialize normalization to 1.
       KFERR = 0
       NDIM = LP3 ! LP3 = 100 (maximum number of levels)
       ISO = 1
-      B(1) = 1.
+      B(1) = 1.D0
       DO i = 2 , 20
          B(i) = B(i-1)*(i-1)
       ENDDO
@@ -463,11 +463,11 @@ C     Initialize normalization to 1.
       la = 0
       ipo3 = 1
       indx = 0
-      ACCUR = .00001
+      ACCUR = .00001D0
       icg = 1
       ient = 1
       jphd = 1 ! Print header flag
-      DIPOL = 0.005
+      DIPOL = 0.005D0
       MAGEXC = 0 ! Initially flag that we don't need magnetic excitations
       LAMMAX = 0
       DO lam = 1 , 8
@@ -490,7 +490,7 @@ C     Initialize normalization to 1.
          ISEX(j) = 1111
       ENDDO
       ISEX(1) = 0
-      ACCA = .00001
+      ACCA = .00001D0
       oph = '    '
       nmemx = LP2 + 9 ! LP2 = 1500 (maximum number of matrix elements)
       IEXP = 1
@@ -814,7 +814,7 @@ C              Treat OP,THEO
                         xm3 = bm(lamd,nb1,nb2,3)
                         ELM(kb) = ELMT(xi1,xi2,lamd,nb1,nb2,xk1,xk2,xm1,
      &                            xm2,xm3)
-                        IF ( ABS(ELM(kb)).LT.1E-6 ) ELM(kb) = 1.E-6
+                        IF ( ABS(ELM(kb)).LT.1D-6 ) ELM(kb) = 1.D-6
                         irix = 12
                         WRITE (irix,*) ELM(kb)
                      ENDIF
@@ -929,8 +929,8 @@ C              Treat OP,INTG
                                  ENDDO
                                  todfi = 0.
                                  DO jfi = 1 , nfi ! For each phi angle
-                                    fi0 = fiex1(ktt,jfi,1)/57.2957795
-                                    fi1 = fiex1(ktt,jfi,2)/57.2957795
+                                    fi0 = fiex1(ktt,jfi,1)/57.2957795D0
+                                    fi1 = fiex1(ktt,jfi,2)/57.2957795D0
                                     gth = AGELI(IEXP,ijan,1)
                                     fm = (fi0+fi1)/2.
                                     figl = AGELI(IEXP,ijan,2)
@@ -1100,7 +1100,7 @@ C                    Read tape 17
                            IF ( mfla.EQ.1 ) READ (JZB,*)
      &                          (pfi(j),j=1,npct1)
                         ENDIF
-                        het = het/57.2957795 ! Step in theta in radians
+                        het = het/57.2957795D0 ! Step in theta in radians
                         
 C                       Interpolate stopping power for each of the energies
 C                       that we need. esp is an array of energies and dedx is
@@ -1138,7 +1138,7 @@ C                       Now we calculate for all the mesh points.
                                     YV(jtp) = ZETA(jyv) ! Point yield
                                  ENDDO ! Loop on theta meshpoints jtp
                                  DO jt = 1 , npct1 ! number of equal divisions in theta for interpolation
-                                    xx = (jt-1)*het + tmn/57.2957795
+                                    xx = (jt-1)*het + tmn/57.2957795D0
                                     IF ( ISPL.EQ.0 )
      &                                 CALL LAGRAN(XV,YV,ntt,jt,xx,yy,2,
      &                                 icll) ! interpolate point yield at theta = xx
@@ -1151,10 +1151,10 @@ C                       Now we calculate for all the mesh points.
      &                                 CALL SPLNER(XV,DSG,ntt,xx,zz,
      &                                 2) ! interpolate gamma yield at theta = xx
                                     IF ( mfla.EQ.1 ) yy = yy*pfi(jt)
-     &                                 /57.2957795
-                                    IF ( yy.LE.0. ) yy = 1.E-15
+     &                                 /57.2957795D0
+                                    IF ( yy.LE.0. ) yy = 1.D-15
                                     IF ( mfla.EQ.1 ) zz = zz*pfi(jt)
-     &                                 /57.2957795
+     &                                 /57.2957795D0
                                     XI(jt) = yy*SIN(xx) ! yy = integral of point yields over phi
                                     IF ( jd.EQ.1 .AND. ja.EQ.1 ) HLM(jt)
      &                                 = zz*SIN(xx) ! zz = integral over phi of Rutherford cross section
@@ -1251,15 +1251,15 @@ C   equally spaced energies, which we integrate in the same way.
                            IF ( jpin(lx).EQ.0 ) THEN
                               CALL COORD(wth,wph,wthh,1,2,pfi,wpi,
      &                           TLBDG(lx),lx,txx,txx)
-                              WRITE (22,99020) FIEX(lx,1)*57.2957795 , 
-     &                               FIEX(lx,2)*57.2957795 , lx
+                              WRITE (22,99020) FIEX(lx,1)*57.2957795D0 ,
+     &                               FIEX(lx,2)*57.2957795D0 , lx
 99020                         FORMAT (//5X,
      &                          'WARNING: THE PHI ANGLE WAS REPLACED BY'
      &                          ,1X,F8.3,1X,'TO',F8.3,3X,
      &                          'FOR EXPERIMENT',2X,I3)
                               IF ( TLBDG(lx).LT.0 ) THEN
-                                 FIEX(lx,1) = FIEX(lx,1) + 3.14159265
-                                 FIEX(lx,2) = FIEX(lx,2) + 3.14159265
+                                 FIEX(lx,1) = FIEX(lx,1) + 3.14159265D0
+                                 FIEX(lx,2) = FIEX(lx,2) + 3.14159265D0
                               ENDIF ! If theta_lab < 0
                            ENDIF ! If no pin diodes
                         ENDIF ! If circular detector
@@ -1427,8 +1427,8 @@ C              Treat OP,INTI
                                  ENDDO
                                  todfi = 0.
                                  DO jfi = 1 , nfi ! For each phi angle
-                                    fi0 = fiex1(ktt,jfi,1)/57.2957795
-                                    fi1 = fiex1(ktt,jfi,2)/57.2957795
+                                    fi0 = fiex1(ktt,jfi,1)/57.2957795D0
+                                    fi1 = fiex1(ktt,jfi,2)/57.2957795D0
                                     gth = AGELI(IEXP,ijan,1)
                                     fm = (fi0+fi1)/2.
                                     figl = AGELI(IEXP,ijan,2)
@@ -1595,7 +1595,7 @@ C                    Read tape 17
                            IF ( mfla.EQ.1 ) READ (JZB,*)
      &                          (pfi(j),j=1,npct1)
                         ENDIF
-                        het = het/57.2957795 ! Step in theta in radians
+                        het = het/57.2957795D0 ! Step in theta in radians
                         
 C                       Interpolate stopping power for each of the energies
 C                       that we need. esp is an array of energies and dedx is
@@ -1633,7 +1633,7 @@ C                       Now we calculate for all the mesh points.
                                     YV(jtp) = ZETA(jyv) ! Point yield
                                  ENDDO ! Loop on theta meshpoints jtp
                                  DO jt = 1 , npct1 ! number of equal divisions in theta for interpolation
-                                    xx = (jt-1)*het + tmn/57.2957795
+                                    xx = (jt-1)*het + tmn/57.2957795D0
                                     IF ( ISPL.EQ.0 )
      &                                 CALL LAGRAN(XV,YV,ntt,jt,xx,yy,2,
      &                                 icll) ! interpolate point yield at theta = xx
@@ -1646,10 +1646,10 @@ C                       Now we calculate for all the mesh points.
      &                                 CALL SPLNER(XV,DSG,ntt,xx,zz,
      &                                 2) ! interpolate gamma yield at theta = xx
                                     IF ( mfla.EQ.1 ) yy = yy*pfi(jt)
-     &                                 /57.2957795
-                                    IF ( yy.LE.0. ) yy = 1.E-15
+     &                                 /57.2957795D0
+                                    IF ( yy.LE.0. ) yy = 1.D-15
                                     IF ( mfla.EQ.1 ) zz = zz*pfi(jt)
-     &                                 /57.2957795
+     &                                 /57.2957795D0
                                     XI(jt) = yy*SIN(xx) ! yy = integral of point yields over phi
                                     IF ( jd.EQ.1 .AND. ja.EQ.1 ) HLM(jt)
      &                                 = zz*SIN(xx) ! zz = integral over phi of Rutherford cross section
@@ -1735,11 +1735,11 @@ C   equally spaced energies, which we integrate in the same way.
                            IF ( jpin(lx).EQ.0 ) THEN
                               CALL COORD(wth,wph,wthh,1,2,pfi,wpi,
      &                           TLBDG(lx),lx,txx,txx)
-                              WRITE (22,99020) FIEX(lx,1)*57.2957795 , 
-     &                               FIEX(lx,2)*57.2957795 , lx
+                              WRITE (22,99020) FIEX(lx,1)*57.2957795D0 ,
+     &                               FIEX(lx,2)*57.2957795D0 , lx
                               IF ( TLBDG(lx).LT.0 ) THEN
-                                 FIEX(lx,1) = FIEX(lx,1) + 3.14159265
-                                 FIEX(lx,2) = FIEX(lx,2) + 3.14159265
+                                 FIEX(lx,1) = FIEX(lx,1) + 3.14159265D0
+                                 FIEX(lx,2) = FIEX(lx,2) + 3.14159265D0
                               ENDIF ! If theta_lab < 0
                            ENDIF ! If no pin diodes
                         ENDIF ! If circular detector
@@ -1916,7 +1916,7 @@ C     Treat suboption LEVE (levels)
          DO k = 1 , ndima
             READ (JZB,*) ipo1 , ipo2 , po2 , po1 ! level number, parity, spin, energy
             IF ( ipo1.EQ.0 ) GOTO 200
-            IF ( ipo1.EQ.1 .AND. ABS(po2).LT.1.E-6 ) ISO = 0
+            IF ( ipo1.EQ.1 .AND. ABS(po2).LT.1.D-6 ) ISO = 0
             NMAX = NMAX + 1
             SPIN(ipo1) = po2
             IF ( k.EQ.1 ) iph = ipo2
@@ -1980,7 +1980,7 @@ C     Treat suboption ME (matrix elements)
                      ELSE                 ! Otherwise they are limits
                         ELMU(indx) = bu
                         ELML(indx) = bl
-                        IF ( ABS(bl-bu).LT.1.E-6 ) THEN
+                        IF ( ABS(bl-bu).LT.1.D-6 ) THEN
                            IVAR(indx) = 0 ! Fixed
                         ELSE
                            IVAR(indx) = 2
@@ -1994,7 +1994,7 @@ C     Treat suboption ME (matrix elements)
                ENDIF
             ENDIF
             DO kk = 1 , indx
-               IF ( ABS(ELM(kk)).LE.1.E-6 ) ELM(kk) = 1.E-6
+               IF ( ABS(ELM(kk)).LE.1.D-6 ) ELM(kk) = 1.D-6
                IF ( IVAR(kk).GE.10000 ) THEN ! Correlated
                   kk1 = IVAR(kk)/10000
                   kk2 = IVAR(kk) - 10000*kk1
@@ -2138,24 +2138,24 @@ C     Treat suboption CONT (control)
 C     Treat suboption EXPT
       ELSEIF ( op1.EQ.'EXPT' ) THEN
          READ (JZB,*) NEXPT , IZ , XA
-         G(1) = 3.             ! AVJI
-         G(2) = .02            ! GAMMA
-         G(3) = .0345          ! XLAMB
-         G(4) = 3.5            ! TIMEC
+         G(1) = 3.D0           ! AVJI
+         G(2) = .02D0          ! GAMMA
+         G(3) = .0345D0        ! XLAMB
+         G(4) = 3.5D0          ! TIMEC
          G(5) = DBLE(IZ)/XA    ! GFAC
-         G(6) = 6.E-06         ! FIEL
-         G(7) = .6             ! POWER
+         G(6) = 6.D-06         ! FIEL
+         G(7) = .6D0           ! POWER
          DO k = 1 , NEXPT ! Zn, An, E_p, THETA_lab, M_c, M_A, IAX, phi1, phi2, ikin, ln
             READ (JZB,*) IZ1(k) , XA1(k) , EP(k) , TLBDG(k) , EMMA(k) ,
      &           MAGA(k) , IAXS(k) , fi0 , fi1 , ISKIN(k) , LNORM(k)
             ITTE(k) = 0
             IF ( XA1(k).LT.0. ) ITTE(k) = 1
             XA1(k) = ABS(XA1(k))
-            FIEX(k,1) = fi0/57.2957795 ! Convert to radians
-            FIEX(k,2) = fi1/57.2957795
+            FIEX(k,1) = fi0/57.2957795D0 ! Convert to radians
+            FIEX(k,2) = fi1/57.2957795D0
             IF ( TLBDG(k).LT.0. ) THEN
-               FIEX(k,1) = FIEX(k,1) + 3.14159265
-               FIEX(k,2) = FIEX(k,2) + 3.14159265
+               FIEX(k,1) = FIEX(k,1) + 3.14159265D0
+               FIEX(k,2) = FIEX(k,2) + 3.14159265D0
             ENDIF
          ENDDO
 
@@ -2280,7 +2280,7 @@ C     Handle OP,ERRO
                be2b = HLM(kh2) + DEVU(kh2)
                be2c = be2b
                IF ( ABS(be2a).GT.ABS(be2b) ) be2b = be2a
-               IF ( ABS(be2a-be2c).LT.1.E-6 ) be2a = be2c
+               IF ( ABS(be2a-be2c).LT.1.D-6 ) be2a = be2c
                IF ( be2a/HLM(kh2).LE.0. .OR. be2b/HLM(kh2).LE.0. )
      &              be2a = 0.
                be2a = be2a**2/sbe
@@ -2320,8 +2320,8 @@ C     Handle OP,ERRO
             DO ij = 1 , 2 ! Lower and upper
                sh = DEVU(kh)
                IF ( ij.EQ.1 ) sh = DEVD(kh)
-               IF ( ABS(sh).LT.1.E-6 ) sh = (-1)**ij*ABS(HLM(kh))/10.
-               ELM(kh) = HLM(kh) + 1.5*sh
+               IF ( ABS(sh).LT.1.D-6 ) sh = (-1)**ij*ABS(HLM(kh))/10.D0
+               ELM(kh) = HLM(kh) + 1.5D0*sh
                mm = 0
                DO kh1 = 1 , MEMAX ! For each matrix element
                   IF ( ifc.EQ.1 ) KVAR(kh1) = IVAR(kh1)
@@ -2388,7 +2388,7 @@ C     Handle OP,ERRO
       IF ( op2.EQ.'POIN' ) READ (JZB,*) ifwd , slim
       ient = 1
       icg = 1
-      IF ( SPIN(1).LT.1.E-6 ) ISO = 0
+      IF ( SPIN(1).LT.1.D-6 ) ISO = 0
       IF ( iobl.LT.1 ) THEN
          IF ( op2.NE.'GOSI' ) THEN
             iapx = 0
@@ -2550,7 +2550,7 @@ C     Handle OP,ERRO
      &                    TLBDG(IEXP)
                      jmm = 0
 C---- this bit removed in gosia2 start
-                     ttttx = TLBDG(IEXP)/57.2957795
+                     ttttx = TLBDG(IEXP)/57.2957795D0
                      YGN(IDRN) = YGN(IDRN)*dsig*SIN(ttttx)
                      DO jyi = 1 , idr
                         IF ( jyi.NE.IDRN ) YGN(jyi) = YGN(jyi)
@@ -2794,8 +2794,8 @@ C---- this bit removed in gosia2 end
                   CALL PATH(1)
                   sz1 = MIN(zmir(kk,1,IEXP),10.D0)
                   sz2 = zmir(kk,2,IEXP)/50.
-                  acof = 2.4009604E-3/zmir(kk,2,IEXP)
-                  bcof = 8.163265E-4
+                  acof = 2.4009604D-3/zmir(kk,2,IEXP)
+                  bcof = 8.163265D-4
                   DO jd = 1 , jde
                      nksi = 5
                      IF ( jd.EQ.2 ) nksi = 10
@@ -2825,13 +2825,13 @@ C---- this bit removed in gosia2 end
                            CALL SETIN
                            CALL STING(1)
                            IF ( kk.GT.2 ) THEN
-                              ARM(1,5) = (.9999999,0.)
-                              ARM(2,5) = (1.2E-6,0.)
-                              ARM(1,6) = (.9999998,0.)
-                              ARM(2,6) = (.9E-6,0.)
+                              ARM(1,5) = (.9999999D0,0.)
+                              ARM(2,5) = (1.2D-6,0.)
+                              ARM(1,6) = (.9999998D0,0.)
+                              ARM(2,6) = (.9D-6,0.)
                               DO kh = 1 , 4
-                                 ARM(1,kh) = (-1.E-6,0.)
-                                 ARM(2,kh) = (1.E-6,0.)
+                                 ARM(1,kh) = (-1.D-6,0.)
+                                 ARM(2,kh) = (1.D-6,0.)
                               ENDDO
                            ENDIF
                            CALL INTG(IEXP)

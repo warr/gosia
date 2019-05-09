@@ -34,5 +34,5 @@ C      arctangent(A) within range of F
          ENDDO
       ENDIF
  100  ARCTG = qa
-      IF ( (qa-F).GT.Pi/4. ) ARCTG = qap
+      IF ( (qa-F).GT.Pi/4.D0 ) ARCTG = qap
       END

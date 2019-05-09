@@ -19,5 +19,5 @@ C We use: arccos(x) = pi/2 - arcsin(x)
       IMPLICIT NONE
       REAL*8 TASIN , X
       
-      TACOS = 1.570796327 - TASIN(X) ! 1.570796327 = pi / 2
+      TACOS = 1.570796327D0 - TASIN(X) ! 1.570796327 = pi / 2
       END

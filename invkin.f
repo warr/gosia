@@ -58,7 +58,7 @@ C     Tau
       
 C     Calculate the two solutions
       
-      y = tan(theta_t/57.2957795)
+      y = tan(theta_t/57.2957795D0)
       t = taup * taup * y * y * y * y -
      &      (1 + y * y) * (taup * taup * y * y - 1)
       t = sqrt(t)
@@ -72,15 +72,15 @@ C     solution with the lower angle corresponds to target recoils which
 C     are probably undetectable.
       
       IF ( Iflag.EQ.1 ) THEN
-         theta_p = MAX(x(1),x(2))*57.2957795
+         theta_p = MAX(x(1),x(2))*57.2957795D0
       ELSE
-         theta_p = MIN(x(1),x(2))*57.2957795
+         theta_p = MIN(x(1),x(2))*57.2957795D0
       ENDIF
 
 C     Trap spurious values where tau * sin(theta_p/57.2957795) is greater
 C     than unity due to floating point rounding errors
-      if (tau * SIN(theta_p/57.2957795) .gt. 1.0d0) 
-     &  theta_p = 57.2957795 * TASIN(1.d0/tau)
+      if (tau * SIN(theta_p/57.2957795D0) .gt. 1.0D0)
+     &  theta_p = 57.2957795D0 * TASIN(1.d0/tau)
 
 C     In normal kinematics, Ikin is not meaningful, but set to 1 anyway
       Ikin = 1
@@ -89,7 +89,7 @@ C     In normal kinematics, Ikin is not meaningful, but set to 1 anyway
 C     Calculate angle of scattered projectile in centre of mass frame, for
 C     which the maximum laboratory scattering angle is reached.
       
-      t = acos(-1./tau)
+      t = acos(-1.D0/tau)
       
 C     Now calculate the arctangent of the corresponding angle for the
 C     recoiling target nuclei in the laboratory frame
