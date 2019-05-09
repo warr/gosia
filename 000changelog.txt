@@ -4,6 +4,8 @@
   laboratory frame. This should help in inverse kinematics cases.
 ° Add E0 parameter to Leuven efficiency
 ° Use Lehmer random-number generator for OP,RAND
+° Allow asymmetric errors in OP,YIEL
+° Use NIST absorption coefficients with C (as stated in manual) not Si
 
 20080630
 ° Reordering of all variable declarations so variables in common blocks are
