@@ -178,16 +178,16 @@ C      ZV     - energy meshpoints
       REAL*8 cocos , conu , d , decen , dedx , dsd , dsig , dst
       REAL*8 dsx , dsxm , effi , eh1 , elmi , ELMT , emhl1 , emn , emx , 
      &       enb
-      REAL*8 eng , enh , esd , esp , ess , 
-     &       fi0 , fi1 , fic , fiex1 , figl , fipo1 , fm , gth
+      REAL*8 enh , esd , esp , ess , fi0 , fi1 , fic , fiex1 , figl ,
+     &       fipo1 , fm , gth
       REAL*8 hen , het , p , pfi , 
      &       ph1 , ph2 , pi , po1 , po2 , polm , pop1 , pr , pv
       REAL*8 q1 , q2 , qc , qfac , qr , qui , r , r1 , r2 , r3 , r4 , 
      &       rem , remax , rl , rlr , rm , rx , ry
       REAL*8 rz , s , s11 , s12 , s21 , s22 , sbe , sf , sh , sh1 , 
      &       sh2 , SIMIN , slim
-      REAL*8 summm , sz1 , sz2 , TACOS , tau1 , tau2 , test , 
-     &       tetrc , tfac , thc , title , tmn , tmx , todfi
+      REAL*8 summm , sz1 , sz2 , TACOS , test , tetrc , tfac , thc ,
+     &       title , tmn , tmx , todfi
       REAL*8 tta , tth , tting , ttttt , txx , u , 
      &       val , waga , wph , wpi , WSIXJ , wth , wthh , 
      &       WTHREJ
@@ -238,8 +238,7 @@ C      ZV     - energy meshpoints
       CHARACTER*1 prp
       DIMENSION ihlm(32) , esp(20) , dedx(20) , bten(1600) , ! bten dimension = 16 * maxlevels
      &          fiex1(100,100,2) , title(20) , pfi(101) , zmir(6,2,50) , 
-     &          iecd(50) , wpi(100,2) , tau1(10) , eng(10) , 
-     &          tau2(10,7) , xl1(7) , qui(8,10) , cf(8,2) , 
+     &          iecd(50) , wpi(100,2) , xl1(7) , qui(8,10) , cf(8,2) ,
      &          ivarh(1500) , liscl(200) , dsxm(100,100,100) , 
      &          levl(50) , xlevb(50,2) , bm(8,20,20,3) , mlt(1500) , 
      &          ivari(1500) , jpin(50) , ideff(50) , iskin_protect(50)
@@ -305,28 +304,7 @@ C      ZV     - energy meshpoints
       INCLUDE 'fakul.inc'
       INCLUDE 'life.inc'
       INCLUDE 'switch.inc'
-      DATA (eng(k),k=1,10)/.05 , .06 , .08 , .1 , .15 , .2 , .3 , .5 , 
-     &      1. , 1.5/
-C     Absorption coefficients in units of 1/cm for Ge
-      DATA (tau1(k),k=1,10)/17.656 , 10.726 , 5.076 , 2.931 , 1.3065 , 
-     &      .8828 , .5959 , .4357 , .3041 , .2472/
-C     Absorption coefficients in units of 1/cm for Al, C, Fe, Cu, Ag/Cd/Sn, Ta
-C     and Pb at the energies 0.05, 0.06, 0.08, 0.1, 0.15, 0.2, 0.3, 0.5, 1, 1.5
-C     MeV
-      DATA (tau2(k,1),k=1,10)/.9883 , .7473 , .5442 , .4592 , .3718 , 
-     &      .3302 , .2814 , .2278 , .1657 , .1350/
-      DATA (tau2(k,2),k=1,10)/1.014 , .7443 , .5195 , .4261 , .3362 , 
-     &      .2967 , .2518 , .2038 , .1479 , .1204/
-      DATA (tau2(k,3),k=1,10)/15.167 , 9.405 , 4.652 , 2.889 , 1.525 , 
-     &      1.135 , .8643 , .6592 , .4703 , .3830/
-      DATA (tau2(k,4),k=1,10)/23.184 , 14.182 , 6.777 , 4.059 , 1.970 , 
-     &      1.384 , .9936 , .7473 , .5274 , .4297/
-      DATA (tau2(k,5),k=1,10)/84.351 , 51.445 , 23.822 , 13.070 , 
-     &      4.774 , 2.605 , 1.339 , .7925 , .5005 , .4032/
-      DATA (tau2(k,6),k=1,10)/93.364 , 58.559 , 125.96 , 70.713 , 
-     &      25.302 , 12.541 , 5.193 , 2.215 , 1.077 , .8176/
-      DATA (tau2(k,7),k=1,10)/89.809 , 56.338 , 27.009 , 62.966 , 
-     &      22.933 , 11.334 , 4.540 , 1.813 , .8020 , .5900/
+      INCLUDE 'nist.inc'
       DATA q1/0./,q2/0./,iph/0/
       DATA cnst/0./,sh1/0./,irfix/0/,jfre/0/ ! Only gosia1 and pawel
 
