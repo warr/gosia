@@ -60,7 +60,7 @@ C          Cline@pas.rochester.edu
 C          http://www.pas.rochester.edu/~cline/
 C
 C       Compiling Gosia
-C          Gosia compiles on most 64-bit systems with GNU g77, using
+C          Gosia compiles on most 64-bit systems with GNU gfortran, using
 C          the default compiler settings.  Previous versions of the
 C          Gosia code did not explicitly specify 64-bit precision and
 C          were intended to be compiled by the user at the highest
