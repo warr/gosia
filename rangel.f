@@ -19,7 +19,7 @@ C where a_c is Acc1 here.
 C
 C The gosia documentation gives a table for \alpha_\lambda: E1 = -0.693,
 C E2 = 0.203, E3 = 0.536, E4 = 0.716, E5 = 0.829, E6 = 0.962, M1 = 0.203,
-C M2 = 0.536.
+C M2 = 0.536. The value for E6 is wrong. It should be 0.907.
 C
 C Note that first we work out omega, but then we work out the appropriate
 C index, knowing that we are always using steps of 0.03.
@@ -46,7 +46,7 @@ C index, knowing that we are always using steps of 0.03.
             ELSEIF ( i.EQ.5 ) THEN ! E5
                w = acl/5. + .829
             ELSEIF ( i.EQ.6 ) THEN ! E6
-               w = acl/6. + .962
+              w = acl/6. + .907
             ELSE
                w = acl - .693 ! E1
             ENDIF
