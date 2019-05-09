@@ -237,7 +237,7 @@ C     Write correction factors
                   DO jcoup = 1 , MEMAX
                      ELM(jcoup) = ELMH(jcoup)
                   ENDDO
-               ENDIF
+               ENDIF ! If IVAR is 1 or 2
             ENDDO
          ENDDO
          IF ( KFERR.EQ.1 ) THEN
@@ -284,7 +284,7 @@ C     Write correction factors
          ELSE
             sumg2 = 0.
             DO jnm = 1 , MEMAX
-               IF ( IVAR(jnm).EQ.1 .OR. IVAR(jnm).EQ.2 ) sumg2 = sumg2 + 
+               IF ( IVAR(jnm).EQ.1 .OR. IVAR(jnm).EQ.2 ) sumg2 = sumg2 +
      &              GRAD(jnm)*GRAD(jnm)
             ENDDO
             IF ( sumg2.LT.1.E-10 ) GOTO 700

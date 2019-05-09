@@ -14,7 +14,7 @@ C      CAT    - substates of levels (n_level, J, m)
 C      ELM    - matrix elements
 C      EXPO   - exponents of adiabatic term
 C      ISG    - sign of omega
-C      ISG1   - index of sigma
+C      ISG1   - index of omega
 C      ISMAX  - number of substates used
 C      ISSTAR - first substate for given level
 C      ISSTO  - last substate for given level
@@ -73,7 +73,7 @@ C     Zero ARM(k,4) and ARM(k,6) for each substate used
                ir = NSTART(nhold) - 1 ! Get first substate - 1 for this level
  40            ir = ir + 1 ! ir is a substate
                IF ( ir.LE.ISMAX ) THEN
-                  n = INT(CAT(ir,1) )! Level number of substate ir
+                  n = INT(CAT(ir,1)) ! Level number of substate ir
                   IF ( n.NE.nhold ) THEN
                      DO mm = 1 , ld ! Loop over matrix elements
                         m = MSTORE(1,mm) ! Index of final level

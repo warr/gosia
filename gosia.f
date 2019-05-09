@@ -176,7 +176,7 @@ C      ZV     - energy meshpoints
      &       ccd , cf , chilo , chiok , chis0 , chisl , chisq , chiss , 
      &       cnst
       REAL*8 cocos , conu , d , decen , dedx , dsd , dsig , dst
-      REAL*8 dsx , dsxm , effi , eh1 , elmi , ELMT , emhl1 , emn , emx , 
+      REAL*8 dsx , dsxm , effi , eh1 , elmi , ELMT , emhl1 , emn , emx ,
      &       enb
       REAL*8 enh , esd , esp , ess , fi0 , fi1 , fic , fiex1 , figl ,
      &       fipo1 , fm , gth
@@ -211,7 +211,7 @@ C      ZV     - energy meshpoints
      &          itp , iuy , iva , iva1 , ivarh , ivari , ivrh
       INTEGER*4 ixj , ixl , ixm , iyr , izcap , j , ja , 
      &          jan , jan1 , jb , jb1 , jb2 , jd , jde , jdy , je
-      INTEGER*4 jex , jexp , jfi , jfre , jgd , jgl , jgl1 , jgr , jgs , 
+      INTEGER*4 jex , jexp , jfi , jfre , jgd , jgl , jgl1 , jgr , jgs ,
      &          jj , jj1 , jjjj , jjlx , jjx , jk , jkloo , jktt , jl , 
      &          jmm , jmpin
       INTEGER*4 jp , jphd , jpin , jrls , js , jt , jtp , jyi , jyi1 , 
@@ -237,10 +237,10 @@ C      ZV     - energy meshpoints
       CHARACTER*4 oph , op1 , opcja , op2
       CHARACTER*1 prp
       DIMENSION ihlm(32) , esp(20) , dedx(20) , bten(1600) , ! bten dimension = 16 * maxlevels
-     &          fiex1(100,100,2) , title(20) , pfi(101) , zmir(6,2,50) , 
+     &          fiex1(100,100,2) , title(20) , pfi(101) , zmir(6,2,50) ,
      &          iecd(50) , wpi(100,2) , xl1(7) , qui(8,10) , cf(8,2) ,
-     &          ivarh(1500) , liscl(200) , dsxm(100,100,100) , 
-     &          levl(50) , xlevb(50,2) , bm(8,20,20,3) , mlt(1500) , 
+     &          ivarh(1500) , liscl(200) , dsxm(100,100,100) ,
+     &          levl(50) , xlevb(50,2) , bm(8,20,20,3) , mlt(1500) ,
      &          ivari(1500) , jpin(50) , ideff(50) , iskin_protect(50)
       INCLUDE 'clust.inc'
       INCLUDE 'cccds.inc'
@@ -1821,7 +1821,7 @@ C                 Treat OP,SIXJ
                            ixj = j - 1
                            DO ms = 1 , 5
                               mend = 2*(ms-3) + ixj
-                              WRITE (14,*) WSIXJ(l,4,4,ixj,mend,ixj-4) , 
+                              WRITE (14,*) WSIXJ(l,4,4,ixj,mend,ixj-4) ,
      &                               WSIXJ(l,4,4,ixj,mend,ixj-2) , 
      &                               WSIXJ(l,4,4,ixj,mend,ixj) , 
      &                               WSIXJ(l,4,4,ixj,mend,ixj+2) , 
@@ -2305,7 +2305,7 @@ C     Handle OP,ERRO
       IF ( irea.EQ.1 ) READ (JZB,*) ms , mend
       IF ( ms.NE.0 ) THEN
          DO kh = ms , mend ! For matrix elements
-            IF ( ifc.NE.1 ) THEN
+            IF ( ifc.NE.1 ) THEN ! Use correlation matrix if IFC = 0
                REWIND 18
                DO kh1 = 1 , kh
                   READ (18,*) (KVAR(jyi),jyi=1,MEMAX)
@@ -2316,7 +2316,7 @@ C     Handle OP,ERRO
                   KVAR(kh1) = ivrh
                ENDDO
             ENDIF
-            DO ij = 1 , 2
+            DO ij = 1 , 2 ! Lower and upper
                sh = DEVU(kh)
                IF ( ij.EQ.1 ) sh = DEVD(kh)
                IF ( ABS(sh).LT.1.E-6 ) sh = (-1)**ij*ABS(HLM(kh))/10.
@@ -2345,7 +2345,7 @@ C     Handle OP,ERRO
                   IF ( ifc.EQ.1 ) IVAR(kh1) = KVAR(kh1)
                   ELM(kh1) = HLM(kh1)
                ENDDO
-            ENDDO
+            ENDDO ! Loop on lower and upper
             IF ( ifc.NE.1 ) THEN
                DO kh1 = 1 , MEMAX ! For each matrix element
                   IVAR(kh1) = KVAR(kh1)
@@ -2581,7 +2581,7 @@ C---- this bit removed in gosia2 end
                            nch = nch + 1
                            jjjj = IY(lu,jgl1)/1000
                            jyi1 = IY(lu,jgl1) - jjjj*1000
-                           IF ( IY(lu,jgl1).EQ.jyi .OR. jjjj.EQ.jyi .OR. 
+                           IF ( IY(lu,jgl1).EQ.jyi .OR. jjjj.EQ.jyi .OR.
      &                          jyi1.EQ.jyi ) THEN
                               IF ( IY(lu,jgl1).GE.1000 ) THEN
                                  jyi2 = jyi1 - jjjj

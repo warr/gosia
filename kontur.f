@@ -5,7 +5,7 @@ C
 C Called by: GOSIA
 C Calls:     FTBM, LIMITS, RK4
 C
-C Purpose:
+C Purpose: scans the chi^2 hypersurface in OP,ERRO
 C
 C Uses global variables:
 C      DEVU   -
@@ -35,7 +35,7 @@ C      Rem    - natural log of the largest value the computer can represent
  
       SUBROUTINE KONTUR(Idr,Chis0,Chil,Ifbf,Inpo,Jj,Sh,Bten,Rem)
       IMPLICIT NONE
-      REAL*8 ac , Bten , c , Chil , chilo , Chis0 , chis1 , chis2 , d1 , 
+      REAL*8 ac , Bten , c , Chil , chilo , Chis0 , chis1 , chis2 , d1 ,
      &       d2 , f , h
       REAL*8 Rem , RK4 , sajj , Sh , t , v , ww , x , y
       INTEGER*4 i , Idr , Ifbf , Inpo , itl , ix , j , Jj , l , m
