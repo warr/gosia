@@ -16,8 +16,9 @@ C       of codes was assumed by the Steering Committee of the Gosia Users Group
 C       in April 2008.
 C
 C       The Gosia Steering Committee comprises:
-C          Douglas Cline,(University of Rochester)
-C          Adam Hayes,  (University fo Rochester)
+C          Douglas Cline, (University of Rochester)
+C          Liam Gaffney, (University of Liverpool)
+C          Adam Hayes,  (University of Rochester)
 C          Pawel Napiorkowski, (Warsaw University)
 C          Nigel Warr,  (University of Cologne)  
 C
