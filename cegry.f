@@ -117,7 +117,7 @@ C      Iredv  -
       INCLUDE 'trb.inc'
       INCLUDE 'cccds.inc'
       INCLUDE 'tcm.inc'
-      SAVE part, partl
+      SAVE part, partl, cnr
       DATA sum3/0./,sumpr/0./
 
       op2 = '    '
