@@ -18,9 +18,10 @@ C
 C       The Gosia Steering Committee comprises:
 C          Douglas Cline, (University of Rochester)
 C          Liam Gaffney, (University of Liverpool)
-C          Adam Hayes,  (University of Rochester)
+C          Adam Hayes, (University of Rochester)
 C          Pawel Napiorkowski, (Warsaw University)
-C          Nigel Warr,  (University of Cologne)  
+C          Nigel Warr, (University of Cologne)
+C          Magda, Zielinska (Warsaw University)
 C
 C       Valuable to Gosia contributions were made by:
 C          L. Hasselgren (Uppsala)
