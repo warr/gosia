@@ -7,7 +7,7 @@ Release: %{release}%{dist}
 License: public domain
 Vendor: Nigel Warr
 Group: Applications/Analysis
-Source: /usr/src/redhat/SOURCES/gosia.tar.gz
+Source: %{name}.tar.gz
 Prefix:/usr
 BuildRoot: /tmp/package_%{name}-%{version}.%{release}
 Requires: gosia_doc
@@ -27,8 +27,8 @@ make ROOT="$RPM_BUILD_ROOT" install
 
 %files
 %defattr(-,root,root)
-/usr/bin/gosia
-/usr/share/man/man1/gosia.1.gz
+%{_bindir}/*
+%{_mandir}/*/*
 
 %package -n gosia_doc
 Summary: Documentation for gosia, gosia2, pawel
