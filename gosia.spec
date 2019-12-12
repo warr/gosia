@@ -7,7 +7,7 @@ Release: %{release}%{dist}
 License: public domain
 Vendor: D. cline, T. Czosnyka, A.B. Hayes, P. Napiorkowski, N. Warr, C.Y. Wu
 Group: Applications/Analysis
-Source: /usr/src/redhat/SOURCES/gosia.tar.gz
+Source: %{name}.tar.gz
 Prefix:/usr
 BuildRoot: /tmp/package_%{name}-%{version}.%{release}
 BuildRequires: gcc-gfortran
@@ -27,5 +27,5 @@ make %{?_smp_mflags}
 
 %files
 %defattr(-,root,root,-)
-/usr/bin/*
-/usr/share/man/man1/*
+%{_bindir}/*
+%{_mandir}/*/*
