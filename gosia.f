@@ -205,7 +205,7 @@ C      ZV     - energy meshpoints
      &          MEM , memax1 , memh , memx4 , mend , mexl , mm , ms ,
      &          n , na , nallow , naxfl , nch , ndima , ne , nf , nfd ,
      &          nfdd , ni , nksi , nl , nmaxh , nmemx , nogeli , nptl ,
-     &          ns1 , ns2 , ntap , numcl , nval , nz
+     &          ns1 , ns2 , ntap , numcl , nval , nz , ipar(100)
       CHARACTER*4 oph , op1 , opcja , op2
       CHARACTER*80 line
       CHARACTER*1 prp
@@ -908,6 +908,7 @@ C     Treat suboption LEVE (levels)
             IFAC(ipo1) = (-1)**(iprc-INT(po2-SPIN(1)))
             EN(ipo1) = po1
             prp = '+'
+            ipar(ipo1) = ipo2
             IF ( ipo2.EQ.-1 ) prp = '-'
             if (ipo1 .GT. levmax) levmax = ipo1
             IF ( ABS(IPRM(1)).EQ.1 ) WRITE (22,99025) ipo1 , prp ,
@@ -955,6 +956,39 @@ C     Treat suboption ME (matrix elements)
                   MLT(indx) = la
                   LEAD(1,indx) = ipo1
                   LEAD(2,indx) = ABS(ipo2)
+                  IF (la.le.6) THEN
+                    IF (ABS(SPIN(ipo1)-SPIN(ABS(ipo2))).GT.la)
+     &                  THEN
+                      WRITE(*,*) 'Matrix element between states ',ipo1,
+     &                  ABS(ipo2),' has spin difference = ',
+     &                  ABS(SPIN(ipo1)-SPIN(ABS(ipo2))), ' but mult = ',
+     &                  la
+                      STOP 'Spin error'
+                    ENDIF
+                    IF (ipar(ipo1)*ipar(ABS(ipo2))*(-1)**la.LT.0) THEN
+                      WRITE(*,*) 'Matrix element between states ',ipo1,
+     &                  ABS(ipo2),' with parities ',
+     &                  ipar(ipo1),' and ' ,ipar(ABS(ipo2)),
+     &                  ' but mult = ', la
+                      STOP 'Parity error'
+                    ENDIF
+                  ELSE
+                    IF (ABS(SPIN(ipo1)-SPIN(ABS(ipo2))).GT.la-6)
+     &                  THEN
+                      WRITE(*,*) 'matrix element between states ',ipo1,
+     &                  ABS(ipo2),' has spin difference = ',
+     &                  ABS(SPIN(ipo1)-SPIN(ABS(ipo2))), ' but mult = ',
+     &                  la
+                      STOP 'Spin error'
+                    ENDIF
+                    IF (ipar(ipo1)*ipar(ABS(ipo2))*(-1)**la.GT.0) THEN
+                      WRITE(*,*) 'matrix element between states ',ipo1,
+     &                  ABS(ipo2),' with parities ',
+     &                  ipar(ipo1),' and ' ,ipar(ABS(ipo2)),
+     &                  ' but mult = ', la
+                      STOP 'Parity error'
+                    ENDIF
+                  ENDIF
                   LDNUM(la,ipo1) = LDNUM(la,ipo1) + 1
                   IF ( op2.EQ.'GOSI' ) THEN
                      IF ( ipo2.LT.0 ) THEN ! If negative, bl and bu are indices
