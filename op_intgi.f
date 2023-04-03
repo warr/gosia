@@ -110,7 +110,7 @@ C interpolating over the meshpoints
      &  iskf , iskin_protect(50) , isko , ixl , ixm , Izcap , j, ja ,
      &  jan1 , jan , jd , jdy , je , jfi , jgd , jj, jjlx , jkloo ,
      &  jktt , jmpin , Jpin(50) , jt , jtp , jyi , jyv , kloop , ktt ,
-     &  Lfagg , locat , lpin , lu , lx , mfla , mpin , na , na1 , naa ,
+     &  Lfagg , locat , lpin , lx , mfla , mpin , na , na1 , naa ,
      &  ndum , ne , nf , nfi , nflr , nft , nged , ngpr , ni , npce ,
      &  npce1 , npct , npct1 , npt , nptx , ntt
 
@@ -405,7 +405,6 @@ C         Now we calculate for all the mesh points.
           DO ja = 1 , naa ! Loop over detector angles
             icll = 3 ! Weighting mode
             DO je = 1 , ne ! ne = number of energy mesh points
-              lu = ILE(ja)
               isko = (je-1)*naa*ntt + ja - 1
               CALL TAPMA(lx,iske,isko,iskf,ntt,Idr,1,nft,enb)
               IF ( nft.EQ.1 ) THEN
