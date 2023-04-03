@@ -33,7 +33,7 @@ C We are limited to a maximum of LP14 (=4900) values in total.
       SUBROUTINE ALLOC(Accur)
       IMPLICIT NONE
       REAL*8 Accur
-      INTEGER*4 iflag , j , k , k1 , load
+      INTEGER*4 j , k , k1 , load
       INCLUDE 'allc.inc'
       INCLUDE 'rng.inc'
       INCLUDE 'mgn.inc'
@@ -44,7 +44,6 @@ C     depends on the accuracy Accur.
 
 C     First zero all the elements
       load = 0
-      iflag = 0
       DO j = 1 , 8
          DO k = 1 , 7
             LOCQ(j,k) = 0
