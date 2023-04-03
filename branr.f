@@ -27,8 +27,7 @@ C      Chilo  - chi squared of logs
       SUBROUTINE BRANR(Chisq,Nwyr,Chilo)
       IMPLICIT NONE
       REAL*8 ch1 , ch2 , Chilo , Chisq , CONV , eng1 , eng2 , u
-      INTEGER*4 i1 , i2 , iflg , iout , itt , j1 , j2 ,
-     &          k , lab1 , lab2 , mul2
+      INTEGER*4 i1 , i2 , iflg , j1 , j2 , k , lab1 , lab2 , mul2
       INTEGER*4 n1 , n2 , Nwyr
       INCLUDE 'coex.inc'
       INCLUDE 'clcom.inc'
@@ -53,8 +52,6 @@ C     If printing option is on, print something
          ch1 = 0.
          ch2 = 0.
          iflg = 1
-         itt = 1
-         iout = 0
          n1 = IBRC(1,k) ! 1st matrix element
          n2 = IBRC(2,k) ! 2nd matrix element
          i1 = KSEQ(n1,1) ! Index of n1'th level
