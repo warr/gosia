@@ -440,7 +440,7 @@ C     Initialize normalization to 1.
       icg = 1
       ient = 1
       jphd = 1 ! Print header flag
-      DIPOL = 0.005D0
+      DIPOL = 0 ! WAS 0.005D0 (see function LOAD, where this is now set)
       MAGEXC = 0 ! Initially flag that we don't need magnetic excitations
       LAMMAX = 0
       DO lam = 1 , 8
