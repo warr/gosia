@@ -180,15 +180,15 @@ C      ZV     - energy meshpoints
      &       r2 , r3 , r4 , rem , remax , rl , rlr , rm , rx , ry , rz ,
      &       s , s11 , s12 , s21 , s22 , sbe , sf , sh , sh1 , sh2 ,
      &       slim , summm , sz1 , sz2 , TACOS , test , tfac , thc ,
-     &       title , ttttt , txx , u , val , waga , WSIXJ , WTHREJ ,
+     &       title , ttttt , u , val , waga , WSIXJ , WTHREJ ,
      &       xep , xl1 , xlk , xtest , xw , xxi , ycorr , yyd1 , yydd ,
      &       yyy , zmir , zp , zz
       REAL*8 ttttx ! Only gosia1 and pawel
-      INTEGER*4 i , i122 , iapx , icg , ict , ictl , id , ideff , idf ,
-     &          idr , iecd , ient , ifbp , ifc , ifm , ifwd , ig1 ,
+      INTEGER*4 i , icg , ict , ictl , id , ideff , idf ,
+     &          idr , iecd , ifbp , ifc , ifm , ifwd , ig1 ,
      &          ig2 , ih1 , ih2 , ihlm , ihuj , ii , ij , ijk , ijx ,
      &          ile1 , ilx , im , imode , in1 , in2 , inclus , ind ,
-     &          indx , inko , inm1 , inm2 , inn , inpo , intend ,
+     &          indx , inko , inm1 , inm2 , inn , inpo ,
      &          intvh , inx1 , iobl , iopri , iosr , ipd , iph , ipine ,
      &          ipinf , ipo1 , ipo2 , ipo3 , ipp , iprc , ipri , irea ,
      &          irep , iretval , irfix , irix , isip , iskok , isoh ,
@@ -196,11 +196,11 @@ C      ZV     - energy meshpoints
      &          ivari , ivrh , ixj , ixl , ixm , iyr , izcap , j , jd ,
      &          jde , jex , jexp , jfre , jgl , jgl1 , jgr , jgs , jj ,
      &          jj1 , jjjj , jjx , jk , jl , jmm , jp , jphd , jpin ,
-     &          jrls , js , jyi , jyi1 , jyi2 , jz , k , kclust , kerf ,
+     &          jrls , js , jyi , jyi1 , jyi2 , jz , k , kclust ,
      &          kex , kh , kh1 , kh2 , kk , kk1 , kk2 , kkk , kmat ,
      &          kq , kuku , l , la , la1 , lam , lamh , lck1 , lck2 ,
      &          levmax , lex , lexp , lfagg , lfini , lh1 , lh2 ,
-     &          liscl , lkj , lkj1 , ll , lli , lll , lmax1 , lmaxh ,
+     &          liscl , lkj , lkj1 , ll , lli , lll ,
      &          loct , lp0 , ltrn , ltrn1 , ltrn2 , lu , lxd , magh ,
      &          MEM , memax1 , memh , memx4 , mend , mexl , mm , ms ,
      &          n , na , nallow , naxfl , nch , ndima , ne , nf , nfd ,
@@ -360,7 +360,6 @@ C     Initialize normalization to 1.
          jpin(i) = 0
          iecd(i) = 0
       ENDDO
-      txx = 0.
       SGW = 3.D0
       SUBCH1 = 0.
       SUBCH2 = 0.
@@ -368,7 +367,6 @@ C     Initialize normalization to 1.
       iosr = 0
       LOCKS = 0
       DLOCK = 1.1D0
-      kerf = 0
       IFBFL = 0
       NLOCK = 0
       LOCKF = 0
@@ -438,7 +436,6 @@ C     Initialize normalization to 1.
       indx = 0
       ACCUR = .00001D0
       icg = 1
-      ient = 1
       jphd = 1 ! Print header flag
       DIPOL = 0 ! WAS 0.005D0 (see function LOAD, where this is now set)
       MAGEXC = 0 ! Initially flag that we don't need magnetic excitations
@@ -468,7 +465,6 @@ C     Initialize normalization to 1.
       nmemx = LP2 + 9 ! LP2 = 1500 (maximum number of matrix elements)
       IEXP = 1
       IMIN = 0
-      i122 = 0
       DO j = 1 , LP2 ! LP2 = 1500 (maximum number of matrix elements)
          DO k = 1 , 2
             DO l = 1 , 7
@@ -479,8 +475,7 @@ C     Initialize normalization to 1.
       ENDDO
       ERR = .FALSE.
       opcja = '    '
-      levmax = 0
-      intend = 0 ! End of initialization
+      levmax = 0 ! End of initialization
 
 C.............................................................................
 C     Start reading input file.
@@ -1390,12 +1385,10 @@ C OP,POIN
 70008 CALL CMLAB(0,dsig,ttttt) ! Options MAP, STAR, POINT, MINI etc.
       IF ( ERR ) GOTO 2000 ! Error
       IF ( op2.EQ.'POIN' ) READ (JZB,*) ifwd , slim
-      ient = 1
       icg = 1
       IF ( SPIN(1).LT.1.D-6 ) ISO = 0
       IF ( iobl.LT.1 ) THEN
          IF ( op2.NE.'GOSI' ) THEN
-            iapx = 0
             DO ii = 1 , LP6 ! LP6 = 32 (maximum number of gamma detectors)
                ILE(ii) = 1
             ENDDO
@@ -1690,16 +1683,13 @@ C---- this bit removed in gosia2 end
       ENDIF ! if ( iobl.LT.1 ) if statement
 
  1300 IF ( iobl.GE.1 ) THEN ! OP,ERRO
-         ient = 1
          icg = 2
          nmaxh = NMAX
-         lmax1 = LMAX
          sh1 = SPIN(1) ! Save ground-state spin
          sh2 = SPIN(2) ! Save spin of first excited state
          ih1 = IFAC(1)
          ih2 = IFAC(2)
          magh = MAGEXC
-         lmaxh = LMAXE
          isoh = ISO
          ISO = 0
          eh1 = ELM(1)
