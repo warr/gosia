@@ -34,7 +34,7 @@ C      I57    - switch which is either 5 or 7. This tells LAISUM to access eithe
       SUBROUTINE AMPDER(I57)
       IMPLICIT NONE
       REAL*8 CAT , D2W , ELM , ELML , ELMU , rsg , SA , ZETA
-      INTEGER*4 i1 , I57 , ibg , iend , iflg , indx , ir , is2 , ISG ,
+      INTEGER*4 i1 , I57 , ibg , iend , indx , ir , is2 , ISG ,
      &          ISG1 , ISMAX , ISSTAR , ISSTO , k , KDIV , lam , LAMDA ,
      &          LAMMAX , LAMR , lax
       INTEGER*4 ld , LDNUM , LEAD , LZETA , m , mm , MSTORE , MULTI ,
@@ -69,7 +69,6 @@ C     Zero ARM(k,4) and ARM(k,6) for each substate used
          lax = lam
          nz = LZETA(lam) ! Index into ZETA array for each multipolarity
          IF ( LAMR(lam).NE.0 ) THEN ! LAMR is flag to decide if we calculate for this multipolarity
-            iflg = 1
             nhold = 1
  20         CALL NEWLV(nhold,ld,lam)
             IF ( ld.EQ.0 ) THEN ! If there are no decays
