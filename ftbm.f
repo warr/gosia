@@ -68,13 +68,13 @@ C      Bten   -
       SUBROUTINE FTBM(Icll,Chisq,Idr,Ncall,Chilo,Bten)
       IMPLICIT NONE
       REAL*8 ACCA , ACCUR , AGELI , aval , Bten , CAT , CC , Chilo ,
-     &       chis1 , CHIS11 , chish , Chisq , chisx , chx , CORF ,
+     &       CHIS11 , Chisq , chisx , chx , CORF ,
      &       DIPOL , DYEX , EG , ELM , ELML
       REAL*8 ELMU , EMH , EN , EP , EPS , EROOT , fc , FIEX , fx ,
      &       polm , pr , prop , Q , SA , SPIN , TAU , TLBDG , UPL ,
      &       val , VINF
       REAL*8 wz , XA , XA1 , YEXP , YNRM , ZETA , ZPOL
-      INTEGER*4 i1 , i11 , iapx , IAXS , Icll , idec , Idr , IDRN ,
+      INTEGER*4 i1 , i11 , IAXS , Icll , idec , Idr , IDRN ,
      &          IEXP , iflg , IGRD , ii , ILE , ile1 , ile2 , ile3 ,
      &          ilin , indx , inko , INM
       INTEGER*4 inp , inpo , inpx , INTR , inzz , inzzz , IPATH , IPRM ,
@@ -133,7 +133,6 @@ C      Bten   -
       fx = 2.*SPIN(1) + 1.
       Chisq = 0.
       LFL = 0
-      chis1 = 0.
       ixx = NDIM*MEMAX + LP11 ! LP11 is 2800
       IF ( ixx.GT.LP7 ) THEN
          STOP 'Too many matrix elements for the ZETA array'
@@ -149,7 +148,6 @@ C      Bten   -
 
       itemp = 0
       NWR = 0
-      iapx = 1
 
       DO jkl = 1 , NEXPT ! For each experiment
          IEXP = jkl
@@ -228,8 +226,7 @@ C      Bten   -
             ZETA(LP9+lx) = ZETA(lx) ! LP9 is 47900
          ENDDO
          IF ( Icll.NE.1 ) GOTO 200
- 100     iapx = 0
-         issp = 1
+ 100     issp = 1
          CALL LOAD(IEXP,1,1,0.D0,jj) ! Calculate parameters
          CALL ALLOC(ACCUR)           ! Calculate ranges
          CALL SNAKE(IEXP,ZPOL)       ! Calculate collision functions
@@ -280,9 +277,6 @@ C      Bten   -
          ELSE
             NWR = NWR + nwyr
             IF ( Icll.LE.2 .AND. JSKIP(jkl).NE.0 ) THEN
-               IF ( IEXP.EQ.1 ) chish = CHIS11
-               IF ( Icll.EQ.1 ) chis1 = CHIS11
-               IF ( Icll.EQ.0 ) chis1 = Chisq
                LFL2 = 0
                IGRD = 1
                IF ( ITAK2.EQ.-1 ) LFL = 1
