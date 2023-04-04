@@ -196,14 +196,14 @@ C      ZV     - energy meshpoints
      &       ycorr
       REAL*8 yy , yyd1 , yydd , yyy , zmir , zp , zz
       REAL*8 ttttx ! Only gosia1 and pawel
-      INTEGER*4 i , i122 , iapx , ib , ibaf , icg , icll , ict , ictl ,
+      INTEGER*4 i , ib , ibaf , icg , icll , ict , ictl ,
      &          id , ideff , idf
-      INTEGER*4 idr , iecd , ient , ifbp , ifc , ifm , ifwd ,
+      INTEGER*4 idr , iecd , ifbp , ifc , ifm , ifwd ,
      &          ig1 , ig2 , ih1 , ih2 , ihlm , ihuj , ii , ij
       INTEGER*4 ija0 , ijaja , ijan , ijk , ijx , ile1 , ilevls ,
      &          ilx , im , imode , in1 , in2 , inclus , ind ,
      &          ind1 , ind2 , indx
-      INTEGER*4 inko , inm1 , inm2 , inn , inpo , intend , intvh ,
+      INTEGER*4 inko , inm1 , inm2 , inn , inpo , intvh ,
      &          inva , inx1 , iobl , iocc , iopri , iosr , ipd , iph
       INTEGER*4 ipine , ipinf , ipo1 , ipo2 , ipo3 , ipp , iprc ,
      &          ipri , irea , irep , irfix , irix , isip , iske , iskf
@@ -215,13 +215,12 @@ C      ZV     - energy meshpoints
      &          jj , jj1 , jjjj , jjlx , jjx , jk , jkloo , jktt , jl ,
      &          jmm , jmpin
       INTEGER*4 jp , jphd , jpin , jrls , js , jt , jtp , jyi , jyi1 ,
-     &          jyi2 , jyv , jz , k , kb , kclust , kerf , kex
+     &          jyi2 , jyv , jz , k , kb , kclust , kex
       INTEGER*4 kh , kh1 , kh2 , kk , kk1 , kk2 , kkk , kl , kloop ,
      &          kmat , kq , ktt , kuku , l , la , la1 , lam , lamd
       INTEGER*4 lamh , lb , lck1 , lck2 , levl , lex , lexp ,
      &          lfagg , lfini , lh1 , lh2 , liscl , lkj
-      INTEGER*4 lkj1 , ll , lli , lll , lmax1 , lmaxh , locat ,
-     &          loct , lp0 , lpin
+      INTEGER*4 lkj1 , ll , lli , lll , locat , loct , lp0 , lpin
       INTEGER*4 ltrn , ltrn1 , ltrn2 , lu , lx , lxd , magh , MEM
       INTEGER*4 memax1 , memh , memx4 , mend , mexl ,
      &          mfla , mlt , mm , mpin , ms , n , na , na1 , naa ,
@@ -396,7 +395,6 @@ C     Initialize normalization to 1.
       iosr = 0
       LOCKS = 0
       DLOCK = 1.1D0
-      kerf = 0
       IFBFL = 0
       NLOCK = 0
       LOCKF = 0
@@ -466,7 +464,6 @@ C     Initialize normalization to 1.
       indx = 0
       ACCUR = .00001D0
       icg = 1
-      ient = 1
       jphd = 1 ! Print header flag
       DIPOL = 0 ! WAS 0.005D0 (see function LOAD, where this is now set)
       MAGEXC = 0 ! Initially flag that we don't need magnetic excitations
@@ -496,7 +493,6 @@ C     Initialize normalization to 1.
       nmemx = LP2 + 9 ! LP2 = 1500 (maximum number of matrix elements)
       IEXP = 1
       IMIN = 0
-      i122 = 0
       DO j = 1 , LP2 ! LP2 = 1500 (maximum number of matrix elements)
          DO k = 1 , 2
             DO l = 1 , 7
@@ -507,8 +503,7 @@ C     Initialize normalization to 1.
       ENDDO
       ERR = .FALSE.
       opcja = '    '
-      levmax = 0
-      intend = 0 ! End of initialization
+      levmax = 0 ! End of initialization
 
 C.............................................................................
 C     Start reading input file.
@@ -2387,12 +2382,10 @@ C     Handle OP,ERRO
  1200 CALL CMLAB(0,dsig,ttttt) ! Options MAP, STAR, POINT, MINI etc.
       IF ( ERR ) GOTO 2000 ! Error
       IF ( op2.EQ.'POIN' ) READ (JZB,*) ifwd , slim
-      ient = 1
       icg = 1
       IF ( SPIN(1).LT.1.D-6 ) ISO = 0
       IF ( iobl.LT.1 ) THEN
          IF ( op2.NE.'GOSI' ) THEN
-            iapx = 0
             DO ii = 1 , LP6 ! LP6 = 32 (maximum number of gamma detectors)
                ILE(ii) = 1
             ENDDO
@@ -2684,16 +2677,13 @@ C---- this bit removed in gosia2 end
       ENDIF ! if ( iobl.LT.1 ) if statement
 
  1300 IF ( iobl.GE.1 ) THEN ! OP,ERRO
-         ient = 1
          icg = 2
          nmaxh = NMAX
-         lmax1 = LMAX
          sh1 = SPIN(1) ! Save ground-state spin
          sh2 = SPIN(2) ! Save spin of first excited state
          ih1 = IFAC(1)
          ih2 = IFAC(2)
          magh = MAGEXC
-         lmaxh = LMAXE
          isoh = ISO
          ISO = 0
          eh1 = ELM(1)
