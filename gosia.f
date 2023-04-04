@@ -201,16 +201,16 @@ C      ZV     - energy meshpoints
      &       ycorr
       REAL*8 YEXP , YGN , YGP , YNRM , YV , yy , yyd1 , yydd , yyy ,
      &       ZETA , zmir , zp , ZPOL , ZV , zz
-      INTEGER*4 i , i122 , IAMX , IAMY , IAPR , iapx , IAXS , ib ,
+      INTEGER*4 i , IAMX , IAMY , IAPR , IAXS , ib ,
      &          ibaf , IBRC , IBYP , icg , icll , ICLUST , ICS , ict ,
      &          ictl , id , idf , IDIVE
-      INTEGER*4 idr , IDRN , iecd , ient , IEXP , IFAC , IFBFL , ifbp ,
+      INTEGER*4 idr , IDRN , iecd , IEXP , IFAC , IFBFL , ifbp ,
      &          ifc , ifm , IFMO , ifwd , ig1 , ig2 , ih1 , ih2 , ihlm ,
      &          ihuj , ii , ij
       INTEGER*4 ija0 , ijaja , ijan , ijk , ijx , ILE , ile1 , ilevls ,
      &          ilx , im , IMIN , imode , in1 , in2 , inclus , ind ,
      &          ind1 , ind2 , indx , INHB
-      INTEGER*4 inko , inm1 , inm2 , inn , INNR , inpo , intend ,
+      INTEGER*4 inko , inm1 , inm2 , inn , INNR , inpo ,
      &          INTERV , INTR , intvh , inva , inx1 , iobl , iocc ,
      &          iopri , iosr , IP , IPATH , ipd , iph
       INTEGER*4 IPI , ipine , ipinf , ipo1 , ipo2 , ipo3 , ipp , iprc ,
@@ -226,7 +226,7 @@ C      ZV     - energy meshpoints
      &          jj , jj1 , jjjj , jjlx , jjx , jk , jkloo , jktt , jl ,
      &          jmm , jmpin
       INTEGER*4 jp , jphd , jpin , jrls , js , JSKIP , jt , jtp , jyi ,
-     &          jyi1 , jyi2 , jyv , jz , k , kb , kclust , kerf , kex ,
+     &          jyi1 , jyi2 , jyv , jz , k , kb , kclust , kex ,
      &          KF , KFERR
       INTEGER*4 kh , kh1 , kh2 , kk , kk1 , kk2 , kkk , kl , kloop ,
      &          kmat , kq , KSEQ , ktt , kuku , KVAR , l , la , la1 ,
@@ -234,7 +234,7 @@ C      ZV     - energy meshpoints
       INTEGER*4 LAMDA , lamh , LAMMAX , LASTCL , lb , lck1 , lck2 ,
      &          LDNUM , LEAD , LERF , levl , lex , lexp , lfagg ,
      &          lfini , lh1 , lh2 , LIFCT , liscl , lkj
-      INTEGER*4 lkj1 , ll , lli , lll , LMAX , lmax1 , LMAXE , lmaxh ,
+      INTEGER*4 lkj1 , ll , lli , lll , LMAX , LMAXE ,
      &          LNORM , LNY , locat , LOCKF , LOCKS , loct , lp0 , LP1 ,
      &          LP10 , LP11 , LP12 , LP13
       INTEGER*4 LP14 , LP2 , LP3 , LP4 , LP6 , LP7 , LP8 , LP9 , lpin ,
@@ -441,7 +441,6 @@ C     Initialize normalization to 1.
       iosr = 0
       LOCKS = 0
       DLOCK = 1.1
-      kerf = 0
       IFBFL = 0
       NLOCK = 0
       LOCKF = 0
@@ -510,7 +509,6 @@ C     Initialize normalization to 1.
       indx = 0
       ACCUR = .00001
       icg = 1
-      ient = 1
       jphd = 1 ! Print header flag
       DIPOL = 0 ! WAS 0.005 (see function LOAD, where this is now set)
       MAGEXC = 0 ! Initially flag that we don't need magnetic excitations
@@ -540,7 +538,6 @@ C     Initialize normalization to 1.
       nmemx = LP2 + 9 ! LP2 = 1500 (maximum number of matrix elements)
       IEXP = 1
       IMIN = 0
-      i122 = 0
       DO j = 1 , LP2 ! LP2 = 1500 (maximum number of matrix elements)
          DO k = 1 , 2
             DO l = 1 , 7
@@ -551,8 +548,7 @@ C     Initialize normalization to 1.
       ENDDO
       ERR = .FALSE.
       opcja = '    '
-      levmax = 0
-      intend = 0 ! End of initialization
+      levmax = 0 ! End of initialization
 
 C.............................................................................
 C     Start reading input file.
@@ -1890,12 +1886,10 @@ C     Handle OP,ERRO
  1200 CALL CMLAB(0,dsig,ttttt) ! Options MAP, STAR, POINT, MINI etc.
       IF ( ERR ) GOTO 2000 ! Error
       IF ( op2.EQ.'POIN' ) READ * , ifwd , slim
-      ient = 1
       icg = 1
       IF ( SPIN(1).LT.1.E-6 ) ISO = 0
       IF ( iobl.LT.1 ) THEN
          IF ( op2.NE.'GOSI' ) THEN
-            iapx = 0
             DO ii = 1 , LP6 ! LP6 = 32 (maximum number of gamma detectors)
                ILE(ii) = 1
             ENDDO
@@ -2179,16 +2173,13 @@ C     Handle OP,ERRO
       ENDIF ! if ( iobl.LT.1 ) if statement
 
  1300 IF ( iobl.GE.1 ) THEN ! OP,ERRO
-         ient = 1
          icg = 2
          nmaxh = NMAX
-         lmax1 = LMAX
          sh1 = SPIN(1) ! Save ground-state spin
          sh2 = SPIN(2) ! Save spin of first excited state
          ih1 = IFAC(1)
          ih2 = IFAC(2)
          magh = MAGEXC
-         lmaxh = LMAXE
          isoh = ISO
          ISO = 0
          eh1 = ELM(1)
