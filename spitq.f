@@ -25,15 +25,12 @@ C      Mult   - multipolarity
       INTEGER*4 ibm , icm , icnt , idm , irl  , k , lloc ,
      &           nind , nlm
       DIMENSION lloc(8) , irl(8)
-      REAL*8 collfunc , w0
+      REAL*8 collfunc
 
 c     Passed in the experiment number (Ixpt) and the multipolarity (Mult).
 c     I am doing only for electric for now.
 c     This routine is to read the electric collision functions from the ZETA array and print
 c     them to the standard output file (23)
-
-C     Borrowed this line from subroutine below.
-      w0 = IRA(MAXLA) * .03D0 + .03D0 ! Maximum omega to calculate for (steps of 0.03)
 
 c     Look at how LAIAMP uses the ZETA array.
 c     Are these the collision functions?
