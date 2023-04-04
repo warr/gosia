@@ -35,7 +35,7 @@ C M1, M2.
 
       SUBROUTINE SNAKE(Nexp,Zpol)
       IMPLICIT NONE
-      REAL*8 b10 , b12 , b2 , b4 , b6 , b8 , c , c2 , c4 , c6 , CH ,
+      REAL*8 b10 , b12 , b2 , b4 , b6 , b8 , c , c2 , c4 , CH ,
      &       chi , cq , d , d2 , d3 , d4 , d5 , d6 , EPS
       REAL*8 EROOT , ert , FIEX , pol , SH , shi , ZETA , Zpol
       INTEGER*4 IAXS , ibm , icm , icnt , idm , IEXP , irl , j , k ,
@@ -83,7 +83,6 @@ C     Calculate some parameters, which we will pass to QE or QM
             c2 = c*c
             IF ( icm.NE.2 ) THEN
                c4 = c2*c2
-               IF ( icm.NE.4 ) c6 = c2*c4
             ENDIF
          ENDIF
       ENDIF
