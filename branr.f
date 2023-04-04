@@ -30,7 +30,7 @@ C      Chilo  - chi squared of logs
      &       DELTA , DIPOL , ELM , ELML , ELMU , EN , ENDEC , eng1 ,
      &       eng2 , ENZ , SA , SPIN
       REAL*8 TAU , u , ZPOL
-      INTEGER*4 i1 , i2 , IBRC , iflg , iout , IPRM , ISO , ITMA , itt ,
+      INTEGER*4 i1 , i2 , IBRC , iflg , IPRM , ISO , ITMA ,
      &          j1 , j2 , k , KSEQ , lab1 , lab2 , LAMDA , LAMMAX ,
      &          LDNUM , LEAD , mul2
       INTEGER*4 MULTI , n1 , n2 , NBRA , Nwyr
@@ -60,8 +60,6 @@ C     If printing option is on, print something
          ch1 = 0.
          ch2 = 0.
          iflg = 1
-         itt = 1
-         iout = 0
          n1 = IBRC(1,k) ! 1st matrix element
          n2 = IBRC(2,k) ! 2nd matrix element
          i1 = KSEQ(n1,1) ! Index of n1'th level
