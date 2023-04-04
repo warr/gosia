@@ -1,4 +1,6 @@
 20110524
+* Use double precision constants
+* Fix Leuven parametrisation
 * Adam Hayes's modifications for Rachel
 * Allow different efficiency parameters for different experiments
 * Increase default INT parameter in CONT option from 1 to 1000

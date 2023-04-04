@@ -7,7 +7,7 @@ c     All other output and calculations are identical to 20081208.10
 c
 C                            GOSIA 20110524 (64-bit)
 C
-C                            8 May 2019 Update
+C                            21 Mar 2023 Update
 C
 C       http://www.pas.rochester.edu/~cline/Gosia/index.html
 C
@@ -81,6 +81,9 @@ C          with 32-bit precision is discouraged.
 C
 C       CHRONOLOGY OF MAJOR CHANGES:
 C
+C          (21 Mar 2023, N. Warr) gosia-20110524.10
+C            - Use double precision constants
+C            - Fix Leuven efficiency parametrisation
 C          (8 May 2019, N. Warr) gosia-20110524.9
 C            - Allow asymmetric errors in OP,YIEL
 C            - Correct order of magnitude for finite-recoil correction
