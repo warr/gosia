@@ -33,7 +33,7 @@ C We are limited to a maximum of LP14 (=4900) values in total.
       SUBROUTINE ALLOC(Accur)
       IMPLICIT NONE
       REAL*8 Accur
-      INTEGER*4 iflag , IRA , j , k , k1 , load , LOCQ , LP1 , LP10 ,
+      INTEGER*4 IRA , j , k , k1 , load , LOCQ , LP1 , LP10 ,
      &          LP11 , LP12 , LP13 , LP14 , LP2 , LP3 , LP4 , LP6 ,
      &          LP7 , LP8 , LP9
       INTEGER*4 MAXLA
@@ -48,7 +48,6 @@ C     depends on the accuracy Accur.
 
 C     First zero all the elements
       load = 0
-      iflag = 0
       DO j = 1 , 8
          DO k = 1 , 7
             LOCQ(j,k) = 0
