@@ -8,15 +8,13 @@ SRCS=$(BASE).f
 
 FC=gfortran
 
-# Turn on debugging - note that -Wall and -O2 together gives warnings
-# about variables being possibly used without being initialised. These
-# cases seem to be harmless. i.e. if (condition) then a=1 else a=2 endif
-# and then using a gives this warning, but in fact a is always set to
-# something
-FFLAGS = -g -Wall
+FFLAGS += -g
+FFLAGS += -Wall
+FFLAGS += -fmax-stack-var-size=18000000 # Big enough for "a" array in select.f
 FFLAGS += -fbounds-check
-FFLAGS += -ffpe-trap=overflow,invalid
+FFLAGS += -ffpe-trap=overflow,invalid,underflow,denorm
 FFLAGS += -fbacktrace
+FFLAGS += -fPIC
 
 # Turn on optimisation
 FFLAGS += -O2 -funroll-loops
