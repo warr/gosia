@@ -7,7 +7,7 @@ c     All other output and calculations are identical to 20081208.10
 c
 C                            GOSIA 20110524 (64-bit)
 C
-C                            21 Mar 2023 Update
+C                            04 Apr 2023 Update
 C
 C       http://www.pas.rochester.edu/~cline/Gosia/index.html
 C
@@ -81,6 +81,14 @@ C          with 32-bit precision is discouraged.
 C
 C       CHRONOLOGY OF MAJOR CHANGES:
 C
+C          (4 April 2023, N. Warr) gosia-20110524.11
+C            - Explicitly initialise idr (Frank Wu's bug report)
+C            - Correct errorbars on B(E2) (Desislava Kalaydjieva's bug report)
+C            - Write absolute value of lab angle in output (Magda Zielinska's
+C              bug report)
+C            - Fix format in output for long lifetimes (Magda Matejska-Minda's
+C              bug report)
+C            - Change default value for DIPOL (Nico Orce's bug report)
 C          (21 Mar 2023, N. Warr) gosia-20110524.10
 C            - Use double precision constants
 C            - Fix Leuven efficiency parametrisation

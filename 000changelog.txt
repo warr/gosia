@@ -1,4 +1,9 @@
 20110524
+* Explicitly initialise idr
+* Correct errorbars on B(E2) values
+* Write absolute value of lab angle
+* Fix format for long lifetimes
+* Change default value of DIPOL
 * Use double precision constants
 * Fix Leuven parametrisation
 * Adam Hayes's modifications for Rachel
