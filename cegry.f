@@ -114,7 +114,7 @@ C      Iredv  -
       COMMON /BREC  / BETAR(50)
       COMMON /DIMX  / DIX(4) , ODL(200)
       COMMON /VAC   / VACDP(3,75) , QCEN , DQ , XNOR , AKS(6,75) , IBYP
-      COMMON /CINIT / CNOR(32,75) , INNR
+      COMMON /CINIT / CNOR(32,50) , INNR
       COMMON /PRT   / IPRM(20)
       COMMON /LIFE  / NLIFT
       COMMON /LEV   / TAU(75) , KSEQ(1500,4)

@@ -274,7 +274,7 @@ C      ZV     - energy meshpoints
       COMMON /DIMX  / DIX(4) , ODL(200)
       COMMON /TRA   / DELTA(1500,3) , ENDEC(1500) , ITMA(50,200) ,
      &                ENZ(200)
-      COMMON /CINIT / CNOR(32,75) , INNR
+      COMMON /CINIT / CNOR(32,50) , INNR
       COMMON /XRA   / SE
       COMMON /HHH   / HLM(1500)
       COMMON /VAC   / VACDP(3,75) , QCEN , DQ , XNOR , AKS(6,75) , IBYP
@@ -402,7 +402,7 @@ C     Initialize pointers
       LP14 = 4900 ! Maximum number of collision coefficients
 
 C     Initialize normalization to 1.
-      DO i = 1 , LP3 ! LP3 = 75 (maximum number of levels)
+      DO i = 1 , LP1 ! LP1 = 50 (maximum number of experiments)
          DO j = 1 , LP6 ! LP6 = 32 (maximum number of gamma detectors)
             CNOR(j,i) = 1.
          ENDDO
