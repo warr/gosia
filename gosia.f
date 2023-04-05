@@ -354,7 +354,7 @@ C     Initialize pointers
       JZB = 5
 
 C     Initialize normalization to 1.
-      DO i = 1 , LP3 ! LP3 = 100 (maximum number of levels)
+      DO i = 1 , LP1 ! LP1 = 50 (maximum number of experiments)
          DO j = 1 , LP6 ! LP6 = 32 (maximum number of gamma detectors)
             CNOR(j,i) = 1.
          ENDDO
