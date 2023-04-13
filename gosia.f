@@ -468,7 +468,7 @@ C     Initialize normalization to 1.
       DIPOL = 0 ! WAS 0.005D0 (see function LOAD, where this is now set)
       MAGEXC = 0 ! Initially flag that we don't need magnetic excitations
       LAMMAX = 0
-      DO lam = 1 , 8
+      DO lam = 0 , 8
          DO lexp = 1 , LP3 ! LP3 = 100 (maximum number of levels)
             LDNUM(lam,lexp) = 0
          ENDDO
