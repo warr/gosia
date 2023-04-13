@@ -167,9 +167,8 @@ C        Calculate psi and store in PSI in common PCOM
          zsqa = z1*SQRT(a1)
          i3 = 1
          ppp = 1. + a1/a2
-         DO i1 = 1 , LAMMAX ! For each calculated multipolarity
+         DO i1 = 0 , LAMMAX ! For each calculated multipolarity
             lam = LAMDA(i1)
-            IF ( lam.EQ.0 ) GOTO 900
             lam1 = lam
             IF ( lam.GT.6 ) lam1 = lam - 6
             DO n2 = 1 , NMAX ! For each level
@@ -182,12 +181,16 @@ C        Calculate psi and store in PSI in common PCOM
                      i2 = i3
                      i3 = i3 + 1
                      pp2 = EP(Iexp) - ppp*EN(m2)
-                     PSI(i2) = cpsi(lam)*zsqa*(pp1*pp2)
-     &                         **((2.D0*DBLE(lam1)-1.D0)/4.D0)
+                     IF ( lam.NE.0 ) THEN
+                         PSI(i2) = cpsi(lam)*zsqa*(pp1*pp2)
+     &                     **((2.D0*DBLE(lam1)-1.D0)/4.D0)
+                     ELSE
+                         PSI(i2) = 0
+                     ENDIF
                   ENDDO
                ENDIF
             ENDDO
- 900     ENDDO
+         ENDDO
          IF ( Ient.EQ.1 ) RETURN
       ENDIF
 
@@ -234,13 +237,12 @@ C     Initialise NSTART and NSTOP arrays
          ENDDO
 
 C        Initialise pointers to ZETA array
-         DO i = 1 , 8
+         DO i = 0 , 8
             LZETA(i) = 0
          ENDDO
 
          DO i1 = 0 , LAMMAX ! For each multipolarity
             lam = LAMDA(i1)
-            IF ( lam.EQ.0 ) GOTO 901
             IF ( Icg.NE.2 .OR. lam.LE.6 ) THEN
                la = lam
                IF ( lam.GT.6 ) lam = lam - 6
@@ -264,7 +266,7 @@ C        Initialise pointers to ZETA array
                   GOTO 10
                ENDIF
             ENDIF
- 901     ENDDO ! Loop over multipolarity
+         ENDDO ! Loop over multipolarity
 
 C        Make sure we haven't reached the limit of zeta coefficients
          IF ( nz.GT.LP7 ) THEN ! LP7 is 45100

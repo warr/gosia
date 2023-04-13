@@ -466,7 +466,7 @@ C     Initialize normalization to 1.
       jphd = 1 ! Print header flag
       DIPOL = 0 ! WAS 0.005D0 (see function LOAD, where this is now set)
       MAGEXC = 0 ! Initially flag that we don't need magnetic excitations
-      LAMMAX = 0
+      LAMMAX = -1
       DO lam = 0 , 8
          DO lexp = 1 , LP3 ! LP3 = 100 (maximum number of levels)
             LDNUM(lam,lexp) = 0
@@ -2697,6 +2697,8 @@ C---- this bit removed in gosia2 end
             ihlm(kh+8) = LAMDA(kh)
             ihlm(kh+16) = LDNUM(kh,1)
          ENDDO
+         write(*,*) 'OOOPS this is not fixed yet for E0'
+         stop 'here'
          DO jexp = 1 , NEXPT ! For each experiment
             IEXP = jexp
             intvh = INTERV(IEXP)

@@ -53,7 +53,7 @@ C      W0     - omega limit
       rmir = CAT(Ir,3) ! m quantum number of substate Ir
 
       DO i1 = 0 , LAMMAX ! Loop on multipolarity
-        lam = LAMDA(i1) ! Get multipolarity
+         lam = LAMDA(i1) ! Get multipolarity
          IF ( LAMR(lam).NE.0 ) THEN
             nz = LZETA(lam) ! nz is an index into ZETA array for this multipolarity
             la = lam
