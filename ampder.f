@@ -57,12 +57,11 @@ C     Zero ARM(k,4) and ARM(k,6) for each substate used
       IF ( NPT.EQ.1 ) ISG1 = ABS(ISG1)
       rsg = DBLE(ISG)
 
-      DO i1 = 1 , LAMMAX ! LAMMAX is number of multipolarities to calculate
+      DO i1 = 0 , LAMMAX ! LAMMAX is number of multipolarities to calculate
          lam = LAMDA(i1) ! For each value of lambda, the user wants to calculate for
-         IF ( lam.EQ.0 ) GOTO 100
          lax = lam
-         nz = LZETA(lam) ! Index into ZETA array for each multipolarity
          IF ( LAMR(lam).NE.0 ) THEN ! LAMR is flag to decide if we calculate for this multipolarity
+            nz = LZETA(lam) ! Index into ZETA array for each multipolarity
             nhold = 1
  20         CALL NEWLV(nhold,ld,lam)
             IF ( ld.EQ.0 ) THEN ! If there are no decays
