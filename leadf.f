@@ -24,8 +24,8 @@ C      matrix element index N2, initial level index N1 and multipolarity N3.
 
       lsum = 0
       n3m = N3 - 1
-      IF ( n3m.NE.0 ) THEN
-         DO k = 1 , n3m ! Loop over multipolarities lower than one required
+      IF ( N3.NE.0 ) THEN
+         DO k = 0 , n3m ! Loop over multipolarities lower than one required
             lsum = lsum + MULTI(k)
          ENDDO
       ENDIF
