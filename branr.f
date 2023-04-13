@@ -47,7 +47,7 @@ C     If printing option is on, print something
      &        'ERROR',7X,'CALC.RATIO',5X,'(EXP-CAL)/ERROR',//)
 
       Nwyr = Nwyr + NBRA ! Add to number of datapoints contributing to chisqr
-      mul2 = MULTI(1) + MULTI(2)
+      mul2 = MULTI(0) + MULTI(1) + MULTI(2)
       DO k = 1 , NBRA ! For each branching ratio
          ch1 = 0.
          ch2 = 0.
@@ -59,13 +59,13 @@ C     If printing option is on, print something
          eng1 = EN(KSEQ(n1,3)) - EN(KSEQ(n1,4)) ! Energy of gamma 1
          eng2 = EN(KSEQ(n2,3)) - EN(KSEQ(n2,4)) ! Energy of gamma 2
          IF ( i1.NE.0 ) THEN
-            IF ( i1.LE.MULTI(1) ) lab1 = 1
-            IF ( i1.GT.MULTI(1) .AND. i1.LE.mul2 ) lab1 = 2
+            IF ( i1.LE.MULTI(0)+MULTI(1) ) lab1 = 1
+            IF ( i1.GT.MULTI(0)+MULTI(1) .AND. i1.LE.mul2 ) lab1 = 2
             IF ( i1.GT.mul2 ) lab1 = 3
          ENDIF
          IF ( i2.NE.0 ) THEN
-            IF ( i2.LE.MULTI(1) ) lab2 = 1
-            IF ( i2.GT.MULTI(1) .AND. i2.LE.mul2 ) lab2 = 2
+            IF ( i2.LE.MULTI(0)+MULTI(1) ) lab2 = 1
+            IF ( i2.GT.MULTI(0)+MULTI(1) .AND. i2.LE.mul2 ) lab2 = 2
             IF ( i2.GT.mul2 ) lab2 = 3
          ENDIF
          IF ( i1.NE.0 ) ch1 = ELM(i1)*ELM(i1)*DELTA(n1,1)
