@@ -79,7 +79,7 @@ C      Irld   - index into ARM array
 
       DO j = 1 , 4 ! Loop over terms for Adams-Moulton corrector-predictor
          NPT = NPT - 1
-         DO j1 = 1 , LAMMAX ! Loop up to maximum multipolarity to calculate
+         DO j1 = 0 , LAMMAX ! Loop up to maximum multipolarity to calculate
             lam = LAMDA(j1) ! Get the multipolarity
             IF ( LAMR(lam).NE.0 ) THEN ! If this multipolarity should be calculated
 
@@ -104,7 +104,7 @@ C                 Calculate sum over matrix elements
                   ENDDO ! Loop over matrix elements for ground state for this multipolarity
                ELSEIF ( j1.EQ.MAXLA ) THEN ! Else if it is the last multipolarity
                   IRA(MAXLA) = -IRA(MAXLA) ! Make IRA negative
-                  DO jj = 1 , LAMMAX
+                  DO jj = 0 , LAMMAX
                      lam = LAMDA(jj)
                      IF ( IRA(lam).GT.0 ) GOTO 105
                   ENDDO
