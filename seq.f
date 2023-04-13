@@ -88,7 +88,7 @@ C        Find level with highest energy
             ENDIF
          ENDDO
          DO is = 1 , NMAX ! Loop on levels
-           DO la = 1 , 8 ! Loop on multipolarities
+            DO la = 1 , 8 ! Loop on multipolarities
                IF ( la.LE.3 .OR. la.EQ.7 .OR. la.EQ.8 ) THEN ! E3, M1, M2
                   ld = LDNUM(la,is) ! Number of levels connected to this one with this multipolarity
                   IF ( ld.NE.0 ) THEN
@@ -142,9 +142,9 @@ C     multipolarity
                n1 = KSEQ(j,1) ! Initial level
                m1 = KSEQ(j,2) ! Final level
                IF ( n1.EQ.n .AND. m1.EQ.m ) THEN ! Decays involving the same pair of levels
+                  inx1 = KSEQ(j,3) ! Matrix element
                   la1 = KSEQ(j,4) - 10 ! Multipolarity
                   KSEQ(j,4) = KSEQ(j,4) - 10 ! Subtract ten to indicate we have handled this one
-                  inx1 = KSEQ(j,3) ! Matrix element
                ENDIF
             ENDIF
          ENDDO ! Loop on decays j
