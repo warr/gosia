@@ -238,7 +238,7 @@ C        Initialise pointers to ZETA array
             LZETA(i) = 0
          ENDDO
 
-         DO i1 = 1 , LAMMAX ! For each multipolarity
+         DO i1 = 0 , LAMMAX ! For each multipolarity
             lam = LAMDA(i1)
             IF ( lam.EQ.0 ) GOTO 901
             IF ( Icg.NE.2 .OR. lam.LE.6 ) THEN
