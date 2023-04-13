@@ -52,7 +52,7 @@ C 8 = M2.
       DATA jsave/0/
 
       m6 = 0
-      DO l = 1 , 6
+      DO l = 0 , 6
          m6 = m6 + MULTI(l)
       ENDDO
 
@@ -88,7 +88,7 @@ C        Find level with highest energy
             ENDIF
          ENDDO
          DO is = 1 , NMAX ! Loop on levels
-            DO la = 1 , 8 ! Loop on multipolarities
+            DO la = 0 , 8 ! Loop on multipolarities
                IF ( la.LE.3 .OR. la.EQ.7 .OR. la.EQ.8 ) THEN ! E3, M1, M2
                   ld = LDNUM(la,is) ! Number of levels connected to this one with this multipolarity
                   IF ( ld.NE.0 ) THEN
