@@ -36,7 +36,7 @@ C     Jidim   -
 
       Jidim = NMAX + 1
       IF ( MAGA(Iexp).NE.0 ) Jidim = 3*NMAX + 1
-      ist = 1
+      ist = MULTI(0) + 1
       DO kk = 1 , 6 ! For each multipolarity E1 to E6
          IF ( MULTI(kk).NE.0 ) THEN ! If there are matrix elements for this multipolarity
             istop = MULTI(kk) - 1 + ist ! Last matrix element for this multipolarity
