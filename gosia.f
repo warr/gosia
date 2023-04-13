@@ -222,9 +222,8 @@ C      ZV     - energy meshpoints
      &          lfagg , lfini , lh1 , lh2 , liscl , lkj
       INTEGER*4 lkj1 , ll , lli , lll , locat , loct , lp0 , lpin
       INTEGER*4 ltrn , ltrn1 , ltrn2 , lu , lx , lxd , magh , MEM
-      INTEGER*4 memax1 , memh , memx4 , mend , mexl ,
-     &          mfla , mlt , mm , mpin , ms , n , na , na1 , naa ,
-     &          nallow
+      INTEGER*4 memax1 , memh , mend , mexl , mfla , mlt , mm , mpin ,
+     &          ms , n , na , na1 , naa , nallow
       INTEGER*4 naxfl , nb1 , nb2 , nbands , nch , ndima , ndum ,
      &          ne , nf , nfd , nfdd ,
      &          nfi , nflr , nft , nged
@@ -2020,8 +2019,8 @@ C     Treat suboption ME (matrix elements)
          ENDDO
  300     MEMAX = indx
          IF ( la.GT.6 ) MAGEXC = 1 ! Flag that we need magnetic excitations
-         memx4 = MULTI(1) + MULTI(2) + MULTI(3) + MULTI(4)
-         MEMX6 = memx4 + MULTI(5) + MULTI(6)
+         MEMX6 = MULTI(0) + MULTI(1) + MULTI(2) + MULTI(3) + MULTI(4)
+         MEMX6 = MEMX6 + MULTI(5) + MULTI(6)
          IF ( ABS(IPRM(1)).EQ.1 ) CALL PRELM(iopri)
          DO kh = 1 , NMAX
             IF ( ISEX(kh).EQ.1111 ) ISEX(kh) = 1
