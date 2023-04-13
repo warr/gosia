@@ -61,7 +61,7 @@ C      Irld   - index into ARM array
       ENDDO
       ARM(Irld,5) = (1.,0.) ! Set y_n to 1
 
-      DO j = 1 , 8
+      DO j = 0 , 8
          LAMR(j) = 0 ! Initially mark that we shouldn't calculate any multipolarity
       ENDDO
       LAMR(MAXLA) = 1 ! Mark that we should calculate this multipolarity

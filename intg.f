@@ -110,6 +110,7 @@ c-------END OF ADDITIONAL RACHEL OUTPUT.-----------------------------------
       NDIV = 0
       KDIV = 0
  100  IF ( (NPT+NSW).GT.IRA(MAXLA) .AND. ISG.GT.0 ) RETURN
+      LAMR(0) = 0
       DO i = 1 , 8
          LAMR(i) = 0
          IF ( (NPT+NSW).LT.IRA(i) ) LAMR(i) = 1
