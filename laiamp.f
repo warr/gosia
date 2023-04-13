@@ -52,11 +52,10 @@ C      W0     - omega limit
       errt = EROOT(IEXP) ! sqrt(epsilon^2 - 1)
       rmir = CAT(Ir,3) ! m quantum number of substate Ir
 
-      DO i1 = 1 , LAMMAX ! Loop on multipolarity
-         lam = LAMDA(i1) ! Get multipolarity
-         if ( lam.EQ.0 ) GOTO 900
-         nz = LZETA(lam) ! nz is an index into ZETA array for this multipolarity
+      DO i1 = 0 , LAMMAX ! Loop on multipolarity
+        lam = LAMDA(i1) ! Get multipolarity
          IF ( LAMR(lam).NE.0 ) THEN
+            nz = LZETA(lam) ! nz is an index into ZETA array for this multipolarity
             la = lam
             IF ( lam.GT.6 ) lam = lam - 6 ! la = 7,8 for M1,M2
             ld = LDNUM(la,1) ! Number of matrix elements with multipolarity la, connecting to ground state
@@ -106,6 +105,6 @@ C                             estimate amplitude
                ENDDO ! Loop on matrix elements connected to ground state with multipolarity la
             ENDIF ! If there are matrix elements of this multipolarity connecting to the ground state
          ENDIF
- 900  ENDDO ! Loop on lambda
+      ENDDO ! Loop on lambda
       ARM(Ir,5) = DCMPLX(SQRT(1.-ppp),0.D0)
       END
