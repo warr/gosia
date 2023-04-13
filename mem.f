@@ -26,9 +26,9 @@ C      Index of matrix element
       INCLUDE 'clcom.inc'
 
       msum = 0
-      IF ( N3.NE.1 ) THEN
+      IF ( N3.NE.0 ) THEN
          n3m = N3 - 1
-         DO k = 1 , n3m ! For each multipolarity up to one below the one we want
+         DO k = 0 , n3m ! For each multipolarity up to one below the one we want
             msum = msum + MULTI(k) ! Add the number of matrix elements for that multipolarity
          ENDDO
       ENDIF
