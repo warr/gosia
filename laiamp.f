@@ -54,6 +54,7 @@ C      W0     - omega limit
 
       DO i1 = 1 , LAMMAX ! Loop on multipolarity
          lam = LAMDA(i1) ! Get multipolarity
+         if ( lam.EQ.0 ) GOTO 900
          nz = LZETA(lam) ! nz is an index into ZETA array for this multipolarity
          IF ( LAMR(lam).NE.0 ) THEN
             la = lam
@@ -105,6 +106,6 @@ C                             estimate amplitude
                ENDDO ! Loop on matrix elements connected to ground state with multipolarity la
             ENDIF ! If there are matrix elements of this multipolarity connecting to the ground state
          ENDIF
-      ENDDO ! Loop on lambda
+ 900  ENDDO ! Loop on lambda
       ARM(Ir,5) = DCMPLX(SQRT(1.-ppp),0.D0)
       END
