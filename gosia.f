@@ -1942,6 +1942,7 @@ C     Treat suboption ME (matrix elements)
                READ (JZB,*) ipo1 , ipo2 , po1 ! lambda, 0, 0 OR ind1, ind2, me
             ENDIF
             IF ( ipo1.NE.0 ) THEN
+               IF ( ipo1.EQ.9 ) ipo1 = 0 ! Fix E0 multipolarity
                IF ( ipo2.EQ.0 ) THEN
                   IF ( ipo1.LE.la ) GOTO 1600 ! Error - wrong sequence of multipolarities
                   LAMMAX = LAMMAX + 1
