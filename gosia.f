@@ -458,7 +458,7 @@ C     Initialize normalization to 1.
       DO ijx = 1 , LP1 ! LP1 = 50 (maximum number of experiments)
          INTERV(ijx) = 1000
       ENDDO
-      la = 0
+      la = -1
       ipo3 = 1
       indx = 0
       ACCUR = .00001D0
