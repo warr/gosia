@@ -37,7 +37,7 @@ C      Iop    - print flag (controls what is written to output).
       WRITE (22,99001)
 99001 FORMAT (2X/40X,'MATRIX ELEMENTS',//)
 
-      DO j = 1 , 8
+      DO j = 0 , 8
          m = MULTI(j)
          IF ( m.NE.0 ) THEN
             WRITE (22,99002) j
