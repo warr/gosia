@@ -1,3 +1,0 @@
-° Look into using PARAMETER
-° Make a list of those variables which depend on the number of matrix
-  elements.
