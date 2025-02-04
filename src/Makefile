@@ -152,7 +152,7 @@ $(EXE): $(OBJS) $(DEPS)
 	$(FC) $(LDFLAGS) -o $@ $(OBJS)
 
 clean:
-	rm -f *~ *.o $(EXE) $(BASE)_20*.f include
+	rm -f *~ *.o $(EXE) $(BASE)_*.f include
 
 install: $(EXE) $(MAN)
 	install -m 755 -d $(BINDIR)
