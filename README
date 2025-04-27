@@ -1,6 +1,23 @@
-This is the git repository for the Coulomb-excitation code gosia. It
-is based on the original code of Tomasz Czosnyka. The home page is:
+This is the git repository for the Coulomb-excitation code gosia. It is based on the original code of Tomasz Czosnyka ([homepage](https://www.pas.rochester.edu/~cline/Gosia/)).  
+gosia is not to be confused with gosia2.
 
-http://www.pas.rochester.edu/~cline/Gosia/
+## Documentation
+Many information can be found in the gosia [wiki](https://www-user.pas.rochester.edu/~gosia/mediawiki/index.php/Main_Page).
+A list of functions contained in gosia can be found in the [list_of_functions.txt](list_of_functions.txt).
 
-Note that in the git tree, the code is split into separate files for each function. These are combined using make single_file
+## Build
+Note that in the git tree, the code is split into separate files for each function. These are combined using  
+```bash
+cd src
+make single_file
+```
+Afterwards gosia can be compiled in the `src` directory with
+```bash
+g77 gosia_${version}.f -o gosia
+```
+or
+```bash
+gfortran gosia_${version}.f -o gosia
+```
+
+## Test
