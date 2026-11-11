@@ -11,6 +11,7 @@
 * Use Lehmer random-number generator for OP,RAND
 * Allow asymmetric errors in OP,YIEL
 * Use NIST absorption coefficients with C (as stated in manual) not Si
+* Use SAVE for very large local arrays, so they're not on stack
 
 20080630
 * Reordering of all variable declarations so variables in common blocks are
