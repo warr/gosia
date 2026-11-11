@@ -24,6 +24,7 @@
 * Use Lehmer random-number generator for OP,RAND
 * Turn off finite-recoil correction if tau*beta>25 (about .75 cm)
 * Save cnr variable in CEGRY to prevent crashes
+* Use SAVE for very large local arrays, so they're not on stack
 
 20110524
 * Adam Hayes's modifications for Rachel
